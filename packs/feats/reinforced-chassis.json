@@ -1,0 +1,76 @@
+{
+    "_id": "cilZUszwjSGB4p1W",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Reinforced Chassis",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body is designed to be particularly resilient. Your chassis is medium armor in the plate armor group that grants a +4 item bonus to AC, a Dex cap of +1, a check penalty of -2, a speed penalty of -5 feet, and a Strength value of 16. You can never wear other armor or remove your chassis; however, you still don't become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] from sleeping. Finally, you can etch armor runes onto your chassis as normal.</p>\n<p><strong>Enhancement</strong> Your chassis becomes difficult to overcome. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Chassis Deflection] reaction.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Reinforced Chassis"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ReinforcedChassis",
+                    "predicate": [
+                        {
+                            "not": "enhancement:reinforced-chassis"
+                        }
+                    ],
+                    "value": "reinforced-chassis"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ReinforcedChassis",
+                    "predicate": [
+                        {
+                            "not": "enhancement:reinforced-chassis"
+                        }
+                    ],
+                    "value": "reinforced-chassis"
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "enhancement:reinforced-chassis"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Chassis Deflection"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

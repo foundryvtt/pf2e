@@ -1,0 +1,61 @@
+{
+    "_id": "PdIN91xKsZ4z7p17",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Transposable Compliance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your protean vitality is fecund and many-succoring: your veins run with life-giving ichor that adapts to the blood and physiology of any body, and your skin molts on command, creating wound-stanching sheaths of tissue for yourself and others. You become trained in Medicine. If you were already trained in Medicine, you instead become trained in a skill of your choice. You can Administer First Aid without healer's tools by using your physiology instead, but you must take 1 damage to make the attempt. Similarly, you can @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] without healer's tools but take [[/r 2d8 #damage]]{2d8 damage}. You gain a +1 circumstance bonus on all Medicine checks to Administer First Aid and Treat Wounds using your own physiology.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.med.rank",
+                "value": 1
+            },
+            {
+                "domain": "medicine",
+                "key": "RollOption",
+                "option": "using-physiolgy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "using-physiology",
+                    {
+                        "or": [
+                            "action:administer-first-aid",
+                            "action:treat-wounds"
+                        ]
+                    }
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fleshwarp"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,46 @@
+{
+    "_id": "dWbg2gACxMkSnZag",
+    "img": "systems/pf2e/icons/spells/protective-ward.webp",
+    "name": "Spell Effect: Protective Ward",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Protective Ward]</em></p>\n<p>You emanate a shimmering aura of protective magic. You and any allies in the area gain a +1 status bonus to AC. Each time you @UUID[Compendium.pf2e.actionspf2e.Item.Sustain a Spell]{Sustain the Spell}, the emanation's radius increases by 5 feet, to a maximum of 30 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "abjuration",
+                "wizard"
+            ]
+        }
+    },
+    "type": "effect"
+}

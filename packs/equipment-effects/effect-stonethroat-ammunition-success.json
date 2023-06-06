@@ -1,0 +1,47 @@
+{
+    "_id": "AJx8i8QX35vsG5Q4",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/stonethroat-ammunition-effect.webp",
+    "name": "Effect: Stonethroat Ammunition (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Stonethroat Ammunition]</p>\n<p>The ammunition lodges itself loosely into the target's throat. For 1 round, the target takes a -2 status penalty to attack rolls with its jaws or fangs, and to Athletics checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "athletics",
+                    "fangs-attack",
+                    "jaws-attack"
+                ],
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

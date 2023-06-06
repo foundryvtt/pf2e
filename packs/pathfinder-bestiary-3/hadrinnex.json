@@ -1,0 +1,634 @@
+{
+    "_id": "OTEJFZ03NDqtrhcj",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Ox3c3XK3Nk97BvHw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-effects.Item.iuy6AA6sQZUZkN9X"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
+            "name": "Effect: Rapid Evolution - Husk (Bludgeoning)",
+            "sort": 100000,
+            "system": {
+                "description": {
+                    "value": "<p>The creature gains physical damage resistance similar to the triggering type.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 4
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "flag": "physicalDamage",
+                        "key": "ChoiceSet",
+                        "selection": "bludgeoning"
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.physicalDamage}",
+                        "value": 15
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "{item|flags.pf2e.rulesSelections.physicalDamage}"
+                        },
+                        "selector": "weapon-arm-damage"
+                    }
+                ],
+                "slug": "effect-rapid-evolution-husk",
+                "source": {
+                    "value": "Pathfinder Bestiary 3"
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 126
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "EwQTJJGwTsG8hMYk",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-effects.Item.RBfd5qwFkuKxNb57"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/prismatic-sphere.webp",
+            "name": "Effect: Rapid Evolution - Energy Gland (Sonic)",
+            "sort": 200000,
+            "system": {
+                "description": {
+                    "value": "<p>The creature gains energy damage resistance similar to the triggering type.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 4
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitForce",
+                                "value": "force"
+                            },
+                            {
+                                "label": "PF2E.TraitNegative",
+                                "value": "negative"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            }
+                        ],
+                        "flag": "energyDamage",
+                        "key": "ChoiceSet",
+                        "selection": "sonic"
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.energyDamage}",
+                        "value": 15
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "{item|flags.pf2e.rulesSelections.energyDamage}"
+                        },
+                        "selector": "energy-ray-damage"
+                    }
+                ],
+                "slug": "effect-rapid-evolution-energy-gland",
+                "source": {
+                    "value": "Pathfinder Bestiary 3"
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 126
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "rPTqCxoOB0B5ON1m",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Weapon Arm",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "tzm8oydo2xt3n0md8ciy": {
+                        "damage": "2d8 + 9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>see Rapid Evolution, other possbile traits:</p>\n<ul>\n<li>Piercing damage: reach 10 feet, deadly d8</li>\n<li>Slashing damage: reach 10 feet, sweep</li>\n</ul>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SuGCwf8YVqJ0KZNG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Energy Ray",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "f98avpdf9cqk94xicz87": {
+                        "damage": "5d6",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "occult",
+                        "range-120"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dDtA4Al0gFgC9jck",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sNth9LOE6nRfhE3n",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy (Touch)",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MnCWApQWsNq3LZGf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rapid Evolution",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The hadrinnex takes damage of a physical or energy damage type (bludgeoning, piercing, or slashing for physical; acid, cold, electricity, fire, force, negative, or sonic for energy)</p>\n<hr />\n<p><strong>Effect</strong> The hadrinnex reconfigures its husk (if triggered by physical damage) or its energy gland (if triggered by energy damage). Any reconfiguration applies to the triggering damage and lasts until the next time the hadrinnex uses Rapid Evolution.</p>\n<ul>\n<li><strong>Energy Gland</strong> Reconfiguring the energy gland changes both the hadrinnex's energy damage resistance and the damage of its energy ray to that type. By default, the energy gland is configured to sonic.</li>\n<li><strong>Husk</strong> The hadrinnex's physical damage resistance and the damage of its weapon arm Strikes change to the triggering type. Weapon arm Strikes gain an additional trait depending on the current damage type: bludgeoning adds shove, piercing adds deadly d8, and slashing adds sweep. By default the husk is configured to bludgeoning.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Rapid Evolution - Energy Gland]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Rapid Evolution - Husk]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "morph",
+                        "occult",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1qvnCAYxCtqLHNWB",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Extend Limbs",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hadrinnex makes two weapon arm Strikes, each targeting a different creature. The hadrinnex's reach increases to 20 feet for these Strikes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1BVkuiVh37hRA4y8",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Vent Energy",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hadrinnex purges the energy in its energy gland for an external discharge.</p>\n<p>It either blasts the energy to deal 7d6 energy damage to creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true] save), or directs the energy to its weapon arms, making its weapon arm Strikes deal an extra 2d6 energy damage for 1 minute.</p>\n<p>Either one expends the damage type stored in the hadrinnex's energy gland, as described below.</p>\n<p>After the energy is vented, the energy gland goes dormant. The hadrinnex loses its energy resistance and can't use energy ray until it uses Rapid Evolution to reconfigure its energy gland again. Directing energy to its weapon arms again removes any previous energy boost to its weapon arm.</p>\n<hr />\n<p>Possible damage types for this ability:</p>\n<ul>\n<li>[[/r 7d6[acid]]] damage</li>\n<li>[[/r 7d6[cold]]] damage</li>\n<li>[[/r 7d6[electricity]]] damage</li>\n<li>[[/r 7d6[fire]]] damage</li>\n<li>[[/r 7d6[force]]] damage</li>\n<li>[[/r 7d6[negative]]] damage</li>\n<li>[[/r 7d6[sonic]]] damage</li>\n</ul>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vent Energy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M6Xh2lGccV5UAYKX",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "OSO8tfZPysXRMw2V",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "hhjbwfLOEx5tlmED",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Occultism",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Hadrinnex",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 118,
+                "temp": 0,
+                "value": 118
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 17
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The bizarre hadrinnexes resemble defensive systems more than living creatures. They evolve at a rapid rate, but only to specific attacks against them, which suggests they were created through advanced technology or magic. The husk surrounding a hadrinnex-flecks of metal suspended in a malleable organic carapace-reshapes in response to harm. So too can a glowing gland within the creature's thorax, which collects energy and restructures the creature's biology to protect it from that energy. This organ is fragile and ruptures soon after a hadrinnex is killed.</p>\n<p>Hadrinnexes have only a rudimentary intellect and usually follow more intelligent aberrations. As bodyguards or peons, they perform simple tasks diligently. Though poor at problem-solving and improvisation, hadrinnexes' dependability and adaptive physiology make them ideal for dangerous tasks in hazardous environments.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary 3"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "Telepathy (touch)",
+                "selected": [],
+                "value": [
+                    "aklo"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}

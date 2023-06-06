@@ -1,0 +1,95 @@
+{
+    "_id": "pkcr9w5x6bKzl3om",
+    "img": "systems/pf2e/icons/spells/tempest-of-shades.webp",
+    "name": "Stance: Jellyfish Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Jellyfish Stance]</p>\n<p><strong>Requirements</strong> You are unarmored.</p>\n<p>You relax your posture and loosen your joints, allowing yourself to move with incredible fluidity. You can make stinging lash attacks that deal 1d6 slashing damage. These attacks are in the brawling group, and have the finesse, nonlethal, reach, and unarmed traits.</p>\n<p>While in Jellyfish Stance, you gain a +2 circumstance bonus to Reflex saves and on checks to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] and @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/spells/tempest-of-shades.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.StingingLash",
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "reach",
+                    "finesse",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape",
+                    "unarmed"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:squeeze"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Fists of the Ruby Phoenix Hardcover Compilation"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,105 @@
+{
+    "_id": "ZFkCMl63ogK55Otq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Major Lesson",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your patron grants you even greater secrets. Choose a major, greater, or basic lesson from the list of witch lessons. You gain its associated hex, and your familiar learns the associated spell. Increase the number of Focus Points in your focus pool by 1.</p>\n<p><strong>Special</strong> You can select this feat a second time if you're 14th level or higher, and a third time if you're 18th level or higher. Choose a different lesson each time.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "predicate": [
+                        "item:trait:witch",
+                        "item:type:feature",
+                        {
+                            "or": [
+                                "item:level:10",
+                                "item:level:6",
+                                "item:level:2"
+                            ]
+                        }
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Bargains"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Death"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Renewal"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of the Frozen Queen"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Mischief"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Shadow"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Snow"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Calamity"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Dreams"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Life"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Protection"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Elements"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Vengeance"
+                    }
+                ],
+                "flag": "lesson",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Lesson"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.lesson}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

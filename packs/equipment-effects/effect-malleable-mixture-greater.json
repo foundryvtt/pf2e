@@ -1,0 +1,55 @@
+{
+    "_id": "kMPPl4AqFb6GclOL",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/malleable-mixture.webp",
+    "name": "Effect: Malleable Mixture (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Malleable Mixture (Greater)]</p>\n<p>You gain a +3 item bonus to your Fortitude and Reflex DCs against attempts to Grapple, Shove, or Trip you for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 14
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

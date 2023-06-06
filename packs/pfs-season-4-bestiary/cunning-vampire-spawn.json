@@ -1,0 +1,677 @@
+{
+    "_id": "tP99gLygKXOZdbvr",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "fG5TPYbHYwwOdPbD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "dth78dhgkhj9riocj4f8": {
+                        "damage": "1d8+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "AHjbBF5emgeLzhga",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gxj7cGSco9mq9DF4",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 5",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 5
+                    }
+                ],
+                "slug": "fast-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yYXID6QLMJVxA2xM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RaYfxxlT031lUgCP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FXHjmH1oce7Z3tZb"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coffin Restoration",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its fast healing begins to function normally.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "vampire-basic-coffin-restoration",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy",
+                        "negative"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mK3REH0Jcz0NP7Bh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.5DuBTf37u88IrphJ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vampire Weaknesses",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>All vampires possess the following weaknesses.</p>\n<ul>\n<li><strong>Compulsions</strong> Vampires are creatures of strange and unknowable compulsions. A typical vampire can't voluntarily cross running water unless it is transported while it hides within its coffin, nor can it enter a private dwelling unless invited in by someone with the authority to do so. At your discretion, vampires might have different compulsions-a pirate vampire might not be able to set foot on solid ground without being invited, for example. The vampire can still be forced to do these things and might be able to overcome its compulsion just as it does its revulsion.</li>\n<li><strong>Revulsion</strong> A vampire can't voluntarily come within 10 feet of brandished garlic or a brandished religious symbol of a non-evil deity. To brandish garlic or a religious symbol, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the vampire involuntarily comes within 10 feet of an object of its revulsion, it gains the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition, running from the object of its revulsion until it ends an action beyond 10 feet. After 1 round of being exposed to the subject of its revulsion, a vampire can attempt a @Check[type:will|dc:25|name:Overcome Revulsion] save as a single action, which has the concentrate trait. On a success, it overcomes its revulsions for [[/br 1d6 #rounds]]{1d6 rounds} (or 1 hour on a critical success).</li>\n<li><strong>Stake</strong> A wooden stake driven through a vampire's heart drops the vampire to 0 HP and prevents it from healing above 0 HP, even in its coffin. Staking a vampire requires three actions and works only if the vampire is unconscious. If the stake is removed, the vampire can heal above 0 HP again, and if it's in its coffin the 1-hour rest period begins once the stake is removed. If the vampire's head is severed and anointed with <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy Water]</em> while the stake is in place, the vampire is destroyed.</li>\n<li><strong>Sunlight</strong> If exposed to direct sunlight, a vampire immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. The slowed value increases by 1 each time the vampire ends its turn in sunlight. If the vampire loses all its actions in this way, it is destroyed. Due to their supernatural aversion to light, vampires don't cast shadows or show a reflection in mirrors.</li>\n</ul>"
+                },
+                "requirements": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "vampire-basic-vampire-weaknesses",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hn5GBufYeA5C1oOg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.c04ICnrzygyFG3PK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drink Blood",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the vampire's reach.</p>\n<hr />\n<p><strong>Effect</strong> The vampire sinks its fangs into that creature to drink its blood. This requires an Athletics check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and the vampire regains [[/r 5[healing]]]{5 Hit Points}, gaining any excess HP as temporary Hit Points. Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire but increases the victim's drain value by 1. A vampire can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a @Check[type:medicine|dc:20|name:Blood Transfusion] check and sufficient blood or a blood donor, reduces the drain by 1 after 10 minutes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "vampire-basic-drink-blood",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "T0aFMtDJ5aZm7aQG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vampire spawn deals 1d6 extra precision damage to flat-footed creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bQOfAaZEAHrScsHM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5pvU4STG3usPAmpU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "mLIkYpo3GpNq7Xu8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "7cKm9JGyUR4Vhu3W",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Rp51yAOAQ8e2PMeH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Society",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "maahALd7CXVtlQC7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Cunning Vampire Spawn",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 22
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "coffin restoration, fast healing 5, negative healing",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 12
+            },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "vampire-weaknesses",
+                    "value": 0
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "Undead",
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Vampires use their spawn for infiltration and reconnaissance.</p>\n<hr />\n<p>Vampires are undead creatures that feed on the blood of the living.</p>",
+            "source": {
+                "value": "Pathfinder Society Scenario #4-09: Killer in the Golden Mask"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "common",
+                    "hallit"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead",
+                "vampire"
+            ]
+        }
+    },
+    "type": "npc"
+}

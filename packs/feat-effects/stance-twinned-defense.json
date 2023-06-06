@@ -1,0 +1,57 @@
+{
+    "_id": "3eHMqVx30JGiJqtM",
+    "img": "systems/pf2e/icons/features/classes/master-tricks.webp",
+    "name": "Stance: Twinned Defense",
+    "system": {
+        "description": {
+            "value": "<p>Granted by: @UUID[Compendium.pf2e.feats-srd.Item.Twinned Defense (Fighter)] or @UUID[Compendium.pf2e.feats-srd.Item.Twinned Defense (Swashbuckler)]</p>\n<hr />\n<p><strong>Requirements</strong> You are wielding two melee weapons, one in each hand</p>\n<hr />\n<p>You're always ready to use your off-hand weapon to interfere with attacks against you. While you are in this stance, you constantly gain the benefits of the @UUID[Compendium.pf2e.feats-srd.Item.Twin Parry] action.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 2
+                    }
+                ],
+                "flag": "acBonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.TwinnedDefense.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.acBonus}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,492 @@
+{
+    "_id": "wt2bOysQCOVDRGJu",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "gWEU9G9s70dXiigj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "total": 12,
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "reach-10",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "c29Etkg0dLXGi5aG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u2BPccJD36z0bYRj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Vision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The mist stalker ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from mist and fog.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fkq1TSG0x7hYCInK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Cloud",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "mist-cloud-active"
+                        ],
+                        "radius": 15,
+                        "slug": "mist-cloud",
+                        "traits": [
+                            "conjuration",
+                            "primal",
+                            "water"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mist-cloud-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "conjuration",
+                        "primal",
+                        "water"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LoYp4RKbRcxaLTmi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>[[/r (1d8+2)[bludgeoning]]] damage @Check[type:fortitude|dc:19|basic:true], Escape DC 19</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6qDmvQYxOjvP6fjc",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Solidify Mist",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mist stalker makes its mist cloud congeal, causing the aura to be difficult terrain until the start of the mist stalker's next turn. In addition, the mist stalker can make the mist even thicker around a single Medium or smaller creature within the cloud. The creature must succeed at a @Check[type:reflex|dc:18|name:Solidfy Mist] save or become @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it Escapes or it is no longer in the mist cloud's emanation.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "transmutation",
+                        "water"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6DCW8Ou4mulV70vQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iNsFFSOSMDqBCTTO",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "WA4X0q5vBwm1xMe8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Wishbound Mist Stalker (5-6)",
+    "prototypeToken": {
+        "name": "Wishbound Mist Stalker"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 43,
+                "temp": 0,
+                "value": "43"
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 11
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    },
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder Society Scenario #2-16: Freedom for Wishes"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "aquan"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision, mist vision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "amphibious",
+                "elemental",
+                "water"
+            ]
+        }
+    },
+    "type": "npc"
+}

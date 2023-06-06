@@ -1,0 +1,68 @@
+{
+    "_id": "kDTiRg9vVOYNnTyr",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/handwraps-of-mighty-blows.webp",
+    "name": "Stance: Powder Punch Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by: @UUID[Compendium.pf2e.feats-srd.Item.Powder Punch Stance]</p>\n<p>You infuse your handwraps with black powder. On your first melee Strike each round with an unarmed attack, @UUID[Compendium.pf2e.equipment-srd.Item.Knuckle Duster], or @UUID[Compendium.pf2e.equipment-srd.Item.Black Powder Knuckle Dusters], you deal an additional 1 fire Damage. If you critically succeed at an attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] while in this stance, the target is pushed back an additional 5 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PowderPunchStance.Label",
+                "option": "powder-punch",
+                "toggleable": true
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "powder-punch"
+                ],
+                "selector": [
+                    "unarmed-damage",
+                    "knuckle-duster-damage",
+                    "black-powder-knuckle-dusters"
+                ],
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "athletics",
+                "text": "PF2E.SpecificRule.PowderPunchStance.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

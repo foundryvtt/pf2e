@@ -1,0 +1,54 @@
+{
+    "_id": "iiV80Kexj6vPmzqU",
+    "img": "systems/pf2e/icons/spells/rapid-adaptation.webp",
+    "name": "Spell Effect: Rapid Adaptation (Arctic)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Rapid Adaptation]</em></p>\n<p>The target isn't affected by severe or extreme cold, and when it rolls a success on an Acrobatics check to Balance on ice and snow, it gets a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:snow",
+                            "terrain:ice"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

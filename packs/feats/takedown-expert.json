@@ -1,0 +1,45 @@
+{
+    "_id": "yPWNbTqOIKdkwaVq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Takedown Expert",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've mastered combat practices that let you get up close and bring down perpetrators alive.</p>\n<p>You can use your Intelligence modifier on attack rolls when you @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devise a Strategem} if you're using a weapon of the club group in one hand (like a club, staff, or sap), in addition to the usual weapons, and those Strikes qualify for your @UUID[Compendium.pf2e.classfeatures.Item.Strategic Strike].</p>\n<p>Additionally, you can make any of your Strikes nonlethal without taking the normal -2 penalty.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "ability": "int",
+                "key": "FlatModifier",
+                "predicate": [
+                    "devise-a-stratagem",
+                    "item:hands-held:1"
+                ],
+                "selector": "club-group-attack-roll",
+                "type": "ability"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

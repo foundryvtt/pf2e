@@ -1,0 +1,50 @@
+{
+    "_id": "o1gGG36wpn9mxeop",
+    "img": "systems/pf2e/icons/features/classes/life-mystery.webp",
+    "name": "Life",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The never-ending flow of positive energy within living beings is palpable to you. You might uphold the sanctity of life, or perhaps you seek to undermine it. You might draw power from the collective vitality of the world's living creatures, hold some connection to the Positive Energy Plane, or revere a collection of deities including Irori, Pharasma, Sarenrae, and the god of medicine Qi Zhong.</p>\n<p><strong>Mystery Benefit</strong></p>\n<p>Your body is a deep reservoir of life energy. At each level, you gain Hit Points equal to 10 + your Constitution modifier from the oracle class, instead of 8 + your Constitution modifier.</p>\n<p><strong>Trained Skill</strong> Medicine</p>\n<p><strong>Granted Cantrip</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Stabilize]</em></p>\n<p><strong>Revelation Spells</strong></p>\n<ul>\n<li>Initial <em>@UUID[Compendium.pf2e.spells-srd.Item.Life Link]</em>;</li>\n<li>Advanced <em>@UUID[Compendium.pf2e.spells-srd.Item.Delay Affliction]</em>;</li>\n<li>Greater <em>@UUID[Compendium.pf2e.spells-srd.Item.Life-Giving Form]</em></li>\n</ul>\n<p><strong>Related Domains</strong> death, healing</p>\n<h3>Curse of Outpouring Life</h3>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Curse of Outpouring Life]</p>\n<p>Life energy flows outward from you and connects you to all living things, but you expend your vital essence to do so. Your presence comforts the ill and injured, causes scars to fade slightly, spurs new growth in plants, and otherwise infuses your surroundings with vitality.</p>\n<h4>Minor Curse</h4>\n<p>As your life force seeps outward, it becomes more difficult to keep your body functioning. Effects that restore Hit Points to you take a status penalty equal to half your level (minimum 1) to the number of HP you recover.</p>\n<h4>Moderate Curse</h4>\n<p>The flow of life energy away from you can't be reversed.</p>\n<p>In addition to the effects of your minor curse, you can't be healed by magical effects originating from other creatures. However, if you are unconscious, magical effects can restore you to 1 HP (but no higher). You are affected normally by healing elixirs, potions, and other items.</p>\n<p>When you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> and all your targets are living creatures, you roll d12s instead of d8s for the amount of healing.</p>\n<p>Whenever you finish casting a non-cantrip spell, you restore Hit Points equal to the spell level to your choice of either one target of the spell or the creature nearest to you. You can't heal yourself in this way. This healing has the healing, necromancy, and positive traits, as well as the tradition trait of the spell.</p>\n<h4>Major Curse (11th)</h4>\n<p>Life energy tears through you to empower your magic. Some of your spells carry positive energy with them.</p>\n<p>Each time you use a spell slot to cast a 5th-level or higher spell that takes 2 or more actions to cast, you disperse positive energy in a @Template[type:burst|distance:30] with the effects of a 3-action <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell with a level 4 lower than that of the spell you cast. This healing occurs immediately after you finish Casting the Spell. You don't benefit from this healing. Instead, you lose double the number of Hit Points rolled for the heal spell.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.med.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.classhp",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

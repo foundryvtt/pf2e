@@ -1,0 +1,44 @@
+{
+    "_id": "AAgoUuwMvHzqNhIN",
+    "img": "systems/pf2e/icons/spells/acid-arrow.webp",
+    "name": "Effect: Assisting Shot (Critical Hit)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assisting Shot] if you critically hit the target.</p>\n<p>The next creature other than you to attack the same target before the start of your next turn gains a +2 circumstance bonus on their roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Assisting Shot",
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

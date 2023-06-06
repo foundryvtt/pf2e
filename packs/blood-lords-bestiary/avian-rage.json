@@ -1,0 +1,102 @@
+{
+    "_id": "a8PBT5CIg5yM96qh",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "bY2346FMb02WfLK5",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Panic!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An undead or a creature with negative healing enters the garden</p>\n<hr />\n<p><strong>Effect</strong> The birds screech in panic, dealing [[/r (3d12+20)[sonic]]] damage to all creatures in the garden (@Check[type:fortitude|dc:44|basic:true]). On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Avian Rage",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 45
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Hundreds of panicked whippoorwills swarm through the area.</p>",
+            "disable": "<p>@Check[type:nature|dc:43] (master) to calm the birds, @Check[type:occultism|dc:45] (master) to alter your aura, or @Check[type:performance|dc:45] (master) to imitate the living</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The trap deactivates and resets if 1 minute passes without any undead or creatures with negative healing in the garden.</p>",
+            "routine": "<p>(1 action) The birds swarm wildly through the garden, pecking and slashing at all undead creatures and creatures with negative healing in the garden, dealing [[/r (3d10+20)[slashing]]] damage and [[/r 1d10[bleed]]] damage (@Check[type:reflex|dc:44|basic:true]).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": null
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

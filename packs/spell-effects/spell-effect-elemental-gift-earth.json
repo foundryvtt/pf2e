@@ -1,0 +1,55 @@
+{
+    "_id": "fLOQMycP5tmXgPv9",
+    "img": "systems/pf2e/icons/spells/elemental-gift.webp",
+    "name": "Spell Effect: Elemental Gift (Earth)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Gift]</em></p>\n<p>An elemental force fills your target, granting the target the swiftness of air, the ruggedness of earth, the sting of fire, or the flexibility of water, depending on which element you choose. Choose an element when you Cast the Spell. The target gains the benefit of that element as described below, and this spell gains that trait's element.</p>\n<ul>\n<li><strong>Earth</strong> While on the ground, the target gets a +2 status bonus to Fortitude and Reflex saves against effects that would Shove or Trip it, and to saves against effects that would attempt to knock it prone. In addition, the ground adjacent to the target is difficult terrain, and the difficult terrain moves with the target, though the target ignores this difficult terrain with its own movement.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "fortitude",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trip"
+                ],
+                "selector": "reflex",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

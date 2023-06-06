@@ -1,0 +1,43 @@
+{
+    "_id": "s95P3L72BDKvzYhn",
+    "img": "systems/pf2e/icons/hazards/serpent-ward-curse-of-potent-poison.webp",
+    "name": "Effect: Curse of Potent Poison",
+    "system": {
+        "description": {
+            "value": "<p>This curse magically speeds poison through your body.</p>\n<hr />\n<p><strong>Effect</strong> You take a -1 status penalty to Fortitude saves and you gain weakness 3 to poison (if you already have weakness to poison, increase it by 3). The curse remains until removed by <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> or similar magic.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "fortitude",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #170: Spoken on the Song Wind"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

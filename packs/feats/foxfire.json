@@ -1,0 +1,87 @@
+{
+    "_id": "qCV04rZMty2TJBrX",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Foxfire",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>A crack of your tail sparks wisps of blue energy. Choose either electricity or fire when you gain this feat. You gain a foxfire ranged unarmed attack with a maximum range of 20 feet. The attack deals [[/r 1d4]] damage of the chosen type (no ability modifier is added to the damage roll). Your foxfire attack is in the sling weapon group and has the magical trait. Like other unarmed attacks, you can improve this attack with @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows].</p>\n<hr />\n<p><strong>Special</strong> If you are a frozen wind kitsune, your foxfire deals cold damage instead of electricity or fire.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "self:heritage:frozen-wind-kitsune"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "self:heritage:frozen-wind-kitsune"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            "self:heritage:frozen-wind-kitsune"
+                        ],
+                        "value": "cold"
+                    }
+                ],
+                "flag": "damage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "sling",
+                "img": "systems/pf2e/icons/spells/diamond-dust.webp",
+                "key": "Strike",
+                "maxRange": 20,
+                "range": 20,
+                "traits": [
+                    "unarmed",
+                    "magical"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kitsune"
+            ]
+        }
+    },
+    "type": "feat"
+}

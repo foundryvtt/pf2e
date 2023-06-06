@@ -1,0 +1,457 @@
+{
+    "_id": "ttUZn9WMNZzG9YdZ",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "oBRYdL1mPiHyfUmU",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TlYKQzg6BnOx29vi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GOh2sysmi8AzoMNC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.baA0nSMhQyFyJIia"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Mind",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swarm-mind",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g6eCWwWCRo63b0lS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Extraneous Flesh",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<p><strong>Trigger</strong> A Strike scores a critical hit on the bhanyada swarm</p>\n<hr />\n<p><strong>Effect</strong> A critical hit might simply sever a component chunk that the bhanyada can lose without much harm. The bhanyada swarm attempts a @Check[type:flat|dc:11]. On a success, it doesn't take any extra damage from the critical hit (although it takes other effects normally, such as critical specialization effects).</p>"
+                },
+                "frequency": {
+                    "max": 3,
+                    "per": "day"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LYi1Rgx3W2WvhdCB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Odor of Rot",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Creatures other than aberrations that enter or start their turn in the bhanyada's aura must succeed at a @Check[type:fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "odor-of-rot",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VTFIeE9sN9ImMqxW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swarming Bites",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the bhanyada swarm's space takes [[/r 2d6[bludgeoning]]] damage (@Check[type:reflex|dc:30|basic:true]). On a failed save, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pabjW8hEonmt9Tqh",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "XXLAkVa33FqBOlng",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ufa7QThAMItX2bmv",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Bhanyada Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "all-around vision",
+                "value": 30
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 175,
+                "temp": 0,
+                "value": 175
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "swarm-mind"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 20
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 20
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Bhanyadas without much cohesion between their fleshy components roil around one another in a ghastly swarm of malodorous gobs of flesh.</p>\n<hr />\n<p>Gobbets of flesh left behind from an untidy meal or a surgical procedure typically rot away if left where they lie, but when steeped in areas of powerful lingering magic or eldritch radiation, these bits of loose tissue might achieve some measure of animation, perhaps sprouting thick limbs to move about or tiny, multifaceted eyes to see. Near the magic-suffused Ghantibhu Pits in the caverns located beneath southern Vudra, where ripples of magic are powerful enough to rend the air and transform stone, these tiny, rotting castoffs form into even larger amalgamations called bhanyadas.</p>\n<h3>Tied to Open Bridge</h3>\n<p>Bhanyadas are almost never encountered outside the Open Bridge region in southern Vudra, as the magic of the Ghantibhu Pits beneath that region create them. Bhanyadas taken away from Open Bridge quickly decay into a repulsive slurry, although though it isn't clear whether their demise is due to being too far from the magical energies that animated them or too far from the masses of other bhanyadas that give them cunning and vigor.</p>\n<h3>Bhanyada Familiars</h3>\n<p>A component of a bhanyada swarm makes a useful, if gruesome, familiar. A character who can take a familiar and who has encountered a bhanyada can choose a bhanyada familiar, which must have the burrower and darkvision abilities. The owner would be wise to anoint the familiar with perfumes or find other solutions to mask the unpleasant smell.</p>",
+            "source": {
+                "value": "Pathfinder #190: The Choosing"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "Can't Speak Any Language",
+                "selected": [],
+                "value": [
+                    "aklo"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "aberration",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

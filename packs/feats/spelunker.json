@@ -1,0 +1,59 @@
+{
+    "_id": "6ZNSMR0lRSLwBJBe",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Spelunker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Living underground, you have learned to find your way without landmarks or even solid ground. If you roll a success on an Survival check to Sense Direction or an Athletics check to Climb, you get a critical success instead. You're not @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] when you attempt to Climb.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:sense-direction"
+                ],
+                "selector": "survival",
+                "text": "If you roll a success on an Survival check to Sense Direction you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "survival",
+                "text": "If you roll a success on an Athletics check to Climb you get a critical success instead.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "shisk"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "H0tffYs7ODMQ3JJj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Terrain Transposition",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are so connected to the wilderness that you can magically jump from place to place within it. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Terrain Transposition]</em> warden spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "warden spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,449 @@
+{
+    "_id": "EBDDeBHGGZ8xvIM6",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "ieZcxj746XMjV8LQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d10+2",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OeYHa0iu7IPcFWFH",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9TRBVjnPJbPXtMlt",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4BgQ2Qd9NVWa3Hw1",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gnashing Bite",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the corrosive lizard's jaws fails a check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]</p>\n<hr />\n<p><strong>Effect</strong> The lizard's jaws deal [[/r {1d6[piercing],1d6[acid]}]]{1d6 piercing damage and 1d6 acid damage} to the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lDjbS8x4P6y41QbW",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Gout of Acid",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corrosive lizard vomits a gout of acid in a @Template[type:cone|distance:15]. Each creature in this area takes [[/r 3d6[acid]]] damage (@Check[type:reflex|dc:20|basic:true] save).</p>\n<p>The lizard can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eWqNIy4ejpF685wS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Lurching Charge",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corrosive lizard Strides up to double its Speed and then makes a jaws Strike. If the lizard moved at least 20 feet away from its starting position, it gains a +2 circumstance bonus to this attack roll.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "lurching-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lurching-charge"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jaQu2ynPS2w8rzaR",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 6
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "x4rrqiK8ouHFowcy",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "G8heBGzfbpePgBxp",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 6
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Corrosive Lizard",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 7
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder #151: The Show Must Go On"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision, scent (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal",
+                "fiend"
+            ]
+        }
+    },
+    "type": "npc"
+}

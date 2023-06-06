@@ -1,0 +1,147 @@
+{
+    "_id": "S3jESLRaGeoaHG7t",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "jyTZDCNVazHG1tSk",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Burst",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Small or larger creature moves at normal speed through the area, or the area takes less than 33 points of damage from any source</p>\n<hr />\n<p><strong>Effect</strong> The pods explode into a burst of toxic foliage, mold, and poisonous vapors. All creatures in area <strong>C3</strong> must attempt a @Check[type:reflex|dc:28] save, while all creatures in the ten-foot-wide tunnel leading south must attempt a @Check[type:reflex|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The character takes no damage.</p>\n<p><strong>Success</strong> The character takes [[/r {(1d10+6)[bludgeoning],1d10[poison]}]]{1d10+6 bludgeoning damage and 1d10 poison damage} from the explosion.</p>\n<p><strong>Failure</strong> The character takes [[/r 1d10[persistent,poison]]] damage as the toxins in the fungus and vapor continue to work in the character's flesh. Being restored to full hit points automatically ends this persistent poison damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the character is also affected by Lamashtu's bloom and automatically starts at Stage 1 of the affliction, bypassing the regular onset period entirely.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZlCrr2J1Yth6IZEj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lamashtu's Bloom",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>While some NPCs become afflicted by Lamashtu's bloom curse during Parts 1 and 2 of this chapter, during Part 3 the PCs may be exposed to it as well. While the bloom is itself a curse, it functions mechanically more like a disease, and as such features both of these affliction traits. As long as the curse persists, a creature cannot recover from the disease, and removing the curse does not automatically remove the disease element of the affliction. Both elements must be dealt with individually before a victim suffering from Lamashtu's Bloom is safe. As with all elements of this curse, slaying the bloom of Lamashtu in area <strong>C10</strong> automatically removes this affliction.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:23]</p>\n<p><strong>Onset</strong> 1 week</p>\n<p><strong>Stage 1</strong> no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> enfeebled 1 and [[/r 2d6[poison]]] damage (8 hours)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and [[/r 4d6[poison]]] damage (10 minutes)</p>\n<p><strong>Stage 5</strong> death; Special a creature that dies from Lamashtu's bloom explodes in a blast of First World foliage, releasing a monster. This creature is typically a low-intelligence beast or dragon between 7th and 9th level, depending on the GM's whim.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "curse",
+                        "disease",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Exploding Bloom Pods",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "BT 33",
+                "max": 66,
+                "temp": 0,
+                "value": 66
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Moving too quickly through the bed of pods causes them to shudder, emit eerie gurgling sounds, and then burst.</p>",
+            "disable": "<p>@Check[type:survival|dc:28] (expert) (4 checks) to slice through all four of the larger shared root systems to render the dangerous pods inert, or inflict enough damage to the pods on the first attempt to reach the hazard's BT (damage that doesn't reach the hazard's broken threshold causes it to trigger)</p>",
+            "isComplex": false,
+            "level": {
+                "value": 8
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

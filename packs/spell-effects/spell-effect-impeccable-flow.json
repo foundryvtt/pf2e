@@ -1,0 +1,47 @@
+{
+    "_id": "slI9P4jUp3ERPCqX",
+    "img": "systems/pf2e/icons/spells/impeccable-flow.webp",
+    "name": "Spell Effect: Impeccable Flow",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Impeccable Flow]</em></p>\n<p>You gain a +1 status bonus to Perception checks, saving throws, and skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": "ceil((@item.level - 1) / 3 )"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #169: Kindled Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

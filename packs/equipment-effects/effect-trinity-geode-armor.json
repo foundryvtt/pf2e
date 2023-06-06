@@ -1,0 +1,61 @@
+{
+    "_id": "oqwrw6XztVlS9tEG",
+    "img": "systems/pf2e/icons/equipment/other/spellhearts/trinity-geode.webp",
+    "name": "Effect: Trinity Geode - Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode]</p>\n<p>After you cast an earth spell by Activating the <em>geode</em>, you gain resistance 1 to physical damage (except adamantine) until the end of your next turn, or double the resistance for a non-cantrip spell.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpellCantripLabel",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpellNonCantripLabel",
+                        "value": 2
+                    }
+                ],
+                "flag": "spellCategory",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.TrinityGeodeLabel",
+                "prompt": "PF2E.SpecificRule.Prompt.CantripOrNonCantrip"
+            },
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": "{item|flags.pf2e.rulesSelections.spellCategory}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

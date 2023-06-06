@@ -1,0 +1,393 @@
+{
+    "_id": "mjW1q98gMnEmZJKt",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "jbmHcEdQww3j0lGb",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Tendril",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "ofjchq1h03sp13g2jaf7": {
+                        "damage": "1d6",
+                        "damageType": "negative"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "L6e4GFT5hbd57CeJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "roVzfImlMLmqQTZT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Weakness",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An object shedding magical light (such as from the <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em> spell) deals additional damage to the shadow wisp.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PsjwOHj53WzpVuM0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shroud",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shadow wisp's previous action was a hit against an adjacent creature with its shadow tendril Strike.</p>\n<hr />\n<p><strong>Effect</strong> The shadow wisp @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps} into the creature's space and attempts an @Check[type:acrobatics] check against the target's Reflex DC to attach itself to the target's shadow.</p>\n<p>As long as it remains attached, it moves with the target and is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to attacks from the target. The target can spend a move action on its turn to attempt a Reflex save against the wisp's Acrobatics DC to escape the shroud.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UQLU4oGuKYLB11Xt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stretch Shadow",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shadow wisp is attached to a living creature.</p>\n<hr />\n<p><strong>Effect</strong> The shadow wisp slips into the attached creature's shadow, dealing it [[/r 1d6[negative]]] damage. It can use the attached creature's shadow to make a shadow tendril Strike against another target up to 10 feet away</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eKP0XFMUfLLUU3RR",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Xo0LpewUQqOT4ei9",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Shadow Wisp",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": -3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 16
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 25,
+                "temp": 0,
+                "value": 25
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 4
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "light",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 0
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder Society Scenario #1-01: The Absalom Initiation"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "necril"
+                ]
+            },
+            "rarity": "rare",
+            "senses": {
+                "value": ""
+            },
+            "size": {
+                "value": "tiny"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,74 @@
+{
+    "_id": "cVVZXNbV0nElVOPZ",
+    "img": "systems/pf2e/icons/spells/light.webp",
+    "name": "Spell Effect: Light",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em></p>\n<hr />\n<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "bright": {
+                        "brackets": [
+                            {
+                                "end": 3,
+                                "value": 20
+                            },
+                            {
+                                "start": 4,
+                                "value": 60
+                            }
+                        ],
+                        "field": "item|system.level.value"
+                    },
+                    "color": "#343434",
+                    "dim": {
+                        "brackets": [
+                            {
+                                "end": 3,
+                                "value": 40
+                            },
+                            {
+                                "start": 4,
+                                "value": 120
+                            }
+                        ],
+                        "field": "item|system.level.value"
+                    }
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

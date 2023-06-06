@@ -1,0 +1,59 @@
+{
+    "_id": "k0NNa5Ko4XhDdBYB",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Nocturnal Sense",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your senses gain even greater clarity. While raging, you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if you don't already have it, and the range of your imprecise scent increases to 60 feet.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Acute Scent, or precise or imprecise scent"
+                },
+                {
+                    "value": "low-light vision"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "rage"
+            ]
+        }
+    },
+    "type": "feat"
+}

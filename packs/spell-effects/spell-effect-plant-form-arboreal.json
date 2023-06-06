@@ -1,0 +1,156 @@
+{
+    "_id": "tu8FyCtmL3YYR2jL",
+    "img": "systems/pf2e/icons/spells/plant-form.webp",
+    "name": "Spell Effect: Plant Form (Arboreal)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Plant Form]</em></p>\n<p>Taking inspiration from verdant creatures, you transform into a Large plant battle form. You must have space to expand into or the spell is lost. You can substitute a similar specific plant to turn into (such as a pitcher plant instead of a flytrap), but this has no effect on the form's Size or statistics. While in this form, you gain the plant trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>12 temporary Hit Points.</li>\n<li>Resistance 10 to poison.</li>\n<li>Low-light vision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +17, and your damage bonus is +11. These attacks are Strength based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +19, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of plant you choose:</p>\n<ul>\n<li><strong>Arboreal</strong>\n<ul>\n<li>Speed 30 feet; you can speak in this form, but you still can't Cast a Spell or supply verbal components.</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> branch (reach 15 feet), <strong>Damage</strong> 2d10 bludgeoning;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> foot, <strong>Damage</strong> 2d8 bludgeoning</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Huge, and the reach of your attacks increases by 5 feet. You instead gain AC = 22 + your level, 24 temporary HP, attack modifier +21, damage bonus +16, and Athletics +22.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "resistances": [
+                        {
+                            "type": "poison",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "lowLightVision": {}
+                    },
+                    "speeds": {
+                        "land": 30
+                    },
+                    "strikes": {
+                        "branch": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d10"
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
+                        },
+                        "foot": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "plant"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "19 + @actor.level"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 19
+                                    }
+                                },
+                                "strikes": {
+                                    "branch": {
+                                        "damage": {
+                                            "modifier": 11
+                                        },
+                                        "modifier": 17
+                                    },
+                                    "foot": {
+                                        "damage": {
+                                            "modifier": 11
+                                        },
+                                        "modifier": 17
+                                    }
+                                },
+                                "tempHP": 12
+                            }
+                        },
+                        {
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 22
+                                    }
+                                },
+                                "strikes": {
+                                    "branch": {
+                                        "damage": {
+                                            "modifier": 16
+                                        },
+                                        "modifier": 21,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "foot": {
+                                        "damage": {
+                                            "modifier": 16
+                                        },
+                                        "modifier": 21,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-5"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 24
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

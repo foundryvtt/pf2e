@@ -252,6 +252,16 @@ export function isNewerVersion(v1: number | string | null, v0: number | string):
 export function randomID(length?: number): string;
 
 /**
+ * Parse a UUID into its constituent parts.
+ * @param uuid               The UUID to parse.
+ * @param [options]          Options to configure parsing behavior.
+ * @param [options.relative] A document to resolve relative UUIDs against.
+ * @returns Returns the Collection, Document Type, and Document ID to resolve the parent
+ *          document, as well as the remaining Embedded Document parts, if any.
+ */
+export function parseUuid(uuid: string, options?: { relative?: foundry.abstract.Document }): ResolvedUUID;
+
+/**
  * Log a compatibility warning which is filtered based on the client's defined compatibility settings.
  * @param message              The original warning or error message
  * @param [options={}]         Additional options which customize logging

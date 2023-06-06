@@ -1,0 +1,60 @@
+{
+    "_id": "sPCWrhUHqlbGhYSD",
+    "img": "systems/pf2e/icons/spells/enlarge.webp",
+    "name": "Spell Effect: Enlarge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em></p>\n<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is clumsy 1. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "dex-based",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

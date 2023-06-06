@@ -1,0 +1,46 @@
+{
+    "_id": "v54mj5jknAynlCM9",
+    "img": "systems/pf2e/icons/spells/bloodspray-curse.webp",
+    "name": "Effect: Call to Blood",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +2 status bonus to attack rolls against @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:condition:flat-footed"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 2"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

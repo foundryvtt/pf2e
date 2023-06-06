@@ -1,0 +1,81 @@
+{
+    "_id": "8usMHYAmFdqmmkTS",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Sponsored by a Village",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You come from a small community far from any large cities, but the Magaambya is known even in your isolated corner of the world. You have shown more scholarly talent than anyone from your village in many years, perhaps even generations, and the village elders have insisted you explore your potential at the Magaambya. Whether you were eager to leave or not seemed irrelevant to the elders; you had the talent, so you must go. You don't know how the elders had the connections or influence to sponsor your education there, but you've left your tight- knit community behind for the city of Nantambu and the Magaambya at its heart.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Crafting or Survival skill. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Crafter's Appraisal] if you chose Crafting or @UUID[Compendium.pf2e.feats-srd.Item.Forager] if you chose Survival. You're also trained in the Lore skill appropriate for the terrain around your community (such as Forest Lore or Jungle Lore).</p>\n<p>Your recommended primary branch is the Cascade Bearers.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillCra",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "value": "survival"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "village"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "village:crafting"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Crafter's Appraisal"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "village:survival"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Forager"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Strength of Thousands Player's Guide"
+        },
+        "trainedLore": "<Terrain> Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

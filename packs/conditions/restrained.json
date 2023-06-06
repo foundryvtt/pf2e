@@ -1,0 +1,53 @@
+{
+    "_id": "VcDeM8A5oI6VqhbM",
+    "img": "systems/pf2e/icons/conditions/restrained.webp",
+    "name": "Restrained",
+    "system": {
+        "description": {
+            "value": "<p>You're tied up and can barely move, or a creature has you pinned. You have the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] conditions, and you can't use any actions with the attack or manipulate traits except to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] or @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] your bonds. Restrained overrides @UUID[Compendium.pf2e.conditionitems.Item.Grabbed].</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": null,
+        "overrides": [
+            "grabbed"
+        ],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.canFlank",
+                "value": false
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": false,
+            "value": null
+        }
+    },
+    "type": "condition"
+}

@@ -1,0 +1,101 @@
+{
+    "_id": "v8UNEJR5IDKi8yqa",
+    "img": "systems/pf2e/icons/features/classes/weapon-tricks.webp",
+    "name": "Weapon Tricks",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have become thoroughly familiar with the tools of your trade. You gain expert proficiency in simple weapons as well as the @UUID[Compendium.pf2e.equipment-srd.Item.Rapier], @UUID[Compendium.pf2e.equipment-srd.Item.Sap], @UUID[Compendium.pf2e.equipment-srd.Item.Shortbow], @UUID[Compendium.pf2e.equipment-srd.Item.Shortsword], and unarmed attacks. When you critically succeed at an attack roll against a flat-footed creature while using an agile or finesse simple weapon or unarmed attack, or when using any of the listed weapons, you apply the critical specialization effect for that weapon or unarmed attack.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.simple.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-rapier.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-sap.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-shortbow.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-shortsword.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.unarmed.rank",
+                "value": 2
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:trait:agile",
+                                            "item:trait:finesse"
+                                        ]
+                                    },
+                                    {
+                                        "or": [
+                                            "item:category:simple",
+                                            "item:category:unarmed"
+                                        ]
+                                    }
+                                ]
+                            },
+                            "item:base:rapier",
+                            "item:base:sap",
+                            "item:base:shortbow",
+                            "item:base:shortsword"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

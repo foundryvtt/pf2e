@@ -1,0 +1,608 @@
+{
+    "_id": "N3OJ0wxik4wEgTg7",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "id4o8xnz4rsjvbw3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "tupJuhQixFFQSdRN": {
+                        "damage": "2d8+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "e12wj19aopdcbp56",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Energy Beam",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "3AdGCdAszktWu9Xx": {
+                        "damage": "2d10+3",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "magical",
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "F5P8duLKzS9B2F6F",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jtyp8z5htu8nlcsp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unsubstantiated Consciousness",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When an imperfect automaton succeeds at a Will save, it gets a critical success instead. When it fails at a Will save, it gets a critical failure instead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "will",
+                        "type": "save"
+                    },
+                    {
+                        "adjustment": {
+                            "failure": "one-degree-worse"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "will",
+                        "type": "save"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4nwaadngcx3evt3a",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Empty Wail",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The imperfect automaton utters a mournful cry in a @Template[type:cone|distance:30]{30-foot cone}. The cry deals [[/r 4d6[mental]]] damage to all creatures in the area (@Check[type:will|dc:22] save). The imperfect automaton can't use its Empty Wail again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for [[/br 1d4+1 #rounds]]{1d4+1 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is stupefied 1 for 1d4+1 rounds and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xs1kc35q6z95frop",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Impassioned Strikes",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>While the imperfect automaton is affected by an emotion effect, its fist Strikes deal 1d6 additional mental damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "Automaton is affected by an effect with the emotion trait",
+                        "option": "impassioned-strikes",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "impassioned-strikes"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4zyl6wd0lae8unq2",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Mortal Reflection",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The imperfect automaton has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr />\n<p><strong>Effect</strong> The imperfect automaton draws upon the target's emotions to recall a semblance of mortal feeling, gaining a +5-foot status bonus to its Speed for 1 minute. If the grabbed or restrained creature has an ongoing emotion or mental effect with a counteract level of 4 or lower, the imperfect automaton can gain a copy of that effect that lasts for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Mortal Reflection]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bx38jxjHpbtTvxcl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e3dnuz0tccaptyj6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Arcana",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "9xlf7n0dm2qqi8l4",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "xgtcyu08u3te0ehe",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Crafting",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "m36kaheo90kih2k0",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "5tnla855xucfgxyn",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Society",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "e16doa22r5tpq906",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Imperfect Automaton",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 3
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 85,
+                "temp": 0,
+                "value": 85
+            },
+            "immunities": [],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 12
+            },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "special": "",
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder Lost Omens: Monsters of Myth"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "one language depending on its mortal life; telepathy 30 feet",
+                "selected": [],
+                "value": [
+                    "common",
+                    "osiriani"
+                ]
+            },
+            "rarity": "rare",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "automaton",
+                "construct"
+            ]
+        }
+    },
+    "type": "npc"
+}

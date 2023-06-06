@@ -1,0 +1,470 @@
+{
+    "_id": "vmN9SCUJxN1MIXwp",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2nd3Ete1Wir3K3bj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wave",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "push-or-pull-10-feet"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "bxi6bl3wfea41706u14s": {
+                        "damage": "2d12+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7pRxaQFmTGlbnKEr",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PmcZB53eH1gUzaBq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Water-Bound",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When not touching water, the elemental tsunami is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FTMgXssm5HK4Io0O",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vortex",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Water in the area that is in the same body of water as the elemental tsunami is difficult terrain for Swimming creatures that don't have the water trait.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 50,
+                        "slug": "vortex",
+                        "traits": [
+                            "aura",
+                            "water"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "water"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tEPc3Xc3Pufff6D5",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drench",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elemental puts out all fires in a @Template[type:emanation|distance:20].</p>\n<p>It extinguishes all non-magical fires automatically and attempts to counteract magical fires ([[/r 1d20+20 #Drench]]{+20} counteract modifier).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "primal",
+                        "water"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AiKIcXFJx9lEEfnt",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Surge",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elemental tsunami quickly expands its space to fill the area of its vortex. Creatures within the vortex's emanation take [[/r (5d12+6)[bludgeoning]]] damage (@Check[type:fortitude|dc:31|basic:true] save). A creature that fails this save is Pushed 20 feet. The elemental tsunami then retracts to its former space.</p>\n<p>The elemental tsunami can't Surge again for [[/br 1d4 #Recharge Surge]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MGX1U8Kv59BVYAOI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push or Pull 10 feet",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elemental tsunami can also pull the creature.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "push-or-pull-10-feet",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rYX7qeiQFcW7NQbZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ijSYyIcheysyaGSs",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Elemental Tsunami",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 31
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 195,
+                "temp": 0,
+                "value": 195
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 22
+            },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 100
+                    }
+                ],
+                "value": 35
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Elemental",
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Elemental tsunamis are huge and destructive.</p>\n<hr />\n<p>Water elementals can be very destructive, but often not intentionally so; just as water can bring life to those in need on the Material Plane, its waves can pound shores and rains can flood cities. Water elementals are similarly difficult to predict.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "aquan"
+                ]
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "aquatic",
+                "elemental",
+                "water"
+            ]
+        }
+    },
+    "type": "npc"
+}

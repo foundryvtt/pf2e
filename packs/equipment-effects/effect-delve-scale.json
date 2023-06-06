@@ -1,0 +1,51 @@
+{
+    "_id": "rQV8Azb3FeUJJ3fG",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Delve Scale",
+    "system": {
+        "description": {
+            "value": "<p>You gain a burrow Speed of 15 feet and a +2 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:high-jump",
+                            "action:long-jump"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

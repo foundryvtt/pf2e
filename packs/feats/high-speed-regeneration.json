@@ -1,0 +1,47 @@
+{
+    "_id": "xDTjr415ZZM8x2WW",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "High-Speed Regeneration",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> Your turn begins.</p>\n<hr />\n<p>Your wounds knit together with barely a thought. You regain [[/r (2*@actor.level) #Healing]]{Hit Points equal to double your level}. When you gain this deviation, the GM secretly selects one type of energy damage or precious material, such as fire or cold iron. When you take damage of that type, your wound smokes until the end of your next turn, preventing you from using High-Speed Regeneration.</p>\n<hr />\n<p><strong>Awakening</strong> Your regeneration can automatically save you from the brink of death. Once per day, you can use High-Speed Regeneration when your Hit Points would be reduced to 0 instead of the usual trigger. You avoid being knocked out and remain at the number of HP you regained.</p>\n<hr />\n<p><strong>Awakening</strong> Regrowth invigorates you. You gain a +10-foot status bonus to your Speed until the end of your turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: High-Speed Regeneration Speed Boost]</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:troll-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Troll Deviant Classification"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "deviant",
+                "healing",
+                "magical",
+                "necromancy"
+            ]
+        }
+    },
+    "type": "feat"
+}

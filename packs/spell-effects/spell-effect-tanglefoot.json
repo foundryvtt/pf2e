@@ -1,0 +1,43 @@
+{
+    "_id": "TwtUIEyenrtAbeiX",
+    "img": "systems/pf2e/icons/spells/tanglefoot.webp",
+    "name": "Spell Effect: Tanglefoot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Tanglefoot]</em>.</p>\n<p>Vines hamper your movement, you take a -10-foot circumstance penalty to your Speeds.</p>\n<hr />\n<p><em>Note: the duration needs to be increased to 2 rounds when the spell is heightened to 2nd level, and to 1 minute when the spell is heightened to 4th level.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "type": "circumstance",
+                "value": -10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

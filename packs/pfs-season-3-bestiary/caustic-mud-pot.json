@@ -1,0 +1,137 @@
+{
+    "_id": "vkrKdprKwRpuXHS3",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "0ttQfqz42sVilc4G",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Belch",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than a sulfuric slime comes within 10 feet of the mud pot</p>\n<hr />\n<p><strong>Effect</strong> The hazard rolls initiative as a gaseous cloud explodes out of the mud. The triggering creature takes [[/r (1d10+6)[acid]]] damage @Check[type:reflex|dc:20|basic:true]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QCLsSzBv7L3jage8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sulfur Poisoning",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage</p>\n<p><strong>Stage 2</strong> [[/r 1d12[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened2} (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Caustic Mud Pot",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Solid ground gives way to a lake of bubbling mud that burns anyone who enters and routinely belches out sulfur.</p>",
+            "disable": "<p>@Check[type:survival|dc:20|name:Remove Stones|traits:complex,environmental,poison] (trained) to find and remove the stones blocking the flow of water to the mud pot. The water decreases the viscosity of the mud, allowing steam and sulfur to escape gradually, rather than in violent bursts, so creatures can pass through unharmed. The hazard requires one successful checks to disable. Attempting the check takes two actions.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(1 action) On its initiative, the mud pot belches a cloud of sickening sulfur into the small cavern. Creatures other than sulfuric slimes within 10 feet must succeed at a @Check[type:fortitude|dc:17] save or be exposed to sulfur poisoning.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-10: Delve the Pallid Depths"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "poison"
+            ]
+        }
+    },
+    "type": "hazard"
+}

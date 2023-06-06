@@ -1,0 +1,47 @@
+{
+    "_id": "MNkIxAishE22TqL3",
+    "img": "systems/pf2e/icons/spells/destructive-aura.webp",
+    "name": "Effect: Aura of Despair",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura Of Despair]</p>\n<p>Enemies within 15 of you take a -1 circumstance penalty to saving throws against fear.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Aura of Despair (vs. fear)",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "MeMAAtUlZmFgKSMF",
+    "img": "systems/pf2e/icons/features/ancestry/elemental-heat-dwarf.webp",
+    "name": "Elemental Heart Dwarf",
+    "system": {
+        "ancestry": {
+            "name": "Dwarf",
+            "slug": "dwarf",
+            "uuid": "Compendium.pf2e.ancestries.Item.BYj5ZvlXZdpaEgA6"
+        },
+        "description": {
+            "value": "<p>Whether through a connection to @UUID[Compendium.pf2e.deities.Item.Torag]{Torag's} forge, the azers of the Plane of Fire, or another source, you can exude a burst of energy. Mbe'ke and Taralu dwarves of the Mwangi Expanse believe this heritage is a gift from dragons or elemental spirits. Choose one of the following damage types: acid, cold, electricity, or fire. Once chosen, this can't be changed. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Energy Emanation (Acid)]{Energy Emanation} activity.</p>"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "Compendium.pf2e.actionspf2e.Item.Energy Emanation (Fire)"
+                    },
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "Compendium.pf2e.actionspf2e.Item.Energy Emanation (Acid)"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "Compendium.pf2e.actionspf2e.Item.Energy Emanation (Cold)"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "Compendium.pf2e.actionspf2e.Item.Energy Emanation (Electricity)"
+                    }
+                ],
+                "flag": "elementalHeartDwarf",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Dwarf.ElementalHeart.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.elementalHeartDwarf}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

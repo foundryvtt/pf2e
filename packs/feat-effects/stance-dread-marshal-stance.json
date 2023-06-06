@@ -1,0 +1,78 @@
+{
+    "_id": "qX62wJzDYtNxDbFv",
+    "img": "systems/pf2e/icons/features/feats/dread-marshal-stance.webp",
+    "name": "Stance: Dread Marshal Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Dread Marshal Stance].</p>\n<p>Your marshal's aura grants you and allies a status bonus to damage rolls equal to the number of weapon damage dice of the unarmed attack or weapon the you are wielding that has the most weapon damage dice. When you or an ally in the aura critically hits an enemy with a Strike, that enemy is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 20
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 10
+                    }
+                ],
+                "flag": "auraRadius",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Marshal's Aura"
+                    },
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Dread Marshal Stance"
+                    }
+                ],
+                "key": "Aura",
+                "radius": "@item.flags.pf2e.rulesSelections.auraRadius",
+                "slug": "marshals-aura",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

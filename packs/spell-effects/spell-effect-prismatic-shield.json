@@ -1,0 +1,57 @@
+{
+    "_id": "Pfllo68qdQjC4Qv6",
+    "img": "systems/pf2e/icons/spells/prismatic-shield.webp",
+    "name": "Spell Effect: Prismatic Shield",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Shield]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "label": "Targeted by a Large Ranged Weapon",
+                "option": "prismatic-shield",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "prismatic-shield"
+                ],
+                "roll-option": [
+                    "all",
+                    "ac"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #162: Ruins of the Radiant Siege"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

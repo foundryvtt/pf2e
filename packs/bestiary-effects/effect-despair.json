@@ -1,0 +1,43 @@
+{
+    "_id": "1bOSJ2LbEC28aI9f",
+    "img": "systems/pf2e/icons/spells/canticle-of-everlasting-grief.webp",
+    "name": "Effect: Despair",
+    "system": {
+        "description": {
+            "value": "<p>Living creatures are frightened 1 while in a despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the area.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Frightened"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

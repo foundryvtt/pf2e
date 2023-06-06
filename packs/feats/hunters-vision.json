@@ -1,0 +1,45 @@
+{
+    "_id": "W7aT1UJOVFkYdQti",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hunter's Vision",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are so focused on your hunted prey that you can see it clearly even beyond the limits of your senses. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Hunter's Vision]</em> warden spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "warden spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

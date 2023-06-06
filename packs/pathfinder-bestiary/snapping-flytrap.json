@@ -1,0 +1,496 @@
+{
+    "_id": "Ey19J4nTn1dQvLtE",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "t8uaryivfTb4jrjH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Leaf",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "6pq3f4mu9zajnbuvgy9x": {
+                        "damage": "1d8+2",
+                        "damageType": "piercing"
+                    },
+                    "k9ndsg2n7ee8w2ch6689": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tyjUqs7S8mA70wiw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gXUEOhZBMg1NCOMw",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Quick Capture",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in that leaf.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QTipkgJAwLBZFcwu",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Focused Assault",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The flytrap attacks a single target with both its leaves. The flytrap makes one leaf Strike. On a success, the flytrap deals the damage from one leaf Strike plus an additional [[/r {1d8}]]{1d8 damage} for every leaf beyond the first. On a failure, the flytrap deals the damage from one leaf Strike, but it can't use Improved Grab. It deals no damage on a critical failure. This counts toward the flytrap's multiple attack penalty as a number of attacks equal to the number of leaves the flytrap has.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "focused-assault",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "focused-assault"
+                        ],
+                        "selector": "leaf-damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oB9Lh7ZFScaG3Z04",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Hungry Flurry",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The flytrap makes two leaf Strikes at a -2 penalty, each against a different target. These attacks count toward the flytrap's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes all its attacks.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "hungry-flurry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hungry-flurry"
+                        ],
+                        "selector": "leaf-attack",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0JCakW3iPRouHFU2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium, [[/r {(1d8+1)[bludgeoning],1d6[acid]}]]{1d8+1 bludgeoning damage plus 1d6 acid damage}, Rupture 5</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CyCkk2GjnKUtz2Va",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F9urRe80i8FSGaPA",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "8Ga9mRyTf82SeeOx",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ],
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 in undergrowth",
+                        "options": "terrain:undergrowth"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Snapping Flytrap",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 7
+            },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Plant",
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The snapping flytrap is a ravenous, carnivorous plant that is quick to bite at any creature that passes by. Snapping flytraps typically have two sets of tooth-edged leaves, each measuring 3 feet wide, at the end of 10-foot-long stalks.</p>\n<hr />\n<p>Flytraps are dangerous creatures as eager to feed on humanoids and larger prey as they are monstrous insects.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "tremorsense (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mindless",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

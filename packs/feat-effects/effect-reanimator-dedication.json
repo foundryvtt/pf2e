@@ -1,0 +1,48 @@
+{
+    "_id": "EQCnu8DGHDDNXch0",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Reanimator Dedication",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Reanimator Dedication]</p>\n<p>The undead you animate gains a +1 status bonus to attack rolls, AC, saving throws, and skill checks for the duration of <em>@UUID[Compendium.pf2e.spells-srd.Item.Animate Dead]</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "attack",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

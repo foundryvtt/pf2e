@@ -1,0 +1,52 @@
+{
+    "_id": "viFTJfZusRPx0G2q",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Scamper Underfoot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are used to ducking under foes and can scurry around the battlefield with ease. You gain a +1 circumstance bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] the spaces of Medium or larger enemies, and the presence of an enemy doesn't make the squares difficult terrain.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:tumble-through",
+                    {
+                        "or": [
+                            "target:size:medium",
+                            "target:size:large",
+                            "target:size:huge",
+                            "target:size:gargantuan"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "shoony"
+            ]
+        }
+    },
+    "type": "feat"
+}

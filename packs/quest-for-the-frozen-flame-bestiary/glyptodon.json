@@ -1,0 +1,336 @@
+{
+    "_id": "OeJlR7ZSSc0azABd",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Jtu0twXKsUAmnaBZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "0xlbtcx8ca7bjspcd14w": {
+                        "damage": "2d6+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TwGABTDtMQPC6fhL",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "clobbering-tail"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "968ohc9wihhz0aaenu0n": {
+                        "damage": "2d10+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ofDdFQIne95yw1SH",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vecbUczXVotwnIR8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Carapace Block",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An adjacent creature targets the glyptodon with an attack</p>\n<hr />\n<p><strong>Effect</strong> The glyptodon turns, blocking the attack with its carapace and thrusting its heavy body toward the attacker. It gains a +2 circumstance bonus to its AC against the triggering attack. If the attack critically fails, the glyptodon attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] the attacker.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "carapace-block",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "carapace-block"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CikNOq92o7EWYi0p",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Clobbering Tail",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A glyptodon's stiff tail is its strongest weapon. When a glyptodon critically hits with its tail Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6Mh3fyaYYvBJNnwZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Glyptodon",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 65,
+                "temp": 0,
+                "value": 65
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 9
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Glyptodons are enormous, armadillo-like megafauna that roam sandy riverbanks and ancient forests in search of their favorite foods, namely riparian grass and tender saplings. Surly and suspicious, glyptodons avoid predators not out of a defensive instinct-their armored hides protect them from most well-equipped carnivores-but rather because they simply prefer to be left alone to their placid foraging. Despite their great size, glyptodons can survive on surprisingly little food, and they'll eat just about anything. As a result, they're more likely to be encountered roaming across vast tundra or desert regions than other large herbivores, appearing as a single, lumbering hump against an otherwise-flat horizon.</p>\n<p>A glyptodon's scutes-the thick, bony plates of its carapace-grow in distinctive patterns and scar readily, making it easy for non-glyptodons to identify individual animals. Glyptodons have notoriously bad eyesight, even for prey animals, and rely on their sense of smell to get around and identify threats and each other. In combat, they primarily rely on their thick carapaces to protect them from attackers.</p>\n<p>Although southern merchants have occasionally attempted to create a glyptodon-mounted trading network, riding these giants is an exercise in frustration, as their rounded hides provide little purchase for humanoid riders' feet or saddles. However, some webbed-toed people of the plains, including bands of lizardfolk, have managed to maintain glyptodon mounts thanks to their strong, flexible, clawed feet. Other ancestries primarily view glyptodons as a source of meat and tough hides, the latter of which make for excellent impromptu shelters and river boats.</p>\n<p>When cornered, a glyptodon uses its powerful digging claws to scrape or scare away attackers. Glyptodons can use their tails to ward off smaller predators, but generally do so only as a last resort.</p>",
+            "source": {
+                "value": "Pathfinder #175: Broken Tusk Moon"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "scent (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

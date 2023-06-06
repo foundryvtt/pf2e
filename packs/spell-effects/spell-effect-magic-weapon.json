@@ -1,0 +1,58 @@
+{
+    "_id": "GnWkI3T3LYRlm3X8",
+    "img": "systems/pf2e/icons/spells/magic-weapon.webp",
+    "name": "Spell Effect: Magic Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Weapon]</em></p>\n<p>The weapon glimmers with magic and energy. The target becomes a +1 <em>striking</em> weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "value": 1
+            },
+            {
+                "key": "Striking",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

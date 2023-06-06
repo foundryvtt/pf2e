@@ -1,0 +1,41 @@
+{
+    "_id": "4dnt1P2SfcePzkrF",
+    "img": "systems/pf2e/icons/spells/incendiary-ashes.webp",
+    "name": "Spell Effect: Incendiary Ashes (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted <em>@UUID[Compendium.pf2e.spells-srd.Item.Incendiary Ashes]</em></p>\n<p>The creature has weakness to fire 3 until the start of its next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "fire",
+                "value": "@item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #185: A Taste of Ashes"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

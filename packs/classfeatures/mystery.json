@@ -1,0 +1,85 @@
+{
+    "_id": "PRJYLksQEwT39bTl",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Mystery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Choose the divine mystery that fuels your mystical power.</p>\n<p>Your mystery might represent a pantheistic devotion to all the deities with power over the subject of your mystery, veneration of a particular ideal, or a conduit to raw divine energy. Whatever its origin and nature, your mystery determines the revelation spells you can cast and the oracular curse that overtakes your body when you do. You learn skills related to that mystery, gain access to a cantrip, and gain a special benefit drawn from the combined divine knowledge and experience of your mystery.</p>\n<hr />\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Ancestors]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Battle]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Bones]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Cosmos]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Flames]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Life]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Lore]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Tempest]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Time]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Ashes]</li>\n</ul>\n<h3>Reading a Mystery Entry</h3>\n<p>A mystery entry contains the following information, followed by a description of that mystery's curse.</p>\n<p><strong>Mystery Benefit</strong> The mystery benefit is a special ability (or abilities) you gain from your mystery.</p>\n<p><strong>Trained Skill</strong> You become trained in the listed skill. A few mysteries make you trained in more than one skill.</p>\n<p><strong>Granted Cantrip</strong> You automatically add this cantrip to your spell repertoire, in addition to those you gain through divine spellcasting.</p>\n<p><strong>Revelation Spells</strong> You automatically gain your mystery's initial revelation spell at 1st level and can gain more by selecting the @UUID[Compendium.pf2e.feats-srd.Item.Advanced Revelation], @UUID[Compendium.pf2e.feats-srd.Item.Greater Revelation], and @UUID[Compendium.pf2e.feats-srd.Item.Diverse Mystery] oracle feats.</p>\n<p><strong>Related Domains</strong> These are the cleric domains associated with your mystery. You select one initial domain spell from one of these domains at 1st level, which you can cast as a revelation spell with the cursebound trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "1st-level Oracle class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:oracle",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Ancestors"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Battle"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bones"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Cosmos"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Flames"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Life"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Lore"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Tempest"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Time"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Ashes"
+                    }
+                ],
+                "flag": "mystery",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Oracle.Mystery.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.mystery}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

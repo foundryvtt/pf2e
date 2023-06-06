@@ -1,0 +1,48 @@
+{
+    "_id": "HoCUCi2jL1OLfXWR",
+    "img": "systems/pf2e/icons/spells/produce-flame.webp",
+    "name": "Spell Effect: Unblinking Flame Aura",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Unblinking Flame Aura]</em></p>\n<p>You gain a +2 status bonus on Perception checks and resistance 10 to cold.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "2*@item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

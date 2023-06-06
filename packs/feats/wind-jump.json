@@ -1,0 +1,45 @@
+{
+    "_id": "FWIQ3m5KZDWzDg47",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Wind Jump",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gather the wind beneath you, allowing you to soar as you jump. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Wind Jump]</em> ki spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ki spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "XORmdC62imVhz1BD",
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/archivists-gaze.webp",
+    "name": "Archivist's Gaze",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>This strange contraption slides over your eyes, supernaturally sharpening your mind. While peering through it, you can feel some entity whispering to you, telling all sorts of things about the subject of your gaze. You gain a +3 item bonus to Occultism (though some entities might grant a bonus to a different skill, as determined by your GM). In addition, when you employ an exploration tactic other than Investigating, you also gain the benefits of Investigating unless you choose not to.</p>\n<p>When you invest the spectacles, you either increase your Intelligence score by 2 or increase it to 18, whichever would give you the higher score. This gives you additional trained skills and languages, as normal for increasing your Intelligence score. You must select skills and languages the first time you invest the item, and whenever you invest the same archivist's gaze, you get the same skills and languages you chose the first time.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> Pushing the glasses up your nose and asking the entity for help, you cause the spectacles to cast either <em>@UUID[Compendium.pf2e.spells-srd.Item.True Seeing]</em> or a 3rd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Comprehend Language]</em> on you. Because the entity tied to the spectacles chooses which one, the GM picks whichever spell is most immediately useful in your current situation (and chooses the most useful language each time the item casts comprehend language). The spell lasts for 1 minute.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 24000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "occultism",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.int.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.int.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "divination",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worneyepiece"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

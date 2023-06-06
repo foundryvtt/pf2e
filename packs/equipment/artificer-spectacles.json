@@ -1,0 +1,90 @@
+{
+    "_id": "VVymhIF6UBThdHP9",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Artificer Spectacles",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>These seemingly ordinary rectangular eyeglasses feature clear lenses framed in copper. When invested and worn, they rest perfectly on the bridge of the nose and can only be removed by the wearer. You gain a +3 item bonus to Crafting checks and any skill check made to Identify Magic. When you invest the spectacles, you either increase your Intelligence score by 2 or increase it to 18, whichever is higher. You must select the skills and languages the first time you invest the item, and whenever you invest the same artificer spectacles, you get the same skills and languages you chose the first time.</p>\n<p><strong>Activate</strong><span class=\"\\&quot;pf2-icon\\&quot; pf2-icon\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You cast a 3rd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Mending]</em>spell on an item you touch.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 15000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.int.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.int.value",
+                "value": 18
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "crafting",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Artificer Spectacles (Identify Magic)",
+                "predicate": [
+                    "action:identify-magic"
+                ],
+                "selector": "skill-check",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "divination",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worneyeglasses"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

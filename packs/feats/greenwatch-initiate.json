@@ -1,0 +1,56 @@
+{
+    "_id": "rPbh7sOhhL7i3j1z",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Greenwatch Initiate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've received the basic training developed for all Greenwatch recruits. You become an expert in Survival and gain the @UUID[Compendium.pf2e.feats-srd.Item.Experienced Tracker] and @UUID[Compendium.pf2e.feats-srd.Item.Survey Wildlife] skill feats.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Survival"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Tracker"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Survey Wildlife"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.sur.rank",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "gunslinger",
+                "investigator",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

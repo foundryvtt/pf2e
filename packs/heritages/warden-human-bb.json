@@ -1,0 +1,72 @@
+{
+    "_id": "0Iv6LfT3UEt8taj5",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Warden Human (BB)",
+    "system": {
+        "ancestry": {
+            "name": "Human",
+            "slug": "human",
+            "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        },
+        "description": {
+            "value": "<p>You and your family members are survivors, and you've learned how to take care of yourself. Pick one of the following benefits.</p>\n<ul>\n<li>Add 4 to your maximum Hit Points.</li>\n<li>You become an expert in Fortitude saving throws.</li>\n<li>You become trained in medium armor.</li>\n</ul>\n<p><em>Note: This heritage is from the Beginner Box and features non-standard heritage features</em></p>"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.WardenHuman.HitPoints",
+                        "value": "hp"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.WardenHuman.Fortitude",
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.WardenHuman.MediumArmor",
+                        "value": "armor"
+                    }
+                ],
+                "flag": "wardenHumanBB",
+                "key": "ChoiceSet",
+                "label": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "heritage:warden-human"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "heritage:warden-human:hp"
+                ],
+                "selector": "hp",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "predicate": [
+                    "heritage:warden-human:armor"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.fortitude.rank",
+                "predicate": [
+                    "heritage:warden-human:fortitude"
+                ],
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Beginner Box"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "mWpNrTiREluJ6fLB",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Able Carter",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You worked for many years as a hauler within Geb, either on your own or with a larger operation that shipped goods across Geb's ancient roads. In either case, you were loosely affiliated with the Carters Consortium, and you might have even been part of that faction when allegations of Pharasma worship among its leaders caused the faction's sharp drop in significance.</p>\n<p>Yet the goods still need to be moved from ports to warehouses or from town to town, and that was your business. You've seen a lot of Geb in your time, and you're good at interacting with the quick and the dead alike, but you've given up the shipping business for more lucrative opportunities.</p>\n<p>The Carters Consortium values your past work, especially because so few people are sticking by them today. Your party gains 1 Reputation Point with the Carters Consortium at the start of the campaign.</p>\n<p>Choose two ability boosts. One must be to <strong>Strength</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Deception or Diplomacy skill. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Charming Liar] if you chose Deception or @UUID[Compendium.pf2e.feats-srd.Item.Hobnobber] if you chose Diplomacy. You're also trained in a Lore skill with one of Geb's cities: Graydirge, Mechitar, or Yled.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "value": "dip"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "able-carter"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "able-carter:dec"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Charming Liar"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "able-carter:dip"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Hobnobber"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Blood Lords Player's Guide"
+        },
+        "trainedLore": "",
+        "trainedSkills": {
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,0 +1,62 @@
+{
+    "_id": "wcjEjFKLcPisk4jK",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Jyoti's Feather - Weapon (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jyoti's Feather (Major)]</p>\n<p>The weapon has the <em>greater disrupting rune</em> while the <em>feather</em> is affixed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectJyotisFeatherWeaponMajor",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponMajor}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectJyotisFeatherWeaponMajor}"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "greaterDisrupting"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

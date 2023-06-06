@@ -1,0 +1,30 @@
+{
+    "_id": "32oX6hHUY6K8N70Q",
+    "img": "systems/pf2e/icons/features/ancestry/charhide-goblin.webp",
+    "name": "Charhide Goblin",
+    "system": {
+        "ancestry": {
+            "name": "Goblin",
+            "slug": "goblin",
+            "uuid": "Compendium.pf2e.ancestries.Item.sQfjTMDaZbT9DThq"
+        },
+        "description": {
+            "value": "<p>Your ancestors have always had a connection to fire and a thicker skin, which allows you to resist burning. You gain fire resistance equal to half your level (minimum 1). You can also recover from being on fire more easily. Your flat check to remove persistent fire damage is @Check[type:flat|dc:10] instead of DC 15, which is reduced to @Check[type:flat|dc:5] if another creature uses a particularly appropriate action to help.</p>"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

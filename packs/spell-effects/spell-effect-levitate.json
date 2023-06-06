@@ -1,0 +1,55 @@
+{
+    "_id": "JqrTrvwV7pYStMXz",
+    "img": "systems/pf2e/icons/spells/levitate.webp",
+    "name": "Spell Effect: Levitate",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Levitate]</em>.</p>\n<p>You take a -2 circumstance penalty to attack rolls while floating in the air. You can spend an Interact action to stabilize yourself and negate this penalty for the remainder of the turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "stabilized"
+                    }
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Stabilized this turn",
+                "option": "stabilized",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

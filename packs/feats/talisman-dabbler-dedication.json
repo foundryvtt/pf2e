@@ -1,0 +1,56 @@
+{
+    "_id": "1t5479E6bdvFs4E7",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Talisman Dabbler Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are trained in the use of talismans and similar magical paraphernalia. This training might have occurred in a formal classroom or been an agglomeration of folk magic picked up over time. You can craft talismans and know the formulas for all common talismans in the <em>Core Rulebook</em> of your level or lower. You remember talisman formulas and don't need a formula book for them.</p>\n<p>Additionally, you carry a collection of magical baubles you can turn into temporary talismans. Each day during your daily preparations, you can make two talismans with an item level no higher than half your level. You must know each talisman's formula. A talisman created this way is a temporary item and loses its magic the next time you make your daily preparations if you haven't already used it.</p>\n<p>Finally, when you @UUID[Compendium.pf2e.actionspf2e.Item.Affix a Talisman], you can (in any combination) affix or remove up to four talismans in the 10-minute span.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.fPqSekmEm5byReOk]{Talisman Dabbler} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:talisman"
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "label": "PF2E.SpecificRule.DedicationCraftingEntry.TalismanDabbler",
+                "maxSlots": 2,
+                "selector": "talismanDabbler"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.talismanDabbler.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:talisman-dabbler"
+                ],
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

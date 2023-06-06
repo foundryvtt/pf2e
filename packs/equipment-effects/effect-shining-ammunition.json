@@ -1,0 +1,50 @@
+{
+    "_id": "Sf6UO6vgCeicggOK",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/shining-ammunition.webp",
+    "name": "Effect: Shining Ammunition",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shining Ammunition]</p>\n<p>The ammunition sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 10 minutes. If it hits a target, it sticks, causing the target to shed light in the same radius. A creature can remove the ammunition with an Interact action, but the ammunition itself continues to glow for the rest of the duration or until destroyed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 1,
+                        "type": "pulse"
+                    },
+                    "bright": 20,
+                    "color": "#975335",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

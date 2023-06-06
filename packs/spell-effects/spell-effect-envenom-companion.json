@@ -1,0 +1,79 @@
+{
+    "_id": "zPGVOLz6xhsQN35C",
+    "img": "systems/pf2e/icons/spells/envenom-companion.webp",
+    "name": "Spell Effect: Envenom Companion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Envenom Companion]</em></p>\n<p>You envenom your companion or eidolon's attacks, which drip with highly toxic venom for the spell's duration. The first time each round the target hits a creature with an unarmed Strike that deals piercing or slashing damage, that Strike deals an additional 1d8 poison damage. A creature that is damaged by this poison must attempt a Fortitude save. On a failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. This spell can't target familiars.</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The poison damage increases by 1d8 and the clumsy value imposed on a failed save increases by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "damageType": "poison",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "first-hit",
+                    "unarmed"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 3,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "First hit of the round",
+                "option": "first-hit",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

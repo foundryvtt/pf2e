@@ -1,0 +1,143 @@
+{
+    "_id": "wB8xiQB4RDbzOOvR",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Monstrous Skeleton",
+    "system": {
+        "ancestry": {
+            "name": "Skeleton",
+            "slug": "skeleton",
+            "uuid": "Compendium.pf2e.ancestries.Item.58rL5sg2y4arW1i5"
+        },
+        "description": {
+            "value": "<p>Inhuman skeletons are often created for both their deadly physical attacks and their terrifying appearances. Beasts and monstrous humanoids with the strangest skeletons tend to be the centerpiece of the collection of a necromancer skilled enough to raise one. You gain a claw, horn, tail, or wing unarmed attack that deals 1d6 damage. A claw deals slashing damage, a horn deals piercing damage, and a tail or wing deals bludgeoning damage. This unarmed attack is in the brawling group and has the finesse and unarmed traits.</p>"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Horn",
+                        "value": "horn"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "value": "tail"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Wing",
+                        "value": "wing"
+                    }
+                ],
+                "flag": "primaryStrike",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Automaton.AutomatonArmament.Prompt",
+                "rollOption": "ancestry:skeleton:monstrous"
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "ancestry:skeleton:monstrous:claw"
+                ],
+                "range": null,
+                "slug": "claw",
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/horn.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "predicate": [
+                    "ancestry:skeleton:monstrous:horn"
+                ],
+                "range": null,
+                "slug": "horn",
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    "ancestry:skeleton:monstrous:tail"
+                ],
+                "range": null,
+                "slug": "tail",
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/wing.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Wing",
+                "predicate": [
+                    "ancestry:skeleton:monstrous:wing"
+                ],
+                "range": null,
+                "slug": "wing",
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

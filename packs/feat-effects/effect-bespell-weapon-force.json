@@ -1,0 +1,55 @@
+{
+    "_id": "GbbwJhwSNLw06XpO",
+    "img": "systems/pf2e/icons/spells/astral-labyrinth.webp",
+    "name": "Effect: Bespell Weapon (Force)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Bespell Weapon] if you cast an abjuration spell or an evocation spell that didn't deal damage.</p>\n<p>Until the end of your turn, the weapon deals an additional 1d6 force damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectBespellWeaponForce",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "force",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectBespellWeaponForce}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

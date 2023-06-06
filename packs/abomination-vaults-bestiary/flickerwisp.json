@@ -1,0 +1,509 @@
+{
+    "_id": "x3eOZvKUginj5Blh",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "pyBAuiHwkCVhaTe8",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shock",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "w6bujn3llqafi0s7ppqm": {
+                        "damage": "1d8+2",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "coOSYslrfzzpX9Qf",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YuXrcTfctRYHmw90",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Glow",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A flickerwisp is itself naturally invisible, but glows with pale yellow light, casting bright light in the aura and making it visible.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "glowing"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 5,
+                            "color": "#fff9a3"
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "glowing",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1B109bqthYI0DGyC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Innocuous",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A flickerwisp's appearance registers strangely in the minds of creatures who are confused. A creature with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition never targets a flickerwisp with attacks unless the creature has been damaged by the flickerwisp's shock ability within the last 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VXZ8QpZ1EGC0hg4D",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Immunity",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A flickerwisp is immune to all spells except <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Missile]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Maze]</em>.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fdAMCESh7OW3fKWY",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Consume Confusion",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> A creature within 15 feet of the flickerwisp is @UUID[Compendium.pf2e.conditionitems.Item.Confused]</p>\n<hr />\n<p><strong>Effect</strong> The flickerwisp feeds on the creature's confusion, even as its flashing body and disjointed gyrations cause existing confusion effects to persist.</p>\n<p>It regains [[/r 1d4[healing]]]{1d4 Hit Points}, and if the creature's confused condition has a limited duration, it lasts 1 additional round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1zCZasUbrbz7SMAh",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flicker",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The flickerwisp churns and flits in the air around an adjacent creature's head, and its length flashes and sparkles in a bewildering array of distracting pulsations.</p>\n<p>The creature must succeed at a @Check[type:will|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (2 rounds on a critical failure). On a critical success, the creature is temporarily immune to for 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "mental",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iJ6NEGc0ZVvkM9mS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "2tMbLEhT4gCZswki",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "U365gnd60fn12v0l",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "kxCwZzD8N6tnJ4Sp",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Flickerwisp",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 18,
+                "temp": 0,
+                "value": 18
+            },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 9
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The dancing, twisting flickerwisp is a less powerful but no less malevolent type of will-o'-wisp. Like their more dangerous kin, flickerwisps prefer to haunt lonely swamps or stretches of lonely rivers or creeks, particularly near the shorelines where they can pass themselves off as nothing more than a small gathering of fireflies. A flickerwisp's body is a 3-foot-long length of hair-like fibers that flashes and pulses with ribbons and points of eerie yellow light as the creature flits through the air.</p>\n<p>While a flickerwisp can taste fear, and finds the flavor delectable, it does not feed on this emotion. Instead, flickerwisps subsist on confusion and doubt. The sense of unease a traveler exudes when they become lost in the woods is flickerwisps' favorite repast. They can sip from this sense of disorientation without betraying their presence or harming their prey. Eventually, the flickerwisps grow too hungry and are compelled to flit closer, confuse their prey, and glut on the raw emotions. Flickerwisps do their best to swoop away before death occurs, and the most skilled of these tormentors can keep a chosen meal alive for days, sipping from confusion in small doses.</p>",
+            "source": {
+                "value": "Pathfinder #163: Ruins of Gauntlight"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "aberration",
+                "air"
+            ]
+        }
+    },
+    "type": "npc"
+}

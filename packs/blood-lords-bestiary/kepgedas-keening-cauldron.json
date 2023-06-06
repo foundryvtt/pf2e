@@ -1,0 +1,118 @@
+{
+    "_id": "rJOlv5hfotegHwx2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "jeeUL7xXwHB3iIlv",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Crescendo of Claws",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than Kepgeda is within 15 feet of the cauldron for at least 1 round</p>\n<hr />\n<p><strong>Effect</strong> The screams increase in intensity, and a torrent of phantasmal, three-fingered hands with iron claws spews from the cauldron to assail creatures in area <strong>E13</strong>. Each creature in the room must attempt a @Check[type:will|dc:23] save, with the following results. Kepgeda is immune to the haunt's effects, as she loves the cauldron's screams. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and becomes @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] as long as they remain frightened.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] as long as they remain frightened.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Kepgeda's Keening Cauldron",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 48,
+                "temp": 0,
+                "value": 48
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The cauldron's ear-splitting keening calls forth spectral claws to assail ears and souls alike.</p>",
+            "disable": "<p>@Check[type:athletics|dc:22] to tip the cauldron, or @Check[type:occultism|dc:20] or @Check[type:religion|dc:20] (trained) to ward against the cauldron's effects. Any combination of three successful attempts is required to fully disable the haunt. When the haunt is disabled, the coven seeks vengeance.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The haunt becomes inert (resuming its usual screaming) at the end of any round in which no creatures other than Kepgeda remain in her kitchen.</p>",
+            "routine": "<p>(1 action) The spectral hands scurry about, grabbing at all of Kepgeda's foes in area <strong>E13</strong>. Each such creature takes [[/r 3d6[mental]]] damage (@Check[type:will|dc:20|basic:true]) as the spectral claws assail them. A creature that takes mental damage from this effect doesn't reduce their frightened value at the end of their next turn.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #181: Zombie Feast"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

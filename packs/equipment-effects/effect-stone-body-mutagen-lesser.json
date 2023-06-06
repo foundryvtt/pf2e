@@ -1,0 +1,56 @@
+{
+    "_id": "PEPOd38VfVzQMKG5",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/stone-body-mutagen.webp",
+    "name": "Effect: Stone Body Mutagen (Lesser)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Stone Body Mutagen (Lesser)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>-2 penalty to Reflex saves</li>\n<li>-10 foot penalty to Speed</li>\n<li>Resistance 5 to physical damage (except bludgeoning)</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "type": "untyped",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "value": -10
+            },
+            {
+                "exceptions": [
+                    "bludgeoning"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

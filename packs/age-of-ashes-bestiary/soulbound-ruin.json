@@ -1,0 +1,468 @@
+{
+    "_id": "595MAHwB4JWtzLAA",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "hJc7HGNvwjdmOdfq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Edifice",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "ny74k2u66dsst3exwlj0": {
+                        "damage": "4d10+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GFSu7vcUlllwKJzY",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A4w2Db2zI5g3QPOa",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IDbHyzOZv9b2OyKQ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Impede",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Trigger</strong> A creature within the soulbound ruin uses an action with the move trait.</p>\n<hr />\n<p><strong>Effect</strong> The soulbound ruin reacts violently to stop the creature's movement, shooting spikes, throwing bricks, or otherwise impeding the target. The target must succeed at a @Check[type:reflex|dc:35] save or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wHfHFuiq0qNw7Q0J",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerability to Exorcism",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a soulbound ruin fails a saving throw against a spell that would banish tormented spirits or manipulate souls, such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Banishment]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Soul]</em>, instead of experiencing the listed effects, it takes [[/r 10]]{10 damage} per spell level.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8sgTj0l0kmAK5fpR",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Collapse Ceiling",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ruin collapses up to three 10-foot by 10-foot sections of its ceiling. The ruin takes [[/r {10}]]{10 damage} per section it collapses, and it can't collapse the same section until it has been repaired.</p>\n<p>Each creature in one of these areas takes [[/r 8d10[bludgeoning]]]{8d10 bludgeoning damage} with a @Check[type:reflex|dc:35|basic:true] save. On a failed save, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Restrained] under the rubble until it Escapes (DC 33).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "x9FRA1b0TaNaQQ1p",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pervasive Attacks",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A soulbound ruin's edifice Strikes can target any creature inside the ruin.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p1bvrj2qMZFdHpsv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Self-Repair",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ruin can spend 10 minutes repairing itself to regain up to [[/r 30[healing]]]{30 Hit Points}. If the ruin is interrupted during this time, it loses its focus and the repair fails.</p>\n<p>This ability functions even if the ruin is reduced to 0 HP, unless a <em>@UUID[Compendium.pf2e.spells-srd.Item.Consecrate]</em> ritual has been performed to purify the building, in which case the soulbound ruin is destroyed. This ritual must be dedicated to a good deity or a deity with a strong opposition to undead, such as Pharasma.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IsTp8fGwRvFwpsNj",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "PxTBUnQg6HAm63Xx",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Soulbound Ruin",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 4
+            },
+            "str": {
+                "mod": 10
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 37
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 310,
+                "temp": 0,
+                "value": 310
+            },
+            "immunities": [],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 26
+            },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "details": "can't move",
+                "otherSpeeds": [],
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "Undead",
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Those who tread in ruined places sometimes speak of a sense that a supernatural presence is there alongside them, as if the spirits of the dead were watching intently. Such presences can be very real, often taking the form of ghosts or other shades of undead that cannot let go of their attachment to the Material Plane. But sometimes, instead of manifesting as distinct spirits, the souls of the dead infuse the very stone and mortar around them. When enough souls attach themselves to a single place-be it a home, crypt, or castle-it can take on a life of its own, becoming a soulbound ruin.</p>",
+            "source": {
+                "value": "Pathfinder #148: Fires of the Haunted City"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 27
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "Other Languages Typical to the Region",
+                "selected": [],
+                "value": [
+                    "common"
+                ]
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "construct",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

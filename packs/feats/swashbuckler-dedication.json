@@ -1,0 +1,109 @@
+{
+    "_id": "eAlrvPVb8qt8Lruw",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Swashbuckler Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Choose a @UUID[Compendium.pf2e.classfeatures.Item.Swashbuckler's Style]{Swashbuckler Style}. You gain the @UUID[Compendium.pf2e.classfeatures.Item.Panache] class feature, and you can gain panache in all the ways a swashbuckler of your style can.</p>\n<p>You become trained in Acrobatics or the skill associated with your style. If you were already trained in both skills, you instead become trained in a skill of your choice. You also become trained in swashbuckler class DC. You don't gain any other effects of your chosen style.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.k9Ebp52kt0ZLHtMl]{Swashbuckler} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma 14"
+                },
+                {
+                    "value": "Dexterity 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Swashbuckler's Style"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "predicate": [
+                            "feature:braggart"
+                        ],
+                        "value": "itm"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "predicate": [
+                            "feature:fencer"
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "predicate": [
+                            "feature:gymnast"
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "predicate": [
+                            "feature:wit"
+                        ],
+                        "value": "dip"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Panache"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.swashbuckler",
+                "priority": 39,
+                "value": {
+                    "ability": "dex",
+                    "label": "PF2E.TraitSwashbuckler",
+                    "rank": 1
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

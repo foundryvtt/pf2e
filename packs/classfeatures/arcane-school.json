@@ -1,0 +1,94 @@
+{
+    "_id": "7nbKDBGvwSx9T27G",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Arcane School",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Many arcane spellcasters delve deeply into a single school of magic in an attempt to master its secrets. If you want to be a specialist wizard, choose a school in which to specialize. You gain additional spells and spell slots for spells of your school.</p>\n<p>If you don't choose a school, you're a universalist, a wizard who believes the path to true knowledge of magic requires a multidisciplinary understanding of all eight schools working together. Though a universalist lacks the focus of a specialist wizard, they have greater flexibility.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    {
+                        "not": "feature:universalist"
+                    }
+                ],
+                "priority": 9,
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 Wizard class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:wizard",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Abjuration"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Conjuration"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Divination"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Enchantment"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Evocation"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Illusion"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Necromancy"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Transmutation"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Universalist"
+                    }
+                ],
+                "flag": "arcaneSchool",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Wizard.ArcaneSchool.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.arcaneSchool}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

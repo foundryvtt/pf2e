@@ -1,0 +1,47 @@
+{
+    "_id": "qQLHPbUFASKFky1W",
+    "img": "systems/pf2e/icons/spells/hyperfocus.webp",
+    "name": "Spell Effect: Hyperfocus",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Hyperfocus]</em>.</p>\n<p>The target gains a +1 status bonus to Perception checks attempted with any of its precise senses.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Hyperfocus (Precise senses)",
+                "predicate": [
+                    "sense:precise"
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

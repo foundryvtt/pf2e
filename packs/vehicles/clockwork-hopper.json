@@ -1,0 +1,181 @@
+{
+    "_id": "IhniEmlnkb3pFRZG",
+    "img": "systems/pf2e/icons/default-icons/vehicle.svg",
+    "items": [
+        {
+            "_id": "gafl9oZCmfSGtfxj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hopper",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>This vehicle hops across the terrain as it moves across the ground. The clockwork hopper ignores difficult terrain from earth, rock, rubble, slopes, and underbrush, and greater difficult terrain caused by those features is normal difficult terrain to the clockwork hopper.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zEf7XS6RlEjM0VSO",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wind-Up",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>10 minutes of wind-up, 1 hour of operational time, DC 22, standby</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uP38cyn9BsX8ni0O",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Massive Jump",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The pilot engages a spring-driven mechanism that rockets the clockwork hopper into the air, in a grand leap. The vehicle jumps in a straight line in the direction of its current heading without touching the ground, landing in a space of solid ground up to 70 feet forward and up to 30 feet up. Creatures adjacent to the spaces a hopper lands in take [[/r 4d10[bludgeoning]]] damage with a @Check[type:reflex|dc:22|basic:true|name:Avoid clockwork hopper], and are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure. The clockwork hopper can't use Massive Jump again for 1 minute. Massive Jump stops working if the clockwork hopper is @UUID[Compendium.pf2e.conditionitems.Item.Broken].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "move",
+                        "reckless"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Clockwork Hopper",
+    "system": {
+        "attributes": {
+            "ac": {
+                "check": 0,
+                "details": "",
+                "value": 19
+            },
+            "collisionDC": {
+                "value": 22
+            },
+            "collisionDamage": {
+                "value": "4d10"
+            },
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ]
+        },
+        "details": {
+            "AC": 0,
+            "crew": "1 pilot",
+            "description": "<p>A clockwork hopper is similar in form to a large rabbit, making hop-like strides that avoid terrain impediments, though the lurching hops can be bumpy and cause motion sickness in some riders.</p>",
+            "level": {
+                "value": 6
+            },
+            "passengers": "2",
+            "pilotingCheck": "Driving Lore (DC 22) or Crafting (DC 24)",
+            "price": 750,
+            "space": {
+                "high": 12,
+                "long": 10,
+                "wide": 10
+            },
+            "speed": "Speed 35 feet (clockwork)"
+        },
+        "saves": {
+            "fortitude": {
+                "item": 0,
+                "rank": 0,
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": []
+        }
+    },
+    "type": "vehicle"
+}

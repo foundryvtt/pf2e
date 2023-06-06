@@ -1,0 +1,59 @@
+{
+    "_id": "dXq7z633ve4E0nlX",
+    "img": "systems/pf2e/icons/spells/regeneration.webp",
+    "name": "Spell Effect: Regenerate",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Regenerate]</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "deactivatedBy": [
+                    "acid",
+                    "fire"
+                ],
+                "key": "FastHealing",
+                "type": "regeneration",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 15
+                        },
+                        {
+                            "start": 9,
+                            "value": 20
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

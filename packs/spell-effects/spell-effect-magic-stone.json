@@ -1,0 +1,65 @@
+{
+    "_id": "YzZs7r8VUOp7PiAW",
+    "img": "systems/pf2e/icons/spells/magic-stone.webp",
+    "name": "Spell Effect: Magic Stone",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Stone]</em></p>\n<p>The stones become <em>+1 striking disrupting sling bullets</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "item:group:sling"
+                ],
+                "selector": "strike-attack-roll",
+                "value": 1
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "item:group:sling"
+                ],
+                "selector": "strike-damage",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:group:sling"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "disrupting"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

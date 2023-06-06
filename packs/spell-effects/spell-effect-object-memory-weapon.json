@@ -1,0 +1,67 @@
+{
+    "_id": "uDOxq24S7IT2EcXv",
+    "img": "systems/pf2e/icons/spells/object-memory.webp",
+    "name": "Spell Effect: Object Memory (Weapon)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Object Memory]</em>.</p>\n<p>If you touch a weapon, your proficiency rank with that weapon temporarily increases to trained (if it is not already higher).</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Your proficiency rank increases to expert instead of trained.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "spellEffectObjectMemoryWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "ability": "str",
+                "key": "FixedProficiency",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectObjectMemoryWeapon}-attack",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 1,
+                            "value": "2 + @actor.level"
+                        },
+                        {
+                            "start": 6,
+                            "value": "4 + @actor.level"
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

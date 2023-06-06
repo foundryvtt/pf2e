@@ -1,0 +1,46 @@
+{
+    "_id": "YIXeQFdrt0vPvmsW",
+    "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+    "name": "Effect: Snake Form",
+    "system": {
+        "description": {
+            "value": "<p>The bunyip's tail Strike gains reach 10 and @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab], but it's Jaws Strike looses the persistent bleed damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "tail-attack",
+                "text": "<p>@Localize[PF2E.AttackEffects.IncreasedReach5]</p><hr /><p><strong><span class='pf2-icon'>1</span> @Localize[PF2E.AttackEffectGrab]</strong> ({item|name})</p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

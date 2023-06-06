@@ -1,0 +1,82 @@
+{
+    "_id": "CcQISNjNdD0Fsj9n",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shining Oath (Paladin)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sworn an oath to put the undead to rest. Add the following tenet to your champion's code after the other tenets: \"You must end the existence of undead you encounter as long as you have a reasonable chance of success; in the unlikely event you find a good undead, you can try to work out a more peaceful way to help it recover from its undead state rather than destroying it in combat, such as helping it complete its unfinished business and find peace.\"</p>\n<p>Your @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] gains a +4 circumstance bonus to damage against an undead, or +6 if you have master proficiency with the weapon you used.</p>\n<p>You don't consider undead to be legitimate authorities, even in nations ruled by undead.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tenets of good"
+                },
+                {
+                    "value": "paladin cause"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Retributive Strike against an undead",
+                "option": "shining-oath",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Shining Oath",
+                "predicate": [
+                    "shining-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "shining-not-master",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Shining Oath",
+                "predicate": [
+                    "shining-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "shining-master",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "type": "feat"
+}

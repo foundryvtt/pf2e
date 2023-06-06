@@ -1,0 +1,591 @@
+{
+    "_id": "SSFzb5JBZDG6sr9B",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "PGeuRIZhMLp88mYc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "wcghqptu0cixr0caaupl": {
+                        "damage": "1d6+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "swAWlgrj8JoJq6xB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HL1pjayMZJpK1JID",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o4uNCohL2RA2ShrG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KswFDiMoMctr0zFY",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Draining Peek",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet that Opkherab can perceive with his lifesense starts its turn</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:fortitude|dc:17] save. If it fails, Opkherab regains [[/r 3[healing]]]{3 Hit Points}, and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Opkherab can't use Draining Peek for [[/r 1d4 #Draining Peek Recharge]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "necromancy",
+                        "occult",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "U5f43GO8dGHjcl08",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Key Conditioning",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Opkherab has a -1 circumstance penalty to attacks against anyone holding one of the bank's keys.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mS3DC54HONPgp9Pg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sunlight Vulnerability",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If exposed to direct sunlight, Opkherab can't use actions with the death trait and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. The slowed value increases by 1 each time Opkherab ends its turn in sunlight. If Opkherab loses all its actions this way, he is destroyed.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W4mxFTUeCKve9DG0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death Grip",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Opkherab Grabs a living creature, including a Grab to extend the effect on a grappled creature, he gains 3 temporary Hit Points, and the creature must succeed at a @Check[type:fortitude|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. This increases the value of the creature's drained condition by 1, to a maximum of drained 4.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oFBq6T55H7FpCRum",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Zombie Spawn",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any humanoid who dies while drained by Opkherab rises as an autonomous zombie 24 hours after their death. You might use this opportunity to allow the player to keep playing the same character, rebuilt with the zombie archetype.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e76HWovtPRHOVF6v",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "WBkrC7dY8oFt2xG6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ZLSIDPctSGiWpdEL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "GPMWVB4Qlq7V3v4E",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Opkherab",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 10
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "Variant bodak bank guard",
+            "creatureType": "Undead",
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When a living, sentient humanoid is exposed to an extreme expression of supernatural evil, the experience can irrevocably damn the victim, crushing their mind and ripping out their soul in an appalling, unholy transformation that results in a creature that's anathema to life-the bodak.</p>\n<p>The shreds of physicality that survive this absolute corruption serve only to enhance the humanoid's profoundly disturbing appearance. The bodak's body is horrifically twisted, as though it's locked in a convulsion of agony and terror. Its desiccated and hairless flesh bears an otherworldly, pearlescent sheen, strung taut across a malformed skeleton that reduces its gait to a slow shamble. But most disturbing of all are its eyes, set in a drooping, melted visage with scant remains of its former facial structure. These eyes, sunken deep into their sockets, nevertheless glow with an unholy light, stare with unremitting malevolence, and constantly weep noxious vapor.</p>\n<p>Fragmented memories of a prior existence filtered through a vengeful hatred of the living lead the bodak to try to return to those places it once knew. If successful, it assaults former friends, acquaintances, and loved ones with its murderous gaze and an incomprehensible torrent of gibberish laced with vile curses, accusations, and threats-an assault that often leads to the victims rising as newly formed bodaks themselves.</p>",
+            "source": {
+                "value": "Pathfinder #181: Zombie Feast"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "abyssal",
+                    "common"
+                ]
+            },
+            "rarity": "unique",
+            "senses": {
+                "value": "darkvision, lifesense 30 feet"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

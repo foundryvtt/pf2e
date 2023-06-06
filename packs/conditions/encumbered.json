@@ -1,0 +1,44 @@
+{
+    "_id": "D5mg6Tc7Jzrj6ro7",
+    "img": "systems/pf2e/icons/conditions/encumbered.webp",
+    "name": "Encumbered",
+    "system": {
+        "description": {
+            "value": "<p>You are carrying more weight than you can manage. While you're encumbered, you're @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and take a 10-foot penalty to all your Speeds. As with all penalties to your Speed, this can't reduce your Speed below 5 feet.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": null,
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "slug": "encumbered",
+                "value": -10
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": false,
+            "value": null
+        }
+    },
+    "type": "condition"
+}

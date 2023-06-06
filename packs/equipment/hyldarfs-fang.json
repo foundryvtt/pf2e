@@ -1,0 +1,122 @@
+{
+    "_id": "O7pgJB6M5UqUZ9Qq",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/hyldarfs-fang.webp",
+    "name": "Hyldarf's Fang",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "hand-cannon",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "simple",
+        "containerId": "null",
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This <em>+2 greater striking hand cannon</em> is carved and crafted from a single large fang, worn with age and cracked with red lines. The tip of the fang has been filed down, but still leaks black fluid occasionally. It was fashioned from the tooth of the tor linnorm Hyldarf by a half-Ulfen gunsmith from Tian Xia who sought the title of linnorm king. Though the smith failed to slay the linnorm, he did claim the mighty dragon's tooth and fashion it into a magic firearm that still drips warm venom. Hyldarf survived the encounter with her attacker and slew the gunsmith years later, though by then the smith had already bequeathed the weapon to his chosen heir and it was far out of her grasp. The linnorm still searches for her missing tooth, portending potential doom for the weapon's owner.</p>\n<p>The weapon deals an additional 2d6 fire damage on a successful Strike, plus 3d10 persistent fire damage on a critical hit. Fire damage dealt by this weapon (including persistent fire damage and damage from Hyldarf's Venom) ignores the target's fire resistance.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> command, envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You call upon Hyldarf's power to gain the magic of a linnorm for a brief time. For 1 minute, you gain the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Fly]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Freedom of Movement]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.True Seeing]</em> as well as fire resistance 20.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Hyldarf's Fang]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> Interact</p>\n<p><strong>Frequency</strong> Once per minute</p>\n<hr />\n<p><strong>Effect</strong> You soak your shot in the fluid of the fang, imbuing it with Hyldarf's venom. The next Strike you make with Hydalf's Fang before the end of your next turn delivers the venom to the target.</p>\n<hr />\n<p><strong>Hyldarf's Venom</strong> (fire, injury, poison)</p>\n<p><strong>Saving Throw</strong> DC 34 @Check[type:fortitude|dc:34|name:Hyldarf's Venom|traits:fire,injury,poison] save</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> [[/r 3d6[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}</p>\n<p><strong>Stage 2</strong> [[/r 6d6[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "firearm",
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 15
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 2
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 2000
+            }
+        },
+        "propertyRune1": {
+            "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": 30,
+        "reload": {
+            "value": "1"
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "fire",
+                "diceNumber": 3,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "Note",
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.WeaponPropertyRune.greaterFlaming.Note.criticalSuccess",
+                "title": "{item|name}"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "greaterStriking"
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "modular"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "weapon"
+}

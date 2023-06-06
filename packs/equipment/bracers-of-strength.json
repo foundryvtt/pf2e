@@ -1,0 +1,95 @@
+{
+    "_id": "WOiCJSS2MicKCMVs",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-missile-deflection.webp",
+    "name": "Bracers of Strength",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>Etchings of powerful bears decorate these brass bracers. You gain a +3 item bonus to Athletics checks and a +2 circumstance bonus to Athletics checks to lift a heavy object, @UUID[Compendium.pf2e.actionspf2e.Item.Escape], and @UUID[Compendium.pf2e.actionspf2e.Item.Force Open]. When you invest the bracers, you either increase your Strength modifier by 1 or increase it to +4, whichever would give you a higher score.</p>\n<p><strong>Activate</strong> <span class=\"\\&quot;pf2-icon\\&quot; pf2-icon\">1</span> (manipulate)</p>\n<hr />\n<p><strong>Effect</strong> Attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a creature. If you succeed, you crush the creature in your grasp, dealing bludgeoning damage to it equal to your Strength modifier. If you critically succeeded, the damage is equal to double your Strength modifier, and the creature suffocates as long as it remains @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by you.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 15000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Belt of Giant Strength (lift heavy objects, Escape, Force Open)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lift-heavy-object",
+                            "action:escape",
+                            "action:force-open"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.str.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.str.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Blog"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornbracers"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

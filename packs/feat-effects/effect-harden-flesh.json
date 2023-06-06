@@ -1,0 +1,66 @@
+{
+    "_id": "Np3OSqKxuB9rTbij",
+    "img": "systems/pf2e/icons/spells/flesh-to-stone.webp",
+    "name": "Effect: Harden Flesh",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Harden Flesh]</p>\n<p>You gain resistance 3 to physical damage, except adamantine, until the beginning of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 11,
+                            "start": 10,
+                            "value": 3
+                        },
+                        {
+                            "end": 15,
+                            "start": 12,
+                            "value": 4
+                        },
+                        {
+                            "end": 19,
+                            "start": 16,
+                            "value": 5
+                        },
+                        {
+                            "start": 20,
+                            "value": 6
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

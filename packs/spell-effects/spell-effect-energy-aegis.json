@@ -1,0 +1,51 @@
+{
+    "_id": "4Lo2qb5PmavSsLNk",
+    "img": "systems/pf2e/icons/spells/energy-aegis.webp",
+    "name": "Spell Effect: Energy Aegis",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Energy Aegis]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "force",
+                    "negative",
+                    "positive",
+                    "sonic"
+                ],
+                "value": "5*floor((@item.level -5)/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

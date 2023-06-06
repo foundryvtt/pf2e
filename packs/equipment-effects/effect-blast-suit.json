@@ -1,0 +1,58 @@
+{
+    "_id": "PFtYVamw7de2cozU",
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/blast-suit.webp",
+    "name": "Effect: Blast Suit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Blast Suit]</p>\n<p>The <em>blast suit</em> locks together into a rigid bulwark, protecting you from the blast but preventing you from moving from your position under any circumstances. You become immobilized, gain a +2 circumstance bonus to your Reflex save against area effects, and gain resistance 5 to all damage you would normally take from area effects and scatter splash damage (this doesn't damage the <em>blast suit</em>). These effects persist for as long as the suit remains in the locked position. You can Interact with the suit to unlock it.</p>\n<p><strong>Unimplemented effects:</strong> Resistance to scatter splash damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "area-effect"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "area-damage",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #180: The Smoking Gun"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

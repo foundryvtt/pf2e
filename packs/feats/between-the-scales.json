@@ -1,0 +1,51 @@
+{
+    "_id": "zL6zUrt44tZYyuh4",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Between The Scales",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Underestimating you is a grave mistake, but it's one others keep making. You've learned to take advantage of slips in your foes' defenses.</p>\n<p>When you Strike a @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creature using a melee weapon or unarmed attack that has the agile and finesse traits, it gains the backstabber trait.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:agile",
+                    "item:trait:finesse",
+                    {
+                        "not": "item:ranged"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:condition:flat-footed"
+                ],
+                "property": "weapon-traits",
+                "value": "backstabber"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

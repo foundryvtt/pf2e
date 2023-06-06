@@ -1,0 +1,83 @@
+{
+    "_id": "5KHp3903LnOcHp8k",
+    "img": "systems/pf2e/icons/equipment/held-items/hoax-hunters-kit.webp",
+    "name": "Hoax-Hunter's Kit",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This wooden box unfolds into a stack of hinged trays holding calipers, magnifying lenses, acids and reagents, comparison sketches of species commonly mistaken for one another, and glass slides for specimen testing. When you use this kit to study accounts of a creature or what it left behind (such as spoor, tracks, or fur samples), you gain a +1 item bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about the creature or to @UUID[Compendium.pf2e.actionspf2e.Item.Track] the creature. In addition, if you fail to Recall Knowledge about the creature (but don't critically fail), you're able to eliminate at least one possibility of a common type of animal. For instance, you might be able to verify the creature isn't an owlbear, even if you get no further information.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 50
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "hoax-hunter"
+                ],
+                "selector": [
+                    "arcana",
+                    "crafting",
+                    "nature",
+                    "religion",
+                    "occultism"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:track",
+                    "hoax-hunter"
+                ],
+                "selector": "survival",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}

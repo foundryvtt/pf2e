@@ -1,0 +1,85 @@
+{
+    "_id": "9ZIP6gWSp9OTEu8i",
+    "img": "systems/pf2e/icons/spells/pocket-library.webp",
+    "name": "Spell Effect: Pocket Library",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Pocket Library]</em></p>\n<p>During the duration of this spell, you can call forth a tome from the extradimensional library when attempting a Recall Knowledge check using your chosen skill. This is part of the action to Recall Knowledge. You must have a hand free to do so. The tome appears in your hand, open to an appropriate page. This grants you a +1 status bonus on the Recall Knowledge check. If you roll a critical failure on this check, you get a failure instead. If the roll is successful and the subject is a creature, you gain additional information or context about the creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "pocket-library"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 1
+                        },
+                        {
+                            "end": 5,
+                            "start": 3,
+                            "value": 2
+                        },
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": 3
+                        },
+                        {
+                            "start": 9,
+                            "value": 4
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "pocket-library"
+                ],
+                "selector": "skill-check",
+                "type": "skill"
+            },
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "pocket-library",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

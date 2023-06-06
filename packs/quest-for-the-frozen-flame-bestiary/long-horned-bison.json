@@ -1,0 +1,475 @@
+{
+    "_id": "XxKWVyq21NGiDCaR",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "p52dlxlcoeoa8n4k",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "L4k4IvXptBCN6L5P": {
+                        "damage": "2d8+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "512vnr9ni7v0dnam",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "7OGld2bKWDfP4j6n": {
+                        "damage": "2d10+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "critical": true,
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": [
+                            "pointed-charge"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EVapu3Pe0KMJkCl9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "thsxzpoi1dmg2pu9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cold Adaptation",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The bison reduces the effects it suffers from cold environments by one step.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "we6ywuy62cezbqy3",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Toss",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature ends its movement within reach of the bison's horn Strike</p><hr /><p><strong>Effect</strong> The bison attempts to Shove the triggering creature with its horns. The bison can't Stride after the triggering creature on a success or critical success.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4c6axo77e8liu4s5",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Pointed Charge",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bison surges toward its foe, horns lowered. It Strides twice. If the bison ends its movement with an enemy within its reach, it makes a horn Strike against that enemy. The strike gains the fatal d12 trait.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "pointed-charge",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zlv4f15aeb6f30g4",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Rolling Thunder",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bison kicks up dust and shakes the ground as it charges. The stampeding bison Strides up to twice its Speed in a straight line, dealing [[/r (4d8+8)[bludgeoning]]] damage (@Check[type:reflex|dc:24|basic:true]) to any Large or smaller creature in its path.Multiple bison can participate in Rolling Thunder by spending this ability's actions and waiting to charge until the herd is ready. Before the beginning of its next turn, a bison can then charge as a reaction triggered by an adjacent bison beginning its Rolling Thunder charge. All bison in the combined charge must charge in parallel lines, so the areas can't overlap. The combined charge deals an additional [[/r 3d8[bludgeoning]]] damage to creatures in the area, and a creature that fails the Reflex saving throw is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PEctMweYPGD6tPDl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "j4kyr8imwfdxrxlj",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "atk4gy30qu00tgqs",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Long-horned Bison",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 13
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "special": "",
+                "value": 35
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Much like their smaller bison cousins, long-horned bison are bovines with short faces, two horns, a shaggy coat, and a noticeable hump on their back. Despite their relation to more placid bovines, however, long-horned bison are ill-tempered and territorial. Their tread shakes the ground, while the thunder of their stampedes can be mistaken for an earthquake. Long-horned bison weigh upwards of 4,500 pounds and measure up to 9 feet tall and 16 feet long. Their horns, measured tip to tip, can be almost as wide as the bison are tall.</p>",
+            "source": {
+                "value": "Pathfinder #176: Lost Mammoth Valley"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "scent (imprecise) 60 feet"
+            },
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

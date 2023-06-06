@@ -1,0 +1,50 @@
+{
+    "_id": "GvqB4M8LrHpzYEvl",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/playing-cards.webp",
+    "name": "Stance: Fane's Fourberie",
+    "system": {
+        "description": {
+            "value": "<p>Granted by: @UUID[Compendium.pf2e.feats-srd.Item.Fane's Fourberie]</p>\n<p>Stella Fane has perfected a technique for using playing cards as weapons that's one part sleight of hand and one part magic.</p>\n<p>When you enter this stance, choose whether to treat playing cards in your possession as daggers or darts; you can wield a playing card in all ways as the chosen weapon until the stance ends. As long as the majority of the deck remains in your possession, any cards that are lost or thrown can be found after 1 minute. Otherwise, the remaining cards are likely lost or destroyed.</p>\n<p>A character who has this feat can enchant a single deck of playing cards as a magic weapon, etching fundamental and property runes directly onto the deck of cards.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Weapon.Base.dagger",
+                        "value": "dagger"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.dart",
+                        "value": "dart"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.FanesFourberie.Prompt"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

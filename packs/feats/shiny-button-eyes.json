@@ -1,0 +1,49 @@
+{
+    "_id": "eZsMl6rx8Bv6Ccnp",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Shiny Button Eyes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've polished your eyes to reflect the smallest details in dimmest light. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Canny Acumen] skill feat as a bonus feat, but you must choose Perception. Additionally, you gain a +1 circumstance bonus to Perception checks against visual illusions.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "illusion",
+                    "visual"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Canny Acumen"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "poppet"
+            ]
+        }
+    },
+    "type": "feat"
+}

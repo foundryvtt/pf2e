@@ -1,0 +1,64 @@
+{
+    "_id": "eW3cfCH7Wpx2vik2",
+    "img": "systems/pf2e/icons/features/classes/fey.webp",
+    "name": "Bloodline: Fey",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Fey whimsy or a tryst in a moonlit grove put the bewitching magic of the First World into your family's bloodline.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Deception, Nature</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Charm]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Hideous Laughter]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Enthrall]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Cloak of Colors]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Mislead]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Visions of Danger]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Uncontrollable Dance]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Resplendent Mansion]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Dust]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fey Disappearance]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fey Glamour]</em></p>\n<p><strong>Blood Magic</strong> Colorful fey glamours dance around you or one target, causing them to be concealed for 1 round. Such obvious concealment can't be used to Hide.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Fey Blood Magic]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "primal"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

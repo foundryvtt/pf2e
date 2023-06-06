@@ -1,0 +1,456 @@
+{
+    "_id": "EOiOqs1vHCxZAj3T",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "cS4RQnXm1y1xugCt",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "clawing-fear"
+                    ]
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "8aeqhx0p2nux3ynautq4": {
+                        "damage": "2d6+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "j45FbeObppNsRIhN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TAIcUgt3JKg5c7fV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scarecrow's Leer",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The scarecrow's eyes flicker with an unnerving glow. A creature can't reduce its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition below 1 as long as it is in the aura's emanation. When a creature enters or starts its turn in the aura, it must attempt a @Check[type:will|dc:18] save. Birds and other avian creatures take a -2 circumstance penalty to this save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is then temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the scarecrow until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 40,
+                        "slug": "scarecrows-leer",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental",
+                            "occult",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1V1IFVEwiJA8p72B",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Baleful Glow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The scarecrow's head bursts into ghostly, heatless flame that sheds bright light in a @Template[type:emanation|distance:20] (and dim light to the next 20 feet). If the scarecrow uses this ability on the first round of combat, any creature that has not acted yet is startled and becomes @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the scarecrow for 1 round. It can suppress the light by using this action again.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "baleful-glow"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "baleful-glow",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oYtncLyCKuBAQThk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Clawing Fear",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The scarecrow's strikes deal an additional [[/r 1d6[mental]]] damage to @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Target is Frightened",
+                        "option": "clawing-fear",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:frightened",
+                                    "clawing-fear"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "clawing-fear",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NTWIBx9lvUwV7F1W",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Mundane Appearance",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until it acts, the scarecrow resembles an ordinary scarecrow. It has an automatic result of 32 on Deception checks and DCs to pass as an ordinary scarecrow.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gHW1gSiQAd3XJNUH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Scarecrow",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "type": "mental"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 11
+            },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "slashing"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Construct",
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A ramshackle collection of materials in a human shape, the scarecrow construct is indistinguishable from a normal scarecrow until it slowly creaks to life. As it animates, its carved pumpkin or sackcloth face bursts into eldritch flame, sending fear creeping into the air around it. Each scarecrow is handcrafted and unique in its appearance, though most are 5 to 6 feet tall and constructed of a combination of wood, cloth, rope, straw, sawdust, discarded husks and cobs, and similar materials, all dressed in ragged pastoral garments. This rudimentary construction makes a scarecrow somewhat fragile, prone to snapping limbs in the crush of battle. Yet its structure is adaptable, allowing it to reshape another piece of itself into a clawed limb or grip a severed portion of itself to swat at its foes.</p>\n<p>When a scarecrow is created, it must be anointed with a drop of its creator's blood into each of its eyes. This blood soaks into the material and siphons a tiny sliver of the creator's soul away-not enough to harm the creator, but more than enough to imbue the scarecrow with an instinctive intellect that allows it to follow commands as eagerly as a well-trained guard dog. When a scarecrow is destroyed, the blood leaks back out from its eyes, but the portion of the creator's soul never returns.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary 2"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct"
+            ]
+        }
+    },
+    "type": "npc"
+}

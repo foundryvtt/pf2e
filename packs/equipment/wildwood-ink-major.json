@@ -1,0 +1,85 @@
+{
+    "_id": "Lwvg9GECyIPsG8Xa",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Wildwood Ink (Major)",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>These curving, delicate designs resemble leaves, vines, or creepers, most often wrapped around a limb, ear, or throat, or curled around specific muscles. They help you blend in among plants. You gain a +3 item bonus to Stealth checks, which increases to +4 in forests.</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">R</span></p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature would detect you by Seeking</p>\n<p><strong>Requirements</strong> You're in a forest or similar natural area</p>\n<hr />\n<p><strong>Effect</strong> The tattoo casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Tree Shape]</em> on you before you can be noticed. The duration of this spell is 8 hours. If you've already Activated the tattoo, you can supply a separate casting of <em>tree shape </em>to recharge the tattoo instead of having the spell's normal effect. This allows you to Activate the tattoo again in the same day. You can do so multiple times each day, but only as many times as you continue to cast <em>tree shape</em> to recharge the tattoo after each use.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 15000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Tattoo.WildwoodInk.Major.InForestLabel",
+                "predicate": [
+                    "terrain:forest"
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "domain": "stealth",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.Forests",
+                "option": "terrain:forest",
+                "toggleable": true
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "primal",
+                "tattoo",
+                "transmutation"
+            ]
+        },
+        "usage": {
+            "value": "tattooed-on-the-body"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

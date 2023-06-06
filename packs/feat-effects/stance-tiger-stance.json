@@ -1,0 +1,67 @@
+{
+    "_id": "pf9yvKNg6jZLrE30",
+    "img": "systems/pf2e/icons/features/feats/tiger-stance.webp",
+    "name": "Stance: Tiger Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Tiger Stance]</p>\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes [[/r 1d4[bleed]]].</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/feats/tiger-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.TigerClaw",
+                "range": null,
+                "slug": "tiger-claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "tiger-claw-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

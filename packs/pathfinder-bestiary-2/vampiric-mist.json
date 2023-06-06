@@ -1,0 +1,377 @@
+{
+    "_id": "NQ6qRvpD9DIwVxt3",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "ABqHj13JWyqTUohA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Misty Tendril",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "blood-siphon"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DuUso0h1BlAS0Ch3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ba5N4O9vroJScmAq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Misty Form",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A vampiric mist's body is composed of a semisolid red mist similar in consistency to thick foam. This enables a vampiric mist to move through spaces as narrow as 1 inch in diameter with no reduction to its Speed. However, a vampiric mist can't wear or interact with objects. It also can't enter water or other fluids, and it's treated as Tiny for the purpose of how wind affects it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QBq3x8HUuGt0wVZm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sense Blood (Imprecise) 60 feet",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A vampiric mist can sense creatures that have blood within 60 feet. It can sense exposed blood within a mile.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ojlZFCKNrXd0MjTG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood Siphon",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a vampiric mist damages a creature with a misty tendril Strike, the creature must attempt a @Check[type:fortitude|dc:20] save. If the Strike was a critical hit, the outcome of the creature's save is one degree worse than the result of the saving throw. Any temporary Hit Points the vampiric mist gains from Blood Siphon fade after 1 hour.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and the vampiric mist gains [[/r 5 #Temporary Hit Points]]{5 temporary Hit Points}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}. The vampiric mist gains [[/r 10 #Temporary Hit Points]]{10 temporary Hit Points} and takes on an intense red until the end of its next turn. During this time, it gains a +2 status bonus to AC and saves and is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. It can use its extra action only to Strike.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blood Siphon (Critical Failure)]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "blood-siphon",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6dVWYi9IJBmMuw5R",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "3BOHfpZ33MYwqK71",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Vampiric Mist",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 35,
+                "temp": 0,
+                "value": 35
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 9
+            },
+            "resistances": [
+                {
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "Aberration",
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Though they're often mistaken for vampires in gaseous form or an unusual type of air elemental, vampiric mists are in fact strange aberrant life-forms. With an amorphous body that consists as much of fluid as it does of air, these creatures dwell in swamps or moist underground regions where their vulnerability to heat isn't as much of a concern. Still, they prefer to lair near the fringes of such areas, as a vampiric mist needs a constant supply of fresh blood for sustenance. While blood drawn from animals is just as nutritious as blood from anything else, these sadistic monsters vastly prefer the flavor of blood drawn from thinking creatures. Like will-o'-wisps, vampiric mists find that fear flavors the blood, though they gain no particular advantage by feeding on the frightened.</p>\n<p>Although somewhat intelligent, vampiric mists do not form societies. They sometimes group into small gangs, but even then they show little interest in working together. Vampiric mists spend most of their time seeking prey-a pursuit they approach with great creativity. The mists' propensity for taking on vague, skeletal forms of the creatures whose blood they drink further adds to their mystique and fuels rumors that they have connections to the undead. Indeed, many vampiric mists enjoy using this common misconception to their advantage, leading foes to apply foolish tactics-such as tricking spellcasters into attempting to use positive energy against them as if they were undead monsters.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary 2"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "aklo"
+                ]
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision, sense blood (imprecise) 60 feet"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}

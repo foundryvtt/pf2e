@@ -1,0 +1,194 @@
+{
+    "_id": "RGEmINZa7YXvbruu",
+    "img": "systems/pf2e/icons/default-icons/vehicle.svg",
+    "items": [
+        {
+            "_id": "79YskaB7D1bAmIDD",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Volatile Flamethrower",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The pilot performs a three-action activity on their turn to vent alchemical fire out the sides of this vehicle. This requires three flasks of minor alchemist's fire, which the pilot loads into the vent as part of the activity. The pilot must then attempt a @Check[type:flat|dc:5]. On a success, creatures adjacent to this vehicle take [[/r 1d8[fire]]] damage (@Check[type:reflex|dc:15|basic:true|name:Avoid Flames]). On a failure, it backfires, dealing [[/r 1d8[fire]]] damage to the pilot and any passengers, with no save.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yKd1wGx6zmlBwk0u",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fall Apart",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>When this vehicle takes physical damage the pilot must attempt a @Check[type:flat|dc:11] (or a @Check[type:flat|dc:20] when it takes a critical hit). On a failure, the armored hull fractures and the vehicle loses its Hardness and takes a -4 circumstance penalty to AC.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Gy4AuNFAGBzfjRFq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smog",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Whenever this vehicle is being piloted, it continually emits a thin haze of smoke and chemicals. Creatures in the aura (including the pilot and passengers) take a -1 circumstance penalty to visual Perception checks.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "smog",
+                        "traits": [
+                            "aura",
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Clunkerjunker",
+    "system": {
+        "attributes": {
+            "ac": {
+                "check": 0,
+                "details": "",
+                "value": 13
+            },
+            "collisionDC": {
+                "value": 15
+            },
+            "collisionDamage": {
+                "value": "2d6"
+            },
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 18,
+                "temp": 0,
+                "value": 18
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ]
+        },
+        "customModifiers": {},
+        "details": {
+            "AC": 0,
+            "crew": "1 pilot",
+            "description": "<p>A favorite of goblins, a clunkerjunker is essentially an armored cart built out of junk that uses volatile flammable chemicals, explosions, and alchemical reactions to propel itself bumpily along. While the initial idea is impressive and the cost of creating one is surprisingly low, these junkers, unfortunately, have a strong tendency to malfunction, and they're always one bad bump away from disaster.</p>",
+            "level": {
+                "value": 1
+            },
+            "passengers": "1",
+            "pilotingCheck": "Driving Lore (DC 16) or Crafting (DC 18)",
+            "price": 30,
+            "space": {
+                "high": 5,
+                "long": 10,
+                "wide": 5
+            },
+            "speed": "30 feet (alchemical)"
+        },
+        "saves": {
+            "fortitude": {
+                "item": 0,
+                "rank": 0,
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "vehicle"
+}

@@ -1,0 +1,60 @@
+{
+    "_id": "CMDCWPC8m2b6HvEN",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Spiritual Flurry",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you use Spiritual Strike, hit targets become @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the end of your current turn. In addition, the additional force damage dealt by the Strike increases by 2d6.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Scion of Domora Dedication"
+                },
+                {
+                    "value": "Spiritual Strike"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "spiritual-strike"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "spiritual-strike"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.ScionOfDomora.SpiritualFlurryNote",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #188: They Watched the Stars"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

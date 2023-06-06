@@ -1,0 +1,51 @@
+{
+    "_id": "llawV63qzdynbOkx",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Stone Communion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a unique communion with the earth and stones. You learn the Terran language and you can Activate your <em>ka stone</em> with a 10-minute activation (envision) to cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Stone Tell]</em>.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ka Stone Ritual"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.livingMonolith.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "value": "terran"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

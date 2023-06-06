@@ -1,0 +1,46 @@
+{
+    "_id": "pE2TWhG97XbhgAdH",
+    "img": "systems/pf2e/icons/spells/incendiary-aura.webp",
+    "name": "Spell Effect: Incendiary Aura",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Incendiary Aura]</em></p>\n<p>Each time a creature within the emanation takes fire damage, it catches on fire, taking 2d4 persistent fire damage.</p>\n<p>[[/r (ceil(@item.level/2)+1)d4[persistent,fire]]]{Leveled Persistent Fire Damage}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Aura",
+                "radius": "ceil(@item.level/2)*5+5",
+                "slug": "incendiary-aura",
+                "traits": [
+                    "cursebound",
+                    "fire",
+                    "oracle"
+                ]
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,110 @@
+{
+    "_id": "oA866uVEFu1OrAX0",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Trap Finder",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have an intuitive sense that alerts you to the dangers and presence of traps. You gain a +1 circumstance bonus to Perception checks to find traps, to AC against attacks made by traps, and to saves against traps. Even if you aren't @UUID[Compendium.pf2e.actionspf2e.Item.Search]{Searching}, you get a check to find traps that normally require you to be Searching. You still need to meet any other requirements to find the trap.</p>\n<p>You can disable traps that require a proficiency rank of master in Thievery. If you have master proficiency in Thievery, you can disable traps that require a proficiency rank of legendary instead, and your circumstance bonuses against traps increase to +2.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TrapFinder.SearchLabel",
+                "option": "trap-finder",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "trap"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw",
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 0,
+                            "value": 1
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.skills.thi.rank"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TrapFinder.DefendingLabel",
+                "option": "origin:trait:trap",
+                "toggleable": "totm"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "trap",
+                            "trap-finder"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 0,
+                            "value": 1
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.skills.thi.rank"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator",
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

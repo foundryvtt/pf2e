@@ -1,0 +1,53 @@
+{
+    "_id": "zQHF2kkhZRAcrQvR",
+    "img": "systems/pf2e/icons/equipment/other/attached-items/scope.webp",
+    "name": "Effect: Sniping Duo Dedication",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sniping Duo Dedication].</p>\n<p>Whenever you or your spotter successfully Strikes a target, the other member of your duo gains a +1 circumstance bonus per weapon damage die on the damage roll of their next Strike made against that target before the end of their next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "sniping-duo"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SnipingDuoDedication.Label",
+                "option": "sniping-duo",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

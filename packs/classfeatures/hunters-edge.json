@@ -1,0 +1,64 @@
+{
+    "_id": "mzkkj9LEWjJPBhaq",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Hunter's Edge",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have trained for countless hours to become a skilled hunter and tracker, gaining an additional benefit when you Hunt Prey depending on the focus of your training. Choose one of the following hunter's edges:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Flurry]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Outwit]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Precision]</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "1st-level Ranger class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:ranger",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Flurry"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Outwit"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Precision"
+                    }
+                ],
+                "flag": "huntersEdge",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Ranger.HuntersEdge.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.huntersEdge}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

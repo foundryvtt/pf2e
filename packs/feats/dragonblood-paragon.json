@@ -1,0 +1,74 @@
+{
+    "_id": "4EgueMqUm0ebKV4J",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragonblood Paragon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your draconic anatomy becomes especially pronounced. You increase the power of one of the following kobold heritages or feats you have.</p>\n<hr />\n<p><strong>Dracomancer</strong> Increase the number of times you can cast each of the granted 1st- and 2nd-level innate spells by 1.</p>\n<p><strong>Kobold Breath</strong> Creatures that critically fail their save against your Kobold Breath take [[/r 3d4[persistent]]] @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] of the type dealt by your draconic patron.</p>\n<p><strong>Strongjaw Kobold</strong> Your jaws unarmed attack gains the deadly d6 trait.</p>\n<p><strong>Venomtail Kobold</strong> You produce enough venom to use the Tail Toxin action twice per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "strongjaw kobold heritage, venomtail kobold heritage, Dracomancer, or Kobold Breath"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Kobold.DragonbloodParagon.Dracomancer",
+                        "value": "dracomancer"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kobold.DragonbloodParagon.KoboldBreath",
+                        "value": "koboldbreath"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kobold.DragonbloodParagon.StrongjawKobold",
+                        "value": "strongjawkobold"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kobold.DragonbloodParagon.VenomtailKobold",
+                        "value": "venomtailkobold"
+                    }
+                ],
+                "flag": "dragonbloodParagon",
+                "key": "ChoiceSet",
+                "rollOption": "dragonbloodParagon"
+            },
+            {
+                "definition": [
+                    "item:jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "dragonbloodParagon:strongjawkobold"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d6"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

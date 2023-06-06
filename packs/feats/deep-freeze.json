@@ -1,0 +1,36 @@
+{
+    "_id": "jNzjecRGyyAqkkrm",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Deep Freeze",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You vent a jet of supercooled fluid from your innovation, damaging a foe and slowing it down. Target one creature within 60 feet. That creature takes [[/r @actor.level[cold]]]{cold damage equal to your level}, with effects depending on its @Check[type:reflex|dc:resolve(@actor.attributes.classDC.value)] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and takes a -5-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Failure</strong> The target takes full damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round, and takes a -15-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Unstable Function</strong> Your innovation discharges an enormous cone of supercooled fluid, potentially causing cascading failures. Add the unstable trait to Deep Freeze. The ability affects all creatures within a @Template[type:cone|distance:60] instead of a single target, and it deals [[/r 2*@actor.level[cold]]]{cold damage equal to double your level} instead of equal to your level.</p>\n<p>If you have the revolutionary innovation class feature, you can choose a @Template[type:cone|distance:60] or a @Template[type:cone|distance:90] when you use an unstable Deep Freeze.</p>\n<p>@Check[type:flat|dc:17|name:Unstable Flat Check]{Unstable Check}</p>\n<p><strong>Special</strong> If your innovation is a minion, it can take this action rather than you.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cold",
+                "inventor",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "feat"
+}

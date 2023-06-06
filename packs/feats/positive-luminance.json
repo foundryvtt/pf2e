@@ -1,0 +1,45 @@
+{
+    "_id": "wIAiDaNztd52ltT2",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Positive Luminance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You learn how to create a luminous reservoir of positive energy that you can use to punish undead who dare attack you. You gain the domain spell <em>@UUID[Compendium.pf2e.spells-srd.Item.Positive Luminance]</em>. It costs 1 Focus Point to cast a focus spell. This feat grants a focus pool of 1 Focus Point that you can recover using the Refocus activity.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hallowed Necromancer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

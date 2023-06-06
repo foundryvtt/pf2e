@@ -1,0 +1,625 @@
+{
+    "_id": "2TOXR7nKS6xPng2Y",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "OHEkKMalMOyLMyRM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Draining Touch",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "wearying-touch"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+8",
+                        "damageType": "negative"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "negative"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yCKSVMhk8eLrvD0h",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vhcL0ctFDySpLekK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JfQnN4zwkzfUcPK4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dread Flickering",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A dread wisp, though naturally invisible, glows with a grayish illumination, casting dim light in the aura and making them visible. Living creatures that end their turn in the aura must succeed at a @Check[type:will|dc:25] saving throw or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>\n<p>Those that critically succeed are temporarily immune for 10 minutes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 20,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "radius": 20,
+                        "slug": "dread-flickering",
+                        "traits": [
+                            "aura",
+                            "light"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "I4ZxiQRjcJ5rCCvp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Immunity",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A dread wisp is immune to all spells except <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Missile]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Maze]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Searing Light]</em>, and spells with the positive trait.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YuDlX3Kr7cepFAW4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feed on Despair",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> An enemy within 15 feet of the dread wisp is under a fear effect, @UUID[Compendium.pf2e.conditionitems.Item.Drained], or @UUID[Compendium.pf2e.conditionitems.Item.Dying]</p>\n<hr />\n<p><strong>Effect</strong> The dread wisp feeds on the creature's despair. The dread wisp regains [[/r 2d8[healing]]]{2d8 Hit Points} and deals [[/r 3d8[negative]]] damage to the creature (@Check[type:fortitude|dc:25|basic:true] save), and if the dread wisp has Gone Dark, their Dread Flickering reignites.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "necromancy",
+                        "negative",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8g0Gpku3xbzwpSTx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Go Dark",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dread wisp extinguishes their Dread Flickering, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. They can end this effect with another use of this action. If the dread wisp uses their draining touch Strike while invisible, the arc of pale energy lets any observer determine their location, making them @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to all observers only until the dread wisp moves.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eRq3BYWv8B8rLpXL",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shadow Flitter",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dread wisp teleports to a square they can see within 30 feet that isn't in an area of bright light. The dread wisp can't use again for [[/br 1d4 #Recharge Shadow Flitter]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult",
+                        "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mEGMPmEBPm6Apx3y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wearying Touch",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the dread wisp critically hits with their draining touch Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "wearying-touch",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HNuCOgySdfRVmugB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "TKlvX1o7DySDGgND",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "LLPE6U4dbuqj3k9j",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "KEAjW6jPaFbut8te",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Dread Wisp",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 31
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 20
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 50
+                    }
+                ],
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Will-o'-wisps native to the Darklands are more ominous and malevolent than those that bob about in the lonely marshes and surfaces of the upper world. These dread wisps instill terror with eerie shifts of light and consume the fear they create, drawing life energy from their victims in the process. While dread wisps can survive anywhere within the Darklands, they prefer moist areas like partially submerged caves, the banks of underground rivers, and towering fungus gardens.</p>\n<p>Dread wisps don't glow as brightly as surface will-o'-wisps because even the dimmest light attracts notice underground. Long-lived and hateful creatures, they remember vivid details about their lives, travels, and most delicious prey. Although dread wisps could share extensive lore and unique experiences, they don't, as they find amusement in others' ignorance.</p>",
+            "source": {
+                "value": "Pathfinder #165: Eyes of Empty Death"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}

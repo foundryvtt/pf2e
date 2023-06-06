@@ -1,0 +1,81 @@
+{
+    "_id": "eeAlh6edygcZIz9c",
+    "img": "systems/pf2e/icons/spells/wild-winds-stance.webp",
+    "name": "Stance: Wild Winds Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Wild Winds Stance]</em></p>\n<p>You take on the stance of the flowing winds, sending out waves of energy at a distance.</p>\n<p>You can make wind crash unarmed Strikes as ranged Strikes against targets within 30 feet. These deal 1d6 bludgeoning damage, use the brawling group, and have the agile, nonlethal, propulsive, and unarmed traits. Wind crash Strikes ignore concealment and all cover.</p>\n<p>While in wild winds stance, you gain a +2 circumstance bonus to AC against ranged attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/spells/wild-winds-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.WindCrash",
+                "range": 30,
+                "traits": [
+                    "agile",
+                    "propulsive",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Wild Wind Stance (vs. ranged attack)",
+                "option": "wild-wind",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Wild Winds Stance (vs. ranged attacks)",
+                "predicate": [
+                    "wild-wind"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "selector": "wind-crash-attack",
+                "text": "Wind crash strikes ignore concealment and all cover",
+                "title": "Wild Wind Stance"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

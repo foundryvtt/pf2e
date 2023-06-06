@@ -1,0 +1,53 @@
+{
+    "_id": "BjkhK1nFUw3vNKg2",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
+    "name": "Effect: -2 circumstance penalty to spell attack rolls and spell DC's",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.JournalEntry.Critical Fumble Deck #36]</strong></p>\n<p>-2 circumstance penalty to spell attack rolls and spell DC's</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.CriticalDeck.Effect.Label",
+                "selector": "spell-attack",
+                "slug": "critical-effect-penalty-to-spell-attacks",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.CriticalDeck.Effect.Label",
+                "selector": "spell-dc",
+                "slug": "critical-effect-penalty-to-spell-dc",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Critical Decks"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

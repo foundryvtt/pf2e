@@ -1,0 +1,47 @@
+{
+    "_id": "xDT10fUWp8UStSZR",
+    "img": "systems/pf2e/icons/features/feats/cavaliers-banner.webp",
+    "name": "Effect: Cavalier's Banner",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Cavalier's Banner]</p>\n<p>You fly the banner of your pledge from your mount, raising your allies' spirits. You and all allies within 30 feet gain a +1 circumstance bonus to Will saves and DCs against fear effects. If your banner is destroyed or removed, allies within 30 feet become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Cavalier's Banner (vs fear)",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

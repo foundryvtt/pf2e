@@ -1,0 +1,54 @@
+{
+    "_id": "qmORiUubF2CVgIva",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Reclaimant Plea",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You call on the power of the Crimson Oath to gain magical aid. Choose one of the following spells: <em>@UUID[Compendium.pf2e.spells-srd.Item.Air Walk]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Dimensional Anchor]</em>,<em> <em>@UUID[Compendium.pf2e.spells-srd.Item.Freedom of Movement]</em></em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Invisibility]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Searing Light]</em>. You can Cast that Spell once per day as a 4th-level divine innate spell. At 14th level, the spell heightens to 5th level, and at 16th level, the spell heightens to 6th level. If you anger the mysterious source of the Crimson Oath's power, you lose the ability to cast the spell until you atone.</p>\n<p><strong>Special</strong> You can select this feat a second time at 14th level, gaining a second spell from the list above, <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Flame Strike]</em>, which you can cast once per day; you also become an expert in divine spell DCs and divine spell attack rolls. You can select this feat a third time at 18th level, gaining either a third spell from the list above, death ward, flame strike, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Sunburst]</em>, which you can cast once per day; additionally, all three spells from this feat heighten to 7th level, and you become a master of divine spell attacks and spell DCs.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Knight Reclaimant Dedication"
+                },
+                {
+                    "value": "ability to cast divine spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.reclaimantPlea.count",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.divine.rank",
+                "value": "min(3,@actor.system.custom.reclaimantPlea.count)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

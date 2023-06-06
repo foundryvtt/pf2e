@@ -1,0 +1,73 @@
+{
+    "_id": "qwoLV4awdezlEJ60",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/drakeheart-mutagen.webp",
+    "name": "Effect: Drakeheart Mutagen (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Drakeheart Mutagen (Greater)]</p>\n<p><strong>Implemented effects</strong></p>\n<ul>\n<li>+6 item bonus to AC</li>\n<li>Dexterity cap of +2</li>\n<li>+3 item bonus to Perception checks</li>\n<li>-1 penalty to Will saves</li>\n<li>-1 penalty to Reflex saves</li>\n<li>-1 penalty to all Recall Knowledge checks</li>\n<li>Gain the Final Surge action</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 11
+        },
+        "rules": [
+            {
+                "key": "DexterityModifierCap",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "item",
+                "value": 6
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "reflex",
+                    "will"
+                ],
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "value": -1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Final Surge"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

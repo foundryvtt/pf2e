@@ -1,0 +1,113 @@
+{
+    "_id": "hnfQyf05IIa7WPBB",
+    "img": "systems/pf2e/icons/spells/demon-form.webp",
+    "name": "Spell Effect: Demon Form (Nabasu)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Demon Form]</em></p>\n<p>You corrupt yourself with the sin of the Abyss, transforming into a Medium demon battle form. When you cast this spell, choose babau, hezrou, nabasu, or vrock. If you choose hezrou, the battle form is Large and you must have enough space to expand into or the spell is lost. While in this form, you gain the demon and fiend traits. You have hands in this battle form and can use manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of the form that you choose:</p>\n<ul>\n<li>AC = 20 + your level. Ignore your armor check's penalty and Speed reduction.</li>\n<li>30 temporary Hit Points, weakness 5 to cold iron, and weakness 5 to good.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you use. You're trained with them. Your attack modifier is +22, and you use the listed damage. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your attack modifier is higher for the given unarmed attack or weapon, you can use it instead.</li>\n<li>Athletics modifier of +23, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of demon you choose:</p>\n<ul>\n<li><strong>Nabasu</strong> Speed 25 feet, fly 40 feet;\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws, <strong>Damage</strong> 2d10+10 piercing plus 1d6 evil;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1 </span>claw (agile), <strong>Damage</strong> 2d6 slashing plus 1d6 evil.</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "20 + @actor.level"
+                    },
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "ath": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d6"
+                            },
+                            "modifier": 22,
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        },
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10",
+                                "modifier": 10
+                            },
+                            "modifier": 22,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "demon",
+                        "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "cold-iron",
+                            "value": 5
+                        },
+                        {
+                            "type": "good",
+                            "value": 5
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "evil",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

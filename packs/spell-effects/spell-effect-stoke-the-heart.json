@@ -1,0 +1,71 @@
+{
+    "_id": "TpVkVALUBrBQjULn",
+    "img": "systems/pf2e/icons/spells/stoke-the-heart.webp",
+    "name": "Spell Effect: Stoke the Heart",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Stoke the Heart]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 3
+                        },
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": 4
+                        },
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 5
+                        },
+                        {
+                            "start": 9,
+                            "value": 6
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

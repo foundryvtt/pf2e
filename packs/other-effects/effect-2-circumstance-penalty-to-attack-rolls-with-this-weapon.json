@@ -1,0 +1,56 @@
+{
+    "_id": "UZabiyynJWuUblMk",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
+    "name": "Effect: -2 circumstance penalty to attack rolls with this weapon",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.JournalEntry.Critical Fumble Deck #5], @UUID[Compendium.pf2e.criticaldeck.JournalEntry.Critical Fumble Deck #42]</strong></p>\n<p>-2 circumstance penalty to attack rolls with this weapon</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.CriticalDeck.Effect.Label",
+                "selector": "{item|flags.pf2e.rulesSelections.effect2CircumstancePenaltyToAttackRollsWithThisWeapon}-attack",
+                "slug": "critical-effect-penalty-to-attack-with-weapon",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effect2CircumstancePenaltyToAttackRollsWithThisWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Critical Decks"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

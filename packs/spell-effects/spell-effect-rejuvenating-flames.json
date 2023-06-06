@@ -1,0 +1,43 @@
+{
+    "_id": "06zdFoxzuTpPPGyJ",
+    "img": "systems/pf2e/icons/spells/rejuvenating-flames.webp",
+    "name": "Spell Effect: Rejuvenating Flames",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Rejuvenating Flames]</em></p>\n<p>You create a gout of flame that both heals and burns. You restore 1d4 HP to all allies in the area, and those allies gain a +1 status bonus to Fortitude saves for 1 minute. Enemies in the area take [[/r 1d4[fire]]] damage with a basic Reflex save. Heightened (+1) You restore an additional 1d4 HP to your allies and deal an additional [[/r 1d4[fire]]] damage to enemies.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "fortitude",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #168: King of the Mountain"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

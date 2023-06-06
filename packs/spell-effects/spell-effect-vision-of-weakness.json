@@ -1,0 +1,65 @@
+{
+    "_id": "70qdCBokXBvKIUIQ",
+    "img": "systems/pf2e/icons/spells/vision-of-weakness.webp",
+    "name": "Spell Effect: Vision of Weakness",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Vision of Weakness]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Attacking target of Vision of Weakness",
+                "option": "vision-of-weakness",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Against target of Vision of Weakness",
+                "predicate": [
+                    "vision-of-weakness"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Part of an Attack action against Vision of Weakness target",
+                "predicate": [
+                    "attack",
+                    "vision-of-weakness"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

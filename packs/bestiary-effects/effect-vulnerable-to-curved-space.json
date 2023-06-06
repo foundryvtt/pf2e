@@ -1,0 +1,43 @@
+{
+    "_id": "V60TWjo1G1r5ZtPM",
+    "img": "systems/pf2e/icons/spells/penumbral-shroud.webp",
+    "name": "Effect: Vulnerable to Curved Space",
+    "system": {
+        "description": {
+            "value": "<p>When a hound of Tindalos is not adjacent to a structural angle of 90º (or more acute), its resistance to physical damage is suppressed and it becomes sickened 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 2"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

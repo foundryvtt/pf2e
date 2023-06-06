@@ -1,0 +1,47 @@
+{
+    "_id": "BKam63zT98iWMJH7",
+    "img": "systems/pf2e/icons/spells/inspire-heroics.webp",
+    "name": "Spell Effect: Inspire Heroics (Defense, +3)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by critically succeeding on <em>@UUID[Compendium.pf2e.spells-srd.Item.Inspire Heroics]</em> to enhance <em>@UUID[Compendium.pf2e.spells-srd.Item.Inspire Defense]</em>.</p>\n<p>You inspire your allies to protect themselves more effectively. You and all allies in the area gain a +3 status bonus to AC and saving throws, as well as resistance equal to half the spell's level to physical damage.</p>\n<p><em>Note: resistance is not automatically added.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Inspire Defense",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

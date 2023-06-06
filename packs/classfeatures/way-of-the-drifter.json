@@ -1,0 +1,55 @@
+{
+    "_id": "a3pSIKkDVTvvNSRO",
+    "img": "systems/pf2e/icons/features/classes/way-of-the-drifter.webp",
+    "name": "Way of the Drifter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're a wanderer traveling from land to land with your gun and a melee weapon as company. Maybe you learned to fight with blade and pistol as a Shackles pirate, mastered the hand cannon and katana in Minkai, or practiced with a hatchet and clan pistol in Dongun Hold. You win battles by relying on mobility and flexible use of your weapons.</p>\n<p><strong>Slinger's Reload</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Reloading Strike]</p>\n<p><strong>Deeds</strong> <em>Initial</em> @UUID[Compendium.pf2e.actionspf2e.Item.Into the Fray]; <em>Advanced</em> @UUID[Compendium.pf2e.actionspf2e.Item.Finish The Job]; <em>Greater</em> @UUID[Compendium.pf2e.actionspf2e.Item.Drifter's Wake]</p>\n<p><strong>Way Skill</strong> Acrobatics</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Into the Fray"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Reloading Strike"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acr.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

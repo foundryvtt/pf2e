@@ -1,0 +1,65 @@
+{
+    "_id": "XMBoKRRyooKnGkHk",
+    "img": "systems/pf2e/icons/spells/practice-makes-perfect.webp",
+    "name": "Spell Effect: Practice Makes Perfect",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Practice Makes Perfect]</em>.</p>\n<p>The target gains a +2 status bonus to the triggering check, or a +3 bonus if the target has master or better proficiency in the skill.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #148: Fires of the Haunted City"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

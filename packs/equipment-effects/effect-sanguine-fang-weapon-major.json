@@ -1,0 +1,55 @@
+{
+    "_id": "qoV03Fk6HSzZUCmv",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Sanguine Fang - Weapon (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Major)]</p>\n<p>After you cast a necromancy spell by activating the <em>fang</em>, your Strikes with the weapon deal 2d6 persistent bleed damage until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 15
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectSanguineFangWeaponMajor",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectSanguineFangWeaponMajor}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

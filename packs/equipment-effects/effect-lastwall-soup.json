@@ -1,0 +1,52 @@
+{
+    "_id": "6A8jsLR7upLGuRiv",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/lastwall-soup.webp",
+    "name": "Effect: Lastwall Soup",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Lastwall Soup]</p>\n<p>The creature gains a +2 item bonus to Stealth checks and DCs against undead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Lastwall Soup (vs. undead)",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:undead",
+                            "origin:trait:undead"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

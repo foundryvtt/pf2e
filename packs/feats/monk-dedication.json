@@ -1,0 +1,87 @@
+{
+    "_id": "renUpSO6MJXPSXow",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Monk Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in unarmed attacks and gain the @UUID[Compendium.pf2e.classfeatures.Item.Powerful Fist] class feature. You become trained in your choice of Acrobatics or Athletics; if you are already trained in both of these skills, you become trained in a skill of your choice. You become trained in monk class DC.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.5v7k1XWQxaP0DoGX]{Monk} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Strength 14"
+                },
+                {
+                    "value": "Dexterity 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.monk-dedication-count",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.unarmed.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Fist"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex"
+                    }
+                ],
+                "flag": "keyAbility",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.monk",
+                "priority": 39,
+                "value": {
+                    "ability": "{item|flags.pf2e.rulesSelections.keyAbility}",
+                    "label": "PF2E.TraitMonk",
+                    "rank": 1
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

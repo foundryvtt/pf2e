@@ -1,0 +1,77 @@
+{
+    "_id": "hAPCk1A2a4kJDzhV",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Spiritsight Ring",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>The opal set in this intricately carved ivory ring eventually becomes translucent and tickles your finger whenever an incorporeal creature is nearby. When in the presence of a nearby incorporeal creature, even if it's within a solid object, you eventually detect the creature, though you might not do so instantly, and you can't pinpoint the location. This acts as a vague sense, similar to humans' sense of smell. An incorporeal creature trying to hide its presence from this sense attempts a Stealth check against your Perception DC to hide from your vague sense, as normal for attempting to foil special senses. You gain a +2 item bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] incorporeal creatures within 30 feet of you.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 225
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "target:trait:incorporeal",
+                    {
+                        "or": [
+                            "target:condition:hidden",
+                            "target:condition:undetected"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #176: Lost Mammoth Valley"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "enchantment",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

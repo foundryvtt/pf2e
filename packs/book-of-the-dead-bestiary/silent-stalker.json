@@ -1,0 +1,626 @@
+{
+    "_id": "Cl1SZNiURw65rz4p",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "n5oh9urk0vokvmfv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "W43PpPY7Tp2dANf1": {
+                        "damage": "3d8+14",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "06rJwQpNQ1H9tOn3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IMlXx0dxH2pyVYkZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "df79dbzoljgbj0mq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Self-Loathing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a silent stalker sees their own reflection or any object important to them in life, they must attempt a @Check[type:will|dc:33] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The pale stranger is unaffected and can no longer be affected by that reflection or object in this way.</p>\n<p><strong>Success</strong> The silent stalker is distracted by self-loathing and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The silent stalker becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the source of their self-loathing and does everything they can to destroy it until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The silent stalker becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] as long as the source of their self-loathing is apparent, until they're attacked, or until they see their murderer.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pvl5y6qz89i11vc5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sense Murderer",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A silent stalker knows the direction of their murderer (as long as both are on the same plane), but not the distance.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eyfrpq3bvxnh075k",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Silent Aura",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A silent stalker makes no sound, preventing creatures from noticing them using hearing or a similar sense alone. This silence stops all sound within it or passing through. The silent stalker and all creatures in the aura can't use sonic attacks or actions that have the auditory trait; this prevents creatures from casting spells with verbal components or activating items with command components.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Silent Aura]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Silent Aura"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "silent-aura",
+                        "traits": [
+                            "illusion",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "illusion",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2axamykyrsqyw3y1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Undying Vendetta",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the silent stalker's murderer dies, the pale stranger is immediately destroyed. A pale stranger that can't sense their murderer must attempt a @Check[type:flat|dc:11] once every 24 hours to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and @UUID[Compendium.pf2e.conditionitems.Item.Prone]; they immediately rise again once they can sense their murderer. A murderer who becomes undead does not trigger the silent stalker's destruction until the murderer is finally destroyed. The silent stalker gains a +2 status bonus to checks and DCs against their murderer.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "undying-vendetta",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "undying-vendetta"
+                        ],
+                        "selector": "all",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HgX8EdBcuekHoaYB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>[[/r (3d8+7)[bludgeoning]]], @Check[type:fortitude|dc:33|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "95en1txwwqbdjtdr",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Implacable Advance",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The silent stalker Strides twice and makes a claw Strike; they can ignore difficult terrain during these Strides if they advance toward their murderer. If they Strike and Grab their murderer this turn, they can Constrict as a free action immediately after the Grab.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i5QEKnRQOxdbucFa",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4pglstkmy7jxjvg6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "jo5rshfmwlsffp8o",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ltln8efaky7w9ao4",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 28
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Silent Stalker",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 34
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 220,
+                "temp": 0,
+                "value": 220
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 24
+            },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "slashing"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "special": "",
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "LN"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When a person is betrayed and killed in a way that their voice was silenced (such as through strangulation by a lover or close confidante), they might come back as a silent stalker. A silent stalker is a horrifying, twisted likeness of the person they were in life, with one obvious difference: the silent stalker has no mouth, simply a smooth patch of flesh where a mouth should be. Sound is suppressed in an area around a silent stalker, but once someone notices the quiet, it's often too late.</p>\n<hr />\n<p>A revenant is a vengeful undead who stalks the one who killed them in life. They're relentless in the pursuit of their murderer, seeking a final justice.</p>",
+            "source": {
+                "value": "Pathfinder Book of the Dead"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 22
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "any one spoken in life by their murderer (typically Common; can't speak)",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision, sense murderer"
+            },
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

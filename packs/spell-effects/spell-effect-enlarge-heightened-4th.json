@@ -1,0 +1,62 @@
+{
+    "_id": "41WThj17MZBXTO2X",
+    "img": "systems/pf2e/icons/spells/enlarge.webp",
+    "name": "Spell Effect: Enlarge (Heightened 4th)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em></p>\n<p>Bolstered by magical power, the target grows to size Huge. Its equipment grows with it but returns to natural size if removed. The creature is clumsy 1. Its reach increases by 10 feet (or by 15 feet if it started out Tiny), and it gains a +4 status bonus to melee damage. The Spell has no effect on a Huge or larger creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Enlarge",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "CreatureSize",
+                "reach": {
+                    "override": 15
+                },
+                "resizeEquipment": true,
+                "value": "huge"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Enlarge",
+                "selector": "dex-based",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

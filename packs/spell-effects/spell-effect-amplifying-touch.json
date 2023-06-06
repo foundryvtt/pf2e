@@ -1,0 +1,55 @@
+{
+    "_id": "MjtPtndJx31q2N9R",
+    "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
+    "name": "Spell Effect: Amplifying Touch",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> if you have @UUID[Compendium.pf2e.feats-srd.Item.Amplifying Touch].</p>\n<p>If the target is one of your allies, they also gain a +2 status bonus to AC, a +1 status bonus to their attack rolls and deals 1 additional good damage on all their strikes until the end of their next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "good",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

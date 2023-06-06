@@ -1,0 +1,93 @@
+{
+    "_id": "D8qtAo2w4jsqjBrM",
+    "img": "systems/pf2e/icons/features/classes/eldritch-trickster.webp",
+    "name": "Eldritch Trickster",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>When it comes to a big heist, every rogue worth their salt knows that magic can throw meticulous plans into chaos, whether in the form of arcane wards or pesky divinations.</p>\n<p>You dabble in magic just enough to help handle these problems by jury-rigging spells and throwing a bit of your own magic into the mix. You might be a solitary thief, performing burglaries that can't be explained by skill alone, or a specialist called in by other rogues to deal with magical security measures. You might even be on the up-and-up, hired to test magical defenses or even build them yourself.</p>\n<p>Choose a multiclass archetype that has a basic, expert, and master spellcasting feat. You gain that archetype's dedication feat as a bonus feat even though you don't meet its level prerequisite, though you must meet its other prerequisites. For you, the @UUID[Compendium.pf2e.feats-srd.Item.Magical Trickster] rogue feat has a prerequisite of 2nd level instead of 4th level. You can choose the spellcasting ability score for the multiclass archetype you chose as your key ability score.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "spellcasting multiclass dedication",
+                    "predicate": [
+                        "item:trait:archetype",
+                        "item:level:2",
+                        "item:trait:multiclass"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Bard Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Cleric Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Druid Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Magus Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Oracle Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Psychic Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Sorcerer Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Summoner Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Witch Dedication"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Wizard Dedication"
+                    }
+                ],
+                "flag": "eldritchTrickster",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Rogue.EldritchTrickster.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.eldritchTrickster}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "subfeatures": {
+            "keyOptions": [
+                "int",
+                "cha",
+                "wis"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

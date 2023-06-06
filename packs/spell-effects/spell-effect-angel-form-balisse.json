@@ -1,0 +1,155 @@
+{
+    "_id": "WEpgIGFwtRb3ef1x",
+    "img": "systems/pf2e/icons/spells/angel-form.webp",
+    "name": "Spell Effect: Angel Form (Balisse)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Angel Form]</em></p>\n<p>Invoking the celestial realms, you transform into a Medium angel battle form. While in this form, you gain the angel and celestial traits. You have hands in this battle form and can use manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of the form that you choose:</p>\n<ul>\n<li>AC = 22 + your level. Ignore your armor check's penalty and Speed reduction.</li>\n<li>40 temporary Hit Points and weakness 10 to evil damage.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you choose. You're trained with them. Your attack modifier is +25, and you use the listed damage. Melee attacks are Strength based (for the purpose of the enfeebled condition, for example), and ranged attacks are Dexterity based. If your attack modifier is higher for the given unarmed attack or weapon, you can use it instead.</li>\n<li>Athletics modifier of +25, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of angel you choose:</p>\n<ul>\n<li><strong>Balisse</strong> Speed 30 feet, fly 40 feet; Perception modifier of +26 to detect lies and illusions unless your own modifier is higher;\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> scimitar (forceful, sweep), <strong>Damage</strong> 2d6+12 slashing plus 1d6 fire and 1d6 good.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (9th)</strong> Your battle form is Large. You must have space to expand, or the spell is lost. You instead gain 60 temporary Hit Points, weakness 15 to evil damage, attack modifier +30, damage bonus +20, and Athletics +33.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "scimitar": {
+                            "ability": "str",
+                            "baseType": "scimitar",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "group": "sword",
+                            "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
+                            "label": "PF2E.Weapon.Base.scimitar",
+                            "traits": [
+                                "forceful",
+                                "sweep"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "angel",
+                        "celestial"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "evil",
+                            "value": "10+ 5*floor((@item.level -7)/2)"
+                        }
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @actor.level"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 9
+                                    }
+                                },
+                                "strikes": {
+                                    "scimitar": {
+                                        "ability": "str",
+                                        "baseType": "scimitar",
+                                        "category": "martial",
+                                        "damage": {
+                                            "damageType": "slashing",
+                                            "dice": 2,
+                                            "die": "d8",
+                                            "modifier": 12
+                                        },
+                                        "group": "sword",
+                                        "img": null,
+                                        "label": "PF2E.Weapon.Base.scimitar",
+                                        "modifier": 25,
+                                        "traits": [
+                                            "forceful",
+                                            "sweep"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 40
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 33
+                                    }
+                                },
+                                "strikes": {
+                                    "scimitar": {
+                                        "damage": {
+                                            "modifier": 20
+                                        },
+                                        "modifier": 30
+                                    }
+                                },
+                                "tempHP": 60
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "scimitar-damage"
+            },
+            {
+                "damageType": "good",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "scimitar-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

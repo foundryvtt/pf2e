@@ -1,0 +1,48 @@
+{
+    "_id": "y8VecqdECqyH1h6o",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Magic Hide",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can defend your companion in battle. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Hide]</em> warden spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "an animal companion"
+                },
+                {
+                    "value": "warden spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

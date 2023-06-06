@@ -1,0 +1,64 @@
+{
+    "_id": "iOREr80Q0SsvPP8B",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Sacred Nagaji",
+    "system": {
+        "ancestry": {
+            "name": "Nagaji",
+            "slug": "nagaji",
+            "uuid": "Compendium.pf2e.ancestries.Item.J7T7bDLaQGoY1sMF"
+        },
+        "description": {
+            "value": "<p>You stand out from most nagaji, with the upper body of a beautiful human and the lower body of a green or white snake. Legends claim your ancestors were faithful snakes uplifted by Nalinivati rather than nagaji created by the goddess. Instead of a fangs unarmed attack, you have a tail attack that deals 1d6 bludgeoning damage, is in the brawling weapon group, and has the finesse and unarmed traits. You gain a +2 circumstance bonus to your Fortitude or Reflex DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] you. This bonus also applies to saving throws against effects that would @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]{Grab} you, @UUID[Compendium.pf2e.conditionitems.Item.Restrained]{Restrain} you, or knock you @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:trip",
+                            "inflicts:grabbed",
+                            "inflicts:restrained",
+                            "inflicts:prone"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

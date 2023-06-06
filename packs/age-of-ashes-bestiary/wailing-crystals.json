@@ -1,0 +1,196 @@
+{
+    "_id": "HI2xA7LCpNPkpV03",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "MuK4kIpfXEUbojeB",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "HP is 72 for each 5 foot patch",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HH6SL5ftuMn3NSHu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Echoing Cry",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 20 feet of a wailing crystal.</p>\n<hr />\n<p><strong>Effect</strong> A despairing chorus of cries echoes off the crystals, working its way into the minds of all living creatures in Jewelgate Way Station, affecting them with <em>@UUID[Compendium.pf2e.spells-srd.Item.Crushing Despair]</em> (7th level, @Check[type:will|dc:33|name:Crushing Despair|traits:mental,emotion,magical,spell] save).</p>\n<p>The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "whQM5kvewGUXnnLe",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Anguished Shriek",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A shrieking, distorted face composed of writhing necromantic energy lances out of the crystals to target a random living creature within 20 feet. The target takes [[/r {4d6[mental],4d6[sonic]}]]{4d6 mental damage and 4d6 sonic damage} (@Check[type:will|dc:33|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "mental",
+                        "occult",
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wailing Crystals",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "hardness": 18,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 72
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) or @Check[type:perception|dc:37|name:Notice Ghostly Faces|traits:hazard,complex,environmental,magical] (master) to notice what appear to be screaming ghostly faces in the crystals</p>",
+                "value": 27
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Three clusters of gleaming, colorful crystals are corrupted with necromantic energy that causes them to reflect negative emotions. All three must be disabled or destroyed to negate the hazard.</p>",
+            "disable": "<p>@Check[type:thievery|dc:29|name:Fracture the Crystals|traits:hazard,complex,environmental,magical] (master) to carefully fracture the crystals or @Check[type:crafting|dc:27|name:Stop the Resonance|traits:hazard,complex,environmental,magical] (expert) to place objects to stop the resonance, both disabling one 5-foot patch of crystals.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "reset": "<p>The wailing crystals deactivate and reset once no living creatures are within 20 feet.</p>",
+            "routine": "<p>(3 actions) The hazard uses each action for an Anguished Shriek. The wailing crystals lose 1 action for each 5-foot patch of crystals that is broken or destroyed.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #148: Fires of the Haunted City"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "VCypzSu659eC6jNi",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/eagle-eyes-elixir.webp",
+    "name": "Effect: Eagle Eye Elixir (Lesser)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Lesser)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Perception checks</li>\n<li>+2 item bonus to Perception checks to find secret doors and traps</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-lesser",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Equipment.EagleEyeElixir.Lesser.SecretLabel",
+                "predicate": [
+                    "secret doors and traps"
+                ],
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-lesser-secrets",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

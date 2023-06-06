@@ -1,0 +1,89 @@
+{
+    "_id": "lIl0yYdS9zojOZhe",
+    "img": "systems/pf2e/icons/spells/life-giving-form.webp",
+    "name": "Spell Effect: Life-Giving Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Life-Giving Form]</em></p>\n<p>You gain resistance 5 to precision damage and weakness 5 to negative damage, and your unarmed Strikes deal an extra [[/r 1d4[positive]]] damage.</p>\n<p>You can touch a living creature with an @UUID[Compendium.pf2e.actionspf2e.Item.Interact] action to restore [[/r 6d8[healing]]]{6d8 Hit Points} to it, and when a creature touches you with an Interact action you can allow it to gain the same healing; either way, the creature becomes temporarily immune to life-giving form's healing for 1 minute. This is a positive healing effect. You can't heal yourself with life-giving form. A creature harmed by positive damage (such as an undead) that touches you or damages you with an unarmed attack or non-reach melee weapon instead takes [[/r 3d4[positive]]] damage, and it doesn't become temporarily immune.</p>\n<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Dismiss] this spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the Hit Points restored with an Interact action by [[/r 1d8]], the positive damage by 1, and the resistance and weakness by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "damageType": "positive",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "start": 7,
+                            "value": 1
+                        },
+                        {
+                            "end": 8,
+                            "start": 8,
+                            "value": 2
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": 3
+                        },
+                        {
+                            "end": 10,
+                            "start": 10,
+                            "value": 4
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "Resistance",
+                "type": "precision",
+                "value": "(@item.level)-1"
+            },
+            {
+                "key": "Weakness",
+                "type": "negative",
+                "value": "(@item.level)-1"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

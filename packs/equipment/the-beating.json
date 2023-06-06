@@ -1,0 +1,71 @@
+{
+    "_id": "1I90sDJk6SFokiyl",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "The Beating",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "gm": "<p><strong>Epitome</strong> A small group of soldiers set up training grounds in the village surrounding Harrowheart. A PC who spends Downtime training here can Retrain feats, skills, and class features, provided the new feat, skill, or class feature is combat-themed. Feats and skill increases retrained here take only 5 days. Class features retrained here take only 3 weeks.</p>",
+            "value": "<p><strong>Suit</strong> Hammers (Str)</p>\n<p><strong>Alignment</strong> neutral evil</p>\n<hr />\n<p><em>The Beating</em> symbolizes attack from all sides. If you have <em>The Beating</em> invested, whenever you and an ally are flanking a foe, your melee Strikes gain a +2 item bonus to damage. This increases to a +3 item bonus at 17th level.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You wave the card to conjure up dozens of violent ghostly figures; you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Pernicious Poltergeist]</em>, and the area of the spell is treated as difficult terrain in addition to its normal effects. The level of the spell is one-half your level, rounded down (minimum 6th level), and the save DC is your class DC.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:flanking"
+                ],
+                "selector": "strike-damage",
+                "type": "item",
+                "value": "ternary(gte(@actor.level,17),3,2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #191: The Destiny War"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "artifact",
+                "harrow-court",
+                "invested",
+                "magical",
+                "necromancy"
+            ]
+        },
+        "usage": {
+            "value": "carried"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

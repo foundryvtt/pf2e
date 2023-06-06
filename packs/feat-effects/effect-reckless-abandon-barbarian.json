@@ -1,0 +1,79 @@
+{
+    "_id": "sfUsodcGb4atcSyN",
+    "img": "systems/pf2e/icons/spells/concealments-curtain.webp",
+    "name": "Effect: Reckless Abandon (Barbarian)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Reckless Abandon (Barbarian)]</p>\n<p>You gain a +2 circumstance bonus to attack rolls, a -2 penalty to AC, and a -1 penalty to saves. These bonuses and penalties last until your Rage ends or until you are above half Hit Points, whichever comes first.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "lte": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "lte": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "lte": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

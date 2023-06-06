@@ -1,0 +1,76 @@
+{
+    "_id": "20jNBiIIxaiOVyi0",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Oozemorph Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are plagued by sporadic anatomical rearrangements, which grant you insights into other creatures with unusual anatomies. You become trained in Occultism and Ooze Lore; if you were already trained, you become an expert instead. You gain a +2 circumstance bonus to Reflex saves to avoid being Engulfed by creatures, and to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] after being Engulfed.</p>\n<p>As you develop more abilities based on your amorphous affliction, you become increasingly off-putting to mundane creatures. You take a penalty to Diplomacy checks against animals and humanoids. This penalty is equal to your number of class feats from the oozemorph archetype, to a maximum of -4 for four or more feats.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.tJQ5f8C8m5gpZsF1]{Oozemorph} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:engulf"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.oozemorphDedicationCount",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Oozemorph: vs. Animals or Humanoids",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:animal",
+                            "target:trait:humanoid"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": "max(-1 * @actor.system.custom.modifiers.oozemorphDedicationCount, -4)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: The Slithering"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "selected": {
+                "archetype": "Archetype",
+                "dedication": "Dedication"
+            },
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

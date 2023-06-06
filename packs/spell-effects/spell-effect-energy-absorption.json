@@ -1,0 +1,65 @@
+{
+    "_id": "lEU3DH1tGjAigpEt",
+    "img": "systems/pf2e/icons/spells/energy-absorption.webp",
+    "name": "Spell Effect: Energy Absorption",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Energy Absorption]</em></p>\n<p>You gain resistance to acid, cold, electricity, or fire damage from the triggering effect (one type of your choice). The resistance applies only to the triggering effect's initial damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.energyAbsorption}",
+                "value": "5*(@item.level - 1)"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "energyAbsorption",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

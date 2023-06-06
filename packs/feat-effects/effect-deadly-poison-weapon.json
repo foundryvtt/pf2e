@@ -1,0 +1,55 @@
+{
+    "_id": "ed9iJxdHuft6bDFF",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/hunting-spider-venom.webp",
+    "name": "Effect: Deadly Poison Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Applied when you apply a poison created with @UUID[Compendium.pf2e.feats-srd.Item.Deadly Poison Weapon].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectDeadlyPoisonWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 4,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectDeadlyPoisonWeapon}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #149: Against the Scarlet Triad"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

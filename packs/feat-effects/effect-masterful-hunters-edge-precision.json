@@ -1,0 +1,152 @@
+{
+    "_id": "Lt5iSfx8fxHSdYXz",
+    "img": "systems/pf2e/icons/features/classes/precision.webp",
+    "name": "Effect: Masterful Hunter's Edge, Precision",
+    "system": {
+        "description": {
+            "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Masterful Hunter (Precision)] with you.</p>\n<p>The second time in a round you hit your hunted prey, you also deal 1d8 precision damage.</p>\n<p>At 19th level, your second hit in a round against your hunted prey deals 2d8 precision damage, and your third hit in a round against your hunted prey deals 1d8 precision damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                "option": "hunted-prey",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Track hunted prey (Masterful Hunter)",
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.skills.sur.rank"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Seek hunted prey (Masterful Hunter)",
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.attributes.perception.rank"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Second attack on hunted prey this round",
+                "option": "second-attack",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "second-attack"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 18,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 19,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Third attack on hunted prey this round",
+                "option": "third-attack",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "third-attack"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 19,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

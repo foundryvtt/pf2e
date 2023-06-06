@@ -1,0 +1,88 @@
+{
+    "_id": "1kelGCsoXyGRqMd9",
+    "img": "systems/pf2e/icons/spells/diabolic-edict.webp",
+    "name": "Spell Effect: Diabolic Edict",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Diabolic Edict]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Performing requested Diabolic Edict task",
+                "option": "diabolic-edict-agree",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Diabolic Edict Request",
+                "predicate": [
+                    "diabolic-edict-agree"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Diabolic Edict Refused",
+                "predicate": [
+                    {
+                        "not": "diabolic-edict-agree"
+                    }
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Diabolic Edict Performed",
+                "predicate": [
+                    "diabolic-edict"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Diabolic Edict Refused",
+                "predicate": [
+                    {
+                        "not": "diabolic-edict"
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

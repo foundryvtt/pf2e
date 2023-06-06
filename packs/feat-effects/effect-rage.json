@@ -1,0 +1,68 @@
+{
+    "_id": "z3uyCMBddrPK5umr",
+    "img": "systems/pf2e/icons/features/classes/rage.webp",
+    "name": "Effect: Rage",
+    "system": {
+        "description": {
+            "value": "<p><strong>Requirements</strong> You aren't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p>\n<hr />\n<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a -1 penalty to AC.</li>\n<li>You can't use actions with the concentrate trait unless they also have the rage trait. You can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] while raging.</li>\n</ul>\n<p>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p>\n<p>Implemented Effects:</p>\n<ul>\n<li>Temporary hitpoint based on level and con mod</li>\n<li>Enables rage property for rage damage</li>\n<li>Sets token effect</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.rageTempHP",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.rageTempHP",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:type:familiar",
+                            "self:type:hazard",
+                            "self:type:vehicle"
+                        ]
+                    }
+                ],
+                "value": "@actor.level + @actor.abilities.con.mod"
+            },
+            {
+                "key": "TempHP",
+                "value": "@actor.flags.pf2e.rageTempHP"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "rage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

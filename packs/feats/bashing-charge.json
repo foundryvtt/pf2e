@@ -1,0 +1,55 @@
+{
+    "_id": "A4sV0cRU9I8ztbHY",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Bashing Charge",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You smash, bust, and charge through solid obstacles without hesitation. Stride twice.</p>\n<p>Once during your movement, if your movement passes through or ends adjacent to a door, window, fence, wall, or similar obstacle, you can attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] the obstacle with a +1 circumstance bonus to the roll; on a failure, your movement ends at that obstacle.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "bashing-charge"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "bashing-charge",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

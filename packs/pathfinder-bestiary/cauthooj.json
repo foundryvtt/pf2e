@@ -1,0 +1,368 @@
+{
+    "_id": "FHfrIJCdKTzy2rrR",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MF3wGJmHdgsg1PY3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "va1k9lwirmn49so8ey7l": {
+                        "damage": "2d12+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "deadly-d12",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qe55DvvyEW3AC1KT",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.JcaIJLGGmst79f1Y"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Thoughtsense (Imprecise) 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The cauthooj senses a creatures mental essence at the listed ranged.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "thoughtsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LnCX5HAN8VUMv1f5",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hop-Dodge",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The cauthooj is the target of a melee Strike and is adjacent to another enemy that is also within the reach of the melee Strike.</p>\n<hr />\n<p><strong>Effect</strong> The cauthooj nimbly hops aside, redirecting the triggering Strike against the adjacent enemy. The cauthooj Strides up to half its Speed, and this movement does not trigger reactions.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "move"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "q1LhwW1syAxORXNt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Staccato Strike",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>With subtle alterations in the pitch and tone of its song, the cauthooj directs one creature @UUID[Compendium.pf2e.conditionitems.Item.Confused] by its Warbling Song to make a Strike. This works like other Strikes made by confused creatures, except that the cauthooj chooses the target. If no target is in reach or range, or the creature is unable to Strike for any other reason, this ability has no effect.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "primal",
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "21tFYXEcsuyuh5GQ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Warbling Song",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cauthooj gives a strange, ululating cry that causes nearby creatures to lash out violently and without control. Each creature within @Template[type:emanation|distance:120] that can hear the cauthooj must attempt a @Check[type:will|dc:32] save to resist the effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round and immediately attacks itself (in the normal fashion for attacking oneself while confused). This Strike doesn't give the creature a flat check to recover from the confusion.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "incapacitation",
+                        "mental",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "glHlVuK7LPxbsR6t",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "rAGEkyqXFHbdlAx1",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Cauthooj",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 7
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 33
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 215,
+                "temp": 0,
+                "value": 215
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 22
+            },
+            "resistances": [
+                {
+                    "type": "sonic",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 35
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Beast",
+            "level": {
+                "value": 12
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These large, flightless birds are deceptively agile, considering their long bodies and awkward, hopping gait. Solitary predators, they use their hypnotic warbling song to drive prey into a wild frenzy, manipulating them into attacking one another so that the cauthooj can then feast on the remains.</p>\n<p>Known to some scholars as the puppet master bird, and to others as the shrill shrike, cauthoojs are widely reviled by most intelligent humanoids, in part because the birds seem to prefer humanoids to other prey. Cauthooj sightings typically lead to the creation of hunting parties to track the creature down before it can kill again, with would-be hunters typically stuffing their ears full of wax in an effort to avoid being affected by its cry. Those who have survived the creature's song report that the experience is uniquely unnerving, and almost all accounts agree that there is no other sound as terrible.</p>\n<p>While one might assume the cauthooj is a dumb animal, these creatures are in fact quite a bit smarter than they look. Cauthoojs stalk the perimeter of remote settlements in hopes of finding a lone traveler they can feast upon. These patient creatures will wait in ambush as long as they must to sate their hunger. They can even understand a few rudimentary words in Sylvan, although they are incapable of clearly speaking themselves. This doesn't stop the cauthooj from attempting to mimic the sounds it hears, but when it does so, its eerie primal nature enhances the attempt, leading to the bird's signature ability to manipulate minds and encourage conflict, a trait the cauthooj is just barely smart enough to understand-and enjoy.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "(Can't Speak Any Language)",
+                "selected": [],
+                "value": [
+                    "sylvan"
+                ]
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "thoughtsense (imprecise) 60 feet"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

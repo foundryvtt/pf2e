@@ -1,0 +1,64 @@
+{
+    "_id": "XYaaj872JOO9CAws",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Blazing Talon Surge",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Rain of Embers Stance].</p>\n<hr />\n<p>You rush forward and latch onto your enemy with talons of hungering fire.</p>\n<p>Stride once. If you end your movement within reach of at least one enemy, you can make a fire talon Strike against that enemy that deals an additional [[/r 1d4[persistent,fire]]] damage. If it hits and deals damage, you can attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the creature you hit.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Rain of Embers Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:rain-of-embers-stance"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "blazing-talon-surge",
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "blazing-talon-surge"
+                ],
+                "selector": "fire-talon-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fire",
+                "flourish",
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

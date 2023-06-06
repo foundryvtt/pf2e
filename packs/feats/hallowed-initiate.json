@@ -1,0 +1,46 @@
+{
+    "_id": "lyJ3pPvZAr9nRco6",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Hallowed Initiate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've expanded your focus spellcasting to techniques used by clerics and wizards. You gain an additional focus spell, either the necromancer school spell <em>@UUID[Compendium.pf2e.spells-srd.Item.Call of the Grave]</em> or the initial domain spell of the death domain, <em>@UUID[Compendium.pf2e.spells-srd.Item.Death's Call]</em>. Increase the number of Focus Points in your focus pool by 1.</p>\n<p><strong>Special</strong> You can select this feat a second time, choosing the other initial focus spell.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hallowed Necromancer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "zwqawaXccARDV0jL",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Feathered Cloak",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>To blend in with the grounded and wingless, you fold your wings just so on your back, creating the illusion of a feathered cloak. You receive a +2 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] a version of yourself who is not a strix. Additionally, your folded wings help you obscure objects on your person, providing a +2 circumstance bonus to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Conceal an Object].</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "disguise:non-strix"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:conceal-an-object"
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "strix"
+            ]
+        }
+    },
+    "type": "feat"
+}

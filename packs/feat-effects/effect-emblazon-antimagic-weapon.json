@@ -1,0 +1,54 @@
+{
+    "_id": "RyGaB5hDRcOeb34Q",
+    "img": "systems/pf2e/icons/spells/spiritual-weapon.webp",
+    "name": "Effect: Emblazon Antimagic (Weapon)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Emblazon Antimagic].</p>\n<p>When the weapon's wielder critically hits with the weapon, they can attempt to counteract a spell on their target, using half their level, rounded up, as the counteract level. If they attempt to do so, the emblazoned symbol immediately disappears.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectEmblazonAntimagicWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "Note",
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonAntimagicWeapon}-attack",
+                "text": "When you critically hit with the this weapon, you can attempt to counteract a spell on your target, using half your level (rounded up) as the counteract level. If you do this, the emblazon symbol immediately disappears.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

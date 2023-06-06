@@ -1,0 +1,48 @@
+{
+    "_id": "MgLUbsvAkIA4fsZW",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Gaze of Veracity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can channel your mask's power to pierce through lies and see the truth in any situation. Increase the number of Focus Points in your focus pool by 1. While wearing your mask, you can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Glimpse the Truth]</em> cleric domain spell as a divine focus spell.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hellknight Signifier Dedication"
+                },
+                {
+                    "value": "ability to cast focus spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

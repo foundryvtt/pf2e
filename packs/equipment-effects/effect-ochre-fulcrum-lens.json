@@ -1,0 +1,51 @@
+{
+    "_id": "5KXsyN9J78glG25I",
+    "img": "systems/pf2e/icons/equipment/other/ochre-fulcrum-lenses.webp",
+    "name": "Effect: Ochre Fulcrum Lens",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ochre Fulcrum Lens]</p>\n<p>You gain resistance 10 to mental damage and a +2 status bonus to saves against emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 11
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #165: Eyes of Empty Death"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

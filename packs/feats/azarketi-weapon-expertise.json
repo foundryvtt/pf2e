@@ -1,0 +1,69 @@
+{
+    "_id": "ECcFHAeAmh5F3mxg",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Azarketi Weapon Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your mastery with weapons both above and below water is unmatched. Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency in @UUID[Compendium.pf2e.equipment-srd.Item.Crossbow]{Crossbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Hand Crossbow]{Hand Crossbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Longspear]{Longspears}, @UUID[Compendium.pf2e.equipment-srd.Item.Spear]{Spears}, @UUID[Compendium.pf2e.equipment-srd.Item.Trident]{Tridents}, and all azarketi weapons in which you are trained.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Azarketi Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-crossbow.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-hand-crossbow.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longspear.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-spear.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-trident.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "azarketi"
+            ]
+        }
+    },
+    "type": "feat"
+}

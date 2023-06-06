@@ -1,0 +1,109 @@
+{
+    "_id": "kaG7k0ZPTsUubAXw",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "bjX7l8YXzPqzi81E",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Exploding Jar",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature or object weighing at least 50 pounds is placed on one of the flagstones running north to south on the west side of the yard (marked \"T\" on the map)</p>\n<hr />\n<p><strong>Effect</strong> A glass jar containing purple dye and a thunderstone pop from the ground between the flagstones. The sudden movement causes the thunderstone to clink against the jar and explode. All creatures in a @Template[type:burst|distance:10]{10-foot radius} take [[/r 2[sonic]]] damage and must succeed at a @Check[type:fortitude|dc:17|traits:hazard,trap,mechanical] save or be @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round. In addition, each creature in that area is splattered with purple dye and showered with glass, taking [[/r (1d4+2)[piercing]]] damage (@Check[type:reflex|dc:20|basic:true|traits:hazard,trap,mechanical]). Creatures splattered with purple dye take a -1 circumstance penalty to Charisma-based skill checks. Fully dying the affected hair or clothing removes this penalty. Dyed skin fades after a week but can be covered up with a successful @Check[type:deception|dc:12|traits:hazard,trap,mechanical,action:disguise]{Disguise check} and the appropriate cosmetics.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Purple Dye Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "hardness": 7,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A spring-loaded glass jar containing purple dye and a thunderstone pops from the ground and explodes when a pressure sensor is triggered.</p>",
+            "disable": "<p>@Check[type:thievery|dc:17|name:Remove the jar and thunderstone|traits:hazard,trap,mechanical] (trained) to remove the jar and thunderstone carefully or @Check[type:athletics|dc:20|name:Reinforce the flagstone|traits:hazard,trap,mechanical] to reinforce the flagstone pressure sensor with an improvised wedge</p>",
+            "isComplex": false,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #178: Punks in a Powder Keg"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

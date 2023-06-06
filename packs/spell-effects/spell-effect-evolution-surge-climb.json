@@ -1,0 +1,42 @@
+{
+    "_id": "czteoX2cggQzfkK9",
+    "img": "systems/pf2e/icons/spells/evolution-surge.webp",
+    "name": "Spell Effect: Evolution Surge (Climb)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Evolution Surge]</em></p>\n<p>You flood your eidolon with power, creating a temporary evolution in your eidolon's capabilities. Choose one of the following effects:</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Add the following options to the list of effects you can choose:</p>\n<ul>\n<li>Your eidolon gains a climb Speed equal to its land Speed.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

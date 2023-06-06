@@ -1,0 +1,45 @@
+{
+    "_id": "U4AoJMBhJaFq5O1S",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Champion's Sacrifice",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can suffer so that others might live. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Champion's Sacrifice]</em> devotion spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tenets of good"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

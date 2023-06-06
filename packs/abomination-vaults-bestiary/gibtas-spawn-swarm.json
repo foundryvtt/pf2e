@@ -1,0 +1,398 @@
+{
+    "_id": "3F3fPq5hFbej40T2",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "9C4djpvjI0fNA6Fa",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Eb8EhrTUrXxsrLz3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eAyilI89Ya4AzPjX",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Bounce",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that the gibtas spawn swarm can see targets the swarm with an attack</p>\n<hr />\n<p><strong>Effect</strong> The swarm bounces to the side and gains a +2 circumstance bonus to AC against the triggering attack. After the attack, the swarm can Stride up to its Speed in a straight line as part of the reaction.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "bounce",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bounce"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ufvpAL31F9ZaHsEo",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bounding Swarm",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gibtas spawn swarm moves in loping bounces. The swarm ignores difficult terrain.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2l5Df8352WwEuAXJ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Bites",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8[piercing],1d6[acid]}]]{2d8 piercing damage and 1d6 acid damage} (@Check[type:reflex|dc:22|basic:true] save). A creature that fails its save against Swarming Bites also takes [[/r 1d4[persistent,acid]]].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "geXCLHufGPCIPnkl",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "jYuOtx1MH299X8kr",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Gibtas Spawn Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": -4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 14
+            },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 9
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "CN"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When a gibtas gorges itself on an incredible amount of flesh, it vomits up a pool of acid filled with tiny pink egg sacs that burst immediately. The new babies hunt as a pack, growing in size until they go their separate ways or consume each other.</p>\n<hr />\n<p>This rubbery, spheroid scavenger is nearly all acid-dripping mouth, with five bulbous black eyes and two powerful, gangly legs. A gibtas often forms a bond with a single other creature-usually, a more powerful aberration- and serves this master loyally, if erratically. Creatures who keep a gibtas as a pet or guard soon learn to keep it away from any important possessions they don't want spattered with acid.</p>",
+            "source": {
+                "value": "Pathfinder #164: Hands of the Devil"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision, scent (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "aberration",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

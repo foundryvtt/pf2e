@@ -1,0 +1,57 @@
+{
+    "_id": "W0PjCMyGOpKAuyKX",
+    "img": "systems/pf2e/icons/spells/weapon-surge.webp",
+    "name": "Spell Effect: Weapon Surge (Major Striking)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Weapon Surge]</em> when applied to a weapon with a major striking rune.</p>\n<p>On your next Strike with that weapon before the start of your next turn, you gain a +1 status bonus to the attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:equipped"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "spellEffectWeaponSurgeMajorStriking",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurgeMajorStriking}-attack",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

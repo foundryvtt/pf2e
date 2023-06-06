@@ -1,0 +1,92 @@
+{
+    "_id": "TYdFnzhhTlpUdtty",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Starless Scope",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>Even during the time of Thassilon, when the Order of the Starless Night still existed, <em>starless scopes</em> were uncommon. Today, this final scope might well be the last one to survive the passage of time.</p>\n<p>A <em>starless scope</em> is a handheld telescope crafted of silver and fine wood. When one peers at the sky through a <em>starless scope</em>, one always views the sky as if during a clear night. A <em>starless scope</em> adds a +2 item bonus to Astronomy Lore and Perception checks made to observe the skies, as it causes all celestial objects to dim when not directly observed, allowing its user to more easily observe their intended subject. It also grants a +2 item bonus to all Occultism checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic].</p>\n<p>A <em>starless scope</em> also functions as a divine focus for worshipers of Desna. The magic of a <em>starless scope</em> requires a specially prepared lens to function, and it's possible to shatter the lens if you roll poorly when activating the <em>starless scope</em>.</p>\n<p>Without a functional lens, a <em>starless scope</em> doesn't function. You can replace a shattered lens with a functional lens by taking a two-action activity with the manipulate trait. If you know the formula for the <em>starless scope</em>, you can Craft a new lens with a @Check[type:crafting|dc:25|name:Craft New Lens] (master) check.</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Starless Scope Lens]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">R</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> you worship Desna</p>\n<p><strong>Trigger</strong> you use the <em>starless scope</em> as a divine focus</p>\n<hr />\n<p><strong>Effect</strong> You attempt to enhance the effects of a spell as you cast it by attempting a Religion check against the spell's DC (DC set by level and rarity).</p>\n<hr />\n<p><strong>Critical Success</strong> Any attack rolls you make with the spell gain a +2 status bonus, and any saving throw a foe makes against the spell takes a -2 status penalty. If you would normally cast the spell from a spell slot, and the spell is 5th level or lower, you don't spend the spell slot and cast the spell from the <em>starless scope</em> instead.</p>\n<p><strong>Success</strong> Any attack rolls you make with the spell gain a +1 status bonus, and any saving throw a foe makes against the spell takes a -1 status penalty.</p>\n<p><strong>Failure</strong> The spell is cast normally. Attempt a @Check[type:flat|dc:11]. On a failure, the <em>starless scope's</em> lens shatters.</p>\n<p><strong>Critical Failure</strong> The spell is disrupted and the <em>starless scope's</em> lens shatters.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> (abjuration, divine) Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You raise the scope to your eye and observe a creature within 30 feet. You can attempt to identify the creature by Recalling Knowledge. The <em>starless scope</em> adds a +2 item bonus to this check. If the creature is associated with the Dominion of the Black or the Elder Mythos, or is a creature whose actions have blasphemed against Desna, the creature must attempt a @Check[type:will|dc:27|name:Starless Scope Recall Knowledge|traits:abjuration] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, and the <em>starless scope's</em> lens shatters.</p>\n<p><strong>Success</strong> The creature shines with starlight for 1 round. During this time, the creature can't be concealed if it is visible. If it's invisible, it's concealed rather than being undetected. The creature takes a -1 status penalty to saving throws against divine effects while it shimmers with starlight.</p>\n<p><strong>Failure</strong> As success, but the creature also suffers an additional effect. An incorporeal creature loses its incorporeal trait as long as it shines with starlight. Any other creature becomes slowed 1 as long as it shines with starlight.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration of the starlight is 1 minute, and the status penalty to saving throws against divine effects increases to -2.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 650
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "astronomy-lore",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:identify-magic"
+                ],
+                "selector": "occultism",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Is astronomically observing the sky",
+                "option": "observe-sky",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "observe-sky"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Adventure: Malevolence"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "divination",
+                "divine",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}

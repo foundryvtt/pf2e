@@ -1,0 +1,59 @@
+{
+    "_id": "Bc2Bwuan3716eAyY",
+    "img": "systems/pf2e/icons/spells/font-of-serenity.webp",
+    "name": "Spell Effect: Font of Serenity",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Font of Serenity]</em>.</p>\n<p>Allies within the area gain a +1 status bonus to saving throws against emotion effects.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The bonus increases by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Font of Serenity (vs. emotion)",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 3,
+                            "value": 1
+                        },
+                        {
+                            "start": 4,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

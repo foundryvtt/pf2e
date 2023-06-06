@@ -1,0 +1,49 @@
+{
+    "_id": "18FHJoazfEmgNkfk",
+    "img": "systems/pf2e/icons/spells/destructive-aura.webp",
+    "name": "Effect: Aura of Preservation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura Of Preservation]</p>\n<p>Your allies within 15 feet gain a +1 status bonus to Fortitude and Will saves against effects from aberrations.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 14
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:aberration"
+                ],
+                "selector": [
+                    "fortitude",
+                    "will"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

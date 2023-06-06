@@ -1,0 +1,51 @@
+{
+    "_id": "jACKRmVfr9ATsmwg",
+    "img": "systems/pf2e/icons/spells/anticipate-peril.webp",
+    "name": "Effect: Devrin's Cunning Stance",
+    "system": {
+        "description": {
+            "value": "<p>You have a +1 status bonus to skill checks. When you Strike a @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] enemy, that enemy can't use reactions until the beginning of its next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "target:condition:flat-footed"
+                ],
+                "selector": "strike-damage",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Firebrands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "mD44D9I05NQaXiED",
+    "img": "systems/pf2e/icons/spells/incendiary-fog.webp",
+    "name": "Effect: Fetid Fumes",
+    "system": {
+        "description": {
+            "value": "<p>Everything within the aura is concealed by smoke.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

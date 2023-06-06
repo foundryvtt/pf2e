@@ -1,0 +1,573 @@
+{
+    "_id": "iEQOUQk1wVHFsajW",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "zrycs1fp75o2l8h0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "qmLW79iJUyPdWhH3": {
+                        "damage": "1d10+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EcZYs4KlcnQ09I0F",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qVmgf9hKv2Wt0x9f",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B2lJQF6Y6o4hnBeL",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1mqppqclycua1e1x",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Power of the Haunt",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a geist is within 100 feet of a haunt that isn't disabled or destroyed, they gain a +2 status bonus to AC and saving throws and deal an additional [[/r 1d6[negative]]] damage with bite Strikes. A creature that succeeds at a @Check[type:perception|dc:20|traits:action:seek] check to Seek or Recall Knowledge about the geist sees that the tendrils from the geist's cloak grow thicker and more agitated the closer it gets to the haunt.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "power-of-the-haunt"
+                        ],
+                        "selector": "ac",
+                        "type": "untyped",
+                        "value": 2
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "power-of-the-haunt",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "power-of-the-haunt"
+                        ],
+                        "selector": "saving-throw",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o8cbkspx01eskehx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Terrifying Laugh",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The geist unleashes soul-piercing laughter in a @Template[type:emanation|distance:20], lasting until the beginning of their next turn. Any creature in the area or entering it must succeed at a @Check[type:will|dc:26] save or be overcome with panicked laughter, becoming @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). A creature attempts only one save per Terrifying Laugh, and a creature that succeeds on its saving throw is temporarily immune for 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "58ox9o6ljire079b",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Wrath of the Haunt",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The geist is within 100 feet of an active haunt</p>\n<hr />\n<p><strong>Effect</strong> The haunt feeds necromantic power into the geist, becoming inactive until the end of the geist's next turn and deactivating the power of the haunt aura until the haunt becomes active again. The edges of the geist's cloak transform into whip-like tendrils that lash out at nearby creatures. Any living creature within 10 feet of the geist takes [[/r 4d10[slashing]]] damage plus [[/r 4d6[negative]]] damage (@Check[type:reflex|dc:28|basic:true]).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ietjfv1hnsb0q2g7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "3g5jsy5h6ynzfwt7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "4h9dwytblmiz3z01",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "t9keoosamecsy3gd",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Religion",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "4uum16yvohb37ova",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Geist",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 17
+            },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "special": "",
+                "value": 0
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A geist is an ever-shifting mass of black sack cloth, teeth, and mouths, folding in and out of itself and cackling like a thousand frenzied and doomed souls. Created when a haunt kills an evil person, a geist rises from a soul trapped on the plane of their demise, now connected to the dark energy radiating from haunts everywhere. They wander the world, looking for solace and never finding it. In frustration, they turn their malice back onto the living, antagonizing any nearby creatures, hoping to fatally lure their victims into the clutches of a haunt to be turned into another geist and share the torment.</p>\n<p>Geists are occasionally mistaken for other incorporeal undead, such as wraiths and ghosts, but their proximity to haunts is one of the surest ways to determine the nature of the undead being encountered.</p>",
+            "source": {
+                "value": "Pathfinder Book of the Dead"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "Telepathy 100 feet",
+                "selected": [],
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

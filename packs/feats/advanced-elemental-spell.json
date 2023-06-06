@@ -1,0 +1,45 @@
+{
+    "_id": "DPk7a0cdFOjDOdn5",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advanced Elemental Spell",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your connection to one of the great elemental aspects of nature deepens, allowing you further control over its powers.</p>\n<p>You gain the advanced order spell associated with your order:</p>\n<ul>\n<li>if you're a member of the flame order, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Combustion]</em>;</li>\n<li>if you're a member of the stone order, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Stone Lance]</em>;</li>\n<li>if you're a member of the storm order, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Powerful Inhalation]</em>;</li>\n<li>if you're a member of the wave order, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Pulverizing Cascade]</em>.</li>\n</ul>\n<p>Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "flame stone storm or wave order"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

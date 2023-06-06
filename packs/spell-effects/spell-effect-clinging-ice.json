@@ -1,0 +1,73 @@
+{
+    "_id": "2sMXAGZfdqiy10kk",
+    "img": "systems/pf2e/icons/spells/clinging-ice.webp",
+    "name": "Spell Effect: Clinging Ice",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Clinging Ice]</em>.</p>\n<p><strong>Failure</strong> The target takes full damage, and takes a -5-foot circumstance penalty to its Speeds until the spell ends.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and a -10-foot circumstance penalty to its Speeds until the spell ends.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "clinging-ice:degree-of-success:failure"
+                ],
+                "selector": "speed",
+                "slug": "clinging-ice-failure",
+                "type": "circumstance",
+                "value": -5
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "flag": "clingingIceDegreeOfSuccess",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "clinging-ice:degree-of-success"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "clinging-ice:degree-of-success:critical-failure"
+                ],
+                "selector": "speed",
+                "slug": "clinging-ice-critical-failure",
+                "type": "circumstance",
+                "value": -10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

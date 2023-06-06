@@ -1,0 +1,75 @@
+{
+    "_id": "XlmoKh60WMF9ou3J",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/secret-keepers-mask.webp",
+    "name": "Signifier's Mask",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This mask is often devoid of eyeholes or other decorative features. The mask doesn't obscure your vision, though it makes it impossible for others to see your eyes. While wearing your <em>signifer's mask</em>, you gain +1 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie], Intimidation checks, and Deception DCs against @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lie",
+                            "action:sense-motive"
+                        ]
+                    }
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "wornmask"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

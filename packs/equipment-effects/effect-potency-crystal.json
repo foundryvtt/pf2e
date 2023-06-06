@@ -1,0 +1,59 @@
+{
+    "_id": "R5ugeFK3MPwkbv0s",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/potency-crystal.webp",
+    "name": "Effect: Potency Crystal",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potency Crystal]</p>\n<p>The weapon becomes a <em>+1 striking weapon</em> for the rest of the turn, gaining a +1 item bonus to the attack roll and increasing the damage on a hit to two weapon damage dice.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectPotencyCrystal",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-attack",
+                "value": 1
+            },
+            {
+                "key": "Striking",
+                "selector": "{item|flags.pf2e.rulesSelections.effectPotencyCrystal}-damage",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

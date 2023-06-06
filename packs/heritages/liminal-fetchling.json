@@ -1,0 +1,37 @@
+{
+    "_id": "PwxbD5VSJ0Yroqvp",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Liminal Fetchling",
+    "system": {
+        "ancestry": {
+            "name": "Fetchling",
+            "slug": "fetchling",
+            "uuid": "Compendium.pf2e.ancestries.Item.hIA3qiUsxvLZXrFP"
+        },
+        "description": {
+            "value": "<p>You come from a line of fetchlings with a closer connection to the Ethereal and Shadow Planes, and you share those realms' affinity with the in-between and unseen. You gain a +1 circumstance bonus to locate @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 60 feet when using the Seek action. Your flat check to target @UUID[Compendium.pf2e.conditionitems.Item.Concealed] creatures is @Check[type:flat|dc:3] instead of DC 5, and your flat check to target undetected creatures is @Check[type:flat|dc:9] instead of DC 11.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "To Seek undetected within 60 feet (Liminal Fetchling)",
+                "predicate": [
+                    "action:seek",
+                    "target:condition:undetected",
+                    "target:within-60"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

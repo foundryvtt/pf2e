@@ -1,0 +1,50 @@
+{
+    "_id": "N36ZR4lh9eCazDaN",
+    "img": "systems/pf2e/icons/features/ancestry/half-elf.webp",
+    "name": "Half-Elf",
+    "system": {
+        "ancestry": {
+            "name": "Human",
+            "slug": "human",
+            "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        },
+        "description": {
+            "value": "<p>Either one of your parents was an elf, or one or both were half-elves. You have pointed ears and other telltale signs of elf heritage. You gain the elf trait, the half-elf trait, and @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision]. In addition, you can select elf, half-elf, and human feats whenever you gain an ancestry feat.</p>"
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "add": [
+                    "elf",
+                    "half-elf"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "elf"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "half-elf"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "half-elf"
+            ]
+        }
+    },
+    "type": "heritage"
+}

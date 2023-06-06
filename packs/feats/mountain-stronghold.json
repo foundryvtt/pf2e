@@ -1,0 +1,49 @@
+{
+    "_id": "n2hawNmzW7DBn1Lm",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Mountain Stronghold",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Mountain Stance]</p>\n<hr />\n<p>You focus on your connection to the earth and call upon the mountain to block attacks against you. You gain a +2 circumstance bonus to AC until the beginning of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Mountain Stronghold]</p>\n<hr />\n<p><strong>Special</strong> If you have this feat, the Dexterity modifier cap to your AC while you're in @UUID[Compendium.pf2e.feats-srd.Item.Mountain Stance] increases from +0 to +1.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mountain Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DexterityModifierCap",
+                "predicate": [
+                    "self:effect:mountain-stance",
+                    {
+                        "not": "feat:mountain-quake"
+                    }
+                ],
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

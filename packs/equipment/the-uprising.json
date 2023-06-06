@@ -1,0 +1,77 @@
+{
+    "_id": "BdQjSNSItoruWMul",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "The Uprising",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "gm": "<p><strong>Epitome</strong> A guild of thieves sets up secret hideouts in the village surrounding Harrowheart. These thieves do not prey upon the PCs or the citizens of the Harrow Court, preferring instead to focus on self-improvement. A PC who spends Downtime training with these thieves can Retrain feats, skills, and class features, provided the new feat, skill, or class feature is neither combat- nor magic-themed. Feats and skill increases retrained here take only 5 days, while class features retrained here take only 3 weeks.</p>",
+            "value": "<p><strong>Suit</strong> Hammers (Str)</p>\n<p><strong>Alignment</strong> chaotic neutral</p>\n<hr />\n<p>When you have The Uprising invested, you gain a +2 item bonus to all saving throws against affects that attempt to control you or restrain you. This item bonus increases to +3 if you are 20th level.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The card calls forth a mob of shadowy figures who batter and hinder your enemies. Target a @Template[type:burst|distance:20] at any point on solid ground with 120 feet, and the mob of figures rises up from the ground, persisting for 1 minute. Make an unarmed Strike against the Fortitude DC of any number of creatures in this burst (you can choose to not attack some creatures in the area if you wish). Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes [[/r 3d6[bludgeoning]]] damage. Whenever a creature ends its turn in the area, the figures attempt to Grab that creature if they haven't already, and they deal [[/r 1d6[bludgeoning]]] damage to any creature already grabbed. The mob's @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC is equal to your class DC. A creature can attack a figure in an attempt to release its grip. It's AC is equal to your class DC, and it's destroyed if it takes 12 or more damage. Even if destroyed, additional figures continue to rise up in the area until the effect's duration ends. You can Dismiss this effect. If you are at least 15th level, you can use a two-action activity, which has the concentrate trait, to move the burst up to 30 feet, which causes any currently grabbed creatures to be released and left behind. If part of the burst appears or moves into an area that can't support it on the ground, that portion of the burst disappears until it is supported.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "inflicts:restrained",
+                            "inflicts:controlled"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": "ternary(gte(@actor.level,20),3,2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #191: The Destiny War"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "artifact",
+                "conjuration",
+                "harrow-court",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "carried"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

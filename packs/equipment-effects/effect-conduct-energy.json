@@ -1,0 +1,115 @@
+{
+    "_id": "lU8IO9FIGK1DXVMy",
+    "img": "systems/pf2e/icons/spells/lightning-bolt.webp",
+    "name": "Effect: Conduct Energy",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Conduct Energy]</p>\n<p>You channel energy into your weapon. The weapon deals 1 additional damage per weapon damage die until the start of your next turn. This damage type matches the trait of the triggering action or spell. If your triggering action or spell had multiple eligible traits, you select one of those traits.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:equipped",
+                        {
+                            "or": [
+                                "item:rune:property:conducting",
+                                "item:trait:resonant"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:resonant"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:rune:property:conducting"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:rune:property:conducting"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

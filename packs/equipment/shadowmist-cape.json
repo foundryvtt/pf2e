@@ -1,0 +1,80 @@
+{
+    "_id": "3HR6rJT9NrIRUwe2",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Shadowmist Cape",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This black cape flows more like a vaporous liquid than fabric. The cape grants you a +3 item bonus to Stealth checks. When you invest the cape, you either increase your Dexterity score by 2 or increase it to 18, whichever is higher.</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">R</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> A creature misses you with an attack</p>\n<hr />\n<p><strong>Effect</strong> Attempt a Stealth check against the triggering creature's Perception DC. If you roll a success, you're @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from that creature until the end of your next turn or until right after you use a hostile action against that creature. If you roll a critical success, you're hidden from that creature until the end of your next turn, even if you use hostile actions against that creature.</p>\n<hr />\n<p><strong>Activate</strong><span class=\"pf2-icon\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> With a twirl of the cape, you transform yourself into a puff of gray smoke. You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Gaseous Form]</em> on yourself.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 19
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 40000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.dex.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.dex.value",
+                "value": 18
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "illusion",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worncape"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

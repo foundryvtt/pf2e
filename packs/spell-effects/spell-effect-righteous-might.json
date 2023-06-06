@@ -1,0 +1,143 @@
+{
+    "_id": "W4lb3417rNDd9tCq",
+    "img": "systems/pf2e/icons/spells/righteous-might.webp",
+    "name": "Spell Effect: Righteous Might",
+    "system": {
+        "description": {
+            "value": "<p>Granted By <em>@UUID[Compendium.pf2e.spells-srd.Item.Righteous Might]</em></p>\n<p>You focus all your divine energy and transform yourself into a Medium battle form, similar to your normal form but armed with powerful divine armaments granted by your deity. While in this form, you gain the statistics and abilities listed below. You have hands in this battle form and can use manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities:</p>\n<ul>\n<li>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Speed 40 feet.</li>\n<li>Resistance 3 against physical damage.</li>\n<li>Darkvision.</li>\n<li>A special attack with a righteous armament version of your favored weapon, which is the only attack you can use. Your attack modifier with the special weapon is +21, and your damage bonus is +8 (or +6 for a ranged attack). If your attack modifier with your deity's favored weapon is higher, you can use it instead. You deal three of your weapon's normal damage dice, or three damage dice of one size larger if your weapon is a simple weapon with a d4 or d6 damage die. The weapon has one of the following properties that matches your deity's alignment: <em>anarchic</em>, <em>axiomatic</em>, <em>holy</em>, <em>unholy</em>. If your deity is true neutral, you instead deal an extra 1d6 precision damage.</li>\n<li>Athletics modifier of +23, unless your own modifier is higher.</li>\n</ul>\n<hr />\n<p><strong>Heightened (8th)</strong> Your battle form is Large, and your attacks have 10-foot reach, or 15-foot reach if your deity's favored weapon has reach. You must have enough space to expand into or the spell is lost. You instead gain AC = 21 + your level, 15 temporary HP, resistance 4 against physical damage, attack modifier +28, damage bonus +15 (+12 for a ranged attack), and Athletics +29.</p>\n<hr />\n<p><em>Note: The special attack is not added at this time due to the large amount of player choice and missing deity automation. Additionally, the resistance and removal of armor penalties cannot be automated at present. Please apply these manually for the time being.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "20 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "physical",
+                            "value": "ternary(gte(@item.level, 8), 4, 3)"
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "ath": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "favored-weapon": {
+                            "modifier": 21,
+                            "query": "{\"system.slug\":\"{actor|system.details.deities.primary.weapons.0}\"}"
+                        }
+                    },
+                    "tempHP": 10
+                },
+                "predicate": [
+                    "deity"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @actor.level"
+                                },
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 29
+                                    }
+                                },
+                                "strikes": {
+                                    "favored-weapon": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "favored-weapon-damage",
+                "value": "ternary(gte(@item.level,8),12,6)"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "favored-weapon-damage",
+                "value": "ternary(gte(@item.level,8),3,2)"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": 3
+                },
+                "selector": "favored-weapon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "item:category:simple",
+                    {
+                        "or": [
+                            "item:damage:die:faces:4",
+                            "item:damage:die:faces:6"
+                        ]
+                    }
+                ],
+                "selector": "favored-weapon-damage"
+            },
+            {
+                "category": "precision",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "deity:alignment:n"
+                ],
+                "selector": "favored-weapon-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

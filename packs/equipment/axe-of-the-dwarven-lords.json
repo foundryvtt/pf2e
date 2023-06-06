@@ -1,0 +1,148 @@
+{
+    "_id": "tPwYYwxNqdGQp2nW",
+    "img": "systems/pf2e/icons/equipment/artifacts/axe-of-the-dwarven-lords.webp",
+    "name": "Axe of the Dwarven Lords",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "dwarven-war-axe",
+        "bonus": {
+            "value": 4
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "advanced",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>The blade of this +4 major striking @UUID[Compendium.pf2e.equipment-srd.Item.Keen] @UUID[Compendium.pf2e.equipment-srd.Item.Returning] @UUID[Compendium.pf2e.equipment-srd.Item.Speed] dwarven waraxe is carved with an intricate design depicting countless generations of great dwarven warriors and leaders.</p>\n<p>The axe has the thrown 30 feet weapon trait, in addition to the normal weapon traits for a dwarven waraxe. Strikes with the axe deal an additional 1d6 damage to orcs.</p>\n<p>While the axe is in your possession, you gain a +4 item bonus when Crafting armor, jewelry, metalworking, stonemasonry, snares, traps, and weapons.</p>\n<p>If you are a dwarf, you gain greater darkvision while holding the axe. If you are not a dwarf, you are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} while holding the axe, and if you are an orc, you are also drained 4 and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} while holding it.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">T</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per week</p>\n<hr />\n<p><strong>Effect</strong> The axe casts a 10th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Elemental]</em> spell to conjure an elite elemental avalanche. The spell is automatically sustained, requiring no action on your part but still allowing you to command the elemental on each of your turns. You can Dismiss the Spell.</p>\n<hr />\n<p><strong>Destruction</strong> If an orc beheads a dwarven king with the <em>Axe of the Dwarven Lords</em>, the axe rusts away to nothing.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "axe",
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 26
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 4
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "propertyRune1": {
+            "value": "keen"
+        },
+        "propertyRune2": {
+            "value": "returning"
+        },
+        "propertyRune3": {
+            "value": "speed"
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": "-"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "armor",
+                            "jewelry",
+                            "metalworking",
+                            "stonemasonry",
+                            "snare",
+                            "trap",
+                            "weapon"
+                        ]
+                    }
+                ],
+                "selector": "crafting",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:orc"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Target is an orc",
+                "option": "orc",
+                "toggleable": true
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "specific": {
+            "material": null,
+            "runes": {
+                "potency": 4,
+                "striking": "majorStriking"
+            },
+            "value": true
+        },
+        "splashDamage": {
+            "value": null
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "majorStriking"
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "conjuration",
+                "dwarf",
+                "magical",
+                "sweep",
+                "thrown-30",
+                "transmutation",
+                "two-hand-d12"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "3"
+        }
+    },
+    "type": "weapon"
+}

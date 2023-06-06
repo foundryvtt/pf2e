@@ -1,0 +1,53 @@
+{
+    "_id": "3fLfHrJbMy2ayLMQ",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Blast Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p>\n<hr />\n<p>You're used to the clamor of steel, the crack of a firearm, and the thunderous blast of explosions. You gain resistance 3 to sonic. If you roll a success on a saving throw against an auditory effect that causes the @UUID[Compendium.pf2e.conditionitems.Item.Deafened] condition, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "auditory",
+                    "condition:deafened"
+                ],
+                "selector": "saving-throw",
+                "text": "When you roll a success on a save against a cold or water effect, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Resistance",
+                "type": "sonic",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

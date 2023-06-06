@@ -1,0 +1,196 @@
+{
+    "_id": "v2xIxZ9ZZ6fJyATF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1bvXbELRBoJTBqsR",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spring",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature tries to unlock or Pick the Lock.</p>\n<hr />\n<p><strong>Effect</strong> A spine extends to attack the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vFBoAHwlrVTu9wKm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spine",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "cladis-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "3tqq8q1ujv3fog51d6br": {
+                        "damage": "1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HoWRGPkBlJjsL9zl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cladis Poison",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 hour)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 hour)</p>\n<p><strong>Stage 3</strong> [[/r 3d6[poison]]] damage and drained 2 (1 hour)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "cladis-poison",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Poisoned Lock",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "hardness": 6,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A spring-loaded, poisoned spine is hidden near the keyhole of a lock. Disabling or breaking the trap does not disable or break the lock.</p>",
+            "disable": "<p>@Check[type:thievery|dc:17|name:Disarm Lock Trap|traits:mechanical,trap] (trained) on the spring mechanism</p>",
+            "isComplex": false,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Core Rulebook"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

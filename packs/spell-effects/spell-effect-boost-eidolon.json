@@ -1,0 +1,47 @@
+{
+    "_id": "h0CKGrgjGNSg21BW",
+    "img": "systems/pf2e/icons/spells/boost-eidolon.webp",
+    "name": "Spell Effect: Boost Eidolon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Boost Eidolon]</em></p>\n<p>Your eidolon gains a +2 status bonus to damage with its unarmed attacks per weapon damage die, to a maximum of +8 with four weapon damage dice.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:eidolon",
+                    "item:category:unarmed"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "@weapon.system.damage.dice * 2"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

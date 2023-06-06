@@ -1,0 +1,90 @@
+{
+    "_id": "dkuY22d3yLUBcqhq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Cathartic Mage Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned to harness a particular emotion and mix it into your magic. Choose an emotion to be your catharsis emotion.</p>\n<p>If you don't already cast spells from spell slots, you learn to cast spontaneous spells and gain the Cast a Spell activity. You gain a spell repertoire with one cantrip of your choice, from a spell list of your choice. You choose this cantrip from the common spells on your chosen spell list or from other spells to which you have access on that list. You're trained in spell attack rolls and spell DCs for that tradition. Your key spellcasting ability for these spells is Charisma.</p>\n<p>If you can already cast spells from spell slots, you learn one additional cantrip from your spellcasting tradition. If you're a prepared caster, you can prepare this spell in addition to your usual cantrips per day; if you're a spontaneous caster, you add this cantrip to your spell repertoire.</p>\n<p>You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Catharsis] reaction and the @UUID[Compendium.pf2e.actionspf2e.Item.Settle Emotions] activity.</p>\n<p><strong>Emotional States:</strong></p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Anger)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Awe)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Dedication)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Fear)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Hatred)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Joy)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Love)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Misery)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Pride)]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Remorse)]</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.EWiUv3UiR3RHSGlA]{Cathartic Mage} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Cha 14 or ability to cast spells from spell slots"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Catharsis"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Settle Emotions"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Anger)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Awe)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Dedication)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Fear)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Hatred)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Joy)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Love)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Misery)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Pride)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Catharsis Emotion (Remorse)"
+                    }
+                ],
+                "flag": "catharticMageDedication",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.CatharticMage.EmotionalState.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.catharticMageDedication}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

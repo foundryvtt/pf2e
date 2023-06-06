@@ -1,0 +1,103 @@
+{
+    "_id": "dpIrjd1UPY7EnWUD",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/silvertongue-mutagen.webp",
+    "name": "Effect: Silvertongue Mutagen (Lesser)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Silvertongue Mutagen (Lesser)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Deception, Diplomacy, Intimidation and Performance checks</li>\n<li>-2 item penalty to Arcana, Crafting, Occulism and Society checks</li>\n<li>Your critical failures for Deception, Diplomacy, Intimidation, Performance become failures instead</li>\n<li>-2 item penalty to Lore checks</li>\n<li>All Recall Knowledge failures are critical failures</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>Become untrained in one skill you're trained in</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation",
+                    "performance"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "arcana",
+                    "crafting",
+                    "lore-skill-check",
+                    "occultism",
+                    "society"
+                ],
+                "type": "item",
+                "value": -2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "deception",
+                "type": "skill"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "diplomacy",
+                "type": "skill"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "intimidation",
+                "type": "skill"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "performance",
+                "type": "skill"
+            },
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

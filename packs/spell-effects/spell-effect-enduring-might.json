@@ -1,0 +1,42 @@
+{
+    "_id": "ZHVtJKnur9PAF5TO",
+    "img": "systems/pf2e/icons/spells/enduring-might.webp",
+    "name": "Spell Effect: Enduring Might",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Enduring Might]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "2*@item.level + @actor.abilities.str.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

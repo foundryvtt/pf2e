@@ -1,0 +1,152 @@
+{
+    "_id": "G4L49aMxHqO2yqxi",
+    "img": "systems/pf2e/icons/features/classes/ashes.webp",
+    "name": "Effect: Curse of Creeping Ashes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Ashes]</p>\n<h3>Curse of Creeping Ashes</h3>\n<p>Your body is slowly being consumed by the fires of your internal power, purifying you with each passing day. You are occasionally wracked with dry, wheezing coughs, and wherever you go you leave behind a fine trace of ash that falls from your body.</p>\n<p><strong>Minor Curse</strong></p>\n<p>The smoldering furnace of power within you begins to feed on your body and generate ash, which you inhale with every breath and leave behind with every step, impeding your footing. You take a –1 penalty on Constitution-based checks, such as Fortitude saves, and your Speed is reduced by 10 feet.</p>\n<p><strong>Moderate Curse</strong></p>\n<p>The ash you produce intensifies and fills the area around you, obscuring details and making the ground challenging to navigate. You are @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. An aura of ash surrounds you in a 10-foot emanation. You and creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Item.Concealed]. If you do not move for 1 round, heaps of ashes settle in the aura, creating difficult terrain that lasts until you move (when the ashes blow away).</p>\n<p><strong>Major Curse (11th)</strong></p>\n<p>You and nearby creatures collapse into ash with the slightest flame. Within your moderate curse's aura, you and all creatures gain weakness to fire equal to half your level. If a creature other than you in this aura is killed by fire damage, its body collapses into ash. Objects and structures in your aura halve their Hardness, and any parts of the object or structures in your aura that are reduced to 0 Hit Points collapse into ash.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": [
+                            "class:oracle"
+                        ],
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
+                        "value": "extreme"
+                    }
+                ],
+                "flag": "effectAshesCurse",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:oracular-curse:stage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:minor",
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "con-based",
+                "value": -1
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Creeping Ashes"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "radius": 10,
+                "slug": "ashes-curse",
+                "traits": [
+                    "oracle"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:minor",
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "value": -10
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #185: A Taste of Ashes"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

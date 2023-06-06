@@ -1,0 +1,45 @@
+{
+    "_id": "D8cI0uhI3YFFQssp",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Phantasmal Doorknob - Armor (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Phantasmal Doorknob (Major)]</p>\n<p>You gain a +2 item bonus to Thievery checks to Pick a Lock.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 15
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:pick-a-lock"
+                ],
+                "selector": "thievery",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

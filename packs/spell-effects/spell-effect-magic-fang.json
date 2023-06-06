@@ -1,0 +1,55 @@
+{
+    "_id": "MqZ6FScbfGtXB8tt",
+    "img": "systems/pf2e/icons/spells/magic-fang.webp",
+    "name": "Spell Effect: Magic Fang",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Fang]</em></p>\n<p>The unarmed attack becomes a +1 striking unarmed attack, gaining a +1 item bonus to attack rolls and increasing the number of damage dice to two if it had only one.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "unarmedAttacks": true
+                },
+                "flag": "magicFang",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.magicFang}-attack",
+                "value": 1
+            },
+            {
+                "key": "Striking",
+                "selector": "{item|flags.pf2e.rulesSelections.magicFang}-damage",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "2C1HuKDQDGFZuv7l",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/boulderhead-bock.webp",
+    "name": "Effect: Boulderhead Bock",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Boulderhead Bock].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "stunned",
+                            "stupefied"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "type": "item",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

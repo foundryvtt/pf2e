@@ -1,0 +1,225 @@
+{
+    "_id": "oSzUv21eN9VS9TC1",
+    "img": "systems/pf2e/icons/spells/hasted-assault.webp",
+    "name": "Effect: Curse of Turbulent Moments",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Time]</p>\n<h3>Curse of Turbulent Moments</h3>\n<p>Time passes differently for you than everyone else. You experience fluxes that might manifest as minor day-to-day changes in your apparent age, such as a gray lock of hair or a disappearing wrinkle, or as occasional ghostly temporal afterimages that slightly trail your movement.</p>\n<p><strong>Minor Curse</strong></p>\n<p>As you draw upon your mystery, time's passage becomes more disjointed, aging, regressing, or warping you out of sync. You become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. In addition, you take a -2 penalty to saving throws against effects that would make you @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or @UUID[Compendium.pf2e.conditionitems.Item.Slowed].</p>\n<p><strong>Moderate Curse</strong></p>\n<p>Time distorts further, increasing your muscular atrophy, age regression, or warping while making effects pass you by at an increased rate. The value of your enfeebled condition increases to @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and the penalty from your minor curse increases to -3. Your status bonus to AC against attacks made against you from reactions or free actions while you're moving increases to +2. In addition, spells affecting you last less time; their duration is reduced by half, to a minimum of 1 round. This doesn't reduce the spell's duration for other targets affected by the same spell. Finally, all non-permanent conditions affecting you that have a duration measured in rounds, minutes, or hours have their duration reduced by half, to a minimum of 1 round. Any afflictions (such as poisons, diseases, and curses) affecting you have their maximum duration, onset time, and time for each stage reduced by half. Spells, conditions, and afflictions that last \"until your next daily preparations\" last for 12 hours or until your next daily preparations, whichever comes first. This doesn't change the duration you're temporarily immune, the rate at which you can use abilities that have a frequency, or any other features based on the passage of time.</p>\n<p><strong>Major Curse (11th)</strong></p>\n<p>You become so out of sync with time that it's hard for you to act, but when you do act, you do so with incredible speed. You become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, the value of your enfeebled condition increases to 3, and the penalty from your minor curse increases to -4. Time passes so much faster for you that your steps appear as a blur of motion to others. You gain a +4 status bonus to initiative rolls. Whenever you move, you're @UUID[Compendium.pf2e.conditionitems.Item.Concealed] while you're moving and until the start of your next turn. As normal for concealment where your location is still obvious, you can't use this concealment to Hide or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak]. Your status bonus to AC against attacks made against you from reactions or free actions while you're moving increases to +4.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": [
+                            "class:oracle"
+                        ],
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
+                        "value": "extreme"
+                    }
+                ],
+                "flag": "effectTimeCurse",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:oracular-curse:stage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:fatigued",
+                            "inflicts:slowed"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "time-curse-minor",
+                "value": -2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "self:oracular-curse:stage:moderate"
+                ],
+                "selector": "ac",
+                "slug": "time-curse-ac-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "time-curse-ac-bonus",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "initiative",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "self:oracular-curse:stage:moderate"
+                ],
+                "selector": "saving-throw",
+                "slug": "time-curse-minor",
+                "value": -3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "time-curse-minor",
+                "value": -4
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:oracular-curse:stage:minor"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:oracular-curse:stage:moderate"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 3
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

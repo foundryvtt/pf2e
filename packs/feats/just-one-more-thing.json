@@ -1,0 +1,54 @@
+{
+    "_id": "YluQPhevo0LKdF1p",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Just One More Thing",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your most recent action was to Feint, Request, or Demoralize, and you failed but didn't critically fail.</p>\n<hr />\n<p>After your attempt to influence someone goes poorly, you add another bit of information or ask a pointed question, possibly salvaging your previous attempt.</p>\n<p>Reroll the failed check and use the new result. If the target of the failed check is the subject of a lead you're pursuing, double your bonus from @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] on the rerolled check. That creature is temporarily immune to Just One More Thing for 1 day.</p>\n<p>You can also use this action if you failed, but didn't critically fail, at a check to Lie, Gather Information, Make an Impression, or Coerce. In this case, rather than spending 1 action, adding Just One More Thing takes you half the amount of time you initially spent on the check, to a minimum of 1 more round.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "just-one-more-thing",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "just-one-more-thing"
+                ],
+                "selector": [
+                    "perception",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune",
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

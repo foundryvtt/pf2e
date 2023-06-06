@@ -1,0 +1,52 @@
+{
+    "_id": "ef57tIj30IaPnSgC",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Spiral Sworn",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p>You trace a spiral in the air while intoning prayers to Pharasma, gaining her blessing for a time. For 3 rounds, your Strikes and spells deal additional damage against undead, creatures in possession of an imprisoned soul, or creatures you have witnessed create or command undead. You gain a status bonus to damage with your Strikes against these creatures equal to the number of weapon damage dice. Spells you cast from spell slots gain a status bonus to damage against these creatures equal to the level of the spell; this bonus applies only to spells that deal damage and don't have a duration.</p>\n<p>If your spiral is glowing, you can target a willing creature in its light. If you do, that creature gains the bonuses instead of you.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Spiral Sworn]</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT10M"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soul Warden Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.soulWarden.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate",
+                "divine",
+                "evocation"
+            ]
+        }
+    },
+    "type": "feat"
+}

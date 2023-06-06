@@ -1,0 +1,95 @@
+{
+    "_id": "755XG3gP2MWYBXy5",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Avalanche Boots",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>While the insides of these boots are comfortable, fur-lined leather, the outsides are a jumble of slate plates, giving the impression of a rockslide. You gain a +3 item bonus to Athletics checks and a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] and @UUID[Compendium.pf2e.actionspf2e.Item.Shove]. When you invest the boots, you either increase your Strength score by 2 or increase it to 18, whichever is higher.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You succeed or critically succeed with a Shove</p>\n<hr />\n<p><strong>Effect</strong> If the Shove was a success, you push your opponent up to 10 feet instead of 5 feet. If the Shove was a critical success, you push your opponent up to 20 feet, and you can then choose to knock them @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 15000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.str.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.str.value",
+                "value": 18
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Avalanche Boots (Force Open or Shove)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:force-open",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "invested",
+                "magical",
+                "transmutation"
+            ]
+        },
+        "usage": {
+            "value": "wornboots"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,130 @@
+{
+    "_id": "xPg5wzzKNxJy18rU",
+    "img": "systems/pf2e/icons/spells/moonlight-bridge.webp",
+    "name": "Effect: Brightness Seeker",
+    "system": {
+        "description": {
+            "value": "<p><strong>Trigger</strong> You attempt an attack roll, skill check, or saving throw while performing the course of action from your <em>@UUID[Compendium.pf2e.spells-srd.Item.Augury]</em>, but you haven't rolled yet.</p>\n<hr />\n<p><strong>Effect</strong> You gain a +1 status bonus to the triggering check, or a +2 status bonus if the result of the augury was woe and you proceeded anyway.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 30
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "call-upon-the-brightness",
+                    "brightness-seeker:weal"
+                ],
+                "selector": "attack",
+                "slug": "weal-attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "call-upon-the-brightness",
+                    "brightness-seeker:weal"
+                ],
+                "selector": "skill-check",
+                "slug": "weal-skill",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "call-upon-the-brightness",
+                    "brightness-seeker:weal"
+                ],
+                "selector": "saving-throw",
+                "slug": "weal-save",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Weal",
+                        "value": "weal"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Woe",
+                        "value": "woe"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.WealAndWoe",
+                        "value": "weal"
+                    }
+                ],
+                "flag": "brightnessSeeker",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Elf.BrightnessSeeker.Prompt",
+                "rollOption": "brightness-seeker"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "call-upon-the-brightness",
+                    "brightness-seeker:woe"
+                ],
+                "selector": "attack",
+                "slug": "woe-attack",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "call-upon-the-brightness",
+                    "brightness-seeker:woe"
+                ],
+                "selector": "skill-check",
+                "slug": "woe-skill",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "call-upon-the-brightness",
+                    "brightness-seeker:woe"
+                ],
+                "selector": "saving-throw",
+                "slug": "woe-save",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Label",
+                "option": "call-upon-the-brightness",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

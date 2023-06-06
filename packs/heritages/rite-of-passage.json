@@ -1,0 +1,46 @@
+{
+    "_id": "yVtcyAbLmWCIHHZi",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Rite of Passage",
+    "system": {
+        "ancestry": {
+            "name": "Conrasu",
+            "slug": "conrasu",
+            "uuid": "Compendium.pf2e.ancestries.Item.tZn4qIHCUA6wCdnI"
+        },
+        "description": {
+            "value": "<p>Your exoskeleton remains connected with the plants that created it. You can ignore difficult terrain and uneven ground caused by undergrowth. In addition, when you use the Acrobatics skill to Balance on narrow surfaces or uneven ground within forests, you aren't flat-footed. When you roll a success attempting one of these Acrobatics checks, you get a critical success instead.</p>"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    "terrain:forest"
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:balance"
+                ],
+                "selector": "acrobatics",
+                "text": "PF2E.SpecificRule.Conrasu.RiteOfPassage.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

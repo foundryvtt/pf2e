@@ -1,0 +1,470 @@
+{
+    "_id": "lYOUeRxFhbTdOOGC",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "IpaUvWrHaznmdOGb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A2z7JUAPZ4320zP5",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YXFicpAJz9WZdrnS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Boneshard Burst",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a clacking skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {2d12[piercing],2d12[negative]}]]{2d12 piercing damage and 2d12 negative damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dhMEgZcYzpqH15gY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Chattering Teeth",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A clacking skull swarm emits a cacophony of chattering. A creature entering or beginning its turn within the area must succeed at a @Check[type:will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. A creature that successfully saves is immune to that swarm's chattering teeth for 24 hours. The swarm can stop or resume this ability as a free action.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "chattering-teeth-active"
+                        ],
+                        "radius": 60,
+                        "slug": "chattering-teeth",
+                        "traits": [
+                            "arcane",
+                            "auditory",
+                            "aura",
+                            "emotion",
+                            "enchantment",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "chattering-teeth-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "auditory",
+                        "aura",
+                        "emotion",
+                        "enchantment",
+                        "incapacitation",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vAYa9X9DeqTHfehJ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Shrieking Scream",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The clacking skull swarm emits a terrifying, painful scream that deals [[/r 10d6[sonic]]] damage to all creatures in a @Template[type:cone|distance:30] (@Check[type:will|dc:29|basic:true] save). A creature that fails this save is also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>\n<p>The swarm can't use Frightening Scream again for [[/br 1d4 #Recharge Shrieking Scream]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CFiD5D2XvZ2N67x1",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Gnaw",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 4d8[piercing]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0zCRE8SyoP77UM7a",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Clacking Sea Skull Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": -3
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 18
+            },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 25
+                    }
+                ],
+                "value": null
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Roiling about in seething waves of bleached death, clacking skull swarms arise from the remains of dozens of beheaded humanoids. The horrible clattering of the skulls' onslaught drives their prey to distraction even while they try to flee in terror.</p>\n<hr />\n<p>A skull swarm is composed of reanimated masses of craniums and jawbones, forming a terrifying avalanche of undead fury. Most skull swarms are mindless, though some retain a vestige of wit, awareness, and even magical talents from life, culminating in a highly intelligent swarm mind.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary 3"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mindless",
+                "swarm",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

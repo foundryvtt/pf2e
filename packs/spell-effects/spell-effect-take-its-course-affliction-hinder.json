@@ -1,0 +1,46 @@
+{
+    "_id": "R27azQfzeFuFc48G",
+    "img": "systems/pf2e/icons/spells/take-its-course.webp",
+    "name": "Spell Effect: Take Its Course (Affliction, Hinder)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Take its Course]</em>, when used to hinder a target against an affliction.</p>\n<p>The target gains a -2 status bonus to its saving throw against the affliction.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "affliction"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

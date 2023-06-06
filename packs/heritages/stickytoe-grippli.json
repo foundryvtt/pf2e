@@ -1,0 +1,54 @@
+{
+    "_id": "rFdVYKtHsZzRCsSd",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Stickytoe Grippli",
+    "system": {
+        "ancestry": {
+            "name": "Grippli",
+            "slug": "grippli",
+            "uuid": "Compendium.pf2e.ancestries.Item.hXM5jXezIki1cMI2"
+        },
+        "description": {
+            "value": "<p>Your hands and feet exude a film that helps them adhere to surfaces. You gain a +2 circumstance bonus to your Fortitude and Reflex DC against attempts to Disarm, Shove, or Trip you. When ascending trees, vines, and other foliage, if you roll a success on the Athletics check to Climb, you get a critical success instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "jqbEIA6249vqgqwq",
+    "img": "systems/pf2e/icons/spells/produce-flame.webp",
+    "name": "Effect: Flame Tongue (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Flame Tongue (Greater)]</p>\n<p>All weapon and unarmed attacks by you and your allies within the area gain the effect of the <em>flaming</em> property rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:type:weapon"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "flaming"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

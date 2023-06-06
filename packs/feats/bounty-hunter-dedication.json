@@ -1,0 +1,77 @@
+{
+    "_id": "tKaesXO5nlZ2sspx",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Bounty Hunter Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When focused on finding your quarry, you're relentless. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey] action. You can use Hunt Prey to designate only a creature that you've seen, heard about, or learned about through some other means, such as a bounty board or wanted poster. In addition to the other benefits of Hunt Prey, you gain a +2 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] regarding your prey.</p>\n<p>If you already have Hunt Prey, you become an expert in Survival and gain the circumstance bonus to Gather Information about your prey; you can still designate a creature you're tracking during exploration, in addition to the conditions above.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Fea8ZereQhNolDoP]{Bounty Hunter} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Survival"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Hunt Prey"
+            },
+            {
+                "count": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "grants-hunt-prey",
+                "priority": 99
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.BountyHunterDedication.GatherInfoHuntedPrey",
+                "predicate": [
+                    "action:gather-information",
+                    "hunted-prey"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.sur.rank",
+                "predicate": [
+                    {
+                        "gt": [
+                            "grants-hunt-prey",
+                            1
+                        ]
+                    }
+                ],
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

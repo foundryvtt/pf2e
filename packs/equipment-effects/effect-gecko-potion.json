@@ -1,0 +1,64 @@
+{
+    "_id": "buJnkFBzL4e22ASp",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/gecko-potion.webp",
+    "name": "Effect: Gecko Potion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Gecko Potion]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Climb]</li>\n<li>+1 item bonus to Thievery checks to @UUID[Compendium.pf2e.actionspf2e.Item.Palm an Object]</li>\n<li>+1 item bonus to Reflex DC against @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] attempts</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:palm-an-object"
+                ],
+                "selector": "thievery",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "avoid-disarm"
+                ],
+                "selector": "reflex",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,164 @@
+{
+    "_id": "Z30nSkai5UmZCyKu",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Past Life",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Flashes of your life become clearer and more frequent, allowing you to apply skills you developed while alive. You become trained in a skill of your choice and gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] feat for a Lore subcategory tied to your life.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "predicate": [
+                            "skill:acr:rank:0"
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:0"
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "predicate": [
+                            "skill:ath:rank:0"
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:0"
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "predicate": [
+                            "skill:dec:rank:0"
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "predicate": [
+                            "skill:dip:rank:0"
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "predicate": [
+                            "skill:itm:rank:0"
+                        ],
+                        "value": "itm"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "predicate": [
+                            "skill:arc:rank:0"
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "predicate": [
+                            "skill:nat:rank:0"
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "predicate": [
+                            "skill:occ:rank:0"
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "predicate": [
+                            "skill:prf:rank:0"
+                        ],
+                        "value": "prf"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "predicate": [
+                            "skill:rel:rank:0"
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "predicate": [
+                            "skill:soc:rank:0"
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "predicate": [
+                            "skill:ste:rank:0"
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "predicate": [
+                            "skill:sur:rank:0"
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "predicate": [
+                            "skill:thi:rank:0"
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skeleton"
+            ]
+        }
+    },
+    "type": "feat"
+}

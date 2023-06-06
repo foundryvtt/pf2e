@@ -1,0 +1,53 @@
+{
+    "_id": "MI5OCkF9IXmD2lPF",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/bloodhound-mask.webp",
+    "name": "Effect: Bloodhound Mask (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bloodhound Mask (Greater)]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 11
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:track",
+                    "scent"
+                ],
+                "selector": "survival",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

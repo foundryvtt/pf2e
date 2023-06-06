@@ -1,0 +1,69 @@
+{
+    "_id": "bj0y7JnIboNfCuC8",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Gnoll Weapon Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Whenever you gain a class feature that grants you expert or greater proficiency in a given weapon or weapons, you also gain that proficiency in @UUID[Compendium.pf2e.equipment-srd.Item.Flail], @UUID[Compendium.pf2e.equipment-srd.Item.Khopesh], @UUID[Compendium.pf2e.equipment-srd.Item.Mambele], @UUID[Compendium.pf2e.equipment-srd.Item.Spear], and @UUID[Compendium.pf2e.equipment-srd.Item.War Flail].</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Gnoll Weapon Practicality"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-flail.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-khopesh.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-mambele.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-spear.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-war-flail.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnoll"
+            ]
+        }
+    },
+    "type": "feat"
+}

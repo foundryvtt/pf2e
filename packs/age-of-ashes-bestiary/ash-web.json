@@ -1,0 +1,163 @@
+{
+    "_id": "z3zWW4jLADAei1uo",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "eV1zBAr9CgzQ2C5X",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spore Explosion",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into the ash web's space or damages the web with any type of damage other than cold damage.</p>\n<p><strong>Requirements</strong> The ash web is not in direct sunlight.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within 10 feet of that creature are exposed to ash web spores.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0tHs3BRTN0UIM4j7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ash Web Spores",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The enfeebled condition from ash web remains even after the poison's duration ends. The condition's value reduces by 1 per hour. Gugs are immune to this poison; instead, they have vivid and strange dreams when they sleep after ingesting ash web.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<hr />\n<p><strong>Stage 1</strong> [[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 4d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 6d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (1 round).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison",
+                        "inhaled"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ash Web",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 100,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 21
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>This dangerous sooty black mold readily releases its toxic spores when disturbed. The entire swath of fungus in area <strong>B2</strong> is a single organism. There are nine 10-foot-square patches to remove, but the whole organism dies once it takes enough damage.</p>",
+            "disable": "<p>@Check[type:survival|dc:27|name:Remove Patch|traits:environmental,fungus] (expert) to remove a 10-foot-square patch of ash web without triggering the spores</p>",
+            "isComplex": false,
+            "level": {
+                "value": 10
+            },
+            "reset": "<p>This large patch of ash web resets automatically at the start of the round.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #148: Fires of the Haunted City"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

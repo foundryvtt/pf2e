@@ -1,0 +1,49 @@
+{
+    "_id": "jQmfZcPD6xVYx5nb",
+    "img": "systems/pf2e/icons/spells/cloudkill.webp",
+    "name": "Effect: Entangling Slime",
+    "system": {
+        "description": {
+            "value": "<p>The creature becomes clumsy 1 and takes a -5-foot penalty to Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "value": -5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

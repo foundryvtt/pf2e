@@ -1,0 +1,56 @@
+{
+    "_id": "Dbr5hInQXH904Ca7",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Psychic Rapport",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Psychic Rapport]</p>\n<p>You gain a +1 circumstance bonus to Deception, Diplomacy, and Intimidation checks, and to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "Uadsb25G18pKdZ2e",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.webp",
+    "name": "Effect: Clandestine Cloak",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clandestine Cloak]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "impersonate"
+                ],
+                "selector": "deception",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "item",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

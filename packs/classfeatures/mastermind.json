@@ -1,0 +1,76 @@
+{
+    "_id": "RyOkmu0W9svavuAB",
+    "img": "systems/pf2e/icons/features/classes/mastermind.webp",
+    "name": "Mastermind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Where others might use sleight of hand or a silver tongue to achieve their objectives, you rely on your intellect to craft intricate schemes. You likely view your operations as a chess game, always planning 10 steps ahead where others might plan three. You might be a detective determined to solve crimes or a spymaster in the service of a powerful family or nation. If you operate outside the law, you might be an aspiring crime lord or information broker, excellent at directing others toward suitable jobs.</p>\n<p>If you successfully identify a creature using @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], that creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against your attacks until the start of your next turn; if you critically succeed, it's flat-footed against your attacks for 1 minute.</p>\n<p>You're trained in Society and one of the following skills of your choice: Arcana, Nature, Occultism, or Religion. You can choose Intelligence as your key ability score.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "value": "system.skills.arc.rank"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "value": "system.skills.nat.rank"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "value": "system.skills.occ.rank"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "value": "system.skills.rel.rank"
+                    }
+                ],
+                "flag": "mastermind",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Rogue.TrainSkill.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "{item|flags.pf2e.rulesSelections.mastermind}",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "subfeatures": {
+            "keyOptions": [
+                "int"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

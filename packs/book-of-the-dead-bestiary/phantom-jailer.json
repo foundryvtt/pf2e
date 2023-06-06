@@ -1,0 +1,99 @@
+{
+    "_id": "PH4GHPsekbDdyX3j",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "H0qYKDck9uqk3ZiC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Capture",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the manacles</p>\n<hr />\n<p><strong>Effect</strong> The spirit attempts to lock the manacles around the triggering creature's wrists. The triggering creature must attempt a @Check[type:reflex|dc:23] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The spirit loosely places manacles around the creature's wrists. Removing the manacles requires a single action.</p>\n<p><strong>Failure</strong> The spirit clamps the manacles around the creature's wrists but fails to lock them. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the manacles are removed as a 3-action activity.</p>\n<p><strong>Critical Failure</strong> The spirit clamps the manacles around the creature's wrists and locks them. The creature is flat-footed and clumsy 1 until the manacles are removed (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 23, simple lock).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Phantom Jailer",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(trained) to notice the manacles twitch</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A spirit appears and arrests the creature by clamping manacles around their wrists.</p>",
+            "disable": "<p>@Check[type:athletics|dc:18|name:Seize the manacles] to seize the manacles from the spirit, @Check[type:intimidation|dc:19|name:Order the spirit to stand down] (trained) to order the spirit to stand down, or @Check[type:occultism|dc:20|name:Exorcise the spirit] to exorcise the spirit</p>",
+            "isComplex": false,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>1 day</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Book of the Dead"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

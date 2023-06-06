@@ -1,0 +1,54 @@
+{
+    "_id": "X1pGyhMKrCTvHB0q",
+    "img": "systems/pf2e/icons/features/feats/favorable-winds.webp",
+    "name": "Effect: Favorable Winds",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Favorable Winds].</p>\n<hr />\n<p>You wrap a shell of favorable wind around a weapon you wield. On your next Strike with a ranged weapon before the start of your next turn, you don't take circumstance penalties on the attack roll due to wind. In addition, if that weapon has a range increment of 10 feet or less, increase its range increment by 10 feet for that Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "lte": [
+                            "item:range-increment",
+                            10
+                        ]
+                    },
+                    {
+                        "not": "item:category:unarmed"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "range-increment",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

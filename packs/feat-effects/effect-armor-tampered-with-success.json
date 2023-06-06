@@ -1,0 +1,49 @@
+{
+    "_id": "IfRkgjyh0JzGalIy",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Armor Tampered With (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Tamper]</p>\n<p>Your armor has been tampered with! You are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] and take a -10-foot penalty to your Speeds. The effect ends at the start of the inventor's next turn, or until you @UUID[Compendium.pf2e.actionspf2e.Item.Interact] to remove it.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "value": -10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

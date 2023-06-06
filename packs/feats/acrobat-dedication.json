@@ -1,0 +1,72 @@
+{
+    "_id": "aFygWxgSv82WyCsl",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Acrobat Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become an expert in Acrobatics. At 7th level, you become a master in Acrobatics, and at 15th level, you become legendary in Acrobatics.</p>\n<p>Whenever you critically succeed at an Acrobatics check to @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] an enemy's space, you don't treat the enemy's space as difficult terrain.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.rhDvoOHAhAlABiae]{Acrobat} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Acrobatics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acr.rank",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 1,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 4
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "acrobatics",
+                "text": "As success, but you don't treat the enemy's space as difficult terrain.",
+                "title": "Critical Success"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,212 @@
+{
+    "_id": "IWD5RehCxZVfgrX9",
+    "img": "systems/pf2e/icons/spells/elephant-form.webp",
+    "name": "Spell Effect: Elephant Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Elephant Form]</em></p>\n<p>You channel the primal forces of nature to transform into a Large battle form, specifically that of a powerful and terrifying elephant or similar creature, such as a mammoth, mastodon, or anancus. This spell has the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Dinosaur Form]</em>, except you gain the following specific abilities instead of the form-specific abilities of dinosaur form.</p>\n<ul>\n<li>Speed 40 feet;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> foot, <strong>Damage</strong> 2d8 bludgeoning.</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> trunk (reach 10 feet), <strong>Effect</strong> grabbing trunk;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> tusk (reach 10 feet), <strong>Damage</strong> 2d6 piercing.</li>\n</ul>\n<p><strong>Grabbing Trunk</strong> A creature up to two sizes smaller that's hit by your trunk is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. If you succeed at your @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] check against a creature grabbed by your trunk, you can reposition the creature to another space within your trunk's reach.</p>\n<hr style=\"border-top:1px solid var(--color-border-light-primary);border-bottom:1px solid var(--color-border-light-highlight)\">\n<p><strong>Heightened (5th)</strong> Your elephant form is Huge; your trunk and tusk attacks have 15-foot reach, and your foot attack has 10-foot reach. You instead gain 20 temporary HP, an attack modifier of +18, a damage bonus of +6, double the damage dice, and Athletics +21.</p>\n<p><strong>Heightened (7th)</strong> Your elephant form is Gargantuan; your trunk and tusk attacks have 20-foot reach, and your foot attack has 15-foot reach. Your AC is 21 + your level and you instead gain 25 temporary HP, an attack modifier of +25, a damage bonus of +15, double the damage dice, and Athletics +25.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "18 + @actor.level"
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "ath": {
+                            "modifier": 18
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "foot": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 9
+                            },
+                            "modifier": 16,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "trunk": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "dice": 0
+                            },
+                            "modifier": 16,
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        },
+                        "tusk": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 9
+                            },
+                            "modifier": 16,
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "tempHP": 15,
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": {
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 21
+                                    }
+                                },
+                                "strikes": {
+                                    "foot": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 6
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "trunk": {
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "tusk": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 6
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
+                        {
+                            "start": 7,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @actor.level"
+                                },
+                                "size": "grg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 25
+                                    }
+                                },
+                                "strikes": {
+                                    "foot": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 15
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "trunk": {
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "tusk": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 15
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 25
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "trunk-attack",
+                "text": "PF2E.BattleForm.Note.GrabbingTrunk.Text",
+                "title": "PF2E.BattleForm.Note.GrabbingTrunk.Title"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #177: Burning Tundra"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

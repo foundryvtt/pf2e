@@ -1,0 +1,42 @@
+{
+    "_id": "LXf1Cqi1zyo4DaLv",
+    "img": "systems/pf2e/icons/spells/shrink.webp",
+    "name": "Spell Effect: Shrink",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Shrink]</em></p>\n<p>You warp space to make a creature smaller. The target shrinks to become Tiny in size. Its equipment shrinks with it but returns to its original size if removed. The creature's reach changes to 0 feet. This spell has no effect on a Tiny creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "resizeEquipment": true,
+                "value": "tiny"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

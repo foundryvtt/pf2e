@@ -1,0 +1,44 @@
+{
+    "_id": "W2OF7VeLHqc7p3DO",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
+    "name": "Effect: Deafened until end of your next turn",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.JournalEntry.Critical Fumble Deck #41]</strong></p>\n<p data-pm-slice=\"1 1 [&quot;section&quot;,{&quot;_preserve&quot;:{&quot;class&quot;:&quot;fumble-deck&quot;}},&quot;blockquote&quot;,{&quot;_preserve&quot;:{}}]\">You are @UUID[Compendium.pf2e.conditionitems.Item.Deafened] until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Deafened"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Critical Decks"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

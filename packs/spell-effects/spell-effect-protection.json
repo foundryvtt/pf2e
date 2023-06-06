@@ -1,0 +1,95 @@
+{
+    "_id": "RawLEPwyT5CtCZ4D",
+    "img": "systems/pf2e/icons/spells/protection.webp",
+    "name": "Spell Effect: Protection",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Protection]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Circle of Protection]</em></p>\n<p>The target gains a +1 status bonus to Armor Class and saving throws against creatures and effects of the chosen alignment.</p>\n<p>This bonus increases to +3 against effects from such creatures that would directly control the target and against attacks made by summoned creatures of the chosen alignment.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitChaotic",
+                        "value": "chaotic"
+                    },
+                    {
+                        "label": "PF2E.TraitEvil",
+                        "value": "evil"
+                    },
+                    {
+                        "label": "PF2E.TraitGood",
+                        "value": "good"
+                    },
+                    {
+                        "label": "PF2E.TraitLawful",
+                        "value": "lawful"
+                    }
+                ],
+                "flag": "protectionSelection",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellEffectProtection.Prompt"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Protection from {item|flags.pf2e.rulesSelections.protectionSelection} (direct control or summoned)",
+                "option": "protection-{item|flags.pf2e.rulesSelections.protectionSelection}-enhanced",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Protection from {item|flags.pf2e.rulesSelections.protectionSelection} (direct control or summoned)",
+                "predicate": [
+                    "origin:trait:{item|flags.pf2e.rulesSelections.protectionSelection}",
+                    "protection-{item|flags.pf2e.rulesSelections.protectionSelection}-enhanced"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Protection from {item|flags.pf2e.rulesSelections.protectionSelection}",
+                "predicate": [
+                    "origin:trait:{item|flags.pf2e.rulesSelections.protectionSelection}"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

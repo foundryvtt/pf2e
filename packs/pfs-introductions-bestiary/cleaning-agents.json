@@ -1,0 +1,100 @@
+{
+    "_id": "ZGX829P4KgPecMsF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "BoGoZuSpMu8ehH3i",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Decontamination Spray",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the room.</p>\n<hr />\n<p><strong>Effect</strong> The trap sprays cleaning chemicals at the triggering creature dealing [[/r (1d8+4)[acid]]] damage. The creature must attempt a @Check[type:reflex|dc:20|traits:acid,damaging-effect] save, and the trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded]{Blind} for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cleaning Agents",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Solvents and detergents spray from the ceiling and run down the walls where they combine in dangerous ways.</p>",
+            "disable": "<p>@Check[type:engineering-lore|dc:20|name:Disable Control Panel|traits:mechanical,complex]{Engineering Lore} (trained) or @Check[type:thievery|dc:20|name:Disable Control Panel|traits:mechanical,complex] (trained) to deactivate the control panel, or @Check[type:athletics|dc:21|name:Plug the Spouts|traits:mechanical,complex] or @Check[type:acrobatics|dc:21|name:Plug the Spouts|traits:mechanical,complex] to plug the spouts that release the chemicals; three successes are required to disable the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The trap deactivates after 1 minute and resets in 1 hour.</p>",
+            "routine": "<p>(3 actions) The trap fills the room with a cloud of caustic vapor and deals [[/r (2d6+2)[acid]]] damage to all creatures in the area (@Check[type:fortitude|dc:20|basic:true|name:Cleaning Agent|traits:acid]).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Intro #2: United in Purpose"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

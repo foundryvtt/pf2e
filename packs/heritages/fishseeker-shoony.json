@@ -1,0 +1,56 @@
+{
+    "_id": "isJhIPhT4MsjJvoq",
+    "img": "systems/pf2e/icons/features/ancestry/fishseeker-shoony.webp",
+    "name": "Fishseeker Shoony",
+    "system": {
+        "ancestry": {
+            "name": "Shoony",
+            "slug": "shoony",
+            "uuid": "Compendium.pf2e.ancestries.Item.q6rsqYARyOGXZA8F"
+        },
+        "description": {
+            "value": "<p>You come from a long line of fisherfolk and have inherited the quick reflexes necessary to nab and reel in big game. If you roll a success on an attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge], you get a critical success instead; if you roll a critical failure, you get a failure instead. A creature that rolls a failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] you gets a critical failure instead.</p>"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:grab-an-edge"
+                ],
+                "selector": "reflex",
+                "type": "save"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:grab-an-edge"
+                ],
+                "selector": "reflex",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:grab-an-edge"
+                ],
+                "selector": "reflex",
+                "text": "PF2E.SpecificRule.Shoony.FishseekerShoony.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

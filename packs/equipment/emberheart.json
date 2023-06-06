@@ -1,0 +1,74 @@
+{
+    "_id": "cVxHaDAouFhm0bXP",
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/emberheart.webp",
+    "name": "Emberheart",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>This small, heart-shaped amulet appears to be sculpted from stone with a single streak of dim light running through, like an ember just beneath ashes. When worn, the amulet gives off a gentle warmth, akin to being near a fireplace. You gain poison resistance 15 when wearing this amulet.</p>\n<p>When you invest the amulet, you either increase your Constitution score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Interact (healing, magical, necromancy, positive)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p>You hold the amulet aloft as a ripple of warm orange light exudes outward. Each ally in a @Template[type:emanation|distance:30] regains [[/r 30[healing]]]{30 Hit Points} and gains a +3 status bonus to Fortitude saves until the end of their next turn.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Emberheart]</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 24000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.con.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.con.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "invested",
+                "magical",
+                "necromancy"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

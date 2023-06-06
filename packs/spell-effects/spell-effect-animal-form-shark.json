@@ -1,0 +1,178 @@
+{
+    "_id": "qPaEEhczUWCQo6ux",
+    "img": "systems/pf2e/icons/spells/animal-form.webp",
+    "name": "Spell Effect: Animal Form (Shark)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Form]</em></p>\n<p>You call upon primal energy to transform yourself into a Medium animal battle form. When you first cast this spell, choose a form.</p>\n<p>You can decide the specific type of animal (such as lion or snow leopard for cat), but this has no effect on the form's Size or statistics. While in this form, you gain the animal trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 16 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>5 temporary Hit Points.</li>\n<li>Low-light vision and imprecise scent 30 feet.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +9, and your damage bonus is +1. These attacks are Strength based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition, for example). If your unarmed attack bonus is higher, you can use it instead.</li>\n<li>Athletics modifier of +9, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of animal you choose:</p>\n<ul>\n<li><strong>Shark</strong>\n<ul>\n<li>swim Speed 35 feet;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws, <strong>Damage</strong> 2d8 piercing;</li>\n<li>breathe underwater but not in air.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (3rd)</strong> You instead gain 10 temporary HP, AC = 17 + your level, attack modifier +14, damage bonus +5, and Athletics +14.</p>\n<p><strong>Heightened (4th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 15 temporary HP, AC = 18 + your level, attack modifier +16, damage bonus +9, and Athletics +16.</p>\n<p><strong>Heightened (5th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 20 temporary HP, AC = 18 + your level, attack modifier +18, damage bonus +7 and double the number of damage dice, and Athletics +20.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "med",
+                    "speeds": {
+                        "swim": 35
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "16 + @actor.level"
+                                },
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 9
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 1
+                                        },
+                                        "modifier": 9
+                                    }
+                                },
+                                "tempHP": 5
+                            }
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "17 + @actor.level"
+                                },
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 14
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 14
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @actor.level"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
+                        {
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 7
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

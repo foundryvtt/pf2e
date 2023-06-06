@@ -1,0 +1,53 @@
+{
+    "_id": "qo7DoF11Xl9gqmFc",
+    "img": "systems/pf2e/icons/spells/rapid-adaptation.webp",
+    "name": "Spell Effect: Rapid Adaptation (Desert)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Rapid Adaptation]</em></p>\n<p>The target isn't affected by severe or extreme heat, and when it rolls a success on an Acrobatics check to Balance on sand, it gets a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:sand"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

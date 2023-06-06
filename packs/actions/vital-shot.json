@@ -1,0 +1,63 @@
+{
+    "_id": "vO0Y1dVjNfbDyT4S",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Vital Shot",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Your careful shot against an unsuspecting opponent pierces a vital artery or organ. Make a ranged Strike. If the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed], the Strike deals an extra die of weapon damage, and the foe takes persistent bleed damage equal to the amount of precision damage from your One Shot, One Kill.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "vital-shot",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "vital-shot",
+                    "item:ranged",
+                    "target:condition:flat-footed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": "ternary(gte(@actor.level,15),3,ternary(gte(@actor.level,9),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "vital-shot",
+                    "item:ranged",
+                    "target:condition:flat-footed"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

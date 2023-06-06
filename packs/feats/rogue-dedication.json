@@ -1,0 +1,84 @@
+{
+    "_id": "bCWieNDC1CD35tin",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Rogue Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a skill feat and the rogue's @UUID[Compendium.pf2e.classfeatures.Item.Surprise Attack] class feature. You become trained in light armor. In addition, you become trained in Stealth or Thievery plus one skill of your choice; if you are already trained in both Stealth and Thievery, you become trained in an additional skill of your choice. You become trained in rogue class DC.</p>\n<p><strong>Special</strong> You cannot gain another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.kVC4kgYKbhqPsaDt]{Rogue} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dexterity 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.light.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.rogue",
+                "priority": 39,
+                "value": {
+                    "ability": "dex",
+                    "label": "PF2E.TraitRogue",
+                    "rank": 1
+                }
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "value": "system.skills.ste.rank"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "value": "system.skills.thi.rank"
+                    }
+                ],
+                "flag": "rogueDedication",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Rogue.TrainSkill.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "{item|flags.pf2e.rulesSelections.rogueDedication}",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Surprise Attack"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

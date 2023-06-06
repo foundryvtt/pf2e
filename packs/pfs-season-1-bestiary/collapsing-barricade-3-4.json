@@ -1,0 +1,115 @@
+{
+    "_id": "tShwzNRi8eEqznAi",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HSuWYcm6naeQXv38",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Collapse",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature crawls into the tunnel in the collapsing barricade after the trap is activated with the lever</p>\n<hr />\n<p><strong>Effect</strong> The barricade collapses on the creature, who must attempt a @Check[type:reflex|dc:25|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and escapes the barricade, emerging into a safe space on either side of it.</p>\n<p><strong>Success</strong> The creature takes [[/r (1d8+3)[bludgeoning]]] damage from collapsing debris and [[/r (1d8+3)[slashing]]] damage from broken glass before emerging on the opposite side of the barricade from the one they entered.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d8+7)[bludgeoning]]] damage from collapsing debris and [[/r (2d8+7)[slashing]]] damage from broken glass before emerging on the opposite side of the barricade from the one they entered.</p>\n<p><strong>Critical Failure</strong> As a failure, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] beneath the barricade until they or another creature succeed at a @Check[type:athletics|dc:22|name:Escape Barricade] check to pull them free. They can still be targeted, touched, and otherwise interacted with by creatures on either side of the barrier.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Barricade (3-4)",
+    "prototypeToken": {
+        "name": "Collapsing Barricade"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A tunnel through this steep barricade is rigged to collapse. If a kobold spends one action to throw a lever, the tunnel collapses on the next creature to pass through.</p>",
+            "disable": "<p>@Check[type:thievery|dc:25] (trained) to carefully trigger the collapse without entering the tunnel.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 5
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #1-11: Flames of Rebellion"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

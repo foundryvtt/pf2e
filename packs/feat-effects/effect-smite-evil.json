@@ -1,0 +1,76 @@
+{
+    "_id": "AlnxieIRjqNqsdVu",
+    "img": "systems/pf2e/icons/spells/dutiful-challenge.webp",
+    "name": "Effect: Smite Evil",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Smite Evil].</p>\n<p>Until the start of your next turn, your Strikes with the weapon your blade ally inhabits against that foe deal an extra 4 good damage, increasing to 6 if you have master proficiency with this weapon.</p>\n<p>If the foe attacks one of your allies, the duration extends to the end of that foe's next turn. If the foe continues to attack your allies each turn, the duration continues to extend.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Target is subject of your Smite Evil",
+                "option": "smite-evil",
+                "toggleable": true
+            },
+            {
+                "damageType": "good",
+                "key": "FlatModifier",
+                "predicate": [
+                    "smite-evil",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "smite-not-master",
+                "value": 4
+            },
+            {
+                "damageType": "good",
+                "key": "FlatModifier",
+                "predicate": [
+                    "smite-evil",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "smite-master",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

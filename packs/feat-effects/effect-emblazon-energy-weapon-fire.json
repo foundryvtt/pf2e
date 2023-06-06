@@ -1,0 +1,72 @@
+{
+    "_id": "GCEOngH5zL0rRyle",
+    "img": "systems/pf2e/icons/spells/spiritual-weapon.webp",
+    "name": "Effect: Emblazon Energy (Weapon, Fire)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Emblazon Energy] when applied to a weapon.</p>\n<ul>\n<li><strong>Weapon</strong> The weapon deals an extra 1d4 fire damage, or an extra 1d6 fire damage if you have a domain spell with the fire trait.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectEmblazonEnergyWeaponFire",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "label": "Emblazon Energy (Fire)",
+                "predicate": [
+                    {
+                        "not": "fire-domain"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponFire}-damage"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "Emblazon Energy (Fire Domain)",
+                "predicate": [
+                    "fire-domain"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponFire}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

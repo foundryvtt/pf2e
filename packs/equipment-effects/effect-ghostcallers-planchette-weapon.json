@@ -1,0 +1,62 @@
+{
+    "_id": "grXFmNl8Zy3VRVpR",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Ghostcaller's Planchette - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ghostcaller's Planchette]</p>\n<p>After you cast a necromancy spell by activating the <em>planchette</em>, the affixed weapon gains the effects of the <em>ghost touch</em> property rune until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectGhostcallersPlanchetteWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}",
+                            "item:id:{item|flags.pf2e.rulesSelections.effectGhostcallersPlanchetteWeapon}"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

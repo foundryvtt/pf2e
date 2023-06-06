@@ -1,0 +1,51 @@
+{
+    "_id": "3qHKBDF7lrHw8jFK",
+    "img": "systems/pf2e/icons/spells/guidance.webp",
+    "name": "Spell Effect: Guidance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Guidance]</em></p>\n<p>You have divine guidance, granting you a +1 status bonus to one attack roll, Perception check, saving throw, or skill check you attempt before the duration ends. You choose which roll to use the bonus on before rolling. If you use the bonus, the spell ends. Either way, you are then temporarily immune for 1 hour.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "guidance"
+                ],
+                "selector": [
+                    "attack",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

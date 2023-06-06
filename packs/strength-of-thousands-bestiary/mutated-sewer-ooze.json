@@ -1,0 +1,345 @@
+{
+    "_id": "VUad8HXC87nC9OrZ",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "ibgkkagzn2bvgplh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+5",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "deadly-d10",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ddyqm7rf1ighrfxe",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A sewer ooze can sense nearby motion through vibration and air movements.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7ga2khcvv6lq3yxy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Noxious Scent",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the area must attempt a @Check[type:fortitude|dc:23] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). A creature taking persistent acid damage from the ooze's pseudopod can't recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "noxious-scent",
+                        "traits": [
+                            "aura",
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fbv6ilmjn1jfhgbt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Filth Wave",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The sewer ooze unleashes a wave of filth, covering all creatures within a @Template[type:emanation|distance:20]. Each creature in the area must succeed at a @Check[type:reflex|dc:24|traits:damaging,ooze-effect] save or take [[/r 1d4[acid]]] damage and a -10-foot penalty to its Speeds for 1 minute (on a critical failure, the creature also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]). A creature can spend an Interact action to clean someone off, decreasing the Speed penalty by 5 feet with each action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Filth Wave]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ugo6l8gqtiq03wly",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Sewers",
+                        "predicate": [
+                            "terrain:sewer"
+                        ],
+                        "selector": "stealth",
+                        "type": "untyped",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+12 in sewers",
+                        "options": "terrain:sewer"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Mutated Sewer Ooze",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5,
+                "value": 0
+            },
+            "con": {
+                "mod": 4,
+                "value": 18
+            },
+            "dex": {
+                "mod": -2,
+                "value": 6
+            },
+            "int": {
+                "mod": -5,
+                "value": 0
+            },
+            "str": {
+                "mod": 5,
+                "value": 20
+            },
+            "wis": {
+                "mod": 0,
+                "value": 10
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 16
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 10
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 10
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder #170: Spoken on the Song Wind"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "unique",
+            "senses": {
+                "value": "motion sense 60 feet, no vision"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mindless",
+                "mutant",
+                "ooze"
+            ]
+        }
+    },
+    "type": "npc"
+}

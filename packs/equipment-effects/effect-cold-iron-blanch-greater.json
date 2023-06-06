@@ -1,0 +1,60 @@
+{
+    "_id": "OFJVaPxdafc4ezWB",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/cold-iron-blanch.webp",
+    "name": "Effect: Cold Iron Blanch (Greater)",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 10
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cold Iron Blanch (Greater)]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectColdIronBlanchGreater",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectColdIronBlanchGreater}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "cold-iron"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

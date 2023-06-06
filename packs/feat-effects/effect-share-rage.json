@@ -1,0 +1,65 @@
+{
+    "_id": "RoGEt7lrCdfaueB9",
+    "img": "systems/pf2e/icons/features/classes/rage.webp",
+    "name": "Effect: Share Rage",
+    "system": {
+        "description": {
+            "value": "<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a -1 penalty to AC.</li>\n</ul>\n<p>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.TraitRage",
+                "predicate": [
+                    {
+                        "not": "ranged"
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "item:trait:agile"
+                ],
+                "priority": 95,
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 0.5
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.TraitRage",
+                "selector": "ac",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

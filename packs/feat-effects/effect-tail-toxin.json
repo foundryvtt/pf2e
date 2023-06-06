@@ -1,0 +1,61 @@
+{
+    "_id": "Q0DKJRnDuuUnLpvn",
+    "img": "systems/pf2e/icons/features/ancestry/venomtail-kobold.webp",
+    "name": "Effect: Tail Toxin",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Tail Toxin]</p>\n<p>You apply your tail's venom to a piercing or slashing weapon. If your next Strike with that weapon before the end of your next turn hits and deals damage, you deal persistent poison damage equal to your level to the target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:damage:type:slashing",
+                                "item:damage:type:piercing"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "poison",
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.effectTailToxin}-damage",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

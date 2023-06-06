@@ -1,0 +1,83 @@
+{
+    "_id": "QZaOQ8luuxWXpFqJ",
+    "img": "systems/pf2e/icons/equipment/intelligent-items/genius-diadem.webp",
+    "name": "Genius Diadem",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p><strong>Perception</strong> +22; precise vision 30 feet, imprecise hearing 30 feet, constant detect magic</p>\n<p><strong>Communication</strong> speech (Common, Draconic, and eight other common languages)</p>\n<p><strong>Skills</strong> Arcana +34, seven Lore skills +28, Occultism +28, Society +28</p>\n<p><strong>Int</strong> +8, <strong>Wis</strong> +0, <strong>Cha</strong> +4</p>\n<p><strong>Will</strong> +24</p>\n<hr />\n<p>The genius diadem is a @UUID[Compendium.pf2e.equipment-srd.Item.Diadem of Intellect] that typically acts like an arrogant professor or mentor, often boasting that it is a certified greater intellect and far superior to your own intelligence, even after the benefits the diadem grants you. The genius diadem encourages you to learn things for yourself rather than actually attempting to Recall Knowledge for you, though you or your allies might be able to play on its arrogance using Deception to trick it into doing so. In addition to allowing you to activate it, the diadem can use the diadem of intellect's hypercognition activation with its own actions, though if it does so, the diadem gains the benefits instead of you. Only the diadem can use the following activation.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> command, Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The <em>genius diadem</em> casts 7th-level feeblemind.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "negateBulk": {
+            "value": ""
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 24000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.int.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.int.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "apex",
+                "arcane",
+                "divination",
+                "intelligent"
+            ]
+        },
+        "usage": {
+            "value": "worncirclet"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,192 @@
+{
+    "_id": "pBRkhSlkyNznhzP9",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "wXGTQobv2GA9jNRI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dart Volley",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on the pressure plate</p>\n<hr />\n<p><strong>Effect</strong> A poisoned dart shoots at the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bO1uc6sfcmdbGge1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "graveroot"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "zc7jj4yrbepuh4kbe6fc": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lPwMuSqDDNCTqsLS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Graveroot",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Poisoned Dart Trap (3-4)",
+    "prototypeToken": {
+        "name": "Poisoned Dart Trap"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>Magical motion sensors detect when a creature enters the chamber.</p>",
+            "disable": "<p>@Check[type:thievery|dc:23] (trained) to disable the pressure plate</p>",
+            "isComplex": false,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The trap resets after 2 rounds. After 5 total attacks, it runs out of poisoned darts.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Special #3-99: Fate in the Future"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

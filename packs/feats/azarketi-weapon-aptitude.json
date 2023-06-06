@@ -1,0 +1,54 @@
+{
+    "_id": "ALR9knJdktuMWzr4",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Azarketi Weapon Aptitude",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You become familiar with using your weapons both in and out of water. Whenever you critically hit using an azarketi weapon or one of the weapons listed in @UUID[Compendium.pf2e.feats-srd.Item.Azarketi Weapon Familiarity], you apply the weapon's critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Azarketi Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:azarketi",
+                            "item:base:crossbow",
+                            "item:base:hand-crossbow",
+                            "item:base:longspear",
+                            "item:base:spear",
+                            "item:base:trident"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "azarketi"
+            ]
+        }
+    },
+    "type": "feat"
+}

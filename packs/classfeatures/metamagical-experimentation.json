@@ -1,0 +1,71 @@
+{
+    "_id": "89zWKD2CN7nRu2xp",
+    "img": "systems/pf2e/icons/features/classes/metamagic-experimentation.webp",
+    "name": "Metamagical Experimentation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've realized that the practice known as metamagic is a holdover from a time long ago, when wizards had to work out their own spells and variations rather than rely on spells recorded by others and passed down over the years. This allows you efficient access to various metamagic effects. You gain one 1st-level metamagic wizard feat of your choice. Starting at 4th level, during your daily preparations, you can gain a metamagic wizard feat of your choice that has a level requirement of no more than half your level, which you can use until your next daily preparations.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 Wizard metamagic feat",
+                    "predicate": [
+                        "item:trait:wizard",
+                        "item:level:1",
+                        "item:trait:metamagic"
+                    ]
+                },
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:reach-spell"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.feats-srd.Item.Reach Spell"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:widen-spell"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.feats-srd.Item.Widen Spell"
+                    }
+                ],
+                "flag": "metamagicalExperimentation",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Wizard.Metamagic1.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.metamagicalExperimentation}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

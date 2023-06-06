@@ -1,0 +1,66 @@
+{
+    "_id": "5xgapIXn5DwbXHKh",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/serene-mutagen.webp",
+    "name": "Effect: Serene Mutagen (Lesser)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Serene Mutagen (Lesser)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Will saves</li>\n<li>+2 item bonus to Will saves against mental effects</li>\n<li>+1 item bonus to Perception checks</li>\n<li>+1 item bonus to Medicine, Nature, Religion and Survival checks</li>\n<li>-1 penalty to attack rolls</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>-1 penalty to save DCs of offensive spells</li>\n<li>-1 penalty per damage die to all weapon, unarmed attack and spell damage rolls</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "medicine",
+                    "nature",
+                    "perception",
+                    "religion",
+                    "survival",
+                    "will"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "attack",
+                "type": "untyped",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen, Lesser (vs. mental)",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "will",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

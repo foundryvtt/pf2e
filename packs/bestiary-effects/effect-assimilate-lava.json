@@ -1,0 +1,54 @@
+{
+    "_id": "t8Yxrx3XgjS78Hxt",
+    "img": "systems/pf2e/icons/spells/wildfire.webp",
+    "name": "Effect: Assimilate Lava",
+    "system": {
+        "description": {
+            "value": "<p>An obsidian golem that submerges itself in lava or magma takes no damage from it, and for as long as it remains submerged, it becomes slowed 2 and gains fast healing 15.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            },
+            {
+                "key": "FastHealing",
+                "value": 15
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #155: Lord of the Black Sands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

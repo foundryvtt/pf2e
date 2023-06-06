@@ -1,0 +1,63 @@
+{
+    "_id": "4QFElZoWjg1X0vsg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Archer Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in all simple and martial weapons in the bow weapon group. Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency rank in all simple and martial weapons in the bow weapon group. If you are at least an expert in the bow you are using, you gain access to the critical specialization effect with that bow.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.o71hqcfzhCKXcSml]{Archer} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:group:bow",
+                    {
+                        "or": [
+                            "item:category:simple",
+                            "item:category:martial"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialBows",
+                "sameAs": "unarmed",
+                "slug": "simple-martial-bows"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:group:bow",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

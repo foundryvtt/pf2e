@@ -1,0 +1,52 @@
+{
+    "_id": "7ogytOgDmh4h2g5d",
+    "img": "systems/pf2e/icons/features/feats/heroic-recovery.webp",
+    "name": "Effect: Heroic Recovery",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Heroic Recovery]</p>\n<p>If the next action you use is to cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> targeting a single living creature and the target regains Hit Points from the spell, it also gains three bonuses until the end of its next turn: a +5-foot status bonus to its Speed, a +1 status bonus to attack rolls, and a +1 status bonus to damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

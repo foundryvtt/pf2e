@@ -1,0 +1,122 @@
+{
+    "_id": "JuKD6k7nDwfO0Ckv",
+    "img": "systems/pf2e/icons/features/classes/giant-instinct.webp",
+    "name": "Giant Instinct",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your rage gives you the raw power and size of a giant. This doesn't necessarily mean you revere giants-you might scoff at them or even aspire to slay them! You could instead seem like a giant to other people due to your exceptional strength or larger-than-life emotions and ego.</p>\n<h2 class=\"title\">Anathema</h2>\n<p>Failing to face a personal challenge of strength is anathema.</p>\n<h2 class=\"title\">Titan Mauler (Instinct Ability)</h2>\n<p>You can use a weapon built for a Large creature if you are Small or Medium (both normally and when raging). If you're not Small or Medium, you can use a weapon built for a creature one size larger than you. You gain access to this larger weapon, of any weapon type otherwise available at character creation. It has the normal Price and Bulk for a weapon of its size. When wielding such a weapon in combat, increase your additional damage from Rage from 2 to 6, but you have the @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} condition because of the weapon's unwieldy size. You can't remove this clumsy condition or ignore its penalties by any means while wielding the weapon.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float: right;\">Level 7</span></h2>\n<p>Increase the damage from Rage when using a larger weapon from 6 to 10; if you have greater weapon specialization, increase it from 10 to 18.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float: right;\">Level 9</span></h2>\n<p>You resist bludgeoning damage and your choice of cold, electricity, or fire, chosen when you gain raging resistance.</p>\n<hr />\n<p><em>Note: You need to manually apply Clumsy 1 when you enter rage. Remember to alter the size of your weapon to ensure your Instinct Ability works correctly.</em></p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "energy",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feature:giant-instinct",
+                    "class:barbarian"
+                ],
+                "prompt": "PF2E.SpecificRule.Barbarian.Giant.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.energy}",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "bludgeoning",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    },
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    },
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization",
+                    "item:oversized"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 18
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,82 @@
+{
+    "_id": "0NRIP8cDv9Opl5Ls",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fiendsbane Oath (Paladin)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sworn an oath to banish the corruption of fiends to the dark planes they call home. Add the following tenet to your champion's code after the other tenets: \"You must banish or slay fiends you come across as long as you have a reasonable chance of success; in the incredibly unlikely event you find a good fiend, you don't have to banish or kill it.\"</p>\n<p>Your @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] gains a +4 circumstance bonus to damage against a fiend, or a +6 circumstance bonus if you have master proficiency with the weapon you used.</p>\n<p>You don't consider fiends to be legitimate authorities, even in nations ruled by fiends.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tenets of good"
+                },
+                {
+                    "value": "paladin cause"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Retributive Strike against a fiend",
+                "option": "fiendsbane-oath",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Fiendsbane Oath",
+                "predicate": [
+                    "fiendsbane-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "fiendsbane-not-master",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Fiendsbane Oath",
+                "predicate": [
+                    "fiendsbane-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "fiendsbane-master",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "type": "feat"
+}

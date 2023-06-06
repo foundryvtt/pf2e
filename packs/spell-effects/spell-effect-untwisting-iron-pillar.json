@@ -1,0 +1,49 @@
+{
+    "_id": "p8F3MVUkGmpsUDOn",
+    "img": "systems/pf2e/icons/spells/earthquake.webp",
+    "name": "Spell Effect: Untwisting Iron Pillar",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Untwisting Iron Pillar]</em></p>\n<p>You gain 50 temporary Hit Points that last for the duration or until you lose them, as well as resistance 5 to all physical damage (except adamantine).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 5
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 50
+            },
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

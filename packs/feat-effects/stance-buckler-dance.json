@@ -1,0 +1,51 @@
+{
+    "_id": "PS17dsXkTdQmOv7w",
+    "img": "systems/pf2e/icons/equipment/shields/buckler.webp",
+    "name": "Stance: Buckler Dance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by: @UUID[Compendium.pf2e.feats-srd.Item.Buckler Dance]</p>\n<hr />\n<p><strong>Requirements</strong> You are wielding a @UUID[Compendium.pf2e.equipment-srd.Item.Buckler].</p>\n<hr />\n<p>You spin your buckler defensively toward every attack. While you are in this stance, you constantly have your buckler raised as if you'd used @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield], as long as you meet that action's requirements.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.raised",
+                "predicate": [
+                    "self:shield:equipped",
+                    {
+                        "nor": [
+                            "self:shield:broken",
+                            "self:shield:destroyed"
+                        ]
+                    }
+                ],
+                "value": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

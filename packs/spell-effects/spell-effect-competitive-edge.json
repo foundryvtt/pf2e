@@ -1,0 +1,140 @@
+{
+    "_id": "iJ7TVW5tDnZG9DG8",
+    "img": "systems/pf2e/icons/spells/competitive-edge.webp",
+    "name": "Spell Effect: Competitive Edge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Competitive Edge]</em>.</p>\n<p>You gain a +1 status bonus to attack rolls and skill checks. If an enemy within 20 feet critically succeeds at an attack roll or skill check, your status bonus increases to +3 attack rolls or that specific skill check (whichever the foe critically succeeded at) for 1 round.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> Increase the base bonus to +2 and the increased bonus after an enemy critically succeeds to +4.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "An enemy within 20 feet critically succeeds at an attack or skill roll",
+                "option": "competitive-edge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Competitive Edge (Attack)",
+                "predicate": [
+                    {
+                        "not": "competitive-edge"
+                    }
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": 1
+                        },
+                        {
+                            "start": 7,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Competitive Edge (Skill)",
+                "predicate": [
+                    {
+                        "not": "competitive-edge"
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": 1
+                        },
+                        {
+                            "start": 7,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Competitive Edge (Enhanced Attack)",
+                "predicate": [
+                    "competitive-edge"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": 3
+                        },
+                        {
+                            "start": 7,
+                            "value": 4
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Competitive Edge (Enhanced Skill)",
+                "predicate": [
+                    "competitive-edge"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": 3
+                        },
+                        {
+                            "start": 7,
+                            "value": 4
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

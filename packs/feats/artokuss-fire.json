@@ -1,0 +1,68 @@
+{
+    "_id": "iJrHJKNGxV4z4Qi7",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Artokus's Fire",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You use @UUID[Compendium.pf2e.feats-srd.Item.Quick Alchemy] to craft an @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Fire (Lesser)]{Alchemist's Fire}, and that bomb's level is at least 2 levels lower than your @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy] level.</p>\n<hr />\n<p>Artokus developed a mixture of volatile materials that burns hotter and longer than typical alchemist's fire. You include this additive mixture when crafting your alchemist's fire.</p>\n<p>The alchemist's fire deals [[/r 1d4[persistent,fire]]] damage in addition to what the alchemist fire would normally cause (for instance, a moderate alchemist's fire deals 1d4+2 persistent fire damage).</p>\n<p>A creature taking persistent fire damage from the alchemist's fire requires two successful flat checks to end the persistent damage, or one check if the creature had an assisted recovery that reduces the flat check to DC 10.</p>\n<p>The enhanced alchemist's fire burns even underwater, and any attempts to end the persistent damage by using water have no effect.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "artokuss-fire",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "artokuss-fire",
+                    "fire"
+                ],
+                "selector": "alchemical-bomb-damage",
+                "text": "PF2E.SpecificRule.ArtokussFire.Note",
+                "title": "{item|name}"
+            },
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "artokuss-fire",
+                    "fire"
+                ],
+                "selector": "alchemical-bomb-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Legends"
+        },
+        "traits": {
+            "rarity": "rare",
+            "selected": {
+                "additive2": "Additive 2",
+                "alchemist": "Alchemist"
+            },
+            "value": [
+                "additive2",
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,164 @@
+{
+    "_id": "kxMBdANwCcF841uA",
+    "img": "systems/pf2e/icons/spells/elemental-form-water.webp",
+    "name": "Spell Effect: Elemental Form (Water)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Form]</em></p>\n<p>You call upon the power of the planes to transform into a Medium elemental battle form. While in this form, you gain the earth trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Strength based. If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>Water</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful Shove.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including persistent damage), and Acrobatics or Athletics +25.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "resistances": [
+                        {
+                            "type": "fire",
+                            "value": 5
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "land": 20,
+                        "swim": 60
+                    },
+                    "strikes": {
+                        "wave": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d12"
+                            },
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "elemental",
+                        "water"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "19 + @actor.level"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "wave": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 18
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "end": 6,
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @actor.level"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "wave": {
+                                        "damage": {
+                                            "modifier": 13
+                                        },
+                                        "modifier": 23,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
+                        {
+                            "start": 7,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 25
+                                    }
+                                },
+                                "strikes": {
+                                    "wave": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 11
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "Note",
+                "selector": "wave-damage",
+                "text": "PF2E.BattleForm.Note.Shove",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

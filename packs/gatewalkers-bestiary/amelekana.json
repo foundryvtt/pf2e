@@ -1,0 +1,465 @@
+{
+    "_id": "7VoxPNp1BMlhGrss",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "E0aPIVjirAK8rPLm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "e0gbdhBWD1d4a8Nn": {
+                        "damage": "2d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jLjJ25v6X1fSW4ph",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Lob Amoeba",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "lob-amoeba"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "5GxiQwj212BptgbD": {
+                        "damage": "2d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9e5qZyvuqUeB7bXx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 100 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PZLl9P6PF8urNbyY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Reflective Shell",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An amelekana submerged in water gains a +4 circumstance bonus to Stealth checks. If the water is moving, this bonus increases to +8.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "terrain:water"
+                        ],
+                        "selector": "stealth",
+                        "slug": "reflective-shell",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "multiply",
+                        "predicate": [
+                            "terrain:water:running"
+                        ],
+                        "selector": "stealth",
+                        "slug": "reflective-shell",
+                        "value": 2
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Water",
+                        "option": "terrain:water",
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.RunningWater",
+                        "option": "terrain:water:running",
+                        "predicate": [
+                            "terrain:water"
+                        ],
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dTqqc1JtTXpu8ouF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Lob Amoeba",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The amelekana flings a @UUID[Compendium.pf2e.gatewalkers-bestiary.Actor.Symbiotic Amoeba] at a target within 40 feet—this is a ranged attack that doesn't count toward the amelekana's multiple attack penalty, and its multiple attack penalty doesn't apply to this attack.</p>\n<p><strong>Success</strong> The target takes [[/r (2d4+8)[bludgeoning]]] and the symbiotic amoeba lands in a square adjacent to the target.</p>\n<p><strong>Failure</strong> The target takes no damage, but the symbiotic amoeba still spawns in a square adjacent to the target.</p>\n<p><strong>Critical Failure</strong> The target takes no damage and the lobbed amoeba dies on impact.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QZMSJQrdMxmcDggl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Symbiotic Amoeba",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An amoeba produced by the amelekana is a Tiny, mindless, semi-independent creature controlled by the amelekana. It has the minion trait, AC 15, 1 Hit Point, and the same skills and saving throws as the amelekana. Each round, the amelekana can Command a Minion to make an amoeba Step or Swim 20 feet and make a pseudopod Strike (Melee pseudopod +13, Damage 2d4 acid). If an amelekana is killed, its symbiotic amoebas are also killed by the host creature's psychic backlash. An amelekana can have up to three extant symbiotic amoebas at a time.</p>\n<p>@UUID[Compendium.pf2e.gatewalkers-bestiary.Actor.Symbiotic Amoeba]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9bLUc8jnHZuiqGA6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "cxAOnZCWiY9n4WxF",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "owpmJCW29M043fsh",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "hvqMZtxR1AWz7vE2",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Amelekana",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "value": 72
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 14
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Amelekanas are amphibious ambush predators native to rivers and lakes across Castrovel. An amelekana looks similar to a giant snail, with an opalescent spiraling shell and eyeless face sporting a crown of six antennae, but that's where the resemblance ends. Instead of one giant foot, the amelekana has fleshy tubes standing upright through holes in its shell and a host of tiny armored legs, like those of a crab. Yet perhaps the most unusual feature of the amelekana is that it's actually a symbiotic community of two separate organisms, neither of which can live without the other.</p>\n<p>Like many creatures on Castrovel, amelekanas have some basic psychic ability—in their case, a sense for nearby living creatures. A hunting amelekana submerges itself to obscure its location. When prey draws near, the amelekana rises from the water and releases compressed gasses to launch its symbiotes—blobby amoebas the size of a bread loaf—at their victims. These amoebas act as external digesters for the stomachless amelekana, using their acidic coating to dissolve prey and absorb nutrition. Once its amoebas have had their fill, the amelekana slurps them back up, providing the amoeba colony with a safe haven inside its body in exchange for a portion of the processed nutrients.</p>\n<p>A typical amelekana is 9 feet long and weighs up to 2,000 pounds.</p>",
+            "source": {
+                "value": "Pathfinder #187: The Seventh Arch"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "lifesense 100 feet"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "amphibious",
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

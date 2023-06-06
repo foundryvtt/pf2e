@@ -1,0 +1,43 @@
+{
+    "_id": "GNFNDyx8nfNXrgV6",
+    "img": "systems/pf2e/icons/equipment/snares/glittering-snare-effect.webp",
+    "name": "Effect: Glittering Snare (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -4 status penalty to Stealth checks for 5 minutes or until it spends a 3-action activity, which has the manipulate trait, to remove the glitter. The glitter continues to fall around the creature until completely removed, leaving a trail behind it as it moves and revealing its rough location; the creature is @UUID[Compendium.pf2e.conditionitems.Item.Hidden], rather than @UUID[Compendium.pf2e.conditionitems.Item.Undetected], to any creature that can see the glitter whenever it would otherwise have been undetected.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "status",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

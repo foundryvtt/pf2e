@@ -1,0 +1,53 @@
+{
+    "_id": "fKTewWlYgFuhl4KA",
+    "img": "systems/pf2e/icons/features/classes/stone-order.webp",
+    "name": "Stone Order",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're as enduring as stone, and you take comfort in its steadfast presence, both natural and worked. You're trained in Crafting. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Steadying Stone] druid feat. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Crushing Ground]</em> order spell. Poisoning or polluting the land and heedlessly carving the earth to plunder its natural resources are anathema to your order (this doesn't prevent you from responsibly digging or mining).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "predicate": [
+                    {
+                        "not": "feat:order-explorer:stone-order"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:druid"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Steadying Stone"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

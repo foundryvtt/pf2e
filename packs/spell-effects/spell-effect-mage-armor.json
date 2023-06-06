@@ -1,0 +1,90 @@
+{
+    "_id": "qkwb5DD3zmKwvbk0",
+    "img": "systems/pf2e/icons/spells/mage-armor.webp",
+    "name": "Spell Effect: Mage Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Mage Armor]</em></p>\n<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "fromEquipment": false,
+                "key": "FlatModifier",
+                "selector": "ac",
+                "slug": "mage-armor",
+                "type": "item",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": 2
+                        },
+                        {
+                            "start": 10,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "fromEquipment": false,
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "slug": "mage-armor",
+                "type": "item",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "start": 4,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 8,
+                            "value": 2
+                        },
+                        {
+                            "start": 10,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "DexterityModifierCap",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

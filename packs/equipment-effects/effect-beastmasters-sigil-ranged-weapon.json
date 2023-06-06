@@ -1,0 +1,68 @@
+{
+    "_id": "EPqnA5OlNpwr41Os",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Beastmaster's Sigil - Ranged Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil]</p>\n<p>If you critically hit with the affixed weapon, and the target is adjacent to a creature summoned with the <em>sigil</em>, the target takes [[/r 1d6[bleed]]]{1d6 persistent bleed} damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellheart.BeastmastersSigil.AdjacentLabel",
+                "option": "adjacent-sigil-summon",
+                "toggleable": true
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:ranged"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectBeastmastersSigilRangedWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "adjacent-sigil-summon"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectBeastmastersSigilRangedWeapon}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

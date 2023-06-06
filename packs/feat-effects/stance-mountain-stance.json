@@ -1,0 +1,127 @@
+{
+    "_id": "gYpy9XBPScIlY93p",
+    "img": "systems/pf2e/icons/features/feats/mountain-stance.webp",
+    "name": "Stance: Mountain Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Mountain Stance]</p>\n<p>You enter the stance of an implacable mountain—a technique first discovered by dwarven monks—allowing you to strike with the weight of an avalanche. The only Strikes you can make are falling stone unarmed attacks. These deal 1d8 bludgeoning damage; are in the brawling group; and have the forceful, nonlethal, and unarmed traits.</p>\n<p>While in Mountain Stance, you gain a +4 item bonus to AC and a +2 circumstance bonus to any defenses against being Shoved or Tripped. However, you have a Dexterity modifier cap to your AC of +0, meaning you don't add your Dexterity to your AC, and your Speeds are all reduced by 5 feet. The item bonus to AC from Mountain Stance is cumulative with armor potency runes on your explorer's clothing, mage armor, and bracers of armor.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/feats/mountain-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.FallingStone",
+                "range": null,
+                "replaceAll": true,
+                "traits": [
+                    "forceful",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "fromEquipment": false,
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "DexterityModifierCap",
+                "predicate": [
+                    {
+                        "nor": [
+                            "feat:mountain-stronghold",
+                            "feat:mountain-quake"
+                        ]
+                    }
+                ],
+                "value": 0
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "value": -5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "relabel": "PF2E.SpecificRule.MountainStance.BracersOfArmor",
+                "selector": "ac",
+                "slug": "bracers-of-armor",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "relabel": "PF2E.SpecificRule.MountainStance.ExplorersClothing",
+                "selector": "ac",
+                "slug": "explorers-clothing",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "relabel": "PF2E.SpecificRule.MountainStance.MageArmor",
+                "selector": "ac",
+                "slug": "mage-armor",
+                "value": 4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trip"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

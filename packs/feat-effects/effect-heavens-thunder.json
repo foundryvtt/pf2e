@@ -1,0 +1,67 @@
+{
+    "_id": "L9g3EMCT3imX650b",
+    "img": "systems/pf2e/icons/spells/polar-ray.webp",
+    "name": "Effect: Heaven's Thunder",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Heaven's Thunder]</p>\n<p>Until the end of your next turn, your unarmed attacks and any monk weapons you wield deal additional electricity and sonic damage; the amount of each damage type is equal to the number of damage dice for the weapon or unarmed attack. Any creature who successfully Grapples you or is successfully Grappled by you takes this damage immediately after the Grapple check is resolved (using the number of damage dice of your unarmed attack to determine the damage dealt).</p>\n<p>If you also know the <em>ki blast</em> ki spell, you can choose to deal either electricity or sonic damage with the spell instead of force while this effect is active (<em>ki blast</em> loses the force trait and gains the electricity or sonic trait instead).</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "unarmed",
+                            "monk"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "heavens-thunder-electricity",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "damageType": "sonic",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "unarmed",
+                            "monk"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "heavens-thunder-sonic",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

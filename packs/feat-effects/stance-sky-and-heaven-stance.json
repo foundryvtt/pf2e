@@ -1,0 +1,82 @@
+{
+    "_id": "CQfkyJkRHw4IHWhv",
+    "img": "systems/pf2e/icons/features/feats/sky-and-heaven-stance.webp",
+    "name": "Stance: Sky and Heaven Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sky and Heaven Stance]</p>\n<p>Your jagged blows are like lightning. The only Strikes you can make are skyward slash unarmed attacks. These unarmed attacks deal 1d10 slashing damage; are in the brawling group; and have the nonlethal, unarmed, and versatile P traits. While in Sky and Heaven Stance, you gain resistance 2 to electricity and resistance 2 to sonic damage. These resistances increase to 5 at 12th level and to 8 at 18th level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/feats/sky-and-heaven-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.SkywardSlash",
+                "range": null,
+                "replaceAll": true,
+                "traits": [
+                    "versatile-p",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "electricity",
+                    "sonic"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 11,
+                            "value": 2
+                        },
+                        {
+                            "end": 17,
+                            "start": 12,
+                            "value": 5
+                        },
+                        {
+                            "start": 18,
+                            "value": 8
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

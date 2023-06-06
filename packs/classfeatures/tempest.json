@@ -1,0 +1,61 @@
+{
+    "_id": "W9cF7wZztLDb1WGY",
+    "img": "systems/pf2e/icons/features/classes/tempest-mystery.webp",
+    "name": "Tempest",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>An oracle wields divine power, but not from a single divine being. This power could come from a potent concept or ideal, the attention of multiple divine entities whose areas of concern all touch on that subject, or a direct and dangerous conduit to raw divine power. This is the oracle's mystery, a source of divine magic not beholden to any deity.</p>\n<p>Your mystery might represent a pantheistic devotion to all the deities with power over the subject of your mystery, veneration of a particular ideal, or a conduit to raw divine energy. Whatever its origin and nature, your mystery determines the revelation spells you can cast and the oracular curse that overtakes your body when you do. You learn skills related to that mystery, gain access to a cantrip, and gain a special benefit drawn from the combined divine knowledge and experience of your mystery.</p>\n<p>The fury of the wind and waves pounds in your heart, whether your power flows from natural storms, a conduit to the elemental Planes of Air and Water, or through reverence of deities such as Gozreh, the tengu god of storms Hei Feng, the demon lord Dagon, or the elemental lords of air and water.</p>\n<p><strong>Mystery Benefit</strong></p>\n<p>You can see perfectly through wind and water, and you send electric charges through both air and water. You never take penalties to Perception from wind, rain, fog, or other precipitation, or from looking through water or being underwater, and such conditions don't cause anything to be concealed from you.</p>\n<p>When you deal physical damage with a non-cantrip air or water spell, you deal an additional 1 electricity damage per spell level.</p>\n<p><strong>Trained Skill</strong> Nature</p>\n<p><strong>Granted Cantrip</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]</em></p>\n<p><strong>Revelation Spells</strong></p>\n<ul>\n<li>Initial <em>@UUID[Compendium.pf2e.spells-srd.Item.Tempest Touch]</em>;</li>\n<li>Advanced <em>@UUID[Compendium.pf2e.spells-srd.Item.Thunderburst]</em>;</li>\n<li>Greater <em>@UUID[Compendium.pf2e.spells-srd.Item.Tempest Form]</em></li>\n</ul>\n<p><strong>Related Domains</strong> Air, Water</p>\n<h3>Curse of the Perpetual Storm</h3>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Curse of the Perpetual Storm]</p>\n<p>You are the center of your own tiny tempest, ever surrounded by wind and rain that worsens the more you tap into your elemental powers. Even when you are calm and at rest, your hair and clothing are blown about by gentle winds, you are slightly damp, and your touch often comes with a static shock.</p>\n<h4>Minor Curse</h4>\n<p>An aura of a whirling storm whips up in a @Template[type:emanation|distance:5] around you and in your space. The aura puts out small non-magical fires 1 round after they're lit or brought into your aura.</p>\n<p>Electrical energy builds up within your storm, turning you into a lightning rod; you gain weakness 2 to electricity, and electricity spells or effects that have additional effects for a creature wearing or holding metal treat you as though you were wearing metal.</p>\n<h4>Moderate Curse</h4>\n<p>Your minor curse's aura expands to a @Template[type:emanation|distance:10] and carries rain on the winds. The whirling winds impose a -2 circumstance penalty on ranged attack rolls using physical ammunition that target you or originate from you.</p>\n<p>Your weakness to electricity increases to 5 or half your level, whichever is greater, but torrential rain grants you an equal amount of fire resistance.</p>\n<h4>Major Curse (11th)</h4>\n<p>Your minor curse's aura expands to a @Template[type:emanation|distance:15] and grows stronger. High winds blowing outward in the aura impede creatures' progress. The aura is difficult terrain for Large and smaller creatures on the ground, and for Huge or smaller flying creatures. You aren't affected by this difficult terrain.</p>\n<p>The electricity arcing through you becomes dangerous. Any creature that touches you or damages you with an unarmed melee attack or non-reach melee weapon takes [[/r 1d6[electricity]]] damage. As normal, this doesn't affect creatures you touch.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "damageType": "electricity",
+                "key": "FlatModifier",
+                "predicate": [
+                    "class:oracle",
+                    {
+                        "not": "item:trait:cantrip"
+                    },
+                    "damaging-effect",
+                    "item:damage:category:physical",
+                    {
+                        "or": [
+                            "air",
+                            "water"
+                        ]
+                    }
+                ],
+                "selector": "spell-damage",
+                "value": "@spell.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

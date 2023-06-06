@@ -1,0 +1,63 @@
+{
+    "_id": "As8cRK5jVzf62fEd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Peculiar Anatomy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your circulatory system contains viscous protoplasmic fluid instead of ordinary blood. You gain a +2 circumstance bonus to saving throws against disease and poison, and resistance to poison damage equal to half your level.</p>\n<p>In addition, your resistance to precision damage from Disturbing Defense increases to an amount equal to 7 + your number of class feats from the oozemorph archetype, and the DC of your flat checks to recover from @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage} is 8 rather than 13.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Disturbing Defense"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.oozemorphDedicationCount",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "vs. poison or disease (Peculiar Anatomy)",
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: The Slithering"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "archetype": "Archetype"
+            },
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

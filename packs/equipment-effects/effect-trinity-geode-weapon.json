@@ -1,0 +1,56 @@
+{
+    "_id": "WRV0XjiEHdlBpduS",
+    "img": "systems/pf2e/icons/equipment/other/spellhearts/trinity-geode.webp",
+    "name": "Effect: Trinity Geode - Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Trinity Geode]</p>\n<p>After you cast an earth spell by Activating the <em>geode</em>, your Strikes with the weapon deal an additional 1d4 bludgeoning damage until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectTrinityGeodeWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectTrinityGeodeWeapon}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

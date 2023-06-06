@@ -1,0 +1,101 @@
+{
+    "_id": "ltIvO9ZQlmqGD89Y",
+    "img": "systems/pf2e/icons/features/classes/outwit.webp",
+    "name": "Effect: Hunter's Edge, Outwit",
+    "system": {
+        "description": {
+            "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Outwit] edge with you.</p>\n<p>You gain a +2 circumstance bonus to Deception checks, Intimidation checks, Stealth checks, and any checks to Recall Knowledge about the prey, and a +1 circumstance bonus to AC against your prey's attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                "option": "hunted-prey",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Vs. hunted prey",
+                "predicate": [
+                    "hunted-prey"
+                ],
+                "selector": [
+                    "deception",
+                    "intimidation",
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Recall knowledge on hunted prey",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "hunted-prey"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Vs. attacks from hunted prey",
+                "predicate": [
+                    "hunted-prey"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 3648
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

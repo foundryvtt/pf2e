@@ -1,0 +1,67 @@
+{
+    "_id": "lkLwEfc3ZhLJSkVr",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Manipulative Charm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Against humanoids, you gain a +1 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie], and to Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] and @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression].</p>\n<p>Once per day, you can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Charm]</em> as a divine innate spell using your class DC or spell DC, whichever is higher. Casting it requires staring into the target's eyes, giving the spell the visual trait. At 5th level and every 2 levels thereafter, the spell is heightened by an additional level, to a maximum of a 9th-level charm when you are 19th level.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Vampire Dedication"
+                },
+                {
+                    "value": "trained in Deception or Diplomacy"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie",
+                    "target:trait:humanoid"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:humanoid",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

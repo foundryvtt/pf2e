@@ -89,13 +89,19 @@ const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
 const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;
 
 // For combatibility with the PF2e Animal Companion Compendia module
-const ANIMAL_COMPANION_SOURCE_ID = "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.h6Ybhv5URar01WPk";
-const CONSTRUCT_COMPANION_SOURCE_ID = "Compendium.pf2e-animal-companions.AC-Features.OJePkZgnguu5Z8cA";
+const ANIMAL_COMPANION_SOURCE_IDS = [
+    "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.Item.h6Ybhv5URar01WPk",
+    "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.h6Ybhv5URar01WPk",
+];
+const CONSTRUCT_COMPANION_SOURCE_IDS = [
+    "Compendium.pf2e-animal-companions.AC-Features.Item.OJePkZgnguu5Z8cA",
+    "Compendium.pf2e-animal-companions.AC-Features.OJePkZgnguu5Z8cA",
+];
 
 export {
     ABILITY_ABBREVIATIONS,
-    ANIMAL_COMPANION_SOURCE_ID,
-    CONSTRUCT_COMPANION_SOURCE_ID,
+    ANIMAL_COMPANION_SOURCE_IDS,
+    CONSTRUCT_COMPANION_SOURCE_IDS,
     CREATURE_ACTOR_TYPES,
     DC_SLUGS,
     IMMUNITY_TYPES,

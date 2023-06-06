@@ -1,0 +1,64 @@
+{
+    "_id": "3qqvnC2U8W26yae7",
+    "img": "systems/pf2e/icons/features/classes/aberrant.webp",
+    "name": "Bloodline: Aberrant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Something speaks to you from beyond the stars or below the earth. Ancient and unknowable, this alien influence presses against your mind.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Occultism</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Daze]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Idiocy]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Touch]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Confusion]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Black Tentacles]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Feeblemind]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Warp Mind]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Uncontrollable Dance]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Song]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Tentacular Limbs]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Aberrant Whispers]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unusual Anatomy]</em></p>\n<p><strong>Blood Magic</strong> Aberrant whispers shield one target's mind or your own, granting a +2 status bonus to Will saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "occult"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

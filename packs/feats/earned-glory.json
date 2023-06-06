@@ -1,0 +1,67 @@
+{
+    "_id": "nfERPRCITBp970HO",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Earned Glory",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Elves are often skeptical of their half-elven kin, and you are experienced at telling stories of your accomplishments to gain their respect. You are trained in Performance. If you would automatically become trained in Performance (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Impressive Performance] feat. When you attempt a Performance check to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on an elf, if you roll a critical failure, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Impressive Performance"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.prf.rank",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:make-an-impression",
+                    "target:trait:elf"
+                ],
+                "selector": "performance",
+                "text": "PF2E.SpecificRule.HalfElf.EarnedGlory.Note",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:make-an-impression",
+                    "target:trait:elf"
+                ],
+                "selector": "performance",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "half-elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

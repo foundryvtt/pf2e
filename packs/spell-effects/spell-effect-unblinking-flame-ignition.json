@@ -1,0 +1,58 @@
+{
+    "_id": "hya8NfBB1GJofTXm",
+    "img": "systems/pf2e/icons/spells/shroud-of-flame.webp",
+    "name": "Spell Effect: Unblinking Flame Ignition",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Unblinking Flame Ignition]</em></p>\n<p>You gain greater darkvision, low‐light vision, and the ability to see invisible creatures. You gain a fly Speed equal to your land Speed as you launch flame from your aura to soar through the sky. You become quickened, and you can use the extra action each round only to Strike or Fly using your flames.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "greaterDarkvision"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "selector": "seeInvisibility"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

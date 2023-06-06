@@ -1,0 +1,277 @@
+{
+    "_id": "Hkq9ZS2J2iKnT7vT",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "YXsM6AcguDWAwVIt",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "t7q0iqdlzzd1y5zle9p2": {
+                        "damage": "1d6+1",
+                        "damageType": "bludgeoning"
+                    },
+                    "wozsa0yc2wmz8e7vfsgg": {
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VwrlDdZczBGO5Ps4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A sewer ooze can sense nearby motion through vibration and air movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mdqK7RuSjtezVyS8",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Filth Wave",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The sewer ooze unleashes a wave of filth, covering all creatures within a @Template[type:emanation|distance:20]. Each creature in the area must succeed at a @Check[type:reflex|dc:17|traits:damaging-effect] save or take [[/r 1d4[acid]]] damage and take a -10-foot penalty to its Speeds for 1 minute (on a critical failure, the creature also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]).</p>\n<p>A creature can spend an Interact action to clean someone off, decreasing the Speed penalty by 5 feet with each action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Filth Wave]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iUzYuqnjkPvxjVq6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 1
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Sewers",
+                        "predicate": [
+                            "terrain:sewer"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+4 in sewers",
+                        "options": "terrain:sewer"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Sewer Ooze",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": -5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 8
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 3
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 10
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Ooze",
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These amorphous masses of sewage and other detritus make their way through filthy culverts beneath cities large and small.</p>\n<hr />\n<p>Slimes, molds, and other oozes can be found in dank dungeons and shadowed forests. While not necessarily evil, some grow to enormous sizes and have insatiable appetites.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 1
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 3
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "motion sense 60 feet, no vision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mindless",
+                "ooze"
+            ]
+        }
+    },
+    "type": "npc"
+}

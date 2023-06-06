@@ -1,0 +1,209 @@
+{
+    "_id": "SvR7Ez1lfnN4You5",
+    "img": "systems/pf2e/icons/spells/agonizing-despair.webp",
+    "name": "Geb's Blessing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p>Each character gains resistance 20 to two of the following damage types of their choice: acid, bludgeoning, cold, electricity, fire, negative, piercing, poison, positive, slashing, or sonic. They also gain 40 temporary Hit Points for 24 hours. Finally, each character gains the following two special abilities, each usable once.</p>\n<p>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Mental Ward]</p>\n<p>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Soul Ward]</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitNegative",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitPositive",
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energyOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fetchling.DeepFetchling.Prompt",
+                "rollOption": "gebs-blessing"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:bludgeoning"
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitNegative",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:negative"
+                            }
+                        ],
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:piercing"
+                            }
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:poison"
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitPositive",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:positive"
+                            }
+                        ],
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:slashing"
+                            }
+                        ],
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "gebs-blessing:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energyTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fetchling.DeepFetchling.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.energyOne}",
+                "value": 20
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.energyTwo}",
+                "value": 20
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.adventure-specific-actions.Item.Soul Ward"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.adventure-specific-actions.Item.Mental Ward"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #186: Ghost King's Rage"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

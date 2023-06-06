@@ -1,0 +1,45 @@
+{
+    "_id": "EsA2F4R3UwUdI8Px",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Cycle Spell",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your devotion to the cycle of souls grants you an additional divine spell. Choose from <em>@UUID[Compendium.pf2e.spells-srd.Item.Bless]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Disrupting Weapons]</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>. You must make this selection when you take this feat and it can't be changed. Once per day, while your spiral is glowing, you can cast the selected spell as a divine innate spell.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soul Warden Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.soulWarden.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

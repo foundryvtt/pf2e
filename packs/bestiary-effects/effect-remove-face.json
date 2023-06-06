@@ -1,0 +1,46 @@
+{
+    "_id": "NLjzI7gt6djXSoXc",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/skinsaw-mask.webp",
+    "name": "Effect: Remove Face",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a permanent -4 status penalty to Charisma checks and Charisma-based skill checks. This penalty can be removed only if the victim recovers its face and has a <em>@UUID[Compendium.pf2e.spells-srd.Item.Restoration]</em> spell cast on it.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "cha-based",
+                    "cha-attack"
+                ],
+                "type": "status",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #154: Siege of the Dinosaurs"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

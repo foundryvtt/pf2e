@@ -1,0 +1,563 @@
+{
+    "_id": "UznKHAei13XNsMUP",
+    "img": "systems/pf2e/icons/iconics/DroogamiFull.webp",
+    "items": [
+        {
+            "_id": "xb6516a4k74vyf40",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.Item.lOzvLCCy9QRnYw6w"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "cat": {
+                            "id": "s3y4lms6yyzkw8qn"
+                        },
+                        "cat2": {
+                            "id": "9agt6zvunkvshu0d"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/ancestry.svg",
+            "name": "Cat",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "value": []
+                    },
+                    "1": {
+                        "value": []
+                    },
+                    "2": {
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>Your companion is a big cat, such as a leopard or tiger.</p>\n<p><strong>Size</strong> Small</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws (finesse), <strong>Damage</strong> 1d6 piercing</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw (agile, finesse), <strong>Damage</strong> 1d4 slashing</p>\n<p><strong>Str</strong> +2, <strong>Dex</strong> +3, <strong>Con</strong> +1, <strong>Int</strong> -4, <strong>Wis</strong> +2, <strong>Cha</strong> +0</p>\n<p><strong>Hit Points</strong> 4</p>\n<p><strong>Skill</strong> Stealth</p>\n<p><strong>Senses</strong> low-light vision, scent (imprecise, 30 feet)</p>\n<p><strong>Speed</strong> 35 feet</p>\n<p><strong>Special</strong> Your cat deals 1d4 extra precision damage against flat- footed targets.</p>\n<p><strong>Support Benefit</strong> Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that your cat threatens make the target @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the end of your next turn.</p>\n<p><strong>Advanced Maneuver</strong> @UUID[Compendium.pf2e-animal-companions.AC-Advanced-Maneuvers.Item.U0J8J5ukmqnOskE8]{Cat Pounce}</p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 4,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": []
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "reach": 5,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.str.value",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.dex.value",
+                        "value": 6
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.con.value",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.wis.value",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.skills.ste.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e-animal-companions.AC-Features.Item.KKOgokqHa7RjVDN6"
+                    },
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                        "key": "Strike",
+                        "label": "PF2E.Weapon.Base.jaws",
+                        "range": null,
+                        "replaceBasicUnarmed": true,
+                        "traits": [
+                            "unarmed",
+                            "finesse"
+                        ]
+                    },
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "group": "brawling",
+                        "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                        "key": "Strike",
+                        "label": "PF2E.Weapon.Base.claw",
+                        "range": null,
+                        "traits": [
+                            "unarmed",
+                            "agile",
+                            "finesse"
+                        ]
+                    },
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "range": 30,
+                        "selector": "scent"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:ancestry:cat",
+                        "priority": 1
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e-animal-companions.AC-Support.Item.HCQXxqMtH81jE1W5"
+                    }
+                ],
+                "size": "sm",
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": 35,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "animal"
+                    ]
+                },
+                "vision": "lowLightVision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "s3y4lms6yyzkw8qn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.Item.h6Ybhv5URar01WPk"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "xb6516a4k74vyf40"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/class.svg",
+            "name": "Animal Companion",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": []
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 0,
+                    "unarmed": 1
+                },
+                "classDC": 0,
+                "classFeatLevels": {
+                    "value": []
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 0,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": ""
+                },
+                "generalFeatLevels": {
+                    "value": []
+                },
+                "hp": 6,
+                "items": {},
+                "keyAbility": {
+                    "value": []
+                },
+                "perception": 1,
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.attributes.perception.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.martial.unarmed.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.int.value",
+                        "value": -8
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.disableABP",
+                        "priority": 10,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.int.value",
+                        "predicate": [
+                            "self:specialized"
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.dex.value",
+                        "predicate": [
+                            "self:specialized"
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "add": [
+                            "minion"
+                        ],
+                        "key": "ActorTraits"
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": []
+                },
+                "skillIncreaseLevels": {
+                    "value": []
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "trainedSkills": {
+                    "additional": 0,
+                    "value": [
+                        "acr",
+                        "ath"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "9agt6zvunkvshu0d",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e-animal-companions.AC-Support.Item.HCQXxqMtH81jE1W5"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "xb6516a4k74vyf40"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Cat Support Benefit",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature within your cat's reach make the target @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the end of your next turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Droogami (Level 1)",
+    "prototypeToken": {
+        "name": "Droogami",
+        "texture": {
+            "src": "systems/pf2e/icons/iconics/Droogami.webp"
+        }
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "value": 10
+            },
+            "con": {
+                "value": 10
+            },
+            "dex": {
+                "value": 10
+            },
+            "int": {
+                "value": 10
+            },
+            "str": {
+                "value": 10
+            },
+            "wis": {
+                "value": 10
+            }
+        },
+        "attributes": {
+            "bonusEncumbranceBulk": 0,
+            "bonusLimitBulk": 0,
+            "hp": {
+                "temp": 0,
+                "value": 11
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "resolve": {
+                "max": 0,
+                "value": 0
+            },
+            "sp": {
+                "details": "",
+                "max": 0,
+                "value": 0
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "crafting": {
+            "formulas": []
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alignment": {
+                "value": "N"
+            },
+            "alliance": "party",
+            "biography": {
+                "allies": "",
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "enemies": "",
+                "likes": "",
+                "organaizations": ""
+            },
+            "deity": {
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
+                "value": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "F/She/Her"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "level": {
+                "value": 1
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "martial": {},
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "fame": 0,
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": 0,
+                "GA": 0,
+                "HH": 0,
+                "RO": 0,
+                "VS": 0,
+                "VW": 0
+            },
+            "school": "none"
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "saves": {},
+        "skills": {
+            "acr": {
+                "rank": 0
+            },
+            "arc": {
+                "rank": 0
+            },
+            "ath": {
+                "rank": 0
+            },
+            "cra": {
+                "rank": 0
+            },
+            "dec": {
+                "rank": 0
+            },
+            "dip": {
+                "rank": 0
+            },
+            "itm": {
+                "rank": 0
+            },
+            "med": {
+                "rank": 0
+            },
+            "nat": {
+                "rank": 0
+            },
+            "occ": {
+                "rank": 0
+            },
+            "prf": {
+                "rank": 0
+            },
+            "rel": {
+                "rank": 0
+            },
+            "soc": {
+                "rank": 0
+            },
+            "ste": {
+                "rank": 0
+            },
+            "sur": {
+                "rank": 0
+            },
+            "thi": {
+                "rank": 0
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "senses": [],
+            "value": []
+        }
+    },
+    "type": "character"
+}

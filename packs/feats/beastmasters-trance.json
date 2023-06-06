@@ -1,0 +1,45 @@
+{
+    "_id": "Ckglzh4dXcGWPNS3",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Beastmaster's Trance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can enter a trance that allows you to briefly inhabit the body of one of your animal companions and share its senses. You gain the focus spell <em>@UUID[Compendium.pf2e.spells-srd.Item.Beastmaster Trance]</em>. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Beastmaster Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,124 @@
+{
+    "_id": "UEqntGzFrFA7ncUO",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Aerial Piledriver",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You have a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p>\n<hr />\n<p>Heaving both yourself and your opponent into the air, you bring them crashing to the ground. Make an unarmed melee Strike against the creature you have grabbed or restrained. This Strike deals 1d6 additional damage per weapon damage die, and it has the following additional effects on a success, failure, and critical failure.</p>\n<p><strong>Success</strong> The target lands @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Failure</strong> You lose your grip on the target, and it is no longer grabbed or restrained by you.</p>\n<p><strong>Critical Failure</strong> You lose both your grip on the target and your balance. You fall prone, and the target is no longer grabbed or restrained by you.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wrestler Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "aerial-piledriver",
+                "toggleable": true
+            },
+            {
+                "diceNumber": "@weapon.system.damage.dice",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "aerial-piledriver",
+                    "item:category:unarmed",
+                    "item:melee",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "aerial-piledriver",
+                    "item:category:unarmed",
+                    "item:melee",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.AerialPiledriver.SuccessText",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "aerial-piledriver",
+                    "item:category:unarmed",
+                    "item:melee",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.AerialPiledriver.FailureText",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "aerial-piledriver",
+                    "item:category:unarmed",
+                    "item:melee",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.AerialPiledriver.CriticalFailureText",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "attack"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,95 @@
+{
+    "_id": "rQaltMIEi2bn1Z4k",
+    "img": "systems/pf2e/icons/spells/ki-form.webp",
+    "name": "Spell Effect: Ki Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Ki Form]</em></p>\n<p>Drawing from deep wells of spiritual power, you take on a special ki form. In your ki form, your hair, feathers, skin, or scales change color and begin to glow.</p>\n<p>In this form you gain a Fly Speed equal to your land Speed.</p>\n<p>Choose force, lawful (only if you are lawful), negative, or positive damage.</p>\n<p>All your Strikes deal [[/r {1d6}]]{1d6 additional damage of the chosen type}.</p>\n<p>Your entire body is also surrounded by a glowing corona of the same color as your inner ki; this is a light effect. Your corona is a 5-foot emanation that deals [[/r 2d6[force]]]{2d6 damage of the chosen type} to creatures who start their turn within the emanation. If the emanation overlaps with a darkness effect, the corona's glow attempts to counteract the darkness effect. Regardless of the outcome, the corona can't attempt to counteract that effect again for 1 day. As a single action, which has the concentrate trait, you can flare your corona out to become a 30-foot emanation.</p>\n<p>In your ki form, your emotions surge to the forefront and it's difficult to moderate your attacks. Your weapons and unarmed attacks lose the nonlethal trait. You take a -2 status penalty to saves against emotion effects but gain a +2 status bonus to saves against all other mental effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "slug": "ki-form-emotion-penalty",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental",
+                    {
+                        "not": "emotion"
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "ki-form-mental-bonus",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitLawful",
+                        "value": "lawful"
+                    },
+                    {
+                        "label": "PF2E.TraitNegative",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.TraitPositive",
+                        "value": "positive"
+                    }
+                ],
+                "flag": "kiFormDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.kiFormDamage}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

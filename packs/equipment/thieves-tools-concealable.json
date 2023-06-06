@@ -1,0 +1,81 @@
+{
+    "_id": "Ejmv9IHGp9Ad9dgu",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
+    "name": "Thieves' Tools (Concealable)",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable Device]{Disable Devices} (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>Smaller and made of stronger materials than most sets of thieves' tools, the items in this kit are much easier to conceal. You gain a +1 item bonus to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Conceal an Object]{Conceal} these tools.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Tools (Concealable Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 80
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disable-a-device",
+                            "action:pick-a-lock"
+                        ]
+                    }
+                ],
+                "selector": "thievery",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:conceal-an-object",
+                    "target:concealable-tools"
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

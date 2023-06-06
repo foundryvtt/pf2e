@@ -1,0 +1,90 @@
+{
+    "_id": "DHYWmMGmKOpRSqza",
+    "img": "systems/pf2e/icons/spells/chromatic-armor.webp",
+    "name": "Spell Effect: Chromatic Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Chromatic Armor]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Fire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Acid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Electricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Poison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Sonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Mental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChromaticArmor.Force",
+                        "value": "force"
+                    }
+                ],
+                "flag": "chromaticArmor",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.ChromaticArmor.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.chromaticArmor}",
+                "value": "5+5*floor((@item.level - 4) / 3)"
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 3,
+                        "type": "pulse"
+                    },
+                    "bright": 20,
+                    "color": "#343434",
+                    "dim": 40
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

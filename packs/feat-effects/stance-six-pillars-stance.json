@@ -1,0 +1,72 @@
+{
+    "_id": "P80mwvCAEncR2snK",
+    "img": "systems/pf2e/icons/features/feats/six-pillars-stance.webp",
+    "name": "Stance: Six Pillars Stance",
+    "system": {
+        "description": {
+            "value": "<p>@UUID[Compendium.pf2e.feats-srd.Item.Six Pillars Stance]</p>\n<p><strong>Requirements</strong> You are unarmored.</p>\n<p>You stand firm, steeling your mind and body, allowing you to use your magic unperturbed. While in this stance, you gain a +4 circumstance bonus to AC against reactions triggered by using actions with the concentrate or manipulate traits. In addition, when you cast a spell that requires one or more actions while in this stance, your unarmed Strikes gain a +1 circumstance bonus to damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Guarding against reactions",
+                "option": "vs-reaction",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Six Pillars vs. reactions",
+                "predicate": [
+                    "vs-reaction"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "six-pillars-damage",
+                "predicate": [
+                    "unarmed",
+                    "sp-cast-spell"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Casting a 1+ action spell",
+                "option": "sp-cast-spell",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #167: Ready? Fight!"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

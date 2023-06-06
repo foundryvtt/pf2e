@@ -1,0 +1,45 @@
+{
+    "_id": "xSw7cTboMvP8sJAq",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Beastmaster's Sigil - Melee Weapon (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Major)]</p>\n<p>The <em>sigil</em> grants you a +2 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Trip].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trip"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

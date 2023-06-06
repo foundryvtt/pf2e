@@ -1,0 +1,84 @@
+{
+    "_id": "55wEtw47Zl11uqlr",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Numb",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>As your body continues to rot and putrefy, your senses deaden and your undead powers grow. You gain the @UUID[Compendium.pf2e.ancestryfeatures.Item.Advanced Undead Benefits] as well as a +1 circumstance bonus on saving throws against emotion and pain effects. While your body is @UUID[Compendium.pf2e.feat-effects.Item.Effect: Deteriorated]{Deteriorated}, your numbness amplifies in two ways: the circumstance bonus from this feat increases to +2, and if you roll a success on a saving throw against an emotion or pain effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Zombie Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "pain"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "numb",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:deteriorated"
+                ],
+                "selector": "saving-throw",
+                "slug": "numb",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "self:effect:deteriorated",
+                    {
+                        "or": [
+                            "emotion",
+                            "pain"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Advanced Undead Benefits"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

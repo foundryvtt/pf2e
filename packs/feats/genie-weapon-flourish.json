@@ -1,0 +1,57 @@
+{
+    "_id": "2kwLzw618QaIHOap",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Genie Weapon Flourish",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Whenever you critically hit using a @UUID[Compendium.pf2e.equipment-srd.Item.Falchion], @UUID[Compendium.pf2e.equipment-srd.Item.Ranseur], @UUID[Compendium.pf2e.equipment-srd.Item.Scimitar], @UUID[Compendium.pf2e.equipment-srd.Item.Trident], or a geniekin weapon, you apply the weapon's critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Genie Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:geniekin",
+                            "item:base:falchion",
+                            "item:base:ranseur",
+                            "item:base:scimitar",
+                            "item:base:trident"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ifrit",
+                "oread",
+                "suli",
+                "sylph",
+                "undine"
+            ]
+        }
+    },
+    "type": "feat"
+}

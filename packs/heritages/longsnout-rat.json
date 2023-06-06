@@ -1,0 +1,42 @@
+{
+    "_id": "fROPRHGyUn4PgcER",
+    "img": "systems/pf2e/icons/features/ancestry/longsnout-rat.webp",
+    "name": "Longsnout Rat",
+    "system": {
+        "ancestry": {
+            "name": "Ratfolk",
+            "slug": "ratfolk",
+            "uuid": "Compendium.pf2e.ancestries.Item.P6PcVnCkh4XMdefw"
+        },
+        "description": {
+            "value": "<p>The long snouts that run in your family give you a keener sense of smell than most ratfolk. You gain imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine a creature's location. The GM will usually double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, you gain a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] a creature or object within the range of your scent.</p>"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Longsnout Rat (Seek within scent range)",
+                "predicate": [
+                    "action:seek",
+                    "target:within-30-feet"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

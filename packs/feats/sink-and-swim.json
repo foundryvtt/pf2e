@@ -1,0 +1,50 @@
+{
+    "_id": "I1xq9TDYRHNtqzGz",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Sink and Swim",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your body looks like it's made of flowing water, clear and pristine, providing a natural grace to all your movements. You gain a swim Speed equal to your land Speed. If you already had a swim Speed, it's increased by 10 feet. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Water Transfer] activity, which enables you to teleport through a body of water.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You've been brought to 0 Hit Points by an enemy that has the water trait or an enemy's ability that has the water trait"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "swim-speed",
+                "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath",
+                "water"
+            ]
+        }
+    },
+    "type": "feat"
+}

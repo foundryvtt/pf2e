@@ -1,20 +1,6 @@
-import fs from "fs";
-import path from "path";
 import { MockActor } from "./mocks/actor.ts";
 import { MockItem } from "./mocks/item.ts";
 import { MockToken } from "./mocks/token.ts";
-
-export const fetchSpell = (name: string): ReturnType<(typeof JSON)["parse"]> => {
-    const spellsDb = "./packs/data/spells.db/";
-    const spellFiles = fs.readdirSync(spellsDb);
-
-    for (const file of spellFiles) {
-        const content = fs.readFileSync(path.resolve(spellsDb, file), "utf-8");
-        const json = JSON.parse(content);
-        if (json.name === name) return json;
-    }
-    return null;
-};
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -42,26 +28,6 @@ global.game = Object.freeze({
                 default:
                     throw new Error("Undefined setting.");
             }
-        },
-    }),
-    packs: Object.freeze({
-        find: (_compendiumID: string, _quantity: number) => {
-            return Object.freeze({
-                getEntity: (id: string) => {
-                    switch (id) {
-                        case "JuNPeK5Qm1w6wpb4":
-                            return { data: require("../packs/data/equipment.db/platinum-pieces.json") };
-                        case "B6B7tBWJSqOBz5zz":
-                            return { data: require("../packs/data/equipment.db/gold-pieces.json") };
-                        case "5Ew82vBF9YfaiY9f":
-                            return { data: require("../packs/data/equipment.db/silver-pieces.json") };
-                        case "lzJ8AVhRcbFul5fh":
-                            return { data: require("../packs/data/equipment.db/copper-pieces.json") };
-                        default:
-                            return { data: {} };
-                    }
-                },
-            });
         },
     }),
     user: {},

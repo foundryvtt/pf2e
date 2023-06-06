@@ -1,0 +1,695 @@
+{
+    "_id": "ChRgdkplhO1D81Lg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "LBtHMsDMDaIqyB7z",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Radiant Touch",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+11",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "fire",
+                        "light",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "eZxgYfIRD41tf3F9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Radiant Ray",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+11",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "light",
+                        "magical",
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "rq016ZULtzeq5Jdo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oviUeLIMpj5EZvoL",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "06lGWrOe3DOYvTgV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bright Release",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a bright walker is reduced to 0 Hit Points, they flash out in a burst of light, obtaining the blazing end they were denied at death. This blaze deals [[/r 10d6[fire]]] damage (@Check[type:reflex|dc:25|basic:true] save) to creatures within @Template[type:emanation|distance:20]{20 feet}.</p>\n<p>Creatures who fail this save are also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1SovHiGHboDM9yGe",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Aura",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The bright walker sheds bright light. Any creature that starts its turn in the aura must attempt at a @Check[type:fortitude|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is blinded for 1 hour.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "suppress-aura"
+                            }
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 30,
+                            "color": "#9b7337",
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "suppress-aura"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 30,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "suppress-aura"
+                            }
+                        ],
+                        "radius": 30,
+                        "slug": "light-aura",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "light"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cb5fpVrLbNcM4VUi",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Suppress Aura",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The bright walker suppresses their light aura for 1 round, reducing it to a faint, ghostly glow of dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "suppress-aura",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hwqvhAAeZ5lZGags",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Landbound",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A bright walker can't fly higher than 1 foot above the ground. If they fly higher than this distance, they fall but don't take any damage from falling.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6pIoss4a281w0Fed",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Light Flare",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> The bright walker's Light Aura is suppressed</p>\n<hr />\n<p><strong>Effect</strong> The bright walker reignites their Light Aura with a burst of brightness that deals [[/r 5d6[fire]]] damage (@Check[type:reflex|dc:25|basic:true] save) to creatures within a @Template[type:burst|distance:20].</p>\n<p>Creatures who are @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] or with @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Light Blindness] find this flare particularly painful; such a creature's save result is one degree of success worse than the result it rolled.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "evocation",
+                        "fire",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GA3sOIQc3gtd1dyN",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shadow Jump",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> The bright walker's Light Aura is suppressed</p>\n<hr />\n<p><strong>Effect</strong> The bright walker teleports to a square it can see within 60 feet that is not in an area of bright light. The bright walker can't use again for [[/br 1d4 #Recharge Shadow Jump]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "divine",
+                        "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ng7cypaPL8P2ptAR",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "twGyJKvlY1hqb8ov",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "XWryT7NPhlPW5jg9",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Bright Walker",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 115,
+                "temp": 0,
+                "value": 115
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 19
+            },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "details": "landbound",
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Those who encounter calignis quickly learn that their deaths involve burning out instead of bleeding out. At times, this dramatic immolation is denied to a caligni, so they arise as a bright walker. Tied to caligni society, these creatures don't understand that their glow damages and repels living calignis. Despite their name, these undead don't walk; they instead float a few inches above the ground.</p>",
+            "source": {
+                "value": "Pathfinder #165: Eyes of Empty Death"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "caligni"
+                ]
+            },
+            "rarity": "rare",
+            "senses": {
+                "value": "greater darkvision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "spirit",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

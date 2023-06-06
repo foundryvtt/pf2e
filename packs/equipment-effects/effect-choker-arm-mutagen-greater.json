@@ -1,0 +1,72 @@
+{
+    "_id": "HlUL7FmGLyS35Jpp",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Choker-Arm Mutagen (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Choker-Arm Mutagen (Greater)]</p>\n<p><strong>Implemented Effects</strong></p>\n<ul>\n<li>+10 foot reach</li>\n<li>+3 item bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Escape], @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze], and @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through]</li>\n<li>-1 penalty to Athletics checks, Stealth checks, Thievery checks, and attack rolls</li>\n<li>-1 penalty per damage die to all weapon and unarmed attack damage.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 11
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:escape",
+                            "action:squeeze",
+                            "action:tumble-through"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": "@weapon.system.damage.dice * -1"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "athletics",
+                    "attack-roll",
+                    "stealth",
+                    "thievery"
+                ],
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

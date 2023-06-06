@@ -1,0 +1,153 @@
+{
+    "_id": "A93flWUsot3FmC7t",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "eTpo3PPNbe4sFYhD",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spore Explosion",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into the mold's space or damages the mold. The mold can't use this reaction if it's in direct sunlight or if the damage was fire damage.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within @Template[type:emanation|distance:10]{10 feet} are exposed to yellow mold spores.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tyAeSBnHmP9Nuh2k",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Yellow Mold Spores",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Any drained condition from the spores persists after the poison's duration ends.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 3d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "inhaled",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Yellow Mold",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Poisonous mold spores assault nearby creatures.</p>",
+            "disable": "<p>@Check[type:survival|dc:26|name:Remove the Mold] (expert) to remove the mold without triggering the spores</p>",
+            "isComplex": false,
+            "level": {
+                "value": 8
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Core Rulebook"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

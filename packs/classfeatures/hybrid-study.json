@@ -1,0 +1,70 @@
+{
+    "_id": "FTeIs1Z1Qeli4BIF",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Hybrid Study",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your extensive physical training and carefully chosen magic combine to form a unique and dangerous fighting style that's more than the sum of its parts. You choose one field of hybrid study to represent your particular combination of skills. Your hybrid study gives you a special ability, usually tied to @UUID[Compendium.pf2e.classfeatures.Item.Spellstrike] or @UUID[Compendium.pf2e.classfeatures.Item.Arcane Cascade], and it determines your initial conflux spell. The hybrid studies presented in this book are as follows.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Inexorable Iron]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Laughing Shadow]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Sparkling Targe]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Starlit Span]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Twisting Tree]</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 magus class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:magus",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Inexorable Iron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Laughing Shadow"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Sparkling Targe"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Starlit Span"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Twisting Tree"
+                    }
+                ],
+                "flag": "hybridStudy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Magus.HybridStudy.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.hybridStudy}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

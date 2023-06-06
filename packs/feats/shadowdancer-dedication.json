@@ -1,0 +1,62 @@
+{
+    "_id": "1AgirzUGkyDdmENy",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shadowdancer Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You dedicate yourself to the shadows. Your coloring becomes gray and gloomy, your senses adjust to the darkness, and you can sneak through darkness with ease.</p>\n<p>You gain greater darkvision. You also gain a +2 circumstance bonus to Stealth checks when you are within dim light or darkness.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.MKU4d2hIpLuXGN2J]{Shadowdancer} archetype.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Stealth"
+                },
+                {
+                    "value": "expert in Performance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.DimLightOrDarkness",
+                "predicate": [
+                    {
+                        "or": [
+                            "lighting:dim-light",
+                            "lighting:darkness"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Sense",
+                "selector": "greaterDarkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

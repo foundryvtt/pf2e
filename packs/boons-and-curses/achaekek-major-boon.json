@@ -1,0 +1,61 @@
+{
+    "_id": "eFwCopyvVam6GiCT",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Achaekek - Major Boon",
+    "system": {
+        "description": {
+            "value": "<p><strong>Major Boon:</strong> Death lives in your very blade. You gain the @UUID[Compendium.pf2e.classfeatures.Item.Sneak Attack] rogue class feature, dealing 3d6 precision damage. if you already have that class feature, you increase your sneak attack damage by 3d6.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 3,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            "item:trait:finesse",
+                            "item:trait:agile",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

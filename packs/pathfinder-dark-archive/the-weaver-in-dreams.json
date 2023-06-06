@@ -1,0 +1,592 @@
+{
+    "_id": "spP95evfvogIuclj",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "lMprNG8h8WUaezg1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "yQno4fFg2InU96uR": {
+                        "damage": "5d6+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UPEC8mJThmuoRkKJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Astral Silk",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "separate-astral-body"
+                    ]
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "S8uzuKok6kFde8mV": {
+                        "damage": "5d4+14",
+                        "damageType": "slashing"
+                    },
+                    "pDox694ECTKc2Qz4": {
+                        "damage": "3d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "magical",
+                        "reach-20",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "G4i0tp7lYajN7KwD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dreams Unraveling",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the Weaver has fewer than 155 Hit Points, his form partially unravels, revealing patches of pure horror acute enough to leave physical wounds. This creates a @Template[type:emanation|distance:10] that deals [[/r {3d6[mental],3d6[slashing]}]]{3d6 mental damage and 3d6 slashing damage}, with a @Check[type:will|dc:36|basic:true]. A creature Averting its Gaze is immune to the aura.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "hp-remaining",
+                                    155
+                                ]
+                            }
+                        ],
+                        "radius": 10,
+                        "slug": "dreams-unraveling",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GGttpO7eWtif6ZON",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nameless Nightmare",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Weaver has torn off his own name to become a being of fear. He is immune to linguistic effects and any effect that would impose the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition. Without a name, he is difficult for phenomena to affect; the Weaver recovers from the @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Stunned] conditions at the end of his turn, and his flat check to clear persistent damage is @Check[type:flat|dc:5]{5}. If anyone utters, writes, or otherwise attempts to record his name, that creature automatically takes [[/r 10[mental]]] damage and the attempt fails.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s0uQRVp56Th5lEsd",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Stitch Into the Web",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Weaver is moved against his will, or a creature attempts to leave a square within 20 feet of him by any means, including teleportation</p>\n<hr />\n<p><strong>Effect</strong> The Weaver's silk stitches a body in place to prevent movement. The creature stops moving and the action is disrupted. The disruption doesn't affect astral bodies.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PFLlpNCLFoMvvzjF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Separate Astral Body",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Weaver buries a silk thread in the target's psyche and tugs, wrenching the target's astral form out of their body. Unless the target succeeds at a @Check[type:will|dc:36] save, their astral form is pulled out, causing a ghostly image of them to appear in an adjacent space of the Weaver's choosing. An astral body is immune to physical damage but affected normally by mental effects, force effects, and effects that directly target the spirit. The target remains connected to their physical body by a silver cord, which is always visible and possibly foils attempts to Hide. Separation from one's astral body takes a toll on the psyche, imposing a -1 status penalty to Will saves and dealing [[/r 1d6[persistent,mental]]] damage for as long as the body is separated; this increases to 3d6 if the target is ever more than 30 feet from its astral body. The target can use a single action, which has the concentrate trait, to move their astral body an amount equal to their Speed. When the target stops taking persistent mental damage from this ability, the astral body snaps back to the physical body, ending the effect. If a target is carrying silver, then the first time this ability is used on them, the ability fails and any silver they're carrying larger than a coin tarnishes-while this doesn't outright destroy items like weapons or thaumaturge implements, it does prevent them from protecting against this ability more than once.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XcNlseVC4Ik7ETIX",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Sever Astral Threads",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Weaver uses a claw to cut the silver cord connecting a creature's astral and physical bodies. This deals [[/r 16d6[mental]]] damage to any target affected by Separate Astral Body whose physical or astral body is within 10 feet of the Weaver (@Check[type:will|dc:37|basic:true]). After being targeted by this ability, the astral body slams violently back into the target's physical body, causing the target's vision to swim and blinding them until the start of their next turn unless they critically succeeded at their saving throw.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5ziv4KKVkKAcChTU",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Stalker in Dreams",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Weaver becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to all creatures within 60 feet or is not observed by any creatures within 60 feet</p>\n<hr />\n<p><strong>Effect</strong> The Weaver's presence on the Material Plane is connected to others' perception of him, and when that perception falters, he can skitter to a new location. The Weaver teleports to an unoccupied space within 60 feet not within line of sight of any creatures within 60 feet. If the Weaver became concealed or unobserved as part of a movement action he was taking, he can resume its movement after teleporting. A creature who Averts its Gaze from the Weaver is not observing him.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4A7cNLcKMBz6WJiy",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "String Astral Body",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Weaver attaches strings to a creature's astral body to move it. He forcefully moves an exposed astral body within reach of his astral silk Strike up to 20 feet, with no saving throw.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2ICwlgHpcOLJXOkE",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "xCJGINqcEgof2jGw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "y8mhzG7QT5Y1xCID",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 33
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "RyccLXt38nu88rvf",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Occultism",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 33
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Z9NHMOxpHuB9Vk1h",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 31
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "The Weaver in Dreams",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 8
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 7
+            },
+            "int": {
+                "mod": 5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 39
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 310,
+                "temp": 0,
+                "value": 310
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 33
+            },
+            "speed": {
+                "details": "Stalker in Dreams",
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder Dark Archive Web Supplement: In Darkness"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 32
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "common",
+                    "tien"
+                ]
+            },
+            "rarity": "unique",
+            "senses": {
+                "value": ""
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "aberration",
+                "human",
+                "humanoid"
+            ]
+        }
+    },
+    "type": "npc"
+}

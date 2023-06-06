@@ -1,0 +1,57 @@
+{
+    "_id": "tNjimcyUwn8afeH6",
+    "img": "systems/pf2e/icons/spells/gravity-weapon.webp",
+    "name": "Spell Effect: Gravity Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Gravity Weapon]</em> .</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "First weapon strike this round",
+                "option": "gravity-weapon",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "gravity-weapon",
+                    {
+                        "not": "item:category:unarmed"
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "gravity-weapon",
+                "type": "status",
+                "value": "@weapon.system.damage.dice * 2"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

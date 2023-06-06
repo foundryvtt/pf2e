@@ -1,0 +1,53 @@
+{
+    "_id": "hdsl0XexqEL2emE3",
+    "img": "systems/pf2e/icons/spells/moonlight-bridge.webp",
+    "name": "Effect: Lantern of Hope (Gestalt)",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +3 status bonus to damage rolls and to saving throws against <em>@UUID[Compendium.pf2e.spells-srd.Item.Crushing Despair]</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Lantern of Hope (vs Crushing Despair)",
+                "predicate": [
+                    "crushing-despair"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

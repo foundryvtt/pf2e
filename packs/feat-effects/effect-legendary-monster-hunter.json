@@ -1,0 +1,53 @@
+{
+    "_id": "LB0PTV5yqMlBmRFj",
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Effect: Legendary Monster Hunter",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Hunter] if you have @UUID[Compendium.pf2e.feats-srd.Item.Legendary Monster Hunter].</p>\n<p>You gain a +2 circumstance bonus to your next attack roll against that prey.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "Target is the subject of Monster Hunter",
+                "option": "monster-hunter",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "monster-hunter"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 3648
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

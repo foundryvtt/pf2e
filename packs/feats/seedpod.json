@@ -1,0 +1,69 @@
+{
+    "_id": "dWGa6cFSVrASTEfd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Seedpod",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body produces a nearly endless supply of hard seedpods. You gain a seedpod ranged unarmed attack with a range increment of 10 feet that deals 1d4 bludgeoning damage; these Strikes have the manipulate trait. On a critical hit, a seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round. Seedpods do not add critical specialization effects.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Seedpod]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "systems/pf2e/icons/spells/speak-with-plants.webp",
+                "key": "Strike",
+                "range": 10,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "manipulate"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.SpecificRule.Leshy.Seedpod.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

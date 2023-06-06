@@ -1,0 +1,525 @@
+{
+    "_id": "aUDIi3Z0N7IhzaT0",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "KTuygUzynAd3MJFg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "y39yi5dpav4jysf55v1i": {
+                        "damage": "3d12+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZmHokNmS9yqQ5FIy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "qbh8u7kgcdlkyp96h3ki": {
+                        "damage": "3d8+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-2d8",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FrMmR6TGEZYNt4Fc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CeucQqSmssZqnYDf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Flippable",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When flipped on its back, a giant aukashungi can't move and its soft underbelly becomes exposed. Whenever a creature critically succeeds at a melee attack roll to Strike a giant aukashungi, the attacking creature can forgo the bonus damage to flip over the giant aukashungi (all other critical hit effects apply normally, such as critical specialization effects). While flipped over, the giant aukashungi can't use reactions, can't Stride or Strike, takes a -2 circumstance penalty to AC and saving throws, loses its resistances, and gains weakness 10 to physical damage. The aukashungi can right itself by using the Roll Up activity and then using an action to unroll.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "flippable",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "flippable"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": -2
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "flippable"
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "flippable"
+                            }
+                        ],
+                        "type": [
+                            "piercing",
+                            "slashing"
+                        ],
+                        "value": 15
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "flippable"
+                            }
+                        ],
+                        "type": "bludgeoning",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xP1DZ7qExdlGxTkQ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Acidic Effluence",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The giant aukashungi releases an acidic gas from its ventral glands in a @Template[type:burst|distance:30]. Each creature that starts its turn in the area takes [[/r 10d8[acid]]] damage plus [[/r 2d8[persistent,acid]]] damage (@Check[type:fortitude|dc:32|basic:true] save). The gas moves 10 feet away from the giant aukashungi each round and lasts for 1 minute. The giant aukashungi can't use Acidic Effluence again for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iCJLRUtX82AUP977",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Roll Up",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The aukashungi protects its soft underbelly by rolling into a tight ball. The aukashungi gains a +2 circumstance bonus to AC while Rolled Up, but it cannot Stride or Strike, and it rolls downhill if on a slope. If the aukashungi is grappling a creature when it Rolls Up, that creature must succeed at a @Check[type:fortitude|dc:35] save or become Swallowed Whole.</p>\n<p>The aukashungi can unroll with a single action (this action has the move trait).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "roll-up",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "roll-up"
+                        ],
+                        "selector": "ac",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g2NeO9TpE9vzveoP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large, [[/r (15d6+6)[bludgeoning]]], Rupture 27</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tjSb9xUg6kUCt5Jc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SxHaMxqsCDiELlLv",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Giant Aukashungi",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 7
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 36
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 300,
+                "temp": 0,
+                "value": 300
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 24
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 14
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The strongest individual in an aukashungi swarm eventually grows to monstrous proportions.</p>\n<hr />\n<p>These massive isopods are native to the Abyssal realm of Gluttondark, in the acidic oceans of the realm's many cavern-worlds. Aukashungis are sometimes summoned to the Material Plane by Zevgavizeb-worshipping cultists, who favor aukashungis for their mindless obedience and sheer destructive potential.</p>",
+            "source": {
+                "value": "Pathfinder #154: Siege of the Dinosaurs"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 21
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "greater darkvision"
+            },
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "aberration",
+                "amphibious"
+            ]
+        }
+    },
+    "type": "npc"
+}

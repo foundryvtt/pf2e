@@ -1,0 +1,69 @@
+{
+    "_id": "tBg3FZST3nX5TfLf",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Safeguard Soul",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've girded your soul against outside interference. You gain a +2 status bonus to saving throws against death effects, possession effects, and effects that attempt to manipulate or steal your soul. You can't be transformed into an undead by any means. While your spiral is glowing, your allies in the light of the spiral gain this benefit as well.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Safeguard Soul]</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soul Warden Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "possession",
+                            "manipulate-soul"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SoulWarden.SafeguardSoul.Label",
+                "option": "manipulate-soul",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.soulWarden.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "abjuration",
+                "archetype",
+                "divine"
+            ]
+        }
+    },
+    "type": "feat"
+}

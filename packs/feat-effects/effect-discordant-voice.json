@@ -1,0 +1,52 @@
+{
+    "_id": "oXG7eX26FmePmwUF",
+    "img": "systems/pf2e/icons/spells/ghost-sound.webp",
+    "name": "Effect: Discordant Voice",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Discordant Voice], while you are affected by Inspire Courage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon",
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

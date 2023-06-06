@@ -1,0 +1,44 @@
+{
+    "_id": "GlejQr3rBh3sn8sL",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "River Azarketi",
+    "system": {
+        "ancestry": {
+            "name": "Azarketi",
+            "slug": "azarketi",
+            "uuid": "Compendium.pf2e.ancestries.Item.yFoojz6q3ZjvceFw"
+        },
+        "description": {
+            "value": "<p>You come from azarketis who abandoned the oceans for the fresh water of inland life. The varied geography of rivers required you to develop advanced physical skills to swim against rapids, leap through cascading waters, and deftly navigate shallow and narrow channels.</p>\n<p>When you succeed at an Athletics check to Swim, you get a critical success instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "text": "When you succeed at an Athletics check to Swim, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

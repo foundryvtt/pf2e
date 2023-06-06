@@ -1,0 +1,81 @@
+{
+    "_id": "oelHQXS1g7Xk7xKo",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "The Hidden Truth",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "gm": "<p><strong>Epitome</strong> A group of mysterious scholars establishes libraries and study halls in the village surrounding Harrowheart. A PC who spends Downtime training with these scholars can Retrain feats, skills, and class features, provided the new feat, skill, or class feature is magic-themed. Feats and skill increases retrained here take only 5 days, while class features retrained here take only 3 weeks.</p>",
+            "value": "<p><strong>Suit</strong> Books (Int)</p>\n<p><strong>Alignment</strong> lawful good</p>\n<hr />\n<p><em>The Hidden Truth</em> represents the act of observing something beyond the obvious to gain obscure lore. As long as this card is invested, you gain a +2 item bonus to Lore checks made to Recall Knowledge, and to all checks made to Research while using the Research subsystem from the Gamemastery Guide. This increases to a +3 bonus if you are at least 17th level.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.True Seeing]</em>. The level of the spell is one-half your level, rounded down (minimum 6th level). If you're at least 17th-level, you can affect up to three adjacent willing targets with this spell at the same time as you cast it.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "lore-skill-check",
+                "type": "item",
+                "value": "ternary(gte(@actor.level,17),3,2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:research"
+                ],
+                "selector": "skill-check",
+                "slug": "hidden-truth-research",
+                "type": "item",
+                "value": "ternary(gte(@actor.level,17),3,2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #191: The Destiny War"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "abjuration",
+                "artifact",
+                "harrow-court",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "carried"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

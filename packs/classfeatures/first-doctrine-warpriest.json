@@ -1,0 +1,87 @@
+{
+    "_id": "xxkszluN9icAiTO4",
+    "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+    "name": "First Doctrine (Warpriest)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're trained in light and medium armor, and you have expert proficiency in Fortitude saves.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction to reduce damage with a shield.</p>\n<p>If your deity's weapon is a simple weapon or an unarmed attack, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Deadly Simplicity] cleric feat.</p>\n<p>At 13th level, if you gain the divine defense class feature, you also gain expert proficiency in light and medium armor.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.light.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.fortitude.rank",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.light.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    },
+                    "feature:divine-defense"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    },
+                    "feature:divine-defense"
+                ],
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

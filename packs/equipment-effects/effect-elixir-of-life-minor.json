@@ -1,0 +1,51 @@
+{
+    "_id": "lPRuIRbu0rHBkoKY",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+    "name": "Effect: Elixir of Life (Minor)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Minor)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to saving throws against diseases and poisons</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>Heal [[/r 1d6[healing]]]{1d6 Hit Points}</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

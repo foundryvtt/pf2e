@@ -1,0 +1,49 @@
+{
+    "_id": "SiegLMJpVOGuoyWJ",
+    "img": "systems/pf2e/icons/spells/charming-touch.webp",
+    "name": "Effect: Ghost Wrangler",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Ghost Wrangler]</p>\n<p>Your fists gain the effects of the ghost touch property rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "fist": true,
+                "key": "Strike"
+            },
+            {
+                "definition": [
+                    "item:base:fist"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

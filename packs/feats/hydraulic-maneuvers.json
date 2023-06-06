@@ -1,0 +1,79 @@
+{
+    "_id": "0jJ5FG72lydY3HHR",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Hydraulic Maneuvers",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You batter your foes with a torrent of water siphoned from your surroundings.</p>\n<p>If the next action you take is an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip], that action has a range of 15 feet. You don't receive any item bonuses to that check or any circumstance bonuses related to your physical body, but if you roll a critical failure on that Athletics check, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Activate Hydraulic Maneuvers",
+                "option": "hydraulic-maneuvers",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "hydraulic-maneuvers",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "text": "<p class='compact-text'>If you roll a critical failure on your Athletics check to Disarm, Shove or Trip using Hydraulic Maneuvers, you get a failure instead.</p> <p class='compact-text'>You don't receive any item bonuses to the triggering Athletics check or any circumstance bonuses related to your physical body when using Hydraulic Maneuvers.</p>"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "hydraulic-maneuvers",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "azarketi",
+                "concentrate",
+                "manipulate",
+                "primal",
+                "transmutation",
+                "water"
+            ]
+        }
+    },
+    "type": "feat"
+}

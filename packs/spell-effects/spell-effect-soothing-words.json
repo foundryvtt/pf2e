@@ -1,0 +1,77 @@
+{
+    "_id": "an4yZ6dyIDOFa1wa",
+    "img": "systems/pf2e/icons/spells/soothing-words.webp",
+    "name": "Spell Effect: Soothing Words",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Soothing Words]</em>.</p>\n<p>The target gains a +1 status bonus to Will saving throws. This bonus increases to +2 against emotion effects</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The bonus to saves increases to +2, or +3 against emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 1
+                        },
+                        {
+                            "start": 5,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Soothing Words (vs. emotion)",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 2
+                        },
+                        {
+                            "start": 5,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

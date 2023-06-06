@@ -1,0 +1,48 @@
+{
+    "_id": "ROuGwXEvFznzGE9k",
+    "img": "systems/pf2e/icons/spells/swampcall.webp",
+    "name": "Spell Effect: Swampcall (Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Swampcall]</em></p>\n<p>You call upon the spirits of the soil to twist and churn, transforming the terrain in the targeted area into a sodden mess. The area becomes difficult terrain. Creatures in the area when you Cast this Spell must attempt a Reflex saving throw.</p>\n<hr />\n<p><strong>Failure</strong> The creature sinks partially into the mud. The creature takes a -10-foot circumstance penalty to its Speeds (except for its swim Speed, if any) and becomes @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed]. These effects last until the creature leaves the area or until the end of its next turn, whichever comes first.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "burrow-speed",
+                    "climb-speed",
+                    "fly-speed",
+                    "land-speed"
+                ],
+                "type": "circumstance",
+                "value": -10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #171: Hurricane's Howl"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,65 @@
+{
+    "_id": "peEXunfbSD8WcMFk",
+    "img": "systems/pf2e/icons/features/classes/paladin-lawful-good.webp",
+    "name": "Paladin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're honorable, forthright, and committed to pushing back the forces of cruelty. You gain the Retributive Strike champion's reaction and the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell. After the tenets of good, add these tenets:</p>\n<ul>\n<li>You must act with honor, never taking advantage of others, lying, or cheating.</li>\n<li>You must respect the lawful authority of legitimate leadership wherever you go, and follow its laws.</li>\n</ul>\n<h2 class=\"title\">Champion's Reaction</h2>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] <span class=\"pf2-icon\">R</span></p>\n<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<h2 class=\"title\">Divine Smite<span style=\"float:right\">Level 9</span></h2>\n<p>You surround evil targets in a punishing halo. If you hit with your Retributive Strike, the target takes [[/r @actor.abilities.cha.mod[persistent,good]]]{Persistent Good Damage} equal to your Charisma modifier.</p>\n<h2 class=\"title\">Exalt<span style=\"float:right\">Level 11</span></h2>\n<p>When you use Retributive Strike, each ally within 15 feet of you with the target in their melee reach can spend a reaction to Strike the target with a -5 penalty.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "class:champion:alignment:lg"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
+                "option": "divine-smite",
+                "predicate": [
+                    "feature:divine-smite"
+                ],
+                "toggleable": true
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "good",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
+                "predicate": [
+                    "divine-smite"
+                ],
+                "selector": "strike-damage",
+                "value": "@actor.system.abilities.cha.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

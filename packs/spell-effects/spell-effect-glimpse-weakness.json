@@ -1,0 +1,42 @@
+{
+    "_id": "VJpRUgSDtAO2TSRR",
+    "img": "systems/pf2e/icons/spells/glimpse-weakness.webp",
+    "name": "Spell Effect: Glimpse Weakness",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Glimpse Weakness]</em></p>\n<p>You deal additional precision damage equal to 1 + this spell's level, and then the spell ends.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": "1+@item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

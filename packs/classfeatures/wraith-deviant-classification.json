@@ -1,0 +1,227 @@
+{
+    "_id": "8Jjy7VsQAJJqCeyE",
+    "img": "systems/pf2e/icons/spells/adapt-self.webp",
+    "name": "Wraith Deviant Classification",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Wraith-type deviations often result from contact with otherworldly presences or artifacts, comprising a strange assortment of abilities that involve realms beyond our own.</p>\n<h2>Backlash</h2>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Encroaching Presence]</p>\n<p>The same blood that lets one of the dragon-descended spit out a gout of flame is precisely what keeps the inside of their mouth from being singed in the furnace. Deviations, unfortunately, lack these safeguards, their powers coming from haphazard circumstance and interactions rather than intentional design. A character using their deviation always risks the chance of backlash.</p>\n<p>Whenever you attempt to use a deviation, roll a @Check[type:flat|dc:5]. On a success, you use your deviation and the DC for subsequent checks increases by 5, to a maximum of 20 (@Check[type:flat|dc:10] @Check[type:flat|dc:15] @Check[type:flat|dc:20]); on a failure, you use your deviation and then suffer a backlash effect, after which your flat check DC resets to 5. Backlash progresses from mild, to moderate, to severe. When you have already taken mild backlash in a given day, the next time you would take backlash, you take the moderate backlash instead, and if you have already taken moderate backlash, you take the severe backlash instead, and your deviation can't be used for the rest of the day—attempting to use it simply brings pain. When you make your daily preparations, your flat check DC returns to 5 and your next backlash returns to mild.</p>\n<p>Any effects from backlash can't be reduced, prevented, or otherwise bypassed. Conditions and damage you take from backlash can't be reduced or prevented by resistance or immunity, but still triggers any weakness you have to it.</p>\n<h2>Wraith Deviant Feats</h2>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Eerie Flicker]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Ghostly Grasp (Deviant)]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Enervating Wail]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Distant Wandering]</p>\n<h3>Universal Deviant Feats</h3>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Awakened Power]</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.Greater Awakened Power]</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices",
+                "priority": 10,
+                "value": {
+                    "greater": [],
+                    "lesser": []
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.EerieFlickerTerrify",
+                    "predicate": [
+                        {
+                            "not": "awakening:eerie-flicker:terrify"
+                        },
+                        "feat:eerie-flicker"
+                    ],
+                    "value": "eerie-flicker:terrify"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.EerieFlickerCompress",
+                    "predicate": [
+                        {
+                            "not": "awakening:eerie-flicker:compress"
+                        },
+                        "feat:eerie-flicker"
+                    ],
+                    "value": "eerie-flicker:compress"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.EerieFlickerTerrify",
+                    "predicate": [
+                        {
+                            "not": "awakening:eerie-flicker:terrify"
+                        },
+                        "feat:eerie-flicker"
+                    ],
+                    "value": "eerie-flicker:terrify"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.EerieFlickerCompress",
+                    "predicate": [
+                        {
+                            "not": "awakening:eerie-flicker:compress"
+                        },
+                        "feat:eerie-flicker"
+                    ],
+                    "value": "eerie-flicker:compress"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.GhostlyGraspGrab",
+                    "predicate": [
+                        {
+                            "not": "awakening:ghostly-grasp:grab"
+                        },
+                        "feat:ghostly-grasp-deviant"
+                    ],
+                    "value": "ghostly-grasp:grab"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.GhostlyGraspPush",
+                    "predicate": [
+                        {
+                            "not": "awakening:ghostly-grasp:push"
+                        },
+                        "feat:ghostly-grasp-deviant"
+                    ],
+                    "value": "ghostly-grasp:push"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.GhostlyGraspGrab",
+                    "predicate": [
+                        {
+                            "not": "awakening:ghostly-grasp:grab"
+                        },
+                        "feat:ghostly-grasp-deviant"
+                    ],
+                    "value": "ghostly-grasp:grab"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.GhostlyGraspPush",
+                    "predicate": [
+                        {
+                            "not": "awakening:ghostly-grasp:push"
+                        },
+                        "feat:ghostly-grasp-deviant"
+                    ],
+                    "value": "ghostly-grasp:push"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.EnervatingWailSilent",
+                    "predicate": [
+                        {
+                            "not": "awakening:enervating-wail:silent"
+                        },
+                        "feat:enervating-wail"
+                    ],
+                    "value": "enervating-wail:silent"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.EnervatingWailEnfeebling",
+                    "predicate": [
+                        {
+                            "not": "awakening:enervating-wail:enfeebling"
+                        },
+                        "feat:enervating-wail"
+                    ],
+                    "value": "enervating-wail:enfeebling"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.DistantWanderingFly",
+                    "predicate": [
+                        {
+                            "not": "awakening:distant-wandering:fly"
+                        },
+                        "feat:distant-wandering"
+                    ],
+                    "value": "distant-wandering:fly"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.deviantAbilities.awakenedChoices.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.DistantWanderingQuick",
+                    "predicate": [
+                        {
+                            "not": "awakening:distant-wandering:quick"
+                        },
+                        "feat:distant-wandering"
+                    ],
+                    "value": "distant-wandering:quick"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Encroaching Presence"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

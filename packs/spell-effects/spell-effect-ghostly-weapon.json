@@ -1,0 +1,53 @@
+{
+    "_id": "EScdpppYsf9KhG4D",
+    "img": "systems/pf2e/icons/spells/ghostly-weapon.webp",
+    "name": "Spell Effect: Ghostly Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghostly Weapon]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,83 @@
+{
+    "_id": "Eyuqu6eIaoGCjnMv",
+    "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+    "name": "Clan Dagger",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You get one @UUID[Compendium.pf2e.equipment-srd.Item.Clan Dagger]{clan dagger} of your clan for free, as it was given to you at birth. Selling this dagger is a terrible taboo and earns you the disdain of other dwarves.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level-0 dwarf weapon",
+                    "predicate": [
+                        "item:level:0",
+                        "item:trait:dwarf",
+                        "item:type:weapon"
+                    ]
+                },
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+                        "label": "PF2E.Weapon.Base.clan-dagger",
+                        "value": "clan-dagger"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/weapons/clan-pistol.webp",
+                        "label": "PF2E.SpecificRule.ClanWeapon.ClanPistol",
+                        "value": "clan-pistol"
+                    }
+                ],
+                "flag": "clanWeapon",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.ClanWeapon.Label",
+                "prompt": "PF2E.SpecificRule.ClanWeapon.Prompt"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "{item|flags.pf2e.rulesSelections.clanWeapon}",
+                "removeUponCreate": true
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "clan-dagger"
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Clan Dagger"
+            },
+            {
+                "key": "GrantItem",
+                "nestFeat": false,
+                "predicate": [
+                    "clan-pistol"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Clan Pistol"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

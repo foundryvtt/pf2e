@@ -1,0 +1,60 @@
+{
+    "_id": "OBxrlZKg0IC5n238",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Venom-Resistant Vishkanya",
+    "system": {
+        "ancestry": {
+            "name": "Vishkanya",
+            "slug": "vishkanya",
+            "uuid": "Compendium.pf2e.ancestries.Item.u1VJEXsVlmh3Fyx0"
+        },
+        "description": {
+            "value": "<p>Your body contains not just venom but numerous antivenoms. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "poison",
+                    "virulent"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Vishkanya.VenomResistantVishkanya.VirulentSaveNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "poison",
+                    {
+                        "not": "virulent"
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Vishkanya.VenomResistantVishkanya.PoisonSaveNote",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

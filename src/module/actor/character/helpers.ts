@@ -10,7 +10,7 @@ import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, pick, setHasElement, tupleHasValue } from "@util";
-import clumsySource from "../../../../packs/data/conditions/clumsy.json";
+import clumsySource from "../../../../packs/conditions/clumsy.json";
 import type { CharacterPF2e } from "./document.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */

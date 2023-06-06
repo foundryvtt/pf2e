@@ -1,0 +1,515 @@
+{
+    "_id": "vHei0y2PKlXfxQ8Z",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "8SCH000Zv6X9BFPf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "bog-rot"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IFp4VK6X80nXiTJu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "khwh43CDMROkIfgf",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QaqXp54jr3aKQjWN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HLcMADTgT1nixxce",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Breath of the Bog",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that begins its turn within the area feels as if its lungs were filling with water and must succeed at a @Check[type:fortitude|dc:19] save or be unable to speak or breathe. The creature can still hold its breath and can attempt a new saving throw at the end of its turn.</p>\n<p>A creature that succeeds is temporarily immune to breath of the bog for 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "breath-of-the-bog",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "enchantment",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "enchantment",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AWNveQn0EQ1aYORU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rise Up",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks on top of a bog mummy that lies buried in the mud or peat below</p>\n<p><strong>Requirements</strong> Initiative has not yet been rolled</p>\n<hr />\n<p><strong>Effect</strong> The bog mummy automatically notices the creature and Burrows before rolling initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XmKUjz23s0dNFOYW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bog Rot",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This affliction can't be reduced below stage 1, nor can the damage from it be healed, until it's successfully treated with <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by bog rot melts into a noxious sludge and can't be resurrected except by a 7th‑level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> [[/r 3d6[negative]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "bog-rot",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "disease",
+                        "divine",
+                        "necromancy",
+                        "negative"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3IrzjRB89Xfvuqf2",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "bo6bsp0fKrJ9ddNK",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Buried",
+                        "predicate": [
+                            "buried"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 while buried in a bog",
+                        "options": "buried"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Child of Belcorra",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 85,
+                "temp": 0,
+                "value": 85
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 12
+            },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 15
+                    }
+                ],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "LE"
+            },
+            "blurb": "Bog mummy (Pathfinder Bestiary 2 177)",
+            "creatureType": "",
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The cultural practice of mummifying the dead is not the only way a body can become preserved, nor is it the only route that gives rise to these disease-spreading undead monstrosities.</p>\n<p>Bog mummies (also called peat mummies or mire mummies) rarely, if ever, leave their marshy realms. Less powerful than their more notorious artificially preserved kin, bog mummies are preserved not by agents introduced during rituals but by the natural elements present in the airless, acidic morass of a peat bog or muddy swamp. While corpses preserved in this manner can certainly rise from the mire as bog mummies as the result of a curse by fell powers or the directed influence of a necromancer, the vast majority of them animate from a seething need for vengeance or to pursue some dire agenda left unfinished at the time of death-often because the creature was slain or otherwise betrayed. The nature of tthis emotional tie to life and the emotional power of the deceased compel unlife beyond death, while the preservative qualities of the bog within which the body was disposed of does the rest.</p>\n<p>Although most bog mummies are motivated by vengeance, many fulfill their dark yearnings with general violence. Filled with wrath and hatred for the living, they mercilessly attack any living creatures that dare to venture into their dismal domains. Their agonized moans echo over their putrid homes, driving away most natural life dwelling therein and often alerting travelers to the potential danger that lies beneath the surface.</p>",
+            "source": {
+                "value": "Pathfinder Abomination Vaults Hardcover Compilation"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "common",
+                    "gnomish",
+                    "undercommon"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision, tremorsense (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "mummy",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

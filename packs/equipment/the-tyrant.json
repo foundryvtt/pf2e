@@ -1,0 +1,71 @@
+{
+    "_id": "IVGLVPxVorpTM8GL",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "The Tyrant",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "gm": "<p><strong>Epitome</strong> When <em>The Tyrant</em> is epitomized, an immense blue dragon manifests in the Harrow Court. The dragon has no name, but gracefully accepts any the PCs offer them. The blue dragon is not hostile to the PCs, but their personality is tinged with arrogance and condescension. As with the other partially real simulacra of the Harrow Court, the dragon has no agency of their own and cannot take part in encounter mode play, but they can be called upon to aid with their skills or to cast (or teach) spells. Treat the dragon as a typical spellcasting ancient blue dragon for the purposes of its skill modifiers and what spells they can cast or teach, but one that also knows the legend lore ritual. A PC who impresses the dragon with their own imperious attitude (with a successful @Check[type:intimidation|dc:35] check) can convince the dragon to carry them to any location in the Harrow Court, once per successful check. The dragon keeps a lair in a large cavern below Harrowheart, where they spend their time counting their (illusory) hoard, sleeping, or plotting nefarious schemes they will never actually enact.</p>",
+            "value": "<p><strong>Suit</strong> Crowns (Cha)</p>\n<p><strong>Alignment</strong> lawful evil</p>\n<hr />\n<p>As long as you have The Tyrant invested, you gain a +2 item bonus to Intimidation checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]. This bonus increases to +3 if you are at least 17th level.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You hold the card up to your lips and exhale onto it; you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Form]</em>. The level of the spell is half your level, rounded down (minimum 6th level).</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "type": "item",
+                "value": "ternary(gte(@actor.level,17),3,2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #191: The Destiny War"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "artifact",
+                "harrow-court",
+                "invested",
+                "magical",
+                "transmutation"
+            ]
+        },
+        "usage": {
+            "value": "carried"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

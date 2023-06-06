@@ -1,0 +1,108 @@
+{
+    "_id": "7zy4W2RXQiMEr6cp",
+    "img": "systems/pf2e/icons/spells/dragon-claws.webp",
+    "name": "Spell Effect: Dragon Claws",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Claws]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "range": null,
+                "slug": "dragon-claw",
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ]
+            },
+            {
+                "damageType": "{actor|system.custom.dragonBloodline.damageType}",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.Weapon.Base.claw",
+                "selector": "dragon-claw-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|system.custom.dragonBloodline.damageType}",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 5
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": 10
+                        },
+                        {
+                            "start": 9,
+                            "value": 15
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

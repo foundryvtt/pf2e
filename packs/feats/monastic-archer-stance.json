@@ -1,0 +1,79 @@
+{
+    "_id": "YG2RxXE9SMfwo6wP",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Monastic Archer Stance",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are unarmored and wielding a longbow, shortbow, or a bow with the monk trait.</p>\n<hr />\n<p>You enter a specialized stance for a unique martial art centered around the use of a bow. While in this stance, the only Strikes you can make are those using longbows, shortbows, or bows with the monk trait.</p>\n<p>You can use @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows] with these bows. You can use your other monk feats or monk abilities that normally require unarmed attacks with these bows when attacking within half the first range increment (normally 50 feet for a longbow and 30 feet for a shortbow), so long as the feat or ability doesn't require a single, specific Strike.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Stance: Monastic Archer Stance]</p>\n<hr />\n<p><strong>Special</strong> When you select this feat, you become trained in the longbow, shortbow, and any simple and martial bows with the monk trait. If you gain the expert strikes class feature, your proficiency rank for these weapons increases to expert, and if you gain the master strikes class feature, your proficiency rank for these weapons increases to master.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:group:bow",
+                    {
+                        "or": [
+                            "item:base:longbow",
+                            "item:base:shortbow",
+                            {
+                                "and": [
+                                    "item:trait:monk",
+                                    {
+                                        "or": [
+                                            "item:category:simple",
+                                            "item:category:martial"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MonasticArchery",
+                "slug": "monastic-archery"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.monastic-archery.rank",
+                "predicate": [
+                    "feature:expert-strikes"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.monastic-archery.rank",
+                "predicate": [
+                    "feature:master-strikes"
+                ],
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk",
+                "stance"
+            ]
+        }
+    },
+    "type": "feat"
+}

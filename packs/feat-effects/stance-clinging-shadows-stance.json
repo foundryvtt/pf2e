@@ -1,0 +1,67 @@
+{
+    "_id": "uFYvW3kFP9iyNfVX",
+    "img": "systems/pf2e/icons/spells/clinging-shadows-stance.webp",
+    "name": "Stance: Clinging Shadows Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Clinging Shadows Stance]</em></p>\n<p>You adopt the stance of clinging shadows. You can make shadow grasp Strikes. These deal 1d4 negative damage; are in the brawling group; and have the agile, grapple, reach, and unarmed traits.</p>\n<p>While in the clinging shadows stance, you gain a +2 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], and to the DC for creatures to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "negative",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/spells/clinging-shadows-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.ShadowGrasp",
+                "range": null,
+                "traits": [
+                    "agile",
+                    "grapple",
+                    "reach",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

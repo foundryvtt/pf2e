@@ -1,0 +1,455 @@
+{
+    "_id": "q6FDEqLZQVjZfJ3x",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "injH2iWqg5QjQiqs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Blade",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "4ahm8hw7fvslackjoqg9": {
+                        "damage": "2d12+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7dxhRfITiiUW00kr",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gPcAYqbYyOADoHwc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Top-Heavy",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A spiral centurion's top-like design makes it susceptible to effects that would cause it to fall prone. The DC of any attempt to knock the spiral centurion @UUID[Compendium.pf2e.conditionitems.Item.Prone] is reduced by 5. If the spiral centurion attempts a check or saving throw to resist being knocked prone, it takes a -5 status penalty. A spiral centurion that has been knocked prone can't use any actions other than to attempt to Stand, but it must succeed at a @Check[type:acrobatics|dc:30] check to do so.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xijGvHanHygeHGCM",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Hurl Blade",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The spiral centurion hurls one of its blades with an angled spin to ensure a swooping flight path. The blade deals [[/r 6d6[slashing]]] damage to each creature in a @Template[type:line|distance:40] (@Check[type:reflex|dc:30|basic:true] save).</p>\n<p>At the start of the spiral centurion's next turn, the blade swoops around and returns along the same flight path, again dealing [[/r 6d6[slashing]]] damage (@Check[type:reflex|dc:30|basic:true] save) to each creature along the same line.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LOsTy4ZSFM2RSN4k",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rev Up",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The spiral centurion has not acted yet this turn</p>\n<hr />\n<p><strong>Effect</strong> The spiral centurion Strides up to its Speed. It then gains a +2 circumstance bonus to attack and damage rolls until the end of its turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rev-up",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "rev-up"
+                        ],
+                        "selector": "strike-damage",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "rev-up"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xPid5CwljZFADBGF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium or smaller, blade, @Check[type:reflex|dc:30|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "trample",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3cCzIUJ7cXhefnQ1",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Whirling Death",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The spiral centurion spins furiously in place, its blades extended to slice through nearby creatures. It makes up to five melee blade Strikes. No single creature can be targeted by more than one blade Strike during one use of this ability. These attacks count toward the spiral centurion's multiple attack penalty, but the multiple attack penalty doesn't increase until after all the attacks are made.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lBfUyoRfYBKRFBxm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Ht8rm3qJOLN7RWYy",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Spiral Centurion",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 31
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hardness": {
+                "value": 10
+            },
+            "hp": {
+                "details": "",
+                "max": 170,
+                "temp": 0,
+                "value": 170
+            },
+            "immunities": [],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 20
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Construct",
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These mechanical constructs were created to serve as guardians in an ancient and bygone era, although exactly who made them and the secrets of their construction have long since been lost to history. From the waist up, they resemble humanoids made of metal, but from the waist down their bodies take the form of spinning metal tops ringed with blades, which excel at cutting down nearby foes. Most spiral centurions can be directed to stand down with a password, although often these command phrases have been lost to the mists of time. In rare cases, a spiral centurion may also wield manufactured weapons or a shield in addition to its built-in weapons, giving it access to additional actions besides those listed below.</p>\n<p>Most spiral centurions are hundreds or even thousands of years old, only staying functional because of the powerful magic used in their creation. Still, millennia of neglect have caused many spiral centurions to develop small glitches or malfunctions.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary 2"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

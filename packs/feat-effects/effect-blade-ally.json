@@ -1,0 +1,157 @@
+{
+    "_id": "sCxi8lOH8tWQjLh0",
+    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
+    "name": "Effect: Blade Ally",
+    "system": {
+        "description": {
+            "value": "<p>A spirit of battle dwells within your armaments. Select one weapon or @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows] when you make your daily preparations. In your hands, the item gains the effect of a property rune.</p>\n<hr />\n<p>From <em>@UUID[Compendium.pf2e.classfeatures.Item.Blade Ally]</em>:</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Disrupting], @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch], @UUID[Compendium.pf2e.equipment-srd.Item.Fearsome], @UUID[Compendium.pf2e.equipment-srd.Item.Returning], or @UUID[Compendium.pf2e.equipment-srd.Item.Shifting]</p>\n<hr />\n<p>From <em>@UUID[Compendium.pf2e.feats-srd.Item.Radiant Blade Spirit]</em>:</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming], @UUID[Compendium.pf2e.equipment-srd.Item.Anarchic], @UUID[Compendium.pf2e.equipment-srd.Item.Axiomatic], @UUID[Compendium.pf2e.equipment-srd.Item.Holy], or @UUID[Compendium.pf2e.equipment-srd.Item.Unholy]</p>\n<hr />\n<p>From <em>@UUID[Compendium.pf2e.feats-srd.Item.Radiant Blade Master]</em>:</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Dancing], @UUID[Compendium.pf2e.equipment-srd.Item.Disrupting (Greater)], or @UUID[Compendium.pf2e.equipment-srd.Item.Keen]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponPropertyRune.anarchic.Name",
+                        "predicate": [
+                            "feat:radiant-blade-spirit",
+                            "self:trait:chaotic"
+                        ],
+                        "value": "anarchic"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.axiomatic.Name",
+                        "predicate": [
+                            "feat:radiant-blade-spirit",
+                            "self:trait:lawful"
+                        ],
+                        "value": "axiomatic"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.disrupting.Name",
+                        "predicate": [
+                            "self:trait:good"
+                        ],
+                        "value": "disrupting"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
+                        "predicate": [
+                            "feat:radiant-blade-master"
+                        ],
+                        "value": "greaterDisrupting"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.fearsome.Name",
+                        "predicate": [
+                            "self:trait:evil"
+                        ],
+                        "value": "fearsome"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.flaming.Name",
+                        "predicate": [
+                            "feat:radiant-blade-spirit"
+                        ],
+                        "value": "flaming"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.ghostTouch.Name",
+                        "predicate": [
+                            "self:trait:good"
+                        ],
+                        "value": "ghost-touch"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.holy.Name",
+                        "predicate": [
+                            "feat:radiant-blade-spirit",
+                            "self:trait:good"
+                        ],
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.keen.Name",
+                        "predicate": [
+                            "feat:radiant-blade-master"
+                        ],
+                        "value": "keen"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.returning.Name",
+                        "value": "returning"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.shifting.Name",
+                        "value": "shifting"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.unholy.Name",
+                        "predicate": [
+                            "feat:radiant-blade-spirit",
+                            "self:trait:evil"
+                        ],
+                        "value": "unholy"
+                    }
+                ],
+                "flag": "rune",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Champion.BladeAllyRune"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "{item|flags.pf2e.rulesSelections.rune}"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

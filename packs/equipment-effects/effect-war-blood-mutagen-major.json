@@ -1,0 +1,63 @@
+{
+    "_id": "S3Sv7SYwxozbG554",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/war-blood-mutagen.webp",
+    "name": "Effect: War Blood Mutagen (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.War Blood Mutagen (Major)]</p>\n<p>You gain a +4 item bonus to your attack rolls with this weapon and to Will saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectWarBloodMutagenMajor",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.effectWarBloodMutagenMajor}-attack",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

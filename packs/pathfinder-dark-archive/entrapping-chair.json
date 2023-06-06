@@ -1,0 +1,100 @@
+{
+    "_id": "3RL07afKtflSq5Ff",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "V4xSx1Z7pl5RTlY8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Take a Seat!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on the track</p>\n<hr />\n<p><strong>Effect</strong> The chair rockets forward along the track and slams into the triggering creature, dealing [[/r (3d8 + 15)[bludgeoning]]] damage. A creature who succeeds at a @Check[type:reflex|dc:22|traits:damaging-effect] save takes no damage and moves out of the chair's path into a random adjacent square not containing the track. A creature who fails this saving throw is knocked into the chair's seat and immediately captured by the armrests, becoming @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] (@UUID[Compendium.pf2e.conditionitems.Item.Restrained] on a critical failure; Escape DC 26).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Entrapping Chair",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "hardness": 14,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "stealth": {
+                "details": "<p>(0 to notice the chair)</p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A chair on concealed tracks surges forward, knocking a creature into the chair's seat and trapping them in place with clamping armrests.</p>",
+            "disable": "<p>@Check[type:thievery|dc:23|name:Disrupt the Tracks|traits:action:disable-a-device] (expert) to disrupt the tracks</p>",
+            "isComplex": false,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The trap resets automatically over 2 rounds if the chair is unoccupied.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Dark Archive"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

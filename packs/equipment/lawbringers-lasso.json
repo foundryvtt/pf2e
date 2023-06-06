@@ -1,0 +1,91 @@
+{
+    "_id": "TmH7coBHz9pjoDvP",
+    "img": "systems/pf2e/icons/equipment/held-items/lawbringers-lasso.webp",
+    "name": "Lawbringer's Lasso",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This enchanted lasso is a @UUID[Compendium.pf2e.equipment-srd.Item.Net] that can be used to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] creatures up to 30 feet away, requires a @Check[type:athletics|dc:18|traits:action:force-open] check to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open], and has an @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC of 18. It's permanently attached to a 30-foot rope. While using the lawbringer's lasso to Grapple, you receive a +1 item bonus to Grapple checks against creatures with the chaotic trait. If you roll a critical failure on your attempt to Grapple a chaotic creature with the lawbringer's lasso, you get a failure instead.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 100
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "lawbringers-lasso",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple",
+                    "lawbringers-lasso",
+                    "target:trait:chaotic"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:grapple",
+                    "lawbringers-lasso",
+                    "target:trait:chaotic"
+                ],
+                "selector": "athletics",
+                "type": "skill"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #180: The Smoking Gun"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "evocation",
+                "lawful",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}

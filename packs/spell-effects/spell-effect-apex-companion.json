@@ -1,0 +1,68 @@
+{
+    "_id": "NXzo2kdgVixIZ2T1",
+    "img": "systems/pf2e/icons/spells/apex-companion.webp",
+    "name": "Spell Effect: Apex Companion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Apex Companion]</em>.</p>\n<p>Your animal companion gains the following statistics and abilities while in its apex form.</p>\n<ul>\n<li>Your animal companion becomes Huge and its attacks have 15-foot reach. It must have enough space to expand into or the spell is lost.</li>\n<li>30 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>+10-foot status bonus to its Speeds.</li>\n</ul>\n<p><em>Note: this effect will <strong>not</strong> increase your animal companion's damage dice by one step, and will not apply the deadly d12 trait to their attack.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "huge"
+            },
+            {
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "key": "TempHP",
+                "value": 30
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d12"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #150: Broken Promises"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

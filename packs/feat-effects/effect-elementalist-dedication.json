@@ -1,0 +1,64 @@
+{
+    "_id": "O8qithYQCv3e7DUQ",
+    "img": "systems/pf2e/icons/features/classes/elemental-magic.webp",
+    "name": "Effect: Elementalist Dedication",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Elementalist Dedication]</p>\n<p>Each day when you make your daily preparations, you can attune yourself to one element of your choice: air, earth, fire, or water. You gain resistance equal to half your level (minimum 1 resistance) against damage dealt by effects with your attuned elemental trait. This attunement lasts until you next make your daily preparations.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.element}",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "aQEQkwuAabZG8wY1",
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/sages-lash.webp",
+    "name": "Sage's Lash",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>The thin, glittering strands of rope that comprise this thick belt appear to be spun gold. Strung along the front of the belt are a collection of four multicolored, perfectly spherical beads: jade, turquoise, quartz, and amethyst. While wearing the lash, you gain a +3 item bonus to Religion.</p>\n<p>When you invest the belt, you either increase your Wisdom score by 2 or to 18, whichever would give you a higher score.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Sage's Lash (Turquoise)]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, Interact</p>\n<hr />\n<p><strong>Effect</strong> You touch one of the jewels affixed to the sage's lash and speak a command word. Depending on the jewel, a different effect is produced that affects you and all living creatures in a @Template[type:emanation|distance:30]. After the effect occurs, all four jewels disappear from the lash, reappearing at the next dawn.</p>\n<ul>\n<li><strong>Jade</strong> (healing, positive) Speak “purity” to produce a wave of green light that ends any sickened condition and any ongoing poison damage affecting creatures in the emanation.</li>\n<li><strong>Turquoise</strong> Speak “clarity” to grant all affected a +2 status bonus to their next Will save for 1 minute.</li>\n<li><strong>Quartz</strong> (healing, positive) Speak “lenity” to have each creature regain 30 Hit Points.</li>\n<li><strong>Amethyst</strong> (divination, light, revelation) Speak “verity” to emit a magical trail of light from the lash that reveals the location of each creature in the emanation. For 1 round, if they would be @UUID[Compendium.pf2e.conditionitems.Item.Invisible], they become @UUID[Compendium.pf2e.conditionitems.Item.Concealed] instead, and if they would be @UUID[Compendium.pf2e.conditionitems.Item.Undetected] or @UUID[Compendium.pf2e.conditionitems.Item.Unnoticed] by a creature, they're @UUID[Compendium.pf2e.conditionitems.Item.Hidden] instead. A creature can attempt a @Check[type:stealth|dc:43|name:Avoid Sage's Lash Detection|traits:divination,light,revelation] check to avoid the lash's detection.</li>\n</ul>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 24000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "religion",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.wis.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.wis.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "invested",
+                "magical",
+                "necromancy"
+            ]
+        },
+        "usage": {
+            "value": "wornbelt"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

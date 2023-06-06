@@ -1,0 +1,138 @@
+{
+    "_id": "2goYo6VNbwC6aKF1",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Bloodline",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Choose a bloodline that gives you your spellcasting talent. This choice determines the type of spells you cast and the spell list you choose them from, additional spells you learn, and additional trained skills. You also gain Focus Points and special focus spells based on your bloodline. The bloodlines presented are as follows:</p>\n<ul>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Aberrant]{Aberrant}</strong> A strange and unknowable influence gives you occult spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Angelic]{Angelic}</strong> Holy grace bestows divine spells upon you.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Demonic]{Demonic}</strong> A sinful corruption gives you divine spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Diabolic]{Diabolic}</strong> A bond with devils gives you divine spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Draconic]{Draconic}</strong> The blood of dragons grants you arcane spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Elemental]{Elemental}</strong> The power of the elements manifests in you as primal spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Fey]{Fey}</strong> Influence from the fey gives you primal spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Genie]{Genie}</strong> Through lineage, magic, or wishes made real, the blood of a noble genie flows through your veins.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Hag]{Hag}</strong> The blight of a hag has given you occult spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Harrow]{Harrow}</strong> You have a deep connection to the harrow.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Imperial]{Imperial}</strong> An ancient power grants you arcane spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Nymph]{Nymph}</strong> One of your ancestors was inspired by a nymph, or perhaps was a nymph themself, and now the beauty of nature lives in you.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Phoenix]{Phoenix}</strong> The healing fire a phoenix's blessing grants you primal spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Psychopomp]{Psychopomp}</strong> For good or ill, your ancestors' deeds drew the attention of psychopomps, or you might somehow count one in your family tree. The presence of these shepherds of souls and enemies of undeath has left an indelible mark on you.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Shadow]{Shadow}</strong> Whether due to a velstrac's manipulations or a planar jaunt gone horribly wrong, your bloodline was infused with a vein of shadow.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Undead]{Undead}</strong> The touch of death gives you divine spells.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Wyrmblessed]{Wyrmblessed}</strong> A draconic blessing grants you divine spells.</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.{actor|system.proficiencies.aliases.sorcerer}.rank",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "end": 18,
+                            "start": 15,
+                            "value": 3
+                        },
+                        {
+                            "start": 19,
+                            "value": 4
+                        }
+                    ],
+                    "field": "actor|system.details.level.value"
+                }
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 sorcerer class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:sorcerer",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Aberrant"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Angelic"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Demonic"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Diabolic"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Draconic"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Elemental"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Fey"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Genie"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Hag"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Imperial"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Nymph"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Phoenix"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Psychopomp"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Shadow"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Undead"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Wyrmblessed"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Harrow"
+                    }
+                ],
+                "flag": "bloodline",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.Bloodline.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.bloodline}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "tyrBwBTzo5t9Zho7",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Doctrine",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Even among followers of the same deity, there are numerous doctrines and beliefs, which sometimes vary wildly between clerics. At 1st level, you select a doctrine and gain the benefits of its first doctrine. Each doctrine grants you initial benefits at 1st level. At 3rd, 7th, 11th, 15th, and 19th levels, you gain the benefits granted by your doctrine's second, third, fourth, fifth, and final doctrines respectively.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Cloistered Cleric]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Warpriest]</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Cleric.Doctrine.AllowedDrops",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:cleric",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Cloistered Cleric"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Warpriest"
+                    }
+                ],
+                "flag": "doctrine",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Cleric.Doctrine.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.doctrine}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

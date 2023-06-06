@@ -1,0 +1,114 @@
+{
+    "_id": "ObeSl1UJMrCxsVJ6",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "lY8P3VlUAyOoBnVJ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Bay",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the area</p>\n<hr />\n<p><strong>Effect</strong> The hounds manifest and bay loudly, dealing [[/r (3d10 + 16)[sonic]]] damage to all creatures within 30 feet of the hounds (@Check[type:fortitude|dc:33|basic:true]). On a failed check, a creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bounding Hounds",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "60 HP per hound",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "ghost-touch"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 27
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Three phantom hounds chase down intruders, damaging any they pass through.</p>",
+            "disable": "<p>@Check[type:nature|dc:36|name:Calm Hound] (expert) to calm each hound, or @Check[type:occultism|dc:38|name:Banish Hound] (master) to banish each hound</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "reset": "<p>1 hour</p>",
+            "routine": "<p>(9 actions) The trap loses 3 actions each round for each hound disabled. Each hound uses three actions to Stride 40 feet after creatures in the room, passing through corporeal creatures during this movement if possible. Each creature the hound moves through during its movement takes [[/r (2d8 + 7)[negative]]] damage (@Check[type:reflex|dc:37|traits:damaging-effect] negates). A creature can only be damaged by each hound once each round, no matter how many times the hound moves through their space.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Dark Archive"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 20
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

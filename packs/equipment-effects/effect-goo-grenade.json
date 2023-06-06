@@ -1,0 +1,70 @@
+{
+    "_id": "5JYchreCttBg7RcD",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/winter-wolf-elixir.webp",
+    "name": "Effect: Goo Grenade",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Goo Grenade (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Goo Grenade (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Goo Grenade (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Goo Grenade (Major)]</p>\n<p>When you hit a creature with a goo grenade, that creature takes persistent acid damage and a circumstance penalty to its Speeds from the clinging goo.</p>\n<p>The target can end any penalties, conditions, and persistent damage caused by the bomb by Escaping or spending a total of 3 Interact actions to pry themselves free of the ooze. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/winter-wolf-elixir.webp",
+                        "label": "PF2E.BombNotes.GooGrenade.Lesser",
+                        "value": -5
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/winter-wolf-elixir.webp",
+                        "label": "PF2E.BombNotes.GooGrenade.Moderate",
+                        "value": -5
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/winter-wolf-elixir.webp",
+                        "label": "PF2E.BombNotes.GooGrenade.Greater",
+                        "value": -10
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/winter-wolf-elixir.webp",
+                        "label": "PF2E.BombNotes.GooGrenade.Major",
+                        "value": -10
+                    }
+                ],
+                "flag": "gooGrenade",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.BombNotes.GooGrenade.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.gooGrenade}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

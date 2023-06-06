@@ -1,0 +1,56 @@
+{
+    "_id": "r1um0cn7MRIMLqcq",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Ghost Eater Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have trained as a ghost eater, a hunter specialized in the destruction of spirits. You know how to channel your own spiritual energy to harm spirits. Your weapon and unarmed attack Strikes become magical. Against incorporeal creatures, they also gain the effects of a ghost touch property rune.</p>\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.xMdIENo4w9bEzZuK]{Ghost Eater} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Occultism or Religion"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "magical"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #166: Despair on Danger Island"
+        },
+        "subfeatures": {},
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

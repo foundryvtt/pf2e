@@ -1,0 +1,109 @@
+{
+    "_id": "osS74hnE5VCSiJLs",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kXpBQyUqrKJNci5C",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spinning Gears",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature Strides in the engine nacelle</p>\n<hr />\n<p><strong>Effect</strong> The creature's clothing or limbs get caught in the spinning gears and axles of the engine. The creature must attempt a @Check[type:reflex|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r (2d8+9)[bludgeoning]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r (4d8+18)[bludgeoning]]] damage.</p>\n<p><strong>Critical Failure</strong> The creature's clothing is pulled into the clockworks. The creature takes [[/r (4d8+18)[bludgeoning]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. Until the creature @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 24), it takes [[/r (2d8+9)[bludgeoning]]] damage each round as it's pulled into the spinning rotors. A creature wearing clothing can automatically Escape by doffing its caught clothing; this destroys the doffed clothing.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Second Kiss Engine",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "hardness": 10,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": -10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Exposed clockwork gears spin at high speeds.</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Disable the engine|traits:action:disable-a-device] (expert) to disable the engine, or @Check[type:engineering-lore|dc:26|name:Disengage the drive shaft] to disengage the drive shaft. Either method disables the trap but also shuts down the engine, disabling the Second Kiss's propulsion.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #179: Cradle of Quartz"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

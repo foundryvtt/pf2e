@@ -1,0 +1,98 @@
+{
+    "_id": "TPbr1kErAAJKBi3V",
+    "img": "systems/pf2e/icons/spells/wall-of-water.webp",
+    "name": "Effect: Aquatic Combat",
+    "system": {
+        "description": {
+            "value": "<p>Use these rules for battles in water or underwater:</p>\n<ul>\n<li>You're @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] unless you have a swim Speed.</li>\n<li>You gain resistance 5 to acid and fire.</li>\n<li>You take a -2 circumstance penalty to melee slashing or bludgeoning attacks that pass through water.</li>\n<li>Ranged attacks that deal bludgeoning or slashing damage automatically miss if the attacker or target is underwater, and piercing ranged attacks made by an underwater creature or against an underwater target have their range increments halved.</li>\n<li>You can't cast fire spells or use actions with the fire trait underwater.</li>\n<li>At the GM's discretion, some ground-based actions might not work underwater or while floating.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "fire"
+                ],
+                "selector": "all",
+                "text": "PF2E.SpecificRule.AquaticCombat.FireNote"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:slashing",
+                            "item:damage:type:bludgeoning"
+                        ]
+                    }
+                ],
+                "selector": "melee-attack-roll",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "acid",
+                    "fire"
+                ],
+                "value": 5
+            },
+            {
+                "definition": [
+                    "item:ranged",
+                    "item:damage:type:piercing"
+                ],
+                "key": "AdjustStrike",
+                "mode": "multiply",
+                "property": "range-increment",
+                "value": 0.5
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:ranged"
+                ],
+                "selector": "attack",
+                "text": "PF2E.SpecificRule.AquaticCombat.RangedNote"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "nor": [
+                            "aquatic-combat:not-flat-footed",
+                            "speed:swim"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

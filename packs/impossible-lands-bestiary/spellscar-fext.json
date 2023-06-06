@@ -1,0 +1,563 @@
+{
+    "_id": "AIQMB0ysHNeodKG4",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "w9OrnS3uV2PXrJDn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "GthjaFygCMofofoS": {
+                        "damage": "2d8+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ie4xkUtz01VkMpWK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TZfUr6m0adsvTIF5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Sense (Imprecise) 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mDiUkroqGjfvpZMC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E3dHEpv6XhjYjVZy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8JQu5UduC3IHlSsZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (Deactivated by Glass)",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "glass"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
+                "slug": "regeneration",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "20sqDR0ZVwbHaDQH",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Unstable Feedback",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature Casts a Spell on the spellscar fext, and the spellscar fext either succeeds at its saving throw versus the spell or the caster fails the spell attack roll against the spellscar fext</p>\n<hr />\n<p><strong>Effect</strong> The caster of the triggering spell undergoes a @UUID[Compendium.pf2e.rollable-tables.RollTable.Wellspring Surges]{Wellspring Surge}. Even if several spellscar fexts use this reaction after succeeding at a save against the same spell, the spellcaster undergoes only one wellspring surge.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L6SWQmnHWcKt4MuR",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grasp Power",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The spellscar fext's last action was a successful fist Strike</p>\n<hr />\n<p><strong>Effect</strong> The spellscar fext attempts a counteract check against a single spell affecting the creature (counteract level 4, counteract modifier [[/r 1d20+17 #Counter]]{+17}). If the check is successful, the creature also takes [[/r 6d6[mental]]] damage (@Check[type:will|dc:25|basic:true]).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "arcane"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AL8hORqWxeyNMt0m",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "LeSFJK6Qf9OtLrRT",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Arcana",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "U5ohNZbpkFgyur6R",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "havtjIW977U2ObU0",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Occultism",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Spellscar Fext",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 4
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 25
+            },
+            "allSaves": {
+                "value": "+1 status versus magic"
+            },
+            "hp": {
+                "details": "regeneration 10 (deactivated by glass)",
+                "max": 100,
+                "temp": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 15
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Spellscar fexts are spellcasters who were destroyed by wild magic or wellspring surges they tried—and failed—to control. The magical feedback that snuffed out their life warped and animated their flesh, twisting them into shambling undead. Spellscar fexts stand 6 feet tall with disproportionately long arms that end in clusters of waving magical tendrils.</p>\n<p>Almost all who became spellscar fexts entered the Mana Wastes to harness the power of the area's wild magic. Once transformed, the desire for magical power becomes a spellscar fext's singular motivation. The creatures focus their attacks on magic users they encounter, attempting to kill them and strip their magic. Unfortunately for a spellscar fext, their transformation makes their entire being inimical to magic. They're unable to cast even the simplest of spells. They grasp destructively at magic they can never hold.</p>\n<p>Difficult for the unprepared to destroy permanently, spellscar fexts harry trade routes known for shipping magical goods and repeatedly attack arcane workshops on the borders of the Mana Wastes. They're particularly dangerous to spellcasters traveling alone, as battling the creatures might trigger a wellspring surge that could destroy the lone magic user.</p>\n<p>As the fext's vulnerability to glass weapons has become more well known, enterprising gunsmiths in Alkenstar have begun crafting glass ammunition, an uncommon item that costs the same as cold iron ammunition.</p>",
+            "source": {
+                "value": "Pathfinder Lost Omens: Impossible Lands"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision, magic sense (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

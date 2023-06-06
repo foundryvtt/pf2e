@@ -1,0 +1,40 @@
+{
+    "_id": "VVSOzHV6Rz2YNHRl",
+    "img": "systems/pf2e/icons/spells/contagious-idea.webp",
+    "name": "Spell Effect: Contagious Idea (Pleasant Thought)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Contagious Idea]</em></p>\n<p>You gain temporary Hit Points equal to the spell level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,108 @@
+{
+    "_id": "nLvP7U50hLqz26Uy",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-maniacal-devices.webp",
+    "name": "Ring of Maniacal Devices",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This ring seems like simple tarnished brass, but it enhances your curiosity about traps and devices of all kinds.</p>\n<p>You can use an Interact action to pull a set of thieves' tools from the ring. These tools appear in your hand and fold back into the ring if they would leave your possession.</p>\n<p>They grant you a +2 item bonus to Thievery checks to @UUID[Compendium.pf2e.actionspf2e.Item.Disable Device]{Disable a Device} and to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock], and the ring's insights grant you the same bonus to Crafting checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] and @UUID[Compendium.pf2e.actionspf2e.Item.Repair] snares and traps.</p>\n<hr />\n<p><strong>Activate</strong> 10 minutes (Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You create a 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Glyph of Warding]</em> containing <em>@UUID[Compendium.pf2e.spells-srd.Item.Fireball]</em>.</p>\n<p>You can have only one <em>glyph of warding</em> from a <em>ring of maniacal devices</em> active at a time, even if you have multiple rings, and the spell ends if you lose your investiture in the ring.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "negateBulk": {
+            "value": ""
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 1175
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Ring of Maniacal Devices (Disable Devices and Pick a Lock)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disable-a-device",
+                            "action:pick-a-lock"
+                        ]
+                    }
+                ],
+                "selector": "thievery",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Ring of Maniacal Devices (Craft snares and traps)",
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "snare",
+                            "trap"
+                        ]
+                    }
+                ],
+                "selector": "crafting",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Ring of Maniacal Devices (Repair snares and traps)",
+                "predicate": [
+                    "action:repair",
+                    {
+                        "or": [
+                            "snare",
+                            "trap"
+                        ]
+                    }
+                ],
+                "selector": "crafting",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "divination",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

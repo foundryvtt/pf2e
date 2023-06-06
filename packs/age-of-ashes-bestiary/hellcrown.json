@@ -1,0 +1,387 @@
+{
+    "_id": "KROWh0CteDFFGsih",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "yh0jnKztqB0nQlYV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Nail",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "bleeding-nail"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "ek8jz1ab0p7zllg25pfj": {
+                        "damage": "1d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "G0N1HOgAQ6sfApBK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZkM3S4OabItFRUIq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZWaPe5FQtP4LDiEM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bleeding Nail",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the hellcrown hits with a nail Strike, the target must attempt a @Check[type:fortitude|dc:16] save. On a failure, the nail is embedded in the creature, making it @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute and giving it [[/r 1[bleed]]] damage (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and [[/r 1d4[bleed]]] on a critical failure). Each additional embedded nail increases the enfeebled value by 1 (to a maximum of enfeebled 4) and the bleed damage by 1. A creature can remove a nail with an Interact action to reduce the enfeeblement and amount of bleed damage. Pulling out the last nail removes both conditions.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "bleeding-nail",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OqoxUu62vH7mcrPs",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Terrifying Stare",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All creatures that can see the hellcrown and are suffering from its bleeding nail must attempt a @Check[type:will|dc:16] saving throw. A creature that fails is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, and on a critical failure becomes @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as it's frightened. Any creature that attempts a save is then temporarily immune for 10 minutes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fear",
+                        "mental",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1TBTjsMnNkNnPbpt",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Js7neEYKwlo4WOvM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Hellcrown",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": -2
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 16
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "negative healing",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 10
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "LE"
+            },
+            "blurb": "",
+            "creatureType": "Undead",
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The life of a Hellknight is bloody, brutal, and often short. Many who perish in service to a Hellknight order are glad to rest after having served their masters so faithfully, but others seek to continue their work even in death. When a Hellknight is decapitated, the ghostly undead known as a hellcrown is an occasional result. Consumed by the desire to bring about order by inflicting cruelty, hellcrowns haunt battlefields and abandoned castles, slaying all they encounter. A strange fusion of spirit and steel, a hellcrown has no corporeal form by itself, but instead inhabits the helmet it so proudly wore in life. Dangling from the helmet like a shroud is a shadow of the former Hellknight's spine, adding to the creature's terrifyingly gruesome appearance. Hellknights regard hellcrowns with a mixture of disgust and respect, considering the individuals who transform into these floating undead to have been resolute in purpose but weak in body.</p>\n<p>A hellcrown usually manifests hours or longer after its body's death, and only when its body is unattended; this might even take days if the Hellknight perished in a major battle. Typically, no recognizable fragment of the Hellknight's former personality survives the grisly transformation into a hellcrown, but in rare and particularly tragic cases a hellcrown might remember its life and hold grudges against those it views as the cause of its death. Regardless of whether they retain memories of their lives or have lost all former sense of self, hellcrowns linger around the site of their death, reminding all they encounter of the merciless principles of their order.</p>",
+            "source": {
+                "value": "Pathfinder #145: Hellknight Hill"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "common"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "tiny"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

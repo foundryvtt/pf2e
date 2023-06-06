@@ -1,0 +1,48 @@
+{
+    "_id": "PaS2kwv4vueI4PC7",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
+    "name": "Effect: +2 status bonus to saving throws against spells for 1 min",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.JournalEntry.Critical Fumble Deck #31]</strong></p>\n<p>+2 status bonus to saving throws against spells for 1 min</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.CriticalDeck.Effect.Label",
+                "predicate": [
+                    "spell"
+                ],
+                "selector": "saving-throw",
+                "slug": "critical-effect-bonus-to-saves-vs-spells",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Critical Decks"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

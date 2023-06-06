@@ -1,0 +1,54 @@
+{
+    "_id": "GF9kkULUYowgjEWM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Rough Rider",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are especially good at riding traditional goblin mounts. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Ride] feat, even if you don't meet the prerequisites. You gain a +1 circumstance bonus to Nature checks to use @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal] on a goblin dog or wolf mount. You can always select a wolf as your animal companion, even if you would usually select an animal companion with the mount special ability, such as for a champion's steed ally.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Ride"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:command-an-animal",
+                    {
+                        "or": [
+                            "target:goblin-dog",
+                            "target:wolf"
+                        ]
+                    }
+                ],
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -7,8 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { Migration819SpinTaleAdventureSpecific } from "@module/migration/migrations/819-spin-tale-adventure-specific.ts";
-import { Migration820RemoveUnusedTraitsData } from "@module/migration/migrations/820-remove-unused-traits-data.ts";
 import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls.ts";
 import { Migration822BladeAllyConsolidation } from "@module/migration/migrations/822-blade-ally-consolidation.ts";
 import { Migration824SneakAttackDamageSource } from "@module/migration/migrations/824-sneak-attack-damage-source.ts";
@@ -27,6 +25,7 @@ import { Migration836EnergizingConsolidation } from "@module/migration/migration
 import { Migration837MoveHazardBookSources } from "@module/migration/migrations/837-move-hazard-book-source.ts";
 import { Migration838StrikeAttackRollSelector } from "@module/migration/migrations/838-strike-attack-roll-selector.ts";
 import { Migration839ActionCategories } from "@module/migration/migrations/839-action-categories.ts";
+import { Migration841V11UUIDFormat } from "@module/migration/migrations/841-v11-uuid-format.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -37,8 +36,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration819SpinTaleAdventureSpecific(),
-    new Migration820RemoveUnusedTraitsData(),
     new Migration821InlineDamageRolls(),
     new Migration822BladeAllyConsolidation(),
     new Migration824SneakAttackDamageSource(),
@@ -57,6 +54,7 @@ const migrations: MigrationBase[] = [
     new Migration837MoveHazardBookSources(),
     new Migration838StrikeAttackRollSelector(),
     new Migration839ActionCategories(),
+    new Migration841V11UUIDFormat(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -87,7 +85,7 @@ global.randomID = function randomID(length = 16): string {
     return id.substring(0, length);
 };
 
-const packsDataPath = path.resolve(process.cwd(), "packs/data");
+const packsDataPath = path.resolve(process.cwd(), "packs");
 
 type CompendiumSource = CompendiumDocument["_source"];
 
@@ -166,7 +164,7 @@ async function getAllFiles(): Promise<string[]> {
 
         let packFiles: string[];
         try {
-            // Create an array of files in the ./packs/data/[packname].db/ directory
+            // Create an array of files in the ./packs/[packname].db/ directory
             packFiles = fs.readdirSync(path.resolve(packsDataPath, pack));
         } catch (error) {
             if (error instanceof Error) console.error(error.message);

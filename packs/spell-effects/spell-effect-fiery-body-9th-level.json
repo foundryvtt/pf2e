@@ -1,0 +1,70 @@
+{
+    "_id": "U2eD42cGwdvQMdN0",
+    "img": "systems/pf2e/icons/spells/fiery-body.webp",
+    "name": "Spell Effect: Fiery Body (9th Level)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Fiery Body]</em></p>\n<p>You become living flame, giving you fire immunity, resistance 10 to precision damage, and weakness 5 to cold and to water. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon takes [[/r 4d6[fire]]] damage. Your unarmed attacks deal 2d4 additional fire damage, and your fire spells deal one additional die of fire damage (of the same damage die the spell uses). You can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Produce Flame]</em> as an innate spell; the casting is reduced from 2 actions to 1. In fire form, you have a fly Speed of 60 feet and don't need to breathe.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "type": "fire"
+            },
+            {
+                "key": "Resistance",
+                "type": "precision",
+                "value": 10
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "cold",
+                    "water"
+                ],
+                "value": 5
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "label": "Fiery Body",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 60
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

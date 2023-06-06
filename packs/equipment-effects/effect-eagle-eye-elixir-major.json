@@ -1,0 +1,55 @@
+{
+    "_id": "wyLEew86nhNUXASu",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/eagle-eyes-elixir.webp",
+    "name": "Effect: Eagle Eye Elixir (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Eagle Eye Elixir (Major)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+3 item bonus to Perception checks</li>\n<li>+4 item bonus to Perception checks to find secret doors and traps</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>Each time you pass within 10 feet of a secret door or trap, the GM automatically rolls a secret check for you to find it.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-major",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Equipment.EagleEyeElixir.Major.SecretLabel",
+                "predicate": [
+                    "secret doors and traps"
+                ],
+                "selector": "perception",
+                "slug": "eagle-eye-elixir-major-secrets",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

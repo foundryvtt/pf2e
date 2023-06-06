@@ -1,0 +1,52 @@
+{
+    "_id": "4Zj71naHbY6O9ggP",
+    "img": "systems/pf2e/icons/unarmed-attacks/bone-shard.webp",
+    "name": "Effect: Bristle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Bristle]</p>\n<p>You curl into a posture that splays out your bone spines. You gain a +1 circumstance bonus to AC until the start of your next turn.</p>\n<hr />\n<p><strong>Special</strong> If you have the @UUID[Compendium.pf2e.actionspf2e.Item.Barbed Quills] reaction or a quills unarmed attack, each gains a +1 circumstance bonus to damage rolls until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shisk-quills"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

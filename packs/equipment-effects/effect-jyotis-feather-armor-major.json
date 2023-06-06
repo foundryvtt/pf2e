@@ -1,0 +1,50 @@
+{
+    "_id": "YAZ1iri403S8XcrH",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Jyoti's Feather - Armor (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jyoti's Feather (Major)]</p>\n<p>You gain a +4 item bonus to saving throws against death effects and negative energy.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "negative"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

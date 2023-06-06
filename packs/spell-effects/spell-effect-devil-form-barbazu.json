@@ -1,0 +1,146 @@
+{
+    "_id": "0yy4t4UY1HqrEo70",
+    "img": "systems/pf2e/icons/spells/devil-form.webp",
+    "name": "Spell Effect: Devil Form (Barbazu)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Devil Form]</em></p>\n<p>You bind yourself to the power of Hell, transforming into a Medium devil battle form. When you cast this spell, choose barbazu, erinys, osyluth, or sarglagon. If you choose osyluth or sarglagon, the battle form is Large and you must have enough space to expand into or the spell is lost. While in this form you gain the devil and fiend traits. You have hands in this battle form and can use manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of the form that you choose:</p>\n<ul>\n<li>AC = 22 + your level. Ignore your armor check's penalty and Speed reduction.</li>\n<li>5 temporary Hit Points, resistance 5 to physical damage (except silver), and weakness 5 to good.</li>\n<li>Resistance 10 to fire.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you use. You're trained with them. Your attack modifier is +20, and you use the listed damage. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your attack modifier is higher for the given unarmed attack or weapon, you can use it instead.</li>\n<li>Athletics modifier of +23, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of devil you choose:</p>\n<ul>\n<li><strong>Barbazu</strong> Speed 35 feet;\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> glaive (deadly d8, forceful, reach 10 feet), <strong>Damage</strong> 2d8+10 slashing plus 1d6 evil and 1d6 persistent bleed;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> beard, <strong>Damage</strong> 3d8 piercing plus 1d6 evil;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw (agile), <strong>Damage</strong> 3d6 slashing plus 1d6 evil</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "exceptions": [
+                                "silver"
+                            ],
+                            "type": "physical",
+                            "value": 5
+                        },
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "ath": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "land": 35
+                    },
+                    "strikes": {
+                        "beard": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d8"
+                            },
+                            "modifier": 20,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d6"
+                            },
+                            "modifier": 20,
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        },
+                        "glaive": {
+                            "ability": "str",
+                            "baseType": "glaive",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 10
+                            },
+                            "group": "polearm",
+                            "img": "systems/pf2e/icons/equipment/weapons/glaive.webp",
+                            "label": "PF2E.Weapon.Base.glaive",
+                            "modifier": 20,
+                            "traits": [
+                                "deadly-d8",
+                                "forceful",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "tempHP": 5,
+                    "traits": [
+                        "devil",
+                        "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "good",
+                            "value": 5
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "evil",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "glaive-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

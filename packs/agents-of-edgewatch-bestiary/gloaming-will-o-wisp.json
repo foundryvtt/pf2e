@@ -1,0 +1,448 @@
+{
+    "_id": "JnNPdvOXtkGQHyfQ",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "LFIJhcEKJhKijVm1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shock",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "tmw79npzeqfa430egrbdm": {
+                        "damage": "4d8+13",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Vy9EtFybJQqo55xn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hypnotic Glow",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Similar to other will-o'-wisps, a gloaming will-o'-wisp is naturally invisible, but glows with a faint colored light. They cast dim light in the aura, which makes them visible. In addition, any non-aberration creature that ends their turn in the aura and can see the gloaming will-o'-wisp is distracted by the gloaming will-o'-wisp's glow and must attempt a @Check[type:will|dc:31] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and takes [[/r 3d6[mental]]] damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "color": "#fff9a3",
+                            "dim": 30,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "radius": 30,
+                        "slug": "hypnotic-glow",
+                        "traits": [
+                            "aura",
+                            "light",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yAHJOd3dkfOae1Kf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Immunity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A will-o'-wisp is immune to all spells except <i>faerie fire</i>, <i>glitterdust</i>, <i>magic missile</i>, and <i>maze</i>.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Yb2OjQReLk3HgLoc",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feed on Fear",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> An enemy is under a fear effect or dying within 15 feet of the will-o'-wisp</p>\n<hr />\n<p><strong>Effect</strong> The will-o'-wisp feeds on the creature's terror. They regains 4d8 Hit Points, and if they've Gone Dark, their glow reignites. A will-o'-wisp can take this action only once per round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "T4zHj7DFiaCBwf6f",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Go Dark",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gloaming will-o'-wisp extinguishes their hypnotic glow, becoming invisible. They can end this effect with another use of this action. If they use their shock attack while invisible, the arc of electricity lets any observer determine their location, making the will-o'-wisp only hidden to observers until they move.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AWy8htDL3QUiMtEI",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "sZPFat1bCH2evHPf",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "oh2XiRUFPn2E0UwP",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "2DWiwnnlIy19ERz8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Gloaming Will-o'-Wisp",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 8
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 37
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 25
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 50
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder #160: Assault on Hunting Lodge Seven"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "greater darkvision"
+            },
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "aberration",
+                "air"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,56 @@
+{
+    "_id": "s6CwkSsMDGfUmotn",
+    "img": "systems/pf2e/icons/spells/death-ward.webp",
+    "name": "Spell Effect: Death Ward",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em>.</p>\n<p>You are shielded from negative energy, you gain a +4 status bonus to saves against death and negative effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "negative",
+                            "death"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "Resistance",
+                "type": "negative",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

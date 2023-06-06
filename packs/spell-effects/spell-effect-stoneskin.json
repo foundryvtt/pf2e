@@ -1,0 +1,67 @@
+{
+    "_id": "JHpYudY14g0H4VWU",
+    "img": "systems/pf2e/icons/spells/stone-skin.webp",
+    "name": "Spell Effect: Stoneskin",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Stoneskin]</p>\n<p>The target's skin hardens like stone. It gains resistance 5 to physical damage, except adamantine. Each time the target is hit by a bludgeoning, piercing, or slashing attack, stoneskin's duration decreases by 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 20
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 4,
+                            "value": 5
+                        },
+                        {
+                            "end": 7,
+                            "start": 6,
+                            "value": 10
+                        },
+                        {
+                            "end": 9,
+                            "start": 8,
+                            "value": 15
+                        },
+                        {
+                            "start": 10,
+                            "value": 20
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

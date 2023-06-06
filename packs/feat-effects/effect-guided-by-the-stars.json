@@ -1,0 +1,84 @@
+{
+    "_id": "raLQ458uiyd3lI2K",
+    "img": "systems/pf2e/icons/spells/guiding-star.webp",
+    "name": "Effect: Guided by the Stars",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Guided by the Stars]</p>\n<p>You roll twice and take the better result on your next skill check or saving throw. If it's night and you can see the stars, you gain a +1 circumstance bonus to the triggering roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.SkillLabel",
+                        "value": "skill-check"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.SaveLabel",
+                        "value": "saving-throw"
+                    }
+                ],
+                "flag": "effectGuidedByTheStars",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Lizardfolk.GuidedByTheStars.Prompt",
+                "rollOption": "guided-by-the-stars"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "guided-by-the-stars:skill-check"
+                ],
+                "removeAfterRoll": true,
+                "selector": "skill-check"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "guided-by-the-stars:saving-throw"
+                ],
+                "removeAfterRoll": true,
+                "selector": "saving-throw"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "night-time",
+                    "can-see-stars"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

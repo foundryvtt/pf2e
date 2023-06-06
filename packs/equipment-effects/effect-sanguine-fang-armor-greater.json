@@ -1,0 +1,50 @@
+{
+    "_id": "AwpSNXaKloq2KQNy",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Sanguine Fang - Armor (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Fang (Greater)]</p>\n<p>You gain resistance 5 to persistent bleed damage and a +2 item bonus on saving throws against effects with the negative trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "bleed",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "negative"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

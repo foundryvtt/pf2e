@@ -1,0 +1,179 @@
+{
+    "_id": "ayfX6eOrfR8695ev",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7zXu95wT02drtGzn",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Bubble Over",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the room</p>\n<hr />\n<p><strong>Effect</strong> The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xQ5NaGPICngHC9HP",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Revolting Mixture",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature fails an attempt to Disarm the trap</p>\n<hr />\n<p><strong>Effect</strong> The incorrect execution of the recipe releases a nauseating odor. The triggering creature must succeed at a @Check[type:fortitude|dc:20] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PXD2Iz6vDGfXYnD1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Splatter",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "58kgklg117whp55vzz8h": {
+                        "damage": "1d10+6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Cooking Catastrophe",
+    "prototypeToken": {
+        "name": "Cooking Disaster"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Skillet sputter and pots threaten to boil over, splashing their contents onto careless cooks or kitchen counters. The counters are covered with small dishes ready to add, along with 3 heavy cookbooks and a healthy coating of flour.</p>",
+            "disable": "<p>@Check[type:cooking-lore|dc:17] (trained) or @Check[type:crafting|dc:20] to add the proper ingredients to finish the dish. @Check[type:diplomacy|dc:20] or @Check[type:occultism|dc:20] to communicate with students when to stir or adjust the heat on a dish. Each disable attempt requires two actions, and three successful checks are required to disable the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The trap deactivates after 1 minute, destroying all of the food. If left untouched, it resets automatically in 24 hours.</p>",
+            "routine": "<p>(3 actions) The trap uses each of its actions to make a splatter attack against a random creature in the kitchen. The trap never targets a student, as they are out of phase with it. For every successful disable attempt on the trap, it loses an action.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-18: Dacilane Academy's Delightful Disaster"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "chaotic",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

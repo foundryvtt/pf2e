@@ -1,0 +1,177 @@
+{
+    "_id": "xgZxYqjDPNtsQ3Qp",
+    "img": "systems/pf2e/icons/spells/aerial-form.webp",
+    "name": "Spell Effect: Aerial Form (Wasp)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Aerial Form]</em></p>\n<p>You harness your mastery of primal forces to reshape your body into a Medium flying animal battle form. You can decide the specific type of animal (such as an owl or eagle for bird), but this has no effect on the form's Size or statistics. While in this form, you gain the animal trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 18 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>5 temporary Hit Points.</li>\n<li>Low-light vision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +16, and your damage bonus is +5. These attacks are Dexterity based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Clumsy] condition, for example). If your attack modifier for Dexterity-based unarmed attacks is higher, you can use it instead.</li>\n<li>Acrobatics modifier of +16, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the form you choose:</p>\n<ul>\n<li><strong>Wasp</strong>\n<ul>\n<li>Speed 20 feet, fly Speed 40 feet;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> stinger, <strong>Damage</strong> 1d8 piercing plus 1d6 persistent poison.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (5th)</strong> Your battle form is Large and your fly Speed gains a +10-foot status bonus. You must have enough space to expand into or the spell is lost. You instead gain 10 temporary HP, attack modifier +18, damage bonus +8, and Acrobatics +20.</p>\n<p><strong>Heightened (6th)</strong> Your battle form is Huge, your fly Speed gains a +15-foot status bonus, and your attacks have 10-foot reach. You must have enough space to expand into or the spell is lost. You instead gain AC = 21 + your level, 15 temporary HP, attack modifier +21, damage bonus +4 and double damage dice (including persistent damage), and Acrobatics +23.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "lowLightVision": {}
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 20
+                    },
+                    "strikes": {
+                        "stinger": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d8"
+                            },
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @actor.level"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "stinger": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 16
+                                    }
+                                },
+                                "tempHP": 5
+                            }
+                        },
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @actor.level"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "stinger": {
+                                        "damage": {
+                                            "modifier": 8
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "stinger": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 4
+                                        },
+                                        "modifier": 21,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": "ternary(gte(@item.level, 6), 2, 1)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "stinger-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "fly-speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 10
+                        },
+                        {
+                            "start": 6,
+                            "value": 15
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

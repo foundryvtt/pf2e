@@ -1,0 +1,52 @@
+{
+    "_id": "hLYoIjH8gPEVXyWG",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Distracting Feint",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints} are far more distracting than normal, drawing your foes' attention and allowing you and your allies to take greater advantage.</p>\n<p>While a creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] by your Feint, it also takes a -2 circumstance penalty to Perception checks and Reflex saves.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Distracting Feint]</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "scoundrel racket"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.Rogue.DistractingFeint.Text",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

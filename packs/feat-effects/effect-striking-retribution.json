@@ -1,0 +1,52 @@
+{
+    "_id": "EzgW32MCOGov9h5C",
+    "img": "systems/pf2e/icons/spells/retributive-pain.webp",
+    "name": "Effect: Striking Retribution",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Striking Retribution]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Striking Retribution (vs. alghollthu and their servants) if alghollthu enchants ally",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:tag:alghollthu",
+                            "target:tag:alghollthu-servant"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

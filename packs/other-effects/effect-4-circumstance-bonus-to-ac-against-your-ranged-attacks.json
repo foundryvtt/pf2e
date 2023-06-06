@@ -1,0 +1,55 @@
+{
+    "_id": "pbKvPM4cnmGTkDiZ",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
+    "name": "Effect: +4 circumstance bonus to AC against your ranged attacks",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.JournalEntry.Critical Fumble Deck #6]</strong></p>\n<p>Cover provides +4 circumstance bonus to AC against your ranged attacks</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.CriticalDeck.Effect.Label",
+                "predicate": [
+                    "overcompensate-effect"
+                ],
+                "selector": "ac",
+                "slug": "critical-effect-bonus-to-ac-vs-ranged",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Has cover from target of Overcompensate fumble effect",
+                "option": "overcompensate-effect",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Critical Decks"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "npFFTAxN44WWrGnM",
+    "img": "systems/pf2e/icons/spells/wash-your-luck.webp",
+    "name": "Spell Effect: Wash Your Luck",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Wash Your Luck]</em>.</p>\n<p>Once during the spell's duration, before rolling a check, you can cancel out a misfortune effect on that roll, as normal when a fortune and misfortune effect apply to the same roll. After canceling out the misfortune effect, the spell ends, and you are then temporarily immune to wash your luck for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "fortune",
+                "removeAfterRoll": true,
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

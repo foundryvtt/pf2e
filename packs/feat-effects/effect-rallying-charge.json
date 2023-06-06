@@ -1,0 +1,40 @@
+{
+    "_id": "wjNNHgX6ceKLbn8Q",
+    "img": "systems/pf2e/icons/spells/call-to-arms.webp",
+    "name": "Effect: Rallying Charge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Rallying Charge]</p>\n<p>You gain temporary hit points equal to the Charisma modifier of the creature that used Rallying Charge.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.origin.abilities.cha.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

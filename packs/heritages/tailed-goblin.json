@@ -1,0 +1,39 @@
+{
+    "_id": "8wGUh9RsMUamOKjh",
+    "img": "systems/pf2e/icons/features/ancestry/tailed-goblin.webp",
+    "name": "Tailed Goblin",
+    "system": {
+        "ancestry": {
+            "name": "Goblin",
+            "slug": "goblin",
+            "uuid": "Compendium.pf2e.ancestries.Item.sQfjTMDaZbT9DThq"
+        },
+        "description": {
+            "value": "<p>You have a powerful tail, likely because you descend from a community of monkey goblins. You gain a +2 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Climb], you gain @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] as a bonus feat, and you reduce the number of free hands required to climb or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] by one.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Tailed Goblin (Climb)",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Combat Climber"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

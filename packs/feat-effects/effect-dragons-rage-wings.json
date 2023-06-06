@@ -1,0 +1,45 @@
+{
+    "_id": "wmBSuZPqiDyUNwXH",
+    "img": "systems/pf2e/icons/spells/dragon-wings.webp",
+    "name": "Effect: Dragon's Rage Wings",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Dragon's Rage Wings]</p>\n<p>While you are raging, you gain a fly Speed equal to your land Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "fly-speed",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

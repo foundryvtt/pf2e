@@ -1,0 +1,83 @@
+{
+    "_id": "UZKIKLuwpQu47feK",
+    "img": "systems/pf2e/icons/features/feats/gorilla-stance.webp",
+    "name": "Stance: Gorilla Stance (Gorilla Pound)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Gorilla Stance] if you have @UUID[Compendium.pf2e.feats-srd.Item.Gorilla Pound], which grants you a climb speed of 15 while you are in this stance.</p>\n<p>You lower yourself to the ground and take an imposing, knuckle-walking stance. While in this stance, the only Strikes you can make are gorilla slam unarmed attacks. These deal 1d8 bludgeoning damage; are in the brawling group; and have the backswing, forceful, grapple, nonlethal, and unarmed traits.</p>\n<p>While you are in Gorilla Stance, you gain a +2 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Climb], and if you roll a success on an Athletics check to Climb, you get a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/feats/gorilla-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.GorillaSlam",
+                "range": null,
+                "replaceAll": true,
+                "traits": [
+                    "backswing",
+                    "forceful",
+                    "grapple",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "text": "If you roll a success on an Athletics check to Climb, you get a critical success instead.",
+                "title": "Gorilla Stance"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": 15
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,193 @@
+{
+    "_id": "lXpZF3gFjkXz6Eua",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ozgq1pzerrro14x6",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Burst of Fire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the hall or ends its turn in the hall</p><hr /><p><strong>Effect</strong> The hall bursts into flame, dealing [[/r 4d6[fire]]] damage to each creature in the hall. The haunt then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder #177: Burning Tundra"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rrcv4kfcb6jhr9dq",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Burning Timbers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Creatures within the 30-foot by 90-foot area of the hall take [[/r (4d6+12)[fire]]] damage (@Check[type:reflex|dc:29|basic:true]).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder #177: Burning Tundra"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Wu7QjEcaoWRUL8xO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Demonic Abduction",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "0d0ak1iz6fhae10nuape": {
+                        "damage": "25",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>Spectral demons lift a single creature 50 feet into the air and drop it. The haunt makes a Strike against the creature with a +23 attack bonus. On a success, the creature is lifted into the air and dropped, taking [[/r 25[bludgeoning]]]{25 bludgeoning}, though it might negate some or all this damage using a spell, such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Feather Fall]</em>. On a critical hit, the creature also takes [[/r (2d12+13)[slashing]]] damage as the demons' claws tear through its flesh.</p>"
+                },
+                "rules": [
+                    {
+                        "critical": true,
+                        "damageType": "slashing",
+                        "diceNumber": 2,
+                        "dieSize": "d12",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "slashing",
+                        "key": "FlatModifier",
+                        "selector": "{item|_id}-damage",
+                        "value": 13
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Hall Of Fiery Doom",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "(master)",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "While the roof is on fire and collapsing timbers crush those within the hall, demons fly down from the sky to pluck victims from the flames.",
+            "disable": "<p>Two @Check[type:athletics|dc:32] or @Check[type:diplomacy|dc:32] checks to douse the flames; Athletics to do the work yourself or Diplomacy to muster the ghostly soldiers. This reduces the hazard's actions by 1 and prevents it from using Burning Timbers. Banish the demons with up to two @Check[type:arcana|dc:35], @Check[type:occultism|dc:35], or @Check[type:religion|dc:35]checks; each success reduces the hazard's actions by 1, and two successes prevent it from using Demonic Abduction. When the hazard loses all 3 actions, Burning Timbers, and Demonic Abduction, it's disabled.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "reset": "The hall falls quiet for 24 hours, after which it can trigger again.",
+            "routine": "<p>(3 actions) The haunt spends 1 action to fill the hall with burning timbers falling from above, and 2 actions to pluck up random victims and drop them to their deaths.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #177: Burning Tundra"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

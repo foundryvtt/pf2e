@@ -1,0 +1,191 @@
+{
+    "_id": "GJCVwAFKDG91TXok",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "5dSulgsUGNtmdlLZ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Entrench",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the canvas</p>\n<hr />\n<p><strong>Effect</strong> The creature falls into the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] trench and takes falling damage (typically [[/r 10[bludgeoning]]]). The creature is also gouged by three poisoned stingers as they fall. The creature can use the @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] reaction to avoid falling.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "N2YfRkvOzPlXViFV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stinger",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "formian-trench-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "ZxRmwGaHv54t2gKf": {
+                        "damage": "1d8+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uQvenUJQhzfSiqp2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Formian Trench Poison",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]] and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d6[poison]]], clumsy 1, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 4</strong> [[/r 2d6[poison]]], clumsy 1, and enfeebled 1 (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Formian Sting Trench",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A thin layer of canvas conceals this 10-foot-square pit, the walls of which are studded with dagger-sized formian stingers. Creatures that fall into the trap risk being gouged by the poisonous barbs.</p>",
+            "disable": "<p>@Check[type:thievery|dc:22] (trained)</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>Creatures can still fall into the trap, but the canvas must be reset manually for the trap to become hidden again.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #187: The Seventh Arch"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

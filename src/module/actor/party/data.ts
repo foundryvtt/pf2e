@@ -34,7 +34,7 @@ interface PartyDetailsSource {
 }
 
 interface MemberData {
-    uuid: ActorUUID | TokenDocumentUUID;
+    uuid: ActorUUID;
 }
 
 interface PartySystemData extends Omit<PartySystemSource, "attributes">, Omit<ActorSystemData, "traits"> {

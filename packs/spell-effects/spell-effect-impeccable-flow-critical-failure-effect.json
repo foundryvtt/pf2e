@@ -1,0 +1,48 @@
+{
+    "_id": "F10ofwC0k1ELIaV4",
+    "img": "systems/pf2e/icons/spells/impeccable-flow.webp",
+    "name": "Spell Effect: Impeccable Flow (Critical Failure Effect)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by critically failing <em>@UUID[Compendium.pf2e.spells-srd.Item.Impeccable Flow]</em></p>\n<p>You attune yourself to an underlying cosmic order to the world. While you remain in tune with this power, you gain a +1 status bonus to Perception checks, saving throws, and skill checks. If you critically fail any check while under the effects of this spell, the bonus ends and you instead have a -1 status penalty to all checks for the remaining duration.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Impeccable Flow",
+                "selector": [
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #169: Kindled Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

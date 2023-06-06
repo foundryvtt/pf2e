@@ -1,0 +1,191 @@
+{
+    "_id": "Syfo21iDW5wnYkLS",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "RW1FYL6fxCbERvvF",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Opening Melody",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters area <strong>B3</strong></p>\n<hr />\n<p><strong>Effect</strong> Winds surge into the room. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dw8GB6L7SlQR3Hdb",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Solid Refrain",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "ohp9k854inwuu2rd0rl1": {
+                        "damage": "2d8+4",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-70"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "E4Fa3vcOTb3f3uaE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mesmerizing Duet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>When a creature fails a Performance check to Disable the melody, the elemental plays along before taking over the performance. Creatures in the area must attempt a @Check[type:will|dc:22] save to resist becoming fascinated by the melody.</p>\n<p>Regardless of the result of the saving throw, the creature is then temporarily immune to Mesmerising Duet for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 round; this fascination does not end when the creature or its allies take damage from the hazard.</p>\n<p><strong>Critical Failure</strong> The creature is fascinated for [[/br 1d4 #rounds]]{1d4 rounds}; this fascination does not end when the creature or its allies take damage from the hazard.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "arcane",
+                        "auditory",
+                        "enchantment",
+                        "incapacitation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stranded Melody (5-6)",
+    "prototypeToken": {
+        "name": "Stranded Melody"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Planar winds summoned from beyond sweep through the room, song and sound carried adrift on their current. This air elemental is trapped on the Material Plane and can't escape.</p>",
+            "disable": "<p>@Check[type:performance|dc:24|name:Duplicate the Melody|traits:environmental,magical] (expert) twice to duplicate the melody and appease the elemental, or @Check[type:arcana|dc:27|name:Guide the Elemental|traits:environmental,magical] (expert) and then @Check[type:diplomacy|dc:24|name:Guide the Elemental|traits:environmental,magical] (trained) to guide the elemental through a planar tear elsewhere in the manor. Each attempt to Disable the hazard requires two actions, and each successful check to Disable removes one action from the hazard's routine.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The melody remains for 1 minute, after which it disperses into several holes in the walls. It returns after an hour unless disabled.</p>",
+            "routine": "<p>(2 actions) For each action in the routine, the melody makes a solid refrain Strike against one creature in its area. This trap doesn't take a multiple attack penalty.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-16: Freedom for Wishes"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

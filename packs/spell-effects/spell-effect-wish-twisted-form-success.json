@@ -1,0 +1,92 @@
+{
+    "_id": "qzZmVjtc9feqoQwA",
+    "img": "systems/pf2e/icons/spells/wish-twisted-form.webp",
+    "name": "Spell Effect: Wish-Twisted Form (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Wish-Twisted Form]</em>.</p>\n<p>Implemented Effects:</p>\n<ul>\n<li>The target gains weakness 5 to the chosen damage type.</li>\n<li>The target takes a -10-foot status penalty to all its Speeds.</li>\n<li>The target takes a -1 status penalty to its saving throws.</li>\n</ul>\n<p>Unimplemented Effects:</p>\n<ul>\n<li>The target's resistances are reduced by 5.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the weakness and the reduction to resistances by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "{item|flags.pf2e.rulesSelections.wishTwistedFormDamageType}",
+                "value": "{item|system.level.value}"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Damage.RollFlavor.acid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.cold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.electricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.fire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.force",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.negative",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.positive",
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.Damage.RollFlavor.sonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "wishTwistedFormDamageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

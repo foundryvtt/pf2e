@@ -1,0 +1,46 @@
+{
+    "_id": "Qf94y985g0o6lEoN",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Zombie) Tearing Grapple",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>The zombies work in groups to rip foes to pieces. Whenever a zombie with this ability successfully @UUID[Compendium.pf2e.actionspf2e.Item.Grapple]{Grapples} a foe that's already @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by another zombie with this ability, they violently struggle over the poor victim, dealing fist damage (or a similar Strike's damage if the zombie doesn't have a fist Strike). If the grapple is a critical success, the target takes double damage and ceases being grabbed or restrained by any other creatures. If the zombie has the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab] ability, using Grab deals half its fist Strike damage to the target.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "athletics",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

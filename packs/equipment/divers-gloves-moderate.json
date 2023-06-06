@@ -1,0 +1,75 @@
+{
+    "_id": "MlrVt5CaZ85PvEm9",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Diver's Gloves (Moderate)",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>These black leather gloves fit snuggly, running up the length of your arm to your elbow. Each glove has an angular fin running along the outside edge of your arms, which forms a narrow triangle when your hands meet in a diving position. While wearing the gloves, you gain a +2 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Swim]. The gloves grant you a swim Speed equal to half of your land Speed</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> envision</p>\n<p><strong>Trigger</strong> You would take damage from falling into water</p>\n<hr />\n<p><strong>Effect</strong> The gloves create a hydrodynamic barrier around you, dispersing the damage that would be done to you during a high dive. You take damage as if the fall were half the distance, to a minimum fall of 5 feet. You then Swim with the effects of a critical success for the check.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 650
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": "floor(@actor.attributes.speed.total*0.5)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: Firebrands"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "abjuration",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worngloves"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

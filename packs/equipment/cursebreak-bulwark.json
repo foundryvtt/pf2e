@@ -1,0 +1,116 @@
+{
+    "_id": "VioxW97SUADl3zTt",
+    "img": "systems/pf2e/icons/equipment/shields/specific-shields/cursebreaker-bulwark.webp",
+    "name": "Cursebreak Bulwark",
+    "system": {
+        "armor": {
+            "value": 2
+        },
+        "baseItem": null,
+        "category": "shield",
+        "check": {
+            "value": 0
+        },
+        "containerId": "null",
+        "description": {
+            "value": "<p>This tower shield is composed of interlocking hexagonal wooden tiles lined with metal. The tiles are painted a verdant green, and each is marked with a faded rune that protects against curses. While you have this shield raised, you gain a +1 circumstance bonus to saving throws against spells that target you, increasing to a +2 circumstance bonus against curses. You can unleash the energy stored in the shield to destroy a curse before it can affect you.</p>\n<p>AC increases to +4 if you are using the @UUID[Compendium.pf2e.actionspf2e.Item.Take Cover] action.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You are targeted with a curse spell</p>\n<p><strong>Requirements</strong> The cursebreak bulwark is raised</p>\n<hr />\n<p><strong>Effect</strong> You activate the shield's countermeasures. It casts 8th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> with a counteract modifier of [[/r 1d20+27 #Counteract]]{+27} against the triggering curse.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>14</td>\n<td>56</td>\n<td>28</td>\n</tr>\n</tbody>\n</table>"
+        },
+        "dex": {
+            "value": 0
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": null,
+        "hardness": 14,
+        "hp": {
+            "brokenThreshold": 28,
+            "max": 56,
+            "value": 56
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": null
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 14500
+            }
+        },
+        "propertyRune1": {
+            "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "resiliencyRune": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Cursebreaker Bulwark",
+                "predicate": [
+                    "raisedShield"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Cursebreaker Bulwark (against curses)",
+                "predicate": [
+                    "raisedShield",
+                    "curse"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "speed": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strength": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "abjuration",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "4"
+        }
+    },
+    "type": "armor"
+}

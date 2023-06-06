@@ -238,3 +238,4 @@ export { Migration837MoveHazardBookSources } from "./837-move-hazard-book-source
 export { Migration838StrikeAttackRollSelector } from "./838-strike-attack-roll-selector.ts";
 export { Migration839ActionCategories } from "./839-action-categories.ts";
 export { Migration840ArrayWrapPredicates } from "./840-array-wrap-predicates.ts";
+export { Migration841V11UUIDFormat } from "./841-v11-uuid-format.ts";

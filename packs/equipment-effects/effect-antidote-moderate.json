@@ -1,0 +1,46 @@
+{
+    "_id": "mi4Md1fB2XThCand",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
+    "name": "Effect: Antidote (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Moderate)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+3 item bonus to Fortitude saves against poisons</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 6
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "poison"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

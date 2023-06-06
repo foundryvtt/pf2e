@@ -1,0 +1,47 @@
+{
+    "_id": "8rDbWcWmQL0N5FFG",
+    "img": "systems/pf2e/icons/spells/purify-food-and-drink.webp",
+    "name": "Effect: Azarketi Purification",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Azarketi Purification]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Azarketi Purification (vs. ongoing saves against poisons already in your body)",
+                "predicate": [
+                    "poison"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

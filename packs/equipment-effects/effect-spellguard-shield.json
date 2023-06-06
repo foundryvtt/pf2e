@@ -1,0 +1,53 @@
+{
+    "_id": "lBMhT2W2raYMa8JS",
+    "img": "systems/pf2e/icons/equipment/shields/specific-shields/spellguard-shield.webp",
+    "name": "Effect: Spellguard Shield",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Spellguard Shield]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Spellguard Shield (vs. spells)",
+                "predicate": [
+                    "item:type:spell"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

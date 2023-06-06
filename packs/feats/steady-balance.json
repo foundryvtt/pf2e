@@ -1,0 +1,60 @@
+{
+    "_id": "CnqMJR8e9jqJR7MM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Steady Balance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You can keep your balance easily, even in adverse conditions. Whenever you roll a success using the @UUID[Compendium.pf2e.actionspf2e.Item.Balance] action, you get a critical success instead. You're not flat-footed while attempting to Balance on narrow surfaces and uneven ground. Thanks to your incredible balance, you can attempt an Acrobatics check instead of a Reflex save to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Acrobatics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:balance"
+                ],
+                "selector": "acrobatics",
+                "text": "PF2E.SpecificRule.SteadyBalance.Note",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance"
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

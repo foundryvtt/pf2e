@@ -1,0 +1,46 @@
+{
+    "_id": "6EDoy3OSFZ4L3Vs7",
+    "img": "systems/pf2e/icons/features/feats/paragons-guard.webp",
+    "name": "Stance: Paragon's Guard",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Paragon's Guard].</p>\n<hr />\n<p><strong>Requirements</strong> You are wielding a shield</p>\n<hr style=\"border-top: 1px solid var(--color-border-light-primary); border-bottom: 1px solid var(--color-border-light-highlight);\">\n<p>Once you've had a moment to set your stance, you always have your shield ready without a thought.</p>\n<p>While you are in this stance, you constantly have your shield raised as if you'd used the @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] action, as long as you meet that action's requirements.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.raised",
+                "predicate": [
+                    "self:shield:equipped"
+                ],
+                "value": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

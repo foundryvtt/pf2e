@@ -1,0 +1,58 @@
+{
+    "_id": "TW5TY7kSf50uaX71",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Slither",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are an expert at moving through extremely tight spaces. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Quick Squeeze] skill feat, even if you're not trained in Acrobatics. When you roll a success on an Acrobatics check to Squeeze, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Squeeze"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:squeeze"
+                ],
+                "selector": "acrobatics"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:squeeze"
+                ],
+                "selector": "acrobatics",
+                "text": "PF2E.SpecificRule.Goblin.ExtraSquishy.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

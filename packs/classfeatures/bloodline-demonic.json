@@ -1,0 +1,64 @@
+{
+    "_id": "w5koctOVrEcpxTIq",
+    "img": "systems/pf2e/icons/features/classes/demonic.webp",
+    "name": "Bloodline: Demonic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Demons debase all they touch. One of your ancestors fell victim to their corruption, and you are burdened by that sin.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Acid Splash]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Slow]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Abyssal Plague]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Decree]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Aura]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Implosion]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Glutton's Jaw]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Swamp of Sloth]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Abyssal Wrath]</em></p>\n<p><strong>Blood Magic</strong> The corruption of sin weakens a target's defenses or makes you more imposing. Either a target takes a -1 status penalty to AC for 1 round, or you gain a +1 status bonus to Intimidation checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Demonic Blood Magic (Self)], @UUID[Compendium.pf2e.feat-effects.Item.Effect: Demonic Blood Magic (Target)]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.rel.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "divine"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}
