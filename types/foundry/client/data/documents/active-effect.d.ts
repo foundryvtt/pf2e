@@ -162,6 +162,7 @@ declare global {
     > extends ClientBaseActiveEffect<TParent> {
         disabled: boolean;
         icon: ImageFilePath;
+        statuses: Set<string>;
         tint?: string;
     }
 
@@ -169,6 +170,7 @@ declare global {
         disabled: boolean;
         isTemporary: boolean;
         icon: ImageFilePath;
+        statuses: Set<string>;
         tint?: string;
     }
 }
