@@ -340,7 +340,12 @@ declare global {
                 bright: number;
             };
 
-            losBackend: typeof ClockwiseSweepPolygon;
+            polygonBackends: {
+                sight: typeof ClockwiseSweepPolygon;
+                light: typeof ClockwiseSweepPolygon;
+                sound: typeof ClockwiseSweepPolygon;
+                move: typeof ClockwiseSweepPolygon;
+            };
 
             normalLightColor: number;
             maxZoom: number;
