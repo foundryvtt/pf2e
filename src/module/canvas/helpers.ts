@@ -277,7 +277,9 @@ function highlightGrid({
             const distance = measureDistance(destination, origin);
             if (distance > document.distance) continue;
 
-            const hasCollision = canvas.ready && canvas.walls.checkCollision(ray, { type: collisionType, mode: "any" });
+            const hasCollision =
+                canvas.ready &&
+                CONFIG.Canvas.polygonBackends[collisionType].testCollision(origin, destination, { mode: "any" });
 
             if (hasCollision) {
                 grid.grid.highlightGridPosition(highlightLayer, {

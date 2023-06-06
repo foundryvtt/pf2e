@@ -88,6 +88,21 @@ declare global {
         static testCollision(
             origin: Point,
             destination: Point,
+            config?: PointSourcePolygonConfig & { mode: "closest" }
+        ): PolygonVertex | null;
+        static testCollision(
+            origin: Point,
+            destination: Point,
+            config?: PointSourcePolygonConfig & { mode: "any" }
+        ): boolean;
+        static testCollision(
+            origin: Point,
+            destination: Point,
+            config?: PointSourcePolygonConfig & { mode: "all" }
+        ): PolygonVertex[];
+        static testCollision(
+            origin: Point,
+            destination: Point,
             config?: PointSourcePolygonConfig & { mode?: "any" | "all" | "closest" }
         ): boolean | PolygonVertex | PolygonVertex[] | null;
 
