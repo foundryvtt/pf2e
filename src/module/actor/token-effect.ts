@@ -5,6 +5,8 @@ export class TokenEffect implements TemporaryEffect {
 
     tint?: string;
 
+    statuses: Set<string> = new Set();
+
     readonly isTemporary = true;
 
     readonly flags: Record<string, Record<string, string | boolean | undefined>> = {};
