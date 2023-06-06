@@ -5,86 +5,100 @@
     {{!-- ============== --}}
     <aside class="army-sidebar">
         {{!-- Portrait --}}
-        <div class="image-container">
+        <section class="image-container">
             <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
             <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
-        </div>
+        </section>
 
         {{!-- AC --}}
-        <div class="sidebar-section">
-            <div class="sidebar-label">
+        <section class="sidebar-section">
+            <div class="section-head">
                 <i class="fas fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
                 <input type="number" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0"/>
             </div>
+            <div class="select">
+                <select id="data.attributes.ac.magic" name="system.attributes.ac.magic" value="{{data.attributes.ac.magic}}"> 
+                    <option value=0>Mundane Armor</option>
+                    <option value=1>Magic Armor</option>
+                    <option value=2>Greater Magic Armor</option>
+                    <option value=3>Major Magic Armor</option>
+                </select>                
+                <label for="data.attributes.ac.magic"> + {{data.attributes.ac.magic}}</label>
+            </div>
             <input type="text" data-dtype="String" data-property="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
-        </div>
+        </section>
 
         {{!-- HP --}}
-        <div class="sidebar-section">
-            <div class="sidebar-label">
+        <section class="sidebar-section">
+            <div class="section-head">
                 <i class="fas fa-fw fa-heart"></i>
                 <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
-                <div class="hit-points">
                     <input type="number" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
                     <span class="slash">/</span>
                     <input type="number" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0"/>
-                </div>
             </div>
+            <div>
+                <label>(Debug) Potions: <input type="number" data-property="system.details.potions" value="{{data.details.potions}}" ></label>
+            </div>
+            <div class="buttons">
+                <button class="potion value{{data.details.potions}}" type="button"><i class="first fa fa-flask-round-potion"></i><i class="second fa fa-flask-round-potion"></i><i class="third fa fa-flask-round-potion"></i></button>
+                <label> Use :                 <button type="button"><i class="fa fa-champagne-glasses"></i></button></label>
+            </div>              
             <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
-        </div>
+        </section>
 
         {{!-- Scouting --}}
-        <div class="sidebar-section">
-            <div class="sidebar-label">
+        <section class="sidebar-section">
+            <div class="section-head">
                 <i class="fas fa-fw fa-eye"></i>
                 <h4>Scouting</h4>
-                <a class="roll-icon">
-                <i class="fas fa-dice-d20"></i>
-                </a>
+                <a class="roll-icon"><i class="fas fa-dice-d20"></i></a>
                 <input type="number" data-property="system.attributes.scouting.value" value="{{data.attributes.scouting.value}}" data-dtype="Number" placeholder="0" />
             </div>
-        </div>
+            <div>
+                <label for="darkvision">Darkvision: </label><input id="darkvision" type="checkbox"  data-property="system.attributes.scouting.darkvision" value="{{data.attributes.scouting.darkvision}}" >
+            </div>
+        </section>
 
         {{!-- Saves --}}
-        <div class="sidebar-section">
-            <div class="sidebar-label">
+        <section class="sidebar-section">
+            <div class="section-head">
                 <i class="fas fa-fw fa-boot"></i>
                 <h4>Saves</h4>
             </div>        
-            <div class="flex">
-                <label for="system.saves.morale.value">Morale</label>
+            <div>
+                <label for="system.saves.morale">Morale</label>
                 <a class="roll-icon">
                 <i class="fas fa-dice-d20"></i>
                 </a>   
-                <input type="number" data-property="system.saves.morale.value" value="{{data.saves.morale.value}}" data-dtype="Number" placeholder="0" />
+                <input type="number" data-property="system.saves.morale" value="{{data.saves.morale}}" data-dtype="Number" placeholder="0" />
             </div>
-            <div class="flex">                     
-                <label for="system.saves.maneuver.value">Maneuver</label>
+            <div>                     
+                <label for="system.saves.maneuver">Maneuver</label>
                 <a class="roll-icon">
                 <i class="fas fa-dice-d20"></i>
                 </a>
-                <input type="number" data-property="system.saves.maneuver.value" value="{{data.saves.maneuver.value}}" data-dtype="Number" placeholder="0" />
+                <input type="number" data-property="system.saves.maneuver" value="{{data.saves.maneuver}}" data-dtype="Number" placeholder="0" />
             </div>
-            <input type="text" name="system.saves.allSaves.value" value="{{data.saves.allSaves.value}}" title="{{data.saves.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
-        </div>
+            <input type="text" name="system.saves.details" value="{{data.saves.details}}" title="{{data.saves.details}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
+        </section>
 
         {{!-- Economy --}}
-        <div class="sidebar-section">   
-            <div class="sidebar-label">
+        <section class="sidebar-section">   
+            <div class="section-head">
                 <i class="fas fa-fw fa-coins"></i>
                 <h4>Economy</h4>
             </div>        
-            <div class="flex">
-                <label for="data.attributes.consumption.value">Consumption:</label>
-                <input type="number" data-property="system.attributes.consumption.value" value="{{data.attributes.consumption.value}}" data-dtype="Number" placeholder="0"/>
+            <div>
+                <label for="data.details.consumption">Consumption:</label>
+                <input type="number" data-property="system.details.consumption" value="{{data.details.consumption}}" data-dtype="Number" placeholder="0"/>
             </div>
-            <div class="flex">
-                <label for="data.attributes.recruitmentDC.value">Recruitment DC:</label>
-                <input type="number" data-property="system.attributes.recruitmentDC.value" value="{{data.attributes.recruitmentDC.value}}" data-dtype="Number" placeholder="0"/>
+            <div>
+                <label for="data.details.recruitmentDC">Recruitment DC:</label>
+                <input type="number" data-property="system.details.recruitmentDC" value="{{data.details.recruitmentDC}}" data-dtype="Number" placeholder="0"/>
             </div>
-        </div>
-
+        </section>
     </aside>
 
     <section class="army-body">
@@ -100,28 +114,29 @@
                 <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" />
             </div>
             {{!-- TRAITS --}}
-            {{!-- copied this bit from the character sheet so it's not my fault it's scuffed --}}
             <div>
-                <select class="rarity-select trait {{system.traits.rarity}}" data-property="system.traits.rarity">
-                    {{#select system.traits.rarity}}
-                        {{#each rarity as |label key|}}
-                            <option value="{{key}}">Rarity</option>
-                        {{/each}}
-                    {{/select}}
+                <select name="rarity" class="rarity-select trait {{data.traits.rarity}}" data-property="system.traits.rarity" value="{{data.traits.rarity}}" >
+                    <option value="common">Common</option>
+                    <option value="uncommon">Uncommon</option>
+                    <option value="rare">Rare</option>
+                    <option value="unique">Unique</option>
                 </select>
-                <select class="alignment-select trait" data-property="system.details.alignment">
-                    {{#select system.details.alignment}}
-                        {{#each alignments as |label key|}}
-                            <option value="{{key}}">Alignment</option>
-                        {{/each}}
-                    {{/select}}
+                <select name="alignment" class="alignment-select trait {{data.details.alignment}}" data-property="system.details.alignment" value="{{data.details.alignment}}" >
+                    <option>LG</option>
+                    <option>NG</option>
+                    <option>CG</option>
+                    <option>LN</option>
+                    <option>N</option>
+                    <option>CN</option>
+                    <option>LE</option>
+                    <option>NE</option>
+                    <option>CE</option>
                 </select>
-                <select class="type-select trait" data-property="system.traits.type">
-                    {{#select system.traits.type}}
-                        {{#each type as |label key|}}
-                            <option value="{{key}}">Type</option>
-                        {{/each}}
-                    {{/select}}
+                <select name="armytype" class="armytype-select trait" data-property="system.traits.armytype" value="{{data.traits.armytype}}">
+                    <option value="infantry">Infantry</option>
+                    <option value="cavalry">Cavalry</option>
+                    <option value="skirmishers">Skirmishers</option>
+                    <option value="siege">Siege</option>
                 </select>
             </div>
             {{!-- BLURB --}}
@@ -136,7 +151,7 @@
                 {{!-- ============== --}}
                 {{!--     Strikes    --}}
                 {{!-- ============== --}}
-                <fieldset>
+                <fieldset class="strikes">
                 <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
                     <div class="flex strike">
                         {{!--     For some reason editing one of these edits both but also doesn't set the values correctly    --}}
@@ -145,11 +160,23 @@
                         <i class="fas fa-dice-d20"></i>
                         </a>
                         <input class="value" type="number" data-property="system.attributes.strikes.melee.bonus" value="{{data.attributes.strikes.melee.bonus}}" placeholder="0" />
+                        <select name="system.attributes.strikes.melee.magic" data-property="system.attributes.strikes.melee.magic" value="{{data.attributes.strikes.melee.magic}}" >
+                            <option value=0>Mundane Weapons</option>
+                            <option value=1>Magic Weapons</option>
+                            <option value=2>Greater Magic Weapons</option>
+                            <option value=3>Major Magic Weapons</option>
+                        </select>
                     </div>
                     <div class="flex strike">
                         <input class="name" type="text" data-property="system.attributes.strikes.ranged.name" value="{{data.attributes.strikes.melee.name}}" placeholder="Ranged Strike" />
                         <a class="roll-icon"><i class="fas fa-dice-d20"></i></a>
                         <input class="value" type="number" data-property="system.attributes.strikes.ranged.bonus" value="{{data.attributes.strikes.melee.bonus}}" placeholder="0" />
+                        <select name="system.attributes.strikes.ranged.magic" data-property="system.attributes.strikes.ranged.magic" value="{{data.attributes.strikes.ranged.magic}}" >
+                            <option value=0>Mundane Weapons</option>
+                            <option value=1>Magic Weapons</option>
+                            <option value=2>Greater Magic Weapons</option>
+                            <option value=3>Major Magic Weapons</option>
+                        </select>
                     </div>
                 </fieldset>
 
@@ -158,13 +185,6 @@
                 {{!-- ============== --}}
                 <fieldset>
                 <legend><i class="fa-light fa-flag-swallowtail"></i>&nbsp;Tactics</legend>
-                </fieldset>
-
-                {{!-- ============== --}}
-                {{!--      Gear      --}}
-                {{!-- ============== --}}
-                <fieldset>
-                <legend><i class="fa-light fa-flask-round-potion"></i>&nbsp;Gear</legend>
                 </fieldset>
 
                 {{!-- ============== --}}

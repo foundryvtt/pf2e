@@ -40,6 +40,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { NPCStrike } from "@actor/npc";
 import { Rarity } from "@module/data";
 import { ActorAlliance } from "./types";
+import { Alignment } from "./creature";
 
 // ************************** //
 //            TS              //
@@ -74,15 +75,6 @@ import { ActorAlliance } from "./types";
     type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
     interface ArmySystemSource extends ActorSystemSource {
 
-        saves: {            
-            maneuver: {
-                value: number;
-            };
-            morale: {
-                value: number;
-            };
-        };
-
         attributes: {
 
             immunities?: never;
@@ -98,7 +90,6 @@ import { ActorAlliance } from "./types";
                 flatFootable: FlatFootableCircumstance;
             };
         
-
             hp: {
                 value: number;
                 max: number;
@@ -109,46 +100,65 @@ import { ActorAlliance } from "./types";
             ac: {
                 value: number;
                 details: string;
+                magic: 0 | 1 | 2 | 3;
             };
     
             scouting: {
                 value: number;
                 details: string;
-            };
-    
-            recruitmentDC: {
-                value: number;
-                details: string;
-            };
-    
-            consumption: {
-                value: number;
-                details: string;
+                darkvision: boolean;
             };
     
             strikes: {
                 melee: {
                     bonus: number;
                     name: string;
+                    magic: 0 | 1 | 2 | 3;
                 };
-    
                 ranged: {
                     bonus: number;
                     name: string;
+                    magic: 0 | 1 | 2 | 3;
                 };
             };    
         };
 
-        details: {
-            level: { 
-                value: number 
-            };
-            description: string;
+        saves: {            
+            maneuver: number;
+            morale: number;
+            details: string;
         };
+
+        details: {
+            level: { value: number; }
+            alignment: Alignment;
+            description: string;
+            blurb: string;
+            potions : 0 | 1 | 2 | 3;
+            recruitmentDC: number;
+            consumption: number;
+        };
+
+        conditions: {
+            visibility : "clear" | "dim" | "dark";
+            range : "engaged" | "near" | "distant";
+            status : "OK" | "defeated" | "destroyed";
+            position : "OK" | "outflanked" | "pinned";
+            difficultterrain : boolean;
+            wind : boolean;
+            concealed : boolean;
+            efficient : boolean;
+            fortified : boolean;
+            lost : boolean;
+            mired : number;
+            shaken : number; //1-4, 4 makes you routed
+            routed : boolean;
+            weary : number;
+        }
 
         traits: {
             rarity: Rarity;
-            type: "infantry" | "cavalry" | "skirmishers" | "siege";
+            armytype: "infantry" | "cavalry" | "skirmishers" | "siege";
             size: ActorSizePF2e;
             value: never[];
         };
@@ -180,7 +190,7 @@ import { ActorAlliance } from "./types";
         };
         traits: {
             rarity: Rarity;
-            type: "infantry" | "cavalry" | "skirmishers" | "siege";
+            armytype: "infantry" | "cavalry" | "skirmishers" | "siege";
             size: ActorSizePF2e;
             value: never[];
         };
