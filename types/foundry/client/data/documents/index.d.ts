@@ -1,5 +1,6 @@
 import "./active-effect.d.ts";
 import "./actor.d.ts";
+import "./actor-delta.d.ts";
 import "./ambient-light-document.d.ts";
 import "./ambient-sound-document.d.ts";
 import "./cards.d.ts";

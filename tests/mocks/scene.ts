@@ -51,7 +51,7 @@ export class MockScene {
             hidden: false,
             actorId: "",
             actorLink: false,
-            actorData: {},
+            delta: {},
             disposition: 0,
             displayBars: 0,
             bar1: { attribute: "" },

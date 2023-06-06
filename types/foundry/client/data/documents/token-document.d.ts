@@ -159,7 +159,7 @@ declare global {
 
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the post-update process. */
         protected _onUpdateTokenActor(
-            data: DeepPartial<this["_source"]["actorData"]>,
+            data: DeepPartial<this["_source"]["delta"]>,
             options: DocumentModificationContext<TParent>,
             userId: string
         ): void;

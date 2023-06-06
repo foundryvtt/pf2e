@@ -403,11 +403,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         // Handle ephemeral changes from synthetic actor
-        if (!this.actorLink && this.parent && changed.actorData) {
+        if (!this.actorLink && this.parent && changed.delta) {
             const preUpdateIcon = this.texture.src;
             const currentHeight = this.height;
             // If the Actor data override changed, simulate updating the synthetic Actor
-            this._onUpdateTokenActor(changed.actorData, options, userId);
+            this._onUpdateTokenActor(changed.delta, options, userId);
             this.reset();
 
             // Fake some updates to trigger redraw
@@ -418,7 +418,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     src: this.texture.src,
                 }) as foundry.documents.TokenSource["texture"];
             }
-            delete changed.actorData; // Prevent upstream from doing so a second time
+            delete changed.delta; // Prevent upstream from doing so a second time
         }
 
         return super._onUpdate(changed, options, userId);
