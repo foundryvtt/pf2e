@@ -80,7 +80,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
 
     abstract getIWR(value?: number): ImmunityData[] | WeaknessData[] | ResistanceData[];
 
-    override beforePrepareData(): void {
+    override afterPrepareData(): void {
         if (!this.test()) return;
 
         this.type = this.resolveInjectedProperties(this.type);
