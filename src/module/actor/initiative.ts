@@ -83,15 +83,6 @@ class ActorInitiative {
             ...this.statistic.getTraceData(),
             statistic: initiativeData?.statistic ?? "perception",
             tiebreakPriority,
-            roll: (args: InitiativeRollParams) => {
-                const deprecationLabel = `Rolling initiative via actor.attributes.initiative.roll() is deprecated: use actor.initiative.roll() instead.`;
-                foundry.utils.logCompatibilityWarning(deprecationLabel, {
-                    since: "4.12",
-                    until: "5.0",
-                });
-
-                return this.roll(args);
-            },
         };
     }
 }

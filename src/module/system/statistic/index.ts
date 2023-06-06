@@ -31,7 +31,6 @@ import {
     RollTwiceOption,
 } from "@system/check/index.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { RollParameters } from "@system/rolls.ts";
 import { isObject, Optional, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import { StatisticChatData, StatisticCheckData, StatisticData, StatisticTraceData } from "./data.ts";
@@ -254,7 +253,7 @@ class Statistic extends SimpleStatistic {
     }
 
     /** Returns data intended to be merged back into actor data. By default the value is the DC */
-    getTraceData(options: { value?: "dc" | "mod"; rollable?: [string, string] } = {}): StatisticTraceData {
+    getTraceData(options: { value?: "dc" | "mod" } = {}): StatisticTraceData {
         const { check, dc } = this;
         const valueProp = options.value ?? "mod";
         const [label, value, totalModifier, breakdown, modifiers] =
@@ -262,7 +261,7 @@ class Statistic extends SimpleStatistic {
                 ? [this.label, check.mod, check.mod, check.breakdown, check.modifiers]
                 : [dc.label || this.label, dc.value, dc.value - 10, dc.breakdown, dc.modifiers];
 
-        const trace: StatisticTraceData = {
+        return {
             slug: this.slug,
             label,
             value,
@@ -271,24 +270,6 @@ class Statistic extends SimpleStatistic {
             breakdown,
             modifiers: modifiers.map((m) => m.toObject()),
         };
-
-        const rollable = options.rollable;
-        if (rollable) {
-            trace.roll = (args: RollParameters = {}): Promise<unknown> => {
-                const deprecationLabel = `Rolling ${this.label} (${this.slug}) via actor system data is deprecated`;
-                foundry.utils.logCompatibilityWarning(deprecationLabel, {
-                    since: rollable[0],
-                    until: rollable[1],
-                });
-
-                return this.check.roll({
-                    extraRollOptions: args.options ? [...args.options] : [],
-                    ...options,
-                });
-            };
-        }
-
-        return trace;
     }
 }
 

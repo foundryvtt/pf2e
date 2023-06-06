@@ -4,6 +4,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { ItemType } from "@item/data/index.ts";
 import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
@@ -11,7 +12,6 @@ import { RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
-import { ItemType } from "@item/data/index.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -241,7 +241,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             });
             systemData.attributes.perception = mergeObject(
                 systemData.attributes.perception,
-                this.perception.getTraceData({ value: "mod", rollable: ["4.12", "5.0"] })
+                this.perception.getTraceData({ value: "mod" })
             );
         }
 
@@ -269,20 +269,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             });
 
             builtSkills[longForm] = statistic;
-            this.system.skills[shortForm] = statistic.getTraceData({ rollable: ["4.12", "5.0"] });
-
-            Object.defineProperty(builtSkills, shortForm, {
-                get: () => {
-                    foundry.utils.logCompatibilityWarning(
-                        `Short-form skill abbreviations such as actor.skills.${shortForm} are deprecated. Use actor.skills.${longForm} instead.`,
-                        {
-                            since: "4.12",
-                            until: "5.0",
-                        }
-                    );
-                    return builtSkills[longForm];
-                },
-            });
+            this.system.skills[shortForm] = statistic.getTraceData();
 
             return builtSkills;
         }, {} as CreatureSkills);

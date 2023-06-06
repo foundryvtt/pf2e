@@ -20,14 +20,14 @@ import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
-import { ActionCost, ActionType } from "@item/data/base.ts";
 import { hasInvestedProperty } from "@item/data/helpers.ts";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data/index.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
-import { OneToThree, Size } from "@module/data.ts";
+import { AppliedDamageFlag } from "@module/chat-message/index.ts";
+import { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { ChatMessagePF2e, ScenePF2e, TokenDocumentPF2e, UserPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
@@ -40,19 +40,10 @@ import { DicePF2e } from "@scripts/dice.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
-import {
-    ErrorPF2e,
-    getActionGlyph,
-    getActionIcon,
-    isObject,
-    localizer,
-    objectHasKey,
-    setHasElement,
-    traitSlugToObject,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -82,8 +73,6 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -1582,22 +1571,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
 
         return { updates, totalApplied };
-    }
-
-    static getActionGraphics(
-        type: ActionType,
-        actionCount?: OneToThree
-    ): { imageUrl: ImageFilePath; actionGlyph: string } {
-        console.warn(
-            "PF2E System | ActorPF2e#getActionGraphics() is deprecated. If you rely on this function, please inform the Pathfinder2e dev team"
-        );
-
-        const actionCost: ActionCost | null = type === "passive" ? null : { type, value: actionCount ?? 1 };
-
-        return {
-            imageUrl: getActionIcon(actionCost),
-            actionGlyph: getActionGlyph(actionCost),
-        };
     }
 
     /**
