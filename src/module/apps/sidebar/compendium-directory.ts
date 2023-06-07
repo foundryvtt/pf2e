@@ -13,10 +13,10 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         this.searchEngine = new MiniSearch<CompendiumIndexData>({
             fields: ["name"],
-            idField: "_id",
+            idField: "uuid",
             processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
             searchOptions: { combineWith: "AND", prefix: true },
-            storeFields: ["img", "metadata", "name", "type"],
+            storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
         });
         this.#compileSearchIndex();
     }
@@ -68,7 +68,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     protected override _getEntryContextOptions(): EntryContextOption[] {
         const options = super._getEntryContextOptions();
 
-        if (BUILD_MODE !== "production") {
+        if (BUILD_MODE === "development") {
             options.push({
                 name: "COMPENDIUM.Migrate",
                 icon: fontAwesomeIcon("crow").outerHTML,
@@ -167,14 +167,13 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         const listElements = docMatches.map((match): HTMLLIElement => {
             const li = matchTemplate.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
-            const matchUUID = `Compendium.${match.metadata.id}.${match.id}` as const;
-            li.dataset.uuid = matchUUID;
+            li.dataset.uuid = match.uuid;
             li.dataset.score = match.score.toString();
 
             // Show a thumbnail if available
             const thumbnail = li.querySelector<HTMLImageElement>("img")!;
             if (typeof match.img === "string") {
-                thumbnail.src = game.pf2e.system.moduleArt.map.get(matchUUID)?.img ?? match.img;
+                thumbnail.src = game.pf2e.system.moduleArt.map.get(match.uuid)?.img ?? match.img;
             } else if (match.id === "JournalEntry") {
                 thumbnail.src = "icons/svg/book.svg";
             }
@@ -182,17 +181,17 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             // Open compendium on result click
             li.addEventListener("click", async (event) => {
                 event.stopPropagation();
-                const doc = await fromUuid(matchUUID);
+                const doc = await fromUuid(match.uuid);
                 await doc?.sheet?.render(true, { editable: doc.sheet.isEditable });
             });
 
             const anchor = li.querySelector("a")!;
             anchor.innerText = match.name;
             const details = li.querySelector("span")!;
-            const systemType = ["Actor", "Item"].includes(match.metadata.type)
-                ? game.i18n.localize(`TYPES.${match.metadata.type}.${match.type}`)
+            const systemType = ["Actor", "Item"].includes(match.documentType)
+                ? game.i18n.localize(`TYPES.${match.documentType}.${match.type}`)
                 : null;
-            details.innerText = systemType ? `${systemType} (${match.metadata.label})` : `(${match.metadata.label})`;
+            details.innerText = systemType ? `${systemType} (${match.packLabel})` : `(${match.packLabel})`;
 
             return li;
         });
@@ -246,7 +245,8 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
                 ...i,
-                metadata: pack.metadata,
+                documentType: pack.metadata.type,
+                packLabel: pack.metadata.label,
             }));
             this.searchEngine.addAll(contents);
         }
