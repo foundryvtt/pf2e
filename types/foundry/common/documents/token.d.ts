@@ -119,7 +119,7 @@ export interface TokenSource extends TokenLightData {
     elevation: number;
     lockRotation: boolean;
     effects: VideoFilePath[];
-    overlayEffect: string | null;
+    overlayEffect: string | undefined;
     alpha: number;
     vision: boolean;
     dimSight: number;

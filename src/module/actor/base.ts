@@ -1794,7 +1794,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 combatant.toggleDefeated({ to: false });
             } else {
                 for (const tokenDoc of this.getActiveTokens(false, true)) {
-                    tokenDoc.update({ overlayEffect: null });
+                    tokenDoc.update({ overlayEffect: "" });
                 }
             }
         }
