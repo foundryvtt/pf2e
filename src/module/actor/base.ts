@@ -1213,6 +1213,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
         const hpDamage = hpUpdate.totalApplied;
 
+        // Save the pre-update state to calculate undo values
+        const preUpdateSource = this.toObject();
+
         // Make updates
         if (shieldDamage > 0) {
             const shield = (() => {
@@ -1320,16 +1323,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
                   persistent: persistentCreated.map((c) => c.id),
                   updates: Object.entries(hpUpdate.updates)
-                      .map(([key, value]) => {
-                          const currentValue = getProperty(this, key);
-                          if (typeof currentValue === "number") {
-                              const difference = currentValue - value;
+                      .map(([path, newValue]) => {
+                          const preUpdateValue = getProperty(preUpdateSource, path);
+                          if (typeof preUpdateValue === "number") {
+                              const difference = preUpdateValue - newValue;
                               if (difference === 0) {
                                   // Ignore the update if there is no difference
                                   return [];
                               }
                               return {
-                                  path: key,
+                                  path,
                                   value: difference,
                               };
                           }
