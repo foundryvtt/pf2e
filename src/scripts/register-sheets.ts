@@ -2,7 +2,7 @@ import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { FamiliarSheetPF2e } from "@actor/familiar/sheet.ts";
 import { HazardSheetPF2e } from "@actor/hazard/sheet.ts";
 import { LootSheetPF2e } from "@actor/loot/sheet.ts";
-import { NPCSheetPF2e } from "@actor/npc/sheet.ts";
+import { NPCSheetPF2e, SimpleNPCSheet } from "@actor/npc/sheet.ts";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet.ts";
 import { ItemSheetPF2e } from "@item/sheet/base.ts";
 import { ActionSheetPF2e } from "@item/action/sheet.ts";
@@ -58,6 +58,14 @@ export function registerSheets(): void {
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),
         makeDefault: true,
     });
+
+    if (BUILD_MODE === "development") {
+        Actors.registerSheet("pf2e", SimpleNPCSheet, {
+            types: ["npc"],
+            label: "Simple Sheet",
+            makeDefault: false,
+        });
+    }
 
     // Register Hazard Sheet
     Actors.registerSheet("pf2e", HazardSheetPF2e, {

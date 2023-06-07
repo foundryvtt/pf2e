@@ -517,6 +517,17 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     }
 }
 
+class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
+    protected readonly actorConfigClass = null;
+
+    static override get defaultOptions(): ActorSheetOptions {
+        return {
+            ...super.defaultOptions,
+            template: "systems/pf2e/templates/actors/npc/simple-sheet.hbs",
+        };
+    }
+}
+
 type PrePrepSheetData<T extends NPCPF2e> = Partial<NPCSheetData<T>> & CreatureSheetData<T>;
 
-export { NPCSheetPF2e };
+export { NPCSheetPF2e, SimpleNPCSheet };
