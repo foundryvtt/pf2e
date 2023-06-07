@@ -12,6 +12,8 @@ declare global {
 
         sort: number;
 
+        delta: ActorDelta<this> | null;
+
         /**
          * A lazily evaluated reference to the Actor this Token modifies.
          * If actorLink is true, then the document is the primary Actor document.

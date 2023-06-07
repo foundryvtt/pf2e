@@ -44,6 +44,7 @@ import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -574,7 +575,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             await processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
         }
 
-        return super.updateDocuments(updates, context);
+        const updated = await super.updateDocuments(updates, context);
+        // As of Foundry version 11.300, updates of synthetic actors return `ActorDelta`s
+        // https://github.com/foundryvtt/foundryvtt/issues/9565
+        return game.release.build > 300
+            ? updated
+            : R.compact(updated.map((a) => (a instanceof ActorDelta ? a.syntheticActor : a)));
     }
 
     protected override _initialize(): void {
@@ -1227,6 +1233,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 { render: hpDamage === 0 }
             );
         }
+
         if (hpDamage !== 0) {
             const updated = await this.update(hpUpdate.updates, { damageTaken: hpDamage });
             const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));

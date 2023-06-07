@@ -1,6 +1,6 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
 import type { ActorSource } from "./actor.d.ts";
-import type { BaseScene, BaseUser } from "./module.d.ts";
+import type { BaseActorDelta, BaseScene, BaseUser } from "./module.d.ts";
 
 /**
  * The Token document model.
@@ -19,6 +19,8 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
     height: number;
 
     alpha: number;
+
+    delta: BaseActorDelta<this> | null;
 
     texture: {
         src: VideoFilePath;
