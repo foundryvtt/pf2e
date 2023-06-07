@@ -1061,6 +1061,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     {},
                     async (heightenedLevel, itemType, spell) => {
                         const createdItem = await createConsumableFromSpell(itemType, spell, heightenedLevel);
+
+                        // mystify the item if the alt key was pressed
+                        if (game.user.isGM && event.altKey) {
+                            createdItem.system.identification.status = "unidentified";
+                        }
+
                         await this._onDropItemCreate(createdItem);
                     },
                     item
