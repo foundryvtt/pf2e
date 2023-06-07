@@ -33,6 +33,7 @@ import {
     NPCStrikeSheetData,
     NPCSystemSheetData,
 } from "./types.ts";
+import { DamageButtons } from "@module/chat-message/listeners";
 
 class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
@@ -56,7 +57,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             return "systems/pf2e/templates/actors/npc/loot-sheet.hbs";
         } else if (this.actor.limited) {
             return "systems/pf2e/templates/actors/limited/npc-sheet.hbs";
-        }
+        } 
         return "systems/pf2e/templates/actors/npc/sheet.hbs";
     }
 
@@ -518,14 +519,181 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
 }
 
 class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
-    protected readonly actorConfigClass = null;
+    protected readonly actorConfigClass = NPCConfig;
 
     static override get defaultOptions(): ActorSheetOptions {
+        const options = super.defaultOptions;
         return {
-            ...super.defaultOptions,
+            ...options,
+            classes: [...options.classes, "pf2e", "npc"],
+            width: 650,
+            height: 420,
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "notes" }],
             template: "systems/pf2e/templates/actors/npc/simple-sheet.hbs",
         };
     }
+
+
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        const html = $html.get(0)!;
+        
+        // Activate notes tab
+        $html.find(".tab.notes").addClass("active");
+
+        // Tagify traits
+        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');
+        if (traitsEl) {
+            tagify(traitsEl, { whitelist: CONFIG.PF2E.monsterTraits });
+        }
+
+        // Subscribe to roll events
+        const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
+        $html.find(rollables).on("click", (event) => this.#onClickRollable(event));
+
+        // Don't subscribe to edit buttons it the sheet is not editable
+        if (!this.options.editable) return;
+
+        // Add click events
+        $html.find(".trait-edit").on("click", (event) => this.openTagSelector(event));
+        $html.find(".skills-edit").on("click", () => {
+            new NPCSkillsEditor(this.actor).render(true);
+        });
+    }
+
+    override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
+        this.#prepareSize(sheetData.data);
+        this.#prepareAlignment(sheetData.data);
+        this.#prepareSaves(sheetData.data);
+        this.#prepareSkills(sheetData.data);
+        sheetData.effectItems = sheetData.items.filter(
+            (data): data is NPCSheetItemData<EffectPF2e> => data.type === "effect"
+        );
+        sheetData.spellcastingEntries = await this.prepareSpellcasting();
+    }
+
+    override async getData(): Promise<NPCSheetData<TActor>> {
+        const sheetData = (await super.getData()) as PrePrepSheetData<TActor>;
+
+        // Filter out alignment traits for sheet presentation purposes
+        const alignmentTraits: Set<string> = ALIGNMENT_TRAITS;
+        const actorTraits = sheetData.data.traits;
+        actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
+
+        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
+        sheetData.actorSize = CONFIG.PF2E.actorSizes[sheetData.data.traits.size.value as Size];
+
+        const rollData = this.actor.getRollData();
+
+        sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {
+            rollData,
+            async: true,
+        });
+
+        sheetData.traitTagifyData = createTagifyTraits(this.actor.system.traits.value, {
+            sourceTraits: this.actor._source.system.traits.value,
+            record: CONFIG.PF2E.creatureTraits,
+        });
+
+        // Return data for rendering
+        return sheetData as NPCSheetData<TActor>;
+    }
+
+    async #onClickRollable(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): Promise<void> {
+        event.preventDefault();
+        const label = event.currentTarget.closest<HTMLElement>(".rollable");
+        const { attribute, save, skill } = label?.parentElement?.dataset ?? {};
+        const rollParams = eventToRollParams(event);
+
+        if (attribute) {
+            if (attribute === "perception") {
+                await this.#rollPerception(event);
+            }
+        } else if (skill) {
+            const extraRollOptions = event.currentTarget.dataset.options
+                ?.split(",")
+                .map((o) => o.trim())
+                .filter((o) => !!o);
+
+            const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
+            await this.actor.skills[key]?.check.roll({ ...rollParams, extraRollOptions });
+        } else if (objectHasKey(this.actor.saves, save)) {
+            await this.actor.saves[save].check.roll(rollParams);
+        }
+    }
+    
+    async #rollPerception(event: JQuery.ClickEvent): Promise<void> {
+        const options = this.actor.getRollOptions(["all", "perception-check"]);
+        await this.actor.attributes.perception.roll({ event, options });
+    }
+
+    #getSizeLocalizedKey(size: string): string {
+        const actorSizes = CONFIG.PF2E.actorSizes;
+        return objectHasKey(actorSizes, size) ? actorSizes[size] : "";
+    }
+
+    #prepareSize(sheetSystemData: NPCSystemSheetData): void {
+        const size = sheetSystemData.traits.size.value;
+        const localizationKey = this.#getSizeLocalizedKey(size);
+        const localizedName = game.i18n.localize(localizationKey);
+
+        sheetSystemData.traits.size.localizedName = localizedName;
+    }
+
+    #prepareAlignment(sheetSystemData: NPCSystemSheetData): void {
+        const alignmentCode = sheetSystemData.details.alignment.value;
+        const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
+
+        sheetSystemData.details.alignment.localizedName = localizedName;
+    }
+
+    #prepareSaves(systemData: NPCSystemSheetData): void {
+        for (const saveType of SAVE_TYPES) {
+            const save = systemData.saves[saveType];
+            save.labelShort = game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`);
+            save.adjustedHigher = save.totalModifier > Number(save.base);
+            save.adjustedLower = save.totalModifier < Number(save.base);
+        }
+    }
+
+    #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
+        // Prepare a list of skill IDs sorted by their localized name
+        // This will help in displaying the skills in alphabetical order in the sheet
+        const sortedSkillsIds = Object.keys(sheetSystemData.skills);
+
+        const skills = sheetSystemData.skills;
+        for (const skillId of sortedSkillsIds) {
+            const skill = skills[skillId];
+            skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
+                ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
+                : skill.label ?? skill.slug;
+            skill.adjustedHigher = skill.value > Number(skill.base);
+            skill.adjustedLower = skill.value < Number(skill.base);
+        }
+
+        sortedSkillsIds.sort((a: string, b: string) => {
+            const skillA = skills[a];
+            const skillB = skills[b];
+
+            if (skillA.label < skillB.label) return -1;
+            if (skillA.label > skillB.label) return 1;
+
+            return 0;
+        });
+
+        const sortedSkills: Record<string, NPCSkillData> = {};
+
+        for (const skillId of sortedSkillsIds) {
+            sortedSkills[skillId] = skills[skillId];
+        }
+
+        sheetSystemData.sortedSkills = sortedSkills;
+    }
+
 }
 
 type PrePrepSheetData<T extends NPCPF2e> = Partial<NPCSheetData<T>> & CreatureSheetData<T>;
