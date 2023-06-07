@@ -7,5 +7,8 @@ declare global {
      * @todo Fill in
      */
 
-    class ActorDelta {}
+    class ActorDelta<TParent extends TokenDocument<Scene | null> | null> extends foundry.documents
+        .BaseActorDelta<TParent> {
+        syntheticActor: Actor<TParent>;
+    }
 }
