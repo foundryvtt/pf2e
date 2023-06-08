@@ -41,7 +41,7 @@ class WeaponTraitToggles {
             .flatMap((trait): DamageType | DamageType[] => {
                 if (trait === "modular") return ["bludgeoning", "piercing", "slashing"];
 
-                const damageType = /^versatile-(\w+)$/.exec(trait)?.at(1);
+                const damageType = /^(?:hb_|)versatile-(\w+)$/.exec(trait)?.at(1);
                 switch (damageType) {
                     case "b":
                         return "bludgeoning";
@@ -50,7 +50,7 @@ class WeaponTraitToggles {
                     case "s":
                         return "slashing";
                     default: {
-                        return objectHasKey(CONFIG.PF2E.damageTypes, damageType) ? damageType : [];
+                        return objectHasKey(CONFIG.PF2E.damageTypes, damageType) ? damageType : objectHasKey(CONFIG.PF2E.damageTypes, `hb_${damageType}`) : `hb_${damageType}` : [];
                     }
                 }
             });
