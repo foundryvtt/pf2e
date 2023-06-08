@@ -535,7 +535,7 @@ class SimpleNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<NPCPF2e> 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html.get(0)!;
-        
+
         // Activate notes tab
         $html.find(".tab.notes").addClass("active");
 
@@ -658,7 +658,6 @@ class SimpleNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<NPCPF2e> 
 
         sheetSystemData.sortedSkills = sortedSkills as Record<SkillAbbreviation, NPCSkillSheetData>;
     }
-
 }
 
 type PrePrepSheetData<T extends NPCPF2e> = Partial<NPCSheetData<T>> & CreatureSheetData<T>;
