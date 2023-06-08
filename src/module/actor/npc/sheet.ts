@@ -517,7 +517,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     }
 }
 
-class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
+class SimpleNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<NPCPF2e> {
     protected readonly actorConfigClass = NPCConfig;
 
     static override get defaultOptions(): ActorSheetOptions {
