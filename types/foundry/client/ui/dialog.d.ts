@@ -17,8 +17,8 @@ interface DialogButton {
 interface ConfirmDialogParameters<Y = true, N = false> {
     title: string;
     content: string;
-    yes?: () => Y;
-    no?: () => N;
+    yes?: (html: JQuery) => Y;
+    no?: (html: JQuery) => N;
     render?: () => void | Promise<void>;
     defaultYes?: boolean;
     rejectClose?: () => void | Promise<void>;
