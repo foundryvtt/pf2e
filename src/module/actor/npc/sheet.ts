@@ -56,7 +56,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
             return "systems/pf2e/templates/actors/npc/loot-sheet.hbs";
         } else if (this.actor.limited) {
             return "systems/pf2e/templates/actors/limited/npc-sheet.hbs";
-        } 
+        }
         return "systems/pf2e/templates/actors/npc/sheet.hbs";
     }
 
@@ -517,7 +517,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     }
 }
 
-class SimpleNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<NPCPF2e> {
+class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
     protected readonly actorConfigClass = NPCConfig;
 
     static override get defaultOptions(): ActorSheetOptions {
@@ -531,7 +531,6 @@ class SimpleNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<NPCPF2e> 
             template: "systems/pf2e/templates/actors/npc/simple-sheet.hbs",
         };
     }
-
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
@@ -633,7 +632,6 @@ class SimpleNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<NPCPF2e> 
             save.adjustedLower = save.totalModifier < Number(save.base);
         }
     }
-
 
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
         // Prepare a list of skill IDs sorted by their localized name
