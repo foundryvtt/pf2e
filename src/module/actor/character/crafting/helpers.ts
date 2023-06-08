@@ -136,8 +136,11 @@ export async function craftSpellConsumable(
                     const spellId = String($dialog.find("select[name=spell]").val());
                     const spell = actor.items.get(spellId);
                     if (!spell?.isOfType("spell")) return;
-                    const item = await createConsumableFromSpell(consumableType, spell, spellLevel);
-
+                    const item = await createConsumableFromSpell({
+                        type: consumableType,
+                        spell,
+                        heightenedLevel: spellLevel,
+                    });
                     return craftItem(new ConsumablePF2e(item), itemQuantity, actor);
                 },
             },
