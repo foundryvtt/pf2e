@@ -50,7 +50,7 @@ class WeaponTraitToggles {
                     case "s":
                         return "slashing";
                     default: {
-                        return objectHasKey(CONFIG.PF2E.damageTypes, damageType) ? damageType : objectHasKey(CONFIG.PF2E.damageTypes, `hb_${damageType}`) : `hb_${damageType}` : [];
+                        return objectHasKey(CONFIG.PF2E.damageTypes, damageType) ? damageType : objectHasKey(CONFIG.PF2E.damageTypes, `hb_${damageType}`) ? `hb_${damageType}` : [];
                     }
                 }
             });
