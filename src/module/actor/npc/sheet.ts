@@ -33,7 +33,6 @@ import {
     NPCStrikeSheetData,
     NPCSystemSheetData,
 } from "./types.ts";
-import { DamageButtons } from "@module/chat-message/listeners";
 
 class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
@@ -562,14 +561,10 @@ class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
-        this.#prepareSize(sheetData.data);
         this.#prepareAlignment(sheetData.data);
-        this.#prepareSaves(sheetData.data);
         this.#prepareSkills(sheetData.data);
-        sheetData.effectItems = sheetData.items.filter(
-            (data): data is NPCSheetItemData<EffectPF2e> => data.type === "effect"
-        );
-        sheetData.spellcastingEntries = await this.prepareSpellcasting();
+        this.#prepareSaves(sheetData.data);
+        sheetData.effectItems = this.actor.itemTypes.effect;
     }
 
     override async getData(): Promise<NPCSheetData<TActor>> {
@@ -579,9 +574,6 @@ class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         const alignmentTraits: Set<string> = ALIGNMENT_TRAITS;
         const actorTraits = sheetData.data.traits;
         actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
-
-        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
-        sheetData.actorSize = CONFIG.PF2E.actorSizes[sheetData.data.traits.size.value as Size];
 
         const rollData = this.actor.getRollData();
 
@@ -626,19 +618,6 @@ class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    #getSizeLocalizedKey(size: string): string {
-        const actorSizes = CONFIG.PF2E.actorSizes;
-        return objectHasKey(actorSizes, size) ? actorSizes[size] : "";
-    }
-
-    #prepareSize(sheetSystemData: NPCSystemSheetData): void {
-        const size = sheetSystemData.traits.size.value;
-        const localizationKey = this.#getSizeLocalizedKey(size);
-        const localizedName = game.i18n.localize(localizationKey);
-
-        sheetSystemData.traits.size.localizedName = localizedName;
-    }
-
     #prepareAlignment(sheetSystemData: NPCSystemSheetData): void {
         const alignmentCode = sheetSystemData.details.alignment.value;
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
@@ -655,22 +634,15 @@ class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
+
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = Object.keys(sheetSystemData.skills);
+        const sortedSkillsIds = Object.keys(sheetSystemData.skills) as SkillAbbreviation[];
 
         const skills = sheetSystemData.skills;
-        for (const skillId of sortedSkillsIds) {
-            const skill = skills[skillId];
-            skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
-                ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
-                : skill.label ?? skill.slug;
-            skill.adjustedHigher = skill.value > Number(skill.base);
-            skill.adjustedLower = skill.value < Number(skill.base);
-        }
 
-        sortedSkillsIds.sort((a: string, b: string) => {
+        sortedSkillsIds.sort((a: SkillAbbreviation, b: SkillAbbreviation) => {
             const skillA = skills[a];
             const skillB = skills[b];
 
@@ -686,7 +658,7 @@ class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
             sortedSkills[skillId] = skills[skillId];
         }
 
-        sheetSystemData.sortedSkills = sortedSkills;
+        sheetSystemData.sortedSkills = sortedSkills as Record<SkillAbbreviation, NPCSkillSheetData>;
     }
 
 }
