@@ -611,7 +611,7 @@ class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
 
         if (attribute) {
             if (attribute === "perception") {
-                await this.#rollPerception(event);
+                await this.actor.perception.roll(eventToRollParams(event));
             }
         } else if (skill) {
             const extraRollOptions = event.currentTarget.dataset.options
@@ -624,11 +624,6 @@ class SimpleNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         } else if (objectHasKey(this.actor.saves, save)) {
             await this.actor.saves[save].check.roll(rollParams);
         }
-    }
-    
-    async #rollPerception(event: JQuery.ClickEvent): Promise<void> {
-        const options = this.actor.getRollOptions(["all", "perception-check"]);
-        await this.actor.attributes.perception.roll({ event, options });
     }
 
     #getSizeLocalizedKey(size: string): string {
