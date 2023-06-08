@@ -35,7 +35,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
         const hasData = selector && isObject(adjustments);
         if (!hasData) {
             return this.failValidation(
-                "Degree of success adjustment requires a selector field, a type field and an adjustment object."
+                "Degree of success adjustment requires a selector field and an adjustment object."
             );
         }
 
