@@ -451,9 +451,9 @@ $light-text: #f5efe0;
         flex-direction: row;
         align-items: baseline;
 
-        label {
+        label, .rollable {
             flex: 1;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         input[type="text"],
@@ -669,6 +669,10 @@ $light-text: #f5efe0;
                 font-weight: 700;
             }
 
+            input::placeholder {
+                color: var(--color-text-dark-6);
+            }
+
             .source-input {
                 flex: 2;
             }
@@ -693,5 +697,9 @@ $light-text: #f5efe0;
             text-align: center;
             border-bottom: none;
         }
+    }
+
+    &.simple .sheet-body {
+        overflow-y: auto;
     }
 }

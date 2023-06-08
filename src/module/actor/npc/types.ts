@@ -5,9 +5,9 @@ import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
-import { NPCPF2e, NPCStrike } from "./index.ts";
-import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
 import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
+import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
+import { NPCPF2e, NPCStrike } from "./index.ts";
 
 interface ActionsDetails {
     label: string;
@@ -70,7 +70,7 @@ interface NPCSpellcastingSheetData extends SpellcastingSheetData {
 }
 
 /** Additional fields added in sheet data preparation */
-interface NPCSheetData<TActor extends NPCPF2e> extends CreatureSheetData<TActor> {
+interface NPCSheetData<TActor extends NPCPF2e = NPCPF2e> extends CreatureSheetData<TActor> {
     actions: NPCActionSheetData;
     data: NPCSystemSheetData;
     items: NPCSheetItemData<ItemPF2e<TActor>>[];

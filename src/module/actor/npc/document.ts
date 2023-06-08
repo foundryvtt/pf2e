@@ -18,7 +18,7 @@ import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
-import { NPCSheetPF2e } from "./sheet.ts";
+import { AbstractNPCSheet } from "./sheet.ts";
 import { VariantCloneParams } from "./types.ts";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
@@ -649,7 +649,7 @@ interface NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     readonly _source: NPCSource;
     system: NPCSystemData;
 
-    get sheet(): NPCSheetPF2e<this>;
+    get sheet(): AbstractNPCSheet<this>;
 }
 
 export { NPCPF2e };
