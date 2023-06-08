@@ -65,17 +65,18 @@ function isSpellConsumable(itemId: string): boolean {
     );
 }
 
-async function createConsumableFromSpell({
-    type,
-    spell,
-    heightenedLevel = spell.baseLevel,
-    mystified = false,
-}: {
-    type: SpellConsumableItemType;
-    spell: SpellPF2e;
-    heightenedLevel?: number;
-    mystified?: boolean;
-}): Promise<ConsumableSource> {
+async function createConsumableFromSpell(
+    spell: SpellPF2e,
+    {
+        type,
+        heightenedLevel = spell.baseLevel,
+        mystified = false,
+    }: {
+        type: SpellConsumableItemType;
+        heightenedLevel?: number;
+        mystified?: boolean;
+    }
+): Promise<ConsumableSource> {
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
     const consumable = await pack?.getDocument(itemId ?? "");

@@ -1061,9 +1061,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
-                        const createdItem = await createConsumableFromSpell({
+                        const createdItem = await createConsumableFromSpell(spell, {
                             type: itemType,
-                            spell,
                             heightenedLevel,
                             mystified,
                         });
