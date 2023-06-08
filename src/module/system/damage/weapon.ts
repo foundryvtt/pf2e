@@ -23,7 +23,7 @@ import {
 } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import { mapValues, objectHasKey, sluggify } from "@util";
+import { mapValues, objectHasKey, setHasElement, sluggify } from "@util";
 import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import { nextDamageDieSize } from "./helpers.ts";
 import { DamageModifierDialog } from "./modifier-dialog.ts";
@@ -36,6 +36,7 @@ import {
     WeaponDamageFormulaData,
     WeaponDamageTemplate,
 } from "./types.ts";
+import { DAMAGE_DIE_FACES } from "./values.ts";
 
 class WeaponDamagePF2e {
     static async fromNPCAttack({
@@ -189,11 +190,12 @@ class WeaponDamagePF2e {
             }
 
             // Two-Hand trait
-            const twoHandTrait = weaponTraits.find(
-                (t) => t.startsWith("two-hand-") && (weapon.system.equipped.handsHeld ?? 0) >= 2
-            );
-            if (twoHandTrait) {
-                baseDamage.die = twoHandTrait.substring(twoHandTrait.lastIndexOf("-") + 1) as DamageDieSize;
+            const handsHeld = weapon.system.equipped.handsHeld ?? 0;
+            const baseDieFaces = Number(baseDamage.die?.replace("d", "") ?? "NaN");
+            const twoHandSize = weaponTraits.find((t) => t.startsWith("two-hand-"))?.replace("two-hand-", "");
+            const twoHandFaces = Number(twoHandSize?.replace("d", "") ?? "NaN");
+            if (handsHeld === 2 && setHasElement(DAMAGE_DIE_FACES, twoHandSize) && twoHandFaces > baseDieFaces) {
+                baseDamage.die = twoHandSize;
             }
 
             // Splash damage
