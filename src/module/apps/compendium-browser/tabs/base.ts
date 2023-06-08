@@ -265,7 +265,7 @@ export abstract class CompendiumBrowserTab {
         return this.currentIndex.flatMap((e) => {
             const documentData = fromUuidSync(e.uuid);
             if (!documentData || !documentData.pack || !documentData._id) return [];
-            index += 1;
+            const rangeMinMax = index + 1;
             return {
                 _id: randomID(),
                 text: documentData.name,
@@ -274,7 +274,7 @@ export abstract class CompendiumBrowserTab {
                 resultId: documentData._id,
                 img: e.img,
                 weight: 1,
-                range: [index, index],
+                range: [rangeMinMax, rangeMinMax],
                 drawn: false,
             };
         });
