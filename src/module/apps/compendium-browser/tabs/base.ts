@@ -261,13 +261,12 @@ export abstract class CompendiumBrowserTab {
         return true;
     }
 
-    #getRollTableResults(index: number): TableResultSource[] {
-        return this.currentIndex.flatMap((e) => {
+    #getRollTableResults(initial = 0): Partial<TableResultSource>[] {
+        return this.currentIndex.flatMap((e, i) => {
             const documentData = fromUuidSync(e.uuid);
-            if (!documentData || !documentData.pack || !documentData._id) return [];
-            const rangeMinMax = index + 1;
+            if (!documentData?.pack || !documentData?._id) return [];
+            const rangeMinMax = initial + i + 1;
             return {
-                _id: randomID(),
                 text: documentData.name,
                 type: CONST.TABLE_RESULT_TYPES.COMPENDIUM,
                 collection: documentData.pack,
@@ -285,12 +284,12 @@ export abstract class CompendiumBrowserTab {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
 
-        const results = this.#getRollTableResults(0);
+        const results = this.#getRollTableResults();
         const create = await Dialog.confirm({
             content: `<p>${game.i18n.format("PF2E.CompendiumBrowser.RollTable.CreateDialogText", {
                 count: results.length,
             })}</p>`,
-            title: game.i18n.format("PF2E.CompendiumBrowser.RollTable.CreateLabel"),
+            title: game.i18n.localize("PF2E.CompendiumBrowser.RollTable.CreateLabel"),
         });
         if (create) {
             const table = await RollTable.create({
