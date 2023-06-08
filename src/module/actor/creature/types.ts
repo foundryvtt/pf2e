@@ -5,9 +5,8 @@ import { MeleePF2e, WeaponPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import { SheetOptions } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { FlattenedCondition } from "@system/conditions/types.ts";
-import { CreaturePF2e } from "./document.ts";
 import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data.ts";
+import { CreaturePF2e } from "./document.ts";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values.ts";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
@@ -50,7 +49,6 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
     attitude: ConfigPF2e["PF2E"]["attitude"];
     pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
-    conditions: FlattenedCondition[];
     dying: {
         maxed: boolean;
         remainingDying: number;

@@ -80,6 +80,14 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         return list ? game.i18n.format("PF2E.EffectPanel.AppliedBy", { "condition-list": list }) : null;
     }
 
+    /**
+     * Whether this condition is in-memory rather than stored in an actor's `items` collection and cannot be updated or
+     * deleted
+     */
+    get readonly(): boolean {
+        return this.actor && this.id ? !this.actor.items.has(this.id) : false;
+    }
+
     /** Include damage type and possibly category for persistent-damage conditions */
     override getRollOptions(prefix = this.type): string[] {
         const options = super.getRollOptions(prefix);

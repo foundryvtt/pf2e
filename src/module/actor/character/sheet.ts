@@ -5,6 +5,7 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { SaveType } from "@actor/types.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, FeatPF2e, HeritagePF2e, ItemPF2e, LorePF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
@@ -15,8 +16,8 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { ActorPF2e } from "@module/documents.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
-import { FlattenedCondition } from "@system/conditions/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
@@ -57,9 +58,6 @@ import { CharacterPF2e } from "./document.ts";
 import { FeatGroup } from "./feats.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
-import { ActionCost, Frequency } from "@item/data/base.ts";
-import { createSheetTags } from "@module/sheet/helpers.ts";
-import { SheetOptions } from "@module/sheet/helpers.ts";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -1266,9 +1264,6 @@ type CharacterSystemSheetData = CharacterSystemData & {
             value: keyof typeof CONFIG.PF2E.abilities;
             singleOption: boolean;
         };
-    };
-    effects: {
-        conditions?: FlattenedCondition[];
     };
     resources: {
         heroPoints: {
