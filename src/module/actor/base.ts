@@ -35,7 +35,6 @@ import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rul
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
-import { RollOptionToggle } from "@module/rules/synthetics.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -44,7 +43,6 @@ import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
-import * as R from "remeda";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -575,12 +573,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             await processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
         }
 
-        const updated = await super.updateDocuments(updates, context);
-        // As of Foundry version 11.300, updates of synthetic actors return `ActorDelta`s
-        // https://github.com/foundryvtt/foundryvtt/issues/9565
-        return game.release.build > 300
-            ? updated
-            : R.compact(updated.map((a) => (a instanceof ActorDelta ? a.syntheticActor : a)));
+        return super.updateDocuments(updates, context);
     }
 
     protected override _initialize(): void {
@@ -650,12 +643,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
-        // To prevent (or delay) console spam, will send out a deprecation notice in a later release
-        Object.defineProperty(this.system, "toggles", {
-            get: (): RollOptionToggle[] => this.synthetics.toggles,
-            enumerable: false,
-        });
-
         super.prepareData();
 
         // Call post-derived-preparation `RuleElement` hooks
