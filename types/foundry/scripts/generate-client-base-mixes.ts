@@ -440,6 +440,7 @@ const clientDocs: Record<string, { hasSheet?: boolean; isCanvasDoc?: boolean; pa
         ],
     },
     Actor: { parents: [{ name: "Token", hasParents: true }] },
+    ActorDelta: { parents: [{ name: "Token", hasParents: true }] },
     Adventure: {},
     Cards: {},
     ChatMessage: {},

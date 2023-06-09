@@ -236,9 +236,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.familiar ??= null;
-        super._initialize();
+        super._initialize(options);
     }
 
     /** If one exists, prepare this character's familiar */

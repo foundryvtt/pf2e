@@ -1,4 +1,4 @@
-export {};
+import type { ClientBaseActorDelta } from "./client-base-mixes.d.ts";
 
 declare global {
     /**
@@ -7,8 +7,7 @@ declare global {
      * @todo Fill in
      */
 
-    class ActorDelta<TParent extends TokenDocument<Scene | null> | null> extends foundry.documents
-        .BaseActorDelta<TParent> {
+    class ActorDelta<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActorDelta<TParent> {
         syntheticActor: Actor<TParent>;
     }
 }

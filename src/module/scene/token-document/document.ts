@@ -77,7 +77,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.parent;
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this.auras = new Map();
         this._source.flags.pf2e ??= {};
@@ -86,7 +86,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
             : false;
 
-        super._initialize();
+        super._initialize(options);
     }
 
     /** Is this token emitting light with a negative value */

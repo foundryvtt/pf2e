@@ -215,9 +215,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.toMessage(event, { create: true });
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.rules = [];
-        super._initialize();
+        super._initialize(options);
     }
 
     override prepareData(): void {

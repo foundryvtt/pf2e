@@ -576,7 +576,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.updateDocuments(updates, context);
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this._itemTypes = null;
         this.rules = [];
@@ -618,7 +618,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             },
         };
 
-        super._initialize();
+        super._initialize(options);
 
         if (game._documentsReady) {
             this.synthetics.preparationWarnings.flush();

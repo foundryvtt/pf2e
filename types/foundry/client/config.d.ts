@@ -5,6 +5,7 @@ declare global {
         TAmbientLightDocument extends AmbientLightDocument<TScene | null>,
         TActiveEffect extends ActiveEffect<TActor | TItem | null>,
         TActor extends Actor<TTokenDocument | null>,
+        TActorDelta extends ActorDelta<TTokenDocument | null>,
         TChatLog extends ChatLog,
         TChatMessage extends ChatMessage,
         TCombat extends Combat,
@@ -196,6 +197,11 @@ declare global {
                     context?: DocumentConstructionContext<TActiveEffect["parent"]>
                 ): TActiveEffect;
             };
+        };
+
+        /** Configuration for the ActorDelta embedded document type. */
+        ActorDelta: {
+            documentClass: ConstructorOf<TActorDelta>;
         };
 
         /** Configuration for the Combatant document */
