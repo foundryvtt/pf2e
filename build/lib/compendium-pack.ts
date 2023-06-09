@@ -228,16 +228,19 @@ class CompendiumPack {
 
         docSource.flags ??= {};
         if (isActorSource(docSource)) {
+            docSource.effects = [];
             docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id, { docType: "Actor" }) };
             this.#assertSizeValid(docSource);
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
+                item.effects = [];
                 item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
                 CompendiumPack.convertRuleUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
         }
 
         if (isItemSource(docSource)) {
+            docSource.effects = [];
             docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id, { docType: "Item" }) };
             docSource.system.slug = sluggify(docSource.name);
             docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
