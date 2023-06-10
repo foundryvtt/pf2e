@@ -1,0 +1,101 @@
+{
+    "_id": "q11aZe8Gc09QkP0y",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/mercurial-mantle.webp",
+    "name": "Purloining Cloak",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p><strong>Perception</strong> [[/r 1d20+30]]{+30}; precise vision 30 feet, imprecise hearing 30 feet</p>\n<p><strong>Communication</strong> speech (Common and two other languages, usually regional and ancestral)</p>\n<p><strong>Skills</strong> Society [[/r 1d20+31]]{+31}, Thievery [[/r 1d20+31]]{+31}, Underworld Lore [[/r 1d20+31]]{+31}</p>\n<p><strong>Int</strong> +5, <strong>Wis</strong> +5, <strong>Cha</strong> +5</p>\n<p><strong>Will</strong> [[/r 1d20+30]]{+30}</p>\n<hr />\n<p>Each purloining cloak is a mercurial mantle once worn by a legendary thief or two. The cloak became infused with a daredevil spirit and a penchant for high-stakes thievery. If its owner isn't willing to partake in such activities, the cloak tries to convince them to sell or give it to someone who will. A purloining cloak can use tendrils of its cloth to attempt Thievery checks to Palm an Object or @UUID[Compendium.pf2e.actionspf2e.Item.Steal], proudly offering you its loot later. In addition to those of a mercurial mantle, a purloining cloak has the following activations.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, envision</p>\n<p><strong>Effect</strong> The cloak casts 2nd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em> on you, usually to your specifications. However the cloak can choose the appearance of the illusion for you.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> command</p>\n<p><strong>Effect</strong> The cloak assesses the price of valuables it can see. This valuation doesn't include the value of features the cloak can't discern, such as magical properties.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> An enemy misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You slip around the attacking creature with ease. You Step, without moving away from the triggering enemy, and then make a melee Strike against the triggering enemy if it's within reach. If you do make a Strike, the target attempts a @Check[type:perception|dc:38|name:Detect Reaction|showDC:all] check before you roll.</p>\n<p><strong>Failure</strong> This creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the Strike.</p>\n<p><strong>Critical Failure</strong> This creature is flat-footed against all your attacks until the end of their next turn.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, envision (conjuration, teleportation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The cloak hums with power as your whirl it around yourself, disappearing amid a brief flash of light. Teleport up to double your Speed to a location you can see. At the end of the teleportation, you can make a melee Strike against a creature within reach, if there is one.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 24000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "acrobatics",
+                    "stealth"
+                ],
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Attack from Enemy Reaction due to Movement",
+                "predicate": [
+                    "reaction:movement"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Attack from Enemy Reaction due to Movement",
+                "option": "reaction:movement",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.dex.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.dex.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "apex",
+                "invested",
+                "magical",
+                "transmutation",
+                "intelligent"
+            ]
+        },
+        "usage": {
+            "value": "worncloak"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

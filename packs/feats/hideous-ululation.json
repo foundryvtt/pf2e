@@ -1,0 +1,53 @@
+{
+    "_id": "cQptGH6RUYZmS41Q",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hideous Ululation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your throat has multiple separate chambers that can give your voice an eerie echo. You can be clearly heard at distances of up to 300 feet regardless of ambient sound, although your voice doesn't penetrate a magical <em>@UUID[Compendium.pf2e.spells-srd.Item.Silence]</em> effect.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Oozemorph Dedication"
+                },
+                {
+                    "value": "trained in Performance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.oozemorphDedicationCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: The Slithering"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "archetype": "Archetype",
+                "skill": "Skill"
+            },
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -46,7 +46,20 @@ class PackExtractor {
     /** The last actor inspected in `pruneTree` */
     #lastActor: ActorSourcePF2e | null = null;
     readonly #newDocIdMap: Record<string, string> = {};
-    readonly #idsToNames = new Map<string, Map<string, string>>();
+
+    readonly #idsToNames: {
+        [K in Extract<CompendiumDocumentType, "Actor" | "Item" | "JournalEntry" | "Macro" | "RollTable">]: Map<
+            string,
+            Map<string, string>
+        >;
+    } & Record<string, Map<string, Map<string, string>> | undefined> = {
+        Actor: new Map(),
+        Item: new Map(),
+        JournalEntry: new Map(),
+        Macro: new Map(),
+        RollTable: new Map(),
+    };
+
     #folderPathMap = new Map<string, string>();
 
     #npcSystemKeys = new Set([
@@ -62,8 +75,8 @@ class PackExtractor {
         this.packDB = params.packDb;
         this.disablePresort = !!params.disablePresort;
 
-        this.tempDataPath = path.resolve(process.cwd(), "packs/temp-data");
-        this.dataPath = path.resolve(process.cwd(), "packs/data");
+        this.tempDataPath = path.resolve(process.cwd(), "packs-temp");
+        this.dataPath = path.resolve(process.cwd(), "packs");
         this.packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
     }
 
@@ -105,7 +118,7 @@ class PackExtractor {
 
                     const sourceCount = await this.extractPack(filePath, dbDirectory);
 
-                    // Move ./packs/temp-data/[packname]/ to ./packs/data/[packname]/
+                    // Move ./packs-temp/[packname]/ to ./packs/[packname]/
                     fs.rmSync(outDirPath, { recursive: true, force: true });
                     await fs.promises.rename(tempOutDirPath, outDirPath);
 
@@ -227,13 +240,13 @@ class PackExtractor {
         const sanitized = this.#sanitizeDocument(docSource);
         if (isActorSource(sanitized)) {
             sanitized.items = sanitized.items.map((itemData) => {
-                CompendiumPack.convertRuleUUIDs(itemData, { to: "names", map: this.#idsToNames });
+                CompendiumPack.convertRuleUUIDs(itemData, { to: "names", map: this.#idsToNames.Item });
                 return this.#sanitizeDocument(itemData, { isEmbedded: true });
             });
         }
 
         if (isItemSource(sanitized)) {
-            CompendiumPack.convertRuleUUIDs(sanitized, { to: "names", map: this.#idsToNames });
+            CompendiumPack.convertRuleUUIDs(sanitized, { to: "names", map: this.#idsToNames.Item });
         }
 
         const docJSON = JSON.stringify(sanitized).replace(/@Compendium\[/g, "@UUID[Compendium.");
@@ -243,7 +256,7 @@ class PackExtractor {
         const worldItemLinks = Array.from(docJSON.matchAll(LINK_PATTERNS.world));
         if (worldItemLinks.length > 0) {
             const linkString = worldItemLinks.map((match) => match[0]).join(", ");
-            console.warn(`${docSource.name} (${packName}) has links to world items: ${linkString}`);
+            throw PackError(`${docSource.name} (${packName}) has links to world items: ${linkString}`);
         }
 
         const compendiumLinks = Array.from(docJSON.matchAll(LINK_PATTERNS.uuid))
@@ -259,10 +272,9 @@ class PackExtractor {
                 throw PackError("Unexpected error parsing compendium link");
             }
 
-            const [packId, docId] = parts.slice(1, 3);
-            const packMap = this.#idsToNames.get(packId);
+            const [packId, docType, docId] = parts.slice(1, 4);
+            const packMap = this.#idsToNames[docType]?.get(packId);
             if (!packMap) {
-                console.log(this.#idsToNames.size);
                 throw PackError(`Pack ${packId} has no ID-to-name map.`);
             }
 
@@ -828,7 +840,7 @@ class PackExtractor {
             }
 
             const packMap: Map<string, string> = new Map();
-            this.#idsToNames.set(metadata.name, packMap);
+            this.#idsToNames[metadata.type]?.set(metadata.name, packMap);
 
             const filePaths = getFilesRecursively(path.resolve(this.dataPath, packDir));
             for (const filePath of filePaths) {

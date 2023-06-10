@@ -1,0 +1,112 @@
+{
+    "_id": "hqeR9faxHj0NDFFP",
+    "img": "systems/pf2e/icons/features/classes/flames-mystery.webp",
+    "name": "Effect: Curse of Engulfing Flames",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Flames]</p>\n<h3>Curse of Engulfing Flames</h3>\n<p>You see flames and smoke wherever you look. These flames might be imagined, or they might be a preternatural glimpse of the metaphorical fires that empower the entire multiverse-but you always see them. Fires flare noticeably (though not dangerously) in your presence, you occasionally smoke slightly, and your body is almost painfully hot to the touch.</p>\n<h4>Minor Curse</h4>\n<p>The smoke, heat, and crackling flames of your curse fill your vision and all your other senses.</p>\n<p>Creatures further than 30 feet are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from you. You can't benefit from effects that would allow you to ignore or mitigate this concealment, as normal for effects of an oracular curse.</p>\n<h4>Moderate Curse</h4>\n<p>Smoke and flickering visions of flame fill your senses more completely, and harmless flickers of obscuring flames also fill your space.</p>\n<p>You are concealed from other creatures, though as the other creatures aren't cursed themselves, they can benefit from effects that would allow them to ignore or mitigate the concealed condition, as normal. All other creatures and objects are concealed from you regardless of distance; however, when casting a fire spell, you automatically succeed at the flat check for this concealed condition for targets within 30 feet.</p>\n<p>All your senses become imprecise beyond 30 feet, meaning everything past 30 feet that you'd normally be able to see is @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from you.</p>\n<h4>Major Curse (11th)</h4>\n<p>The flames surrounding you are no longer simply visions.</p>\n<p>An aura of fire surrounds you in a @Template[type:emanation|distance:10], dealing [[/r 4d6[fire]]] damage (basic Reflex save) to all other creatures in the aura at the end of each of your turns. You lose [[/r 1d6]] Hit Points at the end of your turn each round, with no save; if you have a weakness to fire, increase the number of HP you lose by that weakness.</p>\n<p>You can suppress your aura until the start of your next turn by spending a single action, which has the concentrate trait, to diminish the flames, causing neither you nor anyone in the aura to take damage. While Refocusing to reduce your curse, you are continually diminishing the flames, so you don't lose HP. The flames subside if you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], but they resume when you wake up unless you rested for long enough to reset your curse. As usual for oracular curses, you can't mitigate or reduce the lost Hit Points in any way, though you can still heal the lost HP normally after the fact.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": [
+                            "class:oracle"
+                        ],
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
+                        "value": "extreme"
+                    }
+                ],
+                "flag": "effectFlamesCurse",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:oracular-curse:stage"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "radius": 10,
+                "slug": "flames-curse",
+                "traits": [
+                    "oracle"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

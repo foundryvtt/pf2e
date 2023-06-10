@@ -1,0 +1,81 @@
+{
+    "_id": "eTerYHAbXk9qwpgU",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "The Owl",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "gm": "<p><strong>Epitome</strong> When you epitomize <em>The Owl</em>, assign it to a point of interest in the forest. This region becomes the home of an unusually large owl. A PC who travels to this region can spend 8 hours observing the owl and pondering the many worlds it has gazed upon by attempting a @Check[type:nature|dc:30] check. With a success, the owl hoots in delight, and the woodlands in the region shift and change to match those of a woodland or jungle that the PC is familiar with. From this point on, the PCs can use the Enter the Harrow Court activity here to open a one-way portal to that forest or jungle, arriving at a location of import or particular familiarity within the region as determined by the GM. Switching to a new woodland requires another @Check[type:nature|dc:30] check and familiarity with that region. A PC who Enters the Harrow Court can now choose to arrive in the demiplane at this point of interest rather than in Harrowheart's great hall.</p>",
+            "value": "<p><strong>Suit</strong> Stars (Wis)</p>\n<p><strong>Alignment</strong> neutral</p>\n<hr />\n<p><em>The Owl</em> represents the wisdom of nature and the natural order. As long as you have <em>The Owl</em> invested, it grants a +2 item bonus to Perception checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive], Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Subsist] in the wild, and Nature checks made when you activate this card. This increases to a +3 bonus if you are at least 17th level.</p>\n<p><strong>Activate</strong> 1 hour (command, envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> After spending an hour meditating, you can ask one question of the region's spirits, as if you had just performed a <em>@UUID[Compendium.pf2e.spells-srd.Item.Commune with Nature]</em> ritual. Attempt a @Check[type:nature|dc:30|traits:activate-the-owl] check to determine the result.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-motive",
+                            "action:subsist",
+                            "activate-the-owl"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "survival",
+                    "nature"
+                ],
+                "type": "item",
+                "value": "ternary(gte(@actor.level,17),3,2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #191: The Destiny War"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "artifact",
+                "divination",
+                "harrow-court",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "carried"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

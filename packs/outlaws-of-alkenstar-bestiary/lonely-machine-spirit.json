@@ -1,0 +1,207 @@
+{
+    "_id": "Zf9C8InVZGnDH8c2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "VIpNSfRzRIsEdlBd",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Painful Whistle",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 10 feet of the engine (marked with a \"T\" on the map)</p>\n<hr />\n<p><strong>Effect</strong> A loud whistle blows and all creatures within 30 feet take [[/r 2d6[sonic]]] damage and become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@Check[type:fortitude|dc:20|basic:true|traits:hazard,haunt,complex]; creatures aren't stunned on a success). The lonely machine spirit then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nBf96nFndLuqWgkv",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Belch Smoke",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The airship's engine issues forth a cloud of alchemical smoke in a @Template[type:cone|distance:30]. Creatures within the cone must attempt a @Check[type:fortitude|dc:20|traits:hazard,haunt,complex] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6[poison]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6[poison]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 3d6[poison]]] damage and is sickened 2.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6CAllmbefHT4YjVF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Red hot gear",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "e2gkbmplmcwll3qy8fpo": {
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    },
+                    "eexl25wchdh0kyi8ch97": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "range-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Lonely Machine Spirit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "hardness": 11,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 5
+                },
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Ghostly smoke rising from an alchemical engine belches forth; the screeching sound of grinding gears echoes from the engine as it shutters to life.</p>",
+            "disable": "<p>@Check[type:religion|dc:22|name:Eject the animating spirit|traits:hazard,haunt,complex] (trained) or @Check[type:engineering|dc:20|name:Eject the animating spirit|traits:hazard,haunt,complex] Lore (trained) to eject the animating spirit from its mechanical shell. Creatures gain a +2 circumstance bonus on their check if they use the airship's name, Harpy's Kiss, as part of their skill check, or a +4 circumstance bonus if they utter the name \"Phera Wyndslow.\" The haunt remains active until its spirit is ejected, the haunt is destroyed, or there are no living creatures within 30 feet.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The haunt deactivates and resets after 1 hour.</p>",
+            "routine": "<p>(2 actions) The lonely machine spirit Belches Smoke or makes two red hot gear Strikes against two creatures within 30 feet.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #178: Punks in a Powder Keg"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "GGebXpRPyONZB3eS",
+    "img": "systems/pf2e/icons/equipment/shields/specific-shields/spellguard-shield.webp",
+    "name": "Stance: Everstand Stance",
+    "system": {
+        "description": {
+            "value": "<p>When in this stance, you wield the shield with both hands. When wielding a shield this way, increase the weapon damage die of the shield's boss or spikes by one step, and increase the shield's Hardness by 2 when using the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.shield.hardness",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "self:shield:equipped"
+                ],
+                "value": 2
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "shield-boss-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "shield-spikes-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

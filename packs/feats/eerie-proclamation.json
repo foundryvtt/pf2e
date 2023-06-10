@@ -1,0 +1,53 @@
+{
+    "_id": "Ob4w36tsd1WKSxZo",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Eerie Proclamation",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> You must be in either natural terrain or in abandoned or relatively unused artificial terrain (such as a darkened alley or haunted house).</p>\n<hr />\n<p>You know there are places in the world that are just wrong-places where the birds don't sing and where you always feel like you're being watched. You can spot these places, and you can awaken them. To do so, you must gesture toward a @Template[type:line|distance:10|width:10]{10-foot by 10-foot square} you can see and make an ominous proclamation of some manner (i.e. \"This is cursed ground,\" \"That is an ill-omened place.\"). The next creature that enters the marked territory must attempt a Will save against your spell DC (@Check[type:will|dc:resolve(@actor.system.attributes.spellDC.value)] if you're a druid) or class DC (@Check[type:will|dc:resolve(@actor.system.proficiencies.classDCs.ranger.value)] if you're a ranger).</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> Something goes horribly awry for the victim in the cursed ground. The details are up to the GM-it can be a purely \"natural\" accident (they step into an old bear trap, perhaps) or something stranger and more spectral. The target gains a condition for 2 rounds. Roll 1d4 on the table and use the failure column to determine which condition.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect is astonishingly gruesome. Use the critical failure column, and the condition lasts for 1 minute.</p>\n<table><colgroup> <col style=\"width: 28px;\"> <col style=\"width: auto;\"> <col style=\"width: auto;\"> </colgroup>\n<thead>\n<tr>\n<th>d4</th>\n<th>Failure</th>\n<th>Critical Failure</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3}</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}</td>\n</tr>\n<tr>\n<td>4</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Dazzled]</td>\n<td>@UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round, then @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]</td>\n</tr>\n</tbody>\n</table>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Occultism"
+                },
+                {
+                    "value": "expert in Survival"
+                }
+            ]
+        },
+        "rules": [],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "auditory",
+                "concentrate",
+                "curse",
+                "druid",
+                "linguistic",
+                "manipulate",
+                "necromancy",
+                "primal",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

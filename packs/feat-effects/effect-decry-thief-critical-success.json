@@ -1,0 +1,49 @@
+{
+    "_id": "kAgUld9PcI4XkHbq",
+    "img": "systems/pf2e/icons/features/feats/decry-thief.webp",
+    "name": "Effect: Decry Thief (Critical Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Decry Thief]</p>\n<p>For 1 round, the target takes a -10 foot status penalty to Speed and a -4 status penalty to Stealth.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "status",
+                "value": -4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": -10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #149: Against the Scarlet Triad"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,63 @@
+{
+    "_id": "7GrACprIxZuarGDs",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Grave Strength",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The flesh you've consumed over the course of your existence as a ghoul has made you stronger, gifting you with strange insights from the minds of the sapient creatures you've devoured and bringing you closer to a state of undead perfection. You gain the @UUID[Compendium.pf2e.ancestryfeatures.Item.Advanced Undead Benefits]. In addition, you gain a +5-foot status bonus to your Speed while you're satiated.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghoul Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ghoul-satiated"
+                ],
+                "selector": "land-speed",
+                "slug": "speed-satiated",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ghoul-fully-satiated"
+                ],
+                "selector": "land-speed",
+                "slug": "speed-fully-satiated",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Advanced Undead Benefits"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "KpRRcLsAiIhJFE03",
+    "img": "systems/pf2e/icons/spells/possession.webp",
+    "name": "Effect: Furious Possession",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains 12 temporary Hit Points that are lost when the possession ends. During the possession, the creature has the pulse of rage aura. Each time the possessed creature makes a melee Strike, the spirit can substitute their ephemeral claw attack modifier, damage amount, or both in place of the creature's own statistics.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pulse of Rage]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 11
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 12
+            },
+            {
+                "key": "Aura",
+                "radius": 20,
+                "slug": "pulse-of-rage",
+                "traits": [
+                    "aura",
+                    "emotion",
+                    "enchantment",
+                    "mental",
+                    "occult"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

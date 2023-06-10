@@ -1,0 +1,45 @@
+{
+    "_id": "HdhnAm9SNfDqxRSN",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "First Revelation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain your mystery's initial revelation spell. Casting this spell progresses your @UUID[Compendium.pf2e.classfeatures.Item.Oracular Curse]. Use the minor curse from your mystery, but when you progress it again, instead of your mystery's moderate curse effect, you become @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] in addition to the effects of the minor curse.</p>\n<p>If you don't have one, you gain a focus pool of 1 Focus Point. You can @UUID[Compendium.pf2e.actionspf2e.Item.Refocus] by reconciling the conflicting nature of your mystery, which also reduces your curse to minor.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Oracle Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

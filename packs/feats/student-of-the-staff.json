@@ -1,0 +1,92 @@
+{
+    "_id": "3R9l2t1ycN8iwmdU",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Student of the Staff",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've studied the staff extensively to learn the hidden capabilities of your chosen weapon. When you critically succeed at an attack roll using a staff, you apply the critical specialization effect of the club group. While you're in Arcane Cascade stance, your staff gains the deadly d6 trait, with the damage from the deadly die being the same damage type as the extra damage from Arcane Cascade.</p>\n<p>In addition, you can place property runes into a magic staff you prepare, even though a magic staff can't typically hold property runes. You must first inscribe the property runes into your spellbook, using the same process as transferring a rune. The rune takes the form of a specialized diagram in your spellbook, occupying one page. You can't inscribe runes that can't be placed on a non-magical staff, nor can you inscribe the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Shifting]</em> rune. When you prepare a staff, you can impart any number of property runes from your spellbook into the staff, up to the limit imposed by the staff's <em>weapon potency</em> rune.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Arcane Cascade"
+                },
+                {
+                    "value": "twisting tree hybrid study"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:base:staff"
+                ]
+            },
+            {
+                "critical": true,
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:base:staff",
+                    "self:effect:arcane-cascade",
+                    {
+                        "nor": [
+                            "item:damage-dice:3",
+                            "item:damage-dice:4"
+                        ]
+                    }
+                ],
+                "selector": "damage"
+            },
+            {
+                "critical": true,
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:base:staff",
+                    "self:effect:arcane-cascade",
+                    "item:damage-dice:3"
+                ],
+                "selector": "damage"
+            },
+            {
+                "critical": true,
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 3,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:base:staff",
+                    "self:effect:arcane-cascade",
+                    "item:damage-dice:4"
+                ],
+                "selector": "damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,49 @@
+{
+    "_id": "ifiaewasPbc091BQ",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Ankle Biter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You fight just as well on the ground as you do standing up. While you are @UUID[Compendium.pf2e.conditionitems.Item.Prone], you are always @UUID[Compendium.pf2e.actionspf2e.Item.Take Cover]{Taking Cover} against ranged attacks, you ignore the status penalty on your attack rolls from being prone, and you gain a +1 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Trip].</p>\n<p>You can choose to move up to half your Speed when you @UUID[Compendium.pf2e.actionspf2e.Item.Crawl]. You can instead move up to your full Speed when you Crawl, but if you do, you must succeed at a @Check[type:flat|dc:6] or your body deteriorates.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Zombie Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:prone",
+                    "action:trip"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

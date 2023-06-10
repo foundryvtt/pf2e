@@ -1,0 +1,51 @@
+{
+    "_id": "9v3wpgvEEiZHO0SJ",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Perfect Ki Grandmaster",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain an appropriate ki spell for your School of Perfection: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unblinking Flame Ignition]</em> for Unblinking Flame, <em>@UUID[Compendium.pf2e.spells-srd.Item.Unbreaking Wave Containment]</em> for Unbreaking Waves, <em>@UUID[Compendium.pf2e.spells-srd.Item.Unfolding Wind Crash]</em> for Unfolding Wind, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Untwisting Iron Pillar]</em> for Untwisting Iron. Increase the number of Focus Points in your focus pool by 1. You become a master in occult spell DCs and occult spell attack rolls.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Perfect Ki Expert or Perfect Ki Exemplar"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.occult.rank",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

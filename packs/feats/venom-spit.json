@@ -1,0 +1,73 @@
+{
+    "_id": "6kC0OuuWHyaqR3UQ",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Venom Spit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned the art of lobbing toxic spittle at vulnerable spots on your foes, especially the eyes. You gain a venomous spit ranged unarmed attack with a range increment of 10 feet that deals 1d4 poison damage. On a critical hit, the target takes persistent poison damage equal to the number of weapon damage dice. Your spit doesn't have a weapon group, nor a critical specialization effect.</p>\n<p><strong>Special</strong> If you have the hooded nagaji heritage, in addition to your venomous spit's normal critical hit effect, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "poison",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "systems/pf2e/icons/spells/diamond-dust.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Nagaji.VenomSpit.StrikeLabel",
+                "range": 10,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.SpecificRule.Nagaji.VenomSpit.CriticalNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "self:heritage:hooded-nagaji"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.SpecificRule.Nagaji.VenomSpit.HoodedNote",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nagaji"
+            ]
+        }
+    },
+    "type": "feat"
+}

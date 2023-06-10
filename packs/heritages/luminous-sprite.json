@@ -1,0 +1,50 @@
+{
+    "_id": "LU4i3qXtyzeTGWZQ",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Luminous Sprite",
+    "system": {
+        "ancestry": {
+            "name": "Sprite",
+            "slug": "sprite",
+            "uuid": "Compendium.pf2e.ancestries.Item.TRqoeYfGAFjQbviF"
+        },
+        "description": {
+            "value": "<p>You glow with magical luminance. You naturally shed light as a @UUID[Compendium.pf2e.equipment-srd.Item.Torch]; this light has the evocation, light, and primal traits. You can extinguish, rekindle, or change the color of this light using a single action, which has the concentrate trait.</p>"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sprite.LuminousSprite.Light",
+                "option": "luminous",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "luminous"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "luminosity": 0.4,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

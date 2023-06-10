@@ -1,0 +1,47 @@
+{
+    "_id": "g4FRxyuHndZu4KTo",
+    "img": "systems/pf2e/icons/features/ancestry/jinxed-tengu.webp",
+    "name": "Jinxed Tengu",
+    "system": {
+        "ancestry": {
+            "name": "Tengu",
+            "slug": "tengu",
+            "uuid": "Compendium.pf2e.ancestries.Item.18xDKYPDBLEv2myX"
+        },
+        "description": {
+            "value": "<p>Your lineage has been exposed to curse after curse, and now, they slide off your feathers like rain. If you succeed at a saving throw against a curse or misfortune effect, you get a critical success instead.</p>\n<p>When you would gain the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition, attempt a @Check[type:flat|dc:17] check. On a success, reduce the value of the doomed condition you would gain by 1.</p>"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "misfortune"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "selector": "saving-throw",
+                "text": "If you succeed at a saving throw against a curse or misfortune effect, you get a critical success instead.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

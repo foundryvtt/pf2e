@@ -1,0 +1,46 @@
+{
+    "_id": "Rz35d02dUtAjKtMB",
+    "img": "systems/pf2e/icons/spells/read-the-air.webp",
+    "name": "Effect: Heightened awareness",
+    "system": {
+        "description": {
+            "value": "<p>Heightened awareness, granting a +1 item bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] for 8 hours</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "yblD8fOR1J8rDwEQ",
+    "img": "systems/pf2e/icons/conditions/confused.webp",
+    "name": "Confused",
+    "system": {
+        "description": {
+            "value": "<p>You don't have your wits about you, and you attack wildly. You are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed], you don't treat anyone as your ally (though they might still treat you as theirs), and you can't Delay, Ready, or use reactions.</p>\n<p>You use all your actions to Strike or cast offensive cantrips, though the GM can have you use other actions to facilitate attack, such as draw a weapon, move so that a target is in reach, and so forth. Your targets are determined randomly by the GM. If you have no other viable targets, you target yourself, automatically hitting but not scoring a critical hit. If it's impossible for you to attack or cast spells, you babble incoherently, wasting your actions.</p>\n<p>Each time you take damage from an attack or spell, you can attempt a @Check[type:flat|dc:11] to recover from your confusion and end the condition.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": null,
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.canFlank",
+                "value": false
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": false,
+            "value": null
+        }
+    },
+    "type": "condition"
+}

@@ -1,0 +1,117 @@
+{
+    "_id": "Jemq5UknGdMO7b73",
+    "img": "systems/pf2e/icons/spells/shield.webp",
+    "name": "Spell Effect: Shield",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</em></p>\n<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use. While the spell is in effect, you can use the Shield Block reaction with your magic shield. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "ac": 1,
+                    "broken": false,
+                    "brokenThreshold": 0,
+                    "destroyed": false,
+                    "hp": {
+                        "max": 0,
+                        "value": 0
+                    },
+                    "icon": "systems/pf2e/icons/spells/shield.webp",
+                    "itemId": "{item|_id}",
+                    "name": "PF2E.ShieldLabel",
+                    "raised": true
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 5
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 10
+                        },
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": 15
+                        },
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 20
+                        },
+                        {
+                            "start": 9,
+                            "value": 25
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:shield:equipped",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

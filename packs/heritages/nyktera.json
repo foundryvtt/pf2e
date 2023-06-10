@@ -1,0 +1,38 @@
+{
+    "_id": "h2VKMYAlUIFAAXVG",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Nyktera",
+    "system": {
+        "ancestry": {
+            "name": "Sprite",
+            "slug": "sprite",
+            "uuid": "Compendium.pf2e.ancestries.Item.TRqoeYfGAFjQbviF"
+        },
+        "description": {
+            "value": "<p>You have batlike features, an affinity for batkind, and hearing that is second to none. As long as you can hear normally, you can use the Seek action to sense @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures in a @Template[type:cone|distance:60] instead of a @Template[type:cone|distance:30]. You also gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a Seek action.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "To seek undetected you can hear within 30 feet (Nyktera)",
+                "predicate": [
+                    "action:seek",
+                    "target:audible",
+                    "target:condition:undetected",
+                    "target:within-30"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

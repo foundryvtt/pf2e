@@ -1,0 +1,66 @@
+{
+    "_id": "l9HRQggofFGIxEse",
+    "img": "systems/pf2e/icons/spells/heroism.webp",
+    "name": "Spell Effect: Heroism",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Heroism]</em></p>\n<p>Tapping into your inner heroism, you get a +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "saving-throw",
+                    "skill-check",
+                    "perception"
+                ],
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 3,
+                            "value": 1
+                        },
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": 2
+                        },
+                        {
+                            "start": 9,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

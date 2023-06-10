@@ -1,0 +1,126 @@
+{
+    "_id": "4UNQfMrwfWirdwoV",
+    "img": "systems/pf2e/icons/features/classes/flurry.webp",
+    "name": "Effect: Masterful Hunter's Edge, Flurry",
+    "system": {
+        "description": {
+            "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Masterful Hunter (Flurry)] with you.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                "option": "hunted-prey",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Track hunted prey (Masterful Hunter)",
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.skills.sur.rank"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Seek hunted prey (Masterful Hunter)",
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.attributes.perception.rank"
+                }
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    },
+                    {
+                        "not": "agile"
+                    }
+                ],
+                "selector": "attack",
+                "value": -2
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "agile",
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "attack",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 3648
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

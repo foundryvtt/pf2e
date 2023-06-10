@@ -1,0 +1,220 @@
+{
+    "_id": "9ochTIvh3CTSOknf",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "oj4X2MYRgm5gUKYT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Entangling Ropes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two creatures enter the hallway or end their turn in the hallway</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a barbed rope Strike against the triggering creatures. This trap doesn't take a multiple attack penalty.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TfW9LKBoEvQYFHOu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Barbed Rope",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grasping-ropes",
+                        "no-map"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "2cnUXQ81d8VXme8t": {
+                        "damage": "4d8+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "P4xO2tdYE2joExgv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Grasping Ropes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The ropes whip around the limbs of the target. The target must attempt a @Check[type:reflex|dc:25] save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until it cuts the ropes or @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 25).</p>\n<p><strong>Critical Failure</strong> As failure, but the target is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FIXLSmd8Mru8STsR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>This trap doesn't take a multiple attack penalty.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Entangling Shredder Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 13,
+            "hp": {
+                "details": "to cut the barbed ropes and disable the trap",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to notice the pressure plates under the rugs</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Dozens of ropes embedded with steel barbs spring out from the walls when at least two creatures step on the rugs.</p>",
+            "disable": "<p>@Check[type:thievery|dc:24|traits:action:disable-a-device] (expert) on the pressure plates.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>manual</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Enmity Cycle"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

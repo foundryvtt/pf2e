@@ -1,0 +1,48 @@
+{
+    "_id": "YhpR5bOquHx2JuIj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Litany Against Wrath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You excoriate a foe for its wrath against goodly creatures.</p>\n<p>You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Litany against Wrath]</em> devotion spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "devotion spells"
+                },
+                {
+                    "value": "tenets of good"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

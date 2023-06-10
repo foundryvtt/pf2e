@@ -1,0 +1,64 @@
+{
+    "_id": "PpzH9tJULk5ksX9w",
+    "img": "systems/pf2e/icons/features/classes/psychopomp.webp",
+    "name": "Bloodline: Psychopomp",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>For good or ill, your ancestors' deeds drew the attention of psychopomps, or you might somehow count one in your family tree. The presence of these shepherds of souls and enemies of undeath has left an indelible mark on you.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disrupt Undead]</em>; 1st:<em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>; 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm Emotions]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Searing Light]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dimensional Anchor]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Finger of Death]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Song]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Massacre]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Sepulchral Mask]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Veil]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shepherd of Souls]</em></p>\n<p><strong>Blood Magic</strong> The border between life and death becomes blurred to you. Either you gain a +2 status bonus to Fortitude saving throws for 1 round, or a target takes 1 damage per spell level. The damage is negative if the target is living or positive if the target is undead. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Psychopomp Blood Magic (Self)]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.rel.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "divine"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

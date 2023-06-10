@@ -1,0 +1,47 @@
+{
+    "_id": "TtAvM02UvfNaXeXd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Blasting Beams",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You have a free hand.</p>\n<hr />\n<p>A directed beam of heat or an arc of lightning is one of the simplest ways to project energy. You fire a blast or beam from one hand. Make an attack roll against a creature within 30 feet. If you succeed, the beam deals [[/r (floor(@actor.level/2)d6)]]{1d6 damage for every 2 levels} you have to the target, or double damage on a critical success.</p>\n<hr />\n<p><strong>Awakening</strong> Your beams blast through targets. Instead of making an attack roll to damage a single creature within 30 feet, you can use Blasting Beams as a 2-action activity to damage all creatures in a @Template[type:line|distance:60], with a @Check[type:reflex|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true] save.</p>\n<hr />\n<p><strong>Awakening</strong> You can choose to launch smaller, quicker beams from your eyes instead. These deal [[/r (floor(@actor.level/2)d4)]]{d4s} instead of d6s, but the attack has the agile trait, and you don't need a hand free to make it, though your eyes must be uncovered.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:dragon-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Dragon Deviant Classification"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "attack",
+                "deviant",
+                "evocation",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

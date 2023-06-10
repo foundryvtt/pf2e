@@ -5,6 +5,7 @@ declare global {
         TAmbientLightDocument extends AmbientLightDocument<TScene | null>,
         TActiveEffect extends ActiveEffect<TActor | TItem | null>,
         TActor extends Actor<TTokenDocument | null>,
+        TActorDelta extends ActorDelta<TTokenDocument | null>,
         TChatLog extends ChatLog,
         TChatMessage extends ChatMessage,
         TCombat extends Combat,
@@ -198,6 +199,11 @@ declare global {
             };
         };
 
+        /** Configuration for the ActorDelta embedded document type. */
+        ActorDelta: {
+            documentClass: ConstructorOf<TActorDelta>;
+        };
+
         /** Configuration for the Combatant document */
         Combatant: {
             documentClass: new (
@@ -340,7 +346,12 @@ declare global {
                 bright: number;
             };
 
-            losBackend: typeof ClockwiseSweepPolygon;
+            polygonBackends: {
+                sight: typeof ClockwiseSweepPolygon;
+                light: typeof ClockwiseSweepPolygon;
+                sound: typeof ClockwiseSweepPolygon;
+                move: typeof ClockwiseSweepPolygon;
+            };
 
             normalLightColor: number;
             maxZoom: number;

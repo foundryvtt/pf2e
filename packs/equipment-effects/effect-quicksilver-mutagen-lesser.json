@@ -1,0 +1,61 @@
+{
+    "_id": "6PNLBIdlqqWNCFMy",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/quicksilver-mutagen.webp",
+    "name": "Effect: Quicksilver Mutagen (Lesser)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Quicksilver Mutagen (Lesser)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Acrobatics, Stealth and Thievery checks</li>\n<li>+1 item bonus to Reflex saves</li>\n<li>+1 item bonus to Dexterity-based attack rolls</li>\n<li>+5 foot status bonus to Speed</li>\n<li>-2 penalty to Fortitude saves</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>You take damage equal to twice your level; you can't recover Hit Points lost this way by any means while the mutagen lasts</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "acrobatics",
+                    "dex-attack",
+                    "reflex",
+                    "stealth",
+                    "thievery"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "fortitude",
+                "type": "untyped",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

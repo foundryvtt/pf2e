@@ -1,0 +1,42 @@
+{
+    "_id": "S1062No0sYH35AhN",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Tactile Azarketi",
+    "system": {
+        "ancestry": {
+            "name": "Azarketi",
+            "slug": "azarketi",
+            "uuid": "Compendium.pf2e.ancestries.Item.yFoojz6q3ZjvceFw"
+        },
+        "description": {
+            "value": "<p>Your skin can detect the slightest changes in ocean currents. You gain imprecise wavesense with a range of 30 feet, allowing you to sense motion in the water around you. You also gain a +1 circumstance bonus to Survival checks to Sense Direction in aquatic environments.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Tactile Azarketi (Sense Direction in aquatic environments)",
+                "predicate": [
+                    "action:sense-direction",
+                    "terrain:aquatic"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "wavesense"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

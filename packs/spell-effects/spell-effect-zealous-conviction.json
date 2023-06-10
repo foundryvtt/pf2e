@@ -1,0 +1,76 @@
+{
+    "_id": "nemThuhp3praALY6",
+    "img": "systems/pf2e/icons/spells/zealous-conviction.webp",
+    "name": "Spell Effect: Zealous Conviction",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Zealous Conviction]</em></p>\n<p>You bypass your targets' rational minds, instilling them with unshakable conviction and zeal. The targets each gain 12 temporary Hit Points and a +2 status bonus to Will saves against mental effects, as their faith overrides the signals from their own bodies and minds. If you tell a target to do something, it must comply with your request, though if it would normally find the task repugnant, it can attempt a Will save at the end of its turn each round due to the cognitive dissonance. On a success, it ends the spell's effects on itself entirely.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": 2
+                        },
+                        {
+                            "start": 9,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "TempHP",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": 12
+                        },
+                        {
+                            "start": 9,
+                            "value": 18
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

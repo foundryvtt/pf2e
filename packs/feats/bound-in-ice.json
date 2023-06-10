@@ -1,0 +1,57 @@
+{
+    "_id": "MGtlUc6cy4nCM4Lk",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Bound in Ice",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become a hybrid of your ancestry and a saumen kar. Your size increases to Large, and your reach becomes 10 feet. Your cold resistance increases to be equal to your level, and you gain fire resistance equal to half your level.</p>\n<p>You also gain the @UUID[Compendium.pf2e.actionspf2e.Item.Blizzard Evasion] reaction.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Frostbite Runes"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "@actor.level"
+            },
+            {
+                "key": "CreatureSize",
+                "value": "large"
+            },
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Blizzard Evasion"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Monsters of Myth"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

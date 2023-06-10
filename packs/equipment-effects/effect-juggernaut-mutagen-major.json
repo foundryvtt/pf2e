@@ -1,0 +1,66 @@
+{
+    "_id": "2PNo8u4wxSbz5WEs",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/juggernaut-mutagen.webp",
+    "name": "Effect: Juggernaut Mutagen (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Juggernaut Mutagen (Major)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+4 item bonus to Fortitude saves</li>\n<li>Gain 45 temporary Hit Points</li>\n<li>-2 penalty to Will saves</li>\n<li>-2 penalty to Perception checks</li>\n<li>-2 penalty to initiative rolls</li>\n<li>Treat Fortitude success as critical success</li>\n<li>Treat Fortitude critical failure as failure</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>Whenever you are at maximum Hit Points for at least 1 full minute, you regain the temporary Hit Points.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "fortitude",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "initiative",
+                    "perception",
+                    "will"
+                ],
+                "type": "untyped",
+                "value": -2
+            },
+            {
+                "key": "TempHP",
+                "value": 45
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "fortitude",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

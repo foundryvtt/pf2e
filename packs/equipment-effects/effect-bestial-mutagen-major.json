@@ -1,0 +1,216 @@
+{
+    "_id": "1ouUo8lLK6H79Rqh",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bestial-mutagen.webp",
+    "name": "Effect: Bestial Mutagen (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bestial Mutagen (Major)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+4 item bonus to Athletics checks</li>\n<li>+4 item bonus to unarmed attack rolls</li>\n<li>Gain a claw unarmed attack</li>\n<li>Gain a jaws unarmed attack</li>\n<li>-1 penalty to AC</li>\n<li>-2 to penalty Reflex saves</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>Gain weapon specialization, or greater weapon specialization, with these unarmed attacks</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "untyped",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "type": "untyped",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "unarmed-attack-roll",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "baseType": "jaws",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "options": [
+                    "bestial-mutagen-strike"
+                ],
+                "predicate": [
+                    {
+                        "not": "self:bestial-mutagen:feral"
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "options": [
+                    "bestial-mutagen-strike"
+                ],
+                "predicate": [
+                    {
+                        "not": "self:bestial-mutagen:feral"
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "feat:feral-mutagen"
+                ],
+                "selector": "intimidation",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "feat:feral-mutagen"
+                ],
+                "property": "weapon-traits",
+                "selector": "bestial-mutagen-strike",
+                "value": "deadly-d10"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "feral"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "normal"
+                    }
+                ],
+                "flag": "effectBestialMutagenMajor",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:feral-mutagen"
+                ],
+                "prompt": "PF2E.Mutagens.BestialMutagen.FeralPrompt",
+                "rollOption": "self:bestial-mutagen"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:bestial-mutagen:feral"
+                ],
+                "selector": "ac",
+                "slug": "feral-mutagen-major",
+                "type": "untyped",
+                "value": -1
+            },
+            {
+                "baseType": "jaws",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d12"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "options": [
+                    "bestial-mutagen-strike"
+                ],
+                "predicate": [
+                    "self:bestial-mutagen:feral"
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "options": [
+                    "bestial-mutagen-strike"
+                ],
+                "predicate": [
+                    "self:bestial-mutagen:feral"
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

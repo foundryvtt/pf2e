@@ -1,0 +1,77 @@
+{
+    "_id": "kyrvZfZfzKK1vx9b",
+    "img": "systems/pf2e/icons/spells/anticipate-peril.webp",
+    "name": "Stance: Devrin's Cunning Stance",
+    "system": {
+        "description": {
+            "value": "<p>Your aura grants you and your allies a +1 status bonus to skill checks. When you or an ally in the aura Strike a @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] enemy, that enemy can't use reactions until the beginning of its next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 20
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 10
+                    }
+                ],
+                "flag": "auraRadius",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Marshal's Aura"
+                    },
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Devrin's Cunning Stance"
+                    }
+                ],
+                "key": "Aura",
+                "radius": "@item.flags.pf2e.rulesSelections.auraRadius",
+                "slug": "marshals-aura",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Firebrands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

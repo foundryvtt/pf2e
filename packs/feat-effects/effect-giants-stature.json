@@ -1,0 +1,122 @@
+{
+    "_id": "6VrKQ0PhRXuteusQ",
+    "img": "systems/pf2e/icons/features/feats/giants-stature.webp",
+    "name": "Effect: Giant's Stature",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Giant's Stature]</p>\n<p>You become Large, increasing your reach by 5 feet and gaining the @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} condition until you stop raging</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeLarge",
+                        "value": "large"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeHuge",
+                        "predicate": [
+                            "feat:titans-stature"
+                        ],
+                        "value": "huge"
+                    }
+                ],
+                "flag": "size",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize",
+                "rollOption": "giants-stature"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.value",
+                "predicate": [
+                    "giants-stature:large"
+                ],
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.manipulate",
+                "predicate": [
+                    "giants-stature:large"
+                ],
+                "value": 5
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "giants-stature:large"
+                ],
+                "reach": {
+                    "upgrade": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "giants-stature:huge"
+                ],
+                "reach": {
+                    "upgrade": 15
+                },
+                "resizeEquipment": true,
+                "value": "huge"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.value",
+                "predicate": [
+                    "giants-stature:huge"
+                ],
+                "value": 10
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.manipulate",
+                "predicate": [
+                    "giants-stature:huge"
+                ],
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

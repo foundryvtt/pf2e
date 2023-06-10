@@ -1,0 +1,75 @@
+{
+    "_id": "deG1dtfuQph03Kkg",
+    "img": "systems/pf2e/icons/spells/shillelagh.webp",
+    "name": "Spell Effect: Shillelagh",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Shillelagh]</em></p>\n<p>The target grows vines and leaves, brimming with primal energy. The target becomes a +1 striking weapon while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "spellEffectShillelagh",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-attack",
+                "value": 1
+            },
+            {
+                "key": "Striking",
+                "label": "Shillelagh",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Get third damage die from Shillelagh",
+                "option": "shillelagh-third-die",
+                "toggleable": true
+            },
+            {
+                "key": "Striking",
+                "label": "Shillelagh bonus damage",
+                "predicate": [
+                    "shillelagh-third-die"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 103462347
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

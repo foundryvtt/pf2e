@@ -1,0 +1,181 @@
+{
+    "_id": "6c4I4D3DgJmsSZEI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "8NOQhAqCceJNXlQ8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Forceful Screech",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 30 feet of the aiudara</p>\n<hr />\n<p><strong>Effect</strong> Three aiudara wraiths screech in unison and manifest to protect the arch. Each creature within 30 feet must attempt a @Check[type:will|dc:27] save. The haunt rolls initiative.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d8+9)[force]]].</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (4d8+9)[force]]] and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XUm7mYKtv23n6vy5",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Forceful Hand",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "no-map"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "i2DuuCUvbT3UpUnQ": {
+                        "damage": "2d8+9",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "goUGeKSDNF4oljJz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>No multiple attack penalty on forceful hand strikes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Haunted Aiudara",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The spiritual imprints of long-dead explorers haunt this <em>aiudara</em>, manifesting as a trio of astral wraiths who guard the gateway jealously.</p>",
+            "disable": "<p>@Check[type:religion|dc:25] (trained) to exorcise one of the wraiths or @Check[type:occultism|dc:25] (expert) to erase one of the wraith's astral sigils; three successful checks are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The aiudara wraiths disperse after 1 minute, but the haunt resets after 24 hours.</p>",
+            "routine": "<p>(3 actions; conjuration, divine, teleportation) With spectral claws, the aiudara wraiths hurl trespassers through time and space. Each of the three wraiths has 1 action which it can use to make a forceful hand Strike against a creature within 60 feet. The haunt loses 1 action for each successful check to disable the haunt.</p>\n<p>When the haunt rolls a critical hit to Strike a creature, the creature is instantly shunted to an empty space within 30 feet. The haunt chooses which space the creature is transported to.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #187: The Seventh Arch"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

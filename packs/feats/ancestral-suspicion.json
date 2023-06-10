@@ -1,0 +1,64 @@
+{
+    "_id": "scNrNhnGTgPIzoj7",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ancestral Suspicion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Long-lived elves have seen civilizations rise and fall, often at the hands of outside forces. As a result, they have developed a wariness of others who might seek to influence or control them.</p>\n<p>You've been trained to resist such manipulation, gaining a +2 circumstance bonus to saving throws against effects that would make you controlled, such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Dominate]</em>, and to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] when trying to determine if a creature is under the influence of such an effect.</p>\n<p>When you roll a success on a saving throw against such an effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Against Control Effects",
+                "predicate": [
+                    "control-effects"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Determine if Under a Control Effect",
+                "predicate": [
+                    "control-effects"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "saving-throw",
+                "text": "When you roll a success on a saving throw against an effect that would make you controlled, you get a critical success instead.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

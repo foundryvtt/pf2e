@@ -1,0 +1,48 @@
+{
+    "_id": "CZQgH17ZxoBiVXLa",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ka Stone Ritual",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You inscribe your true name on your <em>ka stone</em>, as well as oaths to gods and pharaohs, and embed it in your forehead in a special ritual with a sphinx or with a living monolith who already has this feat. The <em>ka stone</em> is an invested magic item that you automatically invest each day. It can't be removed without your permission, nor can it be dispelled, and you can never lose investiture in the ka stone. Its Bulk is negligible.</p>\n<p>The ka stone grants you a +1 item bonus to saves against death effects and negative effects, which increases to +2 at 8th level, +3 at 14th level, and +4 at 20th level.</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Ka Stone]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> (envision), or a different activation if otherwise specified</p>\n<p><strong>Frequency</strong> a number of times each day equal to the number of class feats you have from the Living Monolith archetype</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em> on yourself or use one of the other activated abilities granted by a later Living Monolith feat.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Living Monolith Dedication"
+                },
+                {
+                    "value": "a sphinx or living monolith with this feat performs a ritual with you"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.livingMonolith.archetypeFeatCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

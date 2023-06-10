@@ -1,0 +1,72 @@
+{
+    "_id": "nx7UPAwAyno2rM9f",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Thaumaturge's Investiture",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Magical equipment and gear are the tools of your trade, and you know you need as many as possible to help you against the supernatural. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Incredible Investiture] skill feat, increasing your limit on invested items from 10 to 12. The limit increases to 14 if you have Charisma 18, 16 if you have Charisma 20, 18 if you have Charisma 22, and 20 if you have Charisma 24.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma 16"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Incredible Investiture"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.investiture.max",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 19,
+                            "start": 18,
+                            "value": 14
+                        },
+                        {
+                            "end": 21,
+                            "start": 20,
+                            "value": 16
+                        },
+                        {
+                            "end": 23,
+                            "start": 22,
+                            "value": 18
+                        },
+                        {
+                            "start": 24,
+                            "value": 20
+                        }
+                    ],
+                    "field": "system.abilities.cha.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

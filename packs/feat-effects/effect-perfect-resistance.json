@@ -1,0 +1,42 @@
+{
+    "_id": "DyX4E7KDkzRnDxzc",
+    "img": "systems/pf2e/icons/spells/endure-elements.webp",
+    "name": "Effect: Perfect Resistance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Perfect Resistance]</p>\n<p>After using a Student of Perfection ki spell, the resistance increases to be equal to your level for 1 round.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.houseOfPerfection.element}",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

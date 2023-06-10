@@ -1,0 +1,48 @@
+{
+    "_id": "N8Ci3w5gQ68rj6a6",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Arcane Camouflage",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have developed magical techniques to aid you with stalking your prey. You can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Blur]</em> and <em>@UUID[Compendium.pf2e.spells-srd.Item.Invisibility]</em> each once per day as 2nd-level arcane innate spells.</p>\n<p><strong>Enhancement</strong> Your camouflage is more potent. Your blur spell now lasts 10 minutes and when you cast invisibility, you can choose to gain the effects of the 4th-level version of the spell. In addition, you can now cast blur and invisibility each twice per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hunter automaton"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneCamouflage",
+                    "value": "arcane-camouflage"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

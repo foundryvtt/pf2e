@@ -1,0 +1,53 @@
+{
+    "_id": "sDN9b4bjCGH2nQnG",
+    "img": "systems/pf2e/icons/spells/rapid-adaptation.webp",
+    "name": "Spell Effect: Rapid Adaptation (Mountain)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Rapid Adaptation]</em></p>\n<p>The target isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] when Climbing, and when it rolls a success on an Acrobatics check to Balance on rubble, it gets a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:rubble"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

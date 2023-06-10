@@ -1,0 +1,62 @@
+{
+    "_id": "qlz0sJIvqc0FdUdr",
+    "img": "systems/pf2e/icons/spells/weapon-surge.webp",
+    "name": "Spell Effect: Weapon Surge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Weapon Surge]</em> when applied to a weapon without a major striking rune.</p>\n<p>On your next Strike with that weapon before the start of your next turn, you gain a +1 status bonus to the attack roll and the weapon deals an additional die of damage.</p>\n<p>If the weapon has a striking rune, this instead increases the number of dice from the striking rune by 1 (to a maximum of 3 extra weapon dice).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:equipped"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "spellEffectWeaponSurge",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}-attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

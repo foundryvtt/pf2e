@@ -1,0 +1,75 @@
+{
+    "_id": "HaakvCTFbCnwFHVY",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "The Vision",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "gm": "<p><strong>Epitome</strong> Harrowheart's workshops become enhanced. Any character may now use a workshop in Harrowheart to attempt to Borrow a Spell, Identify Alchemy, Identify Magic, or Learn a Spell. If they do so, they apply the workshop's item bonus to their skill check.</p>",
+            "value": "<p><strong>Suit</strong> Book (Int)</p>\n<p><strong>Alignment</strong> chaotic neutral</p>\n<hr />\n<p><em>The Vision</em> represents arcane knowledge. As long as you have <em>The Vision</em> invested, it grants you a +2 item bonus to all checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic]. This increases to a +3 item bonus if you are at least 17th level.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">f</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> A visible bolt of blue energy bursts from your head. Attempt to Recall Knowledge about a subject, rolling the check with the most appropriate Lore skill check. This check always resolves as if you were master in the most appropriate Lore skill to Recall Knowledge on the subject (or if you're at least 15th level, as if you were legendary in that Lore skill). If you're already master (or legendary) in that Lore, the result of your Recall Knowledge check is one degree of success better than it would otherwise be.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:identify-magic"
+                ],
+                "selector": [
+                    "arcana",
+                    "religion",
+                    "nature",
+                    "occultism"
+                ],
+                "value": "ternary(gte(@actor.level,17),3,2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #190: The Choosing"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "artifact",
+                "divination",
+                "harrow-court",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "carried"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

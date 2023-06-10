@@ -1,4 +1,4 @@
-import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values.ts";
+import { ANIMAL_COMPANION_SOURCE_IDS } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { pick } from "@util";
@@ -120,7 +120,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             flankingBuddies.some(
                 (b) =>
                     b.actor?.isOfType("character") &&
-                    b.actor.class?.sourceId === ANIMAL_COMPANION_SOURCE_ID &&
+                    ANIMAL_COMPANION_SOURCE_IDS.includes(b.actor.class?.sourceId ?? "") &&
                     b.isAdjacentTo(flankee)
             );
         if (sideBySide) return true;

@@ -1,0 +1,52 @@
+{
+    "_id": "7dLsA9PAb5ij7Bc6",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/dueling-cape.webp",
+    "name": "Effect: Dueling Cape",
+    "system": {
+        "description": {
+            "value": "<p>Granted by using @UUID[Compendium.pf2e.equipment-srd.Item.Dueling Cape]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "bWYnjNa2RknMoibg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Lastwall Sentry Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from the Eye of Dread region.</p>\n<hr />\n<p>You've sworn yourself as a sentry for the Knights of Lastwall, the first line of defense against incursions by the Whispering Tyrant throughout Golarion. You become trained in Athletics and in Undead Lore; if you were already trained, you become an expert instead. Finally, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Reactive Shield] fighter feat.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.pg9fG1ikcgJZRWlk]{Lastwall Sentry} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "member of the Knights of Lastwall"
+                },
+                {
+                    "value": "Shield Block"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Reactive Shield"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

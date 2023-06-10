@@ -1,0 +1,60 @@
+{
+    "_id": "LT5AV9vSN3T9x3J9",
+    "img": "systems/pf2e/icons/spells/corrosive-body.webp",
+    "name": "Spell Effect: Corrosive Body",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Corrosive Body]</em></p>\n<p>You exhale corrosive gas, and acidic secretions coat your skin as you transform into a being of living acid. You gain acid immunity. Any creature that touches you or damages you with an unarmed melee attack or non-reach melee weapon takes [[/r 3d6[acid]]] damage, and your unarmed attacks deal 1d4 additional acid damage. The first time each round that you deal acid damage to a creature in this way, you gain [[/r 3d6 #Temporary Hit Points]]{3d6 temporary Hit Points} as your body digests the eroded material and transforms it into a protective acid. When the spell ends, any remaining temporary HP expires as well. Your acid spells deal one additional die of acid damage (of the same damage die the spell uses). You can cast acid splash as an innate spell; the splash damage affects all creatures within 15 feet instead of the normal 5 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "damageType": "acid",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.CorrosiveBody.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Immunity",
+                "type": "acid"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

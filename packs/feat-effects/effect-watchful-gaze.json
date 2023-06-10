@@ -1,0 +1,43 @@
+{
+    "_id": "a7qiSYdlaIRPe57i",
+    "img": "systems/pf2e/icons/spells/web-of-eyes.webp",
+    "name": "Effect: Watchful Gaze",
+    "system": {
+        "description": {
+            "value": "<p>You gain @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.All-Around Vision] until the start of your next turn. This lets you see in all directions and prevents you from being flanked.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

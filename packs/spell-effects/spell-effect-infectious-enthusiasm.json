@@ -1,0 +1,61 @@
+{
+    "_id": "nU4SxAk6XreHUi5h",
+    "img": "systems/pf2e/icons/spells/infectious-enthusiasm.webp",
+    "name": "Spell Effect: Infectious Enthusiasm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Infectious Enthusiasm]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.AttackLabel",
+                        "value": "attack"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "value": "will"
+                    },
+                    {
+                        "label": "PF2E.AbilityCheck.cha",
+                        "value": "cha-based"
+                    }
+                ],
+                "flag": "infectiousEnthusiasm",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.infectiousEnthusiasm}",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

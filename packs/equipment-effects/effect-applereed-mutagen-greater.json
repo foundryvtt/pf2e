@@ -1,0 +1,57 @@
+{
+    "_id": "tTBJ33UGtzXjWOJp",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/applereed-mutagen.webp",
+    "name": "Effect: Applereed Mutagen (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Applereed Mutagen (Greater)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+4 item bonus to Athletics checks</li>\n<li>+20 foot status bonus to Speed</li>\n<li>You grow one size category larger</li>\n<li>-1 penalty to AC</li>\n<li>-2 to penalty Reflex saves</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 18
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "value": -2
+            },
+            {
+                "key": "CreatureSize",
+                "value": "large"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Legends"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

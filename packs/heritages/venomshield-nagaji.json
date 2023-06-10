@@ -1,0 +1,39 @@
+{
+    "_id": "2jsWmnKtidCTpaQV",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Venomshield Nagaji",
+    "system": {
+        "ancestry": {
+            "name": "Nagaji",
+            "slug": "nagaji",
+            "uuid": "Compendium.pf2e.ancestries.Item.J7T7bDLaQGoY1sMF"
+        },
+        "description": {
+            "value": "<p>Your intrinsic connection to nagas and mundane serpents grants you an innate resistance to toxins of every sort. You gain resistance to poison equal to half your level (minimum 1 resistance), and you gain a +1 circumstance bonus to all saving throws against poison.</p>"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "poison"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

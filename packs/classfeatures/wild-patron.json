@@ -1,0 +1,48 @@
+{
+    "_id": "x2gzQMPvLwHWDdAC",
+    "img": "systems/pf2e/icons/features/classes/wild-patron.webp",
+    "name": "Wild Patron",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The wild places of the world feel the touch of your patron.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Patron Skill</strong> Nature</p>\n<p><strong>Hex Cantrip</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Wilding Word]</em></p>\n<p><strong>Granted Spell</strong> Your choice of <em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Animal]</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Plant or Fungus]</em></p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "primal"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

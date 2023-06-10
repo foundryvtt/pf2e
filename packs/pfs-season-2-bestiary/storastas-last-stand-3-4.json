@@ -1,0 +1,110 @@
+{
+    "_id": "ZzCskCNtjDetelAi",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "31b10V9njzzAr1WU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hold The Line",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> One or more living creatures attempts to move past the entryway further into the barrow</p>\n<hr />\n<p><strong>Effect</strong> Each creature in the area feels their own form warping into that of a hideous demon and must attempt a @Check[type:will|dc:21|name:Hold the Line] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the onslaught of illusions.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and believes that it is infused with demonic energy, making it susceptible to good damage (even if it is not of evil alignment) for as long as it remains within the haunt's area.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature also gains weakness 5 to cold iron for the next 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "illusion",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Storasta's Last Stand (3-4)",
+    "prototypeToken": {
+        "name": "Storasta's Last Stand"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 14
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A ghostly host of god callers and their eidolons manifests to defend the barrow against intruders, and the strains of a battle song fill the air.</p>",
+            "disable": "<p>@Check[type:deception|dc:22] to appear to be a defender of Storasta, @Check[type:diplomacy|dc:22] to demonstrate benign intentions, or @Check[type:occultism|dc:20] or @Check[type:religion|dc:20] to ward off the malevolent spiritual energies. Two successful checks are required to disable the haunt, and each attempt requires two actions.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>The haunt dissipates 1 minute after all living creatures leave area C1. Its spiritual energies re-form after 24 hours.</p>",
+            "routine": "<p>(1 action) (illusion, mental, occult) The haunt attacks what it believes is a demonic incursion, dealing [[/r {(1d8+3)[mental],1d8[good]}]]{1d8+3 mental and 1d8 good damage} to each living creature in the area (@Check[type:will|dc:21|basic:true|name:Storasta's Last Stand|traits:illusion,mental,occult] save).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-15: A Dirge for Sarkoris"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

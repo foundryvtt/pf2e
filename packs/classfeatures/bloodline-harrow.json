@@ -1,0 +1,64 @@
+{
+    "_id": "b6hyZTs1rVGHDexz",
+    "img": "systems/pf2e/icons/features/classes/inventive-mastery.webp",
+    "name": "Bloodline: Harrow",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Performance</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ill Omen]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Augury]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.True Seeing]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Retrocognition]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unrelenting Observation]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Weird]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unraveling Blast]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Invoke the Harrow]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Rewrite Possibility]</em></p>\n<p><strong>Blood Magic</strong> You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.prf.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "occult"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Stolen Fate Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

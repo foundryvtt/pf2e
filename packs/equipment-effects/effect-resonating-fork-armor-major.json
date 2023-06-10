@@ -1,0 +1,55 @@
+{
+    "_id": "25hZRK3gPvZHMIah",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Resonating Fork - Armor (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Resonating Fork (Major)]</p>\n<p>You gain resistance 10 to sonic damage and a +2 item bonus to saving throws against effects with the auditory or sonic trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "sonic",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "auditory",
+                            "sonic"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

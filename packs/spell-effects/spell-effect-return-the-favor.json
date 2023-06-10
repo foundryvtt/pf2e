@@ -1,0 +1,41 @@
+{
+    "_id": "cSoL5aMy3PCzM4Yv",
+    "img": "systems/pf2e/icons/spells/return-the-favor.webp",
+    "name": "Spell Effect: Return the Favor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Return the Favor]</em>.</p>\n<p>You gain 12 temporary Hit Points for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The temporary Hit Points increase by 4.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "4*@item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

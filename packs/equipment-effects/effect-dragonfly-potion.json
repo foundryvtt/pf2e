@@ -1,0 +1,55 @@
+{
+    "_id": "9j1uTGBGAc7GIhjm",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/dragonfly-potion.webp",
+    "name": "Effect: Dragonfly Potion",
+    "system": {
+        "description": {
+            "value": "<p>You gain a fly Speed equal to your land Speed. Additionally, you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision] and a +2 item bonus to visual Perception checks, and you can't be flanked except by creatures higher level than you are (though lower‑level creatures can still help their higher‑level allies flank). These effects last for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "visual"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "6uEgoh53GbXuHpTF",
+    "img": "systems/pf2e/icons/conditions/paralyzed.webp",
+    "name": "Paralyzed",
+    "system": {
+        "description": {
+            "value": "<p>Your body is frozen in place. You have the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] condition and can't act except to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] and use actions that require only the use of your mind (as determined by the GM). Your senses still function, but only in the areas you can perceive without moving your body, so you can't @UUID[Compendium.pf2e.actionspf2e.Item.Seek] while paralyzed.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": null,
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.canFlank",
+                "value": false
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": false,
+            "value": null
+        }
+    },
+    "type": "condition"
+}

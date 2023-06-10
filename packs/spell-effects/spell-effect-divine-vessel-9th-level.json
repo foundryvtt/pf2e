@@ -1,0 +1,274 @@
+{
+    "_id": "dIftJU6Ki2QSLCOD",
+    "img": "systems/pf2e/icons/spells/divine-vessel.webp",
+    "name": "Spell Effect: Divine Vessel (9th level)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Vessel]</em></p>\n<p>You accept otherworldly energies into your body; while you are still recognizably yourself, you gain the features of one of your deity's servitors. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose.</p>\n<p>If you were Medium or smaller, you become Large, as the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em>. You must have space to expand into, or the spell is lost. You also gain the following benefits.</p>\n<ul>\n<li>60 temporary Hit Points.</li>\n<li>A fly Speed equal to your Speed.</li>\n<li>Weakness 15 to lawful.</li>\n<li>A +1 status bonus to saves against spells.</li>\n<li>Darkvision.</li>\n<li>Your unarmed attacks and weapons deal 1 additional chaotic damage.</li>\n<li>You gain a bite unarmed attack that deals 2d10 piercing damage.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitChaotic",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:alignment:cn",
+                                    "deity:primary:alignment:cg",
+                                    "deity:primary:alignment:ce",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:chaotic"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "chosen": "chaotic",
+                            "opposite": "lawful"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitEvil",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:alignment:ce",
+                                    "deity:primary:alignment:ne",
+                                    "deity:primary:alignment:le",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:evil"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "chosen": "evil",
+                            "opposite": "good"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitGood",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:alignment:cg",
+                                    "deity:primary:alignment:ng",
+                                    "deity:primary:alignment:lg",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:good"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "chosen": "good",
+                            "opposite": "evil"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitLawful",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:alignment:le",
+                                    "deity:primary:alignment:ln",
+                                    "deity:primary:alignment:lg",
+                                    {
+                                        "and": [
+                                            "self:type:npc",
+                                            "self:trait:lawful"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": {
+                            "chosen": "lawful",
+                            "opposite": "chaotic"
+                        }
+                    }
+                ],
+                "flag": "alignment",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "not": "deity:primary:alignment:n"
+                                    },
+                                    "deity"
+                                ]
+                            },
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Alignment"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "divine-vessel:{item|flags.pf2e.rulesSelections.alignment.chosen}"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d10"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Bite",
+                "predicate": [
+                    "divine-vessel:chaotic"
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 2,
+                        "die": "d8"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    "divine-vessel:evil"
+                ],
+                "range": null,
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 2,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.fist",
+                "predicate": [
+                    {
+                        "or": [
+                            "divine-vessel:good",
+                            "divine-vessel:lawful"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spell"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.alignment.chosen}",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": 1
+            },
+            {
+                "key": "Weakness",
+                "type": "{item|flags.pf2e.rulesSelections.alignment.opposite}",
+                "value": 15
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "TempHP",
+                "value": 60
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

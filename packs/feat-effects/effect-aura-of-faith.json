@@ -1,0 +1,54 @@
+{
+    "_id": "VOOShYoB4gTopZtg",
+    "img": "systems/pf2e/icons/spells/destructive-aura.webp",
+    "name": "Effect: Aura of Faith",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Faith]</p>\n<p>Each good-aligned ally within 15 feet deal an extra 1 good damage against evil creatures on their first Strike that hits an evil creature each round.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "First Stike that hits an evil foe this round",
+                "option": "aura-of-faith",
+                "toggleable": true
+            },
+            {
+                "damageType": "good",
+                "key": "FlatModifier",
+                "label": "Aura of Faith (Allies)",
+                "predicate": [
+                    "aura-of-faith"
+                ],
+                "selector": "strike-damage",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

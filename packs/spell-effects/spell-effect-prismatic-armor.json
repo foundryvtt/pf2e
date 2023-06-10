@@ -1,0 +1,50 @@
+{
+    "_id": "8gqb5FMTaArsKdWB",
+    "img": "systems/pf2e/icons/spells/prismatic-armor.webp",
+    "name": "Spell Effect: Prismatic Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Armor]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "acid",
+                    "electricity",
+                    "fire",
+                    "force",
+                    "mental",
+                    "poison",
+                    "sonic"
+                ],
+                "value": "ternary(gte(@item.level,9),10,5)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

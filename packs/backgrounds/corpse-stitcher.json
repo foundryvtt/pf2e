@@ -1,0 +1,64 @@
+{
+    "_id": "ChAoT1V3Nc4sKXz4",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Corpse Stitcher",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>The number of zombies working across Geb as farmhands, laborers, or shambling soldiers seems nearly uncountable. None of these zombies can do their work if they fall to pieces, so the Reanimators maintain legions of surgeons and tailors to keep zombies stitched together and suitable for service. You were one of these corpse stitchers, working long hours to ensure that Geb's mindless workforce could perform at its best. On the day you saw some of your friends come under your needle, you realized how expendable Geb's fleshy population truly is, and you decided that you should seek out a different line of work.</p>\n<p>The Reanimators appreciate your past service. Your party gains 1 Reputation Point with the Reanimators at the start of the campaign.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Medicine skill. You gain your choice of either the @UUID[Compendium.pf2e.feats-srd.Item.Risky Surgery] or @UUID[Compendium.pf2e.feats-srd.Item.Stitch Flesh] skill feats. You're also trained in Zombie Lore.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Risky Surgery"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Stitch Flesh"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Blood Lords Player's Guide"
+        },
+        "trainedLore": "Zombie Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": [
+                "med"
+            ]
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

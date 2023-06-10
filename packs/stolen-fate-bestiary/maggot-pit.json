@@ -1,0 +1,201 @@
+{
+    "_id": "WDHwcznFKZ0DlXoI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "B2F4wEeParZMjcrT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Damning Swarm",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> a creature appears in area <strong>M1</strong></p>\n<hr />\n<p><strong>Effect</strong> The swarming maggots squirm into a biting frenzy, and all creatures on the ground in area <strong>M1</strong> must attempt a @Check[type:fortitude|dc:40|traits:damaging-effect] save. The hazard then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r (1d10+5)[piercing]]] damage, [[/r 3d6[poison]]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d10+10)[piercing]]] damage, [[/r 6d6[poison]]] damage, is sickened 1, and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} by the maggots' bites.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (4d10+20)[piercing]]] damage, [[/r 12d6[poison]]] damage, is sickened 1, and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} by the maggots' bites.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "death",
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B4wsUS7hlMMeOSDI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Maggot Tendril",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "XTFKkbRB0y0NuEHv": {
+                        "damage": "2d12",
+                        "damageType": "poison"
+                    },
+                    "gBSTGKmK271jgPxG": {
+                        "damage": "1d12+20",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": "<p>On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}; this has the poison trait</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "reach-200"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Maggot Pit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 20
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 20
+                }
+            ],
+            "stealth": {
+                "details": "<p>(the maggots are slow and impossible to miss)</p>",
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "good",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 15
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Countless human-faced, fanged maggots wriggle and squirm in this chamber.</p>",
+            "disable": "<p>Three @Check[type:religion|dc:45] checks within the room to utter prayers, which calm and quell the maggots with invocations to the gods</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The pit functions continuously. If it's disabled or destroyed, it resets automatically after 24 hours if the crystal stele in area <strong>M2</strong> still functions, otherwise it doesn't reset.</p>",
+            "routine": "<p>(2 actions; death, divine, necromancy) On its initiative, the pit uses its first action to use Damning Swarm against any creature within 5 feet of the pit floor. It then takes its second action to form a long, thrashing tendril composed of thousands of maggots to lash at a single target within area <strong>M1</strong>.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #191: The Destiny War"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,46 @@
+{
+    "_id": "7hRgBo0fRQBxMK7g",
+    "img": "systems/pf2e/icons/spells/paralyze.webp",
+    "name": "Effect: Distracting Feint",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Distracting Feint]</p>\n<p>While a creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] by your Feint, it also takes a -2 circumstance penalty to Perception checks and Reflex saves.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "perception",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

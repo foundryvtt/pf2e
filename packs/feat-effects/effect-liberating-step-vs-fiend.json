@@ -1,0 +1,62 @@
+{
+    "_id": "9dCt0asv0kt7DR4q",
+    "img": "systems/pf2e/icons/spells/summon-fiend.webp",
+    "name": "Effect: Liberating Step (vs. Fiend)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Fiendsbane Oath (Liberator)]</p>\n<p>If you use Liberating Step triggered by a fiend, your ally gains a +4 circumstance bonus to checks granted by your Liberating Step, and the ally can Step twice afterward.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Liberating Step (vs. fiend)",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Liberating Step (vs. fiend)",
+                "predicate": [
+                    "action:escape",
+                    "unarmed"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,172 @@
+{
+    "_id": "fRIyhOmNon1GtQeT",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "NcyiM0WihYrncbSF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Emit Cold",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Enhanced brown mold deals [[/r (2d8+7)[cold]]] damage to nearby creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "emit-cold",
+                        "traits": [
+                            "aura",
+                            "cold"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "cold"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MQ3CKYIdF6zrMg0x",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Leech Warmth",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Fire comes within 5 feet of the brown mold.</p>\n<hr />\n<p><strong>Effect</strong> The brown mold expands into every square adjacent to its space. As it grows, it pulls more heat from its surroundings, dealing [[/r (4d8+14)[cold]]] damage (@Check[type:fortitude|dc:24|basic:true] save) to creatures within 15 feet after it expands.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mutated Brown Mold",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 15
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>This unassuming fungus leeches heat out of the air.</p>",
+            "disable": "<p>@Check[type:survival|dc:25|name:Remove Brown Mold] (trained) to safely remove the mold</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>After expanding, the brown mold can't grow again for 1 day.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Special #3-98: Expedition Into Pallid Peril"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

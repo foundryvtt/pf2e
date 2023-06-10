@@ -1,0 +1,46 @@
+{
+    "_id": "UaD5VDoFlILEmbyz",
+    "img": "systems/pf2e/icons/features/ancestry/dhampir.webp",
+    "name": "Dhampir",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You are the scion of a vampire, half living and half undead, gifted with uncanny charm and grace, a bloodless pallor, and elongated incisors. You gain the dhampir trait, in addition to the traits from your ancestry. You have the negative healing ability, which means you are harmed by positive damage and healed by negative effects as if you were undead. You also gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low-light vision. You can choose from dhampir feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "add": [
+                    "dhampir"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "dhampir"
+            ]
+        }
+    },
+    "type": "heritage"
+}

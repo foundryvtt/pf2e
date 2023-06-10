@@ -1,0 +1,102 @@
+{
+    "_id": "iL2BkoRa6Zrvg1wN",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "TkNnlQ5Y9tP89lcL",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Desperate Meal",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet</p>\n<hr />\n<p><strong>Effect</strong> Creatures within @Template[type:emanation|distance:30]{30 feet} are filled with painful hunger and must succeed at a @Check[type:fortitude|dc:32] save or feel their stomachs fill with rocks, dirt, and worse, dealing [[/r (6d10+20)[piercing]]] damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4}, and takes a -10-foot status penalty to its Speeds for as long as it's sickened.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Desperate Hunger",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(master) to feel an odd sense of hunger</p>",
+                "value": 25
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A skeletally thin spirit appears, weeping as it shoves earth and stones down its throat in an effort to stave off hunger.</p>",
+            "disable": "<p>@Check[type:deception|dc:36|name:Convince the spirit it's not hungry] (master) to convince the spirit it's no longer hungry or @Check[type:occultism|dc:38|name:Feed the spirit] (trained) to ritually feed the spirit</p>",
+            "isComplex": false,
+            "level": {
+                "value": 12
+            },
+            "reset": "<p>1 day</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Book of the Dead"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

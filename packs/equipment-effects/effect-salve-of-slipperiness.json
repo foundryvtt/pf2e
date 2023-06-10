@@ -1,0 +1,52 @@
+{
+    "_id": "MCny5ohCGf09a7Wl",
+    "img": "systems/pf2e/icons/equipment/consumables/oils/salve-of-slipperiness.webp",
+    "name": "Effect: Salve of Slipperiness",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Salve of Slipperiness]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Salve of Slipperiness (Escape or Squeeze",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:escape",
+                            "action:squeeze"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

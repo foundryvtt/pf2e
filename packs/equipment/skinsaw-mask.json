@@ -1,0 +1,73 @@
+{
+    "_id": "sgH9U2fKqWCedKNO",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/skinsaw-mask.webp",
+    "name": "Skinsaw Mask",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>A patchwork of humanoid flesh makes up a <em>skinsaw mask</em>, which is stitched together with black silk or wire. It is distinctive for its bulbous orange eye- crafted from a magical glass bauble-and wide row of teeth. When worn, the mask amplifies your ability to sense fear in other creatures. You know the value of the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition of any @UUID[Compendium.pf2e.conditionitems.Item.Observed] creature, and you gain a +1 item bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] frightened creatures. Whenever you deal precision damage to a frightened creature, you deal 1 additional precision damage. If you are not evil, you are @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} while wearing the <em>s</em><em>kinsaw mask</em>.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 50
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Skinsaw Mask (Seek Frightened target)",
+                "predicate": [
+                    "action:seek",
+                    "target:condition:frightened"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "divination",
+                "divine",
+                "evil",
+                "invested"
+            ]
+        },
+        "usage": {
+            "value": "wornmask"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

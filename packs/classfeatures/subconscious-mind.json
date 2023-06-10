@@ -1,0 +1,59 @@
+{
+    "_id": "79ZetrRF6S01P4Vf",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Subconscious Mind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>A psychic's power is born in the depths of their psyche, far from the surface. Your subconscious mind might represent the way your power comes to you naturally, or it may be a framework you use to safely access the infinite potential of your mind. Either way, your subconscious mind fundamentally shapes how you access and wield psychic magic. Choose a subconscious mind from the options below. This choice will determine your key ability, special spellcasting components you use, and an action you can take while you have Unleashed your Psyche. The following options are available.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Emotional Acceptance] (Cha): Throwing yourself headlong into your emotions is what lets you access your power.</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Gathered Lore] (Int): Tutors taught you specific axioms and lessons to help you harness your mind.</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Precise Discipline] (Int): Meticulously aligning your thoughts brings your mental power into reality.</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Wandering Reverie] (Cha): Your imagination fuels your magic through instinct and free association.</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Emotional Acceptance"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Gathered Lore"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Precise Discipline"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Wandering Reverie"
+                    }
+                ],
+                "flag": "subconsciousMind",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SubconsciousMind"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.subconsciousMind}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "psychic"
+            ]
+        }
+    },
+    "type": "feat"
+}

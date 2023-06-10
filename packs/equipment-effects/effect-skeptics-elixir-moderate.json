@@ -1,0 +1,52 @@
+{
+    "_id": "mG6S6zm6hxaF7Tla",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/skeptics-elixir.webp",
+    "name": "Effect: Skeptic's Elixir (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Skeptic's Elixir (Moderate)]</p>\n<p><strong>Duration</strong> 10 minute</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> Interact</p>\n<hr />\n<p>This elixir sharpens your mind and allows you to see through lies, falsehoods, and magical trickery. You gain a +2 item bonus to Perception checks and Perception DCs to notice falsehoods, whether they're spoken lies or written deceit. You gain this same item bonus to Will saves.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "notice-falsehoods"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #163: Ruins of Gauntlight"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

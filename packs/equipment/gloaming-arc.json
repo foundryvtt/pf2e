@@ -1,0 +1,132 @@
+{
+    "_id": "7haFJ3s6G6K1TQFj",
+    "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
+    "name": "Gloaming Arc",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "scimitar",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This black <em>+2 striking scimitar</em> reflects light only along its edge, like a thin crescent moon. It grants a +1 item bonus to Stealth while you're holding it, increasing to a +2 item bonus if it has a <em>+3 weapon potency</em> rune.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">3</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Attempt a melee Strike with the gloaming arc. On a hit, you slice away the target's shadow from its body and it must attempt a @Check[type:fortitude|dc:30] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. The target doesn't cast a shadow until it is no longer drained.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "sword",
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 2
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 1250
+            }
+        },
+        "propertyRune1": {
+            "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "item",
+                "value": "min(max(1,-1+@item.system.potencyRune.value),2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #183: Field of Maidens"
+        },
+        "specific": {
+            "material": {
+                "base": [
+                    {
+                        "thickness": "thin",
+                        "type": "steel"
+                    }
+                ],
+                "precious": null
+            },
+            "price": {
+                "cp": 0,
+                "gp": 1250,
+                "pp": 0,
+                "sp": 0
+            },
+            "runes": {
+                "potency": 2,
+                "striking": "striking"
+            },
+            "value": true
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "striking"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "forceful",
+                "sweep",
+                "evocation",
+                "magical",
+                "shadow"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "weapon"
+}

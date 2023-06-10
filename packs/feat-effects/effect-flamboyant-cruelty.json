@@ -1,0 +1,59 @@
+{
+    "_id": "v2HDcrxQF2Dncjbs",
+    "img": "systems/pf2e/icons/spells/suns-fury.webp",
+    "name": "Effect: Flamboyant Cruelty",
+    "system": {
+        "description": {
+            "value": "<p>Granted when you use @UUID[Compendium.pf2e.feats-srd.Item.Flamboyant Cruelty]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Tumble Through (Flamboyant Cruelty)",
+                "predicate": [
+                    "action:tumble-through",
+                    "flamboyant-cruelty"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Panache-granting action (Flamboyant Cruelty)",
+                "predicate": [
+                    "panache-granting",
+                    "flamboyant-cruelty"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Legends"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

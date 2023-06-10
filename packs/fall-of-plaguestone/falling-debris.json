@@ -1,0 +1,113 @@
+{
+    "_id": "rn6KT8OMYUi0EuCN",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HY2Pfqwkwhn3BmVF",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Falling Debris",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Pressure is placed on the floorboard.</p>\n<hr />\n<p><strong>Effect</strong> The ceiling in the crawlway collapses in the square where the passage turns, and also in the two adjacent squares. Anyone in these three squares takes [[/r 3d6[bludgeoning]]] damage and can attempt a @Check[type:reflex|dc:14|traits:damaging-effect] save to reduce the damage. For the creature in the center square, where the trap is triggered, this is a basic save. Creatures in the two adjacent squares take no damage on a success or critical success as they avoid the falling debris entirely, but take full damage on a failed save, and take double damage on a critical failure. Creatures that take damage from the debris are @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], trapped under the crushing weight.</p>\n<p>Clearing out a square of debris requires a successful @Check[type:athletics|dc:17|name:Clear Debris] skill check, with the following effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The square is cleared in 1 minute.</p>\n<p><strong>Success</strong> The square is cleared in 5 minutes.</p>\n<p><strong>Failure</strong> The square is cleared in 10 minutes.</p>\n<p><strong>Critical Failure</strong> The ceiling above the square collapses further, dealing an additional [[/r 2d6[bludgeoning]]] damage to the character digging out the square and any character trapped in that square. This takes 1 minute and no progress is made.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Falling Debris",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "hardness": 5,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A pressure-sensitive floorboard connects to a beam holding up debris in the crawlway's ceiling.</p>",
+            "disable": "<p>@Check[type:thievery|dc:15|name:Disable Trap|traits:mechanical,trap,hazard] (trained) on the floorboard before the debris falls</p>",
+            "isComplex": false,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Fall of Plaguestone"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 2
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

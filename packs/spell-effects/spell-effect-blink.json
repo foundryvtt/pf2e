@@ -1,0 +1,45 @@
+{
+    "_id": "ZlsuhS9J0S3PuvCO",
+    "img": "systems/pf2e/icons/spells/blink.webp",
+    "name": "Spell Effect: Blink",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Blink]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "exceptions": [
+                    "force"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "5 + 3*floor((@item.level -4)/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

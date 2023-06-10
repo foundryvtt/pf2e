@@ -1,0 +1,51 @@
+{
+    "_id": "6LFBPpPPJjDq07fg",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Hit the Dirt!",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature you can see attempts a ranged Strike against you.</p>\n<hr />\n<p>You fling yourself out of harm's way. You @UUID[Compendium.pf2e.actionspf2e.Item.Leap]. Your movement gives you a +2 circumstance bonus to AC against the triggering attack. Regardless of whether or not the triggering attack hits, you land @UUID[Compendium.pf2e.conditionitems.Item.Prone] after completing your Leap.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "hit-the-dirt",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hit-the-dirt",
+                    "item:ranged"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

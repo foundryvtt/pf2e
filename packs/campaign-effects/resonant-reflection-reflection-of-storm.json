@@ -1,0 +1,52 @@
+{
+    "_id": "UXBOvlJbnI76UoGp",
+    "img": "systems/pf2e/icons/spells/chain-lightning.webp",
+    "name": "Resonant Reflection: Reflection of Storm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p>Your body is inured to the devastation inflicted by natural forces. You gain resistance to electricity damage equal to your level. You don't treat wind as difficult terrain or greater difficult terrain while flying, and you can't be moved by wind unless you choose to be. You gain a +1 status bonus to saves against primal magic. In addition, you can absorb this reinvigorating energy into your body to gain the following effect.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Moment of Renewal]</em> (self only) as an 8th-level divine innate spell and regain 1 Focus Point.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "primal"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #155: Lord of the Black Sands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "air",
+                "electricity",
+                "magical",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

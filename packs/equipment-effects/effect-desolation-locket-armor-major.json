@@ -1,0 +1,56 @@
+{
+    "_id": "RxtpVyOywdrt29Q6",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Desolation Locket - Armor (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Desolation Locket (Major)]</p>\n<p>The <em>desolation locket</em> numbs you to further despair, and you gain a +4 item bonus to saving throws against emotion effects. When you critically fail a saving throw against an emotion effect, you get a failure instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 19
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

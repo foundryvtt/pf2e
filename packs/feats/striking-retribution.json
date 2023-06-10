@@ -1,0 +1,50 @@
+{
+    "_id": "TGlb3gmSKkJBZt5q",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Striking Retribution",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have an appropriately intense hatred for alghollthus.</p>\n<p>You gain a +2 circumstance bonus to damage with weapons and unarmed attacks against creatures from the alghollthu family and those that serve alghollthus (the GM determines which creatures serve an alghollthu).</p>\n<p>In addition, if an alghollthu successfully affects you or one of your allies within 60 feet with an enchantment, your circumstance bonus to damage against that alghollthu increases to +4 for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Striking Retribution]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Striking Retribution (vs. alghollthu and their servants)",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:tag:alghollthu",
+                            "target:tag:alghollthu-servant"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "azarketi"
+            ]
+        }
+    },
+    "type": "feat"
+}

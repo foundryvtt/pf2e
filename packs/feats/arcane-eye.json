@@ -1,0 +1,71 @@
+{
+    "_id": "YG6OCTbbqZwqRTr3",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Arcane Eye",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your eye has been magically enhanced to pierce darkness. You gain darkvision.</p>\n<p><strong>Enhancement</strong> Your eye can see @UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures in brief spurts. You can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.See Invisibility]</em> as an arcane innate spell once per hour.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "low-light vision"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneEye",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-eye"
+                        }
+                    ],
+                    "value": "arcane-eye"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneEye",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-eye"
+                        }
+                    ],
+                    "value": "arcane-eye"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,47 @@
+{
+    "_id": "Xl48OsJ47oDVZAVQ",
+    "img": "systems/pf2e/icons/spells/primal-summons.webp",
+    "name": "Spell Effect: Primal Summons (Earth)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Primal Summons]</em> when you select earth.</p>\n<p>The creature gains a burrow Speed of 20 feet, and reduces its land Speed by 10 feet (minimum 5 feet).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "burrow",
+                "value": 20
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "value": -10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

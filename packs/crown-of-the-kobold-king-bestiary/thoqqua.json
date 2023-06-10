@@ -1,0 +1,357 @@
+{
+    "_id": "rWweGgOu9uJVlnra",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "49PuzTrEloH33qWN",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "Critical Ignition",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "hElHuwSNrBYPqxJl": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "uhON52aQ61DIP6C3": {
+                        "damage": "1d8+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IjipnghcR1hpkdTJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Molten Body",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A thoqqua's body is hot enough to melt stone. A creature who grabs a thoqqua, is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by a thoqqua, or critically fails a melee Strike with an unarmed attack or agile weapon takes [[/r 1d4[fire]]] damage (@Check[type:reflex|dc:15|basic:true]).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "fire",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dCYLifyyGXBVIqsH",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Thrash",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the thoqqua's reach hits the thoqqua with a melee Strike</p>\n<p><strong>Effect</strong> The thoqqua instinctively thrashes into the attack, pressing its molten hot scales forward. The attacker must attempt a @Check[type:reflex|dc:15] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The attacker is unaffected.</p>\n<p><strong>Success</strong> The attacker takes [[/r 1d4[fire]]] damage.</p>\n<p><strong>Failure</strong> The attacker takes [[/r 2d4[fire]]] damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the weapon used to Strike the thoqqua becomes broken unless the weapon is made of metal, has more than 10 Hardness, or is resistant to or immune to fire.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9iQozfwhtbNEu8xk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Critical Ignition",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit with a body Strike, a thoqqua inflicts an additional [[/r 1d6[persistent,fire]]] damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yqXTeloQUuSzZT3Y",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "TNjnQXGsv85PdNMG",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Lava",
+                        "predicate": [
+                            "terrain:lava"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 in Lava",
+                        "options": "terrain:lava"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Thoqqua",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 7
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 15
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Thoqquas are cantankerous creatures of fire and slag. Their bodies generate incredible heat that allows them to burrow or melt through most surfaces, even solid rock. Thoqquas are native to the vast ash deserts and lava fields of the Plane of Fire. There, they consume ore and minerals, which their furnace-like bodies then smelt into armor plates that grant the creatures their armored forms.</p>\n<p>These creatures' foremost body segment tapers into a straight, hornlike beak that glows with a blistering heat. Steam and smoke constantly hiss from their joints, and from a distance, thoqquas can be mistaken for strange metallic constructs. Adult thoqquas are 5 feet long and weigh 200 pounds.</p>\n<p>Thoqquas are dangerous to approach-they attack without thinking when startled or frustrated. If they don't immediately chase away intruders within their territory, then they might gradually come to view that area as property and even guard it. Mephits seem to understand this curious thoqqua thought process, occasionally brokering deals with the magma worms. The mephits claim that the mountain- sized ancestors of modern thoqquas were servants of the elemental lords and dug the first volcanoes in the young worlds of the Material Plane. These \"progenitor worms\" then retired to the worlds' cores, where their heat warms the planets even today. Thoqquas on the Material Plane do congregate around volcanoes-though whether this tendency is to protect a mineral-rich food site or sacred place, or simply out of comfort, depends on the thoqqua in question.</p>",
+            "source": {
+                "value": "Pathfinder Adventure: Crown of the Kobold King"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "(Can't Speak Any Language)",
+                "selected": [],
+                "value": [
+                    "ignan"
+                ]
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "darkvision, tremorsense (imprecise) 60 ft"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "earth",
+                "elemental",
+                "fire"
+            ]
+        }
+    },
+    "type": "npc"
+}

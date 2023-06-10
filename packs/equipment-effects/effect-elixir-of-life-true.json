@@ -1,0 +1,51 @@
+{
+    "_id": "9MeHc072G4L8AJkp",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+    "name": "Effect: Elixir of Life (True)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (True)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+4 item bonus to saving throws against diseases and poisons</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>Heal [[/r (10d6+27)[healing]]]{10d6+27 Hit Points}</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 19
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

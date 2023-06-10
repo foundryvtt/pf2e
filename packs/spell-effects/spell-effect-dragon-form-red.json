@@ -1,0 +1,240 @@
+{
+    "_id": "V4a9pZHNUlddAwTA",
+    "img": "systems/pf2e/icons/spells/dragon-form.webp",
+    "name": "Spell Effect: Dragon Form (Red)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Form]</em></p>\n<p>Calling upon powerful transformative magic, you gain a Large dragon battle form. You must have space to expand or the spell is lost. While in this form, you gain the dragon trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 18 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Speed 40 feet, fly Speed 100 feet.</li>\n<li>Resistance 10 against the damage type of your breath weapon (see below).</li>\n<li>Darkvision and imprecise scent 60 feet.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +22, and your damage bonus is +6. These attacks are Strength based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition, for example). If your unarmed attack modifier is higher, you can use it instead. See below for more on these attacks.</li>\n<li>Athletics modifier of +23, unless your own modifier is higher.</li>\n<li><strong>Breath Weapon</strong> <span class=\"pf2-icon\">2</span> (arcane, evocation) The shape, damage, and damage type of your breath weapon depend on your specific dragon form (see below). A creature in the area attempts a @Check[type:reflex|dc:resolve(@actor.attributes.spellDC.value)|basic:true] save against your spell DC. This is a Reflex save unless stated otherwise in the special ability description for your specific dragon form. Once activated, your breath weapon can't be used again for [[/r 1d4 #rounds]]{1d4 rounds}. Your breath weapon has the trait corresponding to the type of damage it deals.</li>\n</ul>\n<p>You also gain specific abilities based on the type of dragon you choose:</p>\n<ul>\n<li><strong>Red</strong>\n<ul>\n<li>ignore @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from smoke;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws, <strong>Damage</strong> 2d12 piercing plus 2d6 fire;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw ( agile), <strong>Damage</strong> 4d6 slashing;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> tail (reach 10 feet), <strong>Damage</strong> 3d10 bludgeoning;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> wing (reach 10 feet), <strong>Damage</strong> 3d8 bludgeoning;</li>\n<li>breath weapon @Template[type:cone|distance:30], [[/r 10d6[fire]]].</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (8th)</strong> Your battle form is Huge, you gain a +20-foot status bonus to your fly Speed, and your attacks have 10-foot reach (or 15-foot reach if they previously had 10-foot reach). You instead gain AC = 21 + your level, 15 temporary HP, an attack modifier of +28, a damage bonus of +12, Athletics +28, and a +14 status bonus to breath weapon damage ([[/r (10d6+14)[fire]]] damage).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "hasHands": true,
+                    "resistances": [
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 60
+                        }
+                    },
+                    "speeds": {
+                        "fly": 100,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "claw": {
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 4,
+                                "die": "d6"
+                            },
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        },
+                        "jaws": {
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12"
+                            },
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "tail": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10"
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        },
+                        "wing": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d8"
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "dragon"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @actor.level"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    },
+                                    "wing": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "agile",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "wing": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "jaws-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "fly-speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 8,
+                            "value": 20
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,81 @@
+{
+    "_id": "ngwcN8u7f7CnqGXp",
+    "img": "systems/pf2e/icons/spells/call-spirit.webp",
+    "name": "Effect: Distant Wandering",
+    "system": {
+        "description": {
+            "value": "<p>You are @UUID[Compendium.pf2e.conditionitems.Item.Invisible] and inaudible.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Invisible"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.emitsSound",
+                "phase": "beforeDerived",
+                "value": false
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "awakening:distant-wandering:fly"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.value"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "awakening:distant-wandering:fly"
+                ],
+                "selector": [
+                    "land-speed",
+                    "fly-speed"
+                ],
+                "type": "status",
+                "value": 20
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "awakening:distant-wandering:quick"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

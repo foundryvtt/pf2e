@@ -1,0 +1,68 @@
+{
+    "_id": "ctMxYPGEpstvhW9C",
+    "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
+    "name": "Spell Effect: Forbidding Ward",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Forbidding Ward]</em>.</p>\n<p>You are warded against the attacks and hostile spells from the target enemy. You gain a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Attacked by target of Forbidding Ward",
+                "option": "forbidding-ward",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "forbidding-ward"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": 1
+                        },
+                        {
+                            "start": 6,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

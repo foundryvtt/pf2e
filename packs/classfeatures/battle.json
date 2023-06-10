@@ -1,0 +1,127 @@
+{
+    "_id": "gjOGOR30Czpnx3tM",
+    "img": "systems/pf2e/icons/features/classes/battle-mystery.webp",
+    "name": "Battle",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Warlike forces fill you with physical might and tactical knowledge, aiming to have you uphold the glory of combat, fight to improve the world, prepare against the necessity of conflict, or endure the inevitability of war. You might draw upon deities such as Gorum, Iomedae, Rovagug, the Horseman of War Szuriel, the Queen of the Night Eiseth, the Vudrani god Diomazul, and others, or you might find power in the unending conflict between the armies of Heaven and Hell, the Elemental Planes, the Outer Gods, or even the collective spirits of those who fought in wars over the ages.</p>\n<p><strong>Mystery Benefit</strong></p>\n<p>You are no stranger to the trappings of warfare. You are trained in medium and heavy armor. At 13th level, if you gain the light armor expertise class feature, you also gain expert proficiency in these armors.</p>\n<p>Choose one weapon group that embodies your mystery. You are trained in all martial weapons of that group. At 11th level, if you gain the weapon expertise class feature, you also gain expert proficiency for martial weapons in your chosen group, and you become trained in advanced weapons in that group.</p>\n<p><strong>Trained Skill</strong> Athletics</p>\n<p><strong>Granted Cantrip</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</em></p>\n<p><strong>Revelation Spells</strong></p>\n<ul>\n<li>Initial <em>@UUID[Compendium.pf2e.spells-srd.Item.Call to Arms]</em>;</li>\n<li>Advanced <em>@UUID[Compendium.pf2e.spells-srd.Item.Battlefield Persistence]</em>;</li>\n<li>Greater <em>@UUID[Compendium.pf2e.spells-srd.Item.Heroic Feat]</em></li>\n</ul>\n<p><strong>Related Domains</strong> might, zeal</p>\n<h3>Curse of the Hero's Burden</h3>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Curse of the Hero's Burden]</p>\n<p>You thrive while adrenaline flows and your life depends on your might alone, but holding the collective battle prowess of the ages within you leaves your body weakened after a fight. You smell faintly of steel and blood no matter how you try to remove or mask the scent, you appear more muscular than you actually are, and you hear the faint clash and clamor of battle in the distance at all times.</p>\n<h4>Minor Curse</h4>\n<p>Your body languishes when you aren't bringing harm to your foes. You take a -2 status penalty to AC and saving throws, but each time you make a Strike, you can suspend these penalties until the start of your next turn.</p>\n<h4>Moderate Curse</h4>\n<p>The strain of conflict wears upon your body, even though you gain vitality from it. Making a Strike reduces the penalty from your minor curse to -1 rather than suspending it entirely. You gain a +2 status bonus to weapon and unarmed damage rolls. You also gain fast healing equal to half your level while in a non-trivial combat encounter.</p>\n<h4>Major Curse (11th)</h4>\n<p>Your body proves capable of truly heroic feats, but doing so interferes with your mental focus. Your moderate curse's fast healing is equal to your level, and its damage bonus is +6. You gain a +1 status bonus to weapon and unarmed attack rolls, but you are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": "weaponGroups",
+                "flag": "battle",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    "item:group:{item|flags.pf2e.rulesSelections.battle}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialGroup.{item|flags.pf2e.rulesSelections.battle}",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "slug": "battle-group-martial",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "value": 1
+                        },
+                        {
+                            "start": 11,
+                            "value": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:group:{item|flags.pf2e.rulesSelections.battle}"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.{item|flags.pf2e.rulesSelections.battle}",
+                "predicate": [
+                    "class:oracle",
+                    "feature:weapon-expertise"
+                ],
+                "slug": "battle-group-advanced",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.heavy.rank",
+                "predicate": [
+                    "class:oracle"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "predicate": [
+                    "class:oracle",
+                    "feature:light-armor-expertise"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.heavy.rank",
+                "predicate": [
+                    "class:oracle",
+                    "feature:light-armor-expertise"
+                ],
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

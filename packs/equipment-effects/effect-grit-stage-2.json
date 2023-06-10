@@ -1,0 +1,53 @@
+{
+    "_id": "4aSqtBgvQr2TI3XT",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/drugs/grit.webp",
+    "name": "Effect: Grit (Stage 2)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grit]</p>\n<p>The creature gains a +1 item bonus to Athletics, Crafting, and Performance checks, and a -2 item penalty to Perception checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "athletics",
+                    "crafting",
+                    "performance"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "type": "item",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

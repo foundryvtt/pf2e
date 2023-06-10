@@ -1,0 +1,77 @@
+{
+    "_id": "4qhnEsaypUjLm7eP",
+    "img": "systems/pf2e/icons/equipment/other/attached-items/burnished-plating.webp",
+    "name": "Burnished Plating",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>These highly polished metal plates can be added to any armor. While wearing armor with burnished plating, you gain the Sunshine! reaction. However, you take a -4 circumstance penalty to stealth checks except in darkness, and your armor's Strength entry increases its value by 2, requiring you to have a higher Strength score to overcome the armor's penalties. Even if you meet your armor's new Strength entry, you still take the penalty to Stealth checks. When you are critically hit by an attack that deals bludgeoning damage, burnished plating stops working until someone spends 10 minutes repairing and polishing it; this doesn't require a Crafting check.</p>\n<hr />\n<p><strong>Sunshine!</strong> <span class=\"pf2-icon\">r</span></p>\n<p><strong>Trigger</strong> A creature you can see targets you with an attack</p>\n<p><strong>Requirements</strong> You are in an area of bright light</p>\n<hr />\n<p><strong>Effect</strong> You twist to reflect light in your foe's eyes. The attacking creature must succeed at a @Check[type:flat|dc:3|name:Sunshine!|traits:visual|showDC:owner] check or the attack fails. The attacker doesn't need to roll this flat check if it has a precise sense other than vision or if it would already need to roll a flat check with a higher DC to target you, such as if you are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 5
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.Darkness",
+                "option": "lighting:darkness",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "lighting:darkness"
+                    }
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": -4
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "adjustment"
+            ]
+        },
+        "usage": {
+            "value": "affixed-to-a-ranged-weapon"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

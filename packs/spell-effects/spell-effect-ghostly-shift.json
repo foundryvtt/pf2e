@@ -1,0 +1,44 @@
+{
+    "_id": "vUjRvriyuHDZrsgc",
+    "img": "systems/pf2e/icons/spells/ghostly-shift.webp",
+    "name": "Spell Effect: Ghostly Shift",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghostly Shift]</em></p>\n<p>You gain resistance 2 to all damage (except force).</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increases by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "exceptions": [
+                    "force"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "ceil(@item.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

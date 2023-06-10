@@ -1,0 +1,87 @@
+{
+    "_id": "6YJ8KFl7THkVy6Gm",
+    "img": "systems/pf2e/icons/features/classes/twisting-tree.webp",
+    "name": "Twisting Tree",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The staff is perhaps one of the simplest of weapons, but this simplicity belies its elegance and versatility. To you, a staff is casting implement and martial weapon alike-the foundation of a fighting style.</p>\n<p>While you wield a staff in one hand, the staff adjusts in shape and weight, gaining the agile trait and increasing its damage die size to 1d6. While you wield a staff in both hands, it lengthens, twists, and reshapes, gaining the parry, reach, and trip traits. While you're in Arcane Cascade stance, you can Interact or Release to change your grip on the weapon as a free action when you Strike with your staff, including Strikes made in a Spellstrike. This happens before you roll your attack roll. You can also Interact to change your grip on the staff as a free action triggered at the end of your turn.</p>\n<p><strong>Conflux Spell</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Spinning Staff]</em></p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "item:base:staff",
+                    "item:damage:die:faces:d4",
+                    "item:hands-held:1"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "definition": [
+                    "item:base:staff",
+                    "item:hands-held:1"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "agile"
+            },
+            {
+                "definition": [
+                    "item:base:staff",
+                    "item:hands-held:2"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "parry"
+            },
+            {
+                "definition": [
+                    "item:base:staff",
+                    "item:hands-held:2"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "definition": [
+                    "item:base:staff",
+                    "item:hands-held:2"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "trip"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

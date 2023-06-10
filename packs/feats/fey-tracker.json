@@ -1,0 +1,65 @@
+{
+    "_id": "grPtqWYbdXXo7yhP",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Fey Tracker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are exceptionally skilled at noticing the subtle techniques fey use to avoid notice. You gain a +2 circumstance bonus to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] fey creatures, to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] for @UUID[Compendium.pf2e.conditionitems.Item.Hidden] fey, and to your Perception DC to resist a fey creature's attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion].</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Greenwatch Initiate"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:fey",
+                    {
+                        "or": [
+                            "action:track",
+                            {
+                                "and": [
+                                    "action:seek",
+                                    "target:condition:hidden"
+                                ]
+                            },
+                            "action:create-a-diversion"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "survival",
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "gunslinger",
+                "investigator",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

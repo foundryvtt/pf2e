@@ -1,0 +1,82 @@
+{
+    "_id": "IcQMLYWYDMZbq3XE",
+    "img": "systems/pf2e/icons/spells/inscrutable-mask.webp",
+    "name": "Spell Effect: Inscrutable Mask",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Inscrutable Mask]</p>\n<p>You shroud your form and features in an impenetrable mask of shadow. The mask grants you a +1 status bonus to Deception checks to Lie or Feint, Intimidation checks to Demoralize, and Stealth checks to Hide in areas of dim light or darkness.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:lie"
+                        ]
+                    }
+                ],
+                "selector": "deception",
+                "type": "status",
+                "value": "floor(@item.level/3)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "type": "status",
+                "value": "floor(@item.level/3)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:hide",
+                    {
+                        "or": [
+                            "inscrutable-mask-darkness",
+                            "lighting:darkness",
+                            "lighting:dim-light"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": "floor(@item.level/3)"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.DimLightOrDarkness",
+                "option": "inscrutable-mask-darkness",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

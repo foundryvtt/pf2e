@@ -1,0 +1,116 @@
+{
+    "_id": "KPtF29AaeX2sJW0K",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Patron",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You weren't born with the power to cast spells, nor have you spent years in devotion to tomes, deities, or mystical secrets. Your power comes through a potent being that has chosen you as their vessel to carry forth some agenda in the world. This entity is typically mysterious and distant, revealing little of their identity and motivations, and they grant you spells and other magical powers through a familiar, which serves as a conduit for their power.</p>\n<p>A patron might be a deity or demigod, a coven of powerful hags, a fey lord, an archdevil, or a similarly powerful entity, or perhaps multiple such figures workingin tandem. As you gain more of your patron's power, you might learn more about who or what they are-certain combinations of themes and lessons suggest particular patrons or agendas-but patrons empower witches for their own secretive reasons, which they rarely reveal in full.</p>\n<p>At 1st level, choose your patron's theme, which determines your spellcasting tradition, a skill, a special cantrip you gain, and a spell added to your familiar.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.{actor|system.proficiencies.aliases.witch}.rank",
+                "predicate": [
+                    "class:witch"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "end": 18,
+                            "start": 15,
+                            "value": 3
+                        },
+                        {
+                            "start": 19,
+                            "value": 4
+                        }
+                    ],
+                    "field": "actor|system.details.level.value"
+                }
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 Witch feature",
+                    "predicate": [
+                        "item:trait:witch",
+                        "item:level:1"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Baba Yaga Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Curse Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Fate Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Fervor Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Night Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Rune Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Wild Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Winter Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Mosquito Witch Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Pacts Patron"
+                    }
+                ],
+                "flag": "patron",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.patron}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "DLE2rr5I1TBAk0I3",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Disorienting Venom",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The venom injected by your fangs disorients your foes. A creature damaged by your @UUID[Compendium.pf2e.actionspf2e.Item.Anadi Venom] must attempt a @Check[type:fortitude|dc:resolve(@actor.attributes.classOrSpellDC.value)|traits:poison] save against your class or spell DC, whichever is higher, or become @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] for 1 round.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Venomous Anadi"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:effect:anadi-venom"
+                ],
+                "selector": "fangs-damage",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "anadi"
+            ]
+        }
+    },
+    "type": "feat"
+}

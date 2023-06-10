@@ -1,0 +1,110 @@
+{
+    "_id": "PGqYo173cQAYLHTz",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dnIx3U20Cjg7YLMD",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Collapse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps onto any space in the dotted area on the map, or at least 30 pounds of pressure is put on the area</p>\n<hr />\n<p><strong>Effect</strong> The ground gives way. The triggering creature falls 20 feet down the hole, taking [[/r 10[bludgeoning]]] and landing @UUID[Compendium.pf2e.conditionitems.Item.Prone] in area <strong>E10</strong>. A creature can @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] to avoid falling.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Valmar's Pit Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "emitsSound": "encounter",
+            "hardness": 1,
+            "hp": {
+                "details": "",
+                "max": 6,
+                "temp": 0,
+                "value": 6
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The ground here is made of loosely packed soil that, when stepped upon, collapses.</p>",
+            "disable": "<p>@Check[type:survival|dc:22] (trained) to reinforce the dirt so it's safe to walk on, or @Check[type:thievery|dc:18] (trained) to collapse the trap from a safe distance</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>Creatures can still fall into the pit, but the soil must be replaced for the trap to become hidden again.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #188: They Watched the Stars"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 2
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 3
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

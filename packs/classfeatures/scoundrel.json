@@ -1,0 +1,76 @@
+{
+    "_id": "ZvfxtUMtfIOLYHyg",
+    "img": "systems/pf2e/icons/features/classes/scoundrel.webp",
+    "name": "Scoundrel",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You use fast-talking, flattery, and a silver tongue to avoid danger and escape tricky situations. You might be a grifter or con artist, traveling from place to place with a new story or scheme. Your racket is also ideal for certain reputable professions, like barrister, diplomat, or politician.</p>\n<p>When you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint], the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against melee attacks you attempt against it until the end of your next turn. On a critical success, the target is flat-footed against all melee attacks until the end of your next turn, not just yours.</p>\n<p>You're trained in Deception and Diplomacy. You can choose Charisma as your key ability score.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "skill-check",
+                "text": "When you successfully Feint, the target is flat-footed against melee attacks you attempt against it until the end of your next turn.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "skill-check",
+                "text": "On a critical success, the target is flat-footed against all melee attacks until the end of your next turn, not just yours.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "subfeatures": {
+            "keyOptions": [
+                "cha"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,109 @@
+{
+    "_id": "TfwvPnETjUhEUQ82",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Mkzdftre3Tzz3aVM",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Drop From Ceiling",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A character enters a square between the two portcullises</p>\n<hr />\n<p><strong>Effect</strong> Both portcullises drop from the ceiling; attempting to lift one requires a @Check[type:athletics|dc:30] check to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open]. When the portcullises drop, creatures in adjacent squares must attempt a @Check[type:reflex|dc:30|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unharmed and can take a Step as a reaction to move to an adjacent square.</p>\n<p><strong>Success</strong> As critical success, but the creature takes a glancing blow from the falling portcullis for [[/r (2d12+15)[bludgeoning]]] damage.</p>\n<p><strong>Failure</strong> The creature is struck by the falling portcullis for [[/r (4d12+30)[bludgeoning]]] damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] in their square.</p>\n<p><strong>Critical Failure</strong> The creature is struck by the falling portcullis for [[/r (6d12+45)[bludgeoning]]] damage, is knocked prone, and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by the portcullis as it pins them to the ground until they can @UUID[Compendium.pf2e.actionspf2e.Item.Escape] or Force Open the portcullis (DC 30, <span data-pf2-action=\"forceOpen\" data-pf2-glyph=\"A\" data-pf2-dc=\"30\">Athletics</span>).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Trapped Portcullis",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "emitsSound": "encounter",
+            "hardness": 18,
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "value": 72
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 26
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Two portcullises drop down to block progress through this area.</p>",
+            "disable": "<p>@Check[type:thievery|dc:33] (master) to disable the trigger that causes the portcullises to drop</p>",
+            "isComplex": false,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>The trap can be manually reset with a 10-minute Manipulate activity performed in the hallways to the east or west of this area, as long as neither portcullis is broken or destroyed.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

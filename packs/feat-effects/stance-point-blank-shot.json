@@ -1,0 +1,59 @@
+{
+    "_id": "9HPxAKpP3WJmICBx",
+    "img": "systems/pf2e/icons/equipment/weapons/daikyu.webp",
+    "name": "Stance: Point-Blank Shot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Point-Blank Shot].</p>\n<p>When using a ranged weapon that doesn't have the volley trait, you gain a +2 circumstance bonus to damage rolls on attacks against targets within the weapon's first range increment.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "self:ignore-volley-penalty"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:range-increment:1",
+                    "item:ranged",
+                    {
+                        "nor": [
+                            "item:trait:volley-20",
+                            "item:trait:volley-30",
+                            "item:trait:volley-50"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

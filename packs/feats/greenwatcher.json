@@ -1,0 +1,53 @@
+{
+    "_id": "dnm6c3nzGDHt3A76",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Greenwatcher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your experience fighting against and alongside fey creatures is nearly unrivaled. Any weapon you wield or unarmed attack you make against a fey creature is treated as cold iron. Whenever you critically fail a save against a spell cast by a fey creature, it's instead treated as a normal failure. Whenever you critically succeed on a Strike against a fey creature, the target is immediately subject to the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</em> spell. For the purposes of counteracting this effect, it's an innate 2nd-level primal spell.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Defy Fey"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:type:spell",
+                    "origin:trait:fey"
+                ],
+                "selector": "saving-throw",
+                "type": "saves"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "gunslinger",
+                "investigator",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

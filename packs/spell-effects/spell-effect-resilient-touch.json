@@ -1,0 +1,51 @@
+{
+    "_id": "6embuvXCpS3YOD5u",
+    "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
+    "name": "Spell Effect: Resilient Touch",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> if you have @UUID[Compendium.pf2e.feats-srd.Item.Resilient Touch].</p>\n<p>If the target is one of your allies, they also gain a +2 status bonus to AC and a +1 status bonus to their saving throws until the end of their next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Lay on Hands",
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Resilient Touch",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

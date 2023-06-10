@@ -268,7 +268,7 @@ export class StatusEffects {
             if (conditionIds.length > 0) {
                 await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
             } else if (token.document.overlayEffect === iconSrc) {
-                await token.toggleEffect(iconSrc, { overlay: true, active: false });
+                await token.document.update({ overlayEffect: "" });
             }
         }
     }

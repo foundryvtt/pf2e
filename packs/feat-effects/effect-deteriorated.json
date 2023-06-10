@@ -1,0 +1,44 @@
+{
+    "_id": "94MzLpLykQIWKcA1",
+    "img": "systems/pf2e/icons/features/feats/deteriorated.webp",
+    "name": "Effect: Deteriorated",
+    "system": {
+        "description": {
+            "value": "<p>Associated with @UUID[Compendium.pf2e.feats-srd.Item.Zombie Dedication].</p>\n<p>While your body is deteriorated, you're @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. You can spend 10 minutes checking and repairing your joints and other weak parts of your body to recover from deterioration. You can perform these repairs as part of your daily preparations. Because it's a natural result of your body's functions, you can't remove the slowed condition from deterioration through any other means.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "detach"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

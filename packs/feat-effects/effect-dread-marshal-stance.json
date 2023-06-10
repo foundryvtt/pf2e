@@ -1,0 +1,52 @@
+{
+    "_id": "KBEJVRrie2JTHWIK",
+    "img": "systems/pf2e/icons/features/feats/dread-marshal-stance.webp",
+    "name": "Effect: Dread Marshal Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Dread Marshal Stance]</p>\n<p>You gain a status bonus to damage rolls equal to the number of weapon damage dice of the unarmed attack or weapon the originator of the aura is wielding that has the most weapon damage dice. When you or an ally in the aura critically hits an enemy with a Strike, that enemy is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Marshal.DreadMarshalStance.Note",
+                "title": "PF2E.SpecificRule.Marshal.DreadMarshalStance.Title"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
+                "value": "@item.origin.flags.pf2e.highestWeaponDamageDice"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

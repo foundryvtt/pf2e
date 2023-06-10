@@ -1,0 +1,189 @@
+{
+    "_id": "hDqXrKVrjXWjb3K4",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "tIuhfDo8FBTx1cvh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Resistance to Disintegrate",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> deals double damage, ignoring Hardness, rather than destroying the cluster heart outright</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Tq7v2vel8PD9LBCX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Crystal Surge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-elemental creature ends its turn adjacent to the cluster heart</p>\n<hr />\n<p><strong>Effect</strong> The heart extends shards of crystal imbued with force, like a jabbing blade, and deals [[/r (3d10+20)[force]]] damage and [[/r (3d10+20)[piercing]]] damage to all creatures in a 20-foot radius (@Check[type:reflex|dc:40|basic:true] save). A creature who takes piercing damage from the surge is exposed to crystal corruption. On a critical failure, a creature also takes [[/r 2d6[persistent,bleed]]] damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "force"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bUoB5zcdxV5wG0kM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Crystalline Corruption",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Creatures afflicted by this curse slowly turn to solid crystal. This affliction's sickened, slowed, and paralyzed conditions can't be removed until the affliction itself is removed. Creatures with both the earth and elemental traits instead become carriers and suffer no ill effects aside from gaining the weakness to sonic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<p><strong>Stage 1</strong> sickened 1 (1 hour)</p>\n<p><strong>Stage 2</strong> weakness 5 to sonic and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> weakness 5 to sonic and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 4</strong> weakness 10 to sonic and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] (1 day)</p>\n<p><strong>Stage 5</strong> weakness 10 to sonic, and the creature is permanently @UUID[Compendium.pf2e.conditionitems.Item.Petrified].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "curse",
+                        "incapacitation",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cluster Heart",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 300,
+                "temp": 0,
+                "value": 300
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) to hear or feel the energy coalescing</p>",
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 20
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A wave of magic passes through the area, causing crystal shards to grow and stab intruders.</p>",
+            "disable": "<p>@Check[type:nature|dc:45] (master) to chip away at the crystal and disrupt its resonance, or @Check[type:thievery|dc:42] (master) to carefully detach the crystals and then safely smash them</p>",
+            "isComplex": false,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>Once the cluster heart uses its reaction, it automatically resets after 1 minute. As long as the cluster heart has 150 or more Hit Points, it recovers 50 per day.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #191: The Destiny War"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

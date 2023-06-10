@@ -1,0 +1,151 @@
+{
+    "_id": "B18UXeicuV8RF8kP",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "zDJDO6RiYek1vtDZ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ectoplasmic Explosion",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches or disturbs the corpse containing the growth of crystals</p>\n<hr />\n<p><strong>Effect</strong> All creatures within 10 feet of the corpse are exposed to the ghost crystal cloud.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NrFxf3psvDqHyWQv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ghost Crystal Cloud",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Creatures with the ethereal trait are immune</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26|traits:environmental,hazard]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 3d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ghost Crystal Cloud",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The xulgath corpse splits open to release a cloud of tiny ectoplasmic crystals which, when they are   inhaled, disorient and devitalize living creatures.</p>",
+            "disable": "<p>@Check[type:arcana|dc:26|name:Render the cloud inert|traits:hazard,environmental] or @Check[type:occultism|dc:26|name:Render the cloud inert|traits:hazard,environmental] (expert) to render the crystal cloud inert</p>",
+            "isComplex": false,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>The crystals regrow into a number sufficient to form another dangerous cloud after 1 week.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #152: Legacy of the Lost God"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

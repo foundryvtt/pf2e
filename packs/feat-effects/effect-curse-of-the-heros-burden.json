@@ -1,0 +1,276 @@
+{
+    "_id": "pQ3EjUm1lZW9t3el",
+    "img": "systems/pf2e/icons/features/classes/battle-mystery.webp",
+    "name": "Effect: Curse of the Hero's Burden",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Battle]</p>\n<h3>Curse of the Hero's Burden</h3>\n<p>You thrive while adrenaline flows and your life depends on your might alone, but holding the collective battle prowess of the ages within you leaves your body weakened after a fight. You smell faintly of steel and blood no matter how you try to remove or mask the scent, you appear more muscular than you actually are, and you hear the faint clash and clamor of battle in the distance at all times.</p>\n<h4>Minor Curse</h4>\n<p>Your body languishes when you aren't bringing harm to your foes. You take a -2 status penalty to AC and saving throws, but each time you make a Strike, you can suspend these penalties until the start of your next turn.</p>\n<h4>Moderate Curse</h4>\n<p>The strain of conflict wears upon your body, even though you gain vitality from it. Making a Strike reduces the penalty from your minor curse to -1 rather than suspending it entirely. You gain a +2 status bonus to weapon and unarmed damage rolls. You also gain fast healing equal to half your level while in a non-trivial combat encounter.</p>\n<h4>Major Curse (11th)</h4>\n<p>Your body proves capable of truly heroic feats, but doing so interferes with your mental focus. Your moderate curse's fast healing is equal to your level, and its damage bonus is +6. You gain a +1 status bonus to weapon and unarmed attack rolls, but you are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": [
+                            "class:oracle"
+                        ],
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
+                        "value": "extreme"
+                    }
+                ],
+                "flag": "effectBattleCurse",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:oracular-curse:stage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.OracleCurses.Battle.MadeAStrike",
+                "option": "battle-mystery",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "battle-mystery"
+                    }
+                ],
+                "selector": "ac",
+                "slug": "battle-curse-ac",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "battle-mystery"
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "battle-curse-ac",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "battle-mystery",
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "self:oracular-curse:stage:minor"
+                    }
+                ],
+                "selector": "ac",
+                "slug": "battle-curse-ac-moderate",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "battle-mystery",
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "self:oracular-curse:stage:minor"
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "battle-curse-ac-moderate",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "battle-curse-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "details": "",
+                "key": "FastHealing",
+                "predicate": [
+                    "encounter:non-trivial",
+                    "self:oracular-curse:stage:moderate"
+                ],
+                "type": "fast-healing",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "details": "",
+                "key": "FastHealing",
+                "predicate": [
+                    "encounter:non-trivial",
+                    "self:oracular-curse:stage:major",
+                    "self:oracular-curse:stage:extreme"
+                ],
+                "type": "fast-healing",
+                "value": "@actor.level"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.OracleCurses.Battle.NonTrivialEncounter",
+                "option": "encounter:non-trivial",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "battle-curse-damage",
+                "value": 6
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "attack",
+                "slug": "battle-curse-attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,142 @@
+{
+    "_id": "QN7y2CQeiJ2iPioM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Titan Swing",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your limbs tense as you deliver a mighty swing. Make a melee Strike. If it hits, you deal an extra die of weapon damage and push the target back by 5 feet. If you're at least 10th level, increase this to two extra dice and push the target by 10 feet, and if you're at least 18th level, increase it to three extra dice and push the target by 15 feet.</p>\n<hr />\n<p><strong>Awakening</strong> On a critical hit, you push the target back double the normal distance and knock it @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<hr />\n<p><strong>Awakening</strong> On a hit, you deal 1d6 bleed damage. This increases to 2d6 at 10th level and 3d6 at 18th level.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:melee",
+                    "titan-swing"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "titan-swing",
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "bleed",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "titan-swing",
+                    "item:melee",
+                    "awakening:titan-swing:bleed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "titan-swing",
+                    {
+                        "lte": [
+                            "self:level",
+                            9
+                        ]
+                    },
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.DeviantAbilities.TitanSwing.NoteFiveFeet",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "titan-swing",
+                    {
+                        "gte": [
+                            "self:level",
+                            10
+                        ]
+                    },
+                    {
+                        "lt": [
+                            "self:level",
+                            18
+                        ]
+                    },
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.DeviantAbilities.TitanSwing.NoteTenFeet",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "titan-swing",
+                    {
+                        "gte": [
+                            "self:level",
+                            18
+                        ]
+                    },
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.DeviantAbilities.TitanSwing.NoteFifteenFeet",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "titan-swing",
+                    "awakening:titan-swing:prone",
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.DeviantAbilities.TitanSwing.NoteProne",
+                "title": "PF2E.SpecificRule.DeviantAbilities.AwakenedPower.AwakenedLabel"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:troll-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Troll Deviant Classification"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "deviant",
+                "magical",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

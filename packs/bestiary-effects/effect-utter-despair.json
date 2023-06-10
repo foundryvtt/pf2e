@@ -1,0 +1,50 @@
+{
+    "_id": "ob00D61F0c4PIvj1",
+    "img": "systems/pf2e/icons/spells/canticle-of-everlasting-grief.webp",
+    "name": "Effect: Utter Despair",
+    "system": {
+        "description": {
+            "value": "<p>Living creatures are frightened 2 while in an utter despair aura. They can't naturally recover from this fear while in the area but lose the frightened condition immediately upon leaving the area.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Frightened"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #155: Lord of the Black Sands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

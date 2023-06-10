@@ -1,0 +1,58 @@
+{
+    "_id": "7JbiaZ8bxODM5mzS",
+    "img": "systems/pf2e/icons/features/classes/bomber.webp",
+    "name": "Bomber",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You specialize in explosions and other violent alchemical reactions. You start with the formulas for two common 1st-level alchemical bombs, in addition to your other formulas.</p>\n<p>Your research field adds a number of formulas to your formula book; these are your signature items. When using a batch of @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents] to create your signature items using @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy], you create three items instead of two. Each time you gain a level, you can swap one of your signature items with another formula in your formula book. This new signature item must be on your research field's list of possible signature items.</p>\n<p>When throwing an alchemical bomb with the splash trait, you can deal splash damage to only your primary target instead of the usual splash area.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Field Discovery (Bomber)]{Field Discovery}<span style=\"float:right\">Level 5</span></h2>\n<p>When using Advanced Alchemy to make bombs during your daily preparations, you can use a batch of reagents to create any three bombs instead of just two of the same bomb.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Infusions (Bomber)]{Perpetual Infusions}<span style=\"float:right\">Level 7</span></h2>\n<p>You have learned how to create perpetual alchemical infusions that can provide a near-infinite supply of certain simple items. You gain the ability to create two 1st-level alchemical items using @UUID[Compendium.pf2e.classfeatures.Item.Quick Alchemy] without spending a batch of infused reagents. The items you can select depend on your research field and must be in your formula book.</p>\n<p>Each time you gain a level, you can swap any number of your perpetual infusions with other eligible infusions.</p>\n<p>Choose two 1st-level bombs.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Potency (Bomber)]{Perpetual Potency}<span style=\"float:right\">Level 11</span></h2>\n<p>Your perpetual infusions improve, allowing you to use Quick Alchemy to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>The moderate versions of the bombs you chose for perpetual infusions.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Bomber)]{Greater Field Discovery}<span style=\"float:right\">Level 13</span></h2>\n<p>You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have @UUID[Compendium.pf2e.feats-srd.Item.Expanded Splash].</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Perfection (Bomber)]{Perpetual Perfection}<span style=\"float:right\">Level 17</span></h2>\n<p>You have perfected your perpetual infusions, allowing you to use Quick Alchemy to create even more powerful items at no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>The greater versions of the bombs you chose for perpetual infusions.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "alchemical",
+                    "bomb",
+                    "splash"
+                ],
+                "selector": "strike-damage",
+                "text": "You can deal splash damage to only your primary target instead of the usual splash area.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.alchemist",
+                "value": {
+                    "fieldDiscovery": "Compendium.pf2e.classfeatures.Item.8QAFgy9U8PxEa7Dw",
+                    "greaterFieldDiscovery": "Compendium.pf2e.classfeatures.Item.RGs4uR3CAvgbtBAA",
+                    "perpetualInfusions": "Compendium.pf2e.classfeatures.Item.DFQDtT1Van4fFEHi",
+                    "perpetualPerfection": "Compendium.pf2e.classfeatures.Item.xO90iBD8XNGyaCkz",
+                    "perpetualPotency": "Compendium.pf2e.classfeatures.Item.8rEVg03QJ71ic3PP"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

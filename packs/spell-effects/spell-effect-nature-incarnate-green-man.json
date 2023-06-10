@@ -1,0 +1,103 @@
+{
+    "_id": "lywUJljQy2SxRZQt",
+    "img": "systems/pf2e/icons/spells/nature-incarnate.webp",
+    "name": "Spell Effect: Nature Incarnate (Green Man)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Nature Incarnate]</em></p>\n<p>The primal power of the world flows through you. You transform into an incarnation of nature, either a green man or a kaiju. Your battle form is Medium for a green man or Gargantuan (30-foot-by-30-foot space) for a kaiju. You must have enough space to expand into or the spell is lost. While in this form, you gain the plant trait (for a green man) or the beast trait (for a kaiju). You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 25 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>30 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +34, and you use the listed damage. These attacks are Strength based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +36, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of incarnation you choose:</p>\n<ul>\n<li><strong>Green Man</strong>\n<ul>\n<li>Speed 40 feet, climb Speed 40 feet;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1 </span>vines (reach 30 feet, versatile P), <strong>Damage</strong> 6d8+12 bludgeoning;</li>\n<li><strong>Ranged</strong> <span class=\"pf2-icon\">1 </span>thorns (range 100 feet), <strong>Damage</strong> 6d6+6 piercing;</li>\n<li><strong>Green Caress</strong> (aura, primal, transmutation) 60 feet. Enemies other than plants must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] save against your spell DC or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} on a critical failure).</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "25 + @actor.level"
+                    },
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "ath": {
+                            "modifier": 36
+                        }
+                    },
+                    "speeds": {
+                        "climb": 40,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "thorns": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 6,
+                                "die": "d6",
+                                "modifier": 6
+                            },
+                            "maxRange": 100,
+                            "modifier": 34,
+                            "range": 100,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "vine": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 6,
+                                "die": "d8",
+                                "modifier": 12
+                            },
+                            "modifier": 34,
+                            "traits": [
+                                "unarmed",
+                                "reach-30",
+                                "versatile-p"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "plant"
+                    ]
+                }
+            },
+            {
+                "key": "Aura",
+                "radius": 60,
+                "slug": "green-caress",
+                "traits": [
+                    "primal",
+                    "transmutation"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

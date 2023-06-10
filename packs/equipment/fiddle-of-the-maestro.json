@@ -1,0 +1,104 @@
+{
+    "_id": "2smAtaNAi2fIVTLF",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Fiddle of the Maestro",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This exquisite fiddle is perfectly carved and balanced to produce the purest sound while granting its player perfect balance and poise. It grants a +2 item bonus to Performance checks. If you're a master in Performance, while playing it you also gain a +1 status bonus to Reflex saves and a +1 item bonus to Dexterity-based skill checks. If you're legendary in Performance, the bonuses are +2.</p>\n<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Perform] with the fiddle, you can choose to create a harsh and discordant note. You critically fail the Performance check, shred the strings of the fiddle, and create an 8th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Sound Burst]</em>, with a @Template[type:emanation|distance:40] around you instead of a @Template[type:burst|distance:10]. The fiddle can't be played again until the strings are replaced at a cost of 200 gp.</p>\n<hr />\n<p><strong>Activate</strong> Cast a Spell</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from this instrument to cast a spell from its list.</p>\n<ul>\n<ul>\n<li><strong>Cantrips</strong><em>@UUID[Compendium.pf2e.spells-srd.Item.Dancing Lights]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Message]</em></li>\n<li><strong>1st</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Command]</em></li>\n<li><strong>2nd</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm Emotions]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</em></li>\n<li><strong>3rd</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Enthrall]</em></li>\n<li><strong>4th</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Glibness]</em></li>\n<li><strong>5th</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Sending]</em></li>\n<li><strong>6th</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm Emotions]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Dominate]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Vibrant Pattern]</em></li>\n<li><strong>7th</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Dominate]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.True Target]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Vibrant Pattern]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Visions of Danger]</em></li>\n</ul>\n</ul>\n<hr />\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 16
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 10000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "performance",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "skill:prf:rank:3"
+                ],
+                "selector": "dex-skill-check",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "skill:prf:rank:3"
+                ],
+                "selector": "reflex",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "skill:prf:rank:4"
+                ],
+                "selector": "dex-skill-check",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "skill:prf:rank:4"
+                ],
+                "selector": "reflex",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "coda",
+                "enchantment",
+                "occult",
+                "staff"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

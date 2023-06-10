@@ -77,7 +77,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.parent;
     }
 
-    protected override _initialize(): void {
+    /** Workaround for https://github.com/foundryvtt/foundryvtt/issues/9467 */
+    protected override _initializeSource(
+        data: Record<string, unknown>,
+        options?: DocumentConstructionContext<TParent>
+    ): this["_source"] {
+        data.delta ??= {};
+        return super._initializeSource(data, options);
+    }
+
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this.auras = new Map();
         this._source.flags.pf2e ??= {};
@@ -86,7 +95,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
             : false;
 
-        super._initialize();
+        super._initialize(options);
     }
 
     /** Is this token emitting light with a negative value */

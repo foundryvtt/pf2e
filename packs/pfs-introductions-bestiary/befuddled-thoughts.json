@@ -1,0 +1,103 @@
+{
+    "_id": "0B7h7yvceKuI2SFJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7I3VRoq3OcchxAAS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hunger's Possession",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature bearing <em>Hunger's Call</em> moves within 30 feet of the exit stairs</p>\n<hr />\n<p><strong>Effect</strong> The creature's mind becomes hazy and foggy as an unseen voice says to drop the relic and walk away. The creature must attempt a @Check[type:will|dc:20|name:Resist Hunger's Possession|traits:haunt,complex] save, and the haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The target is dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target loses control of their mind and on their next round must set <em>Hunger's Call</em> on the floor and move their speed in a direction away from the relic; this causes the relic to teleport itself back to area D1. If they have any actions remaining, the target loses those actions. At the end of their turn, the target regains control of their mind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Befuddled Thoughts",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The fanged skull rune begins speaking in sweet, honeyed tones about eternal life.</p>",
+            "disable": "<p>@Check[type:religion|dc:20|name:Exorcise Spirit|traits:complex,haunt] (trained) to exorcise the spirit, @Check[type:religion|dc:21|name:Sever Spiritual Connection|traits:complex,haunt] or @Check[type:occultism|dc:21|name:Sever Spiritual Connection|traits:complex,haunt] (trained) to sever the connection between <em>Hunger's Call</em> and the temple, or @Check[type:athletics|dc:21|name:Crack the Wall|traits:complex,haunt] to crack the wall in several places; three total successes are required to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The mosaic ceases its routine 2 rounds after all living creatures are out of sight of the stairs. After 6 hours the haunt is ready to trigger again.</p>",
+            "routine": "<p>(3 actions) A pulsing red ball of energy flies from the wall and explodes in negative energy in the room. Anyone in the room takes [[/r (1d10+4)[negative]]] damage (@Check[type:reflex|dc:20|basic:true|name:Avoid the Energy|traits:complex,haunt,negative] save).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Intro #2: United in Purpose"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

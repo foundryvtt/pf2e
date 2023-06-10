@@ -1,0 +1,55 @@
+{
+    "_id": "wTZnKkT0K4Tdy8mD",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bravos-brew.webp",
+    "name": "Effect: Bravo's Brew (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bravo's Brew (Moderate)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+2 item bonus to Will saves</li>\n<li>+3 item bonus to Will saves against fear</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "slug": "bravos-brew-moderate",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Equipment.BravosBrew.Moderate.FearLabel",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will",
+                "slug": "bravos-brew-moderate-fear",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

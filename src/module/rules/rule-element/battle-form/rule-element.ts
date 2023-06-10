@@ -337,7 +337,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }) as CharacterSkill;
             this.actor.system.skills[skillShort] = mergeObject(
                 this.actor.system.skills[skillShort],
-                this.actor.skills[key].getTraceData({ rollable: ["4.12", "5.0"] })
+                this.actor.skills[key].getTraceData()
             );
         }
     }
@@ -418,16 +418,16 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Immunity, weakness, and resistance */
     #prepareIWR(): void {
         for (const immunity of this.overrides.immunities) {
-            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).beforePrepareData();
+            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).afterPrepareData();
         }
         for (const weakness of this.overrides.weaknesses) {
-            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).beforePrepareData();
+            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).afterPrepareData();
         }
         for (const resistance of this.overrides.resistances) {
             new ResistanceRuleElement(
                 { key: "Resistance", ...resistance, override: true },
                 this.item
-            ).beforePrepareData();
+            ).afterPrepareData();
         }
     }
 

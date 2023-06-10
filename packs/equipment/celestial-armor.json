@@ -1,0 +1,124 @@
+{
+    "_id": "2uHcTZ40oZ62R9gy",
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/celestial-armor.webp",
+    "name": "Celestial Armor",
+    "system": {
+        "armor": {
+            "value": 4
+        },
+        "baseItem": "chain-mail",
+        "category": "medium",
+        "check": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This suit of +2 resilient chain mail is made of fine white links of a strange and slightly translucent pale metal, and the sleeves and skirt are fashioned into smaller trails that resemble feathers. Unlike normal chain mail, celestial armor has no Speed reduction, its armor check penalty is 0, and its Bulk is 1.</p>\n<p>You gain a +1 circumstance bonus to AC and saving throws against fiends. You appear radiant while you wear the armor, giving you a +2 item bonus to Diplomacy checks against all creatures except fiends.</p>\n<p>If you are not good, you are @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} while wearing <em>celestial armor</em>. You can't recover from this condition while wearing the armor.</p>\n<hr />\n<p><strong>Activate</strong> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The armor sprouts glowing wings that grant you a fly Speed of 30 feet. The wings shed bright light in a 40-foot radius (and dim light to the next 40 feet). The wings fade away after 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Celestial Armor]</p>\n<hr />\n<p><strong>Craft Requirements</strong> You are good.</p>"
+        },
+        "dex": {
+            "value": 1
+        },
+        "equippedBulk": {
+            "value": "1"
+        },
+        "group": "chain",
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potency": {},
+        "potencyRune": {
+            "value": 2
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 2500
+            }
+        },
+        "propertyRune1": {
+            "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "resiliencyRune": {
+            "value": "resilient"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:fiend"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:trait:fiend"
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "speed": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strength": {
+            "value": 16
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "abjuration",
+                "divine",
+                "flexible",
+                "good",
+                "invested",
+                "noisy",
+                "transmutation"
+            ]
+        },
+        "usage": {
+            "value": "wornarmor"
+        },
+        "weight": {
+            "value": "2"
+        }
+    },
+    "type": "armor"
+}

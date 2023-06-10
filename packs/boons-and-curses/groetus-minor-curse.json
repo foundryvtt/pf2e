@@ -1,0 +1,43 @@
+{
+    "_id": "RLdclcC8zoNAVony",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Groetus - Minor Curse",
+    "system": {
+        "description": {
+            "value": "<p><strong>Minor Curse:</strong> Whenever you are illuminated by a light source other than natural sunlight, your head appears to be a bare skull. The DC for your recovery checks is 12 + your dying value, rather than 10 + your dying value, and you don't benefit from effects that reduce the DC, such as from the @UUID[Compendium.pf2e.feats-srd.Item.Toughness] feat.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.dying.recoveryDC",
+                "value": 12
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

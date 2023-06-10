@@ -1,0 +1,53 @@
+{
+    "_id": "sq8lhVfn0pl5WJ4t",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
+    "name": "Effect: +2 status bonus to AC and all saving throws",
+    "system": {
+        "description": {
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.JournalEntry.Critical Hit Deck #8]</strong></p>\n<p>+2 status bonus to AC and all saving throws</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.CriticalDeck.Effect.Label",
+                "selector": "ac",
+                "slug": "critical-effect-bonus-to-ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.CriticalDeck.Effect.Label",
+                "selector": "saving-throw",
+                "slug": "critical-effect-bonus-to-saves",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Critical Decks"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,66 @@
+{
+    "_id": "gC5EnlP38t1vTlWt",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Esteemed Visitor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your polite manners and natural ability to comfort others make it easy for you to break down cultural barriers and earn strangers' trust. While you are in a settlement, when you roll a critical failure on a Diplomacy check to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] or @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "terrain:settlement",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "skill"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "text": "PF2E.SpecificRule.Shoony.EsteemedVisitor.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "shoony"
+            ]
+        }
+    },
+    "type": "feat"
+}

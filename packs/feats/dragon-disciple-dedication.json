@@ -1,0 +1,534 @@
+{
+    "_id": "oo34CloLefFRi72w",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragon Disciple Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You are a kobold with the dragonscaled or spellscaled heritage, a dragon instinct barbarian, or a draconic bloodline sorcerer.</p>\n<hr />\n<p>You choose to study or worship one type of dragon, and your focus grants you a measure of its power. You become trained in arcane spell DCs and arcane spell attack rolls. Choose one color of dragon when you select this feat; if you are a sorcerer with the draconic bloodline, this must be the same type as your bloodline.</p>\n<p>You gain resistance equal to half your level against one type of damage determined by the chosen dragon type. The GM may allow you to choose a dragon type not listed below, and will determine the damage type appropriate for that dragon.</p>\n<ul>\n<li><strong>Black or Copper</strong> Acid</li>\n<li><strong>Blue, Bronze, or Cloud</strong> Electricity</li>\n<li><strong>Brass, Gold, or Red</strong> Fire</li>\n<li><strong>Green</strong> Poison</li>\n<li><strong>Silver or White</strong> Cold</li>\n</ul>\n<p>You also gain a +1 circumstance bonus to saving throws against sleep effects and effects that would make you @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed].</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.SO9d7RSf1zqmTlmW]{Dragon Disciple} archetype. If you later take the sorcerer archetype, you must choose the draconic bloodline.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "sleep",
+                            "paralysis"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.arcane.rank",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:black",
+                                            "feature:bloodline:draconic:black"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:blue",
+                                            "feature:bloodline:draconic:blue"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:brass",
+                                            "feature:bloodline:draconic:brass"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brine",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:brine",
+                                            "feature:bloodline:draconic:brine"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:bronze",
+                                            "feature:bloodline:draconic:bronze"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Cloud",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:cloud",
+                                            "feature:bloodline:draconic:cloud"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:copper",
+                                            "feature:bloodline:draconic:copper"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Crystal",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:crystal",
+                                            "feature:bloodline:draconic:crystal"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Forest",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:forest",
+                                            "feature:bloodline:draconic:forest"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:gold",
+                                            "feature:bloodline:draconic:gold"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:green",
+                                            "feature:bloodline:draconic:green"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Magma",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:magma",
+                                            "feature:bloodline:draconic:magma"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:red",
+                                            "feature:bloodline:draconic:red"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Sea",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:sea",
+                                            "feature:bloodline:draconic:sea"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Sky",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:sky",
+                                            "feature:bloodline:draconic:sky"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:silver",
+                                            "feature:bloodline:draconic:silver"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Sovereign",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:sovereign",
+                                            "feature:bloodline:draconic:sovereign"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Umbral",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:umbral",
+                                            "feature:bloodline:draconic:umbral"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Underworld",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:underworld",
+                                            "feature:bloodline:draconic:underworld"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
+                        "predicate": [
+                            {
+                                "nand": [
+                                    "class:sorcerer",
+                                    {
+                                        "or": [
+                                            "feature:bloodline-draconic",
+                                            "feature:bloodline-wyrmblessed"
+                                        ]
+                                    },
+                                    {
+                                        "nor": [
+                                            "feature:bloodline:wyrmblessed:white",
+                                            "feature:bloodline:draconic:white"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "cold"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.custom.dragonDisciple.energyType",
+                "value": "{item|flags.pf2e.rulesSelections.damageType}"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.damageType}",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

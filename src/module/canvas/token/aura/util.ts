@@ -48,8 +48,11 @@ export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
         .flat()
         .filter((s) => measureDistanceCuboid(aura.token.bounds, s) <= aura.radius)
         .map((square) => {
-            const ray = new Ray(aura.token.center, square.center);
-            square.active = !canvas.walls.checkCollision(ray, { type: collisionType, mode: "any" });
+            square.active = !CONFIG.Canvas.polygonBackends[collisionType].testCollision(
+                aura.token.center,
+                square.center,
+                { type: collisionType, mode: "any" }
+            );
             return square;
         });
 }

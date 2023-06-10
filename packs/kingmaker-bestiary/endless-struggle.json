@@ -1,0 +1,222 @@
+{
+    "_id": "mNKAaSBWbZHQRdo9",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XfUDUv0iccZ8hNjg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JPmOqF1x4Au8drWv",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spectral Uprising",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> More than three Small or larger living creatures are in area <strong>B7</strong> at the end of a turn.</p>\n<hr />\n<p><strong>Effect</strong> Spectral figures of the bandits and owlbears manifest in a sudden and overwhelming battle of endless violence. All living creatures in area <strong>B7</strong> must make a successful @Check[type:will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6MwtMijY3R7DbxaJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ghostly Attack",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d10+7",
+                        "damageType": "negative"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Endless Struggle",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "negative healing",
+                "max": 66,
+                "temp": 0,
+                "value": 66
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Vicious spirits of the two owlbears, Eirikk, and the rest of the bandits rise and resume their final battle.</p>",
+            "disable": "<p>@Check[type:nature|dc:24] (expert) three times to empathize with the bestial spirits that comprise the haunt and to calm them, or @Check[type:religion|dc:28] (expert) two times to exorcise the haunt and disperse its energy.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>The haunt resets after 24 hours; it can be permanently destroyed if it is either disabled or destroyed after the Beast itself has been slain.</p>",
+            "routine": "<p>(3 actions; emotion, fear, mental) The spectral violence churns and flashes through the room, targeting three separate creatures with ghostly claws, beaks, swords, and arrows. At the end of the haunt's turn, it takes its Spectral Uprising reaction.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt",
+                "chaotic",
+                "evil"
+            ]
+        }
+    },
+    "type": "hazard"
+}

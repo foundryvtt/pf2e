@@ -1,0 +1,65 @@
+{
+    "_id": "s2GbcUIXG1ZBurSd",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Hamstringing Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You slow your foes with a well-aimed attack. Make a Strike against your hunted prey with a -2 penalty. If you hit your prey, the creature takes a -5-foot status penalty to Speed. If you critically hit your prey, the creature takes a -10-foot status penalty to Speed. A creature immune to bleed damage does not take this penalty. The penalty can be removed using any method that removes persistent bleed damage or offers a flat check to do so, such as Administer First Aid.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hamstringing Strike]</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "hamstringing-strike",
+                "predicate": [
+                    "hunted-prey"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hamstringing-strike"
+                ],
+                "selector": "strike-attack-roll",
+                "value": -2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "hamstringing-strike"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Ranger.HamstringingStrike.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Kingmaker"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

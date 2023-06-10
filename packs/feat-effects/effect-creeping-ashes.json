@@ -1,0 +1,57 @@
+{
+    "_id": "ybc7tZwByenCzow8",
+    "img": "systems/pf2e/icons/features/classes/ashes.webp",
+    "name": "Effect: Creeping Ashes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feat-effects.Item.Effect: Curse of Creeping Ashes]</p>\n<p><strong>Moderate Curse</strong></p>\n<p>You and creatures in the aura are concealed.</p>\n<p><strong>Major Curse</strong></p>\n<p>You and all creatures gain weakness to fire equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:origin:oracular-curse:stage:major",
+                            "parent:origin:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "type": "fire",
+                "value": "floor(@item.origin.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #185: A Taste of Ashes"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

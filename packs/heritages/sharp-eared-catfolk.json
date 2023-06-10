@@ -1,0 +1,37 @@
+{
+    "_id": "NWsZ0cIeghyzk9bU",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Sharp-Eared Catfolk",
+    "system": {
+        "ancestry": {
+            "name": "Catfolk",
+            "slug": "catfolk",
+            "uuid": "Compendium.pf2e.ancestries.Item.972EkpJOPv9KkQIW"
+        },
+        "description": {
+            "value": "<p>You were born with big, expressive ears that move with your moods and perk up at any unexpected sound. You gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a Seek action.</p>\n<p>As long as you're aware of a creature via sound, once per round, your ears can help you @UUID[Compendium.pf2e.actionspf2e.Item.Point Out] the creature to all allies as a free action.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "To Seek undetected within 30 feet via hearing (Sharp-Eared Catfolk)",
+                "predicate": [
+                    "action:seek",
+                    "sense:hearing",
+                    "target:within-30"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,154 @@
+{
+    "_id": "rfP9e1fnwjnIQSJK",
+    "img": "systems/pf2e/icons/equipment/weapons/fire-poi.webp",
+    "name": "Fire Poi",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "fire-poi",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "advanced",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d4"
+        },
+        "description": {
+            "value": "<p>These special poi are made from a rare, light metal or from fire-retardant fibers and can be ignited before being wielded. Igniting a pair of fire poi is an Interact action and requires 1 pint of @UUID[Compendium.pf2e.equipment-srd.Item.Oil (1 pint)]{Oil} for every 10 minutes the poi remain ignited.</p>\n<p>While lit, fire poi cast dim light in a 10-foot radius; in combat, they deal 1d4 bludgeoning plus 1d4 fire damage. On a critical hit with a lit fire poi, the target takes 1 persistent fire damage. The fire can be extinguished using the Interact action.</p>\n<p>When unlit, the poi deal only the listed bludgeoning damage. Regardless of whether it is lit, the poi's 1d4 bludgeoning damage is the weapon damage dice, so <em>striking</em> runes and other effects don't affect the fire damage.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "flail",
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": null
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 5
+            }
+        },
+        "propertyRune1": {
+            "value": ""
+        },
+        "propertyRune2": {
+            "value": ""
+        },
+        "propertyRune3": {
+            "value": ""
+        },
+        "propertyRune4": {
+            "value": ""
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitFirePoi",
+                "option": "lit-fire-poi",
+                "toggleable": true
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
+                "selector": "{item|_id}-damage",
+                "value": 1
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "color": "#9b7337",
+                    "dim": 10,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-fire-poi"
+                ],
+                "value": "systems/pf2e/icons/equipment/weapons/fire-poi.webp"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #151: The Show Must Go On"
+        },
+        "splashDamage": {
+            "value": null
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "agile",
+                "backswing",
+                "finesse",
+                "twin"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "weapon"
+}

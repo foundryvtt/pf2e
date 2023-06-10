@@ -1,0 +1,51 @@
+{
+    "_id": "DLwTvjjnqs2sNGuG",
+    "img": "systems/pf2e/icons/spells/inspire-defense.webp",
+    "name": "Spell Effect: Inspire Defense",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Inspire Defense]</em></p>\n<p>You gain a +1 status bonus to AC and saving throws, as well as resistance equal to half the spell's level to physical damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": "floor(( @item.level ) / 2 )"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

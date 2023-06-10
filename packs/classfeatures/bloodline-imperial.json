@@ -1,0 +1,64 @@
+{
+    "_id": "ZEtJJ5UOlV5oTWWp",
+    "img": "systems/pf2e/icons/features/classes/imperial.webp",
+    "name": "Bloodline: Imperial",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>One of your ancestors was a mortal who mastered magic. Such magical blood can remain latent for generations, but in you it manifested in full.</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Bloodline Skills</strong> Arcana, Society</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Magic Missile]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Haste]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dimension Door]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prying Eye]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Maze]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Sphere]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ancestral Memories]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Extend Spell]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Arcane Countermeasure]</em></p>\n<p><strong>Blood Magic</strong> A surge of ancestral memories grants you or one target a +1 status bonus to skill checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Imperial Blood Magic]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "arcane"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

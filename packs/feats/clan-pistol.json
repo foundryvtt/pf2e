@@ -1,0 +1,61 @@
+{
+    "_id": "LvVg83ZDj8mabcWF",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Clan Pistol",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p>\n<hr />\n<p>Raised in the ancient halls of Dongun Hold or the surrounding region, you display your lineage with a clan pistol, rather than a clan dagger. You get one clan pistol of your clan for free, as it was given to you at birth. This replaces your clan dagger. Selling this pistol is a terrible taboo and earns you the disdain of other dwarves. You are trained with the clan pistol. In addition, when your clan pistol is visible, you gain a +1 circumstance bonus on checks to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] or @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] when interacting with citizens of Alkenstar, Dongun Hold, or their allies.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "ancestry-1",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Clan Pistol"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "dongun-ally",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-clan-pistol.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

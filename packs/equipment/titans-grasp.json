@@ -1,0 +1,90 @@
+{
+    "_id": "erP57YMboay9Ns4L",
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/titans-grasp.webp",
+    "name": "Titan's Grasp",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>These bronze gauntlets each have a small red gem embedded in the wrist. You gain a +3 item bonus to Athletics checks and a +1 circumstance bonus to Athletics checks to Grapple. If you successfully Grapple an enemy that's at least one size category larger than you, the gauntlets dig into it, dealing bludgeoning damage equal to your Strength modifier, plus an additional [[/r 2d6[bludgeoning]]] damage on a critical success.</p>\n<p>When you invest the gloves, you either increase your Strength score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> Interact (sonic)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You have two hands free</p>\n<hr />\n<p><strong>Effect</strong> You clap the gauntlets together with a thunderous crack that deals [[/r 6d10[sonic]]] damage in a @Template[type:emanation|distance:30]. Each creature in the area must attempt a @Check[type:fortitude|dc:35|name:Titan's Grasp Sonic Clap|traits:sonic|showDC:all] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is deafened for 1 minute, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 24000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Titan's Grasp (Grapple)",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.str.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.str.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "evocation",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worngloves"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

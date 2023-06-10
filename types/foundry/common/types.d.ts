@@ -3,7 +3,7 @@ import type { Document, EmbeddedCollection } from "./abstract/module.d.ts";
 declare global {
     interface DocumentConstructionContext<TParent extends Document | null> {
         parent?: TParent;
-        pack?: string;
+        pack?: string | null;
         [key: string]: unknown;
     }
 

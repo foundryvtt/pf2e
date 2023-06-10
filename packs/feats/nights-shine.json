@@ -1,0 +1,51 @@
+{
+    "_id": "KOslKkFO9N1kZY87",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Night's Shine",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your power from the moon and stars becomes strong enough to illuminate the night sky. You gain your choice of the <em>@UUID[Compendium.pf2e.spells-srd.Item.Asterism]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of the Moon]</em> domain spell. Increase the number of Focus Points in your pool by 1.</p>\n<p><strong>Special</strong> You can take this feat a second time, gaining the focus spell that you didn't gain the first time. Increase the number of Focus Points in your pool by 1.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Oatia Skysage Dedication"
+                },
+                {
+                    "value": "Night's Glow"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "evocation",
+                "occult"
+            ]
+        }
+    },
+    "type": "feat"
+}

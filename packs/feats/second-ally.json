@@ -1,0 +1,83 @@
+{
+    "_id": "VZczZNj3ozCj1Lzk",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Second Ally",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your inner grace attracts the attention of a second protective spirit. Choose a second type of divine ally and gain its benefits.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "divine ally"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                    "predicate": [
+                        "item:type:feature",
+                        "item:trait:champion"
+                    ]
+                },
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "divine-ally:blade"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Blade Ally"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "divine-ally:shield"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Shield Ally"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "divine-ally:steed"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Steed Ally"
+                    }
+                ],
+                "flag": "divineAlly",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DivineAlly.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

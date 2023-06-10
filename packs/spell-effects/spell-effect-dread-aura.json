@@ -1,0 +1,43 @@
+{
+    "_id": "ubHqpJwUwygkc2dR",
+    "img": "systems/pf2e/icons/spells/dread-aura.webp",
+    "name": "Spell Effect: Dread Aura",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Dread Aura]</em></p>\n<p>Foes in the area are frightened 1 and unable to reduce the condition.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Frightened"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,12 +1,14 @@
 import { ActorPF2e } from "@actor";
-import { Statistic } from "@system/statistic/index.ts";
-import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { calculateDC } from "@module/dc.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { htmlClosest, htmlQueryAll, sluggify } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
-import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
+import { ItemPF2e } from "@item";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
+import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -148,12 +150,23 @@ export const InlineRollLinks = {
 
                             const dc = Number.isInteger(dcValue) ? { label: pf2Label, value: dcValue } : null;
                             const maybeOrigin = documentFromDOM(event.currentTarget);
+                            // Retrieve the item if this is a saving throw (relevant for predicated abilities that
+                            // depend on the item involved in provoking the saving throw)
+                            const item = (() => {
+                                if (!tupleHasValue(SAVE_TYPES, statistic.slug)) return null;
+                                return foundryDoc instanceof ItemPF2e
+                                    ? foundryDoc
+                                    : foundryDoc instanceof ChatMessagePF2e
+                                    ? foundryDoc.item
+                                    : null;
+                            })();
 
                             statistic.check.roll({
                                 ...eventRollParams,
                                 extraRollOptions: parsedTraits,
                                 origin: maybeOrigin instanceof ActorPF2e ? maybeOrigin : null,
                                 dc,
+                                item,
                             });
                         } else {
                             console.warn(`PF2e System | Skip rolling unknown statistic ${pf2Check}`);
@@ -214,13 +227,13 @@ export const InlineRollLinks = {
 
     repostAction: (
         target: HTMLElement,
-        document: ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null = null
+        foundryDoc: ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null = null
     ): void => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
 
-        const defaultVisibility = document?.hasPlayerOwner ? "all" : "gm";
+        const defaultVisibility = foundryDoc?.hasPlayerOwner ? "all" : "gm";
         const content = (() => {
             if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
                 const content = htmlQueryAll(target.parentElement, inlineSelector)
@@ -234,15 +247,22 @@ export const InlineRollLinks = {
         })();
 
         const speaker =
-            document instanceof ActorPF2e
+            foundryDoc instanceof ActorPF2e
                 ? ChatMessagePF2e.getSpeaker({
-                      actor: document,
-                      token: document.token ?? document.getActiveTokens(false, true).shift(),
+                      actor: foundryDoc,
+                      token: foundryDoc.token ?? foundryDoc.getActiveTokens(false, true).shift(),
                   })
                 : ChatMessagePF2e.getSpeaker();
 
-        // If the originating document is a journal entry, include its UUID as a flag
-        const flags = document instanceof JournalEntry ? { pf2e: { journalEntry: document.uuid } } : {};
+        // If the originating document is a journal entry, include its UUID as a flag. If a chat message, copy over
+        // the origin flag.
+        const message = game.messages.get(htmlClosest(target, "[data-message-id]")?.dataset.messageId ?? "");
+        const flags: DeepPartial<ChatMessageFlagsPF2e> =
+            foundryDoc instanceof JournalEntry
+                ? { pf2e: { journalEntry: foundryDoc.uuid } }
+                : message?.flags.pf2e.origin
+                ? { pf2e: { origin: deepClone(message.flags.pf2e.origin) } }
+                : {};
 
         ChatMessagePF2e.create({
             speaker,

@@ -1,0 +1,192 @@
+{
+    "_id": "1XlF12UbvJsTZxfp",
+    "img": "systems/pf2e/icons/spells/evolution-surge.webp",
+    "name": "Spell Effect: Evolution Surge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Evolution Surge]</em>.</p>\n<p>You flood your eidolon with power, creating a temporary evolution in your eidolon's capabilities. Choose one of the following effects:</p>\n<ul>\n<li>Your eidolon gains @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision] and @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision].</li>\n<li>Your eidolon gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Scent] as an imprecise sense up to 30 feet.</li>\n<li>Your eidolon can breathe underwater and gains a swim Speed equal to its land Speed or 30 feet, whichever is less. Alternatively, if your eidolon is normally aquatic, it can breathe air and gains a land Speed equal to its swim Speed or 30 feet, whichever is less. Either way, it gains the amphibious trait.</li>\n<li>Your eidolon gains a +20-foot status bonus to its Speed.</li>\n</ul>\n<hr />\n<p><strong>Heightened (3rd)</strong> Add the following options to the list of effects you can choose:</p>\n<ul>\n<li>Your eidolon becomes Large, instead of its previous size. This increases your eidolon's reach to 10 feet but doesn't change any other statistics for your eidolon. Because of the special link you share, you can ride your eidolon without getting in each other's way. If another creature tries to ride your eidolon, both you and the riding creature each regain only 2 actions at the start of your turns each round, as normal.</li>\n<li>Your eidolon gains a climb Speed equal to its land Speed.</li>\n</ul>\n<hr />\n<p><strong>Heightened (5th)</strong> Add the options from the 3rd-level version and the following options to the list of effects you can choose:</p>\n<ul>\n<li>Your eidolon becomes Huge, instead of its previous size. This has the same effects as the 3rd-level option to become Large, except your eidolon's reach increases to 15 feet.</li>\n<li>Your eidolon gains a fly Speed equal to its Speed.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Sight",
+                        "value": "sight"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.Scent",
+                        "value": "scent"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Amphibious",
+                        "value": "amphibious"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Speed",
+                        "value": "speed"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeLarge",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": "large"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Climb",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeHuge",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    9
+                                ]
+                            }
+                        ],
+                        "value": "huge"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Fly",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    9
+                                ]
+                            }
+                        ],
+                        "value": "fly"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellEffectEvolutionSurge.Prompt",
+                "rollOption": "evolution-surge"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "evolution-surge:sight"
+                ],
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "evolution-surge:sight"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "evolution-surge:scent"
+                ],
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "add": [
+                    "amphibious"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "evolution-surge:amphibious"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "evolution-surge:speed"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": 20
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "evolution-surge:large"
+                ],
+                "reach": {
+                    "upgrade": 10
+                },
+                "value": "large"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "evolution-surge:climb"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "evolution-surge:huge"
+                ],
+                "reach": {
+                    "upgrade": 15
+                },
+                "value": "huge"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "evolution-surge:fly"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "evolution-surge:amphibious"
+                ],
+                "selector": "swim",
+                "value": "min(@actor.attributes.speed.total, 30)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -2,7 +2,6 @@ import { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { CheckType } from "@system/check/index.ts";
-import { RollParameters } from "@system/rolls.ts";
 
 export interface StatisticCheckData {
     type: CheckType;
@@ -77,7 +76,4 @@ export interface StatisticTraceData {
     dc: number;
     breakdown: string;
     modifiers: Required<RawModifier>[];
-
-    /** @deprecated Backwards compatibility for macros only */
-    roll?: (args: RollParameters) => Promise<unknown>;
 }

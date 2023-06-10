@@ -1,0 +1,193 @@
+{
+    "_id": "QKFdks4RCxWxMw2K",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "rso4lucgh0chsq23",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shadow Pulse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the heart</p>\n<hr />\n<p><strong>Effect</strong> The heart gives a slow beat, and all creatures in the room must succeed at a @Check[type:will|dc:30] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and unable to take reactions for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). The dark heart then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qddfkMcSKVLMn23e",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Battering Vortex",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A swirling vortex of shadows forms around the heart, lifting all creatures in the room and slamming them forcefully to the ground, dealing [[/r 4d10[bludgeoning]]] damage. Each creature must attempt a @Check[type:fortitude|dc:30] save. Anyone adjacent to a wall may @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] with a successful @Check[type:reflex|dc:28] save; on a success at Grabbing an Edge, the creature uses a result one step better than the roll of their Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Failure</strong> The creature takes full damage, is knocked prone, and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage, is knocked prone, and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F6OCpDKvvnmezthe",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Lash",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "nrogdVHQCBR0qSBr": {
+                        "damage": "3d4",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "reach-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Shadow Heart",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "value": 72
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A heart of tumorous, shadowy tissue unleashes magic on nearby creatures.</p>",
+            "disable": "<p>@Check[type:arcana|dc:26] or @Check[type:occultism|dc:26] (expert) to counter the heart's offensive magic, or @Check[type:religion|dc:28] (trained) to purify the area containing the heart. Four successes are required to disable it; after two successes, the shadow heart can't use its shadow lash Strike.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The heart deactivates if there are no creatures present in the room. It resets in 1 hour.</p>",
+            "routine": "<p>The shadow heart uses Battering Vortex, and then uses shadow lash on a random creature within range.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #183: Field of Maidens"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

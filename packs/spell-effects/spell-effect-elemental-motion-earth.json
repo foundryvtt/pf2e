@@ -1,0 +1,61 @@
+{
+    "_id": "qbOpis7pIkXJbM2B",
+    "img": "systems/pf2e/icons/spells/elemental-motion.webp",
+    "name": "Spell Effect: Elemental Motion (Earth)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by casting <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Motion]</em> if Earth is your element.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "burrow",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": 10
+                        },
+                        {
+                            "start": 9,
+                            "value": 20
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

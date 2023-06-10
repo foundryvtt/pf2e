@@ -1,0 +1,86 @@
+{
+    "_id": "raoz523QRsj5WjcF",
+    "img": "systems/pf2e/icons/features/feats/harsh-judgement.webp",
+    "name": "Effect: Harsh Judgement",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Harsh Judgement]</p>\n<p>You gain a +2 circumstance bonus to Perception checks to Seek your condemned foe and on Intimidation checks to Demoralize them. You have a -1 circumstance penalty to Perception checks to Seek creatures other than your condemned foe and on Intimidation checks to Demoralize anyone other than your condemned foe.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Target is Condemned Foe",
+                "option": "harsh-judgement",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Condemned Foe",
+                "predicate": [
+                    "harsh-judgement",
+                    "action:seek"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Non-Condemned Foe",
+                "predicate": [
+                    "action:seek"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Condemned Foe",
+                "predicate": [
+                    "harsh-judgement",
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Condemned Foe",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: Night of the Gray Death"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "gyoN45SVfRZwHMkk",
+    "img": "systems/pf2e/icons/features/ancestry/irongut-goblin.webp",
+    "name": "Irongut Goblin",
+    "system": {
+        "ancestry": {
+            "name": "Goblin",
+            "slug": "goblin",
+            "uuid": "Compendium.pf2e.ancestries.Item.sQfjTMDaZbT9DThq"
+        },
+        "description": {
+            "value": "<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Subsist] on food that most folks would consider spoiled. You can keep yourself fed with poor meals in a settlement as long as garbage is readily available, without using the subsist downtime activity. You can eat and drink things when you are @UUID[Compendium.pf2e.conditionitems.Item.Sickened].</p>\n<p>You gain a +2 circumstance bonus to saving throws against afflictions, against gaining the sickened condition, and to remove the sickened condition. When you roll a success on a Fortitude save affected by this bonus, you get a critical success instead. All these benefits apply only when the affliction or condition resulted from something you ingested.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Irongut Goblin (vs. afflictions & sickened)",
+                "predicate": [
+                    "ingested",
+                    {
+                        "or": [
+                            "affliction",
+                            "sickened"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "irongut-save-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "ingested",
+                    {
+                        "or": [
+                            "affliction",
+                            "sickened"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "text": "If you roll a success on a save against an ingested affliction or to avoid gaining the sickened condition, treat it as a critical success",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

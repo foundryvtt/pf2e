@@ -1,0 +1,72 @@
+{
+    "_id": "b2kWJuCPj1rDMdwz",
+    "img": "systems/pf2e/icons/features/feats/wolf-stance.webp",
+    "name": "Stance: Wolf Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Wolf Stance]</p>\n<p>You enter the stance of a wolf, low to the ground with your hands held like fanged teeth. You can make wolf jaw unarmed attacks. These deal 1d8 piercing damage; are in the brawling group; and have the agile, backstabber, finesse, nonlethal, and unarmed traits.</p>\n<p>If you're flanking a target while in Wolf Stance, your wolf jaw unarmed attacks also gain the trip trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/feats/wolf-stance.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.WolfJaws",
+                "range": null,
+                "slug": "wolf-jaws",
+                "traits": [
+                    "agile",
+                    "backstabber",
+                    "finesse",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "definition": [
+                    "item:wolf-jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:flanking"
+                ],
+                "property": "weapon-traits",
+                "value": "trip"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

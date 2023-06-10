@@ -1,0 +1,48 @@
+{
+    "_id": "dzeiVab4Cogzl5XS",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Gift of the Hoard",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>In pleasing the cravings of a mighty dragon, they have deigned to impart some of their magical essence into your body. Your eyes begin to glow and change color while your limbs and neck grow a veneer of scales, all the same color as the associated dragon, accompanied by a near-insatiable desire to amass a hoard of your own. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Breath]</em> sorcerer bloodline spell, emulating the breath of the associated dragon, and a focus pool of 1 Focus Point. If you already have a focus pool, increase your number of Focus Points by 1. You Refocus by counting and arranging your treasure.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You have succeeded at an important task given by a dragon such as procuring a special treasure for their hoard"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath",
+                "magical",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

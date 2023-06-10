@@ -1,0 +1,148 @@
+{
+    "_id": "axCgEgk7n1yXpgdp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "RjIX3v1EU84c920i",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Breath Snatcher",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature other than an ooze spends at least 3 rounds in the room</p>\n<hr />\n<p><strong>Effect</strong> The trap activates and fills the area with caustic nightmare vapor, exposing all creatures within.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lcdFqkdanjf6Jdom",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Caustic Nightmare Vapor",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Oozes are immune to this poison</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:38]</p>\n<p><strong>Onset</strong> 1 round</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 4d6[acid]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Confused] (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d6[acid]]] damage, confused, and @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 8d6[acid]]] damage, confused, flat-footed, and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Caustic Vapor",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The door slams shut, and poison gas fills the room.</p>",
+            "disable": "<p>@Check[type:occultism|dc:36|name:Exorcise the Spirits|traits:mechanical,trap] (master) or @Check[type:religion|dc:36|name:Exorcise the Spirits|traits:mechanical,trap] (master) to exorcise the spirits</p>",
+            "isComplex": false,
+            "level": {
+                "value": 17
+            },
+            "reset": "<p>The trap resets after 1 day.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #149: Against the Scarlet Triad"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

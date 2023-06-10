@@ -1,0 +1,98 @@
+{
+    "_id": "SUnKoeqNBsGvUAGe",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/blightburn-ward.webp",
+    "name": "Metuak's Pendant",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>This black quartz pendant carved in the shape of an angel's feather hangs from a leather cord worn around the neck. Once worn by Metuak of the Burning Mammoths, this family heirloom anchors you to your ancestors, preserving your sense of self and protecting your mind from mental manipulation and demonic possession. You gain a +1 item bonus to saving throws against mental effects that would make you @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Controlled], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]. This bonus increases to +2 if the source of the effect is a fiend.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span></p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You succeed or critically succeed at a saving throw against a mental effect that would make you confused, controlled, frightened, or stupefied</p>\n<hr />\n<p><strong>Effect</strong> Empowered by your determination, your ancestors protect you and your nearby allies. For 1 minute, you and each of your allies within 30 feet gains a +1 status bonus to saving throws against mental effects that would make you confused, controlled, frightened, or stupefied.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Metuak's Pendant]</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 155
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "metuaks-pendant-normal",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental",
+                    "origin:trait:fiend",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "metuaks-pendant-fiend",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #176: Lost Mammoth Valley"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "abjuration",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

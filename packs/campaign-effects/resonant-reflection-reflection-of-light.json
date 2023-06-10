@@ -1,0 +1,48 @@
+{
+    "_id": "uDQw7YPMiKPXCbaV",
+    "img": "systems/pf2e/icons/features/classes/devotion-spells.webp",
+    "name": "Resonant Reflection: Reflection of Light",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p>Your eyes are imbued with an inner light that is not visible externally but that provides you with darkvision and the ability to distinguish color in darkness. You can also focus this inner light to manifest as a brilliant beam of energy from your eyes.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Searing Light]</em> as an innate divine spell, heightened to a spell level equal to half your level rounded up.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.colorDarkvision",
+                "value": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "light",
+                "magical",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,71 @@
+{
+    "_id": "Gh0rJNsdxBacK9b8",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Conrasu Weapon Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency for @UUID[Compendium.pf2e.equipment-srd.Item.Composite Shortbow], @UUID[Compendium.pf2e.equipment-srd.Item.Glaive], @UUID[Compendium.pf2e.equipment-srd.Item.Longspear], @UUID[Compendium.pf2e.equipment-srd.Item.Longsword], @UUID[Compendium.pf2e.equipment-srd.Item.Shortbow], @UUID[Compendium.pf2e.equipment-srd.Item.Spear], and all conrasu weapons(@UUID[Compendium.pf2e.equipment-srd.Item.Buugeng]) in which you are trained.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-composite-shortbow.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-glaive.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longspear.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longsword.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-shortbow.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-spear.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conrasu"
+            ]
+        }
+    },
+    "type": "feat"
+}

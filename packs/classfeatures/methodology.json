@@ -1,0 +1,67 @@
+{
+    "_id": "uhHg9BXBiHpL5ndS",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Methodology",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your studies have made you savvy in many areas, but one in particular drew your intense interest. Choose a methodology. The methodologies are as follows:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Alchemical Sciences Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Empiricism Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Forensic Medicine Methodology]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Interrogation Methodology]</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 investigator class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:investigator",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Alchemical Sciences Methodology"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Empiricism Methodology"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Forensic Medicine Methodology"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Interrogation Methodology"
+                    }
+                ],
+                "flag": "methodology",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Investigator.Methodology.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.methodology}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

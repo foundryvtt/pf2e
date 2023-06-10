@@ -1,0 +1,188 @@
+{
+    "_id": "rwDsr5XsrYcH7oFT",
+    "img": "systems/pf2e/icons/features/classes/cosmos-mystery.webp",
+    "name": "Effect: Curse of the Sky's Call",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Cosmos]</p>\n<h3>Curse of the Sky's Call</h3>\n<p>You have your head in the clouds-and not just figuratively. Your body is drawn toward the heavens, making you lighter and less substantial than you should be. Your eyes glow with starry light, and your hair and clothing float and drift around you.</p>\n<h4>Minor Curse</h4>\n<p>Your unnatural lightness makes it hard to keep your footing and interact with other physical objects. You are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and take a -2 penalty to saves and DCs against @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], and other forms of forced movement.</p>\n<h4>Moderate Curse</h4>\n<p>Your body is drawn further skyward. You are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and the penalty from your minor curse increases to -3.</p>\n<p>You are treated as one size smaller for wind effects. You gain a +2 status bonus against @UUID[Compendium.pf2e.actionspf2e.Item.Trip] attempts, you only take half as much damage from falls, and you gain the effects of the @UUID[Compendium.pf2e.feats-srd.Item.Powerful Leap] and @UUID[Compendium.pf2e.feats-srd.Item.Quick Jump] skill feats. You weigh only half as much, and your Bulk, should someone need to carry you, is also half as much.</p>\n<h4>Major Curse (11th)</h4>\n<p>As your body rises, you float just above the ground beneath you. You become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}, and the penalty from your minor curse increases to -4.</p>\n<p>You can walk on liquids as if they were solid; you gain the effects of the @UUID[Compendium.pf2e.feats-srd.Item.Cloud Jump] skill feat; and you don't leave tracks, trigger weight-sensitive pressure plates, or otherwise connect with the ground below you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": [
+                            "class:oracle"
+                        ],
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
+                        "value": "extreme"
+                    }
+                ],
+                "flag": "effectCosmosCurse",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:oracular-curse:stage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "forced-movement"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "curse-penalty",
+                "value": -2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "self:oracular-curse:stage:moderate"
+                ],
+                "selector": "saving-throw",
+                "slug": "curse-penalty",
+                "value": -3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "curse-penalty",
+                "value": -4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:moderate",
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    },
+                    "action:trip"
+                ],
+                "selector": "reflex",
+                "slug": "curse-major",
+                "value": 2
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:oracular-curse:stage:minor"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:oracular-curse:stage:moderate"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 4
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:oracular-curse:stage:major",
+                            "self:oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,59 @@
+{
+    "_id": "FqrfyUtoBWJNnSi6",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Pain Tolerance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You're from Alkenstar or the Mana Wastes.</p>\n<hr />\n<p>You gain resistance to mental damage equal to half your level and a +1 circumstance bonus to saving throws against effects that would make you @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Drained], or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled].</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Fortitude saves"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:clumsy",
+                            "inflicts:drained",
+                            "inflicts:enfeebled"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "barbarian",
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

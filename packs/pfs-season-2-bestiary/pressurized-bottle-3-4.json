@@ -1,0 +1,153 @@
+{
+    "_id": "VWjNkgTXFPqO0Qc5",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "OHsn2hKG1JUi2h5F",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Brittle Shatter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature tries to pick up or move the potion</p>\n<hr />\n<p><strong>Effect</strong> The bottle shatters into pieces that fill a @Template[type:burst|distance:5]. The burst deals [[/r 4[piercing]]] damage (@Check[type:reflex|dc:22|basic:true] save). A creature who takes any damage is exposed to fermented potion.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xcLmLORuD1ZYYkm4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fermented Poison",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 hour)</p>\n<p><strong>Stage 2</strong> [[/r 1d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 hour)</p>\n<p><strong>Stage 3</strong> [[/r 2d8[poison]]] damage and clumsy 2 (1 hour)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pressurized Bottle (3-4)",
+    "prototypeToken": {
+        "name": "Pressurized Bottle"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "hardness": 1,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 1,
+                "temp": 0,
+                "value": 1
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>One of the potions has decayed, putting it under immense pressure. Its contents have become poisonous. When handled improperly, the bottle bursts, sending glass shards flying everywhere.</p>",
+            "disable": "<p>@Check[type:thievery|dc:20|name:Pressurized Bottle|traits:mechanical,trap] (trained) to carefully place the bottle under a bucket or bowl.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-03: Catastrophe's Spark"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

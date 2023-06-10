@@ -1,0 +1,108 @@
+{
+    "_id": "AbgHCPWOKULeXrJ2",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Sly Striker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your attacks deal more damage, even against creatures that aren't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed].</p>\n<p>When you succeed or critically succeed at a Strike against a creature that isn't flat-footed, you also deal 1d6 precision damage. This applies only if you're using a weapon or unarmed attack you could deal @UUID[Compendium.pf2e.classfeatures.Item.Sneak Attack] damage with.</p>\n<p>At 14th level, if you would normally deal 3d6 or more sneak attack damage to flat-footed creatures, you deal 2d6 precision damage to creatures that aren't flat-footed.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "sneak attack"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "category": "precision",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "class:rogue",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "not": "target:condition:flat-footed"
+                    }
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 13,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 14,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "feat:rogue-dedication",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "not": "target:condition:flat-footed"
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

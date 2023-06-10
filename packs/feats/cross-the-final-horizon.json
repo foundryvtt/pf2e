@@ -1,0 +1,64 @@
+{
+    "_id": "8YSwzLNlmBLoEyUj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Cross the Final Horizon",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're in Sky and Heaven Stance.</p>\n<hr />\n<p>You Stride up to your Speed, and your ki enshrouds your limbs in terrifying stormy energy, increasing the reach of your @UUID[Compendium.pf2e.feats-srd.Item.Sky and Heaven Stance] unarmed attacks by 5 feet. At the end of your movement, make up to three Strikes against a target you can reach, each at a –2 penalty. Each attack counts toward your multiple attack penalty, but the multiple attack penalty doesn't increase until after you've made all your attacks. Instead of the usual slashing or piercing damage, the damage for these Strikes is either electricity or sonic, as you choose with each Strike. If you successfully hit with all three Strikes, the target is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3}.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sky and Heaven Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "final-horizon"
+                ],
+                "selector": "attack",
+                "value": -2
+            },
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "final-horizon",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "archetype": "Archetype",
+                "electricity": "Electricity",
+                "evocation": "Evocation",
+                "force": "Force",
+                "sonic": "Sonic"
+            },
+            "value": [
+                "archetype",
+                "electricity",
+                "evocation",
+                "force",
+                "sonic"
+            ]
+        }
+    },
+    "type": "feat"
+}

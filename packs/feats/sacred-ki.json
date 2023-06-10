@@ -1,0 +1,70 @@
+{
+    "_id": "Ux0DSklFlIlcvnhO",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Sacred Ki",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The power of your faith suffuses your ki. When you select this feat, choose chaos, evil, good, or law. Your choice must match one of your deity's alignment components.</p>\n<p>When you cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Ki Strike]</em> focus spell and damage a creature whose alignment is opposite your chosen alignment, you can choose for the <em>ki strike</em> damage to be of the chosen type.</p>\n<p>Additionally, you can substitute the damage from <em>@UUID[Compendium.pf2e.spells-srd.Item.Ki Blast]</em> (or other ki spells that deal force damage, at the GM's discretion) with damage of your chosen alignment.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ki Strike"
+                },
+                {
+                    "value": "you follow a deity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitChaotic",
+                        "value": "chaos"
+                    },
+                    {
+                        "label": "PF2E.TraitEvil",
+                        "value": "evil"
+                    },
+                    {
+                        "label": "PF2E.TraitGood",
+                        "value": "good"
+                    },
+                    {
+                        "label": "PF2E.TraitLawful",
+                        "value": "law"
+                    }
+                ],
+                "flag": "sacredKi",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Monk.SacredKi.Prompt"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "sacred-ki:{item|flags.pf2e.rulesSelections.sacredKi}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

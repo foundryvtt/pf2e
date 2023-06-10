@@ -1,0 +1,58 @@
+{
+    "_id": "aUpcWqaLBlmpnJgW",
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Effect: Legendary Monster Warden",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Warden] if you have @UUID[Compendium.pf2e.feats-srd.Item.Legendary Monster Hunter].</p>\n<p>You gain a +2 circumstance bonus to your next attack roll against that prey.</p>\n<p>You gain a +2 circumstance bonus to your next saving throw against that particular creature and to your AC against that creature's next attack against you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Target is the subject of Monster Hunter",
+                "option": "monster-hunter",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Monster Warden",
+                "predicate": [
+                    "monster-hunter"
+                ],
+                "selector": [
+                    "ac",
+                    "attack",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 3648
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

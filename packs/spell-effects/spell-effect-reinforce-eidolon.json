@@ -1,0 +1,51 @@
+{
+    "_id": "UVrEe0nukiSmiwfF",
+    "img": "systems/pf2e/icons/spells/reinforce-eidolon.webp",
+    "name": "Spell Effect: Reinforce Eidolon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Reinforce Eidolon]</em></p>\n<p>You focus deeply on the link between you and your eidolon and reinforce your eidolon's defenses. Your eidolon gains a +1 status bonus to AC and saving throws, plus resistance to all damage equal to half the spell's level. Your eidolon can benefit from either Boost Eidolon or Reinforce Eidolon, but not both; if you cast one of these spells during the other's duration, the newer spell replaces the older one.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "floor(@item.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,56 @@
+{
+    "_id": "I4Ozf6mTnd3X0Oax",
+    "img": "systems/pf2e/icons/equipment/shields/precious-material-shields/orichalcum-buckler.webp",
+    "name": "Effect: Predictable! (Critical Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted if you critically succeed with @UUID[Compendium.pf2e.feats-srd.Item.Predictable!]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "predicatable"
+                ],
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Defending against target of Predictable!",
+                "option": "predicable",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

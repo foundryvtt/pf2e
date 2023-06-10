@@ -1,0 +1,76 @@
+{
+    "_id": "2MIn8qyPTmz4ZyO1",
+    "img": "systems/pf2e/icons/spells/commanding-lash.webp",
+    "name": "Effect: Smite Good",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Smite Good].</p>\n<p>Until the start of your next turn, your Strikes against that foe using the weapon your blade ally inhabits deal an extra 4 evil damage, increasing to 6 if you have master proficiency with this weapon.</p>\n<p>If the chosen enemy attacks you before the start of your next turn, the duration extends to the end of that enemy's next turn. If the enemy continues to attack you each turn, the duration continues to extend.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Target is subject of your Smite Good",
+                "option": "smite-good",
+                "toggleable": true
+            },
+            {
+                "damageType": "evil",
+                "key": "FlatModifier",
+                "predicate": [
+                    "smite-good",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "smite-not-master",
+                "value": 4
+            },
+            {
+                "damageType": "evil",
+                "key": "FlatModifier",
+                "predicate": [
+                    "smite-good",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "smite-master",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

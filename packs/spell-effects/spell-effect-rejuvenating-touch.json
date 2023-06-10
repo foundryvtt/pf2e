@@ -1,0 +1,48 @@
+{
+    "_id": "oaRt210JV4GZIHmJ",
+    "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
+    "name": "Spell Effect: Rejuvenating Touch",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> if you have @UUID[Compendium.pf2e.feats-srd.Item.Rejuvenating Touch].</p>\n<p>An ally that recovers Hit Points from your <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> gains 10 temporary Hit Points at the start of their turn during each of the next 10 rounds. This effect ends if the ally is knocked @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Lay on Hands",
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "TempHP",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

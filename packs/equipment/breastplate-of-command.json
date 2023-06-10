@@ -1,0 +1,128 @@
+{
+    "_id": "RUEAV5LMUGFHcXcW",
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/breastplate-of-command.webp",
+    "name": "Breastplate of Command",
+    "system": {
+        "armor": {
+            "value": 4
+        },
+        "baseItem": "breastplate",
+        "category": "medium",
+        "check": {
+            "value": -2
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This <em>+1 resilient breastplate</em> is made from shining bronze overlaid with reinforcing golden panels in the shape of lion's heads. Wearing this breastplate grants you a commanding aura. You gain a +2 item bonus to Diplomacy checks, but you take a -2 item penalty to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] and @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] and Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate].</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">A</span>Command</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who's frightened reduces their frightened value by 1.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Breastplate of Command]</p>"
+        },
+        "dex": {
+            "value": 1
+        },
+        "equippedBulk": {
+            "value": "2"
+        },
+        "group": "plate",
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 10
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potency": {},
+        "potencyRune": {
+            "value": 1
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 1000
+            }
+        },
+        "propertyRune1": {
+            "value": ""
+        },
+        "propertyRune2": {
+            "value": ""
+        },
+        "propertyRune3": {
+            "value": ""
+        },
+        "propertyRune4": {
+            "value": ""
+        },
+        "quantity": 1,
+        "resiliencyRune": {
+            "value": "resilient"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Breastplate of Command (Hide, Sneak)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Breastplate of Command (Impersonate)",
+                "predicate": [
+                    "action:impersonate"
+                ],
+                "selector": "deception",
+                "type": "item",
+                "value": -2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "speed": {
+            "value": -5
+        },
+        "stackGroup": null,
+        "strength": {
+            "value": 16
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "enchantment",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornarmor"
+        },
+        "weight": {
+            "value": "3"
+        }
+    },
+    "type": "armor"
+}

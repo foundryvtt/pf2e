@@ -1,0 +1,49 @@
+{
+    "_id": "Dt6B1slsBy8ipJu9",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Disarm",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You have at least one hand free. The target can't be more than one size larger than you.</p>\n<hr />\n<p>You try to knock something out of a creature's grasp. Attempt an <span data-pf2-action=\"disarm\" data-pf2-glyph=\"A\">Athletics</span> check against the target's Reflex DC.</p>\n<hr />\n<p><strong>Critical Success</strong> You knock the item out of the target's grasp. It falls to the ground in the target's space.</p>\n<p><strong>Success</strong> You weaken your target's grasp on the item. Until the start of that creature's turn, attempts to Disarm the target of that item gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Disarm (Success)]</p>\n<p><strong>Critical Failure</strong> You lose your balance and become @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the start of your next turn.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm",
+                    "target:effect:disarm-success"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "attack",
+                "skill"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        },
+        "weapon": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

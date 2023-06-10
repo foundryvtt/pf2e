@@ -1,0 +1,50 @@
+{
+    "_id": "HoOujAdQWCN4E6sQ",
+    "img": "systems/pf2e/icons/spells/barkskin.webp",
+    "name": "Spell Effect: Barkskin",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Barkskin]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "bludgeoning",
+                    "piercing"
+                ],
+                "value": "2*floor(@item.level/2)"
+            },
+            {
+                "key": "Weakness",
+                "type": "fire",
+                "value": "3*floor(@item.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

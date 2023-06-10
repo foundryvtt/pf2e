@@ -1,0 +1,80 @@
+{
+    "_id": "vmdhw37F22FCMm50",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Food Trader",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>In your past, you accompanied caravans, ships, or both hauling foodstuffs out of Geb for export. You might be a Gebbite or a foreigner who has decided to work in Geb because of the undeniable opportunities. In any case, you've traveled between Geb and other nations of the Inner Sea and seen firsthand that many nations view Geb with a combination of barely disguised revulsion and eagerness for its bountiful food exports. Even though you aren't in that line of business any longer, you understand how vital this international trade is to Geb's prosperity and appreciate the hardworking people who work in it.</p>\n<p>You are still highly regarded by the Export Guild for your past journeys on the nation's behalf. Your party gains 1 Reputation Point with the Export Guild at the start of the campaign.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Crafting or Society skill. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Seasoned] if you chose Crafting or @UUID[Compendium.pf2e.feats-srd.Item.Streetwise] if you chose Society. You're also trained in Mercantile Lore.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "value": "cra"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "food-trader"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "food-trader:soc"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Streetwise"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "food-trader:cra"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Seasoned"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Blood Lords Player's Guide"
+        },
+        "trainedLore": "Mercantile Lore",
+        "trainedSkills": {
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

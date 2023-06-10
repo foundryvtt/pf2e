@@ -1,0 +1,52 @@
+{
+    "_id": "keMP6xVg4fMloczj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Cel Rau",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are a cel rau, child of a strigoi, one of the first vampires to walk Golarion. Your heritage ties you to the Shadow Plane and grants you strange resilience to light and darkness alike.</p>\n<p>You gain a +1 circumstance bonus to saving throws against effects with the darkness, light, or shadow traits, and whenever you become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for at least 2 rounds, you can reduce the duration by 1 round.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "darkness",
+                            "light",
+                            "shadow"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dhampir",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

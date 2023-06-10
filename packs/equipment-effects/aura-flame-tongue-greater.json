@@ -1,0 +1,51 @@
+{
+    "_id": "4XO5mkjnh5riwZPM",
+    "img": "systems/pf2e/icons/spells/produce-flame.webp",
+    "name": "Aura: Flame Tongue (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Flame Tongue (Greater)]</p>\n<p>A @Template[type:emanation|distance:10] of flame radiates from the <em>greater flame tongue</em> for 1 minute. All weapon and unarmed attacks by you and your allies within the area gain the effect of the <em>flaming</em> property rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Flame Tongue (Greater)"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 10,
+                "slug": "flame-tongue-aura",
+                "traits": []
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

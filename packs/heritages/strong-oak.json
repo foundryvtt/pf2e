@@ -1,0 +1,54 @@
+{
+    "_id": "bKr34Uvxc2XClr9q",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Strong Oak",
+    "system": {
+        "ancestry": {
+            "name": "Ghoran",
+            "slug": "ghoran",
+            "uuid": "Compendium.pf2e.ancestries.Item.tSurOqRcfumadTfr"
+        },
+        "description": {
+            "value": "<p>Most ghorans have bodies of pliable vines and tough stems, but you're covered in sturdy, rough bark and your legs are stable as roots. You gain a +2 circumstance bonus on your Fortitude or Reflex DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] you. This bonus also applies to saving throws against effects that would @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]{Grab} you, @UUID[Compendium.pf2e.conditionitems.Item.Restrained]{Restrain} you, or knock you @UUID[Compendium.pf2e.conditionitems.Item.Prone]. You also gain a +2 circumstance bonus on Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance].</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:trip",
+                            "inflicts:grabbed",
+                            "inflicts:restrained",
+                            "inflicts:prone"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:balance"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

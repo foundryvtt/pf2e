@@ -1,0 +1,83 @@
+{
+    "_id": "RH4e2ceNN7Jy5ioq",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Damaj's Gloves",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This elaborate metallic webbing feels soft when wrapped around your hands and forearms. It constantly shifts its strands and connections. The name of a zuhra damaj is etched in Talican on the only part of the item that is unchanging. You gain a +3 item bonus to your Reflex DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] an item you're holding in your hands.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You're wielding a weapon made primarily of metal</p>\n<p><strong>Effect</strong> You extend the weapon and call out the zuhra's name. It channels its magic through the gloves to assist you with its choice of offense or defense (as determined by the GM). The zuhra makes any choices for the spell, and any save DC is 30.</p>\n<hr />\n<p><strong>Offense</strong> The metal of the gloves wraps around your weapon and channels the zuhra's magic to cast a 6th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Weapon Storm]</em> spell, replicating the metal weapon.</p>\n<p><strong>Defense</strong> The metal flows off your arms, creating a <em>@UUID[Compendium.pf2e.spells-srd.Item.Blade Barrier]</em>. The blades have the appearance of your weapon. You lose the damaj's gloves' item bonus until the barrier ends, at which point the metal returns to your hands and forearms. You can Dismiss the activation.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 3000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm",
+                    {
+                        "nor": [
+                            "blade-barrier-up"
+                        ]
+                    }
+                ],
+                "selector": "reflex",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "label": "Defensive Blade Barrier from Damaj's Gloves is Active",
+                "option": "blade-barrier-up",
+                "toggleable": true
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Paizo Blog: Kineticist Playtest Analysis"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "evocation",
+                "invested",
+                "magical",
+                "metal"
+            ]
+        },
+        "usage": {
+            "value": "worngloves"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "YryaWAGcHeaRnXzS",
+    "img": "systems/pf2e/icons/equipment/weapons/gun-sword.webp",
+    "name": "Way of the Triggerbrand",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You prefer firearms that work well as weapons in both melee and ranged combat, particularly those that allow you to exercise a bit of style and flair. You might be a survivor who cobbled your weapon together from the City of Smog's street scrap or a noble wielder of a master smith's bespoke commission for duels among Alkenstar's elite. You gain access to combination weapons.</p>\n<p><strong>Slinger's Reload</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Touch and Go]</p>\n<p><strong>Deeds</strong> <em>Initial @UUID[Compendium.pf2e.actionspf2e.Item.Spring the Trap]</em>; <em>Advanced @UUID[Compendium.pf2e.actionspf2e.Item.Wind Them Up]</em>; <em>Greater @UUID[Compendium.pf2e.actionspf2e.Item.Break Them Down]</em></p>\n<p><strong>Way Skill</strong> Thievery</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thi.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Spring the Trap"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:gunslinger"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Touch and Go"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "lIrPwGpJk9TldZ4c",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Snare Hopping",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can magically move your snares around. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Snare Hopping]</em> warden spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Snare Crafting"
+                },
+                {
+                    "value": "warden spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

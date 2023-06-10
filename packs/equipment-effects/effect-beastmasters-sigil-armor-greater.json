@@ -1,0 +1,45 @@
+{
+    "_id": "gZOED4T3o6giterN",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Beastmaster's Sigil - Armor (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Beastmaster's Sigil (Greater)]</p>\n<p>The <em>sigil</em> grants you a +1 item bonus to saving throws against poison.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "poison"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

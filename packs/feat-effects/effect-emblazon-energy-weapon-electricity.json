@@ -1,0 +1,72 @@
+{
+    "_id": "oX51Db6IxnUI64dT",
+    "img": "systems/pf2e/icons/spells/spiritual-weapon.webp",
+    "name": "Effect: Emblazon Energy (Weapon, Electricity)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Emblazon Energy] when applied to a weapon.</p>\n<ul>\n<li><strong>Weapon</strong> The weapon deals an extra 1d4 electricity damage, or an extra 1d6 electricity damage if you have a domain spell with the electricity trait.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectEmblazonEnergyWeaponElectricity",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "label": "Emblazon Energy (Electricity)",
+                "predicate": [
+                    {
+                        "not": "electricity-domain"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponElectricity}-damage"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "Emblazon Energy (Electricity Domain)",
+                "predicate": [
+                    "electricity-domain"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponElectricity}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,64 @@
+{
+    "_id": "ERwuazupczhUSZ73",
+    "img": "systems/pf2e/icons/features/classes/divine-ally.webp",
+    "name": "Divine Ally",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your devotion attracts a spirit of your deity's alignment. Once you choose an ally, your choice can't be changed.</p>\n<p>The following are divine allies:</p>\n<p><strong>Blade Ally</strong> A spirit of battle dwells within your armaments. Select one weapon or @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} when you make your daily preparations. In your hands, the item gains the effect of a property rune. For a champion following the tenets of good, choose <em>disrupting</em>, <em>ghost touch</em>,<em>returning</em>, or <em>shifting</em>. You also gain the weapon's critical specialization effect.</p>\n<p>If you are a champion following the tenets of evil, you can choose the following property runes: <em>fearsome</em>, <em>returning</em>, or <em>shifting</em>.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Blade Ally]</p>\n<p><strong>Shield Ally</strong> A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Shield Ally]</p>\n<p><strong>Steed Ally</strong> You gain a young animal companion as a mount. Ordinarily, your animal companion is one that has the mount special ability, such as a horse. You can select a different animal companion (GM's discretion), but this ability doesn't grant it the mount special ability.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                    "predicate": [
+                        "item:type:feature",
+                        "item:trait:champion"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blade Ally"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Shield Ally"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Steed Ally"
+                    }
+                ],
+                "flag": "divineAlly",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DivineAlly.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

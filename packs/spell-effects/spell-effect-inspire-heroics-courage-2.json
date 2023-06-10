@@ -1,0 +1,57 @@
+{
+    "_id": "kZ39XWJA3RBDTnqG",
+    "img": "systems/pf2e/icons/spells/inspire-heroics.webp",
+    "name": "Spell Effect: Inspire Heroics (Courage, +2)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by succeeding on <em>@UUID[Compendium.pf2e.spells-srd.Item.Inspire Heroics]</em> to enhance <em>@UUID[Compendium.pf2e.spells-srd.Item.Inspire Courage]</em>.</p>\n<p>You are inspired by words or tunes of encouragement. You gain a +2 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Inspire Courage",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Inspire Courage (vs fear)",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

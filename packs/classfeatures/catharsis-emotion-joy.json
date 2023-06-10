@@ -1,0 +1,55 @@
+{
+    "_id": "zFY2PlJTObXpcQW4",
+    "img": "systems/pf2e/icons/spells/captivating-adoration.webp",
+    "name": "Catharsis Emotion (Joy)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your unbridled enthusiasm and positive attitude can lead you to success, but you might expend more energy than you planned.</p>\n<p><strong>Catharsis Trigger</strong> You critically succeed on an attack roll or save, or an enemy critically fails on a save against you.</p>\n<p><strong>Catharsis Activation</strong> Reduce the value of any @UUID[Compendium.pf2e.conditionitems.Item.Frightened] or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition you have by 1 and end any persistent mental damage you have.</p>\n<p><strong>Emotional Fervor</strong> You gain a +1 status bonus to Performance checks and to the spell attack rolls of emotion spells, and enemies take a –1 status penalty to saves against your emotion spells. Spell: <em>@UUID[Compendium.pf2e.spells-srd.Item.Hideous Laughter]</em></p>\n<p><strong>Emotional Fallout</strong> You become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] until you Settle your Emotions.</p>\n<p><strong>Focus Spell</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Unimpeded Stride]</em></p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:emotional-fervor"
+                ],
+                "selector": "performance",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:emotional-fervor",
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "spell-dc",
+                    "spell-attack"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

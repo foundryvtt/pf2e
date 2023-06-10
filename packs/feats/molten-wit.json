@@ -1,0 +1,104 @@
+{
+    "_id": "OqGNcUTqaZTp2YND",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Molten Wit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your elemental soul has sparked not just your body but also your mind. You either become trained in Deception and gain the @UUID[Compendium.pf2e.feats-srd.Item.Charming Liar] skill feat, or you become trained in Diplomacy and gain the @UUID[Compendium.pf2e.feats-srd.Item.Group Impression] skill feat. If you're already trained in one of these skills, you must take the other and can choose from either skill feat. If you're trained in both skills, you become trained in a different skill of your choice instead and can choose from either skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillDec",
+                        "predicate": [
+                            "skill:dec:rank:0"
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "predicate": [
+                            "skill:dip:rank:0"
+                        ],
+                        "value": "dip"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "skill:dip:rank:0",
+                            "skill:dec:rank:0"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "molten-wit"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "predicate": [
+                    {
+                        "or": [
+                            "molten-wit:dec",
+                            "molten-wit:dip"
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            "molten-wit:dec"
+                        ],
+                        "value": "Compendium.pf2e.feats-srd.Item.Charming Liar"
+                    },
+                    {
+                        "predicate": [
+                            "molten-wit:dip"
+                        ],
+                        "value": "Compendium.pf2e.feats-srd.Item.Group Impression"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ifrit"
+            ]
+        }
+    },
+    "type": "feat"
+}

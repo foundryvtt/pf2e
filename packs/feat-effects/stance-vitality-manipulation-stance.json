@@ -1,0 +1,63 @@
+{
+    "_id": "h45sUZFs5jhuQdCE",
+    "img": "systems/pf2e/icons/spells/door-to-beyond.webp",
+    "name": "Stance: Vitality-Manipulation Stance",
+    "system": {
+        "description": {
+            "value": "<p>You have learned to attack meridians and pressure points like your rival Shino Hakusa. You gain a vitality blast ranged unarmed Strike that deals [[/r 1d4[negative]]] damage, has a range of 30 feet, and has the unarmed and versatile positive traits.</p>\n<p>Additionally, when you use Stunning Fist, instead of saving against being stunned, you can choose to have the target make a Fortitude save against your class DC with the following results. You must choose to do this before the target rolls its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's muscles become temporarily weaker. For 1 round, the target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and any time it attempts to take an action with the manipulate trait, the action is disrupted unless it succeeds at a flat check with a DC equal to 5 + its enfeebled value.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but the duration is 1 minute, the flat check is DC 11, and the target takes -10-foot status penalty to all Speeds for the duration.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "negative",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.VitalityManipulationStance.StrikeLabel",
+                "maxRange": 30,
+                "range": 30,
+                "traits": [
+                    "unarmed",
+                    "versatile-positive"
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "stunning-fist"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.VitalityManipulationStance.Note"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #168: King of the Mountain"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

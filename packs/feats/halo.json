@@ -1,0 +1,87 @@
+{
+    "_id": "PGVXjbAi1Fa4uTmD",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Halo",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are surrounded by a halo of light and goodness at all times.</p>\n<p>Your halo sheds light with the effects of a divine <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em> cantrip. A cantrip is heightened to a spell level equal to half your level rounded up.</p>\n<p>You can suppress or reestablish the halo with a single action, which has the concentrate trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "halo-active",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "halo-active"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "pulse"
+                    },
+                    "bright": {
+                        "brackets": [
+                            {
+                                "end": 6,
+                                "value": 20
+                            },
+                            {
+                                "start": 7,
+                                "value": 60
+                            }
+                        ]
+                    },
+                    "color": "#343434",
+                    "dim": {
+                        "brackets": [
+                            {
+                                "end": 6,
+                                "value": 40
+                            },
+                            {
+                                "start": 7,
+                                "value": 120
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "halo-active"
+                ],
+                "value": "systems/pf2e/icons/spells/angelic-halo.webp"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aasimar"
+            ]
+        }
+    },
+    "type": "feat"
+}

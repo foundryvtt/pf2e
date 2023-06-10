@@ -1,0 +1,90 @@
+{
+    "_id": "4ktNx3cVz5GkcGJa",
+    "img": "systems/pf2e/icons/spells/indestructibility.webp",
+    "name": "Spell Effect: Untwisting Iron Augmentation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Untwisting Iron Augmentation]</em></p>\n<p>Your unarmed attacks are treated as cold iron and silver, they gain the earth trait, and they gain a +1 status bonus to damage rolls per damage die.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:category:unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "cold-iron"
+            },
+            {
+                "definition": [
+                    "item:category:unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "silver"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "earth"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:category:unarmed"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "definition": [
+                    "item:category:unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            9
+                        ]
+                    }
+                ],
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "adamantine"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "KEG5KFNrXKhTsj6J",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Money Counter",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>The wealthiest of all the factions in Geb is the Tax Collectors Union, but it's the money counters in its banks and vaults that keep the numbers tallied. You used to work as one of these drudges who counted other people's money all day, until you decided to slip some unaccounted coins into your own pocket. You weren't caught, but you knew it would only be a matter of time before you felt the Union's wrath if you remained employed. You took the next opportunity to leave with both your official and unofficial final payments.</p>\n<p>The Tax Collectors Union is unaware of your petty theft, and you remain in good standing with them. Your party gains 1 Reputation Point with the Tax Collectors Union at the start of the campaign.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Society or Thievery skill. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Eye For Numbers] if you chose Society or @UUID[Compendium.pf2e.feats-srd.Item.Subtle Theft] if you chose Thievery. You're also trained in Accounting Lore.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "value": "thi"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "money-counter"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "money-counter:soc"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Eye For Numbers"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "money-counter:thi"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Subtle Theft"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Blood Lords Player's Guide"
+        },
+        "trainedLore": "Accounting Lore",
+        "trainedSkills": {
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

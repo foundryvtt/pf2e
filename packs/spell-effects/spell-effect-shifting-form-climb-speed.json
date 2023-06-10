@@ -1,0 +1,42 @@
+{
+    "_id": "nbW4udOUTrCGL3Gf",
+    "img": "systems/pf2e/icons/spells/shifting-form.webp",
+    "name": "Spell Effect: Shifting Form (Climb Speed)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by casting <em>@UUID[Compendium.pf2e.spells-srd.Item.Shifting Form]</em> and choosing to gain a climb speed equal to half your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "round(@actor.attributes.speed.total/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,50 @@
+{
+    "_id": "vJAHjBoEuFKGQoGs",
+    "img": "systems/pf2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp",
+    "name": "Effect: Rune of Destruction (Longspear)",
+    "system": {
+        "description": {
+            "value": "<p>The longspear gains the deadly trait with 3d8, and a creature hit with the longspear is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} unless it succeeds at a @Check[type:fortitude|dc:35|name:Rune of Destruction|traits:arcane] save.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "longspear-attack",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            },
+            {
+                "critical": true,
+                "diceNumber": 3,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "longspear-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

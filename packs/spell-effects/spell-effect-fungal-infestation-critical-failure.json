@@ -1,0 +1,45 @@
+{
+    "_id": "RLUhIyqH84Dle4vo",
+    "img": "systems/pf2e/icons/spells/fungal-infestation.webp",
+    "name": "Spell Effect: Fungal Infestation (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Fungal Infestation]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": [
+                    "fire",
+                    "slashing"
+                ],
+                "value": "2*floor(@item.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

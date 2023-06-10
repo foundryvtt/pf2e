@@ -1,0 +1,64 @@
+{
+    "_id": "eUv2L0CLidxtA3sh",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dormant Eruption",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>A sweltering heat and sparks of flame that take the form of tiny copies of you surround your body. You're hot to the touch, gaining resistance 5 to cold and fire. Whenever an adjacent creature Strikes you with a melee attack or touches you, it takes [[/r 1d6[persistent,fire]]] damage. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Thermal Eruption] action.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You've been brought to 0 Hit Points by an enemy that has the fire trait or an enemy's ability that has the fire trait"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "not": "thermal-eruption"
+                    }
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": 5
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Thermal Eruption"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.AftermathFeats.DormantEruptionToggle",
+                "option": "thermal-eruption",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath",
+                "fire"
+            ]
+        }
+    },
+    "type": "feat"
+}

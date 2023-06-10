@@ -47,7 +47,7 @@
                 <div class="list">
                     {{#each data.abilities as |ability id|}}
                         <div class="labelled-field" data-attribute="{{id}}">
-                            <label class="rollable"><a>{{ability.localizedCode}}</a></label>
+                            <a class="rollable">{{ability.localizedCode}}</a>
                             <input class="modifier" type="text" data-property="system.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
                         </div>
                     {{/each}}
@@ -61,7 +61,7 @@
             </div>
             <div class="section-body">
                 <div class="perception labelled-field" data-attribute="perception">
-                    <label class="attribute-label rollable"><a>{{localize "PF2E.PerceptionLabel"}}</a></label>
+                    <a class="attribute-label rollable">{{localize "PF2E.PerceptionLabel"}}</a>
                     {{#with data.attributes.perception as |perception|}}
                         <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="system.attributes.perception.value" data-dtype="Number" placeholder="0" />
                     {{/with}}

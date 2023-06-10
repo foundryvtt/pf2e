@@ -1,0 +1,74 @@
+{
+    "_id": "lix0Utu4g8mQ0ZtI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Divine Ally",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a divine ally of your choice.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Champion Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.champion-dedication-count",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                    "predicate": [
+                        "item:type:feature",
+                        "item:trait:champion"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blade Ally"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Shield Ally"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Steed Ally"
+                    }
+                ],
+                "flag": "divineAlly",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DivineAlly.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

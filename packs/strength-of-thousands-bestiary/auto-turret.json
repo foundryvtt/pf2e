@@ -1,0 +1,198 @@
+{
+    "_id": "YXG0gpzDvHVVsJsO",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "hpkg3msye9i1on3l",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Bullet Spray",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 60 feet of Tan‑Takneh's campsite</p>\n<hr />\n<p><strong>Effect</strong> The turret attacks the triggering creature with a longrifle Strike.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "85n8hm47fy2zkosd",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longrifle",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "No multiple attack penalty",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "8OoV9NzDGIH4AcEL": {
+                        "damage": "4d8+18",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "backstabber",
+                        "concussive",
+                        "fatal-d12",
+                        "kickback"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "q4OtZ4qtVqryXvl6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Auto-Turret",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 37
+            },
+            "hardness": 24,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 100,
+                "temp": 0,
+                "value": 100
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert); darkvision</p>",
+                "value": 33
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A mounted gun equipped with a magical targeting system and integrated ammo supply.</p>",
+            "disable": "<p>@Check[type:thievery|dc:35|name:Disconnect the Turret|traits:magical,trap,hazard] (master) to disconnect the turret from its ammo supply system, or @Check[type:arcana|dc:35|name:Neutralize the Magical Targeting System|traits:magical,trap,hazard] (master) to neutralize the magical targeting system.</p>\n<p>Tan‑Takneh can also deactivate one or both auto‑turrets remotely with a special command word.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) With each action, the auto‑turret makes a longrifle Strike against a creature within 60 feet of Tan‑Takneh's campsite (other than Tan-Takneh). If there are no such creatures, the auto‑turret instead uses its action to sprout mechanical legs, totter 20 feet in the direction of its last target, and then plant itself into the ground again. Programmed to spread its fire around, the auto‑turret doesn't attack any creature it's already attacked in the round.</p>\n<p>After making 15 Strikes, the auto‑turret depletes its ammunition and automatically deactivates.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #173: Doorway to the Red Star"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

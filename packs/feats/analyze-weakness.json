@@ -1,0 +1,78 @@
+{
+    "_id": "3PHHiZjX16Dwyt65",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Analyze Weakness",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You must have identified a creature with @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge].</p>\n<hr />\n<p>Your knowledge of a creature's physiology and understanding of tactics helps you attack with pinpoint accuracy. You carefully study a creature that you've identified to scope out particularly weak points in its positioning or physical form.</p>\n<p>The next time you deal sneak attack damage to the chosen creature with a Strike before the end of your turn, add an additional 2d6 precision damage.</p>\n<p>At 11th and 17th levels, if your additional damage from sneak attack increases, increase the additional damage from Analyze Weakness to 3d6 at 11th level and 4d6 at 17th level.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "sneak attack 2d6"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Apply Analyze Weakness damage",
+                "option": "analyze-weakness",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "analyze-weakness"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 11,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

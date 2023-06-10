@@ -1,0 +1,55 @@
+{
+    "_id": "80AC6Q1m0eQiE7Et",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Tumbling Theft",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You reach for an opponent's item as you move past a foe. If you critically succeed your check to @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] an enemy's space, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] something from the enemy as a reaction. You gain a +1 circumstance bonus to your Thievery check to Steal as your tumbling makes it difficult for your enemy to keep track of your movement. You can Steal any immediately accessible item of light or lighter Bulk on the enemy's person, such as a potion or coin purse hanging from a belt, but not anything inside a container or anything the enemy is holding. The GM has final say on what you can Steal.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Acrobatics and Thievery"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "tumbling-theft",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "tumbling-theft"
+                ],
+                "selector": "thievery",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Firebrands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

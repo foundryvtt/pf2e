@@ -1,0 +1,90 @@
+{
+    "_id": "R5ywXEYZFV1WBe8t",
+    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/energizing-rune-fire.webp",
+    "name": "Effect: Energizing Rune",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Energizing]</p>\n<p>The weapon becomes imbued with the triggering energy type. It deals an additional 1d8 damage of the triggering type until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:rune:property:energizing"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/energizing-rune-acid.webp",
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/energizing-rune-cold.webp",
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/energizing-rune-electricity.webp",
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/energizing-rune-fire.webp",
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/energizing-rune-sonic.webp",
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energyType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.energyType}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

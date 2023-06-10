@@ -1,0 +1,83 @@
+{
+    "_id": "h7OCAvvnUnCIM9Aj",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Troubadour's Cap",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This jaunty cap can take the form and color of any type of hat you wish upon investing the item, but it always has a peacock feather jutting out from one side. You gain a +2 item bonus to Diplomacy and Performance checks while wearing the cap. When you invest the cap, you either increase your Charisma score by 2 or increase it to 18, whichever is higher.</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">2</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Hypnotic Pattern]</em> (DC 37).</p>\n<hr />\n<p><strong>Activate</strong><span class=\"pf2-icon\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Picking the feather from your cap, you throw it toward a target, casting <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray]</em> (DC 35).</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 15000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.cha.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.cha.value",
+                "value": 18
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "diplomacy",
+                    "performance"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "enchantment",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worncap"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

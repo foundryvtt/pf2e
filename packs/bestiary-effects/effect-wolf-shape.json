@@ -1,0 +1,51 @@
+{
+    "_id": "o6ZI01zZBQDASuaw",
+    "img": "systems/pf2e/icons/spells/beastmaster-trance.webp",
+    "name": "Effect: Wolf Shape",
+    "system": {
+        "description": {
+            "value": "<p>The barghest gains Speed 40 and its jaws gain @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Knockdown].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "value": 40
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Knockdown"
+            },
+            {
+                "key": "Note",
+                "selector": "jaws-attack",
+                "text": "PF2E.NPC.Abilities.Glossary.Knockdown",
+                "title": "<span class=\"pf2-icon\">1</span> @Localize[PF2E.AttackEffectKnockdown] ({item|name})"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

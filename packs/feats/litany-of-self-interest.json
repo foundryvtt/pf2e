@@ -1,0 +1,48 @@
+{
+    "_id": "qKpaZF0U9VV0YwTJ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Litany Of Self-Interest",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You compel a creature to act toward its own ends rather than consider others. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Litany of Self-Interest]</em> devotion spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "devotion spells"
+                },
+                {
+                    "value": "tenets of evil"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

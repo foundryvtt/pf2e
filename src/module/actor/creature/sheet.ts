@@ -71,44 +71,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
         }
 
-        // Enrich condition data
-        const enrich = async (content: string, rollData: Record<string, unknown>): Promise<string> => {
-            return TextEditor.enrichHTML(content, { rollData, async: true });
-        };
-        const actorRollData = this.actor.getRollData();
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor);
-        for (const condition of conditions) {
-            const item = this.actor.items.get(condition.id);
-            if (item) {
-                const rollData = { ...item.getRollData(), ...actorRollData };
-                condition.enrichedDescription = await enrich(condition.description, rollData);
-
-                if (condition.parents.length) {
-                    for (const parent of condition.parents) {
-                        parent.enrichedText = await enrich(parent.text, rollData);
-                    }
-                }
-
-                if (condition.children.length) {
-                    for (const child of condition.children) {
-                        child.enrichedText = await enrich(child.text, rollData);
-                    }
-                }
-
-                if (condition.overrides.length) {
-                    for (const override of condition.overrides) {
-                        override.enrichedText = await enrich(override.text, rollData);
-                    }
-                }
-
-                if (condition.overriddenBy.length) {
-                    for (const overridenBy of condition.overriddenBy) {
-                        overridenBy.enrichedText = await enrich(overridenBy.text, rollData);
-                    }
-                }
-            }
-        }
-
         return {
             ...sheetData,
             languages: createSheetTags(CONFIG.PF2E.languages, actor.system.traits.languages),
@@ -120,7 +82,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             frequencies: CONFIG.PF2E.frequencies,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
-            conditions,
             dying: {
                 maxed: actor.attributes.dying.value >= actor.attributes.dying.max,
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
@@ -506,7 +467,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             buttons.splice(index, 0, {
                 label: "Configure", // Top-level foundry localization key
                 class: "configure-creature",
-                icon: "fas fa-cog",
+                icon: "fa-solid fa-user-gear",
                 onclick: () => this.#onConfigureActor(),
             });
         }

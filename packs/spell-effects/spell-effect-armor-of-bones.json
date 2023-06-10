@@ -1,0 +1,48 @@
+{
+    "_id": "6BjslHgY01cNbKp5",
+    "img": "systems/pf2e/icons/spells/armor-of-bones.webp",
+    "name": "Spell Effect: Armor of Bones",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Armor of Bones]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "piercing",
+                    "slashing"
+                ],
+                "value": "@item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

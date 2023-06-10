@@ -1,0 +1,93 @@
+{
+    "_id": "A61eVVVyUuaUl3tz",
+    "img": "systems/pf2e/icons/spells/celestial-brand.webp",
+    "name": "Spell Effect: Celestial Brand",
+    "system": {
+        "description": {
+            "value": "<p>Granted by attacking a target under the effect of <em>@UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Target is affected by Celestial Brand",
+                "option": "celestial-brand",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "celestial-brand"
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "good",
+                "key": "FlatModifier",
+                "predicate": [
+                    "celestial-brand"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": 0
+                        },
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 1
+                        },
+                        {
+                            "start": 9,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "damageType": "good",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "celestial-brand"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

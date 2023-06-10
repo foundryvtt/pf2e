@@ -1,0 +1,65 @@
+{
+    "_id": "0fv6NVMZZ0peGL9e",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Conscious Mind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whatever the subconscious source of a psychic's power, all find that a specific external manifestation of their magic comes most easily to them. This conscious outward expression adds several additional spells to your spell repertoire and grants you three psi cantrips. Two of these cantrips are common spells, though you gain an extra benefit with them that other spellcasters don't get, and the last is unique to your conscious mind. You also get two more unique psi cantrips at higher levels. Choose a conscious mind from the following options .</p>\n<ul>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.The Distant Grasp]:</strong> Manipulate physical objects with telekinesis.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.The Infinite Eye]:</strong> Observe the world and weaponize your knowledge.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.The Oscillating Wave]:</strong> Redistribute thermal energy to create blazing heat and bone-chilling cold.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.The Silent Whisper]:</strong> Tap into the thoughts of those around you to soothe or influence.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.The Tangible Dream]:</strong> Weave your imagination into creations of force and light.</li>\n<li><strong>@UUID[Compendium.pf2e.classfeatures.Item.The Unbound Step]:</strong> Bend and traverse space with teleportation and phasing.</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.The Distant Grasp"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.The Infinite Eye"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.The Oscillating Wave"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.The Silent Whisper"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.The Tangible Dream"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.The Unbound Step"
+                    }
+                ],
+                "flag": "consciousMind",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ConsciousMind"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.consciousMind}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "psychic"
+            ]
+        }
+    },
+    "type": "feat"
+}

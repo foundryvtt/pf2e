@@ -1,0 +1,186 @@
+{
+    "_id": "b8bfWIICHOsGVzjp",
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Spell Effect: Monstrosity Form (Phoenix)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Monstrosity Form]</em></p>\n<p>You transform into the shape of a legendary monster, assuming a Huge battle form. You must have enough space to expand into or the spell is lost. While in this form, you gain the beast trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>20 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +28, and you use the listed damage. These attacks are Strength based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +30, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of monster you choose:</p>\n<ul>\n<li><strong>Phoenix</strong>\n<ul>\n<li>Speed 30 feet, fly Speed 90 feet;</li>\n<li><strong>Melee</strong><span class=\"pf2-icon\">1</span> beak (reach 15 feet), <strong>Damage</strong> 2d6+12 piercing plus 2d4 fire and [[/r 2d4[persistent,fire]]] damage;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> talon (agile, reach 15 feet), <strong>Damage</strong> 2d8+12 slashing;</li>\n<li><strong>Shroud of Flame</strong> (aura, evocation, fire, primal) 20 feet. You gain an aura of fire that extends out from you. A creature that enters or ends its turn within the aura takes [[/r 2d6[fire]]] damage. A creature can take this damage only once per turn. You can use a single action, which has the concentrate trait, to activate or deactivate this aura.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (9th)</strong> You instead gain AC = 22 + your level, 25 temporary HP, attack modifier +31, increase damage by one damage die, and Athletics +33.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "fly": 90,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "beak": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
+                        },
+                        "talon": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 12
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-15",
+                                "agile"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "beast"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "20 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 30
+                                    }
+                                },
+                                "strikes": {
+                                    "beak": {
+                                        "modifier": 28
+                                    },
+                                    "talon": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 33
+                                    }
+                                },
+                                "strikes": {
+                                    "beak": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "talon": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15",
+                                            "agile"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 25
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": "ternary(gte(@item.level, 9), 3, 2)",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "beak-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "beak-damage"
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    "shrouded"
+                ],
+                "radius": 20,
+                "slug": "shroud-of-flame",
+                "traits": [
+                    "evocation",
+                    "fire",
+                    "primal"
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.BattleForm.MonstrosityForm.ShroudOfFlame",
+                "option": "shrouded",
+                "toggleable": true,
+                "value": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,91 @@
+{
+    "_id": "3KPZ7svIO6kmmEKH",
+    "img": "systems/pf2e/icons/features/classes/ruffian.webp",
+    "name": "Ruffian",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You prefer to strong-arm or intimidate others rather than rely on finesse or fancy tricks. You might be an enforcer for organized crime, a highway bandit, or a noble who bullies others with threats of your family's power. Or, you might use your skills on the up and up, in a private security detail or as a guard in a city with the right temperament.</p>\n<p>You use whatever tools you have at hand to get the job done. You can deal sneak attack damage with any simple weapon, in addition to the weapons listed in the sneak attack class feature. When you critically succeed at an attack roll using a simple weapon and the target has the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] condition (unable to focus on defending itself), you also apply the critical specialization effect for the weapon you're wielding. You don't gain these benefits if the weapon has a damage die larger than d8 (after applying any abilities that alter its damage die size).</p>\n<p>You're trained in Intimidation and medium armor. You can choose Strength as your key ability score. When you gain light armor expertise, you also gain expert proficiency in medium armor, and when you gain light armor mastery, you also gain master proficiency in medium armor.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
+                "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.SneakAttack",
+                "predicate": [
+                    "target:condition:flat-footed",
+                    "item:category:simple",
+                    {
+                        "nor": [
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "target:condition:flat-footed",
+                    "item:category:simple",
+                    {
+                        "lte": [
+                            "item:damage:die:faces",
+                            8
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "subfeatures": {
+            "keyOptions": [
+                "str"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

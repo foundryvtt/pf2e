@@ -1,0 +1,51 @@
+{
+    "_id": "0JrHvdUgJBl631En",
+    "img": "systems/pf2e/icons/spells/stormwind-flight.webp",
+    "name": "Effect: Juvenile Flight",
+    "system": {
+        "description": {
+            "value": "<p>You gain a fly Speed equal to your land Speed while your wings are unfurled.</p>\n<p>If you have @UUID[Compendium.pf2e.feats-srd.Item.Fledgling Flight], you gain a +10-foot status bonus to your fly Speed with Juvenile Flight. As normal, since your fly Speed is derived from your land Speed, this status bonus isn't cumulative with a status bonus to your land Speed, if you have one.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "feat:fledgling-flight"
+                ],
+                "selector": "fly-speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

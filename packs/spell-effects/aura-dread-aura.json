@@ -1,0 +1,56 @@
+{
+    "_id": "HF1r1psnITHD52B9",
+    "img": "systems/pf2e/icons/spells/dread-aura.webp",
+    "name": "Aura: Dread Aura",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Dread Aura]</em></p>\n<p>You emit an aura of terror. Foes in the area are frightened 1 and unable to reduce the condition.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "enemies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Dread Aura"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 30,
+                "slug": "dread-aura",
+                "traits": [
+                    "emotion",
+                    "fear",
+                    "mental",
+                    "wizard"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

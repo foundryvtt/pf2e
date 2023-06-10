@@ -1,0 +1,46 @@
+{
+    "_id": "2ca1ZuqQ7VkunAh3",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Accept Echo",
+    "system": {
+        "description": {
+            "value": "<p>While in this state, you become trained in the weapon you chose and an expert in the skill you chose. Additionally, while you're in this state, the echo can speak and interact with the Material Plane using your body, and you gain a +4 status bonus to all saves against possession effects, as the possessing spirit protects you from other possessions.</p>\n<p>This state lasts for 10 minutes, after which the echo disappears completely until the next time you make your daily preparations. You can @UUID[Compendium.pf2e.actionspf2e.Item.Dismiss] this effect.</p>\n<p>At 7th level you become a master of the skill you chose, at 13th level you become an expert with the weapon you chose, and at 15th level you become legendary with the skill you chose.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "possession"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

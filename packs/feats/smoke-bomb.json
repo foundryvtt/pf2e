@@ -1,0 +1,53 @@
+{
+    "_id": "ODnXQHvFoK7tIVpu",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Smoke Bomb",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You use @UUID[Compendium.pf2e.classfeatures.Item.Quick Alchemy] to craft an alchemical bomb with a level at least 1 lower than your advanced alchemy level</p>\n<hr />\n<p>You cause the bomb to create a cloud of thick smoke, in addition to its normal effects.</p>\n<p>When thrown, the bomb creates a cloud of smoke in a 10-foot-radius burst. You choose which corner of the target's space (or the space in which the bomb lands) the cloud is centered on.</p>\n<p><span style=\"color: var(--body); font-size: 1em;\">Creatures within that area have the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition, and all other creatures are concealed to them. The smoke lasts for 1 minute or until dissipated by a strong wind.</span></p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "alchemical",
+                    "bomb",
+                    "smoke-bomb"
+                ],
+                "selector": "attack-roll",
+                "text": "Your bomb creates a cloud of smoke in a 10-foot radius burst, centered on a corner of the target's space of your choice. The smoke conceals creatures in the area, and lasts for 1 minute.",
+                "title": "{item|name}"
+            },
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "smoke-bomb",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "additive1",
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

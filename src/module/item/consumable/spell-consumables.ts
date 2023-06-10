@@ -66,9 +66,16 @@ function isSpellConsumable(itemId: string): boolean {
 }
 
 async function createConsumableFromSpell(
-    type: SpellConsumableItemType,
     spell: SpellPF2e,
-    heightenedLevel = spell.baseLevel
+    {
+        type,
+        heightenedLevel = spell.baseLevel,
+        mystified = false,
+    }: {
+        type: SpellConsumableItemType;
+        heightenedLevel?: number;
+        mystified?: boolean;
+    }
 ): Promise<ConsumableSource> {
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
@@ -99,6 +106,10 @@ async function createConsumableFromSpell(
     // Cantrip deck casts at level 1
     if (type !== "cantripDeck5") {
         consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+    }
+
+    if (mystified) {
+        consumableSource.system.identification.status = "unidentified";
     }
 
     return consumableSource;

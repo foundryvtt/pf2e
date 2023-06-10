@@ -1,0 +1,51 @@
+{
+    "_id": "142QRyK2aPIrJu48",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Holy Castigation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You combine holy energy with positive energy to damage demons, devils, and their evil ilk. <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spells you cast damage fiends as though they were undead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "good alignment"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "item:type:spell",
+                    "item:slug:heal",
+                    "target:trait:fiend"
+                ],
+                "selectors": [
+                    "damage-received"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.U2Pgm6B4nmdQ2Gpd"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

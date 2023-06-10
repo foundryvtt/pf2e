@@ -1,0 +1,69 @@
+{
+    "_id": "uGuCGQvUmioFV2Bd",
+    "img": "systems/pf2e/icons/features/classes/rogues-racket.webp",
+    "name": "Rogue's Racket",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 Rogue feature",
+                    "predicate": [
+                        "item:trait:rogue",
+                        "item:level:1"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Eldritch Trickster"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Mastermind"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Ruffian"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Scoundrel"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Thief"
+                    }
+                ],
+                "flag": "roguesRacket",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Rogue.Racket.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.roguesRacket}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

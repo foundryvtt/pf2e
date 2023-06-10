@@ -1,0 +1,52 @@
+{
+    "_id": "owJorCBZmUi5lIV0",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Expert Herbalism",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy] level for herbalism increases to your level -3.</p>\n<p>You gain the formulas for elixirs of life as soon as your advanced alchemy level is high enough to create them: @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)]{lesser} at 8th level, @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Moderate)]{moderate} at 12th level, @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Greater)]{greater} at 16th level, and @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Major)]{major} at 18th level.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Herbalist Dedication"
+                },
+                {
+                    "value": "expert in Nature"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.herbalist.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:herbalist"
+                ],
+                "value": "@actor.level - 3"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

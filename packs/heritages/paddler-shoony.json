@@ -1,0 +1,45 @@
+{
+    "_id": "mnhpCk9dIwMuFegM",
+    "img": "systems/pf2e/icons/features/ancestry/paddler-shoony.webp",
+    "name": "Paddler Shoony",
+    "system": {
+        "ancestry": {
+            "name": "Shoony",
+            "slug": "shoony",
+            "uuid": "Compendium.pf2e.ancestries.Item.q6rsqYARyOGXZA8F"
+        },
+        "description": {
+            "value": "<p>You hail from shoonies who have lived long and successfully among the reeds and cattails of swamps and marshes, and have adapted to the challenges of living near waterlogged areas. You ignore difficult terrain and greater difficult terrain from bogs. When you roll a success to @UUID[Compendium.pf2e.actionspf2e.Item.Swim], you get a critical success instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "text": "When you roll a success to Swim, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

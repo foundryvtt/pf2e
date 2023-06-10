@@ -1,0 +1,72 @@
+{
+    "_id": "5TzKmEqFyLHBG2ua",
+    "img": "systems/pf2e/icons/spells/spiritual-weapon.webp",
+    "name": "Effect: Emblazon Energy (Weapon, Cold)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Emblazon Energy] when applied to a weapon.</p>\n<ul>\n<li><strong>Weapon</strong> The weapon deals an extra 1d4 cold damage, or an extra 1d6 cold damage if you have a domain spell with the cold trait.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectEmblazonEnergyWeaponCold",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "label": "Emblazon Energy (Cold)",
+                "predicate": [
+                    {
+                        "not": "cold-domain"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponCold}-damage"
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "Emblazon Energy (Cold Domain)",
+                "predicate": [
+                    "cold-domain"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponCold}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

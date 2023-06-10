@@ -1,0 +1,46 @@
+{
+    "_id": "ncrNQcwm4gOQRAA3",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shadowcaster Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sacrificed a piece of your spirit, allowing the powers of shadow into your being and changing the nature of your magic. You can no longer cast spells that have the light trait; if an ability, such as a class feature or ancestry feat, would automatically grant you a light spell, such as the @UUID[Compendium.pf2e.feats-srd.Item.Domain Initiate] feat granting you the <em>@UUID[Compendium.pf2e.spells-srd.Item.Dazzling Flash]</em> spell, you don't gain that spell.</p>\n<p>You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Cloak of Shadow]</em> domain spell. It costs 1 Focus Point to cast a focus spell. This feat grants a focus pool of 1 Focus Point that you can recover using the @UUID[Compendium.pf2e.actionspf2e.Item.Refocus] activity. You can Refocus by meditating to siphon power from the Shadow Plane and refill your focus pool. Your domain spells from the shadowcaster archetype are of the same tradition as the spells you used to meet the shadowcaster archetype's prerequisites.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.wHs6IGCMaXsgFNop]{Shadowcaster} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ability to cast spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

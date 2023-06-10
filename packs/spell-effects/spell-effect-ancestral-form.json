@@ -1,0 +1,55 @@
+{
+    "_id": "l8HkOKfiUqd3BUwT",
+    "img": "systems/pf2e/icons/spells/ancestral-form.webp",
+    "name": "Spell Effect: Ancestral Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Ancestral Form]</em></p>\n<p>You take the form of your ancestral spirits, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible] and quasi‑corporeal. You gain resistance 10 to all damage (except force and damage from Strikes with the ghost touch property rune), and this resistance is doubled against non‑magical and precision damage.</p>\n<p>You gain a fly Speed equal to your land Speed; when @UUID[Compendium.pf2e.actionspf2e.Item.Fly]{Flying}, moving upward isn't difficult terrain for you. You can't move through solid objects, but you can float through tiny gaps.</p>\n<p>You can't Cast Spells (but you can @UUID[Compendium.pf2e.actionspf2e.Item.Sustain a Spell]), activate items, or use actions that have the attack or manipulate trait.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increasse by 5.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "doubleVs": [
+                    "non-magical",
+                    "precision"
+                ],
+                "exceptions": [
+                    "force",
+                    "ghost-touch"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "10 + 5*floor((@item.level -6)/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

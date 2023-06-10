@@ -1,0 +1,45 @@
+{
+    "_id": "Csezts78L4FMaskB",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Lethoci",
+    "system": {
+        "ancestry": {
+            "name": "Kashrishi",
+            "slug": "kashrishi",
+            "uuid": "Compendium.pf2e.ancestries.Item.dw2K1AJR9mQ25nDP"
+        },
+        "description": {
+            "value": "<p>You come from a kashrishi family adapted to coastal shores, or inland ponds and lakes. You gain a +2 circumstance bonus to Athletics checks to Swim. If you critically fail an Athletics check to Swim, you get a failure instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

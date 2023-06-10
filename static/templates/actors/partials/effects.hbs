@@ -1,0 +1,37 @@
+{{#each effects as |effect|}}
+    {{#if (or effect.isIdentified @root.user.isGM)}}
+        <li class="item effects expandable{{#unless effect.isIdentified}} unidentified{{/unless}}" data-item-type="{{effect.type}}" data-item-id="{{effect.id}}">
+            <div class="item-name rollable">
+                <div class="item-image framed">
+                    <img class="item-icon" src="{{effect.img}}" alt="{{effect.name}}" />
+                    <i class="fa-solid fa-message"></i>
+                </div>
+                <h4 class="action-name">
+                    {{effect.name}}
+                    {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
+                        ({{coalesce effect.badge.label effect.badge.value}})
+                    {{/if}}
+                    {{#if (eq effect.type "condition")}}{{#unless effect.active}}<span> (Inactive)</span>{{/unless}}{{/if}}
+                </h4>
+            </div>
+
+            <div class="item-controls">
+                {{#if (and @root.options.editable (not effect.readonly))}}
+                    {{#if (eq effect.badge.type "counter")}}
+                        <a class="item-control increment" title="{{localize "PF2E.IncrementEffectTitle"}}"><i class="fa-solid fa-fw fa-plus"></i></a>
+                        <a class="item-control decrement" title="{{localize "PF2E.DecrementEffectTitle"}}"><i class="fa-solid fa-fw fa-minus"></i></a>
+                    {{/if}}
+                    {{#if (and (eq effect.type "effect") @root.user.isGM)}}
+                        <a class="item-control" data-action="effect-toggle-unidentified" title="{{localize "PF2E.ToggleEffectUnidentified"}}"><i class="fa-solid fa-fw fa-eye"></i></a>
+                    {{/if}}
+                    {{#if (eq effect.type "effect")}}
+                        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                    {{/if}}
+                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                {{else if effect.readonly}}
+                    <a class="item-control info-only" title="{{effect.breakdown}}"><i class="fa-solid fa-fw fa-info-circle"></i></a>
+                {{/if}}
+            </div>
+        </li>
+    {{/if}}
+{{/each}}

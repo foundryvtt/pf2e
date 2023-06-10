@@ -1,0 +1,67 @@
+{
+    "_id": "kMLvQnx2vY7F3bjI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Eternal Blessing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your good deeds have brought your deity's grace to you for all of eternity. You're continuously surrounded by a <em>@UUID[Compendium.pf2e.spells-srd.Item.Bless]</em> spell with a spell level equal to half your level (rounded up). The radius is 15 feet, and you can't increase it. You can Dismiss the spell; if you do, it returns automatically after 1 minute.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "good alignment"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "eternal-blessing-active",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Bless"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "eternal-blessing-active"
+                ],
+                "radius": 15,
+                "slug": "eternal-blessing",
+                "traits": [
+                    "enchantment",
+                    "mental"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

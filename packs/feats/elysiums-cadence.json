@@ -1,0 +1,63 @@
+{
+    "_id": "TfDvkTNaC1DmsB2C",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Elysium's Cadence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've been ensnared by an azata's infectious enthusiasm for life, love, and freedom that manifests as a pearlescent afterimage in your graceful movements, a spring in your soft steps, an ever-present melody in your euphonic voice, and eddies of passionate colors in your mesmerizing eyes. You gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], or a +2 circumstance bonus if the target is chaotic good. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Set Free] reaction.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You've partied extensively with an azata or entered a romantic relationship with an azata"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    "target:trait:chaotic",
+                    "target:trait:good"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Set Free"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath"
+            ]
+        }
+    },
+    "type": "feat"
+}

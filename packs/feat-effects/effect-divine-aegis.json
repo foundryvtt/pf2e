@@ -1,0 +1,64 @@
+{
+    "_id": "K1IgNCf3Hh2EJwQ9",
+    "img": "systems/pf2e/icons/spells/divine-inspiration.webp",
+    "name": "Effect: Divine Aegis",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Divine Aegis]</p>\n<p>Until the beginning of your next turn, you gain a +1 circumstance bonus to saving throws against non-divine magical effects, but you also take a -1 circumstance penalty to saves against divine effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Divine Aegis (vs. non-divine magical effects)",
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "occult",
+                            "primal"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Divine Aegis (vs. divine effect)",
+                "predicate": [
+                    "divine"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

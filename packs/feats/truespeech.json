@@ -1,0 +1,50 @@
+{
+    "_id": "bi77bT9uyAmJXVed",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Truespeech",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>It is paramount that you are understood and you understand others; language need not impede your message.</p>\n<p>You can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Tongues]</em> as a 5th-level divine innate spell once per day on yourself only.</p>\n<p>You gain a +1 status bonus to Diplomacy checks for the duration of the spell when speaking to creatures with whom you already shared a language before casting.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Angelkin"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Truespeech (shared language & innate Tongues)",
+                "predicate": [
+                    "same-language",
+                    "spell-effect:tongues"
+                ],
+                "selector": "diplomacy",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "aasimar"
+            ]
+        }
+    },
+    "type": "feat"
+}

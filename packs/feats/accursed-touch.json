@@ -1,0 +1,98 @@
+{
+    "_id": "5Pj6pQ7N1qXCQLal",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Accursed Touch",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned to harness the supernatural curse that animates you, imbuing your most powerful attacks with a terrible curse. When you critically hit with a fist Strike, negative energy binds to it; this is a curse and a disease. The creature takes [[/r 2d6[persistent,negative]]] damage. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}. The persistent damage increases to 3d6 at 14th level and 4d6 at 20th level. This is a critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mummy Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "selector": "fist-damage",
+                "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.Base",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            14
+                        ]
+                    },
+                    {
+                        "not": {
+                            "gte": [
+                                "self:level",
+                                20
+                            ]
+                        }
+                    }
+                ],
+                "selector": "fist-damage",
+                "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.FourteenthLevel",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            20
+                        ]
+                    }
+                ],
+                "selector": "fist-damage",
+                "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.TwentiethLevel",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

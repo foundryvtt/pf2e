@@ -1031,14 +1031,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const { actor } = this;
         const itemSource = item.toObject();
 
+        const mystified = game.user.isGM && event.altKey;
+
         // Set effect to unidentified if alt key is held
-        if (game.user.isGM && itemSource.type === "effect") {
-            const altHeld = event.altKey || game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.ALT);
-            itemSource.system.unidentified ||= altHeld;
+        if (mystified && itemSource.type === "effect") {
+            itemSource.system.unidentified = true;
         }
 
         // mystify the item if the alt key was pressed
-        if (event.altKey && item.isOfType("physical") && isPhysicalData(itemSource)) {
+        if (mystified && item.isOfType("physical") && isPhysicalData(itemSource)) {
             itemSource.system.identification.unidentified = item.getMystifiedData("unidentified");
             itemSource.system.identification.status = "unidentified";
         }
@@ -1060,7 +1061,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
-                        const createdItem = await createConsumableFromSpell(itemType, spell, heightenedLevel);
+                        const createdItem = await createConsumableFromSpell(spell, {
+                            type: itemType,
+                            heightenedLevel,
+                            mystified,
+                        });
                         await this._onDropItemCreate(createdItem);
                     },
                     item

@@ -1,0 +1,85 @@
+{
+    "_id": "hL6z9KnndTO2L12f",
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/mask-of-allure.webp",
+    "name": "Mask of Allure",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>This mask appears to be a pool of mirrored, shifting silver adhered to a thin metal plate. When you place it against your face, it melds to the shape of your head. The material is breathable and light, and does not obscure vision. You gain a +2 item bonus to Deception, Diplomacy, Intimidation, and Performance checks while wearing the mask.</p>\n<p>When you invest the mask, you either increase your Charisma score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Mask of Allure]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">f</span> envision (visual)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You attempt a Deception, Diplomacy, Intimidation, or Performance check</p>\n<hr />\n<p><strong>Effect</strong> You gain a +4 status bonus to the triggering check. This ability has no effect if you're under the effects of a disguise that hides the mask of allure. Depending on the skill used, the mirrored silver transforms into one of the following appearances.</p>\n<ul>\n<li><strong>Deception</strong> A swirl of silver, which entirely obscures and conceals your normal features.</li>\n<li><strong>Diplomacy</strong> A kind, gentle and inviting expression.</li>\n<li><strong>Intimidation</strong> A monstrous visage that shocks viewers into paying attention.</li>\n<li><strong>Performance</strong> A jovial humanoid face, the mouth cracked wide with a comedic smile or a tragic frown, depending on the nature of the performance.</li>\n</ul>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 18
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 24000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation",
+                    "performance"
+                ],
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.cha.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.cha.value",
+                "value": 18
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "apex",
+                "enchantment",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornmask"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

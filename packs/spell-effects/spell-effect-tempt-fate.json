@@ -1,0 +1,61 @@
+{
+    "_id": "AJkRUIdYLnt4QOOg",
+    "img": "systems/pf2e/icons/spells/tempt-fate.webp",
+    "name": "Spell Effect: Tempt Fate",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Tempt Fate]</em>.</p>\n<p>The target gains a +1 status bonus to the triggering saving throw.</p>\n<p>If the saving throw's result is a success, it becomes a critical success. If it's a failure, it becomes a critical failure, and the critical failure can't be reduced by abilities that usually reduce critical failure, such as improved evasion.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The bonus on the saving throw is +2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "value": 1
+                        },
+                        {
+                            "start": 8,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "Note",
+                "selector": "saving-throw",
+                "text": "If the result is a success, it becomes a critical success. It it's a failure, it becomes a critical failure that can't be reduced in any way.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

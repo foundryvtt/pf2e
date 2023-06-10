@@ -1,0 +1,55 @@
+{
+    "_id": "KceTcamIZ4ZrQJLD",
+    "img": "systems/pf2e/icons/spells/abyssal-pact.webp",
+    "name": "Effect: Educate Allies (Self)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by using @UUID[Compendium.pf2e.feats-srd.Item.Educate Allies] on your allies.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Well-Versed (vs. performative effects)",
+                "predicate": [
+                    {
+                        "or": [
+                            "auditory",
+                            "illusion",
+                            "linguistic",
+                            "sonic",
+                            "visual"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

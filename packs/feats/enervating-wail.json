@@ -1,0 +1,47 @@
+{
+    "_id": "VAxtUenSWEBWYBRt",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Enervating Wail",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You release a terrible wail that tears at the spirits of all nearby. All living creatures in a @Template[type:emanation|distance:20] take negative damage with a @Check[type:fortitude|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true] save. The damage is 4d6, plus 1d6 for every level you have beyond 6th.</p>\n<p>[[/r ((2-@actor.level)d6)[Negative]]]{Leveled Negative Damage}</p>\n<hr />\n<p><strong>Awakening</strong> Your scream echoes in the mind. You can choose to emit a silent psychic wail instead, which changes the damage type to mental, changes the save to a @Check[type:will|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true|traits:mental,deviant,magical,necromancy|overrideTraits:true] save, removes the auditory trait, and adds the mental trait.</p>\n<p>[[/r ((2-@actor.level)d6)[Mental]]]{Leveled Mental Damage}</p>\n<hr />\n<p><strong>Awakening</strong> Your wail saps your foes' strength. In addition to the normal effects, living creatures in the area are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round on a success (but not a critical success), enfeebled 1 for 1 minute on a failure, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute on a critical failure.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:wraith-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Wraith Deviant Classification"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "auditory",
+                "deviant",
+                "magical",
+                "necromancy"
+            ]
+        }
+    },
+    "type": "feat"
+}

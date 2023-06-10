@@ -1,0 +1,48 @@
+{
+    "_id": "Cumdy84uIkUHG9zF",
+    "img": "systems/pf2e/icons/spells/dimensional-anchor.webp",
+    "name": "Effect: Resounding Bravery (vs. Fear)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Resounding Bravery] if you critically succeed at a Will save against a foe's fear effect.</p>\n<p>You gain a +2 status bonus to saves and a number of temporary Hit Points equal to your level for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Resounding Bravery",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "TempHP",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

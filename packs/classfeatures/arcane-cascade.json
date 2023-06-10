@@ -1,0 +1,46 @@
+{
+    "_id": "09iL38CZZEa0q0Mt",
+    "img": "systems/pf2e/icons/features/classes/arcane-cascade.webp",
+    "name": "Arcane Cascade",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>After you wield magic, you can enter a special stance to make your attacks more effective.</p>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Arcane Cascade"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.arcaneCascade.damageType",
+                "priority": -100,
+                "value": ""
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

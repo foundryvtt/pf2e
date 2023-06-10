@@ -1,0 +1,134 @@
+{
+    "_id": "UH2sT6eW5e31Xytd",
+    "img": "systems/pf2e/icons/spells/dutiful-challenge.webp",
+    "name": "Spell Effect: Dutiful Challenge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Dutiful Challenge]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Attacking target of Dutiful Challenge",
+                "option": "dutiful-challenge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Dutiful Challenge (against other targets)",
+                "predicate": [
+                    {
+                        "not": "dutiful-challenge"
+                    }
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": -1
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": -2
+                        },
+                        {
+                            "start": 10,
+                            "value": -3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Dutiful Challenge (against other targets)",
+                "predicate": [
+                    {
+                        "not": "dutiful-challenge"
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": -1
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": -2
+                        },
+                        {
+                            "start": 10,
+                            "value": -3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Dutiful Challenge (against other targets)",
+                "predicate": [
+                    {
+                        "not": "dutiful-challenge"
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": -1
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": -2
+                        },
+                        {
+                            "start": 10,
+                            "value": -3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

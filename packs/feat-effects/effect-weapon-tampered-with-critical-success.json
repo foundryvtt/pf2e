@@ -1,0 +1,57 @@
+{
+    "_id": "o7qm13OmaYOMwgib",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Weapon Tampered With (Critical Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Tamper]</p>\n<p>Your weapon has been tampered with! You take a -2 circumstance penalty to attack rolls and damage rolls with that weapon. The effect lasts until you @UUID[Compendium.pf2e.actionspf2e.Item.Interact] to remove it.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectWeaponTamperedWithCriticalSuccess",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.pf2e.rulesSelections.effectWeaponTamperedWithCriticalSuccess}-attack",
+                    "{item|flags.pf2e.rulesSelections.effectWeaponTamperedWithCriticalSuccess}-damage"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

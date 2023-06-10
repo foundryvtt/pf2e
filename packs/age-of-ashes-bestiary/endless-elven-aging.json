@@ -1,0 +1,198 @@
+{
+    "_id": "roRmUbaC9kJC7met",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fyWgrVIE0U0GZARU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Lifelike Scintillation",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature examines the mural or enters the room</p>\n<hr />\n<p><strong>Effect</strong> The haunt activates and rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QsuzBxkK6bf7oS8S",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Captivate",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The faintly moving images compel one creature within 30 feet of the room to move into the room. The creature attempts a @Check[type:will|dc:38|traits:charm] save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target must spend all its actions on its next turn moving into the room, and is then @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "enchantment",
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bvXcRvh1dBNmRcSg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Live a Thousand Lives",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The haunt causes a living creature in the room to experience a full elven life, weathering every wound, misfortune, loss, and consequence of aging centuries in a matter of seconds. The target must attempt a @Check[type:fortitude|dc:38] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or its drained value increases by 1, to a maximum of drained 3), and it is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but the target also becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (or its doomed value increases by 1).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Endless Elven Aging",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "hardness": 15,
+            "hasHealth": true,
+            "hp": {
+                "details": "per square (6 squares must be destroyed to disable the haunt)",
+                "max": 30,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 33
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A haunted mural fascinates characters and swiftly drains their vitality.</p>",
+            "disable": "<p>@Check[type:occultism|dc:38|name:Calm the Restless Energies|traits:haunt,magical] (master) or @Check[type:religion|dc:38|name:Calm the Restless Energies|traits:haunt,magical] (master) to calm the restless energies and suppress the haunt for 1 hour; a critical success deactivates the haunt permanently.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "reset": "<p>The haunt continues its routine until there are no targets within 30 feet of the room. It then resets over the course of 1 minute and is able to activate again.</p>",
+            "routine": "<p>(2 actions) The haunt lures creatures into area A2 using Captivate. Any actions it hasn't used to Captivate are used to drain a living creature in the room with Live a Thousand Lives.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #149: Against the Scarlet Triad"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

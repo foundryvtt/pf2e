@@ -1,0 +1,88 @@
+{
+    "_id": "ZEDDVQDtUZ2qOB5q",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/demon-mask.webp",
+    "name": "Orc Warmask",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Orc Warmask]</p>\n<p>You paint your face to create a <em>warmask</em>, an invested magic item of negligible Bulk with an item level equal to your level and a usage of worn (mask). It has the divination trait and a magical tradition trait depending on its type. Donning or removing your <em>warmask</em> requires 1 minute of work, though you don't need to Invest the mask each time. The <em>warmask</em> is unique to you and might signify your hold, your accomplishments, or your faith. While creating your mask, you must choose the source of your <em>warmask</em>'s power from the options below. This source determines the mask's associated skill as well as magical tradition. Once you select this source, it can't be changed. You become trained in the associated skill, and you gain the @UUID[Compendium.pf2e.feats-srd.Item.Dubious Knowledge] skill feat as a bonus feat. You can spend 1 hour performing a ceremony that costs 50 gp to attune yourself more deeply with your <em>warmask</em>. If you do, you gain a +1 item bonus to the associated skill whenever you wear the <em>warmask</em>.</p>\n<hr />\n<ul>\n<li><strong>The Gods</strong> Religion, divine tradition</li>\n<li><strong>The Land</strong> Nature, primal tradition</li>\n<li><strong>Magic</strong> Arcana, arcane tradition</li>\n<li><strong>The Unknown</strong> Occultism, occult tradition</li>\n</ul>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Orc.OrcWarmask.Gods",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.OrcWarmask.Land",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.OrcWarmask.Magic",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.OrcWarmask.Unknown",
+                        "value": "occultism"
+                    }
+                ],
+                "flag": "tradition",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Orc.OrcWarmask.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.tradition}",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "divination",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornmask"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

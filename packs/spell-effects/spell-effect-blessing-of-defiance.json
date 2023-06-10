@@ -1,0 +1,111 @@
+{
+    "_id": "FD9Ce5pqcZYstcMI",
+    "img": "systems/pf2e/icons/spells/blessing-of-defiance.webp",
+    "name": "Spell Effect: Blessing of Defiance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Blessing of Defiance]</em></p>\n<p>Choose one saving throw: Fortitude, Reflex, or Will. The target gets a +4 status bonus to that saving throw for 1 round.</p>\n<p>If you cast the two-action version, you additionally receive the following: if you choose Fortitude, the target gains resistance 15 to poison. If you choose Reflex, the target gains a +15-foot status bonus to its Speeds. If you choose Will, the target gains resistance 15 to mental damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SavesReflex",
+                        "value": "reflex"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "value": "will"
+                    }
+                ],
+                "flag": "blessingOfDefianceSave",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.BlessingOfDefiance.Prompt",
+                "rollOption": "blessing-of-defiance-save"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.blessingOfDefianceSave}",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blessing-of-defiance-save:fortitude",
+                    "blessing-of-defiance-actions:two"
+                ],
+                "type": "poison",
+                "value": 15
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "blessing-of-defiance-save:reflex",
+                    "blessing-of-defiance-actions:two"
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": 15
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "blessing-of-defiance-save:will",
+                    "blessing-of-defiance-actions:two"
+                ],
+                "type": "mental",
+                "value": 15
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.ActionNumber1",
+                        "value": "one"
+                    },
+                    {
+                        "label": "PF2E.ActionNumber2",
+                        "value": "two"
+                    },
+                    {
+                        "label": "PF2E.ActionNumber3",
+                        "value": "three"
+                    }
+                ],
+                "flag": "blessingOfDefianceActions",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.FeatActionsLabel",
+                "rollOption": "blessing-of-defiance-actions"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

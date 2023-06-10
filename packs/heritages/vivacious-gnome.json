@@ -1,0 +1,30 @@
+{
+    "_id": "ViKRoVgog172r163",
+    "img": "systems/pf2e/icons/features/ancestry/vivacious-gnome.webp",
+    "name": "Vivacious Gnome",
+    "system": {
+        "ancestry": {
+            "name": "Gnome",
+            "slug": "gnome",
+            "uuid": "Compendium.pf2e.ancestries.Item.CYlfsYLJcBOgqKtD"
+        },
+        "description": {
+            "value": "<p>You have an incredibly strong connection to the positive energy that flows through the First World, making it harder to attack your life force with negative energy. You gain negative resistance equal to half your level (minimum 1). When you have the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition, the condition affects you as if its value was 1 lower than it actually is (doomed 1 has no effect, doomed 2 causes you to die at @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 3}, and so on).</p>"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "negative",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "QsPvKvt4S1PR7kr7",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Elemental Trade",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a strong connection with stone and metal. You gain the trained proficiency rank in Crafting. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in a skill of your choice. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Specialty Crafting] skill feat for both Stonemasonry and Blacksmithing.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "specialtyCrafting": "stonemasonry"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Specialty Crafting"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "specialtyCrafting": "blacksmithing"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Specialty Crafting"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "oread"
+            ]
+        }
+    },
+    "type": "feat"
+}

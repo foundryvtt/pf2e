@@ -1,0 +1,138 @@
+{
+    "_id": "0W87OkYi3qCwNGSj",
+    "img": "systems/pf2e/icons/spells/daemon-form.webp",
+    "name": "Spell Effect: Daemon Form (Piscodaemon)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Daemon Form]</em></p>\n<p>You infuse yourself with the corrupting death and pure malevolence of Abaddon, transforming into a Large daemon battle form. You must have enough space to expand into or the spell is lost. When you cast this spell you choose either ceustodaemon, leukodaemon, meladaemon, or piscodaemon. The battle form is Medium if you choose ceustodaemon. While in this form, you gain the daemon and fiend traits. You have hands in this battle form and can use manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of the form that you choose:</p>\n<ul>\n<li>AC = 21 + your level. Ignore your armor check's penalty and Speed reduction.</li>\n<li>15 temporary Hit Points and weakness 5 to good.</li>\n<li>A +2 status bonus to all saving throws against death effects.</li>\n<li>Resistance 10 to poison.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you use. You're trained with them. Your attack modifier is +21, and you use the listed damage. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +23, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of Daemon you choose:</p>\n<ul>\n<li><strong>Piscodaemon</strong> Speed 25 feet, swim 40 feet\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw, <strong>Damage</strong> 2d10+10 piercing plus 1d6 evil and 1d6 persistent bleed, and you can spend an action after a hit to Grab the target</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> tentacle (agile), <strong>Damage</strong> 2d6 bludgeoning plus 1d6 evil and 1d6 poison.</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "21 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "poison",
+                            "value": 10
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "ath": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "land": 25,
+                        "swim": 40
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10"
+                            },
+                            "modifier": 21,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "tentacle": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6"
+                            },
+                            "modifier": 21,
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        }
+                    },
+                    "tempHP": 15,
+                    "weaknesses": [
+                        {
+                            "type": "good",
+                            "value": 5
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "death"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "damageType": "evil",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "claw-damage"
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "tentacle-damage"
+            },
+            {
+                "key": "Note",
+                "selector": "claw-damage",
+                "text": "PF2E.BattleForm.Note.Grab",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,59 @@
+{
+    "_id": "gX8O0ArQXbEVDUbW",
+    "img": "systems/pf2e/icons/spells/embrace-the-pit.webp",
+    "name": "Spell Effect: Embrace the Pit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Embrace the Pit]</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "evil",
+                    "fire",
+                    "poison"
+                ],
+                "value": "5 + 5*floor((@item.level -3)/2)"
+            },
+            {
+                "exceptions": [
+                    "silver"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": "1 + 2*floor((@item.level -3)/2)"
+            },
+            {
+                "key": "Weakness",
+                "type": "good",
+                "value": "5 + 5*floor((@item.level -3)/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

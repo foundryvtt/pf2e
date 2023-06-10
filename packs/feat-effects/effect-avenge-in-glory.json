@@ -1,0 +1,50 @@
+{
+    "_id": "JQUoBlZKT5N5zO5k",
+    "img": "systems/pf2e/icons/features/feats/avenge-in-glory.webp",
+    "name": "Effect: Avenge in Glory",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Avenge in Glory]</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Access</strong> mountain dwarf ethnicity</p>\n<p><strong>Trigger</strong> An ally within 30 feet gains the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition.</p>\n<hr />\n<p>You honor your ally's life, gaining temporary Hit Points equal to your level for 1 minute. As long as you have these temporary Hit Points, you gain a +1 circumstance bonus to attack and damage rolls.</p>\n<p>Implemented Effects:</p>\n<ul>\n<li>Temporary hitpoints based on level</li>\n<li>Sets a circumstance bonus of +1 to attack and damage rolls</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "strike-damage"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

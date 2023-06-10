@@ -1,0 +1,55 @@
+{
+    "_id": "NE7Fm5YnUhD4ySX3",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/earplugs.webp",
+    "name": "Effect: Earplugs (PFS Guide)",
+    "system": {
+        "description": {
+            "value": "<p>Grants a +1 item bonus to saves vs. auditory effects and a -2 penalty to perception checks that rely on hearing.</p>\n<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Earplugs (PFS Guide)]</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "auditory"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "auditory"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

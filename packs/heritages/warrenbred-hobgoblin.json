@@ -1,0 +1,45 @@
+{
+    "_id": "0vaeOoECfVD5EGbq",
+    "img": "systems/pf2e/icons/features/ancestry/warrenbred-hobgoblin.webp",
+    "name": "Warrenbred Hobgoblin",
+    "system": {
+        "ancestry": {
+            "name": "Hobgoblin",
+            "slug": "hobgoblin",
+            "uuid": "Compendium.pf2e.ancestries.Item.piNLXUrm9iaGqD2i"
+        },
+        "description": {
+            "value": "<p>Your ancestors lived underground. Your ears are larger than those of other hobgoblins and sensitive to echoes. When you are underground, you can use the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to sense @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within a @Template[type:burst|distance:30] instead of a @Template[type:burst|distance:15]. In addition, if you roll a success on an Acrobatics check to @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze], you get a critical success instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:squeeze"
+                ],
+                "selector": "acrobatics",
+                "text": "When you roll a success to Squeeze, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:squeeze"
+                ],
+                "selector": "acrobatics",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

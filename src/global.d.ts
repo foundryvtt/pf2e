@@ -244,6 +244,7 @@ type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e<ScenePF2e | null>,
     ActiveEffectPF2e<ActorPF2e | ItemPF2e | null>,
     ActorPF2e,
+    ActorDeltaPF2e,
     ChatLogPF2e,
     ChatMessagePF2e,
     EncounterPF2e,

@@ -1,0 +1,45 @@
+{
+    "_id": "SUUdWG0t33VKa5q4",
+    "img": "systems/pf2e/icons/features/classes/master-strike.webp",
+    "name": "Master Strike",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You can incapacitate an unwary foe with a single strike. Your proficiency rank for your rogue class DC increases to master. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Master Strike] free action.</p>"
+        },
+        "level": {
+            "value": 19
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.classDCs.rogue.rank",
+                "value": 3
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Master Strike"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

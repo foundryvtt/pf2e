@@ -1,0 +1,174 @@
+{
+    "_id": "mlktvPVq3mb5DTpP",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Y4Ox9DseRSG2Epun",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wendigo Remnants",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature other than a wendigo gains the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition while within 100 feet of the way station</p>\n<hr />\n<p><strong>Effect</strong> The haunt rolls for initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7wtKLLAt30PdWUEX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ghostly Bite",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "p9qpohxaaga0ym0mofgp": {
+                        "damage": "3d6+5",
+                        "damageType": "negative"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Suffering Xulgaths",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "per spirit",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "exceptions": [
+                        "fire",
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 20
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to hear the echoed shouts of panicked xulgaths</p>",
+                "value": 26
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The shadows of four xulgaths endlessly relive their deaths at the hands of the wendigos and their clutchmates.</p>",
+            "disable": "<p>@Check[type:religion|dc:42|name:Calm a Spirit|traits:haunt] (master) or @Check[type:occultism|dc:42|name:Calm a Spirit|traits:haunt] (master) to calm each of the four spirits. On a character's first successful check, the character also learns that xulgath funerary rites typically involve cremation, which hints that fire is a viable way to put them to rest.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>The haunt is deactivated and resets 1 minute after all non-wendigo creatures leave the area.</p>",
+            "routine": "<p>(4 actions) Each active spirit chooses a living non-wendigo creature within 120 feet and attempts to devour it, targeting different creatures if possible. Each calmed spirit reduces the hazard's actions by 1</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #156: The Apocalypse Prophet"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 31
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 27
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -20,14 +20,14 @@ import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
-import { ActionCost, ActionType } from "@item/data/base.ts";
 import { hasInvestedProperty } from "@item/data/helpers.ts";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data/index.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
-import { OneToThree, Size } from "@module/data.ts";
+import { AppliedDamageFlag } from "@module/chat-message/index.ts";
+import { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { ChatMessagePF2e, ScenePF2e, TokenDocumentPF2e, UserPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
@@ -35,24 +35,14 @@ import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rul
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
-import { RollOptionToggle } from "@module/rules/synthetics.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
+import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
-import {
-    ErrorPF2e,
-    getActionGlyph,
-    getActionIcon,
-    isObject,
-    localizer,
-    objectHasKey,
-    setHasElement,
-    traitSlugToObject,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -82,8 +72,6 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -588,7 +576,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.updateDocuments(updates, context);
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this._itemTypes = null;
         this.rules = [];
@@ -630,7 +618,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             },
         };
 
-        super._initialize();
+        super._initialize(options);
 
         if (game._documentsReady) {
             this.synthetics.preparationWarnings.flush();
@@ -655,12 +643,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
-        // To prevent (or delay) console spam, will send out a deprecation notice in a later release
-        Object.defineProperty(this.system, "toggles", {
-            get: (): RollOptionToggle[] => this.synthetics.toggles,
-            enumerable: false,
-        });
-
         super.prepareData();
 
         // Call post-derived-preparation `RuleElement` hooks
@@ -1026,7 +1008,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * Roll a Attribute Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollAttribute(event: JQuery.Event, attributeName: string): void {
+    rollAttribute(event: JQuery.TriggeredEvent, attributeName: string): void {
         if (!objectHasKey(this.system.attributes, attributeName)) {
             throw ErrorPF2e(`Unrecognized attribute "${attributeName}"`);
         }
@@ -1224,6 +1206,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
         const hpDamage = hpUpdate.totalApplied;
 
+        // Save the pre-update state to calculate undo values
+        const preUpdateSource = this.toObject();
+
         // Make updates
         if (shieldDamage > 0) {
             const shield = (() => {
@@ -1235,6 +1220,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 { render: hpDamage === 0 }
             );
         }
+
         if (hpDamage !== 0) {
             const updated = await this.update(hpUpdate.updates, { damageTaken: hpDamage });
             const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));
@@ -1331,16 +1317,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   shield: shieldDamage !== 0 ? { id: actorShield?.itemId ?? "", damage: shieldDamage } : null,
                   persistent: persistentCreated.map((c) => c.id),
                   updates: Object.entries(hpUpdate.updates)
-                      .map(([key, value]) => {
-                          const currentValue = getProperty(this, key);
-                          if (typeof currentValue === "number") {
-                              const difference = currentValue - value;
+                      .map(([path, newValue]) => {
+                          const preUpdateValue = getProperty(preUpdateSource, path);
+                          if (typeof preUpdateValue === "number") {
+                              const difference = preUpdateValue - newValue;
                               if (difference === 0) {
                                   // Ignore the update if there is no difference
                                   return [];
                               }
                               return {
-                                  path: key,
+                                  path,
                                   value: difference,
                               };
                           }
@@ -1584,22 +1570,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return { updates, totalApplied };
     }
 
-    static getActionGraphics(
-        type: ActionType,
-        actionCount?: OneToThree
-    ): { imageUrl: ImageFilePath; actionGlyph: string } {
-        console.warn(
-            "PF2E System | ActorPF2e#getActionGraphics() is deprecated. If you rely on this function, please inform the Pathfinder2e dev team"
-        );
-
-        const actionCost: ActionCost | null = type === "passive" ? null : { type, value: actionCount ?? 1 };
-
-        return {
-            imageUrl: getActionIcon(actionCost),
-            actionGlyph: getActionGlyph(actionCost),
-        };
-    }
-
     /**
      * Retrieve all roll option from the requested domains. Micro-optimized in an excessively verbose for-loop.
      * @param domains The domains of discourse from which to pull options. Always includes the "all" domain.
@@ -1821,7 +1791,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 combatant.toggleDefeated({ to: false });
             } else {
                 for (const tokenDoc of this.getActiveTokens(false, true)) {
-                    tokenDoc.update({ overlayEffect: null });
+                    tokenDoc.update({ overlayEffect: "" });
                 }
             }
         }

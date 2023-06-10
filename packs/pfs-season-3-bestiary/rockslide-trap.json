@@ -1,0 +1,100 @@
+{
+    "_id": "uip49rfJG1KuUlyn",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "LpHNdxs71skekYup",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rockfall",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on one of the unstable rocks</p>\n<hr />\n<p><strong>Effect</strong> Rocks come crashing down onto the creatures below. The rockfall deals [[/r 4d6[bludgeoning]]] damage to each creature within @Template[type:emanation|distance:10]{10 feet} of the rock pile (@Check[type:reflex|dc:20|basic:true] save).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Failure</strong> The creature takes full damage, is knocked prone, and takes a -10-foot circumstance penalty to its movement speeds for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is knocked prone, and takes a -20-foot circumstance penalty to its movement speeds for 2 rounds.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Rockfall Failure]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Rockfall Critical Failure]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rockslide Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The unstable rocks on the floor shift when stepped on, triggering rocks in the pile above to fall down across the pathway.</p>",
+            "disable": "<p>@Check[type:survival|dc:20|name:Navigate Safe Path|traits:trap] (trained) to navigate a save path or @Check[type:thievery|dc:20|name:Bolster Rocks|traits:trap] (trained) to bolster the rocks on the floor so they don't shift under a creature's weight. Two successful checks are necessary to ensure the route through the precarious pile of rocks is safe. Attempting each check requires two actions.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-10: Delve the Pallid Depths"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "1MZ4WNoNoJ4jj5Z0",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Cutting Flattery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Repeated entries in Firebrand bragging and flyting contests have taught you how to twist pretty words into concealed insults. When you succeed at your check to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] a creature, the target's attitude toward you improves by one step, to a maximum of friendly, and they don't become unfriendly 1 day later.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dandy Dedication or Pirate Dedication"
+                },
+                {
+                    "value": "trained in Intimidation"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:coerce"
+                ],
+                "selector": "intimidation",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Firebrands"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

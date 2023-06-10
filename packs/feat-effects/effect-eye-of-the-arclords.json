@@ -1,0 +1,57 @@
+{
+    "_id": "5IGz4iheaiUWm5KR",
+    "img": "systems/pf2e/icons/spells/vigilant-eye.webp",
+    "name": "Effect: Eye of the Arclords",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Eye of the Arclords].</p>\n<p>While the eye is open, you gain the following benefits:</p>\n<ul>\n<li>you gain the effects of the detect magic arcane innate spell from your Arcane Sense at the start of each of your turns without needing to cast the spell;</li>\n<li>you gain darkvision;</li>\n<li>you gain a +2 status bonus to Perception checks to Seek undetected and hidden creatures and to your Perception DC against Hide and Sneak.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Eye of the Arclords (Seek undetected & hidden creatures)",
+                "predicate": [
+                    "action:seek",
+                    {
+                        "or": [
+                            "target:hidden",
+                            "target:undetected"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

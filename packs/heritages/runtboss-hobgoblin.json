@@ -1,0 +1,39 @@
+{
+    "_id": "CzOHITB2ihLGqMuJ",
+    "img": "systems/pf2e/icons/features/ancestry/runtboss-hobgoblin.webp",
+    "name": "Runtboss Hobgoblin",
+    "system": {
+        "ancestry": {
+            "name": "Hobgoblin",
+            "slug": "hobgoblin",
+            "uuid": "Compendium.pf2e.ancestries.Item.piNLXUrm9iaGqD2i"
+        },
+        "description": {
+            "value": "<p>You come from a long line of hobgoblins who commanded goblins. You are smaller than other hobgoblins, but goblins still listen to any commands you bellow. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Group Coercion] skill feat. If you roll a success on an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] a goblin (but not other creatures with the goblin trait), you get a critical success instead; if you roll a critical failure, you get a failure instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:coerce",
+                    "target:trait:goblin"
+                ],
+                "selector": "intimidation",
+                "text": "When you roll a success on an Intimidation check to Coerce a goblin, you get a critical success instead; if you roll a critical failure, you get a failure instead.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Group Coercion"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

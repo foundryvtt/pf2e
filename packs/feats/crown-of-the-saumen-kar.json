@@ -1,0 +1,85 @@
+{
+    "_id": "00uTUJPgJ6kuGR8O",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Crown of the Saumen Kar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your body begins to evolve and adapt, taking the first steps towards blending your very self with the ancient curse of the saumen kar. You become larger and bulkier, pushing the very edge of height and weight for your size. You gain scent as an imprecise sense with a range of 30 feet and gain a +1 circumstance bonus to Stealth checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] or @UUID[Compendium.pf2e.actionspf2e.Item.Hide] in areas of forest and snow. You sprout a pair of horns from your forehead, gaining a horns unarmed attack that deals 1d8 bludgeoning damage. Your horns are in the brawling group and have the shove and trip traits.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Pactbound Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/horn.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "shove",
+                    "trip"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Sneak or Hide In Forest or Snow",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sneak",
+                            "action:hide"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "terrain:snow",
+                            "terrain:forest"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "value": 1
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "scent"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Monsters of Myth"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

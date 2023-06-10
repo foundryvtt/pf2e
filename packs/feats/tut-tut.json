@@ -1,0 +1,59 @@
+{
+    "_id": "0ptK0blZehF3ABha",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Tut-Tut",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You hit a creature with a melee attack roll.</p>\n<hr />\n<p>The Sapphire Butterfly is not one for violence when simply intimidating a foe will do. From that vigilante's techniques, you've learned how to pull a deadly blow at the last moment, threatening your target instead of striking them. Rather than dealing damage with the triggering Strike, attempt an Intimidation check with a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] all enemies within 30 feet who can see you. If you critically succeed at your check to Demoralize the target of your Strike, their attitude toward you improves by one step while they also become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dandy Dedication or Duelist Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "tut-tut",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "tut-tut",
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Firebrands"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "emotion",
+                "fear",
+                "mental",
+                "press"
+            ]
+        }
+    },
+    "type": "feat"
+}

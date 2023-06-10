@@ -215,14 +215,14 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.toMessage(event, { create: true });
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.rules = [];
-        super._initialize();
+        super._initialize(options);
     }
 
     override prepareData(): void {
-        // If embedded, don't prepare data if the parent is an `ActorDelta`
-        if (this.parent instanceof ActorDelta) return;
+        // If embedded, don't prepare data if the parent's data model hasn't initialized all its properties
+        if (this.parent && !this.parent.flags?.pf2e) return;
 
         super.prepareData();
 

@@ -1,0 +1,60 @@
+{
+    "_id": "62glnJI2o0KnHULB",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Triangle Shot",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Monastic Archer Stance] and wielding a bow usable with that stance.</p>\n<hr />\n<p>You string three arrows to your bow and fire them all at once. Make three ranged Strikes against a single target with the required weapon, each using your current multiple attack penalty, and you take an additional -2 penalty. This counts as two attacks when calculating your multiple attack penalty, and you combine the attacks' damage for the purpose of resistances and weaknesses.</p>\n<p>Your @UUID[Compendium.pf2e.feats-srd.Item.Stunning Fist] benefit applies to Triangle Shot, even though it isn't a @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows]. If all three Strikes hit, the target takes [[/r 3d6[bleed]]].</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Monastic Archer Stance"
+                },
+                {
+                    "value": "Stunning Fist"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "Triangle Shot (-2 penalty to attack)",
+                "option": "triangle-shot",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "triangle-shot",
+                    "ranged"
+                ],
+                "selector": "attack",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "flourish",
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

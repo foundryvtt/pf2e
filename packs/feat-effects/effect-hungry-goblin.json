@@ -1,0 +1,41 @@
+{
+    "_id": "4xtHFRGI05SNe9rA",
+    "img": "systems/pf2e/icons/spells/gluttons-jaw.webp",
+    "name": "Effect: Hungry Goblin",
+    "system": {
+        "description": {
+            "value": "<p>You'll eat anything and anyone. Whenever you inflict @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage} with your jaws unarmed attack, you gain temporary Hit Points equal to half your level for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "ceil(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
