@@ -21,17 +21,11 @@
         },
         "rules": [
             {
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Elf.Atavism.AllowedDrops",
-                    "predicate": [
-                        "item:type:heritage",
-                        "item:ancestry:elf"
-                    ]
-                },
                 "choices": {
-                    "itemType": "heritage",
-                    "pack": "pf2e.heritages",
-                    "query": "{\"system.ancestry.slug\":\"elf\"}"
+                    "filter": [
+                        "item:ancestry:elf"
+                    ],
+                    "itemType": "heritage"
                 },
                 "flag": "heritage",
                 "key": "ChoiceSet",

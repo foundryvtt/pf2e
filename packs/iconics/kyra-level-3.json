@@ -2911,16 +2911,12 @@
                 "rules": [
                     {
                         "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
-                            "predicate": [
-                                "item:type:feat",
+                        "choices": {
+                            "filter": [
                                 "item:level:1",
                                 "item:trait:general"
-                            ]
-                        },
-                        "choices": {
-                            "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
+                            ],
+                            "itemType": "feat"
                         },
                         "flag": "versatileHeritage",
                         "key": "ChoiceSet",
@@ -2976,15 +2972,9 @@
                 },
                 "rules": [
                     {
-                        "allowedDrops": {
-                            "predicate": [
-                                "item:type:deity"
-                            ]
-                        },
                         "choices": {
-                            "itemType": "deity",
-                            "pack": "pf2e.deities",
-                            "query": "{}"
+                            "filter": [],
+                            "itemType": "deity"
                         },
                         "flag": "deity",
                         "key": "ChoiceSet",

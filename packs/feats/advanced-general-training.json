@@ -23,15 +23,17 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.AdvancedGeneralTraining.AllowedDrops",
-                    "predicate": [
-                        "item:type:feat",
-                        "item:trait:general"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.level.value\":{\"$lte\":7},\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                7
+                            ]
+                        },
+                        "item:trait:general"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "advancedGeneralTraining",
                 "key": "ChoiceSet",

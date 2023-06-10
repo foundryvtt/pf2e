@@ -22,15 +22,18 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Prompt.EvolutionFeat",
-                    "predicate": [
-                        "item:trait:evolution",
-                        "item:type:feat"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.level.value\":{\"$lte\":1},\"system.traits.value\":{\"$elemMatch\":\"evolution\"}}"
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                1
+                            ]
+                        },
+                        "item:category:class",
+                        "item:trait:evolution"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "evolutionFeat",
                 "key": "ChoiceSet",

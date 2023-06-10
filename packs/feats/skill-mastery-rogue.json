@@ -280,14 +280,11 @@
             },
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.SkillMastery.AllowedDrops",
-                    "predicate": [
-                        "item:trait:skill"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"skill\"}}"
+                    "filter": [
+                        "item:trait:skill"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "skillMasteryRogue",
                 "key": "ChoiceSet",

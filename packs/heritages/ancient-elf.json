@@ -13,16 +13,13 @@
         },
         "rules": [
             {
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.AncientElf.AllowedDrops",
-                    "predicate": [
-                        "item:trait:dedication",
-                        "item:trait:multiclass",
-                        "item:type:feat"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.category\":\"class\",\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"system.traits.value\":{\"$elemMatch\":\"multiclass\"}}]}"
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:dedication",
+                        "item:trait:multiclass"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "ancientElf",
                 "key": "ChoiceSet",

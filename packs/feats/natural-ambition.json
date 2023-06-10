@@ -23,7 +23,10 @@
             {
                 "adjustName": false,
                 "choices": {
-                    "postFilter": [
+                    "filter": [
+                        "item:level:1",
+                        "item:category:class",
+                        "item:trait:{actor|system.details.class.trait}",
                         {
                             "or": [
                                 "feature:dragon-instinct",
@@ -49,7 +52,7 @@
                             ]
                         }
                     ],
-                    "query": "{\"system.category\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
+                    "itemType": "feat"
                 },
                 "flag": "naturalAmbition",
                 "key": "ChoiceSet",

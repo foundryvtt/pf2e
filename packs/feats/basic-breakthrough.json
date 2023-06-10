@@ -26,15 +26,17 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat",
-                    "predicate": [
-                        "item:type:feat",
-                        "item:trait:inventor"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"inventor\"}}"
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        },
+                        "item:trait:inventor"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "basicBreakthrough",
                 "key": "ChoiceSet",

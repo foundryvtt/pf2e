@@ -28,22 +28,33 @@
         },
         "rules": [
             {
-                "allowedDrops": {
-                    "predicate": [
-                        "item:type:deity"
-                    ]
-                },
                 "choices": {
-                    "itemType": "deity",
-                    "pack": "pf2e.deities",
-                    "query": "{}"
+                    "filter": [
+                        {
+                            "or": [
+                                "item:category:deity",
+                                "item:category:pantheon"
+                            ]
+                        }
+                    ],
+                    "itemType": "deity"
                 },
-                "flag": "championDedication",
+                "flag": "deity",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.Prompt.Deity"
             },
             {
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
                 "uuid": "{item|flags.pf2e.rulesSelections.deity}"
             },
             {
