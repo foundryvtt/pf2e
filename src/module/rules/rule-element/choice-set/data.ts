@@ -1,14 +1,14 @@
-import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
-import { RuleElementData, RuleElementSchema, RuleElementSource } from "../index.ts";
-import { PredicatePF2e } from "@system/predication.ts";
 import { ItemType } from "@item/data/index.ts";
+import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
+import { RawPredicate } from "@system/predication.ts";
+import { PredicateField } from "@system/schema-data-fields.ts";
 import type {
     BooleanField,
     ModelPropsFromSchema,
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
-import { PredicateField } from "@system/schema-data-fields.ts";
+import { RuleElementData, RuleElementSchema, RuleElementSource } from "../index.ts";
 
 type ChoiceSetSchema = RuleElementSchema & {
     /** The prompt to present in the ChoiceSet application window */
@@ -73,7 +73,7 @@ interface ChoiceSetOwnedItems {
     /** Whether the choices should include handwraps of mighty blows in addition to weapons */
     includeHandwraps?: boolean;
     /** The filter to apply the actor's own weapons/unarmed attacks */
-    predicate: PredicatePF2e;
+    predicate: RawPredicate;
     attacks?: never;
     unarmedAttacks?: never;
     types: (ItemType | "physical")[];
@@ -85,16 +85,17 @@ interface ChoiceSetAttacks {
     /** Include only unarmed attacks as the basis of the choices */
     unarmedAttacks?: boolean;
     /** The filter to apply the actor's own weapons/unarmed attacks */
-    predicate: PredicatePF2e;
+    predicate: RawPredicate;
     ownedItems?: never;
 }
 
 interface ChoiceSetPackQuery {
-    postFilter?: PredicatePF2e;
-    pack?: string;
-    /** A system item type: if omitted, "feat" is used */
+    /** A system item type: defaults to "feat" */
     itemType?: ItemType;
-    query: string;
+    /** An optional pack to restrict the search to */
+    pack?: boolean;
+    /** A predicate used to filter items constructed from index data */
+    filter: RawPredicate;
     /** Use the item slugs as values instead of their UUIDs */
     slugsAsValues?: boolean;
     ownedItems?: never;
