@@ -23,24 +23,20 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
-                    "predicate": [
+                "choices": {
+                    "filter": [
                         "item:type:feat",
                         "item:level:1",
                         "item:trait:general"
                     ]
                 },
-                "choices": {
-                    "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
-                },
-                "flag": "generalTraining",
+                "flag": "feat",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt"
             },
             {
                 "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.generalTraining}"
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
             }
         ],
         "source": {

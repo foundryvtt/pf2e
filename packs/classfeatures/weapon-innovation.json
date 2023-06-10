@@ -22,14 +22,13 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Inventor.Innovation.Weapon.AllowedDrops",
-                    "predicate": [
-                        "item:type:weapon",
+                "choices": {
+                    "itemType": "weapon",
+                    "filter": [
                         {
-                            "lte": [
-                                "item:level",
-                                1
+                            "or": [
+                                "item:level:0",
+                                "item:level:1"
                             ]
                         },
                         {
@@ -37,13 +36,11 @@
                                 "item:category:martial",
                                 "item:category:simple"
                             ]
+                        },
+                        {
+                            "not": "item:trait:consumable"
                         }
                     ]
-                },
-                "choices": {
-                    "itemType": "weapon",
-                    "pack": "pf2e.equipment-srd",
-                    "query": "{\"system.level.value\":{\"$lte\":1},\"system.category\":{\"$in\":[\"simple\",\"martial\"]},\"$not\":{\"system.traits.value\":{\"$elemMatch\":\"consumable\"}}}"
                 },
                 "flag": "weaponInnovation",
                 "key": "ChoiceSet",
