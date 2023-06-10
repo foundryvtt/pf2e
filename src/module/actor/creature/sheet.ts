@@ -467,7 +467,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             buttons.splice(index, 0, {
                 label: "Configure", // Top-level foundry localization key
                 class: "configure-creature",
-                icon: "fas fa-cog",
+                icon: "fa-solid fa-user-gear",
                 onclick: () => this.#onConfigureActor(),
             });
         }

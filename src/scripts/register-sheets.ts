@@ -59,10 +59,11 @@ export function registerSheets(): void {
         makeDefault: true,
     });
 
+    // Register simple NPC sheet
     if (BUILD_MODE === "development") {
         Actors.registerSheet("pf2e", SimpleNPCSheet, {
             types: ["npc"],
-            label: "Simple Sheet",
+            label: "PF2E.Actor.NPC.SimpleSheet",
             makeDefault: false,
         });
     }
