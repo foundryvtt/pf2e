@@ -19,7 +19,82 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:battledancer"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Battledancer",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:braggart"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Braggart",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:fencer"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Fencer",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:wit"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Wit",
+                "title": "{item|name}"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "finisher",
+                    "feature:gymnast",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained",
+                            "target:condition:prone"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
