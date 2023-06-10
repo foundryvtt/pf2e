@@ -107,9 +107,9 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return item?.isOfType("weapon") ? item : null;
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.category = this.group = this.baseType = null;
-        super._initialize();
+        super._initialize(options);
     }
 
     override prepareBaseData(): void {

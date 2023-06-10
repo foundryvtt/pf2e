@@ -180,9 +180,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return [baseOptions, physicalItemOptions].flat();
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this._container = null;
-        super._initialize();
+        super._initialize(options);
     }
 
     override prepareBaseData(): void {

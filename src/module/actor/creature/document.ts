@@ -238,9 +238,9 @@ abstract class CreaturePF2e<
                   super.getStatistic(slug);
     }
 
-    protected override _initialize(): void {
+    protected override _initialize(options?: Record<string, unknown>): void {
         this.parties ??= new Set();
-        super._initialize();
+        super._initialize(options);
     }
 
     override prepareData(): void {
