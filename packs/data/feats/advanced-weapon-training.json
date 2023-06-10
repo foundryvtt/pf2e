@@ -19,7 +19,25 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "weaponGroups",
+                "flag": "advancedWeaponTraining",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
+            },
+            {
+                "definition": [
+                    "item:group:{item|flags.pf2e.rulesSelections.advancedWeaponTraining}",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Advanced.{item|flags.pf2e.rulesSelections.advancedWeaponTraining}",
+                "sameAs": "martial",
+                "sameAsGroup": "{item|flags.pf2e.rulesSelections.advancedWeaponTraining}",
+                "slug": "advanced-weapon-training"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
