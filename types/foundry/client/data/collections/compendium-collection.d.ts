@@ -254,7 +254,7 @@ declare global {
         type: string;
         name: string;
         img: ImageFilePath;
-        pack?: string;
+        uuid: string;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         [key: string]: any;
     }
