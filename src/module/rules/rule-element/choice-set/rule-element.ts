@@ -341,13 +341,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                     p.getIndex({
                         fields: [
                             "flags",
-                            "system.slug",
-                            "system.level",
-                            "system.traits",
+                            "system.ancestry",
+                            "system.base",
                             "system.category",
                             "system.group",
-                            "system.base",
-                            "system.ancestry",
+                            "system.level",
+                            "system.maxTakeable",
+                            "system.slug",
+                            "system.traits",
                         ],
                     })
                 )
