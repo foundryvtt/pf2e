@@ -2880,22 +2880,16 @@
                 "rules": [
                     {
                         "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.AllowedDrops.DeityOrPantheon",
-                            "predicate": [
-                                "item:type:deity",
+                        "choices": {
+                            "filter": [
                                 {
                                     "or": [
                                         "item:category:deity",
                                         "item:category:pantheon"
                                     ]
                                 }
-                            ]
-                        },
-                        "choices": {
-                            "itemType": "deity",
-                            "pack": "pf2e.deities",
-                            "query": "{\"$or\":[{\"system.category\":\"deity\"},{\"system.category\":\"pantheon\"}]}"
+                            ],
+                            "itemType": "deity"
                         },
                         "flag": "deity",
                         "key": "ChoiceSet",

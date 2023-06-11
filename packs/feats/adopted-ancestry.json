@@ -21,19 +21,14 @@
         },
         "rules": [
             {
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.AdoptedAncestry.AllowedDrops",
-                    "predicate": [
-                        "item:type:ancestry",
-                        {
-                            "not": "item:ancestry:{actor|system.details.ancestry.trait}"
-                        }
-                    ]
-                },
                 "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        {
+                            "not": "item:slug:{actor|system.details.ancestry.trait"
+                        }
+                    ],
                     "itemType": "ancestry",
-                    "pack": "pf2e.ancestries",
-                    "query": "{\"$not\":{\"system.slug\":\"{actor|system.details.ancestry.trait}\"},\"system.traits.rarity\":\"common\"}",
                     "slugsAsValues": true
                 },
                 "flag": "ancestry",

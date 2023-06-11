@@ -33,15 +33,18 @@
             },
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat",
-                    "predicate": [
-                        "item:type:feat",
-                        "item:trait:witch"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"witch\"}}"
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        },
+                        "item:category:class",
+                        "item:trait:witch"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "basicWitchcraft",
                 "key": "ChoiceSet",

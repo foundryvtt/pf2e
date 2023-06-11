@@ -22,15 +22,21 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops",
-                    "predicate": [
-                        "item:category:ancestry",
-                        "item:level:1"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.category\":\"ancestry\",\"system.level.value\":1,\"$or\":[{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.ancestry.trait}\"}},{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.heritage.trait}\"}}],\"$not\":{\"system.traits.value\":{\"$elemMatch\":\"lineage\"}}}"
+                    "filter": [
+                        "item:level:1",
+                        "item:category:ancestry",
+                        {
+                            "or": [
+                                "item:trait:{actor|system.details.ancestry.trait}",
+                                "item:trait:{actor|system.details.heritage.trait}"
+                            ]
+                        },
+                        {
+                            "not": "item:trait:lineage"
+                        }
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "ancestralParagon",
                 "key": "ChoiceSet",

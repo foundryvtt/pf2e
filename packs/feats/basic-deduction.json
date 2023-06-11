@@ -26,15 +26,18 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat",
-                    "predicate": [
-                        "item:type:feat",
-                        "item:trait:investigator"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"investigator\"}}"
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                2
+                            ]
+                        },
+                        "item:category:class",
+                        "item:trait:investigator"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "basicDeduction",
                 "key": "ChoiceSet",

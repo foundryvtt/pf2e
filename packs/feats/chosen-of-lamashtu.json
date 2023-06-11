@@ -25,17 +25,11 @@
         },
         "rules": [
             {
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Goblin.ChosenOfLamashtu.AllowedDrops",
-                    "predicate": [
-                        "item:type:heritage",
-                        "item:ancestry:goblin"
-                    ]
-                },
                 "choices": {
-                    "itemType": "heritage",
-                    "pack": "pf2e.heritages",
-                    "query": "{\"system.ancestry.slug\":\"goblin\"}"
+                    "filter": [
+                        "item:ancestry:goblin"
+                    ],
+                    "itemType": "heritage"
                 },
                 "flag": "heritage",
                 "key": "ChoiceSet",

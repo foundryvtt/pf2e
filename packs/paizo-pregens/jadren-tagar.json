@@ -832,7 +832,10 @@
                     {
                         "adjustName": false,
                         "choices": {
-                            "postFilter": [
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
                                 {
                                     "or": [
                                         "feature:dragon-instinct",
@@ -858,7 +861,7 @@
                                     ]
                                 }
                             ],
-                            "query": "{\"system.category\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
+                            "itemType": "feat"
                         },
                         "flag": "naturalAmbition",
                         "key": "ChoiceSet",
@@ -1067,15 +1070,9 @@
                 },
                 "rules": [
                     {
-                        "allowedDrops": {
-                            "predicate": [
-                                "item:type:deity"
-                            ]
-                        },
                         "choices": {
-                            "itemType": "deity",
-                            "pack": "pf2e.deities",
-                            "query": "{}"
+                            "filter": [],
+                            "itemType": "deity"
                         },
                         "flag": "championDedication",
                         "key": "ChoiceSet",

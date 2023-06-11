@@ -819,16 +819,12 @@
                 "rules": [
                     {
                         "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
-                            "predicate": [
-                                "item:type:feat",
+                        "choices": {
+                            "filter": [
                                 "item:level:1",
                                 "item:trait:general"
-                            ]
-                        },
-                        "choices": {
-                            "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
+                            ],
+                            "itemType": "feat"
                         },
                         "flag": "versatileHeritage",
                         "key": "ChoiceSet",
@@ -968,7 +964,10 @@
                     {
                         "adjustName": false,
                         "choices": {
-                            "postFilter": [
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
                                 {
                                     "or": [
                                         "feature:dragon-instinct",
@@ -994,7 +993,7 @@
                                     ]
                                 }
                             ],
-                            "query": "{\"system.category\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
+                            "itemType": "feat"
                         },
                         "flag": "naturalAmbition",
                         "key": "ChoiceSet",

@@ -14,15 +14,13 @@
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops",
-                    "predicate": [
-                        "item:category:ancestry",
-                        "item:level:1"
-                    ]
-                },
                 "choices": {
-                    "query": "{\"system.category\":\"ancestry\",\"system.level.value\":1,\"system.traits.value\":\"kashrishi\"}"
+                    "filter": [
+                        "item:level:1",
+                        "item:category:ancestry",
+                        "item:trait:kashrishi"
+                    ],
+                    "itemType": "feat"
                 },
                 "flag": "nascent",
                 "key": "ChoiceSet",
