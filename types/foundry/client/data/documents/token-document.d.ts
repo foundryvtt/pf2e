@@ -143,13 +143,6 @@ declare global {
             user: User
         ): Promise<void>;
 
-        /** When the Actor data overrides change for an un-linked Token Actor, simulate the pre-update process. */
-        protected _preUpdateTokenActor(
-            data: DocumentUpdateData<Actor<this>>,
-            options: TokenUpdateContext<TParent>,
-            userId: string
-        ): Promise<void>;
-
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<TParent>,
@@ -158,13 +151,6 @@ declare global {
 
         /** When the base Actor for a TokenDocument changes, we may need to update its Actor instance */
         _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
-
-        /** When the Actor data overrides change for an un-linked Token Actor, simulate the post-update process. */
-        protected _onUpdateTokenActor(
-            data: DeepPartial<this["_source"]["delta"]>,
-            options: DocumentModificationContext<TParent>,
-            userId: string
-        ): void;
 
         /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
         static getTrackedAttributes(data?: Record<string, unknown>, _path?: string[]): TokenAttributes;
