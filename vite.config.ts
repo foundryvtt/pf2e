@@ -97,7 +97,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         esbuild: { keepNames: true },
         build: {
             outDir,
-            emptyOutDir: true,
+            emptyOutDir: false, // fails if world is running due to compendium locks. We do it in "npm run clean" instead.
             minify: false,
             sourcemap: buildMode === "development",
             lib: {
