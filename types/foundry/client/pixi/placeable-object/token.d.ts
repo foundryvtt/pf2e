@@ -23,7 +23,11 @@ declare global {
         targeted: Set<User>;
 
         /** A reference to the SpriteMesh which displays this Token in the PrimaryCanvasGroup. */
-        mesh: PIXI.DisplayObject & { refresh(): void };
+        mesh: PIXI.DisplayObject & {
+            refresh(): void;
+            get sort(): number;
+            data: { sort: number };
+        };
 
         /** A reference to the PointSource object which defines this vision source area of effect */
         vision: VisionSource<this>;
