@@ -23,7 +23,40 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "archers-aim",
+                    "ranged"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "archers-aim",
+                    "ranged",
+                    "target:condition:concealed"
+                ],
+                "selector": "attack",
+                "text": "Ignore your prey's concealed condition.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "archers-aim",
+                    "ranged",
+                    "target:condition:hidden"
+                ],
+                "selector": "attack",
+                "text": "Reduce the flat check from being hidden to 5.",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
