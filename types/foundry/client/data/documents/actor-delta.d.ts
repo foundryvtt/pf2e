@@ -8,6 +8,6 @@ declare global {
      */
 
     class ActorDelta<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActorDelta<TParent> {
-        syntheticActor: Actor<TParent>;
+        syntheticActor?: Actor<TParent>;
     }
 }
