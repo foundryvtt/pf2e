@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { recursiveReplaceString } from "@util";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isObject, recursiveReplaceString } from "@util";
+import { MigrationBase } from "../base.ts";
 
 /** Convert UUIDs to V11 format */
 export class Migration841V11UUIDFormat extends MigrationBase {
@@ -9,8 +9,11 @@ export class Migration841V11UUIDFormat extends MigrationBase {
 
     #replaceUUID<T extends ActorUUID | ItemUUID>(uuid: T, documentType?: CompendiumDocumentType): T;
     #replaceUUID(uuid: string, documentType?: CompendiumDocumentType): string;
-    #replaceUUID(uuid: string, explicitDocType?: CompendiumDocumentType): string {
-        if (!uuid?.startsWith("Compendium.")) return uuid;
+    #replaceUUID(uuid: unknown, explicitDocType?: CompendiumDocumentType): unknown {
+        if (typeof uuid !== "string" || !uuid.startsWith("Compendium.")) {
+            return uuid;
+        }
+
         const documentType = ((): CompendiumDocumentType | null => {
             if (explicitDocType) return explicitDocType;
             if ("game" in globalThis) {
@@ -27,7 +30,10 @@ export class Migration841V11UUIDFormat extends MigrationBase {
         return `${head}.${scope}.${pack}.${documentType}.${id}`;
     }
 
-    #replaceUUIDsInLinks(text: string): string {
+    #replaceUUIDsInLinks<T>(text: T): T;
+    #replaceUUIDsInLinks(text: unknown): unknown {
+        if (typeof text !== "string") return text;
+
         return Array.from(text.matchAll(/(?<=@UUID\[)[^\]]+(?=\])/g)).reduce(
             (replaced, [link]) => replaced.replace(link, (s) => this.#replaceUUID(s)),
             text
@@ -39,9 +45,22 @@ export class Migration841V11UUIDFormat extends MigrationBase {
             source.flags.core.sourceId = this.#replaceUUID(source.flags.core.sourceId, "Actor");
         }
 
-        const { details } = source.system;
-        if (details && "publicNotes" in details && typeof details.publicNotes === "string") {
-            details.publicNotes = this.#replaceUUIDsInLinks(details.publicNotes);
+        if (source.type === "character") {
+            if (isObject(source.system.crafting) && Array.isArray(source.system.crafting.formulas)) {
+                for (const formula of source.system.crafting.formulas) {
+                    formula.uuid = this.#replaceUUID(formula.uuid, "Item");
+                }
+            }
+        } else if (source.type === "npc") {
+            const { details } = source.system;
+            details.publicNotes &&= this.#replaceUUIDsInLinks(details.publicNotes);
+            details.privateNotes &&= this.#replaceUUIDsInLinks(details.privateNotes);
+        } else if (source.type === "hazard") {
+            const { details } = source.system;
+            details.reset &&= this.#replaceUUIDsInLinks(details.reset);
+            details.description &&= this.#replaceUUIDsInLinks(details.description);
+            details.routine &&= this.#replaceUUIDsInLinks(details.routine);
+            details.disable &&= this.#replaceUUIDsInLinks(details.disable);
         }
     }
 
@@ -54,14 +73,29 @@ export class Migration841V11UUIDFormat extends MigrationBase {
             recursiveReplaceString(r, (s) => this.#replaceUUID(s, "Item"))
         );
 
-        if (source.type === "class" || source.type === "kit") {
-            const items: Record<string, { uuid: string }> = source.system.items;
+        if (
+            source.type === "ancestry" ||
+            source.type === "background" ||
+            source.type === "class" ||
+            source.type === "kit"
+        ) {
+            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> }> =
+                source.system.items;
             for (const entry of Object.values(items)) {
                 entry.uuid = this.#replaceUUID(entry.uuid, "Item");
+                if (isObject(entry.items)) {
+                    for (const subentry of Object.values(entry.items)) {
+                        subentry.uuid = this.#replaceUUID(subentry.uuid, "Item");
+                    }
+                }
             }
         } else if (source.type === "heritage") {
             if (source.system.ancestry?.uuid) {
                 source.system.ancestry.uuid = this.#replaceUUID(source.system.ancestry.uuid, "Item");
+            }
+        } else if (source.type === "deity") {
+            for (const [key, spell] of Object.entries(source.system.spells)) {
+                source.system.spells[Number(key)] = this.#replaceUUID(spell);
             }
         }
 
@@ -72,5 +106,11 @@ export class Migration841V11UUIDFormat extends MigrationBase {
             /Compendium\.pf2e\.journals\.(?!JournalEntry)/g,
             "Compendium.pf2e.journals.JournalEntry."
         );
+    }
+
+    override async updateJournalEntry(source: foundry.documents.JournalEntrySource): Promise<void> {
+        for (const page of source.pages) {
+            page.text.content &&= this.#replaceUUIDsInLinks(page.text.content);
+        }
     }
 }
