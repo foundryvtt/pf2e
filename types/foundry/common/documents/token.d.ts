@@ -20,6 +20,8 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
 
     alpha: number;
 
+    actorId: string | null;
+
     delta: BaseActorDelta<this> | null;
 
     texture: {
