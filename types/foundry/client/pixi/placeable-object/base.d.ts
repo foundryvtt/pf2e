@@ -248,21 +248,24 @@ declare global {
 
         /** Actions that should be taken for this Placeable Object when a mouseover event occurs */
         protected _onHoverIn(
-            event: PIXI.FederatedEvent,
+            event: PIXI.FederatedPointerEvent,
             { hoverOutOthers }?: { hoverOutOthers?: boolean }
         ): boolean | void;
 
         /** Actions that should be taken for this Placeable Object when a mouseout event occurs */
-        protected _onHoverOut(event: PIXI.FederatedEvent): boolean | void;
+        protected _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void;
+
+        /** Should the placeable propagate left click downstream? */
+        protected _propagateLeftClick(event: PIXI.FederatedPointerEvent): boolean;
 
         /** Callback actions which occur on a single left-click event to assume control of the object */
-        protected _onClickLeft(event: PIXI.FederatedEvent): boolean | void;
+        protected _onClickLeft(event: PIXI.FederatedPointerEvent): boolean | void;
 
         /** Callback actions which occur on a double left-click event to activate */
-        protected _onClickLeft2(event: PIXI.FederatedEvent): boolean | void;
+        protected _onClickLeft2(event: PIXI.FederatedPointerEvent): boolean | void;
 
         /** Callback actions which occur on a single right-click event to configure properties of the object */
-        protected _onClickRight(event: PIXI.FederatedEvent): void;
+        protected _onClickRight(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Handle mouse-wheel events at the PlaceableObjects layer level to rotate multiple objects at once.
@@ -272,10 +275,10 @@ declare global {
         protected _onMouseWheel(event: WheelEvent): void;
 
         /** Callback actions which occur on a double right-click event to configure properties of the object */
-        protected _onClickRight2(event: PIXI.FederatedEvent): void;
+        protected _onClickRight2(event: PIXI.FederatedPointerEvent): void;
 
         /** Callback actions which occur when a mouse-drag action is first begun. */
-        protected _onDragLeftStart(event: PIXI.FederatedEvent): void;
+        protected _onDragLeftStart(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Begin a drag operation from the perspective of the preview clone.
@@ -290,13 +293,13 @@ declare global {
         protected _onDragEnd(): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftMove(event: PIXI.FederatedEvent): void;
+        protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftDrop(event: PIXI.FederatedEvent): Promise<this["document"][]>;
+        protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<this["document"][]>;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftCancel(event: PIXI.FederatedEvent): void;
+        protected _onDragLeftCancel(event: PIXI.FederatedPointerEvent): void;
     }
 
     interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
