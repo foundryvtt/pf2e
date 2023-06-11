@@ -490,23 +490,25 @@ declare global {
         protected override _canDrag(user: User, event?: PIXI.FederatedEvent): boolean;
 
         protected override _onHoverIn(
-            event: PIXI.FederatedEvent,
+            event: PIXI.FederatedPointerEvent,
             { hoverOutOthers }?: { hoverOutOthers?: boolean }
         ): boolean | void;
 
-        protected override _onHoverOut(event: PIXI.FederatedEvent): boolean | void;
+        protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void;
 
-        protected override _onClickLeft(event: PIXI.FederatedEvent): void;
+        protected override _onClickLeft(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onClickLeft2(event: PIXI.FederatedEvent): void;
+        protected override _propagateLeftClick(event: PIXI.FederatedPointerEvent): boolean;
 
-        protected override _onClickRight2(event: PIXI.FederatedEvent): void;
+        protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onDragLeftDrop(event: TokenFederatedEvent<this>): Promise<TDocument[]>;
+        protected override _onClickRight2(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onDragLeftMove(event: TokenFederatedEvent<this>): void;
+        protected override _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<TDocument[]>;
 
-        protected override _onDragLeftCancel(event: TokenFederatedEvent<this>): void;
+        protected override _onDragLeftMove(event: TokenPointerEvent<this>): void;
+
+        protected override _onDragLeftCancel(event: TokenPointerEvent<this>): void;
 
         protected override _onDragStart(): void;
 
@@ -555,7 +557,7 @@ declare global {
         editable: boolean;
     }
 
-    interface TokenFederatedEvent<T extends Token> extends PIXI.FederatedEvent {
+    interface TokenPointerEvent<T extends Token> extends PIXI.FederatedPointerEvent {
         interactionData: {
             clones?: T[];
         };

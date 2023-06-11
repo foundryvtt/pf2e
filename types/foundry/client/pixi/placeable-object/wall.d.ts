@@ -132,24 +132,24 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 
     protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
 
-    protected _onHoverIn(event: PIXI.FederatedEvent, options?: { hoverOutOthers?: boolean }): boolean;
+    protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean;
 
-    protected _onHoverOut(event: PIXI.FederatedEvent): boolean;
+    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean;
 
     /** Handle mouse-hover events on the line segment itself, pulling the Wall to the front of the container stack */
-    protected _onMouseOverLine(event: PIXI.FederatedEvent): void;
+    protected _onMouseOverLine(event: PIXI.FederatedPointerEvent): void;
 
-    protected _onClickLeft(event: PIXI.FederatedEvent): boolean;
+    protected override _onClickLeft(event: PIXI.FederatedPointerEvent): boolean;
 
-    protected _onClickLeft2(event: PIXI.FederatedEvent): boolean;
+    protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): boolean;
 
-    protected _onClickRight2(event: PIXI.FederatedEvent): boolean;
+    protected override _onClickRight2(event: PIXI.FederatedPointerEvent): boolean;
 
-    protected _onDragLeftStart(event: PIXI.FederatedEvent): boolean;
+    protected override _onDragLeftStart(event: PIXI.FederatedPointerEvent): boolean;
 
-    protected _onDragLeftMove(event: PIXI.FederatedEvent): void;
+    protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
 
-    protected _onDragLeftDrop(event: PIXI.FederatedEvent): Promise<TDocument[]>;
+    protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<TDocument[]>;
 }
 
 declare interface Wall<TDocument extends WallDocument<Scene | null>> extends PlaceableObject<TDocument> {

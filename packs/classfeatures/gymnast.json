@@ -66,6 +66,25 @@
                 "selector": "athletics",
                 "text": "PF2E.SpecificRule.Swashbuckler.Panache",
                 "title": "{item|name}"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.ExemplaryFinisher.Name",
+                "predicate": [
+                    "finisher",
+                    "feature:exemplary-finisher",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:restrained",
+                            "target:condition:prone"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "2* @weapon.system.damage.dice"
             }
         ],
         "source": {

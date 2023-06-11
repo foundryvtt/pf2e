@@ -106,15 +106,15 @@ declare global {
 
         protected override _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
 
-        protected override _onClickLeft2(event: PIXI.FederatedEvent): void;
+        protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onDragLeftStart(event: PIXI.FederatedEvent): void;
+        protected override _onDragLeftStart(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+        protected override _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onDragLeftDrop(event: PIXI.FederatedEvent): Promise<this["document"][]>;
+        protected override _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<this["document"][]>;
 
-        protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
+        protected override _onDragLeftCancel(event: PIXI.FederatedPointerEvent): void;
 
         /* -------------------------------------------- */
         /*  Resize Handling                             */
@@ -124,37 +124,37 @@ declare global {
          * Handle mouse-over event on a control handle
          * @param event The mouseover event
          */
-        protected _onHandleHoverIn(event: PIXI.FederatedEvent): void;
+        protected _onHandleHoverIn(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Handle mouse-out event on a control handle
          * @param event The mouseout event
          */
-        protected _onHandleHoverOut(event: PIXI.FederatedEvent): void;
+        protected _onHandleHoverOut(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * When we start a drag event - create a preview copy of the Tile for re-positioning
          * @param event The mousedown event
          */
-        protected _onHandleMouseDown(event: PIXI.FederatedEvent): void;
+        protected _onHandleMouseDown(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Handle the beginning of a drag event on a resize handle
          * @param event The mousedown event
          */
-        protected _onHandleDragStart(event: PIXI.FederatedEvent): void;
+        protected _onHandleDragStart(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Handle mousemove while dragging a tile scale handler
          * @param event The mousemove event
          */
-        protected _onHandleDragMove(event: PIXI.FederatedEvent): void;
+        protected _onHandleDragMove(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Handle mouseup after dragging a tile scale handler
          * @param event The mouseup event
          */
-        protected _onHandleDragDrop(event: PIXI.FederatedEvent): void;
+        protected _onHandleDragDrop(event: PIXI.FederatedPointerEvent): void;
 
         /** Get resized Tile dimensions */
         protected _getResizedDimensions(event: PIXI.FederatedEvent, origin: Point, destination: Point): Rectangle;
