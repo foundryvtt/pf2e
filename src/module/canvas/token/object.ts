@@ -350,13 +350,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.refresh();
     }
 
-    protected override _onDragLeftStart(event: TokenFederatedEvent<this>): void {
+    protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
         super._onDragLeftStart(event);
         this.auras.clearHighlights();
     }
 
     /** If a single token (this one) was dropped, re-establish the hover status */
-    protected override async _onDragLeftDrop(event: TokenFederatedEvent<this>): Promise<this["document"][]> {
+    protected override async _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<this["document"][]> {
         const clones = event.interactionData.clones ?? [];
         const dropped = await super._onDragLeftDrop(event);
 
@@ -370,7 +370,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return dropped;
     }
 
-    protected override _onHoverIn(event: PIXI.FederatedEvent, options?: { hoverOutOthers?: boolean }): boolean {
+    protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
         this.auras.refresh();
@@ -378,7 +378,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return true;
     }
 
-    protected override _onHoverOut(event: PIXI.FederatedEvent): boolean {
+    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean {
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
         this.auras.refresh();
