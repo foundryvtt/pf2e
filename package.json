@@ -5,9 +5,10 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "npm run build:packs && vite build",
+        "build": "npm run clean && npm run build:packs && vite build",
         "build:packs": "esno ./build/build-packs.ts",
-        "watch": "npm run build:packs && vite build --watch --mode development",
+        "clean": "esno ./build/clean.ts",
+        "watch": "npm run clean && npm run build:packs && vite build --watch --mode development",
         "hot": "vite serve",
         "link": "esno ./build/link-foundry.ts",
         "extractPacks": "esno ./build/extract-packs.ts",

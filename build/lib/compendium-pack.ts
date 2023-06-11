@@ -56,7 +56,7 @@ class CompendiumPack {
     data: PackEntry[];
     folders: DBFolder[];
 
-    static outDir = path.resolve(process.cwd(), "static/packs");
+    static outDir = path.resolve(process.cwd(), "dist/packs");
     static #namesToIds: {
         [K in Extract<CompendiumDocumentType, "Actor" | "Item" | "JournalEntry" | "Macro" | "RollTable">]: Map<
             string,
