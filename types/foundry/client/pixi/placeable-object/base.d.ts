@@ -8,6 +8,12 @@ declare global {
     abstract class PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
         constructor(document: TDocument);
 
+        static RENDER_FLAGS: {
+            redraw: { propagate: string[] };
+            refresh: { propagate: string[]; alias: boolean };
+            refreshState: {};
+        };
+
         /** Retain a reference to the Scene within which this Placeable Object resides */
         scene: TDocument["parent"];
 
@@ -303,6 +309,8 @@ declare global {
     }
 
     interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
+        renderFlags: RenderFlags;
+
         hitArea: PIXI.Rectangle;
     }
 }
