@@ -1,4 +1,4 @@
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
@@ -261,7 +261,13 @@ export abstract class CompendiumBrowserTab {
         return true;
     }
 
-    #getRollTableResults(initial = 0): Partial<TableResultSource>[] {
+    #getRollTableResults({
+        initial = 0,
+        weight = 1,
+    }: {
+        initial?: number;
+        weight?: number;
+    }): Partial<TableResultSource>[] {
         return this.currentIndex.flatMap((e, i) => {
             const documentData = fromUuidSync(e.uuid);
             if (!documentData?.pack || !documentData?._id) return [];
@@ -272,7 +278,7 @@ export abstract class CompendiumBrowserTab {
                 collection: documentData.pack,
                 resultId: documentData._id,
                 img: e.img,
-                weight: 1,
+                weight,
                 range: [rangeMinMax, rangeMinMax],
                 drawn: false,
             };
@@ -283,31 +289,52 @@ export abstract class CompendiumBrowserTab {
         if (!this.isInitialized) {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
-
-        const results = this.#getRollTableResults();
-        const create = await Dialog.confirm({
-            content: `<p>${game.i18n.format("PF2E.CompendiumBrowser.RollTable.CreateDialogText", {
-                count: results.length,
-            })}</p>`,
-            title: game.i18n.localize("PF2E.CompendiumBrowser.RollTable.CreateLabel"),
+        const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
+            count: this.currentIndex.length,
         });
-        if (create) {
-            const table = await RollTable.create({
-                name: game.i18n.localize("PF2E.CompendiumBrowser.Title"),
-                results,
-                formula: `1d${results.length}`,
-            });
-            table?.sheet.render(true);
-        }
+        Dialog.confirm({
+            content,
+            title: game.i18n.localize("PF2E.CompendiumBrowser.RollTable.CreateLabel"),
+            yes: async ($html) => {
+                const html = $html[0];
+                const name =
+                    htmlQuery<HTMLInputElement>(html, "input[name=name]")?.value ||
+                    game.i18n.localize("PF2E.CompendiumBrowser.Title");
+                const weight = Number(htmlQuery<HTMLInputElement>(html, "input[name=weight]")?.value) || 1;
+                const results = this.#getRollTableResults({ weight });
+                const table = await RollTable.create({
+                    name,
+                    results,
+                    formula: `1d${results.length}`,
+                });
+                table?.sheet.render(true);
+            },
+        });
     }
 
-    async addToRollTable(id: string): Promise<void> {
+    async addToRollTable(): Promise<void> {
         if (!this.isInitialized) {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
-
-        const table = game.tables.get(id, { strict: true });
-        await table.createEmbeddedDocuments("TableResult", this.#getRollTableResults(table.results.size));
-        table?.sheet.render(true);
+        const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
+            count: this.currentIndex.length,
+            rollTables: game.tables.contents,
+        });
+        Dialog.confirm({
+            title: game.i18n.localize("PF2E.CompendiumBrowser.RollTable.SelectTableTitle"),
+            content,
+            yes: async ($html) => {
+                const html = $html[0];
+                const option = htmlQuery<HTMLSelectElement>(html, "select[name=roll-table]")?.selectedOptions[0];
+                if (!option) return;
+                const weight = Number(htmlQuery<HTMLInputElement>(html, "input[name=weight]")?.value) || 1;
+                const table = game.tables.get(option.value, { strict: true });
+                await table.createEmbeddedDocuments(
+                    "TableResult",
+                    this.#getRollTableResults({ initial: table.results.size, weight })
+                );
+                table?.sheet.render(true);
+            },
+        });
     }
 }

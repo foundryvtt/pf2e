@@ -643,30 +643,7 @@ class CompendiumBrowser extends Application {
         // Add to Roll Table button
         htmlQuery(html, "[data-action=add-to-roll-table]")?.addEventListener("click", async () => {
             if (!game.tables.contents.length) return;
-            const selectEl = document.createElement("select");
-            selectEl.style.marginLeft = "5px";
-            const options: HTMLOptionElement[] = [];
-            for (const table of game.tables.contents) {
-                if (!table._id) continue;
-
-                const option = document.createElement("option");
-                option.value = table._id;
-                option.text = table.name;
-                options.push(option);
-            }
-            selectEl.append(...options);
-            const labelEl = document.createElement("label");
-            labelEl.innerText = game.i18n.localize("PF2E.CompendiumBrowser.RollTable.AddLabel");
-            labelEl.appendChild(selectEl);
-            Dialog.confirm({
-                title: game.i18n.localize("PF2E.CompendiumBrowser.RollTable.SelectTableTitle"),
-                content: `<p>${labelEl.outerHTML}</p>`,
-                yes: ($html) => {
-                    const option = htmlQuery<HTMLSelectElement>($html[0], "select")?.selectedOptions[0];
-                    if (!option) return;
-                    currentTab.addToRollTable(option.value);
-                },
-            });
+            currentTab.addToRollTable();
         });
 
         // Filters
