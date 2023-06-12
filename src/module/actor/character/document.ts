@@ -1612,7 +1612,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     statistic: action,
                     target: { token: game.user.targets.first() ?? null },
                     domains,
-                    options: new Set([...params.options, ...baseOptions, ...action.options]),
+                    options: new Set([
+                        ...params.options,
+                        ...baseOptions,
+                        ...action.options,
+                        ...(method === "critical" ? ["damage:component:critical"] : []),
+                    ]),
                 });
 
                 if (!context.self.item.dealsDamage) {
