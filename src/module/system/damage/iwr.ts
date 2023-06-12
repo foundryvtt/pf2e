@@ -37,6 +37,9 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
             const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
+            if (roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS) {
+                formalDescription.add("damage:component:critical");
+            }
 
             // If the roll's total was increased to a minimum of 1, treat the first instance as having a total of 1
             const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
@@ -51,7 +54,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // Step 1: Immunities
 
             // If the target is immune to the entire instance, we're done with it.
-            const immunity = immunities.find((i) => i.test(formalDescription));
+            const immunity = immunities.find((i) => i.test(formalDescription) && i.type !== 'critical-hits');
             if (immunity) {
                 return [{ category: "immunity", type: immunity.label, adjustment: -1 * instanceTotal }];
             }
@@ -59,13 +62,8 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
             // (or untriple) the total.
             const critImmunity = immunities.find((i) => i.type === "critical-hits");
-            const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-            const critImmunityApplies =
-                isCriticalSuccess && !!critImmunity?.test([...formalDescription, "damage:component:critical"]);
-            const critImmuneTotal =
-                critImmunityApplies && roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
-                    ? instance.critImmuneTotal
-                    : instanceTotal;
+            const critImmunityApplies = critImmunity?.test(formalDescription);
+            const critImmuneTotal = critImmunityApplies ? instance.critImmuneTotal : instanceTotal;
 
             const instanceApplications: IWRApplication[] = [];
 
