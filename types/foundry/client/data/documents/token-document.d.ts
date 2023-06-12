@@ -153,10 +153,10 @@ declare global {
         _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
 
         /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
-        static getTrackedAttributes(data?: Record<string, unknown>, _path?: string[]): TokenAttributes;
+        static getTrackedAttributes(data?: object, _path?: string[]): TrackedAttributesDescription;
 
         /** Inspect the Actor data model and identify the set of attributes which could be used for a Token Bar */
-        static getTrackedAttributeChoices(attributes: TokenAttributes): TokenAttributes;
+        static getTrackedAttributeChoices(attributes: TrackedAttributesDescription): TrackedAttributesDescription;
     }
 
     interface TokenDocument<TParent extends Scene | null> extends CanvasBaseToken<TParent> {
@@ -179,8 +179,8 @@ declare global {
 
     type TokenDocumentUUID = `Scene.${string}.Token.${string}`;
 
-    interface TokenAttributes {
-        bar: string[];
-        value: number[];
+    interface TrackedAttributesDescription {
+        bar: string[][];
+        value: string[][];
     }
 }
