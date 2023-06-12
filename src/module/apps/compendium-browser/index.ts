@@ -9,7 +9,7 @@ import { UserPF2e } from "@module/user/document.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import { BrowserTabs, PackInfo, SortDirection, SourceInfo, TabData, TabName } from "./data.ts";
-import { Progress } from "./progress.ts";
+import { Progress } from "../progress.ts";
 import * as browserTabs from "./tabs/index.ts";
 import {
     ActionFilters,
@@ -44,7 +44,7 @@ class PackLoader {
         indexFields: string[]
     ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
         this.loadedPacks[documentType] ??= {};
-        const localize = localizer("PF2E.CompendiumBrowser.ProgressBar");
+        const localize = localizer("PF2E.ProgressBar");
         const sources = this.#getSources();
 
         const progress = new Progress({ steps: packs.length });
