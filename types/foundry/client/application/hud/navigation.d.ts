@@ -18,4 +18,12 @@ declare class SceneNavigation extends Application {
      * Collapse the SceneNavigation menu, sliding it up if it is currently expanded
      */
     collapse(): Promise<boolean>;
+
+    /**
+     * Display progress of some major operation like loading Scene textures.
+     * @param options    Options for how the progress bar is displayed
+     * @param options.label  A text label to display
+     * @param options.pct    A percentage of progress between 0 and 100
+     */
+    static displayProgressBar(options: { label?: string; pct?: number }): void;
 }
