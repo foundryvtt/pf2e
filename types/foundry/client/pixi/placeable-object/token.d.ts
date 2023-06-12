@@ -7,6 +7,53 @@ declare global {
     > extends PlaceableObject<TDocument> {
         constructor(document: TDocument);
 
+        static override embeddedName: "Token";
+
+        static override RENDER_FLAGS: {
+            redraw: { propagate: ["refresh"] };
+            redrawEffects: {};
+            refresh: {
+                propagate: [
+                    "refreshState",
+                    "refreshSize",
+                    "refreshPosition",
+                    "refreshElevation",
+                    "refreshBars",
+                    "refreshNameplate",
+                    "refreshBorder",
+                    "refreshShader"
+                ];
+                alias: true;
+            };
+            refreshState: { propagate: ["refreshVisibility", "refreshBorder"] };
+            refreshSize: {
+                propagate: [
+                    "refreshMesh",
+                    "refreshBorder",
+                    "refreshBars",
+                    "refreshPosition",
+                    "refreshTarget",
+                    "refreshEffects"
+                ];
+            };
+            refreshPosition: { propagate: ["refreshMesh", "refreshVisibility"] };
+            refreshElevation: { propagate: ["refreshMesh"] };
+            refreshVisibility: {};
+            refreshEffects: {};
+            refreshMesh: {};
+            refreshShader: {};
+            refreshBars: {};
+            refreshNameplate: {};
+            refreshBorder: {};
+            refreshTarget: {};
+        };
+
+        /** Defines the filter to use for detection. */
+        detectionFilter: PIXI.Filter | null;
+
+        /** A Graphics instance which renders the border frame for this Token inside the GridLayer. */
+        border: PIXI.Graphics;
+
         /** A reference to an animation that is currently in progress for this Token, if any */
         _animation: Promise<unknown> | null;
 
@@ -37,8 +84,6 @@ declare global {
 
         /** Load token texture */
         texture: PIXI.Texture;
-
-        static embeddedName: "Token";
 
         /** A linked ObjectHUD element which is synchronized with the location and visibility of this Token */
         hud: ObjectHUD<this>;
@@ -72,7 +117,6 @@ declare global {
         /*  Rendering Attributes                        */
         /* -------------------------------------------- */
 
-        border?: PIXI.Graphics;
         icon?: PIXI.Sprite;
         bars?: PIXI.Container & { bar1: PIXI.Graphics; bar2: PIXI.Graphics };
         nameplate?: PIXI.Text;
@@ -461,7 +505,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onUpdate(
+        override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
             options: DocumentModificationContext<TDocument["parent"]>,
             userId: string
