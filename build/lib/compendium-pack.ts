@@ -272,9 +272,9 @@ class CompendiumPack {
                 throw PackError(`${docSource.name} (${this.packId}) has broken link to ${docName}: ${match}`);
             }
             const sourceId = this.#sourceIdOf(documentId, { packId, docType });
-            const labelBrace = match.endsWith("{") ? "{" : "";
+            const labelBraceOrFullLabel = match.endsWith("{") ? "{" : `{${docName}}`;
 
-            return `@UUID[${sourceId}]${labelBrace}`;
+            return `@UUID[${sourceId}]${labelBraceOrFullLabel}`;
         };
 
         return JSON.stringify(docSource)
