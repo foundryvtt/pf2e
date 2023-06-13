@@ -174,7 +174,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             const thumbnail = li.querySelector<HTMLImageElement>("img")!;
             if (typeof match.img === "string") {
                 thumbnail.src = game.pf2e.system.moduleArt.map.get(match.uuid)?.img ?? match.img;
-            } else if (match.id === "JournalEntry") {
+            } else if (match.documentType === "JournalEntry") {
                 thumbnail.src = "icons/svg/book.svg";
             }
 
