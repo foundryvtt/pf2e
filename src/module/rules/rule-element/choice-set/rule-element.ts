@@ -78,7 +78,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
             allowedDrops: new fields.SchemaField(
                 {
-                    label: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
+                    label: new fields.StringField({ required: true, blank: false, nullable: true, initial: null }),
                     predicate: new PredicateField(),
                 },
                 { required: false, nullable: true, initial: null }

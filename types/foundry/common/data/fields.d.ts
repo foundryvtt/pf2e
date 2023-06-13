@@ -64,6 +64,8 @@ export abstract class DataField<
     /** @param options Options which configure the behavior of the field */
     constructor(options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>);
 
+    initial: this["options"]["initial"];
+
     /** The initially provided options which configure the data field */
     options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -220,7 +222,7 @@ export class SchemaField<
     protected static override get _defaults(): DataFieldOptions<DataSchema, boolean, boolean, boolean>;
 
     /** The contained field definitions. */
-    fields: DataSchema;
+    fields: TDataSchema;
 
     /**
      * Initialize and validate the structure of the provided field definitions.
@@ -543,18 +545,26 @@ export class SetField<
 
 /** A subclass of `SchemaField` which embeds some other DataModel definition as an inner object. */
 export class EmbeddedDataField<
-    TDataSchema extends DataSchema,
-    TSourceProp extends SourceFromSchema<TDataSchema>,
     TModelProp extends DataModel = DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends SchemaField<TDataSchema, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+> extends SchemaField<
+    TModelProp["schema"]["fields"],
+    SourceFromSchema<TModelProp["schema"]["fields"]>,
+    TModelProp,
+    TRequired,
+    TNullable,
+    THasInitial
+> {
     /**
      * @param model   The class of DataModel which should be embedded in this field
      * @param options Options which configure the behavior of the field
      */
-    constructor(model: TModelProp, options: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>);
+    constructor(
+        model: TModelProp,
+        options: ObjectFieldOptions<SourceFromSchema<TModelProp["schema"]["fields"]>, TRequired, TNullable, THasInitial>
+    );
 
     /** The embedded DataModel definition which is contained in this field. */
     model: ConstructorOf<TModelProp>;
@@ -562,11 +572,13 @@ export class EmbeddedDataField<
     protected override _initialize(fields: DataSchema): DataSchema;
 
     override initialize(
-        value: TSourceProp,
+        value: SourceFromSchema<TModelProp["schema"]["fields"]>,
         model: ConstructorOf<DataModel>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
-    override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    override toObject(
+        value: TModelProp
+    ): MaybeSchemaProp<SourceFromSchema<TModelProp["schema"]["fields"]>, TRequired, TNullable, THasInitial>;
 }
 
 /**
