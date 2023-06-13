@@ -69,9 +69,12 @@ export class Migration841V11UUIDFormat extends MigrationBase {
             source.flags.core.sourceId = this.#replaceUUID(source.flags.core.sourceId, "Item");
         }
 
-        source.system.rules = source.system.rules.map((r) =>
-            recursiveReplaceString(r, (s) => this.#replaceUUID(s, "Item"))
-        );
+        source.system.rules = source.system.rules.map((rule) => {
+            if ("text" in rule && typeof rule.text === "string") {
+                rule.text = this.#replaceUUIDsInLinks(rule.text);
+            }
+            return recursiveReplaceString(rule, (s) => this.#replaceUUID(s, "Item"));
+        });
 
         if (
             source.type === "ancestry" ||
@@ -101,11 +104,12 @@ export class Migration841V11UUIDFormat extends MigrationBase {
 
         const { description } = source.system;
         description.value ??= "";
-        description.value = this.#replaceUUIDsInLinks(source.system.description.value);
+        description.value = this.#replaceUUIDsInLinks(description.value);
         description.value = description.value.replace(
             /Compendium\.pf2e\.journals\.(?!JournalEntry)/g,
             "Compendium.pf2e.journals.JournalEntry."
         );
+        description.gm &&= this.#replaceUUIDsInLinks(description.gm);
     }
 
     override async updateJournalEntry(source: foundry.documents.JournalEntrySource): Promise<void> {
