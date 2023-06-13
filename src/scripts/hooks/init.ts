@@ -23,6 +23,7 @@ import { registerFonts } from "@scripts/register-fonts.ts";
 import { registerKeybindings } from "@scripts/register-keybindings.ts";
 import { registerTemplates } from "@scripts/register-templates.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
+import { monkeyPatchSettings } from "@scripts/🐵🩹.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 
@@ -30,6 +31,7 @@ export const Init = {
     listen: (): void => {
         Hooks.once("init", () => {
             console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
+            monkeyPatchSettings();
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
