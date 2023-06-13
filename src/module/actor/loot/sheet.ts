@@ -46,7 +46,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        if (this.options.editable) {
+        if (this.isEditable) {
             $html
                 .find(".split-coins")
                 .removeAttr("disabled")
