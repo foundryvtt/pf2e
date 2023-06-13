@@ -18,7 +18,7 @@ export interface ItemTransferData {
 }
 
 export class ItemTransfer implements ItemTransferData {
-    private templatePaths = {
+    #templatePaths = {
         flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
         content: "./systems/pf2e/templates/chat/action/content.hbs",
     };
@@ -33,13 +33,13 @@ export class ItemTransfer implements ItemTransferData {
     async request(): Promise<void> {
         const gamemaster = game.users.find((u) => u.isGM && u.active);
         if (!gamemaster) {
-            const source = this.getSource();
-            const target = this.getTarget();
+            const source = this.#getSource();
+            const target = this.#getTarget();
             const loot = [source, target].find((a) => a?.isLootableBy(game.user) && !a.isOwner);
 
             if (!(loot instanceof ActorPF2e)) throw ErrorPF2e("Unexpected missing actor");
             ui.notifications.error(
-                game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.tokenName(loot) })
+                game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) })
             );
             return;
         }
@@ -55,9 +55,9 @@ export class ItemTransfer implements ItemTransferData {
         }
 
         console.debug("PF2e System | Enacting item transfer");
-        const sourceActor = this.getSource();
+        const sourceActor = this.#getSource();
         const sourceItem = sourceActor?.items?.find((i) => i.id === this.source.itemId);
-        const targetActor = this.getTarget();
+        const targetActor = this.#getTarget();
 
         // Sanity checks
         if (
@@ -85,11 +85,11 @@ export class ItemTransfer implements ItemTransferData {
             return;
         }
 
-        this.sendMessage(requester, sourceActor, targetActor, targetItem);
+        this.#sendMessage(requester, sourceActor, targetActor, targetItem);
     }
 
     /** Retrieve the full actor from the source or target ID */
-    private getActor(tokenId: string | undefined, actorId: string): ActorPF2e | null {
+    #getActor(tokenId: string | undefined, actorId: string): ActorPF2e | null {
         if (typeof tokenId === "string") {
             const token = canvas.tokens.placeables.find((t) => t.id === tokenId);
             return token?.actor ?? null;
@@ -97,17 +97,19 @@ export class ItemTransfer implements ItemTransferData {
         return game.actors.get(actorId) ?? null;
     }
 
-    private getSource(): ActorPF2e | null {
-        return this.getActor(this.source.tokenId, this.source.actorId);
+    #getSource(): ActorPF2e | null {
+        return this.#getActor(this.source.tokenId, this.source.actorId);
     }
 
-    private getTarget(): ActorPF2e | null {
-        return this.getActor(this.target.tokenId, this.target.actorId);
+    #getTarget(): ActorPF2e | null {
+        return this.#getActor(this.target.tokenId, this.target.actorId);
     }
 
     // Prefer token names over actor names
-    private static tokenName(document: ActorPF2e | User): string {
+    static #tokenName(document: ActorPF2e | User): string {
         if (document instanceof ActorPF2e) {
+            // Use a special moniker for party actors
+            if (document.isOfType("party")) return game.i18n.localize("PF2E.loot.PartyStash");
             // Synthetic actor: use its token name or, failing that, actor name
             if (document.token) return document.token.name;
 
@@ -130,7 +132,7 @@ export class ItemTransfer implements ItemTransferData {
      * @param targetActor The actor on which the item was dropped
      * @param item        The item created on the target actor as a result of the drag & drop
      */
-    private async sendMessage(
+    async #sendMessage(
         requester: UserPF2e,
         sourceActor: ActorPF2e,
         targetActor: ActorPF2e,
@@ -144,16 +146,16 @@ export class ItemTransfer implements ItemTransferData {
                 const message = localize("InsufficientFundsMessage");
                 // The buyer didn't have enough funds! No transaction.
 
-                const content = await renderTemplate(this.templatePaths.content, {
+                const content = await renderTemplate(this.#templatePaths.content, {
                     imgPath: targetActor.img,
                     message: game.i18n.format(message, { buyer: targetActor.name }),
                 });
 
-                const flavor = await this.messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
+                const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
 
                 await ChatMessage.create({
                     user: requester.id,
-                    speaker: { alias: ItemTransfer.tokenName(targetActor) },
+                    speaker: { alias: ItemTransfer.#tokenName(targetActor) },
                     type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
                     flavor,
                     content,
@@ -168,8 +170,7 @@ export class ItemTransfer implements ItemTransferData {
         type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Localization["format"]>];
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
-            const isMerchant = (actor: ActorPF2e) =>
-                actor.isOfType("loot") && actor.system.lootSheetType === "Merchant";
+            const isMerchant = (actor: ActorPF2e) => actor.isOfType("loot") && actor.isMerchant;
             const isWhat = (actor: ActorPF2e) => ({
                 isCharacter: actor.testUserPermission(requester, "OWNER") && actor.isOfType("character"),
                 isMerchant: isMerchant(actor),
@@ -178,7 +179,7 @@ export class ItemTransfer implements ItemTransferData {
                     actor.isLootableBy(requester) &&
                     !actor.testUserPermission(requester, "OWNER"),
                 isLoot:
-                    actor.isOfType("loot") &&
+                    (actor.isOfType("party") || actor.isOfType("loot")) &&
                     actor.isLootableBy(requester) &&
                     !actor.testUserPermission(requester, "OWNER") &&
                     !isMerchant(actor),
@@ -189,54 +190,60 @@ export class ItemTransfer implements ItemTransferData {
             if (source.isCharacter && target.isLoot) {
                 // Character deposits item in loot container
                 return [
-                    ItemTransfer.tokenName(sourceActor),
+                    ItemTransfer.#tokenName(sourceActor),
                     localize("DepositSubtitle"),
                     [
                         localize("DepositMessage"),
                         {
-                            depositor: ItemTransfer.tokenName(sourceActor),
-                            container: ItemTransfer.tokenName(targetActor),
+                            depositor: ItemTransfer.#tokenName(sourceActor),
+                            container: ItemTransfer.#tokenName(targetActor),
                         },
                     ],
                 ];
             } else if (source.isCharacter && target.isMerchant) {
                 // Character gives item to merchant
                 return [
-                    ItemTransfer.tokenName(sourceActor),
+                    ItemTransfer.#tokenName(sourceActor),
                     localize("GiveSubtitle"),
                     [
                         localize("GiveMessage"),
-                        { giver: ItemTransfer.tokenName(sourceActor), recipient: ItemTransfer.tokenName(targetActor) },
+                        {
+                            giver: ItemTransfer.#tokenName(sourceActor),
+                            recipient: ItemTransfer.#tokenName(targetActor),
+                        },
                     ],
                 ];
             } else if (source.isCharacter && target.isNPC) {
                 // Character drops item on dead NPC
                 return [
-                    ItemTransfer.tokenName(sourceActor),
+                    ItemTransfer.#tokenName(sourceActor),
                     localize("PlantSubtitle"),
                     [
                         localize("PlantMessage"),
-                        { planter: ItemTransfer.tokenName(sourceActor), corpse: ItemTransfer.tokenName(targetActor) },
+                        { planter: ItemTransfer.#tokenName(sourceActor), corpse: ItemTransfer.#tokenName(targetActor) },
                     ],
                 ];
             } else if (source.isLoot && target.isCharacter) {
                 // Character takes item from loot container
                 return [
-                    ItemTransfer.tokenName(targetActor),
+                    ItemTransfer.#tokenName(targetActor),
                     localize("TakeSubtitle"),
                     [
                         localize("TakeMessage"),
-                        { taker: ItemTransfer.tokenName(targetActor), container: ItemTransfer.tokenName(sourceActor) },
+                        {
+                            taker: ItemTransfer.#tokenName(targetActor),
+                            container: ItemTransfer.#tokenName(sourceActor),
+                        },
                     ],
                 ];
             } else if (source.isNPC && target.isCharacter) {
                 // Character takes item from loot container
                 return [
-                    ItemTransfer.tokenName(targetActor),
+                    ItemTransfer.#tokenName(targetActor),
                     localize("LootSubtitle"),
                     [
                         localize("LootMessage"),
-                        { looter: ItemTransfer.tokenName(targetActor), corpse: ItemTransfer.tokenName(sourceActor) },
+                        { looter: ItemTransfer.#tokenName(targetActor), corpse: ItemTransfer.#tokenName(sourceActor) },
                     ],
                 ];
             } else if ([source, target].every((actor) => actor.isLoot || actor.isNPC)) {
@@ -248,8 +255,8 @@ export class ItemTransfer implements ItemTransferData {
                         localize("TransferMessage"),
                         {
                             transferrer: requester.character?.name ?? requester.name,
-                            fromContainer: ItemTransfer.tokenName(sourceActor),
-                            toContainer: ItemTransfer.tokenName(targetActor),
+                            fromContainer: ItemTransfer.#tokenName(sourceActor),
+                            toContainer: ItemTransfer.#tokenName(targetActor),
                         },
                     ],
                 ];
@@ -262,18 +269,18 @@ export class ItemTransfer implements ItemTransferData {
                         localize("GiveMessage"),
                         {
                             seller: requester.character?.name ?? requester.name,
-                            buyer: ItemTransfer.tokenName(targetActor),
+                            buyer: ItemTransfer.#tokenName(targetActor),
                         },
                     ],
                 ];
             } else if (source.isMerchant && target.isCharacter) {
                 // Merchant sells item to character
                 return [
-                    ItemTransfer.tokenName(sourceActor),
+                    ItemTransfer.#tokenName(sourceActor),
                     localize("SellSubtitle"),
                     [
                         localize("SellMessage"),
-                        { seller: ItemTransfer.tokenName(sourceActor), buyer: ItemTransfer.tokenName(targetActor) },
+                        { seller: ItemTransfer.#tokenName(sourceActor), buyer: ItemTransfer.#tokenName(targetActor) },
                     ],
                 ];
             } else if (source.isMerchant && target.isLoot) {
@@ -284,7 +291,7 @@ export class ItemTransfer implements ItemTransferData {
                     [
                         localize("SellMessage"),
                         {
-                            seller: ItemTransfer.tokenName(sourceActor),
+                            seller: ItemTransfer.#tokenName(sourceActor),
                             buyer: requester.character?.name ?? requester.name,
                         },
                     ],
@@ -300,12 +307,12 @@ export class ItemTransfer implements ItemTransferData {
         formatProperties.item = item.name;
 
         // Don't bother showing quantity if it's only 1:
-        const content = await renderTemplate(this.templatePaths.content, {
+        const content = await renderTemplate(this.#templatePaths.content, {
             imgPath: item.img,
             message: game.i18n.format(...formatArgs).replace(/\b1 × /, ""),
         });
 
-        const flavor = await this.messageFlavor(sourceActor, targetActor, subtitle);
+        const flavor = await this.#messageFlavor(sourceActor, targetActor, subtitle);
 
         await ChatMessage.create({
             user: requester.id,
@@ -316,8 +323,8 @@ export class ItemTransfer implements ItemTransferData {
         });
     }
 
-    private async messageFlavor(sourceActor: ActorPF2e, targetActor: ActorPF2e, subtitle: string): Promise<string> {
-        return await renderTemplate(this.templatePaths.flavor, {
+    async #messageFlavor(sourceActor: ActorPF2e, targetActor: ActorPF2e, subtitle: string): Promise<string> {
+        return await renderTemplate(this.#templatePaths.flavor, {
             action: {
                 title: "PF2E.TraitInteract",
                 subtitle: subtitle,
