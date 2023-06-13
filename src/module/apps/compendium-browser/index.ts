@@ -983,7 +983,7 @@ class CompendiumBrowser extends Application {
         }
 
         for (const actor of actors) {
-            await actor.createEmbeddedDocuments("Item", [item.toObject()]);
+            await actor.inventory.add(item, { stack: true });
         }
 
         if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {
@@ -1012,7 +1012,7 @@ class CompendiumBrowser extends Application {
         for (const actor of actors) {
             if (await actor.inventory.removeCoins(item.price.value)) {
                 purchasesSucceeded = purchasesSucceeded + 1;
-                await actor.createEmbeddedDocuments("Item", [item.toObject()]);
+                await actor.inventory.add(item, { stack: true });
             }
         }
 
