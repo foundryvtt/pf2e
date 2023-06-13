@@ -1,9 +1,11 @@
-import { ActorPF2e } from "@actor";
 import { CharacterSkill } from "@actor/character/types.ts";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import { askSkillPopupTemplate, runEarnIncome } from "./helpers.ts";
+import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 
-function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
+function showEarnIncomePopup(options: ActionDefaultOptions): void {
+    const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
+    const actor = actors[0];
     if (!actor?.isOfType("character")) {
         return ui.notifications.error(`You must select at least one PC`);
     }
