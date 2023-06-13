@@ -6,8 +6,10 @@
             {{#each data.skills as |skill key|}}
                 {{#unless skill.lore}}
                     <li class="skill" data-skill="{{skill.slug}}">
-                        <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
-                        <h4 class="skill-name rollable">{{localize skill.label}}</h4>
+                        <a class="skill-name rollable" title="{{skill.breakdown}}">
+                            <span class="skill-score">{{numberFormat skill.value decimals=0 sign=true}}</span>
+                            <h4>{{localize skill.label}}</h4>
+                        </a>
                         <div class="skill-prof button-group">
                             <select class="skill-proficiency pf-rank adjust-stat-select" data-property="system.skills.{{key}}.rank" data-rank="{{skill.rank}}" data-dtype="Number">
                                 {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
@@ -39,7 +41,7 @@
             {{#each data.skills as |skill idx|}}
                 {{#if skill.lore}}
                     <li class="skill item" data-skill="{{skill.slug}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
-                        <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
+                        <a class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</a>
                         <div class="skill-name lore-name-input item-name-input">
                             <input data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" style="color: white" />
                         </div>
@@ -76,7 +78,7 @@
                     {{#if (and proficiency.custom @root.editable)}}
                         <a class="delete" data-action="remove-attack-proficiency"><i class="fa fa-fw fa-trash"></i></a>
                     {{/if}}
-                    <h1 class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
+                    <span class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                     <h4 class="skill-name lore-name-input">{{proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select class="skill-proficiency pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}" data-property="system.martial.{{key}}.rank" data-rank="{{proficiency.rank}}" data-dtype="Number">

@@ -1,26 +1,19 @@
-.skill-prof, .save-prof, .perception-prof, .spellcasting-prof, .classdc-rank {
-    .pf-rank {
-        @include micro;
-        align-items: center;
-        background: #{$rank-untrained};
-        border-radius: 2px;
-        border: 1px solid rgba(black, 0.5);
-        box-shadow: inset 0 0 0 1px rgba(white, 0.1);
-        color: var(--text-light);
-        cursor: pointer;
-        display: flex;
-        font-weight: 500;
-        justify-content: center;
-        padding: 2px 1px 1px 1px;
-        text-align-last: center;
+.pf-rank {
+    @include micro;
+    align-items: center;
+    background: #{$rank-untrained};
+    border-radius: 2px;
+    border: 1px solid rgba(black, 0.5);
+    box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+    color: var(--text-light);
+    cursor: pointer;
+    display: flex;
+    font-weight: 500;
+    justify-content: center;
+    padding: 2px 1px 1px 1px;
+    text-align-last: center;
 
-        &.readonly {
-            pointer-events: none;
-        }
-    }
-
-    span {
-        min-width: 61px;
+    &.readonly {
         pointer-events: none;
     }
 
@@ -28,19 +21,24 @@
         background: #{$rank-untrained};
     }
 
-    span.trained, select[data-rank="1"], option[value="1"] {
+    &.trained, &[data-rank="1"], option[value="1"] {
         background: #{$rank-trained};
     }
 
-    span.expert, select[data-rank="2"], option[value="2"] {
+    &.expert, &[data-rank="2"], option[value="2"] {
         background: #{$rank-expert};
     }
 
-    span.master, select[data-rank="3"], option[value="3"] {
+    &.master, &[data-rank="3"], option[value="3"] {
         background: #{$rank-master};
     }
 
-    span.legendary, select[data-rank="4"], option[value="4"] {
+    &.legendary, &[data-rank="4"], option[value="4"] {
         background: #{$rank-legendary};
     }
+}
+
+span.pf-rank {
+    min-width: 61px;
+    pointer-events: none;
 }
