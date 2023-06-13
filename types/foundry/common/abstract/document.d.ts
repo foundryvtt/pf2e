@@ -1,6 +1,7 @@
+import type * as CONST from "../constants.d.ts";
+import type { DataSchema } from "../data/fields.d.ts";
 import type BaseUser from "../documents/user.d.ts";
 import type EmbeddedCollection from "./embedded-collection.d.ts";
-import type * as CONST from "../constants.d.ts";
 
 /** The abstract base interface for all Document types. */
 export default abstract class Document<TParent extends Document | null = _Document | null> {
@@ -15,6 +16,9 @@ export default abstract class Document<TParent extends Document | null = _Docume
     readonly pack: string | null;
 
     _source: object;
+
+    // actually in `DataModel`
+    static defineSchema(): DataSchema;
 
     /** Perform one-time initialization tasks which only occur when the Document is first constructed. */
     protected _initialize(): void;
