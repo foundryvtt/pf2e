@@ -239,3 +239,4 @@ export { Migration838StrikeAttackRollSelector } from "./838-strike-attack-roll-s
 export { Migration839ActionCategories } from "./839-action-categories.ts";
 export { Migration840ArrayWrapPredicates } from "./840-array-wrap-predicates.ts";
 export { Migration841V11UUIDFormat } from "./841-v11-uuid-format.ts";
+export { Migration842NumifyNumericSettings } from "./842-numify-numeric-settings.ts";
