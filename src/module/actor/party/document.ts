@@ -1,14 +1,14 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { ItemType } from "@item/data/index.ts";
-import { sortBy, tupleHasValue } from "@util";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
-import { PartySheetRenderOptions } from "./sheet.ts";
 import { UserPF2e } from "@module/documents.ts";
-import { PartyCampaign, PartyUpdateContext } from "./types.ts";
-import { KingdomModel } from "./kingdom/index.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { sortBy, tupleHasValue } from "@util";
+import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { InvalidCampaign } from "./invalid-campaign.ts";
+import { KingdomModel } from "./kingdom/index.ts";
+import { PartySheetRenderOptions } from "./sheet.ts";
+import { PartyCampaign, PartyUpdateContext } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -32,6 +32,14 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Friendship lives in our hearts */
     override get canAct(): false {
         return false;
+    }
+
+    /** Part members can add and remove items (though system socket shenanigans)  */
+    override canUserModify(user: UserPF2e, action: UserAction): boolean {
+        return (
+            super.canUserModify(user, action) ||
+            (action === "update" && this.members.some((m) => m.canUserModify(user, action)))
+        );
     }
 
     /** Our bond is unbreakable */

@@ -13,13 +13,6 @@ interface PartySheetRenderOptions extends RenderOptions {
 }
 
 class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
-    regionTemplates: Record<string, string> = {
-        overview: "overview.hbs",
-        inventoryMembers: "inventory-members.hbs",
-        exploration: "exploration.hbs",
-        explorationSidebar: "exploration-sidebar.hbs",
-    };
-
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
@@ -40,9 +33,19 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         };
     }
 
+    regionTemplates: Record<string, string> = {
+        overview: "overview.hbs",
+        inventoryMembers: "inventory-members.hbs",
+        exploration: "exploration.hbs",
+        explorationSidebar: "exploration-sidebar.hbs",
+    };
+
+    override get isLootSheet(): boolean {
+        return this.actor.canUserModify(game.user, "update");
+    }
+
     override async getData(options?: ActorSheetOptions): Promise<PartySheetData> {
         const base = await super.getData(options);
-
         const members = this.actor.members;
 
         return {
