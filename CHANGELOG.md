@@ -1,3 +1,16 @@
+## 5.0.0-beta2
+
+### Bugfixes
+
+-   (In3luki) Fix manual drawing of measured templates
+-   (In3luki) Hide buttons to generate roll tables in compendium browser from non-GMs
+
+### Data Updates
+
+-   (Dire Weasel) Make Awful Approach recharge rolls blind
+-   (stwlam) Fix some settings being returned with wrong values due to upstream issue
+-   (stwlam) Fix broken links in some GM notes on compendium items
+
 ## 5.0.0-beta1
 
 ### New Features
