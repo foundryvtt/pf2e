@@ -523,77 +523,94 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (this._canDragDrop(".item-list")) {
             this.#activateInventoryDragDrop(panel);
         }
-        if (!this.isEditable) return;
+        if (!this.isEditable || !panel) return;
 
-        // Links and buttons
-        panel?.addEventListener("click", (event) => {
-            const link = htmlClosest(event.target, "a[data-action], button[data-action]");
-            if (!link) return;
-            const getItem = (): PhysicalItemPF2e<ActorPF2e> => {
-                const itemId = htmlClosest(link, ".item")?.dataset.itemId ?? "";
-                const item = this.actor.items.get(itemId);
-                if (!item?.isOfType("physical")) throw ErrorPF2e("Item not found or isn't physical");
-                return item;
-            };
+        const getItem = (link: HTMLElement | JQuery<HTMLElement>): PhysicalItemPF2e<ActorPF2e> => {
+            const element = "jquery" in link ? link[0] : link;
+            const itemId = htmlClosest(element, ".item")?.dataset.itemId ?? "";
+            const item = this.actor.items.get(itemId);
+            if (!item?.isOfType("physical")) throw ErrorPF2e("Item not found or isn't physical");
+            return item;
+        };
 
-            switch (link.dataset.action) {
-                case "add-coins": {
-                    new AddCoinsPopup(this.actor).render(true);
-                    return;
-                }
-                case "remove-coins": {
-                    new RemoveCoinsPopup(this.actor).render(true);
-                    return;
-                }
-                case "increase-quantity": {
-                    const item = getItem();
-                    const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
-                    item.update({ "system.quantity": item.quantity + addend });
-                    return;
-                }
-                case "decrease-quantity": {
-                    const item = getItem();
-                    if (item.quantity > 0) {
-                        const subtrahend = Math.min(item.quantity, event.ctrlKey ? 10 : event.shiftKey ? 5 : 1);
-                        item.update({ "system.quantity": item.quantity - subtrahend });
+        const contextMenuOptions: ContextMenuEntry[] = [
+            {
+                name: "PF2E.Actor.NPC.GenerateAttack.Label",
+                icon: fontAwesomeIcon("bolt").outerHTML,
+                condition: (target) => this.actor.type === "npc" && getItem(target).isOfType("weapon"),
+                callback: async (target) => {
+                    const { actor } = this;
+                    const item = getItem(target);
+                    if (!item.isOfType("weapon")) return;
+
+                    // Get confirmation from the user before replacing existing generated attacks
+                    const existing = actor.itemTypes.melee
+                        .filter((m) => m.flags.pf2e.linkedWeapon === item.id)
+                        .map((m) => m.id);
+                    if (existing.length > 0) {
+                        const proceed = await Dialog.confirm({
+                            title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
+                            content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
+                            defaultYes: false,
+                        });
+                        if (proceed) {
+                            await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
+                        } else {
+                            return;
+                        }
                     }
-                    return;
-                }
-                case "repair": {
-                    const item = getItem();
-                    game.pf2e.actions.repair({ event, item });
-                    return;
-                }
-                case "toggle-identified": {
-                    const item = getItem();
-                    if (item.isIdentified) {
-                        item.setIdentificationStatus("unidentified");
-                    } else {
-                        new IdentifyItemPopup(item).render(true);
-                    }
-                    return;
-                }
-                case "toggle-container": {
-                    const item = getItem();
-                    if (!item.isOfType("backpack")) return;
 
-                    const isCollapsed = item.system.collapsed ?? false;
-                    item.update({ "system.collapsed": !isCollapsed });
-                    return;
-                }
-                case "sell-treasure": {
-                    const item = getItem();
+                    const attacks = item.toNPCAttacks().map((a) => a.toObject());
+                    await actor.createEmbeddedDocuments("Item", attacks);
+                    ui.notifications.info(
+                        game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", {
+                            attack: attacks.at(0)?.name ?? "",
+                        })
+                    );
+                },
+            },
+            {
+                name: "PF2E.RepairItemTitle",
+                icon: fontAwesomeIcon("hammer").outerHTML,
+                condition: (target) => getItem(target).isDamaged,
+                callback: (target) => {
+                    const item = getItem(target);
+                    game.pf2e.actions.repair({ item });
+                },
+            },
+            {
+                name: "PF2E.identification.Mystify",
+                icon: fontAwesomeIcon("question-circle", { style: "regular" }).outerHTML,
+                condition: (target) => game.user.isGM && getItem(target).isIdentified,
+                callback: (target) => {
+                    const item = getItem(target);
+                    item.setIdentificationStatus("unidentified");
+                },
+            },
+            {
+                name: "PF2E.identification.Identify",
+                icon: fontAwesomeIcon("question-circle").outerHTML,
+                condition: (target) => game.user.isGM && !getItem(target).isIdentified,
+                callback: (target) => {
+                    const item = getItem(target);
+                    new IdentifyItemPopup(item).render(true);
+                },
+            },
+            {
+                name: "PF2E.ui.sell",
+                icon: fontAwesomeIcon("coins").outerHTML,
+                condition: (target) => {
+                    const item = getItem(target);
+                    return item.isOfType("treasure") && !item.isCoinage;
+                },
+                callback: (target) => {
+                    const item = getItem(target);
                     const sellItem = async (): Promise<void> => {
                         if (item?.isOfType("treasure") && !item.isCoinage) {
                             await item.delete();
                             await this.actor.inventory.addCoins(item.assetValue);
                         }
                     };
-
-                    if (event.ctrlKey) {
-                        sellItem();
-                        return;
-                    }
 
                     const content = document.createElement("p");
                     content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
@@ -615,6 +632,73 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                         },
                         default: "Yes",
                     }).render(true);
+                },
+            },
+        ];
+
+        // We show the full list when right clicking
+        const extraContextMenuOptions: ContextMenuEntry[] = [
+            {
+                name: "PF2E.EditItemTitle",
+                icon: fontAwesomeIcon("edit").outerHTML,
+                callback: (target) => {
+                    const item = getItem(target);
+                    item?.sheet.render(true, { focus: true });
+                },
+            },
+            {
+                name: "PF2E.DeleteItemTitle",
+                icon: fontAwesomeIcon("trash").outerHTML,
+                callback: (target) => {
+                    const row = htmlClosest(target[0], "[data-item-id]");
+                    const item = getItem(target[0]);
+                    if (row && item) {
+                        this.deleteItem(row, item);
+                    }
+                },
+            },
+        ];
+
+        if (this.isEditable) {
+            const rightClickOptions = [...contextMenuOptions, ...extraContextMenuOptions];
+            new ContextMenu(panel, ".item", rightClickOptions, { eventName: "contextmenu" });
+            new ContextMenu(panel, "[data-action=inventory-context-menu]", contextMenuOptions, { eventName: "click" });
+        }
+
+        // Links and buttons
+        panel.addEventListener("click", (event) => {
+            const link = htmlClosest(event.target, "a[data-action], button[data-action]");
+            if (!link) return;
+
+            switch (link.dataset.action) {
+                case "add-coins": {
+                    new AddCoinsPopup(this.actor).render(true);
+                    return;
+                }
+                case "remove-coins": {
+                    new RemoveCoinsPopup(this.actor).render(true);
+                    return;
+                }
+                case "increase-quantity": {
+                    const item = getItem(link);
+                    const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
+                    item.update({ "system.quantity": item.quantity + addend });
+                    return;
+                }
+                case "decrease-quantity": {
+                    const item = getItem(link);
+                    if (item.quantity > 0) {
+                        const subtrahend = Math.min(item.quantity, event.ctrlKey ? 10 : event.shiftKey ? 5 : 1);
+                        item.update({ "system.quantity": item.quantity - subtrahend });
+                    }
+                    return;
+                }
+                case "toggle-container": {
+                    const item = getItem(link);
+                    if (!item.isOfType("backpack")) return;
+
+                    const isCollapsed = item.system.collapsed ?? false;
+                    item.update({ "system.collapsed": !isCollapsed });
                     return;
                 }
                 case "sell-all-treasure": {

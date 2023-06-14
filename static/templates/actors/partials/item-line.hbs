@@ -52,28 +52,13 @@
                 {{#if (or (eq @root.actor.type "character") (eq @root.actor.type "npc"))}}
                     {{> "systems/pf2e/templates/actors/partials/carry-type.hbs" item=item}}
                 {{/if}}
-                {{#if item.isDamaged}}
-                    <a class="item-control" data-action="repair" title="{{localize "PF2E.RepairItemTitle"}}"><i class="fa-solid fa-hammer fa-fw"></i></a>
-                {{/if}}
-                {{#if @root.user.isGM}}
-                    {{#if item.isIdentified}}
-                        <a class="item-control" data-action="toggle-identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="fa-regular fa-question-circle fa-fw"></i></a>
-                    {{else}}
-                        <a class="item-control" data-action="toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fa-solid fa-question-circle fa-fw"></i></a>
-                    {{/if}}
-                {{/if}}
-                {{#if (and isSellable (ne @root.actor.type "loot"))}}
-                    <a class="item-control item-sell-treasure" data-action="sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fa-solid fa-coins fa-fw"></i></a>
-                {{/if}}
-                {{#if (and (eq item.type "weapon") (eq @root.actor.type "npc"))}}
-                    <a class="item-control" data-action="generate-attack" title="{{localize "PF2E.Actor.NPC.GenerateAttack.Label"}}"><i class="fa-solid fa-bolt fa-fw"></i></a>
-                {{/if}}
                 {{#if (or @root.user.isGM item.isIdentified)}}
                     <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-edit fa-fw"></i></a>
                 {{/if}}
                 {{#if (or owner (ne @root.actor.type "loot"))}}
                     <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-trash fa-fw"></i></a>
                 {{/if}}
+                <div class="item-control" data-action="inventory-context-menu"><i class="fa-solid fa-fw fa-ellipsis-v"></i></div>
             </div>
         {{/if}}
     </div>

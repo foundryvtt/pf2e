@@ -486,34 +486,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selector)) {
             element.addEventListener("change", (event) => this.#onChangeSpellcastingEntry(element, event));
         }
-
-        $html.find(".item-control[data-action=generate-attack]").on("click", async (event) => {
-            const { actor } = this;
-            const itemId = event.currentTarget.closest<HTMLElement>(".item")?.dataset.itemId ?? "";
-            const item = actor.items.get(itemId, { strict: true });
-            if (!item.isOfType("weapon")) return;
-
-            // Get confirmation from the user before replacing existing generated attacks
-            const existing = actor.itemTypes.melee.filter((m) => m.flags.pf2e.linkedWeapon === itemId).map((m) => m.id);
-            if (existing.length > 0) {
-                const proceed = await Dialog.confirm({
-                    title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
-                    content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
-                    defaultYes: false,
-                });
-                if (proceed) {
-                    await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
-                } else {
-                    return;
-                }
-            }
-
-            const attacks = item.toNPCAttacks().map((a) => a.toObject());
-            await actor.createEmbeddedDocuments("Item", attacks);
-            ui.notifications.info(
-                game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", { attack: attacks.at(0)?.name ?? "" })
-            );
-        });
     }
 
     async #onChangeSpellcastingEntry(element: HTMLInputElement | HTMLSelectElement, event: Event): Promise<void> {
