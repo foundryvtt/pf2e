@@ -30,6 +30,24 @@
         <input type="checkbox" name="actorLink" {{checked object.actorLink}}/>
     </div>
 
+    {{#if isPrototype}}
+        <hr>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.AppendNumber"}}</label>
+            <input type="checkbox" name="appendNumber" {{checked object.appendNumber}}/>
+            <p class="notes">{{localize "TOKEN.AppendNumberHint" name=object.name}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.PrependAdjective"}}</label>
+            <input type="checkbox" name="prependAdjective" {{checked object.prependAdjective}}/>
+            <p class="notes">{{localize "TOKEN.PrependAdjectiveHint" name=object.name}}</p>
+        </div>
+
+        <hr>
+    {{/if}}
+
     {{#unless isPrototype}}
         <div class="form-group slim">
             <label>{{localize "TOKEN.Coordinates"}} <span class="units">({{localize "Pixels"}})</span></label>
