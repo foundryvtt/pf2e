@@ -25,6 +25,10 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         };
     }
 
+    override get hardness(): number {
+        return this.system.attributes.hardness;
+    }
+
     getTokenDimensions(dimensions: Omit<ActorDimensions, "height"> = this.dimensions): TokenDimensions {
         return {
             width: Math.max(Math.round(dimensions.width / 5), 1),
