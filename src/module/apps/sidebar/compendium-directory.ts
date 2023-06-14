@@ -18,7 +18,6 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             searchOptions: { combineWith: "AND", prefix: true },
             storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
         });
-        this.#compileSearchIndex();
     }
 
     /** Include ability to search and drag document search results */
@@ -238,9 +237,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         event.dataTransfer.setData("text/plain", JSON.stringify({ type: documentType, uuid }));
     }
 
-    #compileSearchIndex(): void {
+    /** Called by a "ready" hook */
+    compileSearchIndex(): void {
         console.debug("PF2e System | compiling search index");
         const packs = game.packs.filter((p) => p.index.size > 0 && p.testUserPermission(game.user, "OBSERVER"));
+        this.searchEngine.removeAll();
 
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
