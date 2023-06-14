@@ -383,9 +383,9 @@ class CompendiumPack {
     }
 
     async saveAsJSON(): Promise<number> {
-        const outDir = path.resolve(process.cwd(), "packs-json");
+        const outDir = path.resolve(process.cwd(), "json-assets/packs");
         if (!fs.lstatSync(outDir, { throwIfNoEntry: false })?.isDirectory()) {
-            fs.mkdirSync(outDir);
+            fs.mkdirSync(outDir, { recursive: true });
         }
 
         const outFile = path.resolve(outDir, `${this.packDir}.json`);
