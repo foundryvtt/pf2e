@@ -37,9 +37,11 @@ jobs:
         working-directory: ./dist
         run: zip -r ./pf2e.zip ./*
 
-      - name: Zip JSON Packs
-        working-directory: ./packs-json
-        run: zip -r ./packs-json.zip ./*
+      - name: Zip JSON Assets
+        working-directory: ./json-assets
+        run: |
+          cp -r ../static/lang/ ./
+          zip -r ./json-assets.zip ./*
 
       - name: Create Version Release
         id: create_version_release
@@ -50,5 +52,5 @@ jobs:
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "./dist/system.json,./dist/pf2e.zip,./packs-json/packs-json.zip"
+          artifacts: "./dist/system.json,./dist/pf2e.zip,./json-assets/json-assets.zip"
           tag: ${{ env.systemVersion }}
