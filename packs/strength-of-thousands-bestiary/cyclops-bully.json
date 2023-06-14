@@ -446,18 +446,18 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The cyclops bully attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe within its melee reach, then makes a melee Strike against that foe.</p>\n<p>If the creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened] and takes damage, it takes an additional [[/r 2d10[bludgeoning]]]{2d10 damage} and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p>This counts as two attacks toward the cyclops's multiple attack penalty.</p>"
+                    "value": "<p>The cyclops bully attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe within its melee reach, then makes a melee Strike against that foe.</p>\n<p>If the creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened] and takes damage, it takes an additional 2d10 damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p>This counts as two attacks toward the cyclops's multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "damageType": "bludgeoning",
                         "diceNumber": 2,
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "predicate": [
+                            "melee",
                             "target:condition:frightened",
                             "terrorizing-swing"
                         ],
@@ -472,11 +472,12 @@
                     {
                         "key": "Note",
                         "predicate": [
+                            "melee",
                             "target:condition:frightened",
                             "terrorizing-swing"
                         ],
                         "selector": "strike-damage",
-                        "text": "If the creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened] and takes damage, it takes an additional [[/r 2d10[bludgeoning]]]{2d10 damage} and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].",
+                        "text": "PF2E.NPCAbility.CyclopsBully.TerrorizingSwing",
                         "title": "{item|name}"
                     }
                 ],
