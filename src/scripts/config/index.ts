@@ -93,6 +93,7 @@ const senses: Record<SenseType, string> = {
     darkvision: "PF2E.Actor.Creature.Sense.Type.Darkvision",
     echolocation: "PF2E.Actor.Creature.Sense.Type.Echolocation",
     greaterDarkvision: "PF2E.Actor.Creature.Sense.Type.GreaterDarkvision",
+    heatsight: "PF2E.Actor.Creature.Sense.Type.Heatsight",
     lifesense: "PF2E.Actor.Creature.Sense.Type.Lifesense",
     lowLightVision: "PF2E.Actor.Creature.Sense.Type.LowLightVision",
     motionsense: "PF2E.Actor.Creature.Sense.Type.Motionsense",
