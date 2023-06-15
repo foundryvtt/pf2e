@@ -2,7 +2,7 @@
     <div class="action-header">
         <h3 class="item-name hide-container-toggle title">{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemy"}}</h3>
     </div>
-    <ol class="directory-list item-list formula-list ">
+    <ol class="directory-list item-list formula-list">
         <li class="formula-level-header formula-header">
             <div class="level-name reagent-cost">
                 <h3>{{localize "PF2E.CraftingTab.Alchemical.TotalCost"}}</h3>
@@ -51,14 +51,12 @@
                                 </div>
                                 <h4>{{this.name}}</h4>
                             </div>
-
-                            <div class="formula-dc"></div>
-                            <div class="formula-cost"></div>
-
-                            <div class="formula-quantity">
-                                <a class="formula-quantity-adjust" data-action="decrease-quantity">-</a>
+                            <div class="dc"></div>
+                            <div class="cost"></div>
+                            <div class="quantity">
+                                <a class="adjust decrease" data-action="decrease-quantity">&ndash;</a>
                                 <input type="number" class="formula-number" data-action="enter-quantity" value="{{this.quantity}}" />
-                                <a class="formula-quantity-adjust" data-action="increase-quantity">+</a>
+                                <a class="adjust increase" data-action="increase-quantity">+</a>
                             </div>
 
                             {{#if @root.options.editable}}
