@@ -1,5 +1,6 @@
 {
-    "_id": "48agy7vl9fQW1LLA",
+    "_id": "LhyMBLVsJMaUKGME",
+    "folder": "UkmHoJ8hTYxqXnGE",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -10,7 +11,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/greataxe.webp",
-            "name": "Greataxe",
+            "name": "Icefang",
             "sort": 100000,
             "system": {
                 "MAP": {
@@ -55,7 +56,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 3
                 },
                 "preciousMaterial": {
                     "value": null
@@ -69,16 +70,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": "greaterFrost"
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -96,7 +97,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": "majorStriking"
                 },
                 "traits": {
                     "rarity": "common",
@@ -121,7 +122,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
-            "name": "Leather Armor",
+            "name": "+2 Greater Resilient Leather Armor",
             "sort": 200000,
             "system": {
                 "armor": {
@@ -141,6 +142,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -155,41 +157,41 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 0
+                    "value": 14
                 },
                 "negateBulk": {
                     "value": "0"
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
-                        "gp": 2
+                        "gp": 4500
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": "greaterResilient"
                 },
                 "rules": [],
                 "size": "med",
@@ -225,7 +227,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greataxe",
+            "name": "Icefang",
             "sort": 300000,
             "system": {
                 "attack": {
@@ -238,12 +240,16 @@
                     ]
                 },
                 "bonus": {
-                    "value": 10
+                    "value": 39
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "1d12+4",
+                        "damage": "4d12+16",
                         "damageType": "slashing"
+                    },
+                    "YhySq9OEvGxrdvVj": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -282,12 +288,12 @@
                     ]
                 },
                 "bonus": {
-                    "value": 10
+                    "value": 36
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "1d4+4",
-                        "damageType": "slashing"
+                        "damage": "4d8+16",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -415,7 +421,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A creature that slays a draugr is subjected to a <em>@UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse]</em> spell with a @Check[type:will|dc:17|traits:spell] save. The curse ends if the draugr is buried in a calm sea or after 1 week passes.</p>"
+                    "value": "<p>A creature that slays Bolti is subjected to a <em>@UUID[Compendium.pf2e.spells-srd.z2mfh3oPnfYqXflY]{Mariner's Curse}</em> spell (heightened to 10th level, @Check[type:will|dc:42|traits:spell]). The curse ends if the cursed victim slays Trygve, or after 1 year passes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -443,10 +449,47 @@
             "type": "action"
         },
         {
+            "_id": "bS27ihuZ0Xs3mU7a",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Great Swipe",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Bolti makes a melee Strike and compares the attack roll result to the AC of up to three foes, each of whom must be within his melee reach and adjacent to each other. Roll damage only once and apply it to each creature hit. A Great Swipe counts as three attacks for Bolti's multiple attack penalty.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "cjYLiElA3muRcJuo",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Grotesque Gift",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -456,7 +499,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A draugr's attacks spatter their targets with rancid flesh and rotting seaweed. A creature damaged by a draugr's Strike must succeed at a @Check[type:fortitude|dc:15] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p>Bolti's attacks spatter his targets with rancid flesh and clotted blood. A creature damaged by one of Bolti's Strikes must succeed at a @Check[type:fortitude|dc:39] save or become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -482,43 +525,6 @@
             "type": "action"
         },
         {
-            "_id": "bS27ihuZ0Xs3mU7a",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Swipe",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The draugr makes a melee Strike and compares the attack roll result to the AC of up to two foes, each of whom must be within its melee reach and adjacent to each other. Roll damage only once and apply it to each creature hit. A Swipe counts as two attacks for the draugr's multiple attack penalty.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "V6lRpuBYpKfymx6T",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -528,7 +534,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 10
+                    "value": 38
                 },
                 "proficient": {
                     "value": 0
@@ -542,16 +548,16 @@
             "type": "lore"
         },
         {
-            "_id": "tqKkW1qwddJXG19l",
+            "_id": "Srt75uO8mkX9dePF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
+            "name": "Intimidation",
             "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 8
+                    "value": 36
                 },
                 "proficient": {
                     "value": 0
@@ -565,41 +571,41 @@
             "type": "lore"
         }
     ],
-    "name": "Draugr",
+    "name": "Bolti Sorrinson",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 1
+                "mod": 6
             },
             "con": {
-                "mod": 3
+                "mod": 7
             },
             "dex": {
-                "mod": 2
-            },
-            "int": {
-                "mod": -1
-            },
-            "str": {
                 "mod": 4
             },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 8
+            },
             "wis": {
-                "mod": 1
+                "mod": 6
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 17
+                "value": 44
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "negative healing",
-                "max": 35,
+                "max": 399,
                 "temp": 0,
-                "value": 35
+                "value": 399
             },
             "immunities": [
                 {
@@ -622,12 +628,14 @@
                 "statistic": "perception"
             },
             "perception": {
-                "value": 7
+                "value": 34
             },
             "resistances": [
                 {
+                    "doubleVs": [],
+                    "exceptions": [],
                     "type": "fire",
-                    "value": 3
+                    "value": 20
                 }
             ],
             "speed": {
@@ -641,39 +649,40 @@
             },
             "weaknesses": [
                 {
+                    "exceptions": [],
                     "type": "positive",
-                    "value": 5
+                    "value": 20
                 }
             ]
         },
         "details": {
             "alignment": {
-                "value": "CE"
+                "value": "CN"
             },
-            "blurb": "",
+            "blurb": "Variant male draugr",
             "creatureType": "Undead",
             "level": {
-                "value": 2
+                "value": 20
             },
             "privateNotes": "",
             "publicNotes": "<p>Risen corpses of sailors who died at sea, draugr reek of the rot and decay of the briny deep. Their eyes glow with ghastly green light, and rotting seaweed, barnacles, and dead sea creatures cling to their bodies. Draugr can't speak, but expresses their malicious emotions with gurgles, as though they were eternally drowning with lungs full of water. They desire little more than to attack living creatures, especially those who sail the sea. Even when they go upon land, draugrs often drag the corpses of those they strike down back to the water, populating the depths with even more dead.</p>\n<p>Draugr rise in the haunted places of the sea, where restless spirits, swells of negative energy, or supernatural storms deliver death. A corpse might rest at the bottom of the sea for some time before awakening as a draugr. Collecting detritus and organisms, a corpse becomes increasingly disgusting before it finally rises. Proximity to intelligent life can expedite this process, and an underwater explorer who happens upon a shipwreck might cause a body to snap to unlife as a draugr suddenly. The creatures don't take intrusions lightly, especially upon their place of death.</p>\n<p>Though steeped in evil, draugr are susceptible to reminders of their lives as mariners. In particular, a well-performed sea shanty or call-and-response work song might cause a draugr to become lost in reverie for a moment. The creatures have even been witnessed moaning along, unable to sing the words but providing haunting accompaniment. The lull rarely lasts long, though, as the beauty of the song quickly becomes a reminder of the tragedy that befell the draugr, reaffirming their desire for blood and death.</p>\n<p>More powerful draugr with burning red eyes are called draugr captains. They're 3rd-level creatures with elite adjustments that can cast obscuring mist as an innate divine spell three times per day.</p>",
             "source": {
-                "value": "Pathfinder Bestiary 2"
+                "value": "Pathfinder #192: Worst of All Possible Worlds"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 11
+                "value": 35
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 6
+                "value": 30
             },
             "will": {
                 "saveDetail": "",
-                "value": 7
+                "value": 34
             }
         },
         "traits": {
@@ -681,13 +690,14 @@
                 "value": "hostile"
             },
             "languages": {
-                "custom": "(Can't Speak Any Language)",
+                "custom": "",
                 "selected": [],
                 "value": [
-                    "common"
+                    "common",
+                    "skald"
                 ]
             },
-            "rarity": "common",
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision"
             },

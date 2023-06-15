@@ -1,0 +1,133 @@
+{
+    "_id": "eqzDPseLIfWJMxAR",
+    "img": "systems/pf2e/icons/equipment/held-items/spellbook-of-redundant-enchantment.webp",
+    "name": "Effect: Harrow Burst",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "type": "formula",
+            "value": "1d6"
+        },
+        "description": {
+            "value": "<p>A creature that fails its save rolls 1d6 to determine a suit of cards: 1 = hammers (Strength), 2 = keys (Dexterity), 3 = shields (Constitution), 4 = books (Intelligence), 5 = stars (Wisdom), 6 = crowns (Charisma). The creature takes a –1 status penalty to all checks related to that ability score for 1 round (–2 status penalty on a critical failure)</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 20
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:harrow-burst:1"
+                ],
+                "selector": "str-based",
+                "slug": "harrow-burst",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:harrow-burst:2"
+                ],
+                "selector": "dex-based",
+                "slug": "harrow-burst",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:harrow-burst:3"
+                ],
+                "selector": "con-based",
+                "slug": "harrow-burst",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:harrow-burst:4"
+                ],
+                "selector": "int-based",
+                "slug": "harrow-burst",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:harrow-burst:5"
+                ],
+                "selector": "wis-based",
+                "slug": "harrow-burst",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:harrow-burst:6"
+                ],
+                "selector": "cha-based",
+                "slug": "harrow-burst",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "harrow-burst"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "harrow-burst:critical-failure"
+                ],
+                "selectors": [
+                    "str-based",
+                    "dex-based",
+                    "con-based",
+                    "int-based",
+                    "wis-based",
+                    "cha-based"
+                ],
+                "slug": "harrow-burst",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
