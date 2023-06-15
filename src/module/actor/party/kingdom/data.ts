@@ -26,10 +26,10 @@ type KingdomLeadershipRole = (typeof KINGDOM_LEADERSHIP)[number];
 export {
     KingdomAbility,
     KingdomCHG,
-    KingdomSchema,
     KingdomData,
     KingdomGovernment,
     KingdomLeadershipData,
+    KingdomSchema,
     KingdomSource,
     FameType,
 };
