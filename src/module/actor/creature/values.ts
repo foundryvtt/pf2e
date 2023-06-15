@@ -23,7 +23,6 @@ const SENSES_WITH_MANDATORY_ACUITIES = {
     greaterDarkvision: "precise",
     lowLightVision: "precise",
     seeInvisibility: "precise",
-    tremorsense: "imprecise",
 } as const satisfies { [K in SenseType]?: SenseAcuity };
 
 export { ALIGNMENTS, ALIGNMENT_TRAITS, ALLIANCES, SENSES_WITH_MANDATORY_ACUITIES, SIZE_TO_REACH };
