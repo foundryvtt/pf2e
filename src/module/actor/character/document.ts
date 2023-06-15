@@ -1761,6 +1761,19 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
                 return Math.min(category.rank, maxRankIndex) as ZeroToFour;
             })();
+            if (proficiency.sameAsGroup) {
+                const rollOptions = [`item:category:${proficiency.sameAs}`, `item:group:${proficiency.sameAsGroup}`];
+                for (const [_key, otherProficiency] of Object.entries(systemData.martial)) {
+                    if (
+                        !("sameAs" in otherProficiency) &&
+                        "definition" in otherProficiency &&
+                        otherProficiency.rank > proficiency.rank &&
+                        otherProficiency.definition.test(rollOptions)
+                    ) {
+                        proficiency.rank = otherProficiency.rank;
+                    }
+                }
+            }
         }
 
         // Deduplicate proficiencies, set proficiency bonuses to all
@@ -1772,7 +1785,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 proficiency.rank >= p.rank &&
                 "definition" in proficiency &&
                 "definition" in p &&
-                proficiency.sameAs === p.sameAs &&
                 sortedStringify(p.definition) === stringDefinition
                     ? k
                     : []
