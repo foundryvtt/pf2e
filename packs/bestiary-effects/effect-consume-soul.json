@@ -1,0 +1,101 @@
+{
+    "_id": "YOH7YsdlsLzlMu69",
+    "img": "systems/pf2e/icons/spells/adaptive-ablation.webp",
+    "name": "Effect: Consume Soul",
+    "system": {
+        "description": {
+            "value": "<p>The obcisidaemon chooses one of the following effects.</p>\n<p><em>Empower Spell</em> The obcisidaemon gains a +2 status bonus to its spell DCs and spell attack rolls until the end of its next turn.</p>\n<p><em>Empower Weapon</em> The obcisidaemon's weapon gains the effects of a greater flaming, greater frost, greater shock, or wounding rune until the end of its next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Obcisidaemon.ConsumeSoul.EmpowerSpell",
+                        "value": "spell"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Obcisidaemon.ConsumeSoul.EmpowerWeapon",
+                        "value": "weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Obcisidaemon.ConsumeSoul.Prompt",
+                "rollOption": "empower"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterFlaming.Name",
+                        "value": "greater-flaming"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterFrost.Name",
+                        "value": "greater-frost"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterShock.Name",
+                        "value": "greater-shock"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.wounding.Name",
+                        "value": "wounding"
+                    }
+                ],
+                "flag": "rune",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "empower:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Rune"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "empower:spell"
+                ],
+                "selector": [
+                    "spell-attack",
+                    "spell-dc"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "definition": [
+                    "item:slug:halberd"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "empower:weapon"
+                ],
+                "property": "property-runes",
+                "value": "{item|flags.pf2e.rulesSelections.rune}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
