@@ -31,14 +31,14 @@ import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
 import { CharacterPF2e } from "./document.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
-import { DamageType } from "@system/damage/types.ts";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -282,12 +282,10 @@ interface PathfinderSocietyData {
 
 interface CharacterResources extends CreatureResources {
     /** The current and maximum number of hero points */
-    heroPoints: { value: number; max: number };
+    heroPoints: ValueAndMax;
     /** The current and maximum number of invested items */
-    investiture: { value: number; max: number };
-    crafting: {
-        infusedReagents: { value: number; max: number };
-    };
+    investiture: ValueAndMax;
+    crafting: { infusedReagents: ValueAndMax };
 }
 
 interface CharacterPerception extends PerceptionData {
