@@ -16,6 +16,9 @@ const SETTINGS: Record<string, SettingRegistration> = {
             0: "PF2E.SETTINGS.Variant.Stamina.Choices.0",
             1: "PF2E.SETTINGS.Variant.Stamina.Choices.1", // I plan to expand this, hence the dropdown.
         },
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.type === "character"));
+        },
     },
     ancestryParagonVariant: {
         name: "PF2E.SETTINGS.Variant.AncestryParagon.Name",
