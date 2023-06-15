@@ -41,12 +41,6 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
             }
         }
 
-        if ("sameAsGroup" in data) {
-            if (typeof data.sameAs !== "string" || !(data.sameAs in CONFIG.PF2E.weaponGroups)) {
-                this.failValidation('The "sameAsGroup" property is invalid');
-            }
-        }
-
         if ("maxRank" in data) {
             const validRanks: string[] = PROFICIENCY_RANKS.filter((rank) => rank !== "untrained");
             if (!(typeof data.maxRank === "string") || !validRanks.includes(data.maxRank)) {
