@@ -55,6 +55,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        /*
         // Subscribe to roll events
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
         for (const rollable of htmlQueryAll(html, rollables)) {
@@ -62,6 +63,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 this.#onClickRollable(rollable, event);
             });
         }
+        */
 
         // Don't subscribe to edit buttons it the sheet is not editable
         if (!this.options.editable) return;
@@ -82,11 +84,13 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         }
     }
 
+    /*
     async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
         const check = link?.parentElement?.dataset ?? {};
         const rollParams = eventToRollParams(event);
         await this.actor.attributes.[check].roll(rollParams);
-    }   
+    } 
+    */  
 }
 
 export { ArmySheetPF2e };
