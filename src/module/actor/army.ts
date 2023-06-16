@@ -52,10 +52,6 @@ import { Alignment } from "./creature";
 
     class ArmyPF2e extends ActorPF2e {
 
-        override get allowedItemTypes(): (ItemType | "physical")[] {
-            return [...super.allowedItemTypes, "physical", "action", "melee"];
-        };
-
         get rarity(): Rarity {
             return this.system.traits.rarity;
         };
@@ -163,8 +159,6 @@ import { Alignment } from "./creature";
             value: never[];
         };
 
-        actions: NPCStrike[];
-
     }
 
     interface ArmySystemData extends ActorSystemData {
@@ -187,6 +181,7 @@ import { Alignment } from "./creature";
         details: {
             alliance: ActorAlliance;
             level: { value: number };
+            potions : 0 | 1 | 2 | 3;
         };
         traits: {
             rarity: Rarity;
