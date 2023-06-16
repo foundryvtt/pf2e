@@ -68,13 +68,25 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         // Don't subscribe to edit buttons it the sheet is not editable
         if (!this.options.editable) return;
 
+        // ================= //
+        //      POTIONS      //
+        // ================= //
         const potionBottlesList = htmlQueryAll(html, "button.potion");
         if (potionBottlesList.length > 0) {
             const listener = (event: Event) => {
                 const oldbottlecount = this.actor.system.details.potions;
                 const change = event.type === "click" ? 1 : -1;
                 const newbottlecount = oldbottlecount + change;
+                if (newbottlecount > 3) {
+                    console.log("You cannot have more than 3 bottles");
+                    this.actor.update({ "system.details.potions" : 3 });
+                }
+                else if (newbottlecount < 0) {
+                    console.log("You cannot have fewer than 0 bottles");
+                    this.actor.update({ "system.details.potions" : 0 });
+                } else {
                 this.actor.update({ "system.details.potions" : newbottlecount });
+                }
             };
     
             for (const bottles of potionBottlesList) {

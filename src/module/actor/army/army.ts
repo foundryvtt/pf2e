@@ -33,14 +33,12 @@ import {
     BaseActorSourcePF2e,
     GangUpCircumstance,
     FlatFootableCircumstance
-} from "@actor/data/base";
-import { ActorPF2e } from "@actor/base";
-import { ItemType } from "@item/data";
-import { ActorSizePF2e } from "@actor/data/size";
-import { NPCStrike } from "@actor/npc";
-import { Rarity } from "@module/data";
-import { ActorAlliance } from "./types";
-import { Alignment } from "./creature";
+} from "@actor/data/base.ts";
+import { ActorPF2e } from "@actor/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
+import { Rarity } from "@module/data.ts";
+import { ActorAlliance } from "../types.ts";
+import { Alignment } from "../creature/index.ts";
 
 // ************************** //
 //            TS              //
@@ -130,7 +128,7 @@ import { Alignment } from "./creature";
             alignment: Alignment;
             description: string;
             blurb: string;
-            potions : 0 | 1 | 2 | 3;
+            potions : number;
             recruitmentDC: number;
             consumption: number;
         };
@@ -181,7 +179,7 @@ import { Alignment } from "./creature";
         details: {
             alliance: ActorAlliance;
             level: { value: number };
-            potions : 0 | 1 | 2 | 3;
+            potions : number;
         };
         traits: {
             rarity: Rarity;
