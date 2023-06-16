@@ -1,12 +1,12 @@
 import { CreaturePF2e } from "@actor";
-import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { LanguageSheetData, MemberBreakdown, PartySheetData } from "./types.ts";
-import { Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, htmlQueryAll, sortBy, sum } from "@util";
-import { PartyPF2e } from "./document.ts";
 import { Language } from "@actor/creature/index.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { createHTMLElement, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import { PartyPF2e } from "./document.ts";
+import { LanguageSheetData, MemberBreakdown, PartySheetData } from "./types.ts";
 
 interface PartySheetRenderOptions extends RenderOptions {
     actors?: boolean;
@@ -85,10 +85,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 .reverse()
                 .slice(0, 5)
                 .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank }));
-            const heroPointsData = actor.isOfType("character") ? actor.system.resources.heroPoints : null;
-            const heroPoints = heroPointsData
-                ? { value: heroPointsData.value, inactive: heroPointsData.max - heroPointsData.value }
-                : null;
+            const heroPoints = actor.isOfType("character") ? actor.system.resources.heroPoints : null;
             const senses = (() => {
                 const rawSenses = actor.system.traits.senses ?? [];
                 if (!Array.isArray(rawSenses)) {
@@ -135,22 +132,44 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
-        for (const actorLink of htmlQueryAll(html, ".actor-link[data-actor-uuid]")) {
-            actorLink.addEventListener("click", () => {
-                const uuid = actorLink.dataset.actorUuid;
-                const actor = this.document.members.find((m) => m?.uuid === uuid);
-                actor?.sheet.render(true);
-            });
-        }
+        for (const memberElem of htmlQueryAll(html, "[data-actor-uuid]")) {
+            const actorUUID = memberElem.dataset.actorUuid;
+            const actor = this.document.members.find((m) => m.uuid === actorUUID);
 
-        for (const actorDeleteLink of htmlQueryAll(html, "[data-action=member-delete][data-actor-uuid]")) {
-            actorDeleteLink.addEventListener("click", async () => {
-                const uuid = actorDeleteLink.dataset.actorUuid;
-                const remove = await Dialog.confirm({ title: "Remove member", content: "Remove member from party?" });
-                if (remove) {
-                    this.document.removeMembers(uuid as ActorUUID);
-                }
-            });
+            const openSheetLinks =
+                memberElem.dataset.action === "open-sheet"
+                    ? [memberElem]
+                    : htmlQueryAll(memberElem, "[data-action=open-sheet]");
+            for (const link of openSheetLinks) {
+                link.addEventListener("click", () => {
+                    actor?.sheet.render(true);
+                });
+            }
+
+            if (game.user.isGM) {
+                htmlQuery(memberElem, "a[data-action=remove-member]")?.addEventListener("click", async (event) => {
+                    const confirmed = event.ctrlKey
+                        ? true
+                        : await Dialog.confirm({ title: "Remove member", content: "Remove member from party?" });
+                    if (confirmed && actor) {
+                        this.document.removeMembers(actor);
+                    }
+                });
+            }
+
+            if (actor?.isOfType("character") && actor.canUserModify(game.user, "update")) {
+                const heroPointsPips = htmlQuery(memberElem, "a[data-action=adjust-hero-points]");
+                const { heroPoints } = actor;
+                heroPointsPips?.addEventListener("click", async () => {
+                    const newValue = Math.min(heroPoints.value + 1, heroPoints.max);
+                    await actor.update({ "system.resources.heroPoints.value": newValue });
+                });
+                heroPointsPips?.addEventListener("contextmenu", async (event) => {
+                    event.preventDefault();
+                    const newValue = Math.max(heroPoints.value - 1, 0);
+                    await actor.update({ "system.resources.heroPoints.value": newValue });
+                });
+            }
         }
 
         // Mouseover tooltips to show actors that speak the language
@@ -184,10 +203,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     /** Recursively performs a render and activation of all sub-regions */
-    async renderRegions(element: JQuery<HTMLElement>, data: object): Promise<void> {
+    async #renderRegions(element: HTMLElement, data: object): Promise<void> {
         // Eventually this should cache results to compare if re-rendering
-        const regions = element.find("[data-region]");
-        for (const region of regions) {
+        for (const region of htmlQueryAll(element, "[data-region]")) {
             const regionId = region.dataset.region ?? "";
             const templateName = this.regionTemplates[regionId];
             if (!templateName) continue;
@@ -200,7 +218,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 this.activateListeners($(region));
             }
 
-            await this.renderRegions($(region), data);
+            await this.#renderRegions(region, data);
         }
     }
 
@@ -208,7 +226,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         if (options?.actors) {
             const data = await this.getData();
             this._saveScrollPositions(this.element);
-            await this.renderRegions(this.element, data);
+            await this.#renderRegions(this.element[0], data);
             this._restoreScrollPositions(this.element);
             return this;
         } else {
@@ -221,7 +239,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         options: RenderOptions
     ): Promise<JQuery<HTMLElement>> {
         const result = await super._renderInner(data, options);
-        await this.renderRegions(result, data);
+        await this.#renderRegions(result[0], data);
 
         return result;
     }

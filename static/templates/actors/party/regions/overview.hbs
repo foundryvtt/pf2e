@@ -17,31 +17,33 @@
             </ul>
         </div>
     {{/if}}
+
     {{#each members as |member|}}
-        <section class="member-breakdown">
-            <div class="member-image">
-                <img class="actor-link" data-actor-uuid="{{member.actor.uuid}}" src="{{member.actor.img}}" />
+        <section class="member" data-actor-uuid="{{member.actor.uuid}}">
+            <div class="portrait">
+                <a data-action="open-sheet"><img src="{{member.actor.img}}" /></a>
                 <span class="ac">
                     <div class="shield"></div>
-                    <label>AC</label>
+                    <label>{{localize "PF2E.ArmorClassShortLabel"}}</label>
                     <span class="value">{{member.actor.attributes.ac.value}}</span>
                 </span>
             </div>
-            <div class="member-data">
+            <div class="data">
                 <div class="name">
-                    <a class="actor-link" data-actor-uuid="{{member.actor.uuid}}">
-                        {{member.actor.name}}
-                    </a>
-                    <a data-action="member-delete" data-actor-uuid="{{member.actor.uuid}}"><i class="fas fa-fw fa-times"></i></a>
+                    <a data-action="open-sheet">{{member.actor.name}}</a>
+                    {{#if @root.user.isGM}}
+                        <a data-action="remove-member"><i class="fa-solid fa-fw fa-times"></i></a>
+                    {{/if}}
                     {{#if member.heroPoints}}
-                        <div class="hero-points">
-                            {{#times member.heroPoints.inactive}}
-                                <span class="empty"></span>
+                        <a class="hero-points" data-action="adjust-hero-points">
+                            {{#times member.heroPoints.max}}
+                                {{#if (gt member.heroPoints.value this)}}
+                                    <img src="/systems/pf2e/dice/basic/heads.webp" />
+                                {{else}}
+                                    <span class="empty"></span>
+                                {{/if}}
                             {{/times}}
-                            {{#times member.heroPoints.value}}
-                                <img src="/systems/pf2e/dice/basic/heads.webp"/>
-                            {{/times}}
-                        </div>
+                        </a>
                     {{/if}}
                 </div>
 
