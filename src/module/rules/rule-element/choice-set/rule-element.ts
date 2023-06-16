@@ -4,6 +4,7 @@ import { FeatPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import { Progress } from "@system/progress.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { isObject, localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -19,7 +20,6 @@ import {
     UninflatedChoiceSet,
 } from "./data.ts";
 import { ChoiceSetPrompt } from "./prompt.ts";
-import { Progress } from "@module/apps/progress.ts";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
@@ -335,12 +335,12 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                           p.metadata.type === "Item" && p.index.some((e) => e.type === itemType)
                   );
 
-        const progress = new Progress({ steps: packs.length });
+        const progress = new Progress({ max: packs.length });
         const localize = localizer("PF2E.ProgressBar");
         // Retrieve index fields from matching compendiums and use them for predicate testing
         const indexData: CompendiumIndex[] = [];
         for (const pack of packs) {
-            progress.advance(localize("LoadingPack", { pack: pack.metadata.label }));
+            progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
             indexData.push(
                 await pack.getIndex({
                     fields: [
@@ -357,7 +357,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 })
             );
         }
-        progress.close(localize("LoadingComplete"));
+        progress.close({ label: localize("LoadingComplete") });
 
         const filteredItems = indexData
             .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
