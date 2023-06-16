@@ -36,15 +36,19 @@ export class MockCollection<V> {
     }
 
     find(predicate: (value: V) => boolean): V | undefined {
-        return Array.from(this.#map.values()).find(predicate);
+        return this.contents.find(predicate);
     }
 
     some(predicate: (value: V) => boolean): boolean {
-        return Array.from(this.#map.values()).some(predicate);
+        return this.contents.some(predicate);
     }
 
     filter(predicate: (value: V) => boolean): V[] {
-        return Array.from(this.#map.values()).filter(predicate);
+        return this.contents.filter(predicate);
+    }
+
+    map<T>(callback: (value: V) => T): T[] {
+        return this.contents.map(callback);
     }
 
     delete(key: string): boolean {
