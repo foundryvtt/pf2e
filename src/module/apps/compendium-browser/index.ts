@@ -1,16 +1,15 @@
-import * as R from "remeda";
 import { KitPF2e, PhysicalItemPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/action/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
+import { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
-import { UserPF2e } from "@module/user/document.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
+import * as R from "remeda";
+import { Progress } from "../../system/progress.ts";
 import { BrowserTabs, PackInfo, SortDirection, SourceInfo, TabData, TabName } from "./data.ts";
-import { Progress } from "../progress.ts";
-import * as browserTabs from "./tabs/index.ts";
 import {
     ActionFilters,
     BestiaryFilters,
@@ -24,6 +23,7 @@ import {
     SliderData,
     SpellFilters,
 } from "./tabs/data.ts";
+import * as browserTabs from "./tabs/index.ts";
 
 class PackLoader {
     loadedPacks: {
@@ -47,19 +47,19 @@ class PackLoader {
         const localize = localizer("PF2E.ProgressBar");
         const sources = this.#getSources();
 
-        const progress = new Progress({ steps: packs.length });
+        const progress = new Progress({ max: packs.length });
         for (const packId of packs) {
             let data = this.loadedPacks[documentType][packId];
             if (data) {
                 const { pack } = data;
-                progress.advance(localize("LoadingPack", { pack: pack?.metadata.label ?? "" }));
+                progress.advance({ label: localize("LoadingPack", { pack: pack?.metadata.label ?? "" }) });
             } else {
                 const pack = game.packs.get(packId);
                 if (!pack) {
-                    progress.advance("");
+                    progress.advance();
                     continue;
                 }
-                progress.advance(localize("LoadingPack", { pack: pack.metadata.label }));
+                progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
                 if (pack.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
                     const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
@@ -82,7 +82,7 @@ class PackLoader {
 
             yield data;
         }
-        progress.close(localize("LoadingComplete"));
+        progress.close({ label: localize("LoadingComplete") });
     }
 
     /** Set art provided by a module if any is available */
@@ -153,8 +153,8 @@ class PackLoader {
     }
 
     async #loadSources(packs: string[]): Promise<void> {
-        const localize = localizer("PF2E.CompendiumBrowser.ProgressBar");
-        const progress = new Progress({ steps: packs.length });
+        const localize = localizer("PF2E.ProgressBar");
+        const progress = new Progress({ max: packs.length });
 
         const loadedSources = new Set<string>();
         const indexFields = ["system.details.source.value", "system.source.value"];
@@ -163,10 +163,10 @@ class PackLoader {
         for (const packId of packs) {
             const pack = game.packs.get(packId);
             if (!pack || !knownDocumentTypes.includes(pack.documentName)) {
-                progress.advance("");
+                progress.advance();
                 continue;
             }
-            progress.advance(localize("LoadingPack", { pack: pack?.metadata.label ?? "" }));
+            progress.advance({ label: localize("LoadingPack", { pack: pack?.metadata.label ?? "" }) });
             const index = await pack.getIndex({ fields: indexFields });
 
             for (const element of index) {
@@ -177,7 +177,7 @@ class PackLoader {
             }
         }
 
-        progress.close(localize("LoadingComplete"));
+        progress.close({ label: localize("LoadingComplete") });
         const loadedSourcesArray = Array.from(loadedSources).sort();
         this.loadedSources = loadedSourcesArray;
     }
