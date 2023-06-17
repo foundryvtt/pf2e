@@ -1,6 +1,4 @@
-import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { localizeList, objectHasKey, tupleHasValue } from "@util";
@@ -20,10 +18,10 @@ class FastHealingRuleElement extends RuleElementPF2e implements FastHealingData 
 
     #details?: string;
 
-    constructor(data: FastHealingSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: FastHealingSource, options: RuleElementOptions) {
         data.type ??= "fast-healing";
 
-        super(data, item, options);
+        super(data, options);
 
         this.deactivatedBy =
             Array.isArray(data.deactivatedBy) && data.deactivatedBy.every((db): db is string => typeof db === "string")

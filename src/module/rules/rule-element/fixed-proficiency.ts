@@ -1,13 +1,12 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
-import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication.ts";
 import { setHasElement, sluggify } from "@util";
-import { RuleElementPF2e, RuleElementSource } from "./index.ts";
 import { RuleElementOptions } from "./base.ts";
+import { RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -21,8 +20,8 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
 
     private ability: AbilityString | null;
 
-    constructor(data: FixedProficiencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: FixedProficiencySource, options: RuleElementOptions) {
+        super(data, options);
 
         if (typeof data.selector === "string") {
             this.selector = data.selector;

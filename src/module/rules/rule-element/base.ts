@@ -19,7 +19,10 @@ const { fields } = foundry.data;
  *
  * @category RuleElement
  */
-abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends DataModel<null, TSchema> {
+abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends DataModel<
+    ItemPF2e<ActorPF2e>,
+    TSchema
+> {
     data: RuleElementData;
 
     sourceIndex: number | null;
@@ -33,9 +36,10 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @param source unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(source: RuleElementSource, public item: ItemPF2e<ActorPF2e>, options: RuleElementOptions = {}) {
-        source.label ??= item.name;
-        super(source, { strict: false });
+    constructor(source: RuleElementSource, options: RuleElementOptions) {
+        source.label ??= options.parent.name;
+        super(source, { parent: options.parent, strict: false });
+        const { item } = this;
 
         // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
         this.suppressWarnings = options.suppressWarnings ?? !this.actor.id;
@@ -106,8 +110,12 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         return schema;
     }
 
+    get item(): this["parent"] {
+        return this.parent;
+    }
+
     get actor(): ActorPF2e {
-        return this.item.actor;
+        return this.parent.actor;
     }
 
     /** Retrieves the token from the actor, or from the active tokens. */
@@ -320,7 +328,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 }
 
 interface RuleElementPF2e<TSchema extends RuleElementSchema>
-    extends foundry.abstract.DataModel<null, TSchema>,
+    extends foundry.abstract.DataModel<ItemPF2e<ActorPF2e>, TSchema>,
         foundry.data.fields.ModelPropsFromSchema<RuleElementSchema> {
     constructor: typeof RuleElementPF2e<TSchema>;
 
@@ -446,11 +454,12 @@ namespace RuleElementPF2e {
     export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
 }
 
-interface RuleElementOptions {
+type RuleElementOptions = {
+    parent: ItemPF2e<ActorPF2e>;
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */
     suppressWarnings?: boolean;
-}
+};
 
 export { RuleElementPF2e, RuleElementOptions };

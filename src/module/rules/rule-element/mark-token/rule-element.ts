@@ -1,5 +1,3 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -14,8 +12,8 @@ class MarkTokenRuleElement extends RuleElementPF2e {
     /** The uuid of the token */
     tokenUUID: string | null;
 
-    constructor(data: MarkTokenSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: MarkTokenSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (typeof data.slug === "string" && data.slug.length > 0) {
             this.slug = sluggify(data.slug);

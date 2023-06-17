@@ -1,8 +1,6 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
-import { RuleElementSource } from "./index.ts";
 import { RollTwiceSynthetic } from "../synthetics.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElementSource } from "./index.ts";
 
 /** Roll Twice and keep either the higher or lower result */
 export class RollTwiceRuleElement extends RuleElementPF2e {
@@ -13,8 +11,8 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
     /** If the hosting item is an effect, remove or expire it after a matching roll is made */
     removeAfterRoll = this.item.isOfType("effect");
 
-    constructor(data: RollTwiceSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: RollTwiceSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (this.#isValid(data)) {
             this.selector = this.resolveInjectedProperties(data.selector);
@@ -24,7 +22,7 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
             const removeExpired = game.settings.get("pf2e", "automation.removeExpiredEffects");
 
             this.removeAfterRoll =
-                (expireEffects || removeExpired) && item.isOfType("effect")
+                (expireEffects || removeExpired) && this.item.isOfType("effect")
                     ? Boolean(data.removeAfterRoll ?? true)
                     : false;
         }

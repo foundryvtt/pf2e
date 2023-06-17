@@ -1,6 +1,7 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { AbilityString } from "@actor/types.ts";
+import { WeaponPF2e } from "@item";
 import { NPCAttackTrait } from "@item/melee/data.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import {
@@ -24,7 +25,6 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
-import { AbilityString } from "@actor/types.ts";
 
 const { fields } = foundry.data;
 
@@ -35,10 +35,10 @@ const { fields } = foundry.data;
 class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    constructor(source: StrikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        source.img ??= item.img;
+    constructor(source: StrikeSource, options: RuleElementOptions) {
+        source.img ??= options.parent.img;
 
-        super(source, item, options);
+        super(source, options);
 
         // Force a label of "Fist" if the `fist` shorthand is being used
         if (this.fist) {
@@ -169,10 +169,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 
     /** Keep shorthand `fist` source data to its minimum form */
-    protected override _initializeSource(
-        source: object,
-        options?: DataModelConstructionOptions<null>
-    ): this["_source"] {
+    protected override _initializeSource(source: object, options: RuleElementOptions): this["_source"] {
         return "fist" in source && source.fist === true
             ? (source as this["_source"])
             : super._initializeSource(source, options);

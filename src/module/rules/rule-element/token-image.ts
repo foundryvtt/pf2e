@@ -1,5 +1,3 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
@@ -15,8 +13,8 @@ export class TokenImageRuleElement extends RuleElementPF2e {
     tint?: HexColorString;
     alpha?: number;
 
-    constructor(data: TokenImageSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: TokenImageSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (typeof data.value === "string" || this.isBracketedValue(data.value)) {
             this.value = data.value;

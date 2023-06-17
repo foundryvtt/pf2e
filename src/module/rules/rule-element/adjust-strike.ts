@@ -1,6 +1,5 @@
-import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data.ts";
 import { prunePropertyRunes } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
@@ -18,8 +17,8 @@ const { fields } = foundry.data;
 class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    constructor(data: AdjustStrikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super({ ...data, path: "ignore", phase: "beforeDerived", priority: 110 }, item, options);
+    constructor(data: AdjustStrikeSource, options: RuleElementOptions) {
+        super({ ...data, path: "ignore", phase: "beforeDerived", priority: 110 }, options);
     }
 
     static VALID_PROPERTIES = new Set([

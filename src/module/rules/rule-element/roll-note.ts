@@ -1,11 +1,9 @@
-import { ItemPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
-import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { isObject } from "@util";
 import type { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
 import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
-import { ActorPF2e } from "@actor";
 
 const { fields } = foundry.data;
 
@@ -31,8 +29,8 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     /** The main text of the note */
     text: string | BracketedValue<string>;
 
-    constructor(source: RollNoteSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(source, item, options);
+    constructor(source: RollNoteSource, options: RuleElementOptions) {
+        super(source, options);
 
         if (this.#isValid(source)) {
             this.text = source.text;

@@ -1,10 +1,9 @@
-import { ActorPF2e } from "@actor/base.ts";
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import { FeatPF2e, ItemPF2e } from "@item";
+import { FeatPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
 import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 import { ResolvableValueField } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 const { fields } = foundry.data;
 
@@ -13,9 +12,9 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
-    constructor(data: AELikeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: AELikeSource, options: RuleElementOptions) {
         const hasExplicitPriority = typeof data.priority === "number";
-        super(data, item, options);
+        super(data, options);
 
         // Set priority according to AE change mode if no priority was explicitly set
         if (!hasExplicitPriority) {

@@ -1,9 +1,8 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { CreaturePF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { RuleElementPF2e, RuleElementSource } from "./index.ts";
 import { RuleElementOptions } from "./base.ts";
+import { RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /** Reduce current hit points without applying damage */
 export class LoseHitPointsRuleElement extends RuleElementPF2e {
@@ -15,8 +14,8 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
      */
     private reevaluateOnUpdate: boolean;
 
-    constructor(data: LoseHitPointsSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: LoseHitPointsSource, options: RuleElementOptions) {
+        super(data, options);
 
         const valueIsValid = typeof data.value === "number" || typeof data.value === "string";
         if (!valueIsValid) {
