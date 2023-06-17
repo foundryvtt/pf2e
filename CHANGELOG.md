@@ -1,3 +1,33 @@
+## 5.0.1
+
+### System Improvements
+
+-   (stwlam) Add heatsight as sense type
+-   (stwlam) Display progress bar during system migrations
+-   (stwlam) Add vehicle hardness processing to damage application
+-   (Supe) Stack items acquired or purchased from the compendium browser
+
+### Bugfixes
+
+-   (cdverrett94) Add core Append Number and Prepend Adjective fields to Prototype Token Config
+-   (In3luki) Fix broken thumbnails in compendium sidebar `JournalEntry` search results
+-   (In3luki) Fix issue causing vehicle sheet to be unopenable
+-   (stwlam) Update format of source links generated in spell consumable descriptions to V11 standard
+-   (stwlam) Fix compendium drag & drop functionality
+-   (stwlam) Fix style issue in PC sheet's advanced alchemy template
+
+### Data Updates
+
+-   (Cora) Replace core compendium pack banner images
+-   (Dire Weasel) Add effects for Crushing runes
+-   (Dire Weasel) Move Parsus' key details to GM note
+-   (Dire Weasel) Update Cyclops Bully's Terrorizing Swing rule elements and localize
+-   (stwlam) Add rule elements to Snaring Anadi heritage
+-   (stwlam) Update Hero Point deck to paged format, migrate UUIDs to V11 format
+-   (Tikael) Add inline save to Draugr curse
+-   (Tikael) Improve automation of Shield of the Unified Legion
+-   (TiloBuechsenschuss) Add rule elements to Archer's Aim
+
 ## 5.0.0-beta2
 
 ### Bugfixes
