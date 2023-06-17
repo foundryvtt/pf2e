@@ -211,7 +211,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     protected override _onDragStart(event: ElementDragEvent): void {
         const dragElement = event.currentTarget;
         const { uuid } = dragElement.dataset;
-        if (!uuid) return;
+        if (!uuid) return super._onDragStart(event);
 
         const indexEntry = fromUuidSync(uuid);
         if (!indexEntry) throw ErrorPF2e("Unexpected error retrieving index data");
