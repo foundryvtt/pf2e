@@ -5,20 +5,14 @@ import { ErrorPF2e, fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
 import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
-export class CompendiumDirectoryPF2e extends CompendiumDirectory {
-    readonly searchEngine: MiniSearch<CompendiumIndexData>;
-
-    constructor(options?: ApplicationOptions) {
-        super(options);
-
-        this.searchEngine = new MiniSearch<CompendiumIndexData>({
-            fields: ["name"],
-            idField: "uuid",
-            processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
-            searchOptions: { combineWith: "AND", prefix: true },
-            storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
-        });
-    }
+class CompendiumDirectoryPF2e extends CompendiumDirectory {
+    static readonly searchEngine = new MiniSearch<CompendiumIndexData>({
+        fields: ["name"],
+        idField: "uuid",
+        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        searchOptions: { combineWith: "AND", prefix: true },
+        storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
+    });
 
     /** Include ability to search and drag document search results */
     static override get defaultOptions(): ApplicationOptions {
@@ -158,10 +152,10 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         }
 
         // Match documents within each compendium by name
-        const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
+        const docMatches = query.length > 0 ? this.constructor.searchEngine.search(query) : [];
 
         // Create a list of document matches
-        const matchTemplate = htmlQuery<HTMLTemplateElement>(html, "#compendium-search-match");
+        const matchTemplate = htmlQuery<HTMLTemplateElement>(html, ".compendium-search-match");
         if (!matchTemplate) throw ErrorPF2e("Match template not found");
 
         const listElements = docMatches.map((match): HTMLLIElement => {
@@ -241,7 +235,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     compileSearchIndex(): void {
         console.debug("PF2e System | compiling search index");
         const packs = game.packs.filter((p) => p.index.size > 0 && p.testUserPermission(game.user, "OBSERVER"));
-        this.searchEngine.removeAll();
+        this.constructor.searchEngine.removeAll();
 
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
@@ -249,12 +243,18 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 documentType: pack.metadata.type,
                 packLabel: pack.metadata.label,
             }));
-            this.searchEngine.addAll(contents);
+            this.constructor.searchEngine.addAll(contents);
         }
         console.debug("PF2e System | Finished compiling search index");
     }
 }
 
+interface CompendiumDirectoryPF2e extends CompendiumDirectory {
+    constructor: typeof CompendiumDirectoryPF2e;
+}
+
 interface CompendiumDirectoryDataPF2e extends CompendiumDirectoryData {
     searchContents: boolean;
 }
+
+export { CompendiumDirectoryPF2e };
