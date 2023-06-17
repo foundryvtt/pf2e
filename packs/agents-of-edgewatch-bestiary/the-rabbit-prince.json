@@ -1125,7 +1125,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "2d10 persistent bleed",
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1180,10 +1180,6 @@
                     "0": {
                         "damage": "3d4+13",
                         "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "2d10",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
@@ -1267,7 +1263,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better",
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "will"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1336,12 +1341,23 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever the Rabbit Prince deals piercing damage, he also deals [[/r 2d10[bleed]]].</p>"
+                    "value": "<p>Whenever the Rabbit Prince deals piercing damage, he also deals 2d10 persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:damage:type:piercing"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
