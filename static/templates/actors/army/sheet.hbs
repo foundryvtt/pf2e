@@ -17,14 +17,13 @@
                 <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
                 <input type="number" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0"/>
             </div>
-            <div class="select">
-                <select id="data.attributes.ac.magic" name="system.attributes.ac.magic" value="{{data.attributes.ac.magic}}"> 
-                    <option value=0>Mundane Armor</option>
-                    <option value=1>Magic Armor</option>
-                    <option value=2>Greater Magic Armor</option>
-                    <option value=3>Major Magic Armor</option>
-                </select>                
-                <label for="data.attributes.ac.magic"> + {{data.attributes.ac.magic}}</label>
+            <div class="buttons">
+                <button title="{{data.gear.armor.magic.name}}" class="armor pips" type="button">
+                    {{#times 3}}
+                        <i class="{{#if (gt @root.data.gear.armor.magic.bonus this)}}far fa-shield filled{{else}}fal fa-shield empty{{/if}}"></i>
+                    {{/times}}
+                </button>               
+                <label for="data.gear.armor.magic.name"> + {{data.gear.armor.magic.bonus}}</label>
             </div>
             <input type="text" data-dtype="String" data-property="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
         </section>
@@ -34,13 +33,24 @@
             <div class="section-head">
                 <i class="fas fa-fw fa-heart"></i>
                 <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
-                    <input type="number" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
+                    <input type="number" data-property="system.attributes.hp.value" value="{{data.gear.hp.value}}" data-dtype="Number" placeholder="0" />
                     <span class="slash">/</span>
                     <input type="number" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0"/>
             </div>
-            <div class="buttons" title="{{data.details.potions}} Potions">
-                <button class="potion value{{data.details.potions}}" type="button"><i class="first fa fa-flask-round-potion"></i><i class="second fa fa-flask-round-potion"></i><i class="third fa fa-flask-round-potion"></i></button>
-                <label> Use :                 <button type="button"><i class="fa fa-champagne-glasses"></i></button></label>
+            <div class="buttons">
+                <button title="{{data.gear.potions.unlocked}} {{data.gear.potions.name}}(s)" class="potion pips" type="button">
+                    {{#times 3}}
+                        <i class="{{#if (gt @root.data.attributes.hp.potions this)}}far fa-flask-round-potion filled{{else}}fal fa-flask-round-potion empty{{/if}}"></i>
+                    {{/times}}
+                </button>
+                {{#if (eq @root.data.gear.potions.unlocked 0)}}
+                    <button title="No Potions ☹" class="disabled" type="button"><i class="fal fa-champagne-glasses"></i>
+                {{else if (eq @root.document.hitPoints.value @root.document.hitPoints.max)}}
+                    <button title="HP is already max ☺" class="disabled" type="button"><i class="fal fa-champagne-glasses"></i>
+                {{else}}
+                    <button title="Use Potion (+1 HP)" class="usepotion" type="button"><i class="fas fa-champagne-glasses"></i>
+                {{/if}}
+                </button>
             </div>              
             <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
         </section>
@@ -150,30 +160,41 @@
                 {{!-- ============== --}}
                 <fieldset class="strikes">
                 <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
-                    <div class="flex strike">
-                        {{!--     For some reason editing one of these edits both but also doesn't set the values correctly    --}}
-                        <input class="name" type="text" data-property="system.attributes.strikes.melee.name" value="{{data.attributes.strikes.melee.name}}" placeholder="Melee Strike" />
-                        <a class="roll-icon">
-                        <i class="fas fa-dice-d20"></i>
-                        </a>
-                        <input class="value" type="number" data-property="system.attributes.strikes.melee.bonus" value="{{data.attributes.strikes.melee.bonus}}" placeholder="0" />
-                        <select name="system.attributes.strikes.melee.magic" data-property="system.attributes.strikes.melee.magic" value="{{data.attributes.strikes.melee.magic}}" >
-                            <option value=0>Mundane Weapons</option>
-                            <option value=1>Magic Weapons</option>
-                            <option value=2>Greater Magic Weapons</option>
-                            <option value=3>Major Magic Weapons</option>
-                        </select>
+                    <div class="melee flex strike">
+                        <button id="melee unlocked">
+                            {{#if data.gear.melee.unlocked}}
+                            <i class="fas fa-lock-open"></i>
+                            {{else}}
+                            <i class="fas fa-lock"></i>
+                            {{/if}}     
+                        </button>
+                        <input class="melee name" type="text" data-property="system.gear.melee.name" value="{{data.gear.melee.name}}" placeholder="Melee Strike" />
+                        <button class="melee strike" title="Melee Strike ( + {{data.gear.melee.bonus}} proficiency, + {{data.gear.melee.magic.bonus}} potency" >
+                            <label><i class="fas fa-dice-d20"></i> + {{add data.gear.melee.bonus data.gear.melee.magic.bonus}}</label>
+                        </button>
+                        <button title="{{data.gear.melee.magic.rank}}" class="melee pips" type="button">
+                            {{#times 3}}
+                            <i class="{{#if (gt @root.data.gear.melee.magic.bonus this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
+                            {{/times}}
+                        </button>
                     </div>
-                    <div class="flex strike">
-                        <input class="name" type="text" data-property="system.attributes.strikes.ranged.name" value="{{data.attributes.strikes.melee.name}}" placeholder="Ranged Strike" />
-                        <a class="roll-icon"><i class="fas fa-dice-d20"></i></a>
-                        <input class="value" type="number" data-property="system.attributes.strikes.ranged.bonus" value="{{data.attributes.strikes.melee.bonus}}" placeholder="0" />
-                        <select name="system.attributes.strikes.ranged.magic" data-property="system.attributes.strikes.ranged.magic" value="{{data.attributes.strikes.ranged.magic}}" >
-                            <option value=0>Mundane Weapons</option>
-                            <option value=1>Magic Weapons</option>
-                            <option value=2>Greater Magic Weapons</option>
-                            <option value=3>Major Magic Weapons</option>
-                        </select>
+                    <div class="ranged flex strike">
+                        <button id="ranged unlocked">
+                            {{#if data.gear.ranged.unlocked}}
+                            <i class="fas fa-lock-open"></i>
+                            {{else}}
+                            <i class="fas fa-lock"></i>
+                            {{/if}}     
+                        </button>
+                        <input class="ranged name" type="text" data-property="system.gear.ranged.name" value="{{data.gear.ranged.name}}" placeholder="Ranged Strike" />
+                        <button class="ranged strike" title="Ranged Strike ( + {{data.gear.ranged.bonus}} proficiency, + {{data.gear.ranged.magic.bonus}} potency" >
+                            <label><i class="fas fa-dice-d20"></i> + {{add data.gear.ranged.bonus data.gear.ranged.magic.bonus}}</label>
+                        </button>
+                        <button title="{{data.gear.ranged.magic.rank}}" class="ranged pips" type="button">
+                            {{#times 3}}
+                            <i class="{{#if (gt @root.data.gear.ranged.magic.bonus this)}}far fa-sword filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
+                            {{/times}}
+                        </button>
                     </div>
                 </fieldset>
 
