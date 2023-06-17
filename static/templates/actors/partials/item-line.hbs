@@ -5,6 +5,9 @@
                 <img class="item-icon" src="{{item.img}}" alt="{{item.name}}"/>
                 <i class="fa-solid fa-message"></i>
             </div>
+            {{#if isContainer}}
+                <a class="item-control" data-action="toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fa-solid fa-box{{#unless item.isCollapsed}}-open{{/unless}} fa-1x fa-fw"></i></a>
+            {{/if}}
             <h4 {{#if (or user.isGM item.isIdentified)}}class="rarity-{{item.system.traits.rarity}}"{{/if}}>
                 {{item.name}}
                 {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
@@ -43,10 +46,6 @@
 
         {{#if editable}}
             <div class="item-controls">
-                {{#if isContainer}}
-                    <a class="item-control" data-action="toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fa-solid fa-box{{#unless item.isCollapsed}}-open{{/unless}} fa-1x fa-fw"></i></a>
-                {{/if}}
-
                 {{#if (and canBeEquipped isInvestable)}}
                     <a class="item-control item-toggle-invest{{#if item.isInvested}} active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-gem fa-1x fa-fw"></i></a>
                 {{/if}}

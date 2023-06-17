@@ -7,20 +7,13 @@
 }
 
 .inventory-section {
+    --border-color: #{$secondary-accent};
     flex: 1 0 auto;
     padding: 0px;
     margin: 0px;
 
     .coinage {
         margin-bottom: 8px;
-
-        .currency {
-            background-color: $secondary-accent;
-        }
-
-        .wealth {
-            background-color: $primary-accent;
-        }
     }
 
     .inventory-list {
@@ -29,7 +22,7 @@
         }
 
         .inventory-header {
-            background-color: $secondary-accent;
+            background-color: var(--primary-background);
             display: flex;
             flex: 1;
             flex-flow: row nowrap;
@@ -46,14 +39,6 @@
         }
 
         .item {
-            border-left: 1px solid $primary-accent;
-            border-right: 1px solid $primary-accent;
-            border-bottom: 1px solid $primary-accent;
-
-            &:not(:last-child) {
-                border-bottom: 1px solid $faded-color;
-            }
-
             .item-image {
                 border: 2px solid $faded-color;
                 border-radius: 3px;
