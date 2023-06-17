@@ -109,8 +109,9 @@ export const Ready = {
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
 
-            game.pf2e.system.moduleArt.refresh();
-            ui.compendium.compileSearchIndex();
+            game.pf2e.system.moduleArt.refresh().then(() => {
+                ui.compendium.compileSearchIndex();
+            });
 
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
