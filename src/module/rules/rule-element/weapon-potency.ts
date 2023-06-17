@@ -1,9 +1,8 @@
-import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { WeaponPF2e } from "@item";
 import { PotencySynthetic } from "../synthetics.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
@@ -14,8 +13,8 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
 
     selector: string;
 
-    constructor(data: WeaponPotencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: WeaponPotencySource, options: RuleElementOptions) {
+        super(data, options);
         this.selector = String(data.selector);
     }
 

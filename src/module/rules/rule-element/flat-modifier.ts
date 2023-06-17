@@ -1,7 +1,5 @@
-import { ActorPF2e } from "@actor";
 import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
-import { ItemPF2e } from "@item";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { objectHasKey, sluggify } from "@util";
@@ -20,10 +18,10 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSour
  * @category RuleElement
  */
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
-    constructor(source: FlatModifierSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(source, item, options);
+    constructor(source: FlatModifierSource, options: RuleElementOptions) {
+        super(source, options);
 
-        if (!item.isOfType("physical") && this.type !== "item") {
+        if (!this.item.isOfType("physical") && this.type !== "item") {
             this.fromEquipment = false;
         }
 

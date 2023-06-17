@@ -1,11 +1,11 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { CreaturePF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { ItemPF2e, TreasurePF2e } from "@item";
-import { Size, SIZES } from "@module/data.ts";
+import { TreasurePF2e } from "@item";
+import { SIZES, Size } from "@module/data.ts";
 import { isObject, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions, BracketedValue } from "./index.ts";
+import { BracketedValue, RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -21,14 +21,14 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
 
     resizeEquipment: boolean;
 
-    constructor(data: CreatureSizeSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: CreatureSizeSource, options: RuleElementOptions) {
+        super(data, options);
         this.resizeEquipment = !!data.resizeEquipment;
 
         if (typeof data.value === "string" || typeof data.value === "number" || this.isBracketedValue(data.value)) {
             this.value = data.value;
         } else {
-            this.value = item.actor.size;
+            this.value = this.item.actor.size;
             this.failValidation("`value` must be a string or number");
         }
 

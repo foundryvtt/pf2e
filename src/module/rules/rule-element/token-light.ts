@@ -1,16 +1,14 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { isObject } from "@util";
-import { RuleElementData, RuleElementOptions, RuleElementPF2e } from "./index.ts";
 import { RuleElementSource } from "./data.ts";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e } from "./index.ts";
 
 /**
  * Add or change the light emitted by a token
  * @category RuleElement
  */
 class TokenLightRuleElement extends RuleElementPF2e {
-    constructor(data: RuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
         this.validateData();
     }
 

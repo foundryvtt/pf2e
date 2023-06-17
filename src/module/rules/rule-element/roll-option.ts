@@ -1,5 +1,3 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject } from "@util";
 import type {
@@ -9,9 +7,9 @@ import type {
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 import { RollOptionToggle } from "../synthetics.ts";
 import { ResolvableValueField } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 /**
  * Set a roll option at a specificed domain
@@ -24,11 +22,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
      */
     toggleable: boolean | "totm";
 
-    constructor(source: RollOptionSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(source: RollOptionSource, options: RuleElementOptions) {
         const sourceValue = source.value;
 
         // This rule element behaves much like an override AE-like, so set its default priority to 50
-        super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...source }, item, options);
+        super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...source }, options);
 
         this.toggleable = source.toggleable === "totm" ? "totm" : !!source.toggleable;
         this.value = typeof sourceValue === "string" ? sourceValue : !!(source.value ?? !this.toggleable);
@@ -41,7 +39,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             this.failValidation('The "togglable" property must be a boolean, the string "totm", or otherwise omitted.');
         }
 
-        if (source.removeAfterRoll && !item.isOfType("effect")) {
+        if (source.removeAfterRoll && !this.item.isOfType("effect")) {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
         }
 

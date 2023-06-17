@@ -1,8 +1,6 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
-import { RuleElementSource } from "./index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { RuleElementSource } from "./index.ts";
 
 /** Substitute a pre-determined result for a check's D20 roll */
 class SubstituteRollRuleElement extends RuleElementPF2e {
@@ -14,10 +12,10 @@ class SubstituteRollRuleElement extends RuleElementPF2e {
     /** The effect type of this substitution */
     effectType: "fortune" | "misfortune";
 
-    constructor(data: SubstituteRollSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        data.slug ??= item.slug ?? sluggify(item.name);
+    constructor(data: SubstituteRollSource, options: RuleElementOptions) {
+        data.slug ??= options.parent.slug ?? sluggify(options.parent.name);
 
-        super(data, item, options);
+        super(data, options);
 
         if (this.#isValid(data)) {
             this.selector = data.selector;

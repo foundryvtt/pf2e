@@ -1,6 +1,4 @@
-import { ActorPF2e } from "@actor";
 import { ModifierAdjustment } from "@actor/modifiers.ts";
-import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { objectHasKey } from "@util";
@@ -20,7 +18,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
     /** The number of times this adjustment has been applied */
     applications = 0;
 
-    constructor(data: AdjustModifierSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: AdjustModifierSource, options: RuleElementOptions) {
         data.path = "ignore"; // Maybe this shouldn't subclass AELikeRuleElement
 
         if (data.suppress) {
@@ -28,7 +26,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
             data.priority ??= 99; // Try to apply last
         }
 
-        super({ ...data, phase: "beforeDerived" }, item, options);
+        super({ ...data, phase: "beforeDerived" }, options);
 
         if (typeof data.selector === "string" && this.selectors.length === 0) {
             this.selectors = [data.selector];

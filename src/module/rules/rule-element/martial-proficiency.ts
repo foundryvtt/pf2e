@@ -1,7 +1,6 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import { MartialProficiency } from "@actor/character/data.ts";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e } from "@item";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data.ts";
@@ -14,12 +13,12 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
     /** Predication test for whether a weapon matches this proficiency */
     definition: PredicatePF2e;
 
-    constructor(data: MartialProficiencySource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: MartialProficiencySource, options: RuleElementOptions) {
         data.priority = 9;
         data.immutable = Boolean(data.immutable ?? true);
         data.value ??= 1;
 
-        super(data, item, options);
+        super(data, options);
 
         this.definition = new PredicatePF2e(Array.isArray(data.definition) ? data.definition : []);
     }

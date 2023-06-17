@@ -1,10 +1,9 @@
-import { ActorPF2e, CharacterPF2e, FamiliarPF2e } from "@actor";
+import { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { CreatureSensePF2e, SENSE_ACUITIES, SENSE_TYPES, SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e } from "@item";
 import { setHasElement, tupleHasValue } from "@util";
-import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./index.ts";
 import { RuleElementOptions } from "./base.ts";
+import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -16,14 +15,14 @@ export class SenseRuleElement extends RuleElementPF2e {
 
     private acuity: SenseAcuity;
 
-    constructor(data: SenseRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: SenseRuleElementSource, options: RuleElementOptions) {
         data.force ??= false;
         data.range ??= "";
         data.acuity ??= "precise";
         const defaultLabels: Record<string, string | undefined> = CONFIG.PF2E.senses;
         data.label ??= defaultLabels[String(data.selector)];
 
-        super(data, item, options);
+        super(data, options);
 
         if (setHasElement(SENSE_TYPES, data.selector)) {
             this.selector = data.selector;
