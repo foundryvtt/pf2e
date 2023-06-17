@@ -14,6 +14,7 @@ import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.t
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
+import { ImmunitySource, ResistanceSource, WeaknessSource } from "@actor/data/iwr.ts";
 
 declare global {
     interface Global {
@@ -445,6 +446,23 @@ class PackExtractor {
                                 };
                             }
                         }
+
+                        const pruneImmunitiesWeaknesses = (sources?: ImmunitySource[] | WeaknessSource[]) => {
+                            for (const source of sources ?? []) {
+                                if (!source.exceptions?.length) delete source.exceptions;
+                            }
+                        };
+
+                        const pruneResistances = (sources?: ResistanceSource[]) => {
+                            for (const source of sources ?? []) {
+                                if (!source.exceptions?.length) delete source.exceptions;
+                                if (!source.doubleVs?.length) delete source.doubleVs;
+                            }
+                        };
+
+                        pruneImmunitiesWeaknesses(docSource.system.attributes.immunities);
+                        pruneImmunitiesWeaknesses(docSource.system.attributes.weaknesses);
+                        pruneResistances(docSource.system.attributes.resistances);
 
                         if (docSource.type === "npc") {
                             const source: Partial<NPCSystemSource["details"]["source"]> =
