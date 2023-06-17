@@ -125,11 +125,15 @@ form.army-sheet {
           box-shadow: none;
         }
       }
-      button.potion {
-        i {
+      button {
+        .empty, &.disabled {
           color: darkgrey;
+          i::before {
+            text-shadow: none;
+            cursor: not-allowed;
+          }
         }
-        &.value1>.first, &.value2>.first, &.value2>.second, &.value3>.first, &.value3>.second, &.value3>.third {
+        .filled {
           color: black;
         }
       }
