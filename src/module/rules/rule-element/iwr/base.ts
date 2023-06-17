@@ -1,5 +1,10 @@
 import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
-import type { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type {
+    ArrayField,
+    BooleanField,
+    ModelPropsFromSchema,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode } from "../ae-like.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource, RuleValue } from "../index.ts";
 

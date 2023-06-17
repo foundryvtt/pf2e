@@ -1,6 +1,12 @@
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject } from "@util";
-import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type {
+    ArrayField,
+    BooleanField,
+    ModelPropsFromSchema,
+    SchemaField,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
