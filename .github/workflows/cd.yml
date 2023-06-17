@@ -25,6 +25,9 @@ jobs:
           npm ci
           npm run build
 
+      - name: Build JSON packs
+        run: npm run build:packs:json
+
       - name: Update Manifest
         run: |
           SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
@@ -33,6 +36,12 @@ jobs:
       - name: Zip Files
         working-directory: ./dist
         run: zip -r ./pf2e.zip ./*
+
+      - name: Zip JSON Assets
+        working-directory: ./json-assets
+        run: |
+          cp -r ../static/lang/ ./
+          zip -r ./json-assets.zip ./*
 
       - name: Create Version Release
         id: create_version_release
@@ -43,5 +52,5 @@ jobs:
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './dist/system.json,./dist/pf2e.zip'
+          artifacts: "./dist/system.json,./dist/pf2e.zip,./json-assets/json-assets.zip"
           tag: ${{ env.systemVersion }}

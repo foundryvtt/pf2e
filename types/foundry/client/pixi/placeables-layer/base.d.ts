@@ -320,13 +320,10 @@ declare global {
 }
 
 interface PlaceableInteractionData<TObject extends PlaceableObject> {
-    originalEvent: PlaceablesPointerEvent;
+    clearPreviewContainer: boolean;
     preview?: TObject | null;
-    createState?: number;
+    layerDragState?: number;
+    object: PIXI.Mesh;
     origin: Point;
     destination: Point;
 }
-
-type PlaceablesPointerEvent = {
-    isShift: boolean;
-};

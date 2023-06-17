@@ -1,0 +1,114 @@
+{
+    "_id": "5fPfP74t4NYnRnnc",
+    "img": "systems/pf2e/icons/equipment/held-items/spellbook-of-redundant-enchantment.webp",
+    "name": "Effect: Deck of Destiny",
+    "system": {
+        "description": {
+            "value": "<p>Choose either weal or woe. With weal (a fortune effect), the triggering creature rolls twice and takes the better result on their check. With woe (a misfortune effect), the triggering creature is forced to roll twice and take the worse result. If the card you drew is related to the check, such as drawing a card from the suit of shields for a Fortitude saving throw or a card from the suit of crowns for a Deception check, the creature is affected further. When choosing weal, the creature gains a +4 circumstance bonus to the triggering check. When faced with woe, the triggering creature takes a –4 circumstance penalty to the triggering check</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 25
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Weal",
+                        "value": "weal"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Woe",
+                        "value": "woe"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Equipment.DeckOfDestiny.WealOrWoePrompt",
+                "rollOption": "deck-of-destiny"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "matching-suit"
+                    },
+                    {
+                        "label": "UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "non-matching-suit"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Equipment.DeckOfDestiny.MatchingSuitPrompt",
+                "rollOption": "deck-of-destiny"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "deck-of-destiny:weal"
+                ],
+                "selector": "all"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "deck-of-destiny:woe"
+                ],
+                "selector": "all"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deck-of-destiny:weal",
+                    "deck-of-destiny:matching-suit"
+                ],
+                "selector": [
+                    "skill-check",
+                    "saving-throw",
+                    "attack",
+                    "perception"
+                ],
+                "slug": "deck-of-destiny-weal",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deck-of-destiny:woe",
+                    "deck-of-destiny:matching-suit"
+                ],
+                "selector": [
+                    "skill-check",
+                    "saving-throw",
+                    "attack",
+                    "perception"
+                ],
+                "slug": "deck-of-destiny-woe",
+                "type": "circumstance",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

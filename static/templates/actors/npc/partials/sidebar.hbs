@@ -164,14 +164,14 @@
 <div class="saves">
     {{#each data.saves as |save saveType|}}
         <div class="container" data-save="{{saveType}}">
-            <label class="attribute-label rollable" title="{{save.breakdown}}"><a>{{localize save.labelShort}}</a></label>
+            <a class="attribute-label rollable" title="{{save.breakdown}}">{{localize save.labelShort}}</a>
             <input type="text" value="{{numberFormat save.value decimals=0 sign=true}}" class="modifier adjustable{{#if save.adjustedHigher}} adjusted-higher{{else if save.adjustedLower}} adjusted-lower{{/if}}" data-property="system.saves.{{saveType}}.value" data-dtype="Number" placeholder="0" />
         </div>
     {{/each}}
 </div>
 <div class="save-details side-bar-section">
     <div class="side-bar-section-content">
-        <input type="text" name="system.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
+        <input type="text" name="system.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}" />
     </div>
 </div>
 

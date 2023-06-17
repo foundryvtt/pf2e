@@ -4,30 +4,30 @@
             <header>{{localize "PF2E.Actor.Party.Total"}}</header>
             <div class="summary-data">
                 <div>
-                    <label><i class="fas fa-coins fa-fw"></i> {{localize "PF2E.Actor.Party.Coin"}}</label>
+                    <label><i class="fa-solid fa-coins fa-fw"></i> {{localize "PF2E.Actor.Party.Coin"}}</label>
                     <span class="value">{{numberFormat inventorySummary.totalCoins decimals=2}} gp</span>
                 </div>
                 <div>
-                    <label><i class="fas fa-scale-unbalanced fa-fw"></i> {{localize "PF2E.Actor.Party.Wealth"}}</label>
+                    <label><i class="fa-solid fa-scale-unbalanced fa-fw"></i> {{localize "PF2E.Actor.Party.Wealth"}}</label>
                     <span class="value">{{numberFormat inventorySummary.totalWealth decimals=2}} gp</span>
                 </div>
             </div>
             <footer>
-                <i class="fas fa-weight-hanging"></i> {{localize "PF2E.BulkShortLabel"}} {{inventorySummary.totalBulk}}
+                <i class="fa-solid fa-weight-hanging"></i> {{localize "PF2E.BulkShortLabel"}} {{inventorySummary.totalBulk}}
             </footer>
         </li>
         {{#each members as |member|}}
             <li class="box">
-                <div class="actor-link content" data-actor-uuid="{{member.actor.uuid}}">
+                <div class="actor-link content" data-actor-uuid="{{member.actor.uuid}}" data-action="open-sheet">
                     <img src="{{member.actor.img}}" />
                     <span class="name">{{member.actor.name}}</span>
                     <span class="value">
-                        <i class="fas fa-scale-unbalanced"></i>
+                        <i class="fa-solid fa-scale-unbalanced"></i>
                         {{numberFormat member.actor.inventory.totalWealth.goldValue decimals=2}} gp
                     </span>
                 </div>
                 <footer>
-                    <i class="fas fa-weight-hanging"></i> {{localize "PF2E.BulkShortLabel"}} {{member.actor.inventory.bulk.value}}
+                    <i class="fa-solid fa-weight-hanging"></i> {{localize "PF2E.BulkShortLabel"}} {{member.actor.inventory.bulk.value}}
                 </footer>
             </li>
         {{/each}}

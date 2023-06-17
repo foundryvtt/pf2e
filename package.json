@@ -1,12 +1,13 @@
 {
     "name": "foundry-pf2e",
-    "version": "5.0.0-beta1",
+    "version": "5.0.0-beta2",
     "description": "",
     "private": true,
     "type": "module",
     "scripts": {
         "build": "npm run clean && npm run build:packs && vite build",
         "build:packs": "esno ./build/build-packs.ts",
+        "build:packs:json": "esno ./build/build-packs.ts json",
         "clean": "esno ./build/clean.ts",
         "watch": "npm run clean && npm run build:packs && vite build --watch --mode development",
         "hot": "vite serve",

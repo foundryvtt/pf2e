@@ -1,13 +1,14 @@
 import type { ActorPF2e } from "@actor/base.ts";
-import type { ItemPF2e } from "@item/base.ts";
-import type { MacroPF2e } from "@module/macro.ts";
-import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { MigrationBase } from "@module/migration/base.ts";
-import type { UserPF2e } from "@module/user/index.ts";
-import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ItemPF2e } from "@item/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import type { MacroPF2e } from "@module/macro.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import { ScenePF2e } from "@scene/index.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
+import { Progress } from "@system/progress.ts";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
@@ -48,7 +49,8 @@ export class MigrationRunner extends MigrationRunnerBase {
     /** Migrate actor or item documents in batches of 50 */
     async #migrateDocuments<TDocument extends ActorPF2e<null> | ItemPF2e<null>>(
         collection: WorldCollection<TDocument> | CompendiumCollection<TDocument>,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
+        progress?: Progress
     ): Promise<void> {
         const DocumentClass = collection.documentClass;
         const pack = "metadata" in collection ? collection.metadata.id : null;
@@ -58,6 +60,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (updateGroup.length === 50) {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
+                    progress?.advance({ by: updateGroup.length });
                 } catch (error) {
                     console.warn(error);
                 } finally {
@@ -73,6 +76,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         if (updateGroup.length > 0) {
             try {
                 await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
+                progress?.advance({ by: updateGroup.length });
             } catch (error) {
                 console.warn(error);
             }
@@ -280,9 +284,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     async runCompendiumMigration<T extends ActorPF2e<null> | ItemPF2e<null>>(
         compendium: CompendiumCollection<T>
     ): Promise<void> {
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }), {
-            permanent: true,
-        });
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }));
 
         const documents = await compendium.getDocuments();
         const lowestSchemaVersion = Math.min(
@@ -293,19 +295,30 @@ export class MigrationRunner extends MigrationRunnerBase {
         const migrations = this.migrations.filter((migration) => migration.version > lowestSchemaVersion);
         await this.#migrateDocuments(compendium, migrations);
 
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }), {
-            permanent: true,
-        });
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }));
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
         if (migrations.length === 0) return;
 
+        /** A roughly estimated "progress max" to reach, for display in the progress bar */
+        const progress = new Progress({
+            label: game.i18n.localize("PF2E.Migrations.Running"),
+            max: Math.floor(
+                game.actors.size +
+                    game.items.size +
+                    game.scenes
+                        .map((s) => s.tokens.contents)
+                        .flat()
+                        .filter((t) => t.actor?.isToken).length
+            ),
+        });
+
         // Migrate World Actors
-        await this.#migrateDocuments(game.actors as WorldCollection<ActorPF2e<null>>, migrations);
+        await this.#migrateDocuments(game.actors as WorldCollection<ActorPF2e<null>>, migrations, progress);
 
         // Migrate World Items
-        await this.#migrateDocuments(game.items, migrations);
+        await this.#migrateDocuments(game.items, migrations, progress);
 
         // Migrate world journal entries
         for (const entry of game.journal) {
@@ -351,18 +364,24 @@ export class MigrationRunner extends MigrationRunnerBase {
                     !!token._source.delta?.flags?.pf2e ||
                     Object.keys(token._source.delta ?? {}).some((k) => ["items", "system"].includes(k));
 
-                if (actor.isToken && hasMigratableData) {
-                    const updated = await this.#migrateActor(migrations, actor);
-                    if (updated) {
-                        try {
-                            await actor.update(updated);
-                        } catch (error) {
-                            console.warn(error);
+                if (actor.isToken) {
+                    if (hasMigratableData) {
+                        const updated = await this.#migrateActor(migrations, actor);
+                        if (updated) {
+                            try {
+                                await actor.update(updated);
+                            } catch (error) {
+                                console.warn(error);
+                            }
                         }
                     }
+                    progress.advance({ by: 1 });
                 }
             }
         }
+
+        // *Something* was miscalculated, but migrations are complete: close the progress bar.
+        if (progress.value < progress.max) progress.close();
     }
 
     async runMigration(force = false): Promise<void> {
@@ -372,9 +391,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         };
         const systemVersion = game.system.version;
 
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }), {
-            permanent: true,
-        });
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }));
 
         const migrationsToRun = force
             ? this.migrations

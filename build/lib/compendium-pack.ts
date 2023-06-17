@@ -359,7 +359,10 @@ class CompendiumPack {
         }
     }
 
-    async save(): Promise<number> {
+    async save(asJson?: boolean): Promise<number> {
+        if (asJson) {
+            return this.saveAsJSON();
+        }
         if (!fs.lstatSync(CompendiumPack.outDir, { throwIfNoEntry: false })?.isDirectory()) {
             fs.mkdirSync(CompendiumPack.outDir);
         }
@@ -375,6 +378,23 @@ class CompendiumPack {
         const finalized: PackEntry[] = this.data.map((datum) => JSON.parse(this.#finalize(datum)));
         await db.createPack(finalized, this.folders);
         console.log(`Pack "${this.packId}" with ${this.data.length} entries built successfully.`);
+
+        return this.data.length;
+    }
+
+    async saveAsJSON(): Promise<number> {
+        const outDir = path.resolve(process.cwd(), "json-assets/packs");
+        if (!fs.lstatSync(outDir, { throwIfNoEntry: false })?.isDirectory()) {
+            fs.mkdirSync(outDir, { recursive: true });
+        }
+
+        const outFile = path.resolve(outDir, `${this.packDir}.json`);
+        if (fs.existsSync(outFile)) {
+            fs.rmSync(outFile, { force: true });
+        }
+        const finalized = this.data.map((datum) => this.#finalize(datum));
+        fs.writeFileSync(outFile, `[${finalized.join(",\n")}]`.concat("\n"));
+        console.log(`File "${this.packDir}.json" with ${this.data.length} entries created successfully.`);
 
         return this.data.length;
     }

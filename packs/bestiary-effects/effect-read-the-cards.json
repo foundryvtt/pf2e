@@ -1,0 +1,141 @@
+{
+    "_id": "8tCNgEE9OsQE9Xnh",
+    "img": "systems/pf2e/icons/equipment/held-items/spellbook-of-redundant-enchantment.webp",
+    "name": "Effect: Read the Cards",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "type": "formula",
+            "value": "1d6"
+        },
+        "description": {
+            "value": "<p>Roll 1d6 to determine a suit. The harrowkin gains the effects of the suit for 1 minute. If the suit matches the harrowkin's suit, the value is doubled.</p>\n<p><strong>Hammers</strong> The harrowkin gains a +2 status bonus to damage rolls.</p>\n<p><strong>Keys</strong> The harrowkin gains a +1 status bonus to AC.</p>\n<p><strong>Shields</strong> The harrowkin gains fast healing 5.</p>\n<p><strong>Books</strong> The harrowkin gains a +1 status bonus to skill checks.</p>\n<p><strong>Stars</strong> The harrowkin gains a +1 status bonus to saving throws.</p>\n<p><strong>Crown</strong> The harrowkin can reroll 1 check within the next minute and take the higher result. This is a fortune effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harrow-suit:hammers"
+                ],
+                "selector": "damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harrow-suit:keys"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harrow-suit:books"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harrow-suit:stars"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "details": "",
+                "key": "FastHealing",
+                "predicate": [
+                    "harrow-suit:shields",
+                    {
+                        "not": "self:effect:read-the-cards:3"
+                    }
+                ],
+                "type": "fast-healing",
+                "value": 5
+            },
+            {
+                "details": "",
+                "key": "FastHealing",
+                "predicate": [
+                    "harrow-suit:shields",
+                    "self:effect:read-the-cards:3"
+                ],
+                "type": "fast-healing",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "harrow-suit:hammers",
+                                    "self:effect:read-the-cards:1"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "harrow-suit:keys",
+                                    "self:effect:read-the-cards:2"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "harrow-suit:books",
+                                    "self:effect:read-the-cards:4"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "harrow-suit:stars",
+                                    "self:effect:read-the-cards:5"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-damage",
+                    "ac",
+                    "skill-check",
+                    "saving-throw"
+                ],
+                "slug": "read-the-cards",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -4,8 +4,9 @@ import { FeatPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import { Progress } from "@system/progress.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
-import { isObject, objectHasKey, sluggify } from "@util";
+import { isObject, localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import type { ModelPropsFromSchema } from "types/foundry/common/data/fields.d.ts";
@@ -77,7 +78,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
             allowedDrops: new fields.SchemaField(
                 {
-                    label: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
+                    label: new fields.StringField({ required: true, blank: false, nullable: true, initial: null }),
                     predicate: new PredicateField(),
                 },
                 { required: false, nullable: true, initial: null }
@@ -334,30 +335,33 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                           p.metadata.type === "Item" && p.index.some((e) => e.type === itemType)
                   );
 
+        const progress = new Progress({ max: packs.length });
+        const localize = localizer("PF2E.ProgressBar");
         // Retrieve index fields from matching compendiums and use them for predicate testing
-        const indexData = (
-            await Promise.all(
-                packs.map((p) =>
-                    p.getIndex({
-                        fields: [
-                            "flags",
-                            "system.ancestry",
-                            "system.base",
-                            "system.category",
-                            "system.group",
-                            "system.level",
-                            "system.maxTakeable",
-                            "system.slug",
-                            "system.traits",
-                        ],
-                    })
-                )
-            )
-        )
-            .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
-            .filter((s): s is PreCreate<ItemSourcePF2e> & { uuid: DocumentUUID } => s.type === itemType);
+        const indexData: CompendiumIndex[] = [];
+        for (const pack of packs) {
+            progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
+            indexData.push(
+                await pack.getIndex({
+                    fields: [
+                        "flags",
+                        "system.ancestry",
+                        "system.base",
+                        "system.category",
+                        "system.group",
+                        "system.level",
+                        "system.maxTakeable",
+                        "system.slug",
+                        "system.traits",
+                    ],
+                })
+            );
+        }
+        progress.close({ label: localize("LoadingComplete") });
 
         const filteredItems = indexData
+            .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
+            .filter((s): s is PreCreate<ItemSourcePF2e> & { uuid: DocumentUUID } => s.type === itemType)
             .map((source) => {
                 const parsedUUID = foundry.utils.parseUuid(source.uuid);
                 const pack =

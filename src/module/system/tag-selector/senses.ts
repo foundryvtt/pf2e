@@ -1,7 +1,8 @@
 import { ActorPF2e } from "@actor";
+import { SENSES_WITH_MANDATORY_ACUITIES } from "@actor/creature/values.ts";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { BaseTagSelector } from "./base.ts";
 import { SelectableTagField } from "./index.ts";
-import { ErrorPF2e } from "@util";
 
 export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.traits.senses";
@@ -25,10 +26,13 @@ export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         const senses = this.object.system.traits.senses;
         const choices = Object.entries(this.choices).reduce((accum: Record<string, SenseChoiceData>, [type, label]) => {
             const sense = senses.find((sense) => sense.type === type);
+            const mandatoryAcuity = objectHasKey(SENSES_WITH_MANDATORY_ACUITIES, type);
+            const acuity = mandatoryAcuity ? SENSES_WITH_MANDATORY_ACUITIES[type] : sense?.acuity ?? "precise";
             return {
                 ...accum,
                 [type]: {
-                    acuity: sense?.acuity ?? "precise",
+                    acuity,
+                    mandatoryAcuity,
                     disabled: !!sense?.source,
                     label,
                     selected: !!sense,
@@ -95,6 +99,7 @@ interface SenseChoiceData {
     selected: boolean;
     disabled: boolean;
     acuity: string;
+    mandatoryAcuity: boolean;
     label: string;
     value: string;
 }

@@ -13,13 +13,11 @@
                         <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
                     </td>
                     <td>
-                        {{#unless (or (eq key "lowLightVision") (eq key "greaterDarkvision") (eq key "darkvision"))}}
-                            <select name="{{key}}" {{disabled choice.disabled}}>
-                                {{#each ../senseAcuity as |acuity k|}}
-                                    <option value={{k}} {{#if (eq k choice.acuity)}} selected {{/if}}>{{localize acuity}}</option>
-                                {{/each}}
-                            </select>
-                        {{/unless}}
+                        <select name="{{key}}" {{disabled (or choice.disabled choice.mandatoryAcuity)}}>
+                            {{#each ../senseAcuity as |acuity k|}}
+                                <option value={{k}}{{#if (eq k choice.acuity)}} selected{{/if}}>{{localize acuity}}</option>
+                            {{/each}}
+                        </select>
                     </td>
                     <td>
                         {{#unless (or (eq key "lowLightVision") (eq key "greaterDarkvision") (eq key "darkvision"))}}

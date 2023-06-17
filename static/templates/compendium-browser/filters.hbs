@@ -105,7 +105,9 @@
     {{/each}}
 </div>
 
-<div class="list-buttons">
-    <button type="button" class="create-roll-table" data-action="create-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.CreateLabel"}}</button>
-    <button type="button" class="create-roll-table" data-action="add-to-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.AddLabel"}}</button>
-</div>
+{{#if @root.user.isGM}}
+    <div class="list-buttons">
+        <button type="button" class="create-roll-table" data-action="create-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.CreateLabel"}}</button>
+        <button type="button" class="create-roll-table" data-action="add-to-roll-table"><i class="fa-solid fa-list"></i> {{localize "PF2E.CompendiumBrowser.RollTable.AddLabel"}}</button>
+    </div>
+{{/if}}

@@ -204,6 +204,7 @@
                         "Echolocation": "Echolocation",
                         "GreaterDarkvision": "Greater Darkvision",
                         "Hearing": "Hearing",
+                        "Heatsight": "Heatsight",
                         "Lifesense": "Lifesense",
                         "LowLightVision": "Low-Light Vision",
                         "Motionsense": "Motionsense",
@@ -311,7 +312,10 @@
                 "InvalidCampaign": {
                     "Hint": "The campaign data is invalid",
                     "Title": "Invalid Campaign ({party})",
-                    "Message": "This party has campaign data of type {current}, but the configured type is {configured}. Do you want to delete existing campaign data?"
+                    "Message": {
+                        "mismatch": "This party has campaign data of type {current}, but the configured type is {campaignType}. Do you want to delete existing campaign data?",
+                        "error": "This party's campaign data ({current}) is corrupt and failed data preparation. Do you want to delete existing campaign data?"
+                    }
                 },
                 "BlankSlate": "This party doesn't have any members. Drag a creature from the actor sidebar to get started. ",
                 "Coin": "Coin",
@@ -684,15 +688,13 @@
             "FailedToBuyItemWithCharacter": "Could not purchase {item} with {character}.",
             "FailedToBuyItemWithSomeCharacters": "Could not purchase {item} with some of the selected actor(s).",
             "Hint": "Use the tabs above to select a compendium",
-            "ProgressBar": {
-                "LoadingComplete": "Loading complete",
-                "LoadingPack": "Loading {pack}"
-            },
             "RollTable": {
+                "AddDialogText": "Add {count} result(s) to Roll Table?",
                 "AddLabel": "Add to Roll Table",
                 "CreateDialogText": "Create Roll Table with {count} result(s)?",
                 "CreateLabel": "Create Roll Table",
-                "SelectTableTitle": "Select Table"
+                "SelectTableTitle": "Select Roll Table",
+                "WeightLabel": "Weight"
             },
             "Settings": {
                 "PacksLabel": "Packs",
@@ -2274,6 +2276,7 @@
             "Finished": "PF2E System Migration to version {version} completed!",
             "OnlyGMCanUse": "Only a gamemaster can use this tool.",
             "OutsideSchemaRange": "The specified range is outside the system's schema version range (between {minimum} and {maximum}).",
+            "Running": "Running system migration ...",
             "Starting": "Applying PF2E System Migration to version {version}. Please be patient and do not close your game or shut down your server.",
             "Summary": {
                 "Documents": "Documents",
@@ -2576,6 +2579,10 @@
         "ProficiencyLevel3": "Master",
         "ProficiencyLevel4": "Legendary",
         "ProficiencyRankLabel": "Prof",
+        "ProgressBar": {
+            "LoadingComplete": "Loading complete",
+            "LoadingPack": "Loading {pack}"
+        },
         "PropertyRuneLabel1": "Property Rune (1st)",
         "PropertyRuneLabel2": "Property Rune (2nd)",
         "PropertyRuneLabel3": "Property Rune (3rd)",
@@ -4827,7 +4834,7 @@
             "crushing": {
                 "Name": "Crushing",
                 "Note": {
-                    "criticalSuccess": "When you critically hit a target with this weapon, your target becomes @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
+                    "criticalSuccess": "When you critically hit a target with this weapon, your target becomes @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn. @UUID[Compendium.pf2e.equipment-effects.Item.zNHvhwHsC8ckhKVp]{Effect: Crushing}"
                 }
             },
             "cunning": {
@@ -4906,7 +4913,7 @@
             "greaterCrushing": {
                 "Name": "Greater Crushing",
                 "Note": {
-                    "criticalSuccess": "Your critical hits leave the target @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 2} until the end of your next turn."
+                    "criticalSuccess": "Your critical hits leave the target @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 2} until the end of your next turn. @UUID[Compendium.pf2e.equipment-effects.Item.czdEHtLsrUcZxSDx]{Effect: Crushing (Greater)}"
                 }
             },
             "greaterDisrupting": {
@@ -5450,6 +5457,7 @@
             "MoveLoot": "Move Items",
             "MoveLootMessage": "How many items do you wish to move?",
             "MoveLootPopupTitle": "Item Quantity",
+            "PartyStash": "the party stash",
             "PermissionError": "A GM must be online in order to loot or stow an item.",
             "PlantMessage": "{planter} plants {quantity} × {item} on {corpse}.",
             "PlantSubtitle": "Plant Item",

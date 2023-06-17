@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { PhysicalItemPF2e, TreasurePF2e } from "@item";
+import { KitPF2e, PhysicalItemPF2e, TreasurePF2e } from "@item";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
@@ -184,6 +184,23 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         await this.actor.deleteEmbeddedDocuments("Item", treasureIds);
         await this.actor.inventory.addCoins(coins);
     }
+
+    /** Adds an item to this inventory without removing from its original location */
+    async add(item: PhysicalItemPF2e | KitPF2e, options: AddItemOptions = {}): Promise<void> {
+        if (options.stack && item.isOfType("physical")) {
+            const stackableItem = this.actor.findStackableItem(this.actor, item._source);
+            if (stackableItem) {
+                await stackableItem.update({ "system.quantity": stackableItem.quantity + item.quantity });
+                return;
+            }
+        }
+
+        await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
+    }
+}
+
+interface AddItemOptions {
+    stack?: boolean;
 }
 
 export { ActorInventory, InventoryBulk };

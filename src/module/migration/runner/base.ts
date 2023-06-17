@@ -2,8 +2,8 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DocumentSchemaRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
-import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { ScenePF2e } from "@scene/document.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { DateTime } from "luxon";
 
 interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e> {
@@ -15,7 +15,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.841;
+    static LATEST_SCHEMA_VERSION = 0.842;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -100,10 +100,10 @@ export class MigrationRunnerBase {
         if ("game" in globalThis) {
             const latestMigration = migrations.slice(-1)[0];
             currentActor.system.schema ??= { version: null, lastMigration: null };
-            this.updateSchemaRecord(currentActor.system.schema, latestMigration);
+            this.#updateSchemaRecord(currentActor.system.schema, latestMigration);
             for (const itemSource of currentActor.items) {
                 itemSource.system.schema ??= { version: null, lastMigration: null };
-                this.updateSchemaRecord(itemSource.system.schema, latestMigration);
+                this.#updateSchemaRecord(itemSource.system.schema, latestMigration);
             }
         }
 
@@ -128,7 +128,7 @@ export class MigrationRunnerBase {
             }
         }
 
-        if (migrations.length > 0) this.updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
+        if (migrations.length > 0) this.#updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
 
         return current;
     }
@@ -212,7 +212,7 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
+    #updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
         if (!("game" in globalThis && latestMigration)) return;
 
         const fromVersion = typeof schema.version === "number" ? schema.version : null;

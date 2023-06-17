@@ -55,6 +55,10 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         return this.choices;
     }
 
+    setChoices(choices: PickableThing[]): void {
+        this.choices = choices;
+    }
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 

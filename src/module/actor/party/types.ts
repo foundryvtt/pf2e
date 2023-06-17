@@ -1,12 +1,13 @@
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { PartyPF2e } from "./document.ts";
-import { Bulk } from "@item/physical/bulk.ts";
-import { ZeroToFour } from "@module/data.ts";
 import { ActorPF2e } from "@actor";
-import { TokenDocumentPF2e } from "@scene";
 import { ActorUpdateContext } from "@actor/base.ts";
-import { ItemType } from "@item/data/index.ts";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ItemPF2e } from "@item";
+import { ItemType } from "@item/data/index.ts";
+import { Bulk } from "@item/physical/bulk.ts";
+import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { TokenDocumentPF2e } from "@scene";
+import type DataModel from "types/foundry/common/abstract/data.d.ts";
+import { PartyPF2e } from "./document.ts";
 
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     members: MemberBreakdown[];
@@ -29,10 +30,7 @@ interface SkillData {
 
 interface MemberBreakdown {
     actor: ActorPF2e;
-    heroPoints: {
-        value: number;
-        inactive: number;
-    } | null;
+    heroPoints: ValueAndMax | null;
     hasBulk: boolean;
     bestSkills: SkillData[];
     senses: { label: string | null; labelFull: string; acuity?: string }[];
@@ -49,7 +47,7 @@ interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends A
 }
 
 /** Interface for a party campaign implementation, alternative data preparation used by parties for special campaigns */
-interface PartyCampaign {
+interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     type: string;
     level?: number;
     /** Any additional item types supported by the campaign */
@@ -58,4 +56,4 @@ interface PartyCampaign {
     createSidebarButtons?(): HTMLElement[];
 }
 
-export { MemberBreakdown, PartyCampaign, PartySheetData, PartyUpdateContext, LanguageSheetData };
+export { LanguageSheetData, MemberBreakdown, PartyCampaign, PartySheetData, PartyUpdateContext };

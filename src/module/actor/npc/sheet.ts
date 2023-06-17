@@ -361,7 +361,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 
     override async prepareItems(sheetData: NPCSheetData): Promise<void> {
         super.prepareItems(sheetData);
-        this.#prepareActions(sheetData);
+        await this.#prepareActions(sheetData);
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
 

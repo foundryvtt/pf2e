@@ -1,0 +1,247 @@
+<form autocomplete="off">
+    <nav>
+        <a data-tab="charter">
+            {{localize "PF2E.Kingmaker.KingdomBuilder.Tabs.Charter"}}
+            {{#if kingdom.build.charter}}<i class="complete fa-solid fa-check"></i>{{/if}}
+        </a>
+        <a data-tab="heartland">
+            {{localize "PF2E.Kingmaker.KingdomBuilder.Tabs.Heartland"}}
+            {{#if kingdom.build.heartland}}<i class="complete fa-solid fa-check"></i>{{/if}}
+        </a>
+        <a data-tab="government">
+            {{localize "PF2E.Kingmaker.KingdomBuilder.Tabs.Government"}}
+            {{#if kingdom.build.government}}<i class="complete fa-solid fa-check"></i>{{/if}}
+        </a>
+        <a data-tab="ability">{{localize "PF2E.Kingmaker.KingdomBuilder.Tabs.AbilityScores"}}</a>
+    </nav>
+    <div class="container">
+        <section class="tab" data-category="charter" data-tab="charter">
+            {{> buildElement categories.charter choices=database.charter}}
+        </section>
+        <section class="tab" data-category="heartland" data-tab="heartland">
+            {{> buildElement categories.heartland choices=database.heartland}}
+        </section>
+        <section class="tab" data-category="government" data-tab="government">
+            {{> buildElement categories.government choices=database.government}}
+        </section>
+        <section class="tab" data-tab="ability">
+            <div class="ability-builder">
+                <header class="row">
+                    <div class="row-heading">
+                        <h3>{{localize "PF2E.Actor.Character.AbilityBuilder.Title"}}</h3>
+                    </div>
+                    <div class="abilities">
+                        {{#each abilities as |ability|}}
+                            <div class="row-column">
+                                <h3>{{localize ability}}</h3>
+                            </div>
+                        {{/each}}
+                    </div>
+                </header>
+
+                {{> buildRow
+                    data=build.charter
+                    object=kingdom.charter
+                    section="charter"
+                    title="PF2E.Kingmaker.Kingdom.BuildElement.Charter"
+                    missingText="PF2E.Kingmaker.KingdomBuilder.Missing.Charter"
+                }}
+                {{> buildRow
+                    data=build.heartland
+                    object=kingdom.heartland
+                    section="heartland"
+                    title="PF2E.Kingmaker.Kingdom.BuildElement.Heartland"
+                    missingText="PF2E.Kingmaker.KingdomBuilder.Missing.Heartland"
+                }}
+                {{> buildRow
+                    data=build.government
+                    object=kingdom.government
+                    section="government"
+                    title="PF2E.Kingmaker.Kingdom.BuildElement.Government"
+                    missingText="PF2E.Kingmaker.KingdomBuilder.Missing.Government"
+                }}
+
+                <hr/>
+
+                {{#each build.levelBoosts as |boosts level|}}
+                    <div class="row{{#if ../manual}} not-eligible{{/if}}{{#if (not boosts.eligible)}} not-eligible{{/if}}" data-level="{{level}}">
+                        <div class="row-heading">
+                            {{#if boosts.remaining}}<div class="remaining extra">{{remaining}}</div>{{/if}}
+                            <div class="label">
+                                <div class="description">
+                                    {{#if (eq boosts.minLevel boosts.level)}}
+                                        {{localize "PF2E.LevelN" level=level}}
+                                    {{else}}
+                                        {{localize "PF2E.LevelRange" minLevel=boosts.minLevel level=boosts.level}}
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="abilities">
+                            {{#each boosts.buttons as |state|}}
+                                {{> buttons state=state}}
+                            {{/each}}
+                        </div>
+                    </div>
+                {{/each}}
+
+                <div class="row summary-row">
+                    <div class="row-heading">
+                        <div class="hint-container">
+                            <h3>{{localize "PF2E.Kingmaker.KingdomBuilder.FinalizeHeader"}}</h3>
+                            <label class="aspiration">
+                                {{localize "PF2E.Kingmaker.KingdomBuilder.Aspiration"}}
+                                <select name="aspiration">
+                                    {{#select kingdom.aspiration}}
+                                        <option value="fame">{{localize "PF2E.Kingmaker.Kingdom.Fame"}}</option>
+                                        <option value="infamy">{{localize "PF2E.Kingmaker.Kingdom.Infamy"}}</option>
+                                    {{/select}}
+                                </select>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="build.manual" {{checked kingdom.build.manual}}>
+                                {{localize "PF2E.Kingmaker.KingdomBuilder.ManualToggle"}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="abilities">
+                        {{#each kingdom.abilities as |ability key|}}
+                            <div class="row-column">
+                                {{#if @root.kingdom.build.manual}}
+                                    <input name="abilities.{{key}}.value" value="{{ability.value}}"/>
+                                {{else}}
+                                    <div class="value">{{ability.value}}</div>
+                                {{/if}}
+                                <h4>{{localize (lookup ../abilities key)}}</h4>
+                            </div>
+                        {{/each}}
+                        <div class="complete">
+                            <button class="complete" type="button" data-action="complete" {{disabled (not finished)}}>
+                                {{localize "PF2E.Actor.Character.AbilityBuilder.Complete"}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</form>
+
+{{#*inline "buildElement"}}
+    <div class="build-element">
+        <section class="choices">
+            {{#each choices as |choice slug|}}
+                <div class="choice {{#if (eq slug ../selected)}}selected{{/if}}" data-slug="{{slug}}">
+                    <img src="{{choice.img}}" />
+                    <label>{{choice.name}}</label>
+                </div>
+            {{/each}}
+        </section>
+        <section class="selection">
+            <div class="text">
+                <h3>
+                    {{active.name}}
+                    {{#if @root.options.editable}}
+                        <div class="item-controls">
+                            <a data-action="unset" {{disabled (not stale)}}><i class="fas fa-fw fa-redo"></i></a>
+                            <a data-action="set" {{disabled (not stale)}}><i class="fas fa-fw fa-save"></i></a>
+                        </div>
+                    {{/if}}
+                </h3>
+                <div class="description"><div class="content">{{active.description}}</div></div>
+            </div>
+            <footer>
+                <div class="boosts">
+                    <section>
+                        <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.BoostsLabel"}}:</strong>
+                        <div class="abilities">
+                            {{#each active.boosts as |boost|}}
+                                {{#if (eq boost "free")}}
+                                    <span>{{localize "PF2E.Kingmaker.KingdomBuilder.Free"}}</span>
+                                {{else}}
+                                    <span>{{localize (lookup @root.abilities boost)}}</span>
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                    </section>
+                    <section>
+                        <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.FlawLabel"}}:</strong>
+                        {{#if active.flaw}}
+                            <span>{{localize (lookup @root.abilities active.flaw)}}</span>
+                        {{else}}
+                            <span>{{localize "PF2E.Kingmaker.KingdomBuilder.None"}}</span>
+                        {{/if}}
+                    </section>
+                </div>
+                <button class="complete" data-action="save-and-continue" type="button">
+                    {{localize "PF2E.Kingmaker.KingdomBuilder.SaveAndContinue"}}
+                </button>
+            </footer>
+        </section>
+    </div>
+{{/inline}}
+
+{{#*inline "buildRow"}}
+    <section class="row" data-section="{{section}}">
+        <div class="row-heading">
+            {{#if data.remaining}}<div class="remaining extra">{{data.remaining}}</div>{{/if}}
+            {{#if object}}
+                <img src="{{object.img}}" title="{{kingdom.charter.name}}" width="32" height="32" loading="lazy"/>
+            {{/if}}
+            <div class="label">
+                <div class="title">{{localize title}}</div>
+                <div class="description">
+                    {{#if object}}
+                        {{object.name}}
+                    {{else}}
+                        {{localize "PF2E.Actor.Character.AbilityBuilder.NotSelected"}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{#if data.buttons}}
+            <div class="abilities">
+                {{#each data.buttons as |state|}}
+                    {{> buttons state=state}}
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="full-row">{{localize missingText}}</div>
+        {{/if}}
+    </section>
+{{/inline}}
+
+{{#*inline "buttons"}}
+    <div class="row-column" data-ability="{{state.ability}}" data-stat="{{state.stat}}">
+        {{#if flaw}}
+            {{> boostButton type="flaw" button=state.flaw}}
+        {{/if}}
+        {{#if boost}}
+            {{> boostButton type="boost" button=state.boost}}
+        {{/if}}
+    </div>
+{{/inline}}
+
+{{#*inline "boostButton"}}
+    {{#if button.second}}
+        <div class="flaw-buttons">
+            {{> boostButtonSingle button=button type=type number="first"}}
+            {{> boostButtonSingle button=button.second type=type number="second"}}
+        </div>
+    {{else}}
+        {{> boostButtonSingle button=button type=type}}
+    {{/if}}
+
+    {{#*inline "boostButtonSingle"}}
+        <button type="button" data-action="{{type}}" class="tooltip boost-button {{type}} {{number}}{{#if button.selected}} selected{{/if}}{{#if button.locked}} locked{{/if}}" {{disabled (and button.disabled (not button.selected))}}>
+            {{#if button.locked}}<i class="fas fa-lock"></i>{{/if}}
+            {{#if (eq number "second")}}
+                x2
+            {{else if (eq type "flaw")}}
+                {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
+            {{else}}
+                {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}
+            {{/if}}
+        </button>
+    {{/inline}}
+{{/inline}}

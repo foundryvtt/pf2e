@@ -14,11 +14,11 @@
     }
 }
 
-.member-breakdown {
+.member {
     display: flex;
     flex-direction: row;
     font-family: var(--sans-serif);
-    padding: 0.5rem 16px;
+    padding: 0.5rem 1rem;
     position: relative;
 
     &:not(:last-child):after {
@@ -30,7 +30,7 @@
         bottom: 0;
     }
 
-    .member-image {
+    > .portrait {
         position: relative;
         min-width: 5.75rem;
         height: 5.75rem;
@@ -105,7 +105,7 @@
         }
     }
 
-    .member-data {
+    > .data {
         display: flex;
         border-left: 1px solid #C9BFA9;
         flex-direction: column;
@@ -123,22 +123,24 @@
         line-height: 1em; // make it line up better
 
         .hero-points {
-            display: flex;
-            flex: 1;
             align-items: center;
-            justify-content: flex-end;
+            display: flex;
             gap: 2px;
+            justify-content: end;
+            margin-left: auto;
+
+            > * {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
 
             .empty {
                 border: 2px dashed rgba(0, 0, 0, 0.5);
                 border-radius: 50%;
-                width: 1.2rem;
-                height: 1.2rem;
             }
+
             img {
                 border: none;
-                width: 1.2rem;
-                height: 1.2rem;
             }
         }
     }

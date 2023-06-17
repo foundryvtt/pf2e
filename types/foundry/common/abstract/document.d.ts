@@ -1,6 +1,8 @@
-import type BaseUser from "../documents/user.d.ts";
-import type EmbeddedCollection from "./embedded-collection.d.ts";
 import type * as CONST from "../constants.d.ts";
+import type { DataSchema } from "../data/fields.d.ts";
+import type BaseUser from "../documents/user.d.ts";
+import { DataModelValidationOptions } from "./data.js";
+import type EmbeddedCollection from "./embedded-collection.d.ts";
 
 /** The abstract base interface for all Document types. */
 export default abstract class Document<TParent extends Document | null = _Document | null> {
@@ -15,6 +17,9 @@ export default abstract class Document<TParent extends Document | null = _Docume
     readonly pack: string | null;
 
     _source: object;
+
+    // actually in `DataModel`
+    static defineSchema(): DataSchema;
 
     /** Perform one-time initialization tasks which only occur when the Document is first constructed. */
     protected _initialize(): void;
@@ -36,6 +41,27 @@ export default abstract class Document<TParent extends Document | null = _Docume
      * Reset the state of this data instance back to mirror the contained source data, erasing any changes.
      */
     reset(): void;
+
+    /**
+     * Validate the data contained in the document to check for type and content
+     * This function throws an error if data within the document is not valid
+     *
+     * @param options Optional parameters which customize how validation occurs.
+     * @param [options.changes]        A specific set of proposed changes to validate, rather than the full
+     *                                 source data of the model.
+     * @param [options.clean=false]    If changes are provided, attempt to clean the changes before validating
+     *                                 them?
+     * @param [options.fallback=false] Allow replacement of invalid values with valid defaults?
+     * @param [options.strict=true]    Throw if an invalid value is encountered, otherwise log a warning?
+     * @param [options.fields=true]    Perform validation on individual fields?
+     * @param [options.joint]          Perform joint validation on the full data model?
+     *                                 Joint validation will be performed by default if no changes are passed.
+     *                                 Joint validation will be disabled by default if changes are passed.
+     *                                 Joint validation can be performed on a complete set of changes (for
+     *                                 example testing a complete data model) by explicitly passing true.
+     * @return An indicator for whether the document contains valid data
+     */
+    validate(options?: DataModelValidationOptions): boolean;
 
     /* -------------------------------------------- */
     /*  Configuration                               */

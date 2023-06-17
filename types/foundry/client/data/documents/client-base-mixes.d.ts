@@ -400,12 +400,6 @@ export class CanvasBaseAmbientLight<TParent extends ClientBaseScene | null> exte
     protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 }
 
-export interface CanvasBaseAmbientLight<TParent extends ClientBaseScene | null>
-    extends ClientBaseAmbientLight<TParent> {
-    // System note: in most but not all canvas documents
-    hidden?: boolean;
-}
-
 declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> extends foundry.documents
     .BaseAmbientSound<TParent> {
     protected _sheet: FormApplication<this> | null;

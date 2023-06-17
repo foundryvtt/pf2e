@@ -58,7 +58,10 @@ describe("test migration runner", () => {
             },
         },
         actors: new MockActors(),
-        i18n: { format: (stringId: string, data: object): string => {} },
+        i18n: {
+            localize: (stringId): string => stringId,
+            format: (stringId: string, data: object): string => stringId,
+        },
         items: new MockItems(),
         journal: new MockWorldCollection<MockJournalEntry>(),
         macros: new MockWorldCollection<MockMacro>(),
@@ -67,6 +70,11 @@ describe("test migration runner", () => {
         users: new MockWorldCollection<MockUser>(),
         packs: new MockCollection(),
         scenes: new MockWorldCollection<MockScene>(),
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (global as any).SceneNavigation = {
+        displayProgressBar(...args: unknown): void {},
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

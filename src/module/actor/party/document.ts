@@ -1,14 +1,15 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { ItemType } from "@item/data/index.ts";
-import { sortBy, tupleHasValue } from "@util";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
-import { PartySheetRenderOptions } from "./sheet.ts";
 import { UserPF2e } from "@module/documents.ts";
-import { PartyCampaign, PartyUpdateContext } from "./types.ts";
-import { KingdomModel } from "./kingdom/index.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { sortBy, tupleHasValue } from "@util";
+import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
+import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { InvalidCampaign } from "./invalid-campaign.ts";
+import { Kingdom } from "./kingdom/index.ts";
+import { PartySheetRenderOptions } from "./sheet.ts";
+import { PartyCampaign, PartyUpdateContext } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -34,9 +35,30 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return false;
     }
 
+    /** Part members can add and remove items (though system socket shenanigans)  */
+    override canUserModify(user: UserPF2e, action: UserAction): boolean {
+        return (
+            super.canUserModify(user, action) ||
+            (action === "update" && this.members.some((m) => m.canUserModify(user, action)))
+        );
+    }
+
     /** Our bond is unbreakable */
     override isAffectedBy(): false {
         return false;
+    }
+
+    /** Override validation to defer certain properties to the campaign model */
+    override validate(options?: DataModelValidationOptions): boolean {
+        if (!super.validate(options)) return false;
+
+        const changes: DeepPartial<PartySource> = options?.changes ?? {};
+        if (changes.system?.campaign) {
+            const campaignValid = this.campaign?.validate({ ...options, changes: changes.system.campaign });
+            if (!campaignValid) return false;
+        }
+
+        return true;
     }
 
     override prepareBaseData(): void {
@@ -52,16 +74,24 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Bind campaign data, though only kingmaker is supported (and hardcoded).
         // This will need to be expanded to allow modules to add to the list
-        this.campaign = null;
         const campaignType = game.settings.get("pf2e", "campaignType");
         if (campaignType !== "none") {
             const typeMatches = this.system.campaign?.type === campaignType;
             if (this.system.campaign && !typeMatches) {
-                this.campaign = new InvalidCampaign(this, campaignType);
+                this.campaign = new InvalidCampaign(this, { campaignType, reason: "mismatch" });
             } else {
-                // Hardcoded, later on we need to make this configurable
-                const model = (this.campaign = new KingdomModel(this, this.system.campaign));
-                this.system.campaign = model._source;
+                // Wrap in a try catch in case data preparation fails
+                try {
+                    if (this.campaign?.type === campaignType) {
+                        this.campaign.updateSource(this.system.campaign);
+                    } else {
+                        const model = (this.campaign = new Kingdom(this.system.campaign, { parent: this }));
+                        this.system.campaign = model._source;
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.campaign = new InvalidCampaign(this, { campaignType, reason: "error" });
+                }
             }
         }
     }
