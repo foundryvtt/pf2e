@@ -74,8 +74,9 @@ class CompendiumPack {
 
     static LINK_PATTERNS = {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
-        compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|Item)\.(?<docName>[^\]]+)\]\{?/g,
-        uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|Item)\.(?<docName>[^\]]+)\]\{?/g,
+        compendium:
+            /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
+        uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
     };
 
     constructor(packDir: string, parsedData: unknown[], parsedFolders: unknown[]) {
