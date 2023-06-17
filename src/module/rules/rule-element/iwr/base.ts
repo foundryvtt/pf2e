@@ -1,6 +1,4 @@
-import { ActorPF2e } from "@actor";
 import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
-import { ItemPF2e } from "@item";
 import type {
     ArrayField,
     BooleanField,
@@ -14,12 +12,12 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSour
 abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
     abstract value: RuleValue;
 
-    constructor(data: IWRRuleElementSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: IWRRuleElementSource, options: RuleElementOptions) {
         if (typeof data.type === "string") {
             data.type = [data.type];
         }
 
-        super(data, item, options);
+        super(data, options);
     }
 
     static get dictionary(): Record<string, string | undefined> {
@@ -124,4 +122,4 @@ interface IWRRuleElementSource extends RuleElementSource {
     override?: unknown;
 }
 
-export { IWRRuleElement, IWRRuleSchema, IWRRuleElementSource };
+export { IWRRuleElement, IWRRuleElementSource, IWRRuleSchema };

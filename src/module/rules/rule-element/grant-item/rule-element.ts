@@ -31,8 +31,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     /** Actions taken when either the parent or child item are deleted */
     onDeleteActions: Partial<OnDeleteActions> | null;
 
-    constructor(data: GrantItemSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: GrantItemSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (this.reevaluateOnUpdate) {
             this.replaceSelf = false;
@@ -55,7 +55,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             this.#trackItem(grantedItem);
         }
 
-        if (item.isOfType("physical")) {
+        if (this.item.isOfType("physical")) {
             this.failValidation("parent item must not be physical");
         }
     }

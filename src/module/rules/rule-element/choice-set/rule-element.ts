@@ -1,4 +1,3 @@
-import { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { FeatPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
@@ -35,8 +34,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     /** The user's selection from among the options in `choices`, or otherwise `null` */
     selection: string | number | object | null;
 
-    constructor(data: ChoiceSetSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: ChoiceSetSource, options: RuleElementOptions) {
+        super(data, options);
 
         this.flag = this.#setDefaultFlag(this.data);
         this.choices = this.data.choices;
@@ -53,7 +52,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item. If a roll option is specified, assign that as well.
         if (this.selection !== null) {
-            item.flags.pf2e.rulesSelections[this.flag] = this.selection;
+            this.item.flags.pf2e.rulesSelections[this.flag] = this.selection;
             this.#setRollOption(this.selection);
         } else if (!this.allowNoSelection && this.test()) {
             // Disable this and all other rule elements on the item until a selection is made

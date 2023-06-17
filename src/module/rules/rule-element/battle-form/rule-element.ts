@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data.ts";
 import { CharacterSkill } from "@actor/character/types.ts";
 import { SENSE_TYPES } from "@actor/creature/sense.ts";
@@ -6,7 +6,7 @@ import { ActorType } from "@actor/data/index.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -38,10 +38,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: BattleFormSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: BattleFormSource, options: RuleElementOptions) {
         data.value ??= {};
         data.overrides ??= {};
-        super(data, item, options);
+        super(data, options);
         this.initialize(this.data);
         this.overrides = this.resolveValue(this.data.value, this.data.overrides) as this["data"]["overrides"];
         this.modifierLabel = this.getReducedLabel();
@@ -156,7 +156,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
-            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, this.item).onCreate(
+            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onCreate(
                 actorUpdates
             );
         }
@@ -210,7 +210,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
-            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, this.item).onDelete(
+            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onDelete(
                 actorUpdates
             );
         }
@@ -272,7 +272,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!newSense) continue;
             newSense.acuity ??= "precise";
             const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
-            new SenseRuleElement(ruleData, this.item).beforePrepareData();
+            new SenseRuleElement(ruleData, { parent: this.item }).beforePrepareData();
         }
     }
 
@@ -280,7 +280,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     #prepareSize(): void {
         if (!this.overrides.size) return;
         const ruleData = { key: "CreatureSize", label: this.label, value: this.overrides.size };
-        new CreatureSizeRuleElement(ruleData, this.item).beforePrepareData();
+        new CreatureSizeRuleElement(ruleData, { parent: this.item }).beforePrepareData();
     }
 
     /** Add, replace and/or adjust non-land speeds */
@@ -377,7 +377,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
             for (const datum of ruleData) {
                 if (!datum.traits.includes("magical")) datum.traits.push("magical");
-                new StrikeRuleElement({ ...datum, battleForm: true }, this.item).beforePrepareData();
+                new StrikeRuleElement({ ...datum, battleForm: true }, { parent: this.item }).beforePrepareData();
             }
         }
 
@@ -418,15 +418,18 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Immunity, weakness, and resistance */
     #prepareIWR(): void {
         for (const immunity of this.overrides.immunities) {
-            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).afterPrepareData();
+            new ImmunityRuleElement({ key: "Immunity", ...immunity }, { parent: this.item }).afterPrepareData();
         }
         for (const weakness of this.overrides.weaknesses) {
-            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).afterPrepareData();
+            new WeaknessRuleElement(
+                { key: "Weakness", ...weakness, override: true },
+                { parent: this.item }
+            ).afterPrepareData();
         }
         for (const resistance of this.overrides.resistances) {
             new ResistanceRuleElement(
                 { key: "Resistance", ...resistance, override: true },
-                this.item
+                { parent: this.item }
             ).afterPrepareData();
         }
     }

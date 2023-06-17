@@ -249,10 +249,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
     }
 
-    prepareRuleElements(this: ItemPF2e<ActorPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
+    prepareRuleElements(
+        this: ItemPF2e<ActorPF2e>,
+        options: Omit<RuleElementOptions, "parent"> = {}
+    ): RuleElementPF2e[] {
         if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
 
-        return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this, options) : []);
+        return (this.rules = this.actor.canHostRuleElements
+            ? RuleElements.fromOwnedItem({ ...options, parent: this })
+            : []);
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */

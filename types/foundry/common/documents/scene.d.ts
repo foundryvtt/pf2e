@@ -1,5 +1,5 @@
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
-import type { AmbientLightSource } from "./ambient-light.d.ts";
+import type { AmbientLightSchema } from "./ambient-light.d.ts";
 import type { AmbientSoundSource } from "./ambient-sound.d.ts";
 import type { DrawingSource } from "./drawing.d.ts";
 import type { MeasuredTemplateSource } from "./measured-template.d.ts";
@@ -129,7 +129,7 @@ export interface SceneSource {
     // Embedded Collections
     drawings: DrawingSource[];
     tokens: TokenSource[];
-    lights: AmbientLightSource[];
+    lights: SourceFromSchema<AmbientLightSchema>[];
     notes: NoteSource[];
     sounds: AmbientSoundSource[];
     templates: MeasuredTemplateSource[];

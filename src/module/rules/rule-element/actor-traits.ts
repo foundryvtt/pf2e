@@ -1,5 +1,3 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 class ActorTraitsRuleElement extends RuleElementPF2e {
@@ -7,11 +5,11 @@ class ActorTraitsRuleElement extends RuleElementPF2e {
 
     remove: string[] = [];
 
-    constructor(data: ActorTraitsSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
+    constructor(data: ActorTraitsSource, options: RuleElementOptions) {
         data.add ??= [];
         data.remove ??= [];
 
-        super({ ...data, priority: 99 }, item, options);
+        super({ ...data, priority: 99 }, options);
 
         if (!(Array.isArray(data.add) && Array.isArray(data.remove))) {
             this.failValidation("`add` and `remove` properties must be arrays or omitted");

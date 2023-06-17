@@ -1,8 +1,6 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { MAPSynthetic } from "../synthetics.ts";
-import { RuleElementOptions, RuleElementPF2e } from "./index.ts";
 import { RuleElementSource } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -10,8 +8,8 @@ import { RuleElementSource } from "./data.ts";
 export class MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
     private selector: string;
 
-    constructor(data: MAPSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: MAPSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (typeof data.selector === "string") {
             this.selector = data.selector;

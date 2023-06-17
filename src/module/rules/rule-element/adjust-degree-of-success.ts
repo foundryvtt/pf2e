@@ -1,10 +1,9 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import {
-    DegreeAdjustmentAmount,
-    DegreeOfSuccessString,
     DEGREE_ADJUSTMENT_AMOUNTS,
     DEGREE_OF_SUCCESS_STRINGS,
+    DegreeAdjustmentAmount,
+    DegreeOfSuccessString,
 } from "@system/degree-of-success.ts";
 import { isObject } from "@util";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
@@ -15,8 +14,8 @@ import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource
 class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     selector: string;
 
-    constructor(data: AdjustDegreeOfSuccessSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: AdjustDegreeOfSuccessSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (typeof data.selector === "string") {
             this.selector = data.selector;

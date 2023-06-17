@@ -1,10 +1,8 @@
-import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { isObject } from "@util";
-import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./index.ts";
 import { RuleElementOptions } from "./base.ts";
+import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -12,8 +10,8 @@ import { RuleElementOptions } from "./base.ts";
 class TempHPRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: TempHPSource, item: ItemPF2e<ActorPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(data: TempHPSource, options: RuleElementOptions) {
+        super(data, options);
 
         /** Whether the temporary hit points are immediately applied */
         this.data.onCreate = !!(this.data.onCreate ?? true);

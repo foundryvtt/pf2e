@@ -1,11 +1,10 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
-import { ItemPF2e } from "@item";
 import { CriticalInclusion, DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import { BracketedValue, RuleElementSource } from "./data.ts";
-import { RuleElementData, RuleElementPF2e } from "./index.ts";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e } from "./index.ts";
 
 class DamageDiceRuleElement extends RuleElementPF2e {
     override slug: string;
@@ -26,8 +25,8 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
     override: DamageDiceOverride | null;
 
-    constructor(data: DamageDiceSource, item: ItemPF2e<ActorPF2e>) {
-        super(data, item);
+    constructor(data: DamageDiceSource, options: RuleElementOptions) {
+        super(data, options);
 
         if (typeof data.selector === "string" && data.selector.length > 0) {
             this.selector = data.selector;
