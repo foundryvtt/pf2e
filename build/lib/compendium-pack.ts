@@ -42,6 +42,10 @@ function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
     );
 }
 
+function isJournalEntrySource(docSource: PackEntry): docSource is foundry.documents.JournalEntrySource {
+    return isObject(docSource) && "content" in docSource && !("type" in docSource);
+}
+
 /**
  * This is used to check paths to core icons to ensure correctness. The JSON file will need to be periodically refreshed
  *  as upstream adds more icons.
@@ -256,6 +260,10 @@ class CompendiumPack {
 
             // Convert uuids with names in GrantItem REs to well-formedness
             CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+        }
+
+        if (isJournalEntrySource(docSource)) {
+            docSource.pages ??= [];
         }
 
         const replace = (match: string, packId: string, docType: string, docName: string): string => {
