@@ -11,7 +11,6 @@ import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
-    ErrorPF2e,
     getActionGlyph,
     getActionIcon,
     htmlQuery,
@@ -448,17 +447,18 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
             $html.find(".tab.inventory").addClass("active");
         }
 
+        // Add events for recall knowledge. Does not exist for limited and loot sheets
         const mainPanel = htmlQuery(html, ".tab[data-tab=main]");
-        if (!mainPanel) throw ErrorPF2e("Unexpected failure while renderin NPC sheet");
+        if (mainPanel) {
+            // Creature identification
+            for (const identificationDC of htmlQueryAll(mainPanel, ".recall-knowledge .identification-skills")) {
+                $(identificationDC).tooltipster({ position: "bottom", maxWidth: 350, theme: "crb-hover" });
+            }
 
-        // Creature identification
-        for (const identificationDC of htmlQueryAll(mainPanel, ".recall-knowledge .identification-skills")) {
-            $(identificationDC).tooltipster({ position: "bottom", maxWidth: 350, theme: "crb-hover" });
+            htmlQuery(mainPanel, ".recall-knowledge button.breakdown")?.addEventListener("click", () => {
+                new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
+            });
         }
-
-        htmlQuery(mainPanel, ".recall-knowledge button.breakdown")?.addEventListener("click", () => {
-            new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
-        });
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.isEditable) return;

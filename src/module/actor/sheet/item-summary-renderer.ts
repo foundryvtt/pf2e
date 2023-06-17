@@ -55,7 +55,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                 const insertLocation = htmlQueryAll(
                     element,
                     ":scope > .item-name, :scope > .item-controls, :scope > .action-header"
-                ).at(-1);
+                ).at(-1)?.parentNode?.lastChild;
                 if (!insertLocation) return null;
 
                 const summary = document.createElement("div");
