@@ -11,8 +11,8 @@
         </div>
         <div class="header-search flexrow">
             <i class="filter fa-solid {{#if filtersActive}}fa-filter-list{{else}}fa-filter{{/if}}"></i>
-            <i class="fas fa-search"></i>
-            <input type="search" name="search" value="" placeholder="{{localize "COMPENDIUM.Search"}}" autocomplete="off"/>
+            <i class="fa-solid fa-search"></i>
+            <input type="search" name="search" value="" placeholder="{{localize 'SIDEBAR.Search' types=labelPlural}}" autocomplete="off" />
             <a class="header-control toggle-sort" data-tooltip="{{localize sortTooltip}}"><i class="fa-solid {{sortIcon}}"></i></a>
             <a class="header-control collapse-all" data-tooltip="{{localize 'FOLDER.Collapse'}}"><i class="fa-duotone fa-folder-tree"></i></a>
         </div>
@@ -20,25 +20,12 @@
 
     <!-- Directory Contents -->
     <ol class="directory-list">
-        {{~#each tree.children}}
+        {{#each tree.children}}
             {{> (lookup @root "folderPartial") node=this folder=this.folder}}
         {{/each}}
         {{#each tree.entries}}
-            {{#with (lookup @root.packContext collection)}}
-                <li class="directory-item compendium {{@root.documentCls}} {{#if locked}}locked{{/if}} {{#if hidden}}hidden{{/if}}
-                    flexcol" data-pack="{{collection}}" data-entry-id="{{collection}}">
-                    <img class="compendium-banner" data-src="{{banner}}">
-                    <h3 class="entry-name compendium-name"><i class="{{icon}}"></i> {{label}}</h3>
-                    <div class="status-icons flexrow">
-                        {{#if this.customOwnership}}<i class="fa-solid fa-eye"></i>{{/if}}
-                        {{#if this.locked}}<i class="fa-solid fa-lock"></i>{{/if}}
-                    </div>
-                    <footer class="compendium-footer">
-                        <span class="source"><i class="fa-solid {{sourceIcon}}"></i> {{name}}</span>
-                    </footer>
-                </li>
-            {{/with}}
-        {{/each~}}
+            {{> (lookup @root "entryPartial")}}
+        {{/each}}
         <ol class="document-matches"></ol>
     </ol>
 
@@ -48,7 +35,9 @@
             <i class="fa-solid fa-triangle-exclamation"></i>
             <a class="show-issues">{{localize "SUPPORT.UnavailableDocuments" count=unavailable document=label}}</a>
         {{/if~}}
-        <button type="button" class="compendium-browser-btn"><i class="fas fa-fire"></i> {{localize "PF2E.CompendiumBrowser.Title"}}</button>
+        <button type="button" class="compendium-browser-btn">
+            <i class="fa-solid fa-magnifying-glass"></i> {{localize "PF2E.CompendiumBrowser.Title"}}
+        </button>
     </footer>
 
     <template id="compendium-search-match">
