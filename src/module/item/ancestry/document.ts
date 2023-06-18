@@ -150,8 +150,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Generate a list of strings for use in predication */
     override getRollOptions(): string[] {
         return [
-            ...super.getRollOptions(),
-            `item:rarity:${this.rarity}`
+            ...super.getRollOptions(), `item:rarity:${this.rarity}`
         ];
     }
 }
