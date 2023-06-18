@@ -28,25 +28,29 @@
             {
                 "domain": "damage-roll",
                 "key": "RollOption",
-                "label": "Target triggered your champion reaction (negative damage)",
-                "option": "iron-command-negative",
-                "toggleable": true
-            },
-            {
-                "domain": "damage-roll",
-                "key": "RollOption",
-                "label": "Target triggered your champion reaction (evil damage)",
-                "option": "iron-command-evil",
+                "label": "PF2E.SpecificRule.Champion.TargetReaction",
+                "option": "iron-command",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Champion.NegativeDamage",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Champion.EvilDamage",
+                        "value": "evil"
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "damageType": "negative",
                 "key": "FlatModifier",
-                "label": "Iron Command",
+                "label": "PF2E.SpecificRule.Champion.IronCommand",
                 "predicate": [
-                    "iron-command-negative"
+                    "iron-command:negative"
                 ],
                 "selector": "strike-damage",
+                "slug": "iron-command-negative",
                 "value": {
                     "brackets": [
                         {
@@ -68,11 +72,12 @@
             {
                 "damageType": "evil",
                 "key": "FlatModifier",
-                "label": "Iron Command",
+                "label": "PF2E.SpecificRule.Champion.IronCommand",
                 "predicate": [
-                    "iron-command-evil"
+                    "iron-command:evil"
                 ],
                 "selector": "strike-damage",
+                "slug": "iron-command-evil",
                 "value": {
                     "brackets": [
                         {

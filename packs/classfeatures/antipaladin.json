@@ -28,25 +28,29 @@
             {
                 "domain": "damage-roll",
                 "key": "RollOption",
-                "label": "Target triggered your champion reaction (negative damage)",
-                "option": "destructive-vengeance-negative",
-                "toggleable": true
-            },
-            {
-                "domain": "damage-roll",
-                "key": "RollOption",
-                "label": "Target triggered your champion reaction (evil damage)",
-                "option": "destructive-vengeance-evil",
+                "label": "PF2E.SpecificRule.Champion.TargetReaction",
+                "option": "destructive-vengeance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Champion.NegativeDamage",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Champion.EvilDamage",
+                        "value": "evil"
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "damageType": "negative",
                 "key": "FlatModifier",
-                "label": "Destructive Vengeance",
+                "label": "PF2E.SpecificRule.Champion.DestructiveVengeance",
                 "predicate": [
-                    "destructive-vengeance-negative"
+                    "destructive-vengeance:negative"
                 ],
                 "selector": "strike-damage",
+                "slug": "destructive-vengeance-negative",
                 "value": {
                     "brackets": [
                         {
@@ -68,11 +72,12 @@
             {
                 "damageType": "evil",
                 "key": "FlatModifier",
-                "label": "Destructive Vengeance",
+                "label": "PF2E.SpecificRule.Champion.DestructiveVengeance",
                 "predicate": [
-                    "destructive-vengeance-evil"
+                    "destructive-vengeance:evil"
                 ],
                 "selector": "strike-damage",
+                "slug": "destructive-vengeance-evil",
                 "value": {
                     "brackets": [
                         {
