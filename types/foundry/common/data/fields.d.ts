@@ -691,7 +691,7 @@ export class ForeignDocumentField<
 }
 
 /** A subclass of `ObjectField` which supports a system-level data object. */
-export class SystemDataField<TSourceProp extends object = object, TModelProp = TSourceProp> extends ObjectField<
+export class TypeDataField<TSourceProp extends object = object, TModelProp = TSourceProp> extends ObjectField<
     TSourceProp,
     TModelProp
 > {
@@ -935,10 +935,6 @@ export type ModelPropFromDataField<T> = T extends DataField<
     ? MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>
     : never;
 
-type ModelPropsFromSchema<TDataSchema extends DataSchema> = {
-    [K in keyof TDataSchema]: ModelPropFromDataField<TDataSchema[K]>;
-};
-
 export type MaybeSchemaProp<
     TProp,
     TRequired extends boolean,
@@ -957,6 +953,10 @@ export type MaybeSchemaProp<
     : TProp | undefined;
 
 declare global {
+    type ModelPropsFromSchema<TDataSchema extends DataSchema> = {
+        [K in keyof TDataSchema]: ModelPropFromDataField<TDataSchema[K]>;
+    };
+
     type SourceFromSchema<TDataSchema extends DataSchema> = {
         [K in keyof TDataSchema]: SourcePropFromDataField<TDataSchema[K]>;
     };

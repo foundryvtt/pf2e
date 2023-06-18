@@ -6,7 +6,7 @@ import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, objectHasKey, sluggify } from "@util";
-import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { StrikeAdjustment } from "../synthetics.ts";
 import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
 import { RuleElementOptions } from "./base.ts";

@@ -8,7 +8,6 @@ import { PredicateField } from "@system/schema-data-fields.ts";
 import { isObject, localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import type { ModelPropsFromSchema } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
 import {
     ChoiceSetData,

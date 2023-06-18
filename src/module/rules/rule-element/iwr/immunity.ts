@@ -1,6 +1,6 @@
 import { ImmunityData } from "@actor/data/iwr.ts";
 import { ImmunityType } from "@actor/types.ts";
-import type { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 const { fields } = foundry.data;

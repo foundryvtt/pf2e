@@ -2,12 +2,7 @@ import { DeferredValueParams } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/data/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
-import type {
-    ArrayField,
-    BooleanField,
-    ModelPropsFromSchema,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ItemAlterationField, applyAlterations } from "./alter-item/index.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 

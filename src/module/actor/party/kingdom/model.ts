@@ -1,7 +1,6 @@
 import { FeatGroup } from "@actor/character/feats.ts";
 import { ItemType } from "@item/data/index.ts";
 import { createHTMLElement, fontAwesomeIcon } from "@util";
-import { ModelPropsFromSchema } from "types/foundry/common/data/fields.js";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomBuilder } from "./builder.ts";

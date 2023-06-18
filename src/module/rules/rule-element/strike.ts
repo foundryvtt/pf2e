@@ -19,7 +19,6 @@ import type {
     ArrayField,
     BooleanField,
     FilePathField,
-    ModelPropsFromSchema,
     NumberField,
     SchemaField,
     StringField,

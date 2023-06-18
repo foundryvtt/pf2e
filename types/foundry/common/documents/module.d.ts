@@ -2,7 +2,7 @@ export { default as BaseActiveEffect, ActiveEffectSource, EffectChangeSource } f
 export { default as BaseActor, ActorFlags, ActorSource } from "./actor.ts";
 export { default as BaseActorDelta } from "./actor-delta.ts";
 export { default as BaseAdventure, AdventureSource } from "./adventure.ts";
-export { default as BaseAmbientLight, AmbientLightSource } from "./ambient-light.ts";
+export { default as BaseAmbientLight } from "./ambient-light.ts";
 export { default as BaseAmbientSound, AmbientSoundSource } from "./ambient-sound.ts";
 export { default as BaseCard } from "./card.ts";
 export { default as BaseCards, CardsSource } from "./cards.ts";
@@ -14,7 +14,7 @@ export { default as BaseFogExploration, FogExplorationSource } from "./fog-explo
 export { default as BaseFolder, FolderSource } from "./folder.ts";
 export { default as BaseItem, ItemFlags, ItemSource } from "./item.ts";
 export { default as BaseJournalEntry, JournalEntrySource } from "./journal-entry.ts";
-export { default as BaseJournalEntryPage, JournalEntryPageSource } from "./journal-entry-page.ts";
+export { default as BaseJournalEntryPage } from "./journal-entry-page.ts";
 export { default as BaseMacro, MacroSource } from "./macro.ts";
 export { default as BaseMeasuredTemplate, MeasuredTemplateSource } from "./measured-template.ts";
 export { default as BaseNote, NoteSource } from "./note.ts";

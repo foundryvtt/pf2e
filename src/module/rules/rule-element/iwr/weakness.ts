@@ -1,8 +1,8 @@
 import { WeaknessData } from "@actor/data/iwr.ts";
 import { WeaknessType } from "@actor/types.ts";
-import type { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
-import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "../data.ts";
+import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
 class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {

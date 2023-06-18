@@ -3,13 +3,7 @@ import { AbilityString } from "@actor/types.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { objectHasKey, sluggify } from "@util";
-import type {
-    ArrayField,
-    BooleanField,
-    ModelPropsFromSchema,
-    NumberField,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 

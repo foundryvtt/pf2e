@@ -1,7 +1,7 @@
 import type * as CONST from "../constants.d.ts";
 import type { DataSchema } from "../data/fields.d.ts";
 import type BaseUser from "../documents/user.d.ts";
-import { DataModelValidationOptions } from "./data.js";
+import type { DataModelValidationOptions } from "./data.d.ts";
 import type EmbeddedCollection from "./embedded-collection.d.ts";
 
 /** The abstract base interface for all Document types. */
@@ -113,6 +113,15 @@ export default abstract class Document<TParent extends Document | null = _Docume
     static canUserCreate(user: BaseUser): boolean;
 
     /**
+     * Get the explicit permission level that a User has over this Document, a value in CONST.DOCUMENT_OWNERSHIP_LEVELS.
+     * This method returns the value recorded in Document ownership, regardless of the User's role.
+     * To test whether a user has a certain capability over the document, testUserPermission should be used.
+     * @param user The User being tested
+     * @returns A numeric permission level from CONST.DOCUMENT_OWNERSHIP_LEVELS or null
+     */
+    getUserLevel(user: BaseUser): DocumentOwnershipLevel | null;
+
+    /**
      * Migrate candidate source data for this DataModel which may require initial cleaning or transformations.
      * @param source           The candidate source data from which the model will be constructed
      * @returns                Migrated source data, if necessary
@@ -143,13 +152,6 @@ export default abstract class Document<TParent extends Document | null = _Docume
     clone(data: DocumentUpdateData<this> | undefined, options: DocumentCloneOptions & { save: true }): Promise<this>;
     clone(data?: DocumentUpdateData<this>, options?: DocumentCloneOptions & { save?: false }): this;
     clone(data?: DocumentUpdateData<this>, options?: DocumentCloneOptions): this | Promise<this>;
-
-    /**
-     * Get the permission level that a specific User has over this Document, a value in CONST.ENTITY_PERMISSIONS.
-     * @param user The User being tested
-     * @returns A numeric permission level from CONST.ENTITY_PERMISSIONS or null
-     */
-    getUserLevel(user: BaseUser): DocumentOwnershipLevel | null;
 
     /**
      * Test whether a certain User has a requested permission level (or greater) over the Document

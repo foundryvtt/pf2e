@@ -1,7 +1,7 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { FeatPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
-import type { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
