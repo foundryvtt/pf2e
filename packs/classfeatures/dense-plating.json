@@ -1,0 +1,43 @@
+{
+    "_id": "wuzncAUllbHFQ91v",
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Dense Plating",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have encased your armor in robust plating. While wearing your armor, you gain resistance to slashing damage equal to half your level.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}"
+                ],
+                "type": "slashing",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

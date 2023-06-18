@@ -1,0 +1,74 @@
+{
+    "_id": "jpzo3279ZbV4EFAx",
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Hyper Boosters",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've improved your speed boosters' power through a breakthrough that significantly increases the energy flow without risking exploding. You gain a +10-foot status bonus to your Speed, which increases to a +20-foot status bonus when you're in Overdrive. If you're legendary in Crafting, it instead increases to a +30-foot status bonus when you're in Overdrive. You must have the speed boosters modification to select this modification.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "hyper-boosters",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 3,
+                            "start": 0,
+                            "value": 20
+                        },
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": 30
+                        }
+                    ],
+                    "field": "actor|skills.crafting.rank"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "feature:speed-boosters"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

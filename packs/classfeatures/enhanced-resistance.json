@@ -1,0 +1,226 @@
+{
+    "_id": "uwlyn7IJeQ4V8b2Y",
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Enhanced Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've improved upon your initial modification's ability to resist damage. The resistance from your initial armor modification adds your full level, instead of half your level (for instance, @UUID[Compendium.pf2e.classfeatures.Item.Phlogistonic Regulator]'s resistance would increase to your level). If you have more than one initial modification that gives resistance, choose which one this applies to.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/features/classes/harmonic-oscillator.webp",
+                        "label": "Harmonic Oscillator",
+                        "predicate": [
+                            "feature:harmonic-oscillator"
+                        ],
+                        "value": "harmonic-oscillator"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/features/classes/metallic-reactance.webp",
+                        "label": "Metallic Reactance",
+                        "predicate": [
+                            "feature:metallic-reactance"
+                        ],
+                        "value": "metallic-reactance"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/features/classes/otherworldly-protection.webp",
+                        "label": "Otherworldly Protection",
+                        "predicate": [
+                            "feature:otherworldly-protection"
+                        ],
+                        "value": "otherworldly-protection"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/features/classes/phlogistonic-regulator.webp",
+                        "label": "Phlogistonic Regulator",
+                        "predicate": [
+                            "feature:phlogistonic-regulator"
+                        ],
+                        "value": "phlogistonic-regulator"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Inventor.Modification.EnhancedResistance",
+                "rollOption": "enhanced-resistance:modification"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:harmonic-oscillator"
+                ],
+                "type": [
+                    "force",
+                    "sonic"
+                ],
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:harmonic-oscillator",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": [
+                    "force",
+                    "sonic"
+                ],
+                "value": "5 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:metallic-reactance"
+                ],
+                "type": [
+                    "acid",
+                    "electricity"
+                ],
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:metallic-reactance",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": [
+                    "acid",
+                    "electricity"
+                ],
+                "value": "5 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:otherworldly-protection",
+                    {
+                        "not": "self:negative-healing"
+                    }
+                ],
+                "type": "negative",
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:otherworldly-protection",
+                    "self:negative-healing"
+                ],
+                "type": "positive",
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:otherworldly-protection",
+                    "self:trait:evil"
+                ],
+                "type": "good",
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:otherworldly-protection",
+                    "self:trait:good"
+                ],
+                "type": "evil",
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:otherworldly-protection",
+                    "self:trait:chaotic"
+                ],
+                "type": "lawful",
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:otherworldly-protection",
+                    "self:trait:lawful"
+                ],
+                "type": "chaotic",
+                "value": "3 + @actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:phlogistonic-regulator"
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "enhanced-resistance:modification:phlogistonic-regulator",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "2 + @actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

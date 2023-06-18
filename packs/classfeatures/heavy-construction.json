@@ -1,0 +1,68 @@
+{
+    "_id": "hWZ8eUeDtHhcZ9Pe",
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Heavy Construction",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><em>System note: This feature will grant you a new suit of armor. You will need to move any runes, equip the new armor, and delete the old armor.</em></p>\n<p>You've expanded your innovation into a heavy bulwark, and your groundbreaking design ensures you don't take any of the drawbacks for such heavy defenses. Your innovation becomes heavy armor, and your proficiency in your innovation armor (but no other heavy armor) advances to be equal to your proficiency in medium armor. If your Strength score is at least 16, you remove the Speed penalty entirely instead of reducing it to -5 feet. The armor's adjusted statistics are:</p>\n<ul>\n<li><em>AC Bonus</em> +5</li>\n<li><em>Dex Cap</em> +1</li>\n<li><em>Check Penalty</em> -2</li>\n<li><em>Speed Penalty</em> -10 feet</li>\n<li><em>Strength</em> 16</li>\n<li><em>Bulk</em> 3</li>\n<li><em>Group</em> composite</li>\n<li><em>Armor Traits</em> bulwark.</li>\n</ul>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    {
+                        "gte": [
+                            "ability:str:score",
+                            16
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "land-speed"
+                ],
+                "slug": "armor-speed-penalty",
+                "suppress": true
+            },
+            {
+                "allowDuplicate": false,
+                "flag": "armorInnovation",
+                "key": "GrantItem",
+                "predicate": [
+                    "armor-innovation:power-suit"
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Power Suit (Heavy Construction)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.armorInnovationId",
+                "priority": 51,
+                "value": "{item|flags.pf2e.itemGrants.armorInnovation.id}"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

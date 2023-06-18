@@ -1,0 +1,117 @@
+{
+    "_id": "UyIUjKvWQnOsWtO6",
+    "img": "systems/pf2e/icons/equipment/armor/power-suit.webp",
+    "name": "Power Suit (Heavy Construction)",
+    "system": {
+        "armor": {
+            "value": 5
+        },
+        "baseItem": null,
+        "category": "heavy",
+        "check": {
+            "value": -2
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>You've expanded your innovation into a heavy bulwark, and your groundbreaking design ensures you don't take any of the drawbacks for such heavy defenses. Your innovation becomes heavy armor, and your proficiency in your innovation armor (but no other heavy armor) advances to be equal to your proficiency in medium armor. If your Strength score is at least 16, you remove the Speed penalty entirely instead of reducing it to -5 feet.</p>"
+        },
+        "dex": {
+            "value": 1
+        },
+        "equippedBulk": {
+            "value": "3"
+        },
+        "group": null,
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": null
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "propertyRune1": {
+            "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "resiliencyRune": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "bonus:proficiency",
+                    {
+                        "not": "feature:armor-innovation"
+                    }
+                ],
+                "requiresInvested": false,
+                "selector": "ac",
+                "value": 0
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.martial.heavy.rank",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "feature:heavy-construction"
+                ],
+                "priority": 52,
+                "selector": "ac",
+                "value": "@actor.system.martial.medium.rank"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "speed": {
+            "value": -10
+        },
+        "stackGroup": null,
+        "strength": {
+            "value": 16
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "bulwark"
+            ]
+        },
+        "usage": {
+            "value": "wornarmor"
+        },
+        "weight": {
+            "value": "4"
+        }
+    },
+    "type": "armor"
+}

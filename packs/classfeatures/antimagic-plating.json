@@ -1,0 +1,77 @@
+{
+    "_id": "LrLEueZDNA4X1uTb",
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Antimagic Plating",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether you used some clever adaptation of the magic-negating skymetal known as noqual or created magical protections of your own design, you've strengthened your armor against magic. While wearing the armor, you gain a +1 circumstance bonus to all saving throws against spells and to AC against spells. Against spells that target the armor directly (like @UUID[Compendium.pf2e.spells-srd.Item.Heat Metal]), you instead gain a +4 circumstance bonus to all saving throws and to AC.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "item:type:spell"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Modification.AntimagicPlating",
+                "option": "spell-affects-armor",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "spell-affects-armor"
+                ],
+                "selector": "saving-throw",
+                "slug": "antimagic-plating",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "spell-affects-armor"
+                ],
+                "selector": "ac",
+                "slug": "antimagic-plating",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}
