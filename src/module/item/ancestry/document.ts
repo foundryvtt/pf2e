@@ -12,6 +12,9 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     get traits(): Set<CreatureTrait> {
         return new Set(this.system.traits.value);
     }
+    get rarity(): string {
+        return this.system.traits.rarity;
+    }
 
     get hitPoints(): number {
         return this.system.hp;
@@ -142,6 +145,14 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         for (const trait of this.traits) {
             actor.rollOptions.all[`self:trait:${trait}`] = true;
         }
+    }
+
+    /** Generate a list of strings for use in predication */
+    override getRollOptions(): string[] {
+        return [
+            ...super.getRollOptions(),
+            `item:rarity:${this.rarity}`
+        ];
     }
 }
 
