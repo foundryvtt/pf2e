@@ -125,18 +125,6 @@ form.army-sheet {
           box-shadow: none;
         }
       }
-      button {
-        .empty, &.disabled {
-          color: darkgrey;
-          i::before {
-            text-shadow: none;
-            cursor: not-allowed;
-          }
-        }
-        .filled {
-          color: black;
-        }
-      }
     }
     //The portrait section
     section.image-container {
@@ -249,6 +237,22 @@ form.army-sheet {
     }
   }
 
+  button {
+    .empty {
+      color: darkgrey;
+    }
+    .filled {
+      color: black;
+    }
+    .disabled {
+      color: darkgrey;
+      i::before {
+        text-shadow: none;
+        cursor: not-allowed;
+      }
+    }
+  }
+
   .flex {
     display: flex;
     justify-content: space-between;
@@ -267,6 +271,7 @@ form.army-sheet {
     height: 20px;
     background: rgba(255, 255, 255, 0.5);
   }
+
   input[type=checkbox] {
     font-size: var(--font-size-10);
     height: 12px;
