@@ -1,4 +1,3 @@
-import { ModelPropsFromSchema } from "types/foundry/common/data/fields.js";
 import { KINGDOM_SCHEMA } from "./schema.ts";
 import { KINGDOM_ABILITIES, KINGDOM_LEADERSHIP } from "./values.ts";
 

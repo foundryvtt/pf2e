@@ -7,7 +7,6 @@ import type {
     ArrayField,
     BooleanField,
     ColorField,
-    ModelPropsFromSchema,
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";

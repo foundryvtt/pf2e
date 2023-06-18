@@ -2,7 +2,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { isObject } from "@util";
-import type { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 const { fields } = foundry.data;

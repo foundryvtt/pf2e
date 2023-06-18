@@ -1,5 +1,5 @@
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
-import type { JournalEntryPageSource } from "./journal-entry-page.d.ts";
+import { JournalEntryPageSchema } from "./journal-entry-page.js";
 import type { BaseJournalEntryPage } from "./module.d.ts";
 
 /** The JournalEntry document model. */
@@ -34,7 +34,7 @@ export default interface BaseJournalEntry extends Document<null> {
 interface JournalEntrySource {
     _id: string;
     name: string;
-    pages: JournalEntryPageSource[];
+    pages: SourceFromSchema<JournalEntryPageSchema>[];
     content: string;
     img: ImageFilePath;
     folder: string | null;

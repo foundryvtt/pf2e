@@ -7,7 +7,6 @@ import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import type { ModelPropsFromSchema } from "types/foundry/common/data/fields.d.ts";
 import { ItemAlterationField, applyAlterations } from "../alter-item/index.ts";
 import { ChoiceSetSource } from "../choice-set/data.ts";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";

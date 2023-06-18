@@ -2,13 +2,7 @@ import { ModifierAdjustment } from "@actor/modifiers.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { objectHasKey } from "@util";
-import type {
-    ArrayField,
-    BooleanField,
-    ModelPropsFromSchema,
-    NumberField,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions } from "./index.ts";
