@@ -92,7 +92,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rollData,
             async: true,
         });
-        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), {
+        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm ? item.system.description.gm.trim() : "", {
             rollData,
             async: true,
         });
