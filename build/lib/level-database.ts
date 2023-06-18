@@ -1,12 +1,13 @@
-import { ClassicLevel, type DatabaseOptions } from "classic-level";
-import systemJSON from "../../static/system.json" assert { type: "json" };
-import type { AbstractSublevel } from "abstract-level";
-import { isObject, compact } from "remeda";
-import { PackEntry } from "./types.ts";
-import { JournalEntryPageSource, TableResultSource } from "types/foundry/common/documents/module.js";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { tupleHasValue } from "@util";
+import type { AbstractSublevel } from "abstract-level";
+import { ClassicLevel, type DatabaseOptions } from "classic-level";
+import { compact, isObject } from "remeda";
+import type { JournalEntryPageSchema } from "types/foundry/common/documents/journal-entry-page.d.ts";
+import type { TableResultSource } from "types/foundry/common/documents/module.d.ts";
+import systemJSON from "../../static/system.json" assert { type: "json" };
 import { PackError } from "./helpers.ts";
+import { PackEntry } from "./types.ts";
 
 const DB_KEYS = ["actors", "items", "journal", "macros", "tables"] as const;
 const EMBEDDED_KEYS = ["items", "pages", "results"] as const;
@@ -52,7 +53,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
                         const doc = embeddedDocs[i];
                         if (isDoc(doc) && embeddedBatch) {
                             embeddedBatch.put(`${source._id}.${doc._id}`, doc);
-                            embeddedDocs[i] = doc._id;
+                            embeddedDocs[i] = doc._id!;
                         }
                     }
                 }
@@ -138,7 +139,7 @@ type EmbeddedKey = (typeof EMBEDDED_KEYS)[number];
 
 type Sublevel<T> = AbstractSublevel<ClassicLevel<string, T>, string | Buffer | Uint8Array, string, T>;
 
-type EmbeddedEntry = ItemSourcePF2e | JournalEntryPageSource | TableResultSource;
+type EmbeddedEntry = ItemSourcePF2e | SourceFromSchema<JournalEntryPageSchema> | TableResultSource;
 type DBEntry = Omit<PackEntry, "pages" | "items" | "results"> & {
     folder?: string | null;
     items?: (EmbeddedEntry | string)[];

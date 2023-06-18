@@ -329,7 +329,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
 interface RuleElementPF2e<TSchema extends RuleElementSchema>
     extends foundry.abstract.DataModel<ItemPF2e<ActorPF2e>, TSchema>,
-        foundry.data.fields.ModelPropsFromSchema<RuleElementSchema> {
+        ModelPropsFromSchema<RuleElementSchema> {
     constructor: typeof RuleElementPF2e<TSchema>;
 
     /**
@@ -462,4 +462,4 @@ type RuleElementOptions = {
     suppressWarnings?: boolean;
 };
 
-export { RuleElementPF2e, RuleElementOptions };
+export { RuleElementOptions, RuleElementPF2e };

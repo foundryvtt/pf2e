@@ -1,7 +1,6 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
 import type { LightData } from "../data/data.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import type { ModelPropsFromSchema } from "../data/fields.d.ts";
 import type BaseScene from "./scene.d.ts";
 
 /** The AmbientLight embedded document model. */
