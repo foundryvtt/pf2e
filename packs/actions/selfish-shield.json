@@ -16,7 +16,77 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Champion.TargetReaction",
+                "option": "selfish-shield",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Champion.NegativeDamage",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Champion.EvilDamage",
+                        "value": "evil"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "negative",
+                "key": "FlatModifier",
+                "predicate": [
+                    "selfish-shield:negative"
+                ],
+                "selector": "strike-damage",
+                "slug": "selfish-shield-negative",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "evil",
+                "key": "FlatModifier",
+                "predicate": [
+                    "selfish-shield:evil"
+                ],
+                "selector": "strike-damage",
+                "slug": "selfish-shield-evil",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
