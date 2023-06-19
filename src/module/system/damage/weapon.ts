@@ -161,7 +161,11 @@ class WeaponDamagePF2e {
         // Find the best active ability modifier in order to get the correct synthetics selectors
         const resolvables = { weapon };
         const injectables = resolvables;
-        const fromDamageSelector = extractModifiers(actor.synthetics, baseDomains, { resolvables, injectables });
+        const fromDamageSelector = extractModifiers(actor.synthetics, baseDomains, {
+            resolvables,
+            injectables,
+            test: options,
+        });
         const modifiersAndSelectors = modifiers
             .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
@@ -479,7 +483,11 @@ class WeaponDamagePF2e {
         // Synthetics
 
         // Separate damage modifiers into persistent and all others for stacking rules processing
-        const synthetics = extractDamageModifiers(actor.synthetics, selectors, { resolvables, injectables });
+        const synthetics = extractDamageModifiers(actor.synthetics, selectors, {
+            resolvables,
+            injectables,
+            test: options,
+        });
         const testedModifiers = [
             ...new StatisticModifier("strike-damage", [...modifiers, ...synthetics.main], options).modifiers,
             ...new StatisticModifier("strike-persistent", synthetics.persistent, options).modifiers,

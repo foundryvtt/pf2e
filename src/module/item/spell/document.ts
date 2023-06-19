@@ -293,7 +293,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
             // Separate damage modifiers into persistent and all others for stacking rules processing
             const resolvables = { spell: this };
-            const syntheticModifiers = extractDamageModifiers(actor.synthetics, domains, { resolvables });
+            const syntheticModifiers = extractDamageModifiers(actor.synthetics, domains, {
+                resolvables,
+                test: options,
+            });
 
             const mainModifiers = [...abilityModifiers, ...syntheticModifiers.main];
             modifiers.push(
