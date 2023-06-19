@@ -33,6 +33,7 @@ export interface DataFieldOptions<
         : TSourceProp | (() => TSourceProp) | null | undefined;
     validate?: (value: unknown) => boolean | Error | void;
     choices?: readonly TSourceProp[] | Record<string, string> | Function;
+    readonly?: boolean;
     label?: string;
     hint?: string;
     validationError?: string;

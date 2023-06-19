@@ -114,28 +114,27 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.LemureSubservience.Defend",
-                        "option": "subservience-defend",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.LemureSubservience.Fetch",
-                        "option": "subservience-fetch",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.LemureSubservience.Kill",
-                        "option": "subservience-kill",
+                        "option": "subservience",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.LemureSubservience.Kill",
+                                "value": "kill"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.LemureSubservience.Defend",
+                                "value": "defend"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.LemureSubservience.Fetch",
+                                "value": "fetch"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "subservience-kill"
+                            "subservience:kill"
                         ],
                         "selector": "attack",
                         "type": "circumstance",
@@ -144,25 +143,19 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "subservience-defend"
+                            "subservience:defend"
                         ],
-                        "selector": "saving-throw",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
                         "type": "circumstance",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "subservience-defend"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "subservience-fetch"
+                            "subservience:fetch"
                         ],
                         "selector": "land-speed",
                         "type": "circumstance",

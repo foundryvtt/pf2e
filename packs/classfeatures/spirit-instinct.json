@@ -24,7 +24,7 @@
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Barbarian.Spirit.ToggleLabel",
-                "option": "spirit-instinct",
+                "option": "spirit-rage",
                 "predicate": [
                     {
                         "or": [
@@ -55,24 +55,11 @@
                 "value": "@actor.abilities.con.mod+3"
             },
             {
-                "damageType": "positive",
+                "damageType": "{item|flags.pf2e.rulesSelections.spiritRage}",
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "spirit-instinct:positive"
-                ],
-                "selectors": [
-                    "strike-damage"
-                ],
-                "slug": "rage",
-                "value": 3
-            },
-            {
-                "damageType": "negative",
-                "key": "AdjustModifier",
-                "mode": "upgrade",
-                "predicate": [
-                    "spirit-instinct:negative"
+                    "spirit-rage"
                 ],
                 "selectors": [
                     "strike-damage"
@@ -85,6 +72,7 @@
                 "mode": "upgrade",
                 "predicate": [
                     "class:barbarian",
+                    "spirit-rage",
                     {
                         "gte": [
                             "self:level",
@@ -111,12 +99,7 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    {
-                        "or": [
-                            "spirit-instinct:negative",
-                            "spirit-instinct:positive"
-                        ]
-                    }
+                    "spirit-rage"
                 ],
                 "property": "property-runes",
                 "value": "ghost-touch"

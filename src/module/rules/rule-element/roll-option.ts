@@ -1,5 +1,5 @@
 import { PredicateField } from "@system/schema-data-fields.ts";
-import { ErrorPF2e, isObject } from "@util";
+import { ErrorPF2e, isObject, sluggify } from "@util";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
 import { ResolvableValueField } from "./data.ts";
@@ -125,15 +125,27 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
     }
 
-    #resolveOption(): string {
+    #resolveOption({ appendSuboption = true } = {}): string {
         const baseOption = this.resolveInjectedProperties(this.option)
             .replace(/[^-:\w]/g, "")
             .replace(/:+/g, ":")
             .replace(/-+/g, "-")
             .trim();
 
-        const selectedSuboption = this.suboptions.find((o) => o.selected);
-        return selectedSuboption ? `${baseOption}:${selectedSuboption.value}` : baseOption;
+        if (appendSuboption) {
+            const selectedSuboption = this.suboptions.find((o) => o.selected);
+            return selectedSuboption ? `${baseOption}:${selectedSuboption.value}` : baseOption;
+        } else {
+            return baseOption;
+        }
+    }
+
+    #setFlag(value: boolean): void {
+        const suboption = this.suboptions.find((o) => o.selected);
+        if (value && suboption) {
+            const flag = sluggify(this.#resolveOption({ appendSuboption: false }), { camel: "dromedary" });
+            this.item.flags.pf2e.rulesSelections[flag] = suboption.value;
+        }
     }
 
     override onApplyActiveEffects(): void {
@@ -143,9 +155,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         const { rollOptions } = this.actor;
         const domainRecord = (rollOptions[this.domain] ??= {});
-        const option = (this.option = this.#resolveOption());
+        const option = this.#resolveOption();
+        const baseOption = (this.option = this.#resolveOption({ appendSuboption: false }));
 
-        if (!option) {
+        if (!option || !baseOption) {
             this.failValidation(
                 'The "option" property must be a string consisting of only letters, numbers, colons, and hyphens'
             );
@@ -169,7 +182,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             }
         } else {
             const value = this.resolveValue();
-            if (value) domainRecord[option] = value;
+            if (value) {
+                domainRecord[option] = value;
+                // Also set option without the suboption appended
+                domainRecord[baseOption] = value;
+            }
 
             if (this.toggleable) {
                 const toggle: RollOptionToggle = {
@@ -177,7 +194,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     label: this.getReducedLabel(),
                     scope: this.scope,
                     domain: this.domain,
-                    option,
+                    option: baseOption,
                     suboptions: this.suboptions,
                     checked: value,
                     enabled: true,
@@ -192,6 +209,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 }
                 this.actor.synthetics.toggles.push(toggle);
             }
+            this.#setFlag(value);
         }
     }
 
