@@ -524,7 +524,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
-                const packItem = (await compendium.getDocuments({ "system.slug": { $in: [attackEffect] } }))[0];
+                const packItem = (await compendium.getDocuments({ system: { slug: attackEffect } }))[0];
                 if (packItem instanceof ItemPF2e) {
                     const note = new RollNotePF2e({
                         selector: "all",
