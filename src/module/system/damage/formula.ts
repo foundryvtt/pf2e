@@ -81,8 +81,11 @@ function createDamageFormula(
     // Sometimes a weapon may add base damage as bonus modifiers or dice. We need to auto-generate these
     const BONUS_BASE_LABELS = ["PF2E.ConditionTypePersistent"].map((l) => game.i18n.localize(l));
 
+    // Test that a damage modifier or dice partial is compatible with the prior check result
+    const outcomeMatches = (m: { critical: boolean | null }): boolean => critical || m.critical !== true;
+
     // Add damage dice. Dice always stack
-    for (const dice of damage.dice.filter((d) => d.enabled)) {
+    for (const dice of damage.dice.filter((d) => d.enabled && outcomeMatches(d))) {
         const matchingBase = damage.base.find((b) => b.damageType === dice.damageType) ?? damage.base[0];
         const baseDieSize = Number(matchingBase.dieSize?.replace("d", "")) || matchingBase.terms?.[0].dice?.faces;
         const faces = Number(dice.dieSize?.replace("d", "")) || baseDieSize || null;
@@ -100,9 +103,6 @@ function createDamageFormula(
             typeMap.set(damageType, list);
         }
     }
-
-    // Test that a damage modifier or dice partial is compatible with the prior check result
-    const outcomeMatches = (m: { critical: boolean | null }): boolean => critical || m.critical !== true;
 
     // Add modifiers
     for (const modifier of damage.modifiers.filter((m) => m.enabled && outcomeMatches(m))) {
