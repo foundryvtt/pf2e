@@ -249,6 +249,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     adjustments: extractModifierAdjustments(modifierAdjustments, ["all", "ac", "dex-based"], "base"),
                 }),
             ],
+            details: system.attributes.ac.details,
         });
         this.armorClass = armorStatistic.dc;
         this.system.attributes.ac = armorStatistic.getTraceData();

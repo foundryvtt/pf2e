@@ -23,6 +23,7 @@ import { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import type { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement } from "@util";
 import {
@@ -45,7 +46,6 @@ import {
     IsFlatFootedParams,
 } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
