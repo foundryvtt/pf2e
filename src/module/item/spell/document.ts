@@ -563,9 +563,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         { create = true, data, rollMode }: SpellToMessageOptions = {}
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
-        // If nothing except spells need it, consider removing that handling and pass castLevel directly
+        // Only spells/consumables currently use DOM data.
+        // Eventually sheets should be handling "retrieve spell but heightened"
         const domData = htmlClosest(event?.currentTarget, ".item")?.dataset;
         const castData = mergeObject(data ?? {}, domData ?? {});
+
+        // If this is for a higher level spell, heighten it first
+        const castLevel = Number(castData.castLevel ?? "");
+        if (castLevel && castLevel !== this.level) {
+            return this.loadVariant({ castLevel })?.toMessage(event, { create, data, rollMode });
+        }
 
         const message = await super.toMessage(event, { create: false, data: castData, rollMode });
         if (!message) return undefined;
