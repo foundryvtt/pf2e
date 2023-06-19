@@ -13,7 +13,7 @@
         {{!-- AC --}}
         <section class="sidebar-section">
             <div class="section-head">
-                <i class="fas fa-fw fa-shield-alt"></i>
+                <i class="fa-solid fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
                 <input type="number" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number"/>
             </div>
@@ -22,7 +22,7 @@
                     {{#times 3}}
                         <i class="{{#if (gt @root.data.gear.armor.magic.bonus this)}}far fa-shield filled{{else}}fal fa-shield empty{{/if}}"></i>
                     {{/times}}
-                </button>               
+                </button>
                 <label for="data.gear.armor.magic.name"> + {{data.gear.armor.magic.bonus}}</label>
             </div>
             <input type="text" data-dtype="String" data-property="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
@@ -31,7 +31,7 @@
         {{!-- HP --}}
         <section class="sidebar-section">
             <div class="section-head">
-                <i class="fas fa-fw fa-heart"></i>
+                <i class="fa-solid fa-fw fa-heart"></i>
                 <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
                     <input type="number" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
                     <span class="slash">/</span>
@@ -51,7 +51,7 @@
                     <button title="Use Potion (+1 HP)" class="usepotion" type="button"><i class="fas fa-champagne-glasses"></i>
                 {{/if}}
                 </button>
-            </div>              
+            </div>
             <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
         </section>
 
@@ -67,7 +67,7 @@
                 <button class="darkvision toggle" title="Army has Darkvision"><i class="fas fa-eye filled"></i></button>
             {{else}}
                 <button class="darkvision toggle" title="Army does not have Darkvision"><i class="fal fa-eye empty"></i></button>
-            {{/if}} 
+            {{/if}}
         </section>
 
         {{!-- Saves --}}
@@ -75,15 +75,15 @@
             <div class="section-head">
                 <i class="fas fa-fw fa-boot"></i>
                 <h4>Saves</h4>
-            </div>        
+            </div>
             <div>
                 <label for="system.saves.morale">Morale</label>
                 <a class="roll-icon">
                 <i class="fas fa-dice-d20"></i>
-                </a>   
+                </a>
                 <input type="number" data-property="system.saves.morale" value="{{data.saves.morale}}" data-dtype="Number"/>
             </div>
-            <div>                     
+            <div>
                 <label for="system.saves.maneuver">Maneuver</label>
                 <a class="roll-icon">
                 <i class="fas fa-dice-d20"></i>
@@ -94,11 +94,11 @@
         </section>
 
         {{!-- Economy --}}
-        <section class="sidebar-section">   
+        <section class="sidebar-section">
             <div class="section-head">
                 <i class="fas fa-fw fa-coins"></i>
                 <h4>Economy</h4>
-            </div>        
+            </div>
             <div>
                 <label for="data.details.consumption">Consumption:</label>
                 <input type="number" data-property="system.details.consumption" value="{{data.details.consumption}}" data-dtype="Number"/>
@@ -123,28 +123,34 @@
             </div>
             {{!-- TRAITS --}}
             <div>
-                <select name="rarity" class="rarity-select trait {{data.traits.rarity}}" data-property="system.traits.rarity" value="{{data.traits.rarity}}" >
-                    <option value="common">Common</option>
-                    <option value="uncommon">Uncommon</option>
-                    <option value="rare">Rare</option>
-                    <option value="unique">Unique</option>
+                <select class="rarity-select trait {{data.traits.rarity}}" name="system.traits.rarity">
+                    {{#select data.traits.rarity}}
+                        <option value="common">Common</option>
+                        <option value="uncommon">Uncommon</option>
+                        <option value="rare">Rare</option>
+                        <option value="unique">Unique</option>
+                    {{/select}}
                 </select>
-                <select name="alignment" class="alignment-select trait {{data.details.alignment}}" data-property="system.details.alignment" value="{{data.details.alignment}}" >
-                    <option>LG</option>
-                    <option>NG</option>
-                    <option>CG</option>
-                    <option>LN</option>
-                    <option>N</option>
-                    <option>CN</option>
-                    <option>LE</option>
-                    <option>NE</option>
-                    <option>CE</option>
+                <select class="alignment-select trait {{data.details.alignment}}" name="system.details.alignment">
+                    {{#select data.details.alignment}}
+                        <option>LG</option>
+                        <option>NG</option>
+                        <option>CG</option>
+                        <option>LN</option>
+                        <option>N</option>
+                        <option>CN</option>
+                        <option>LE</option>
+                        <option>NE</option>
+                        <option>CE</option>
+                    {{/select}}
                 </select>
-                <select name="armytype" class="armytype-select trait" data-property="system.traits.armytype" value="{{data.traits.armytype}}">
-                    <option value="infantry">Infantry</option>
-                    <option value="cavalry">Cavalry</option>
-                    <option value="skirmishers">Skirmishers</option>
-                    <option value="siege">Siege</option>
+                <select name="system.traits.type" class="armytype-select trait">
+                    {{#select data.traits.type}}
+                        <option value="infantry">Infantry</option>
+                        <option value="cavalry">Cavalry</option>
+                        <option value="skirmishers">Skirmishers</option>
+                        <option value="siege">Siege</option>
+                    {{/select}}
                 </select>
             </div>
             {{!-- BLURB --}}
@@ -175,7 +181,7 @@
                             <button class="melee toggle" title="Weapon is available"><i class="fas fa-lock-open empty"></i></button>
                         {{else}}
                             <button class="melee toggle" title="Weapon is not available"><i class="fas fa-lock filled"></i></button>
-                        {{/if}}     
+                        {{/if}}
                     </div>
                     <div class="ranged strike">
                         <button class="ranged strike" title="Ranged Strike ( + {{data.gear.ranged.bonus}} proficiency, + {{data.gear.ranged.magic.bonus}} potency )" >
@@ -191,7 +197,7 @@
                             <button class="ranged toggle"><i class="fas fa-lock-open empty" title="Weapon is available"></i></button>
                         {{else}}
                             <button class="ranged toggle"><i class="fas fa-lock filled" title="Weapon is not available"></i></button>
-                        {{/if}} 
+                        {{/if}}
                     </div>
                 </fieldset>
 
