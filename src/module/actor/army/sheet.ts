@@ -20,7 +20,6 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         const html = $html[0];
         const thisactor = this.actor;
 
-        // Don't subscribe to edit buttons it the sheet is not editable
         if (!this.options.editable) return;
 
         // ================ //

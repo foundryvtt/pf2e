@@ -23,10 +23,6 @@ console.log(statistics);
 };
 */
 
-// ************************** //
-//          IMPORTS           //
-// ************************** //
-
 import {
     ActorSystemSource,
     BaseActorSourcePF2e,
@@ -37,11 +33,6 @@ import { Rarity } from "@module/data.ts";
 import { ActorAlliance } from "@actor/types.ts";
 import { Alignment } from "@actor/creature/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
-
-
-// ************************** //
-//            TS              //
-// ************************** //
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
 }
@@ -170,7 +161,7 @@ interface ArmySystemSource extends ActorSystemSource {
         fortified : boolean;
         lost : boolean;
         mired : number;
-        shaken : number; //1-4, 4 makes you routed
+        shaken : number;
         routed : boolean;
         weary : number;
     }
