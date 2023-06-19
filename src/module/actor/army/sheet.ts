@@ -6,7 +6,7 @@ import { htmlQueryAll } from "@util";
 class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     protected readonly actorConfigClass = CreatureConfig;
 
-    static override get defaultOptions() : ActorSheetOptions {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         return {
             ...options,
@@ -55,15 +55,15 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                     }
                     // Apply values
                     if (buttonclass.includes("melee")) {
-                        thisactor.update({ "system.gear.melee.magic.bonus" : newpipcount });
+                        thisactor.update({ "system.gear.melee.magic.bonus": newpipcount });
                     } else if (buttonclass.includes("ranged")) {
-                        thisactor.update({ "system.gear.ranged.magic.bonus" : newpipcount });
+                        thisactor.update({ "system.gear.ranged.magic.bonus": newpipcount });
                     } else if (buttonclass.includes("potion")) {
-                        thisactor.update({ "system.gear.potions.unlocked" : newpipcount });
+                        thisactor.update({ "system.gear.potions.unlocked": newpipcount });
                     } else if (buttonclass.includes("armor")) {
-                        thisactor.update({ "system.gear.armor.magic.bonus" : newpipcount });
+                        thisactor.update({ "system.gear.armor.magic.bonus": newpipcount });
                     }
-                }
+                };
                 button.addEventListener("click", piplistener);
                 button.addEventListener("contextmenu", piplistener);
             }
@@ -71,25 +71,31 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         // ================= //
         //      TOGGLES      //
         // ================= //
-        const togglebuttons = htmlQueryAll(html, "button.toggle")                           // Find all the toggles
-        if (togglebuttons.length > 0) {                                                     // If there are any
-            for (const button of togglebuttons) {                                           // Then for each one
-                button.addEventListener("click", function(){                                // When they click
-                    const buttonclass = button.className;                                   // Find the type of button
-                    console.log(buttonclass)
-                    if (buttonclass.includes("melee")) {                                    // If it's melee,
-                        console.log("Toggling melee")                                                
-                        const property = thisactor.system.gear.melee.unlocked ;             // Then find the lock status
-                        thisactor.update({ "system.gear.melee.unlocked" : !property  });    // And invert it
-                    } if (buttonclass.includes("ranged")) {
-                        console.log("Toggling ranged")
-                        const property = thisactor.system.gear.ranged.unlocked ;
-                        thisactor.update({ "system.gear.ranged.unlocked" : !property  });
-                    } if (buttonclass.includes("darkvision")) {
-                        console.log("Toggling darkvision")
-                        const property = thisactor.attributes.scouting.darkvision ;
-                        thisactor.update({ "system.attributes.scouting.darkvision" : !property  });
-                    } 
+        const togglebuttons = htmlQueryAll(html, "button.toggle"); // Find all the toggles
+        if (togglebuttons.length > 0) {
+            // If there are any
+            for (const button of togglebuttons) {
+                // Then for each one
+                button.addEventListener("click", function () {
+                    // When they click
+                    const buttonclass = button.className; // Find the type of button
+                    console.log(buttonclass);
+                    if (buttonclass.includes("melee")) {
+                        // If it's melee,
+                        console.log("Toggling melee");
+                        const property = thisactor.system.gear.melee.unlocked; // Then find the lock status
+                        thisactor.update({ "system.gear.melee.unlocked": !property }); // And invert it
+                    }
+                    if (buttonclass.includes("ranged")) {
+                        console.log("Toggling ranged");
+                        const property = thisactor.system.gear.ranged.unlocked;
+                        thisactor.update({ "system.gear.ranged.unlocked": !property });
+                    }
+                    if (buttonclass.includes("darkvision")) {
+                        console.log("Toggling darkvision");
+                        const property = thisactor.attributes.scouting.darkvision;
+                        thisactor.update({ "system.attributes.scouting.darkvision": !property });
+                    }
                     return;
                 });
             }
@@ -105,18 +111,18 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 const hitpointmax = thisactor.system.attributes.hp?.max;
                 if (oldbottlecount < 1) {
                     ui.notifications.warn("No potions!");
-                } else if (hitpointtotal == hitpointmax) {
+                } else if (hitpointtotal === hitpointmax) {
                     ui.notifications.warn("HP is already full!");
                 } else {
                     const newbottlecount = oldbottlecount - 1;
                     const newhitpointcount = hitpointtotal + 1;
-                    thisactor.update({ "system.gear.potions.unlocked" : newbottlecount });
-                    thisactor.update({ "system.attributes.hp.value" : newhitpointcount });
+                    thisactor.update({ "system.gear.potions.unlocked": newbottlecount });
+                    thisactor.update({ "system.attributes.hp.value": newhitpointcount });
                 }
             };
             for (const drink of drinkpotionsbutton) {
-            drink.addEventListener("click", drinkpotion);
-            };
+                drink.addEventListener("click", drinkpotion);
+            }
         }
     }
 }

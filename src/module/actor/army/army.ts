@@ -23,10 +23,7 @@ console.log(statistics);
 };
 */
 
-import {
-    ActorSystemSource,
-    BaseActorSourcePF2e,
-} from "@actor/data/base.ts";
+import { ActorSystemSource, BaseActorSourcePF2e } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { Rarity } from "@module/data.ts";
@@ -34,8 +31,7 @@ import { ActorAlliance } from "@actor/types.ts";
 import { Alignment } from "@actor/creature/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
 
-class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
-}
+class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {}
 
 interface ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     _source: ArmySource;
@@ -45,11 +41,9 @@ interface ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 }
 
 type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
-    
+
 interface ArmySystemSource extends ActorSystemSource {
-
     attributes: {
-
         immunities: never;
         weaknesses: never;
         resistances: never;
@@ -62,7 +56,7 @@ interface ArmySystemSource extends ActorSystemSource {
             flankable: never;
             flatFootable: never;
         };
-    
+
         hp: {
             value: number;
             max: number;
@@ -81,10 +75,9 @@ interface ArmySystemSource extends ActorSystemSource {
             details: string;
             darkvision: boolean;
         };
-
     };
 
-    saves: {            
+    saves: {
         maneuver: number;
         morale: number;
         details: string;
@@ -92,7 +85,7 @@ interface ArmySystemSource extends ActorSystemSource {
 
     details: {
         alliance: ActorAlliance;
-        level: { value: number; };
+        level: { value: number };
         alignment: Alignment;
         description: string;
         blurb: string;
@@ -100,15 +93,15 @@ interface ArmySystemSource extends ActorSystemSource {
         consumption: number;
     };
 
-    gear : {
-        potions : {
+    gear: {
+        potions: {
             name: "Healing Potions";
             traits: ["Army", "Consumable", "Healing", "Magical", "Necromancy", "Potion"];
             description: "An army equipped with healing potions (these rules are the same if you instead supply the army with alchemical healing elixirs) can use a single dose as part of any Maneuver action. When an army uses a dose of healing potions, it regains 1 HP. An army can be outfitted with up to 3 doses of healing potions at a time; unlike ranged Strike shots, healing potion doses do not automatically replenish after a war encounter—new doses must be purchased.";
             price: 15;
             unlocked: number;
-        }
-        armor : {
+        };
+        armor: {
             magic: {
                 name: "Magical Armor";
                 traits: ["Abjuration", "Army", "Magical"];
@@ -117,9 +110,9 @@ interface ArmySystemSource extends ActorSystemSource {
                 level: 0 | 5 | 11 | 18;
                 price: 0 | 25 | 50 | 75;
                 bonus: number;
-            }
-        }
-        melee : {
+            };
+        };
+        melee: {
             unlocked: boolean;
             name: string;
             bonus: number;
@@ -131,9 +124,9 @@ interface ArmySystemSource extends ActorSystemSource {
                 level: 0 | 2 | 10 | 16;
                 price: 0 | 20 | 40 | 60;
                 bonus: number;
-            }
-        }
-        ranged : {
+            };
+        };
+        ranged: {
             unlocked: boolean;
             name: string;
             bonus: number;
@@ -145,26 +138,26 @@ interface ArmySystemSource extends ActorSystemSource {
                 level: 0 | 2 | 10 | 16;
                 price: 0 | 20 | 40 | 60;
                 bonus: number;
-            }
-        }
-    }
+            };
+        };
+    };
 
     conditions: {
-        visibility : "clear" | "dim" | "dark";
-        range : "engaged" | "near" | "distant";
-        status : "OK" | "defeated" | "destroyed";
-        position : "OK" | "outflanked" | "pinned";
-        difficultterrain : boolean;
-        wind : boolean;
-        concealed : boolean;
-        efficient : boolean;
-        fortified : boolean;
-        lost : boolean;
-        mired : number;
-        shaken : number;
-        routed : boolean;
-        weary : number;
-    }
+        visibility: "clear" | "dim" | "dark";
+        range: "engaged" | "near" | "distant";
+        status: "OK" | "defeated" | "destroyed";
+        position: "OK" | "outflanked" | "pinned";
+        difficultterrain: boolean;
+        wind: boolean;
+        concealed: boolean;
+        efficient: boolean;
+        fortified: boolean;
+        lost: boolean;
+        mired: number;
+        shaken: number;
+        routed: boolean;
+        weary: number;
+    };
 
     traits: {
         rarity: Rarity;
@@ -173,9 +166,8 @@ interface ArmySystemSource extends ActorSystemSource {
         value: never[];
     };
 
-    tokenEffects : [];
-    autoChanges : {};
-
+    tokenEffects: [];
+    autoChanges: {};
 }
-    
-export {ArmyPF2e, ArmySource };
+
+export { ArmyPF2e, ArmySource };

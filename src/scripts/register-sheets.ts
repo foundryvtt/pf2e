@@ -95,7 +95,7 @@ export function registerSheets(): void {
         label: game.i18n.format(sheetLabel, { type: localizeType("vehicle") }),
         makeDefault: true,
     });
-    
+
     // Register Army Sheet
     Actors.registerSheet("pf2e", ArmySheetPF2e, {
         types: ["army"],
