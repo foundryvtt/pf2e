@@ -18,54 +18,106 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
+        const thisactor = this.actor;
 
         // Don't subscribe to edit buttons it the sheet is not editable
         if (!this.options.editable) return;
 
-        // ================= //
-        //      POTIONS      //
-        // ================= //
-        const potionBottlesList = htmlQueryAll(html, "button.potion");
-        if (potionBottlesList.length > 0) {
-            const listener = (event: Event) => {
-                const oldbottlecount = this.actor.system.gear.potions.unlocked;
-                const change = event.type === "click" ? 1 : -1;
-                const newbottlecount = oldbottlecount + change;
-                if (newbottlecount > 3) {
-                    console.log("You cannot have more than 3 bottles");
-                    this.actor.update({ "system.gear.potions.unlocked" : 3 });
+        // ================ //
+        //       PIPS       //
+        // ================ //
+        const piptrackers = htmlQueryAll(html, "button.pips");
+        if (piptrackers.length > 0) {
+            for (const button of piptrackers) {
+                const piplistener = (event: Event) => {
+                    const change = event.type === "click" ? 1 : -1;
+                    let pipcount = 0;
+                    // Identify the button
+                    const buttonclass = button.className;
+                    console.log(buttonclass);
+                    if (buttonclass.includes("melee")) {
+                        pipcount = thisactor.system.gear.melee.magic.bonus;
+                    } else if (buttonclass.includes("ranged")) {
+                        pipcount = thisactor.system.gear.ranged.magic.bonus;
+                    } else if (buttonclass.includes("potion")) {
+                        pipcount = thisactor.system.gear.potions.unlocked;
+                    } else if (buttonclass.includes("armor")) {
+                        pipcount = thisactor.system.gear.armor.magic.bonus;
+                    }
+                    // Verify values
+                    let newpipcount = pipcount + change;
+                    if (newpipcount > 3) {
+                        console.log("Value cannot be higher than 3!");
+                        newpipcount = 3;
+                    }
+                    if (newpipcount < 0) {
+                        console.log("Value cannot be lower than 0!");
+                        newpipcount = 0;
+                    }
+                    // Apply values
+                    if (buttonclass.includes("melee")) {
+                        thisactor.update({ "system.gear.melee.magic.bonus" : newpipcount });
+                    } else if (buttonclass.includes("ranged")) {
+                        thisactor.update({ "system.gear.ranged.magic.bonus" : newpipcount });
+                    } else if (buttonclass.includes("potion")) {
+                        thisactor.update({ "system.gear.potions.unlocked" : newpipcount });
+                    } else if (buttonclass.includes("armor")) {
+                        thisactor.update({ "system.gear.armor.magic.bonus" : newpipcount });
+                    }
                 }
-                else if (newbottlecount < 0) {
-                    console.log("You cannot have fewer than 0 bottles");
-                    this.actor.update({ "system.gear.potions.unlocked" : 0 });
+                button.addEventListener("click", piplistener);
+                button.addEventListener("contextmenu", piplistener);
+            }
+        }
+        // ================= //
+        //      TOGGLES      //
+        // ================= //
+        const togglebuttons = htmlQueryAll(html, "button.toggle")                           // Find all the toggles
+        if (togglebuttons.length > 0) {                                                     // If there are any
+            for (const button of togglebuttons) {                                           // Then for each one
+                button.addEventListener("click", function(){                                // When they click
+                    const buttonclass = button.className;                                   // Find the type of button
+                    console.log(buttonclass)
+                    if (buttonclass.includes("melee")) {                                    // If it's melee,
+                        console.log("Toggling melee")                                                
+                        const property = thisactor.system.gear.melee.unlocked ;             // Then find the lock status
+                        thisactor.update({ "system.gear.melee.unlocked" : !property  });    // And invert it
+                    } if (buttonclass.includes("ranged")) {
+                        console.log("Toggling ranged")
+                        const property = thisactor.system.gear.ranged.unlocked ;
+                        thisactor.update({ "system.gear.ranged.unlocked" : !property  });
+                    } if (buttonclass.includes("darkvision")) {
+                        console.log("Toggling darkvision")
+                        const property = thisactor.attributes.scouting.darkvision ;
+                        thisactor.update({ "system.attributes.scouting.darkvision" : !property  });
+                    } 
+                    return;
+                });
+            }
+        }
+        // ================= //
+        //       DRINK       //
+        // ================= //
+        const drinkpotionsbutton = htmlQueryAll(html, "button.usepotion");
+        if (drinkpotionsbutton.length > 0) {
+            const drinkpotion = () => {
+                const oldbottlecount = thisactor.system.gear.potions.unlocked;
+                const hitpointtotal = thisactor.system.attributes.hp?.value;
+                const hitpointmax = thisactor.system.attributes.hp?.max;
+                if (oldbottlecount < 1) {
+                    ui.notifications.warn("No potions!");
+                } else if (hitpointtotal == hitpointmax) {
+                    ui.notifications.warn("HP is already full!");
                 } else {
-                this.actor.update({ "system.gear.potions.unlocked" : newbottlecount });
+                    const newbottlecount = oldbottlecount - 1;
+                    const newhitpointcount = hitpointtotal + 1;
+                    thisactor.update({ "system.gear.potions.unlocked" : newbottlecount });
+                    thisactor.update({ "system.attributes.hp.value" : newhitpointcount });
                 }
             };
-    
-            for (const bottles of potionBottlesList) {
-                bottles.addEventListener("click", listener);
-                bottles.addEventListener("contextmenu", listener);
-            }
-        }
-        const drinkpotionsbutton = htmlQueryAll(html, "button.usepotion");
-        const drinkpotion = () => {
-            const oldbottlecount = this.actor.system.gear.potions.unlocked;
-            const hitpointtotal = this.actor.system.attributes.hp?.value;
-            const hitpointmax = this.actor.system.attributes.hp?.max;
-            if (oldbottlecount < 1) {
-                ui.notifications.warn("No potions!");
-            } else if (hitpointtotal == hitpointmax) {
-                ui.notifications.warn("HP is already full!");
-            } else {
-                const newbottlecount = oldbottlecount - 1;
-                const newhitpointcount = hitpointtotal + 1;
-                this.actor.update({ "system.gear.potions.unlocked" : newbottlecount });
-                this.actor.update({ "system.attributes.hp.value" : newhitpointcount });
-            }
-        }
-        for (const drink of drinkpotionsbutton) {
-        drink.addEventListener("click", drinkpotion);
+            for (const drink of drinkpotionsbutton) {
+            drink.addEventListener("click", drinkpotion);
+            };
         }
     }
 }
