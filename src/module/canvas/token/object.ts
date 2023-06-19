@@ -1,7 +1,7 @@
 import { ANIMAL_COMPANION_SOURCE_IDS } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { pick } from "@util";
+import { htmlClosest, pick } from "@util";
 import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
@@ -190,14 +190,20 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.draw();
     }
 
-    /** @fixme */
-    emitHoverIn(): void {
-        this.emit("mouseover", { interactionData: { object: this } } as unknown as PIXI.FederatedPointerEvent);
+    /** Emulate a pointer hover ("pointerover") event */
+    emitHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerover";
+        event.nativeEvent = nativeEvent;
+        this.emit("pointerover", event);
     }
 
-    /** @fixme */
-    emitHoverOut(): void {
-        this.emit("mouseout", { interactionData: { object: this } } as unknown as PIXI.FederatedPointerEvent);
+    /** Emulate a pointer hover ("pointerout") event */
+    emitHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerout";
+        event.nativeEvent = nativeEvent;
+        this.emit("pointerout", event);
     }
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
@@ -355,22 +361,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.clearHighlights();
     }
 
-    /** If a single token (this one) was dropped, re-establish the hover status */
-    protected override async _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<this["document"][]> {
-        const clones = event.interactionData.clones ?? [];
-        const dropped = await super._onDragLeftDrop(event);
-
-        if (clones.length === 1) {
-            this.emitHoverOut();
-            this.emitHoverIn();
-        }
-
-        this.auras.refresh();
-
-        return dropped;
-    }
-
     protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
+        // Ignore hover events coming from `Application` windows
+        if (htmlClosest(event.nativeEvent?.target, ".window-app")) {
+            return false;
+        }
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
         this.auras.refresh();
@@ -379,6 +374,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean {
+        // Ignore hover events coming from `Application` windows
+        if (htmlClosest(event.nativeEvent?.target, ".app.sheet")) {
+            return false;
+        }
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
         this.auras.refresh();

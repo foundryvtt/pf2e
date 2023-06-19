@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
-import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { TrickMagicItemEntry, traditionSkills } from "@item/spellcasting-entry/trick.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
@@ -256,12 +256,12 @@ class ChatMessagePF2e extends ChatMessage {
             }
         }
 
-        html.addEventListener("mouseenter", () => this.onHoverIn());
-        html.addEventListener("mouseleave", () => this.onHoverOut());
+        html.addEventListener("mouseenter", (event) => this.#onHoverIn(event));
+        html.addEventListener("mouseleave", (event) => this.#onHoverOut(event));
 
         const sender = html.querySelector<HTMLElement>(".message-sender");
-        sender?.addEventListener("click", this.onClickSender.bind(this));
-        sender?.addEventListener("dblclick", this.onClickSender.bind(this));
+        sender?.addEventListener("click", this.#onClickSender.bind(this));
+        sender?.addEventListener("dblclick", this.#onClickSender.bind(this));
 
         UserVisibilityPF2e.processMessageSender(this, html);
         if (!actor && this.content) UserVisibilityPF2e.process(html, { document: this });
@@ -269,19 +269,19 @@ class ChatMessagePF2e extends ChatMessage {
         return $html;
     }
 
-    private onHoverIn(): void {
+    #onHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
         if (!canvas.ready) return;
         const token = this.token?.object;
         if (token?.isVisible && !token.controlled) {
-            token.emitHoverIn();
+            token.emitHoverIn(nativeEvent);
         }
     }
 
-    private onHoverOut(): void {
-        if (canvas.ready) this.token?.object?.emitHoverOut();
+    #onHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+        if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 
-    private onClickSender(event: MouseEvent): void {
+    #onClickSender(event: MouseEvent): void {
         if (!canvas) return;
         const token = this.token?.object;
         if (token?.isVisible && token.isOwner) {
