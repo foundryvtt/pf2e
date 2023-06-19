@@ -1,6 +1,7 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
+import { RuleElementData } from "@module/rules/index.ts";
+import { CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { CraftingFormula } from "./formula.ts";
 
@@ -229,6 +230,16 @@ class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
             await this.parentItem.update({ "system.rules": rules });
         }
     }
+}
+
+interface CraftingEntryRuleData extends RuleElementData {
+    isAlchemical?: boolean;
+    isDailyPrep?: boolean;
+    isPrepared?: boolean;
+    maxItemLevel?: number;
+    maxSlots?: number;
+    craftableItems?: RawPredicate;
+    preparedFormulas?: PreparedFormulaData[];
 }
 
 interface CraftingEntryData {
