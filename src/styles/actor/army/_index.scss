@@ -92,39 +92,6 @@ form.army-sheet {
           height: 28px;
         }
       }
-      //Buttons & inputs
-      input {
-        flex: 0;
-        min-width: 2em;
-        font-size: 0.9rem;
-        &[type="number"] {
-          width: 32px;
-        }
-        &[type="text"] {
-          text-align: left;
-          font-size: 0.8rem;
-        }
-        &[type="checkbox"] {
-          margin: auto 2.8%;
-        }
-      }
-      button {
-        height: 20px;
-        width: 20px;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        background: none;
-        i {
-          padding-left: 3px;
-        }
-        &:hover {
-          text-shadow: 0 0 5px var(--color-shadow-highlight);
-          box-shadow: none;
-        }
-      }
     }
     //The portrait section
     section.image-container {
@@ -158,30 +125,34 @@ form.army-sheet {
         flex: 1 0 auto;
         flex-direction: column;
         .name {
-            font-family: var(--sans-serif-condensed);
-            font-size: 1.75rem;
-            font-weight: 700;
-            width: 100%;
-            flex-wrap: nowrap;
-            input {
-                font-weight: inherit;
-                height: 32px;
-            }
-            .name-value {
-                font-variant: small-caps;
-                margin-left: 6px;
-                margin-right: 18px;
-            }
-            .level-label {
-                flex: 0;
-                text-align: right;
-                margin-right: 0.1em;
-                text-transform: uppercase;
-            }
+          font-family: var(--sans-serif-condensed);
+          font-size: 1.75rem;
+          font-weight: 700;
+          width: 100%;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+          input {
+            font-weight: inherit;
+            height: 32px;
+          }
+          .name-value {
+            max-width: calc(100% - 5.5rem);
+            font-variant: small-caps;
+            margin-left: 6px;
+            margin-right: 18px;
+          }
+          .level-label {
+            max-width: 5rem;
+            text-align: right;
+            margin-right: 0.1em;
+            text-transform: uppercase;
+            display: block;
             input.level {
-                flex: 0 0 40px;
-                text-align: center;
+              max-width: 2.5rem;
+              text-align: center;
+              margin: 0 0.25rem;
             }
+          }
         }
         .trait {
             background: var(--primary);
@@ -216,41 +187,90 @@ form.army-sheet {
         }
       }
       fieldset.strikes {
-        flex-basis: 70%;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        .strike {
-          margin: 2px 0;
+        div.strike {
+          display: flex;
+          gap: 1rem;
+          justify-content: space-between;
+          align-items: center;
+          line-height: 1.5rem;
           input.name {
-              flex-basis: 100%;
-              text-align: left;
-          }
-          a {
-              flex-basis: 32px;
-          }
-          input.value {
-              flex-basis: 64px;
+            flex: 1;
+            text-indent: 0.5rem;
           }
         }
       }
     }
   }
 
+  //Sidebar Buttons & inputs
+  .army-sidebar input {
+    flex: 0;
+    min-width: 2em;
+    font-size: 0.9rem;
+    &[type="number"] {
+      width: 32px;
+    }
+    &[type="text"] {
+      text-align: left;
+      font-size: 0.8rem;
+    }
+    &[type="checkbox"] {
+      font-size: var(--font-size-10);
+      height: 12px;
+      margin: 2px;
+      padding: 0;
+    }
+  }
+
   button {
+    height: 100%;
+    width: 2rem;
+    font-size: 14px;
+    margin: auto;
+    align-items: center;
+    border: none;
+    background: none;
+    label, i {
+      margin: auto;
+    }
+    &:hover {
+      text-shadow: 0 0 5px var(--color-shadow-highlight);
+      box-shadow: none;
+    }
+    &.strike {
+      min-width: 4rem;
+    }
+    &.pips {
+      width: 3.5rem;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+    }
+    // Empty pips
     .empty {
       color: darkgrey;
     }
+    // Filled pips
     .filled {
       color: black;
     }
+    // Disabled buttons
     .disabled {
       color: darkgrey;
       i::before {
         text-shadow: none;
-        cursor: not-allowed;
+        cursor: default;
       }
     }
+  }
+
+  select  {
+    font-size: var(--font-size-10);
+    height: 20px;
+    background: rgba(255, 255, 255, 0.5);
   }
 
   .flex {
@@ -265,17 +285,4 @@ form.army-sheet {
         align-items: center;
         }
     }
-
-  select  {
-    font-size: var(--font-size-10);
-    height: 20px;
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  input[type=checkbox] {
-    font-size: var(--font-size-10);
-    height: 12px;
-    margin: 2px;
-    padding: 0;
-  }
 }

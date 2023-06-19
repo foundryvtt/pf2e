@@ -15,7 +15,7 @@
             <div class="section-head">
                 <i class="fas fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
-                <input type="number" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0"/>
+                <input type="number" data-property="system.attributes.ac.value" value="{{data.attributes.ac.value}}" data-dtype="Number"/>
             </div>
             <div class="buttons">
                 <button title="{{data.gear.armor.magic.name}}" class="armor pips" type="button">
@@ -33,14 +33,14 @@
             <div class="section-head">
                 <i class="fas fa-fw fa-heart"></i>
                 <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
-                    <input type="number" data-property="system.attributes.hp.value" value="{{data.gear.hp.value}}" data-dtype="Number" placeholder="0" />
+                    <input type="number" data-property="system.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
                     <span class="slash">/</span>
-                    <input type="number" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0"/>
+                    <input type="number" data-property="system.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number"/>
             </div>
             <div class="buttons">
                 <button title="{{data.gear.potions.unlocked}} {{data.gear.potions.name}}(s)" class="potion pips" type="button">
                     {{#times 3}}
-                        <i class="{{#if (gt @root.data.attributes.hp.potions this)}}far fa-flask-round-potion filled{{else}}fal fa-flask-round-potion empty{{/if}}"></i>
+                        <i class="{{#if (gt @root.data.gear.potions.unlocked this)}}far fa-flask-round-potion filled{{else}}fal fa-flask-round-potion empty{{/if}}"></i>
                     {{/times}}
                 </button>
                 {{#if (eq @root.data.gear.potions.unlocked 0)}}
@@ -61,11 +61,13 @@
                 <i class="fas fa-fw fa-eye"></i>
                 <h4>Scouting</h4>
                 <a class="roll-icon"><i class="fas fa-dice-d20"></i></a>
-                <input type="number" data-property="system.attributes.scouting.value" value="{{data.attributes.scouting.value}}" data-dtype="Number" placeholder="0" />
+                <input type="number" data-property="system.attributes.scouting.value" value="{{data.attributes.scouting.value}}" data-dtype="Number"/>
             </div>
-            <div>
-                <label for="darkvision">Darkvision: </label><input id="darkvision" type="checkbox"  data-property="system.attributes.scouting.darkvision" value="{{data.attributes.scouting.darkvision}}" >
-            </div>
+            {{#if data.attributes.scouting.darkvision}}
+                <button class="darkvision toggle" title="Army has Darkvision"><i class="fas fa-eye filled"></i></button>
+            {{else}}
+                <button class="darkvision toggle" title="Army does not have Darkvision"><i class="fal fa-eye empty"></i></button>
+            {{/if}} 
         </section>
 
         {{!-- Saves --}}
@@ -79,14 +81,14 @@
                 <a class="roll-icon">
                 <i class="fas fa-dice-d20"></i>
                 </a>   
-                <input type="number" data-property="system.saves.morale" value="{{data.saves.morale}}" data-dtype="Number" placeholder="0" />
+                <input type="number" data-property="system.saves.morale" value="{{data.saves.morale}}" data-dtype="Number"/>
             </div>
             <div>                     
                 <label for="system.saves.maneuver">Maneuver</label>
                 <a class="roll-icon">
                 <i class="fas fa-dice-d20"></i>
                 </a>
-                <input type="number" data-property="system.saves.maneuver" value="{{data.saves.maneuver}}" data-dtype="Number" placeholder="0" />
+                <input type="number" data-property="system.saves.maneuver" value="{{data.saves.maneuver}}" data-dtype="Number"/>
             </div>
             <input type="text" name="system.saves.details" value="{{data.saves.details}}" title="{{data.saves.details}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
         </section>
@@ -99,11 +101,11 @@
             </div>        
             <div>
                 <label for="data.details.consumption">Consumption:</label>
-                <input type="number" data-property="system.details.consumption" value="{{data.details.consumption}}" data-dtype="Number" placeholder="0"/>
+                <input type="number" data-property="system.details.consumption" value="{{data.details.consumption}}" data-dtype="Number"/>
             </div>
             <div>
                 <label for="data.details.recruitmentDC">Recruitment DC:</label>
-                <input type="number" data-property="system.details.recruitmentDC" value="{{data.details.recruitmentDC}}" data-dtype="Number" placeholder="0"/>
+                <input type="number" data-property="system.details.recruitmentDC" value="{{data.details.recruitmentDC}}" data-dtype="Number"/>
             </div>
         </section>
     </aside>
@@ -117,8 +119,7 @@
             {{!-- NAME --}}
             <div class="name flex">
                 <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="Army Name" spellcheck="false" />
-                <label class="level-label">Army</label>
-                <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" />
+                <label class="level-label">Army <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}"/></label>
             </div>
             {{!-- TRAITS --}}
             <div>
@@ -160,41 +161,37 @@
                 {{!-- ============== --}}
                 <fieldset class="strikes">
                 <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
-                    <div class="melee flex strike">
-                        <button id="melee unlocked">
-                            {{#if data.gear.melee.unlocked}}
-                            <i class="fas fa-lock-open"></i>
-                            {{else}}
-                            <i class="fas fa-lock"></i>
-                            {{/if}}     
-                        </button>
-                        <input class="melee name" type="text" data-property="system.gear.melee.name" value="{{data.gear.melee.name}}" placeholder="Melee Strike" />
-                        <button class="melee strike" title="Melee Strike ( + {{data.gear.melee.bonus}} proficiency, + {{data.gear.melee.magic.bonus}} potency" >
+                    <div class="melee strike">
+                        <button class="melee strike" title="Melee Strike ( + {{data.gear.melee.bonus}} proficiency, + {{data.gear.melee.magic.bonus}} potency )" >
                             <label><i class="fas fa-dice-d20"></i> + {{add data.gear.melee.bonus data.gear.melee.magic.bonus}}</label>
                         </button>
+                        <input class="melee name" type="text" data-property="system.gear.melee.name" value="{{data.gear.melee.name}}" placeholder="Melee Strike" />
                         <button title="{{data.gear.melee.magic.rank}}" class="melee pips" type="button">
                             {{#times 3}}
                             <i class="{{#if (gt @root.data.gear.melee.magic.bonus this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
                             {{/times}}
                         </button>
+                        {{#if data.gear.melee.unlocked}}
+                            <button class="melee toggle" title="Weapon is available"><i class="fas fa-lock-open empty"></i></button>
+                        {{else}}
+                            <button class="melee toggle" title="Weapon is not available"><i class="fas fa-lock filled"></i></button>
+                        {{/if}}     
                     </div>
-                    <div class="ranged flex strike">
-                        <button id="ranged unlocked">
-                            {{#if data.gear.ranged.unlocked}}
-                            <i class="fas fa-lock-open"></i>
-                            {{else}}
-                            <i class="fas fa-lock"></i>
-                            {{/if}}     
-                        </button>
-                        <input class="ranged name" type="text" data-property="system.gear.ranged.name" value="{{data.gear.ranged.name}}" placeholder="Ranged Strike" />
-                        <button class="ranged strike" title="Ranged Strike ( + {{data.gear.ranged.bonus}} proficiency, + {{data.gear.ranged.magic.bonus}} potency" >
+                    <div class="ranged strike">
+                        <button class="ranged strike" title="Ranged Strike ( + {{data.gear.ranged.bonus}} proficiency, + {{data.gear.ranged.magic.bonus}} potency )" >
                             <label><i class="fas fa-dice-d20"></i> + {{add data.gear.ranged.bonus data.gear.ranged.magic.bonus}}</label>
                         </button>
+                        <input class="ranged name" type="text" data-property="system.gear.ranged.name" value="{{data.gear.ranged.name}}" placeholder="Ranged Strike" />
                         <button title="{{data.gear.ranged.magic.rank}}" class="ranged pips" type="button">
                             {{#times 3}}
-                            <i class="{{#if (gt @root.data.gear.ranged.magic.bonus this)}}far fa-sword filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
+                            <i class="{{#if (gt @root.data.gear.ranged.magic.bonus this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
                             {{/times}}
                         </button>
+                        {{#if data.gear.ranged.unlocked}}
+                            <button class="ranged toggle"><i class="fas fa-lock-open empty" title="Weapon is available"></i></button>
+                        {{else}}
+                            <button class="ranged toggle"><i class="fas fa-lock filled" title="Weapon is not available"></i></button>
+                        {{/if}} 
                     </div>
                 </fieldset>
 
