@@ -1,0 +1,44 @@
+{
+    "_id": "8sXm5FX6qsMDYcba",
+    "img": "systems/pf2e/icons/spells/incendiary-fog.webp",
+    "name": "Effect: Aura of Smoke",
+    "system": {
+        "description": {
+            "value": "<p>Every creature within the aura is concealed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #151: The Show Must Go On"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
