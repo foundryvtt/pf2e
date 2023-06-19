@@ -115,7 +115,7 @@ interface ArmySystemSource extends ActorSystemSource {
             traits: ["Army", "Consumable", "Healing", "Magical", "Necromancy", "Potion"];
             description: "An army equipped with healing potions (these rules are the same if you instead supply the army with alchemical healing elixirs) can use a single dose as part of any Maneuver action. When an army uses a dose of healing potions, it regains 1 HP. An army can be outfitted with up to 3 doses of healing potions at a time; unlike ranged Strike shots, healing potion doses do not automatically replenish after a war encounter—new doses must be purchased.";
             price: 15;
-            unlocked: 0 | 1 | 2 | 3;
+            unlocked: number;
         }
         armor : {
             magic: {
@@ -125,7 +125,7 @@ interface ArmySystemSource extends ActorSystemSource {
                 rank: "Mundane Armor" | "Magic Armor" | "Greater Magic Armor" | "Major Magic Armor";
                 level: 0 | 5 | 11 | 18;
                 price: 0 | 25 | 50 | 75;
-                bonus: 0 | 1 | 2 | 3;
+                bonus: number;
             }
         }
         melee : {
@@ -139,7 +139,7 @@ interface ArmySystemSource extends ActorSystemSource {
                 rank: "Mundane Weapons" | "Magic Weapons" | "Greater Magic Weapons" | "Major Magic Weapons";
                 level: 0 | 2 | 10 | 16;
                 price: 0 | 20 | 40 | 60;
-                bonus: 0 | 1 | 2 | 3;
+                bonus: number;
             }
         }
         ranged : {
@@ -153,7 +153,7 @@ interface ArmySystemSource extends ActorSystemSource {
                 rank: "Mundane Weapons" | "Magic Weapons" | "Greater Magic Weapons" | "Major Magic Weapons";
                 level: 0 | 2 | 10 | 16;
                 price: 0 | 20 | 40 | 60;
-                bonus: 0 | 1 | 2 | 3;
+                bonus: number;
             }
         }
     }
