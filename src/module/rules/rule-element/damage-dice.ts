@@ -1,6 +1,6 @@
 import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
-import { DamageDieSize, DamageType } from "@system/damage/types.ts";
-import { DAMAGE_DIE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
+import { DamageDieSize } from "@system/damage/types.ts";
+import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, setHasElement, sluggify } from "@util";
 import { ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./index.ts";
@@ -15,7 +15,6 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             diceNumber: new ResolvableValueField({ required: false, initial: undefined }),
             dieSize: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
             damageType: new fields.StringField({
-                choices: [...DAMAGE_TYPES],
                 required: false,
                 nullable: true,
                 blank: false,
@@ -35,6 +34,12 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
 
     constructor(data: DamageDiceSource, options: RuleElementOptions) {
         super(data, options);
+
+        const damageType = this.resolveInjectedProperties(this.damageType);
+        if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+            this.failValidation(`Unrecognized damage type: ${damageType}`);
+            this.damageType = null;
+        }
 
         this.brackets = this.isBracketedValue(data.value) ? data.value : null;
 
@@ -166,7 +171,7 @@ type DamageDiceRuleSchema = RuleElementSchema & {
     /** The damage die size */
     dieSize: StringField<string, string, false, true, true>;
     /** The damage type */
-    damageType: StringField<DamageType, DamageType, false, true, true>;
+    damageType: StringField<string, string, false, true, true>;
     /** True means the dice are added to critical without doubling; false means the dice are never added to
      *  critical damage; omitted means add to normal damage and double on critical damage.
      */
