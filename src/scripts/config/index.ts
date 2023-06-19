@@ -66,7 +66,7 @@ import {
     traitDescriptions,
     vehicleTraits,
     weaponTraits,
-    armyTraits
+    armyTraits,
 } from "./traits.ts";
 import { AbilityString } from "@actor/types.ts";
 
