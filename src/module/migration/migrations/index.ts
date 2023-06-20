@@ -240,3 +240,4 @@ export { Migration839ActionCategories } from "./839-action-categories.ts";
 export { Migration840ArrayWrapPredicates } from "./840-array-wrap-predicates.ts";
 export { Migration841V11UUIDFormat } from "./841-v11-uuid-format.ts";
 export { Migration842NumifyNumericSettings } from "./842-numify-numeric-settings.ts";
+export { Migration843RMArmorCustomModifiers } from "./843-rm-armor-custom-modifiers.ts";
