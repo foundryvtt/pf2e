@@ -182,12 +182,17 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      *   }
      * }
      *
-     * @param source string that should be parsed
+     * @param source The string that is to be resolved
+     * @param options.warn Whether to warn on a failed resolution
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties<T extends string | number | object | null | undefined>(source: T): T;
+    resolveInjectedProperties<T extends string | number | object | null | undefined>(
+        source: T,
+        options?: { warn?: boolean }
+    ): T;
     resolveInjectedProperties(
-        source: string | number | object | null | undefined
+        source: string | number | object | null | undefined,
+        { warn = true } = {}
     ): string | number | object | null | undefined {
         if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
             return source;
@@ -196,12 +201,12 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         // Walk the object tree and resolve any string values found
         if (Array.isArray(source)) {
             for (let i = 0; i < source.length; i++) {
-                source[i] = this.resolveInjectedProperties(source[i]);
+                source[i] = this.resolveInjectedProperties(source[i], { warn });
             }
         } else if (isObject<Record<string, unknown>>(source)) {
             for (const [key, value] of Object.entries(source)) {
                 if (typeof value === "string" || isObject(value)) {
-                    source[key] = this.resolveInjectedProperties(value);
+                    source[key] = this.resolveInjectedProperties(value, { warn });
                 }
             }
 
@@ -210,7 +215,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
                 const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
-                if (value === undefined) {
+                if (value === undefined && warn) {
                     this.failValidation(`Failed to resolve injected property "${source}"`);
                 }
                 return String(value);

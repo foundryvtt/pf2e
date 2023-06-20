@@ -107,7 +107,9 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 }
 
                 // Allow a `damageType` resolved to an empty string be treated as `null`
-                const damageType = this.damageType ? this.resolveInjectedProperties(this.damageType) || null : null;
+                const damageType = this.damageType
+                    ? this.resolveInjectedProperties(this.damageType, { warn: false }) || null
+                    : null;
                 if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                     // If this rule element's predicate would have passed without there being a resolvable damage type,
                     // send out a warning.
