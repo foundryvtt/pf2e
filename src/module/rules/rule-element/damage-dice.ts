@@ -35,12 +35,6 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
     constructor(data: DamageDiceSource, options: RuleElementOptions) {
         super(data, options);
 
-        const damageType = this.resolveInjectedProperties(this.damageType);
-        if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
-            this.failValidation(`Unrecognized damage type: ${damageType}`);
-            this.damageType = null;
-        }
-
         this.brackets = this.isBracketedValue(data.value) ? data.value : null;
 
         if (data.override && !this.#isValidOverride(data.override)) {
