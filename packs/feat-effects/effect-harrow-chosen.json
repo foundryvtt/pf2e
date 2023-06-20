@@ -1,0 +1,143 @@
+{
+    "_id": "1Azz9TSWXrX4aNX4",
+    "img": "systems/pf2e/icons/equipment/held-items/spellbook-of-redundant-enchantment.webp",
+    "name": "Effect: Harrow-Chosen",
+    "system": {
+        "description": {
+            "value": "<p>This benefit is determined by alignment of the card you draw from the deck. The card can match both alignment components with yours (true match), match a single alignment component with yours (partial match), have no matching alignment components (unmatched), or have a diametrically opposed alignment to yours (misaligned).</p>\n<p><strong>True match</strong>: You gain a +1 circumstance bonus to a saving throw of your choice (Fortitude, Reflex, or Will) for 1 minute.</p>\n<p><strong>Partial match</strong>: You gain resistance to one energy type (acid, cold, electricity, fire, or sonic) equal to your level for 1 minute.</p>\n<p><strong>Unmatched</strong>: You gain temporary Hit Points equal to twice your level. The temporary Hit Points remain for 1 minute.</p>\n<p><strong>Misaligned</strong>: You gain a +5-foot circumstance bonus to your Speeds for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.HarrowChosen.TrueMatch",
+                        "value": "true-match"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowChosen.PartialMatch",
+                        "value": "partial-match"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowChosen.Unmatched",
+                        "value": "unmatched"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowChosen.Misaligned",
+                        "value": "misaligned"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.HarrowChosen.Prompt",
+                "rollOption": "harrow-chosen"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SavesReflex",
+                        "value": "reflex"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "value": "will"
+                    }
+                ],
+                "flag": "save",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "harrow-chosen:true-match"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harrow-chosen:true-match"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.save}",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "harrow-chosen:partial-match"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "harrow-chosen:partial-match"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "@actor.level"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "harrow-chosen:unmatched"
+                ],
+                "value": "2*@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harrow-chosen:misaligned"
+                ],
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
