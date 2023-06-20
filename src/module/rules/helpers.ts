@@ -25,15 +25,16 @@ function extractModifiers(
     return modifiers;
 }
 
-/** */
-function extractDamageModifiers(...args: Parameters<typeof extractModifiers>): {
-    persistent: ModifierPF2e[];
-    main: ModifierPF2e[];
-} {
-    const synthetics = extractModifiers(...args);
+/** Extract modifiers for damage rolls, grouping them by immediate and persistent damage */
+function extractDamageModifiers(
+    synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "statisticsModifiers">,
+    selectors: string[],
+    options: Omit<DeferredValueParams, "test"> & { test: Set<string> }
+): { main: ModifierPF2e[]; persistent: ModifierPF2e[] } {
+    const modifiers = extractModifiers(synthetics, selectors, options);
     return {
-        main: synthetics.filter((m) => m.category !== "persistent"),
-        persistent: synthetics.filter((m) => m.category === "persistent"),
+        main: modifiers.filter((m) => m.category !== "persistent"),
+        persistent: modifiers.filter((m) => m.category === "persistent"),
     };
 }
 
