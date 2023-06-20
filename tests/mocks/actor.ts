@@ -68,17 +68,22 @@ export class MockActor {
         _context: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>> = {}
     ): Promise<ActorPF2e[]> {
         return updates.flatMap((update) => {
-            const actor = game.actors.find((actor) => actor.id === update._id);
+            const actor = game.actors.find((a) => a.id === update._id);
             if (!actor) throw Error("PANIC!");
 
             const itemUpdates = (update.items ?? []) as DeepPartial<ItemSourcePF2e>[];
             delete update.items;
             mergeObject(actor._source, update);
             for (const partial of itemUpdates) {
+                partial._id ??= "item1";
                 const source = actor._source.items.find(
                     (maybeSource: ItemSourcePF2e) => maybeSource._id === partial._id
                 );
-                if (source) mergeObject(source, partial);
+                if (source) {
+                    mergeObject(source, partial);
+                } else {
+                    actor.createEmbeddedDocuments("Item", [partial]);
+                }
             }
             actor.prepareData();
             return actor;
