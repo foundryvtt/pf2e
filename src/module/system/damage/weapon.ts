@@ -169,9 +169,9 @@ class WeaponDamagePF2e {
         const modifiersAndSelectors = modifiers
             .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
-            .flatMap((modifier) => {
+            .map((modifier) => {
                 const selectors = this.#getSelectors(weapon, modifier.ability, proficiencyRank);
-                return modifier.predicate.test(options) ? { modifier, selectors } : [];
+                return { modifier, selectors };
             });
 
         const { selectors } =
