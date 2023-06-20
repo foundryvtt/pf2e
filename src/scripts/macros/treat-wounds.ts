@@ -32,9 +32,9 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
 <div class="form-group">
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-  <option value="medicine">${game.i18n.localize("PF2E.Actions.TreatWounds.Skill.Medicine")}</option>
-  ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.Actions.TreatWounds.Skill.Crafting")}</option>` : ``}
-  ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.Actions.TreatWounds.Skill.Nature")}</option>` : ``}
+  <option value="medicine">${game.i18n.localize("PF2E.SkillMedicine")}</option>
+  ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.SkillCrafting")}</option>` : ``}
+  ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.SkillNature")}</option>` : ``}
 </select>
 </div>
 </form>
