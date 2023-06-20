@@ -16,7 +16,51 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Champion.TargetReaction",
+                "option": "selfish-shield",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Champion.NegativeDamage",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Champion.EvilDamage",
+                        "value": "evil"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.selfishShield}",
+                "key": "FlatModifier",
+                "predicate": [
+                    "selfish-shield"
+                ],
+                "selector": "strike-damage",
+                "slug": "selfish-shield-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
