@@ -16,7 +16,7 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (!actor || !actor.isOfType("creature")) {
-        ui.notifications.error("PF2E.ErrorMessage.NoPCTokenSelected");
+        ui.notifications.error("PF2E.ErrorMessage.NoPCTokenSelected", { localize: true} );
         return;
     }
 
