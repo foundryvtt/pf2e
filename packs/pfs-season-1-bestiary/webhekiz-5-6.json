@@ -2087,34 +2087,26 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "label": "Bespell Weapon (Poison)",
-                        "option": "bespell-poison",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Bespell Weapon (Piercing)",
-                        "option": "bespell-piercing",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "poison",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "bespell-poison"
+                        "option": "bespell-primal-weapon",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "value": "poison"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            }
                         ],
-                        "selector": "strike-damage"
+                        "toggleable": true
                     },
                     {
-                        "damageType": "piercing",
+                        "damageType": "{item|flags.pf2e.rulesSelections.bespellPrimalWeapon}",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "bespell-piercing"
+                            "bespell-primal-weapon"
                         ],
                         "selector": "strike-damage"
                     }

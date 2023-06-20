@@ -4366,33 +4366,28 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "predictive-blows",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Check.Result.Degree.Check.success",
+                                "value": "4"
+                            },
+                            {
+                                "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                                "value": "6"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
-                        "diceNumber": 4,
+                        "category": "precision",
+                        "diceNumber": "{item|flags.pf2e.rulesSelections.predictiveBlows}",
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
                             "predictive-blows"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Predictive Blows - Critical Success",
-                        "option": "predictive-blows-critical",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 6,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "predictive-blows-critical"
                         ],
                         "selector": "strike-damage"
                     }
