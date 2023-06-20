@@ -1,3 +1,4 @@
+import type { ActiveEffectSource, EffectDurationData } from "../../../common/documents/active-effect.d.ts";
 import type { ClientBaseActiveEffect } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -15,24 +16,13 @@ declare global {
         extends ClientBaseActiveEffect<TParent>
         implements TemporaryEffect
     {
-        constructor(
-            data: PreCreate<foundry.documents.ActiveEffectSource>,
-            context?: DocumentConstructionContext<TParent>
-        );
+        constructor(data: PreCreate<ActiveEffectSource>, context?: DocumentConstructionContext<TParent>);
 
         /** A cached reference to the source name to avoid recurring database lookups */
         protected _sourceName: string | null;
 
         /** A cached reference to the ActiveEffectConfig instance which configures this effect */
         protected override _sheet: ActiveEffectConfig<this> | null;
-
-        /** Summarize the active effect duration */
-        get duration(): {
-            type: string;
-            duration: number | null;
-            remaining: number | null;
-            label: string;
-        };
 
         /**
          * Format a round+turn combination as a decimal
@@ -73,7 +63,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        apply(actor: Actor<TokenDocument<Scene | null>>, change: foundry.documents.EffectChangeSource): unknown;
+        apply(actor: Actor<TokenDocument<Scene | null>>, change: ActiveEffectSource["changes"][number]): unknown;
 
         /**
          * Apply an ActiveEffect that uses an ADD application mode.
@@ -90,7 +80,7 @@ declare global {
          */
         protected _applyAdd(
             actor: Actor<TokenDocument<Scene | null>>,
-            change: foundry.documents.EffectChangeSource
+            change: ActiveEffectSource["changes"][number]
         ): unknown;
 
         /**
@@ -102,7 +92,7 @@ declare global {
          */
         protected _applyMultiply(
             actor: Actor<TokenDocument<Scene | null>>,
-            change: foundry.documents.EffectChangeSource
+            change: ActiveEffectSource["changes"][number]
         ): unknown;
 
         /**
@@ -114,7 +104,7 @@ declare global {
          */
         protected _applyOverride(
             actor: Actor<TokenDocument<Scene | null>>,
-            change: foundry.documents.EffectChangeSource
+            change: ActiveEffectSource["changes"][number]
         ): unknown;
 
         /**
@@ -126,7 +116,7 @@ declare global {
          */
         protected _applyUpgrade(
             actor: Actor<TokenDocument<Scene | null>>,
-            change: foundry.documents.EffectChangeSource
+            change: ActiveEffectSource["changes"][number]
         ): unknown;
 
         /**
@@ -137,7 +127,7 @@ declare global {
          */
         protected _applyCustom(
             actor: Actor<TokenDocument<Scene | null>>,
-            change: foundry.documents.EffectChangeSource
+            change: ActiveEffectSource["changes"][number]
         ): unknown;
 
         /** Get the name of the source of the Active Effect */
@@ -160,17 +150,17 @@ declare global {
             | Item<Actor<TokenDocument<Scene | null> | null> | null>
             | null
     > extends ClientBaseActiveEffect<TParent> {
-        disabled: boolean;
-        icon: ImageFilePath;
-        statuses: Set<string>;
-        tint?: string;
+        duration: PreparedEffectDurationData;
     }
 
-    interface TemporaryEffect {
-        disabled: boolean;
-        isTemporary: boolean;
-        icon: ImageFilePath;
-        statuses: Set<string>;
-        tint?: string;
+    interface PreparedEffectDurationData extends EffectDurationData {
+        type: string;
+        remaining?: string;
+        label?: string;
     }
+
+    type TemporaryEffect = Pick<
+        ActiveEffect<Actor<TokenDocument<Scene | null> | null>>,
+        "name" | "disabled" | "isTemporary" | "description" | "icon" | "statuses" | "duration" | "tint"
+    > & { duration: PreparedEffectDurationData };
 }
