@@ -1,4 +1,4 @@
-export { default as BaseActiveEffect, ActiveEffectSource, EffectChangeSource } from "./active-effect.ts";
+export { default as BaseActiveEffect, ActiveEffectSource } from "./active-effect.ts";
 export { default as BaseActor, ActorFlags, ActorSource } from "./actor.ts";
 export { default as BaseActorDelta } from "./actor-delta.ts";
 export { default as BaseAdventure, AdventureSource } from "./adventure.ts";

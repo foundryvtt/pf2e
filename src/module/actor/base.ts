@@ -283,18 +283,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const conditionTokenIcons = this.conditions.active.map((c) => c.img);
-        const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
+        const fromConditions = this.conditions.active.map((c) => new TokenEffect(c));
+        const fromEffects = this.itemTypes.effect
+            .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
+            .map((e) => new TokenEffect(e));
 
-        const effectTokenEffects = this.itemTypes.effect
-            .filter((effect) => effect.system.tokenIcon?.show)
-            .filter((effect) => effect.isIdentified || game.user.isGM)
-            .map((effect) => new TokenEffect(effect.img));
-
-        return super.temporaryEffects
-            .concat(this.system.tokenEffects)
-            .concat(conditionTokenEffects)
-            .concat(effectTokenEffects);
+        return [super.temporaryEffects, fromConditions, fromEffects].flat();
     }
 
     /** A means of checking this actor's type without risk of circular import references */

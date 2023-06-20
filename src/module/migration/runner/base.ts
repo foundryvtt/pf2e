@@ -47,17 +47,17 @@ export class MigrationRunnerBase {
 
         const origSources: Map<string, TSource> = new Map();
         for (const source of orig) {
-            origSources.set(source._id, source);
+            origSources.set(source._id!, source);
         }
 
         for (const source of updated) {
-            const origSource = origSources.get(source._id);
+            const origSource = origSources.get(source._id!);
             if (origSource) {
                 // check to see if anything changed
                 if (JSON.stringify(origSource) !== JSON.stringify(source)) {
                     ret.updated.push(source);
                 }
-                origSources.delete(source._id);
+                origSources.delete(source._id!);
             } else {
                 // it's new
                 ret.inserted.push(source);
@@ -66,7 +66,7 @@ export class MigrationRunnerBase {
 
         // since we've been deleting them as we process, the ones remaining need to be deleted
         for (const source of origSources.values()) {
-            ret.deleted.push(source._id);
+            ret.deleted.push(source._id!);
         }
 
         return ret;
