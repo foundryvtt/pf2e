@@ -20,6 +20,7 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
         return;
     }
 
+    const medicineName = game.i18n.localize("PF2E.SkillMedicine");
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = randomID(); // Attached to element id attributes for DOM uniqueness
@@ -32,7 +33,7 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
 <div class="form-group">
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-  <option value="medicine">${game.i18n.localize("PF2E.SkillMedicine")}</option>
+  <option value="medicine">${medicineName}</option>
   ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.SkillCrafting")}</option>` : ``}
   ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.SkillNature")}</option>` : ``}
 </select>
@@ -40,7 +41,7 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
 </form>
 <form>
 <div class="form-group">
-<label for="dc-type-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.MedicineDC")}</label>
+<label for="dc-type-${domIdAppend}">${game.i18n.format("PF2E.InlineCheck.DCWithName", { name: medicineName })}</label>
 <select id="dc-type-${domIdAppend}" name="dc-type">
   <option value="1">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Trained")}</option>
   <option value="2">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Expert")}</option>
