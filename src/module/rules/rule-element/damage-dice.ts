@@ -2,9 +2,9 @@ import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/
 import { DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, setHasElement, sluggify } from "@util";
+import type { BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./index.ts";
-import type { BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
 
 class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
     static override defineSchema(): DamageDiceRuleSchema {
@@ -54,40 +54,51 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
 
         const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
             const label = this.getReducedLabel();
-            const diceNumber = Number(this.resolveValue(this.diceNumber, 0, { resolvables: params.resolvables })) || 0;
 
-            const resolvedBrackets = this.resolveValue(this.brackets, {}, { resolvables: params.resolvables });
+            // If this rule element's predicate would have passed without all fields being resolvable, send out a
+            // warning.
+            const testPassed =
+                this.predicate.length === 0 ||
+                this.resolveInjectedProperties(this.predicate).test(
+                    params.test ?? this.actor.getRollOptions(["damage"])
+                );
+            const resolveOptions = { ...params, warn: testPassed };
+
+            const diceNumber = Number(this.resolveValue(this.diceNumber, 0, resolveOptions)) || 0;
+            // Warning may have been suppressed, but return early if validation failed
+            if (this.ignored) return null;
+
+            const resolvedBrackets = this.resolveValue(this.brackets, {}, resolveOptions);
             if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
-                this.failValidation("Brackets failed to validate");
+                if (testPassed) this.failValidation("Brackets failed to validate");
                 return null;
             }
 
-            const damageType = this.resolveInjectedProperties(this.damageType);
+            const damageType = this.resolveInjectedProperties(this.damageType, resolveOptions);
             if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
-                this.failValidation(`Unrecognized damage type: ${damageType}`);
+                if (testPassed) this.failValidation(`Unrecognized damage type: ${damageType}`);
                 return null;
             }
 
             if (this.override) {
-                this.override.damageType &&= this.resolveInjectedProperties(this.override.damageType);
+                this.override.damageType &&= this.resolveInjectedProperties(this.override.damageType, resolveOptions);
                 if ("damageType" in this.override && !objectHasKey(CONFIG.PF2E.damageTypes, this.override.damageType)) {
-                    this.failValidation("Unrecognized damage type in override");
+                    if (testPassed) this.failValidation("Unrecognized damage type in override");
+                    return null;
                 }
 
-                this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize);
+                this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize, resolveOptions);
                 if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
-                    this.failValidation("Unrecognized die size in override");
+                    if (testPassed) this.failValidation("Unrecognized die size in override");
+                    return null;
                 }
             }
 
-            const dieSize = this.resolveInjectedProperties(this.dieSize);
+            const dieSize = this.resolveInjectedProperties(this.dieSize, resolveOptions);
             if (dieSize !== null && !setHasElement(DAMAGE_DIE_FACES, dieSize)) {
-                this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
+                if (testPassed) this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
                 return null;
             }
-
-            // If this failed validation partway through (such as in resolveInjectedProperties), return null
-            if (this.ignored) return null;
 
             return new DamageDicePF2e({
                 selector,
@@ -98,9 +109,9 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 critical: this.critical,
                 category: this.category,
                 damageType,
-                predicate: this.predicate ?? {},
+                predicate: this.predicate,
                 override: deepClone(this.override),
-                enabled: this.test(params.test ?? this.actor.getRollOptions(["damage"])),
+                enabled: testPassed,
                 ...resolvedBrackets,
             });
         };

@@ -1,4 +1,10 @@
-import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
+import {
+    DamageDicePF2e,
+    DeferredValueParams,
+    ModifierAdjustment,
+    ModifierPF2e,
+    TestableDeferredValueParams,
+} from "@actor/modifiers.ts";
 import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -29,7 +35,7 @@ function extractModifiers(
 function extractDamageModifiers(
     synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "statisticsModifiers">,
     selectors: string[],
-    options: Omit<DeferredValueParams, "test"> & { test: Set<string> }
+    options: TestableDeferredValueParams
 ): { main: ModifierPF2e[]; persistent: ModifierPF2e[] } {
     const modifiers = extractModifiers(synthetics, selectors, options);
     return {
@@ -55,7 +61,7 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
 function extractDamageDice(
     deferredDice: DamageDiceSynthetics,
     selectors: string[],
-    options: DeferredValueParams = {}
+    options: TestableDeferredValueParams
 ): DamageDicePF2e[] {
     return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
 }
@@ -166,10 +172,10 @@ export {
     extractDamageDice,
     extractDamageModifiers,
     extractDegreeOfSuccessAdjustments,
+    extractEphemeralEffects,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
-    extractEphemeralEffects,
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,

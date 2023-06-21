@@ -215,8 +215,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
                 const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
-                if (value === undefined && warn) {
-                    this.failValidation(`Failed to resolve injected property "${source}"`);
+                if (value === undefined) {
+                    this.ignored = true;
+                    if (warn) this.failValidation(`Failed to resolve injected property "${source}"`);
                 }
                 return String(value);
             });
@@ -243,14 +244,14 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     protected resolveValue(
         valueData = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true, resolvables = {} }: { evaluate?: boolean; resolvables?: Record<string, unknown> } = {}
+        { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {}
     ): number | string | boolean | object | null {
         let value: RuleValue = valueData ?? defaultValue ?? null;
 
         if (["number", "boolean"].includes(typeof value) || value === null) {
             return value;
         }
-        if (typeof value === "string") value = this.resolveInjectedProperties(value);
+        if (typeof value === "string") value = this.resolveInjectedProperties(value, { warn });
 
         // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
         if (this.actor.isOfType("character")) {
@@ -305,7 +306,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 // Allow failure of "@target" with no warning
                 if (unresolveds.length > 0) {
                     if (!unresolveds.every((u) => u === "@target")) {
-                        this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+                        this.ignored = true;
+                        if (warn) this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
                     }
                     return 0;
                 }
@@ -457,6 +459,12 @@ namespace RuleElementPF2e {
     }
 
     export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
+}
+
+interface ResolveValueParams {
+    evaluate?: boolean;
+    resolvables?: Record<string, unknown>;
+    warn?: boolean;
 }
 
 type RuleElementOptions = {
