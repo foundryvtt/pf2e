@@ -66,7 +66,7 @@ type LightDataSchema = {
     attenuation: fields.NumberField<number, number, true>;
     luminosity: fields.NumberField<number, number, true, false, true>;
     saturation: fields.NumberField<number, number, true, false, true>;
-    constrast: fields.NumberField<number, number, true, false, true>;
+    contrast: fields.NumberField<number, number, true, false, true>;
     shadows: fields.NumberField<number, number, true, false, true>;
     animation: fields.SchemaField<{
         type: fields.StringField<string, string, true, true, true>;
