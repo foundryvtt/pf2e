@@ -70,7 +70,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updated =
                 "items" in document
                     ? await this.#migrateActor(migrations, document, { pack })
-                    : await this.#migrateItem(migrations, document, { pack });
+                    : await this.#migrateItem(migrations, document);
             if (updated) updateGroup.push(updated);
         }
         if (updateGroup.length > 0) {
@@ -83,41 +83,16 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    async #migrateItem(
-        migrations: MigrationBase[],
-        item: ItemPF2e,
-        options: { pack?: string | null } = {}
-    ): Promise<ItemSourcePF2e | null> {
-        const { pack } = options;
+    async #migrateItem(migrations: MigrationBase[], item: ItemPF2e): Promise<ItemSourcePF2e | null> {
         const baseItem = item.toObject();
-        const updatedItem = await (() => {
-            try {
-                return this.getUpdatedItem(baseItem, migrations);
-            } catch (error) {
-                if (error instanceof Error) {
-                    console.error(`Error thrown while migrating ${item.uuid}: ${error.message}`);
-                }
-                return null;
+        try {
+            return this.getUpdatedItem(baseItem, migrations);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error thrown while migrating ${item.uuid}: ${error.message}`);
             }
-        })();
-        if (!updatedItem) return null;
-
-        const baseAEs = [...baseItem.effects];
-        const updatedAEs = [...updatedItem.effects];
-        const aeDiff = this.diffCollection(baseAEs, updatedAEs);
-        if (aeDiff.deleted.length > 0) {
-            try {
-                const finalDeleted = aeDiff.deleted.filter((deletedId) =>
-                    item.effects.some((effect) => effect.id === deletedId)
-                );
-                await item.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true, pack });
-            } catch (error) {
-                console.warn(error);
-            }
+            return null;
         }
-
-        updatedItem.effects = item.actor?.isToken ? updatedAEs : aeDiff.updated;
-        return updatedItem;
     }
 
     async #migrateActor(
@@ -140,18 +115,19 @@ export class MigrationRunner extends MigrationRunnerBase {
         })();
         if (!updatedActor) return null;
 
+        if (actor.effects.size > 0) {
+            // What are these doing here?
+            actor.deleteEmbeddedDocuments("ActiveEffect", [], { deleteAll: true });
+        }
+
         const baseItems = [...baseActor.items];
-        const baseAEs = [...baseActor.effects];
         const updatedItems = [...updatedActor.items];
-        const updatedAEs = [...updatedActor.effects];
 
         // We pull out the items here so that the embedded document operations get called
         const itemDiff = this.diffCollection(baseItems, updatedItems);
-        if (itemDiff.deleted.length > 0) {
+        const finalDeleted = itemDiff.deleted.filter((id) => actor.items.has(id));
+        if (finalDeleted.length > 0) {
             try {
-                const finalDeleted = itemDiff.deleted.filter((deletedId) =>
-                    actor.items.some((item) => item.id === deletedId)
-                );
                 await actor.deleteEmbeddedDocuments("Item", finalDeleted, { noHook: true, pack });
             } catch (error) {
                 // Output as a warning, since this merely means data preparation following the update
@@ -159,44 +135,9 @@ export class MigrationRunner extends MigrationRunnerBase {
                 console.warn(error);
             }
         }
+        const finalUpdated = itemDiff.updated.filter((i) => actor.items.has(i._id));
+        updatedActor.items = [...itemDiff.inserted, ...finalUpdated];
 
-        const aeDiff = this.diffCollection(baseAEs, updatedAEs);
-        if (aeDiff.deleted.length > 0) {
-            try {
-                const finalDeleted = aeDiff.deleted.filter((deletedId) =>
-                    actor.effects.some((effect) => effect.id === deletedId)
-                );
-                await actor.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true, pack });
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-
-        if (itemDiff.inserted.length > 0) {
-            try {
-                await actor.createEmbeddedDocuments("Item", itemDiff.inserted, { noHook: true, pack });
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-
-        // Delete embedded ActiveEffects on embedded Items
-        for (const updated of updatedItems) {
-            const original = baseActor.items.find((i) => i._id === updated._id);
-            if (!original) continue;
-            const itemAEDiff = this.diffCollection(original.effects, updated.effects);
-            if (itemAEDiff.deleted.length > 0) {
-                // Doubly-embedded documents can't be updated or deleted directly, so send up the entire item
-                // as a full replacement update
-                try {
-                    await Item.updateDocuments([updated], { parent: actor, diff: false, recursive: false, pack });
-                } catch (error) {
-                    console.warn(error);
-                }
-            }
-        }
-
-        updatedActor.items = actor.isToken ? updatedItems : itemDiff.updated;
         return updatedActor;
     }
 
@@ -315,7 +256,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         });
 
         // Migrate World Actors
-        await this.#migrateDocuments(game.actors as WorldCollection<ActorPF2e<null>>, migrations, progress);
+        await this.#migrateDocuments(game.actors, migrations, progress);
 
         // Migrate World Items
         await this.#migrateDocuments(game.items, migrations, progress);
@@ -369,7 +310,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                         const updated = await this.#migrateActor(migrations, actor);
                         if (updated) {
                             try {
-                                await actor.update(updated);
+                                await actor.update(updated, { noHook: true });
                             } catch (error) {
                                 console.warn(error);
                             }

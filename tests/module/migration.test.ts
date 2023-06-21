@@ -301,8 +301,7 @@ describe("test migration runner", () => {
         static version = 14;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         async updateActor(actor: { items: any[] }) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            actor.system.sampleItemId = actor.items.find((x: any) => x.name === "sample item")._id;
+            actor.system.sampleItemId = actor.items.find((i: { name: string }) => i.name === "sample item")._id;
         }
     }
 
