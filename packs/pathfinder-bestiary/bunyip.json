@@ -367,26 +367,69 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A bunyip can alter its form slightly to gain an advantage and make it harder to recognize. When it does, its teeth shrink and its Jaws Strike doesn't deal the 1d6 persistent bleed damage. It can choose to gain either a long snake tail, granting its tail Strike reach 10 feet and Grab, or squat crocodile legs, increasing its land Speed to 20 feet. If it uses Shift Form again, the bunyip can return to normal or switch between a long tail or crocodile legs.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Crocodile Form]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Snake Form]</p>"
+                    "value": "<p>A bunyip can alter its form slightly to gain an advantage and make it harder to recognize. When it does, its teeth shrink and its Jaws Strike doesn't deal the 1d6 persistent bleed damage. It can choose to gain either a long snake tail, granting its tail Strike reach 10 feet and Grab, or squat crocodile legs, increasing its land Speed to 20 feet. If it uses Shift Form again, the bunyip can return to normal or switch between a long tail or crocodile legs.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shift-form",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Bunyip.SnakeTail",
+                                "value": "snake-tail"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Bunyip.CrocodileLegs",
+                                "value": "crocodile-legs"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
                         "damageType": "bleed",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
+                        "label": "PF2E.Weapon.Base.jaws",
                         "predicate": [
                             {
-                                "nor": [
-                                    "self:effect:crocodile-form",
-                                    "self:effect:snake-form"
-                                ]
+                                "not": "shift-form"
                             }
                         ],
                         "selector": "jaws-damage"
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "shift-form:crocodile-legs"
+                        ],
+                        "selector": "land-speed",
+                        "value": 20
+                    },
+                    {
+                        "definition": [
+                            "item:tail"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "shift-form:snake-tail"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-10"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "shift-form:snake-tail"
+                        ],
+                        "selector": "tail-attack",
+                        "text": "<p><strong><span class='pf2-icon'>1</span> @Localize[PF2E.AttackEffectGrab]</strong> ({item|name})</p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -396,6 +439,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "morph",
                         "primal",
                         "transmutation"
                     ]

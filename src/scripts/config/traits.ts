@@ -454,6 +454,7 @@ const weaponTraits = {
     "ranged-trip": "PF2E.TraitRangedTrip",
     razing: "PF2E.TraitRazing",
     reach: "PF2E.TraitReach",
+    "reach-10": "PF2E.TraitReach10",
     recovery: "PF2E.TraitRecovery",
     repeating: "PF2E.TraitRepeating",
     resonant: "PF2E.TraitResonant",
