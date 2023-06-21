@@ -733,7 +733,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             }
 
             const actorSize = new ActorSizePF2e({ value: actor.size });
-            if (actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
+            if (this.isMelee && actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
                 actorSize.decrement();
                 newTraits.push(...[npcReach[actorSize.value] ?? []].flat());
             }
