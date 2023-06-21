@@ -96,6 +96,11 @@ interface DeferredValueParams {
     /** Roll Options to get against a predicate (if available) */
     test?: string[] | Set<string>;
 }
+
+interface TestableDeferredValueParams extends DeferredValueParams {
+    test: Set<string>;
+}
+
 type DeferredValue<T> = (options?: DeferredValueParams) => T | null;
 type DeferredPromise<T> = (options?: DeferredValueParams) => Promise<T | null>;
 
@@ -709,6 +714,7 @@ export {
     PROFICIENCY_RANK_OPTION,
     RawModifier,
     StatisticModifier,
+    TestableDeferredValueParams,
     adjustModifiers,
     applyStackingRules,
     createAbilityModifier,
