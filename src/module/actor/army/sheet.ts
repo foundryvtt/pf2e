@@ -2,6 +2,7 @@ import { CreatureConfig } from "@actor/creature/config.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { htmlQueryAll } from "@util";
 import { ArmyPF2e } from "./document.ts";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 
 class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     protected readonly actorConfigClass = CreatureConfig;
@@ -13,6 +14,18 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             classes: [...options.classes, "pf2e", "army"],
             template: "systems/pf2e/templates/actors/army/sheet.hbs",
         };
+    }
+
+    override async getData(): Promise<ArmySheetDataPF2e<TActor>> {
+        const sheetData = await super.getData();
+        // Enrich content
+        const rollData = this.actor.getRollData();
+        sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.data.details.description, {
+            rollData,
+            async: true,
+        });
+
+        return { ...sheetData } ;
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {
@@ -98,5 +111,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         }
     }
 }
+
+interface ArmySheetDataPF2e<TActor extends ArmyPF2e> extends ActorSheetDataPF2e<TActor> {}
 
 export { ArmySheetPF2e };

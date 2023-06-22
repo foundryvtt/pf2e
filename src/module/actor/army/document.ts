@@ -5,8 +5,13 @@ import { Rarity } from "@module/data.ts";
 import { ActorAlliance } from "@actor/types.ts";
 import { Alignment } from "@actor/creature/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
+import { ItemType } from "@item/data/index.ts";
 
-class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {}
+class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return ["action", "effect"];
+    }
+}
 
 interface ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     _source: ArmySource;
