@@ -1,24 +1,4 @@
 <section class="sheet-body content sheet-content-loot inventory">
     {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=owner}}
-    <ol class="inventory-list directory-list inventory-pane item-container item-list" data-container-type="actorInventory">
-        {{#each inventory.sections as |section|}}
-            <li class="inventory-header">
-                <h3 class="item-name">{{section.label}}</h3>
-                <span class="item-sell-value">{{localize "PF2E.UnitPriceLabel"}}</span>
-                <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
-                <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
-                {{#if @root.owner}}
-                    <div class="item-controls">
-                        <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{section.type}}"><i class="fa-solid fa-fw fa-plus"></i></a>
-                        <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{section.type}}"><i class="fa-solid fa-fw fa-search"></i></a>
-                    </div>
-                {{/if}}
-            </li>
-            <ol class="item-list" data-item-type="{{section.type}}">
-                {{#each section.items}}
-                    {{> "systems/pf2e/templates/actors/partials/item-line.hbs" this=this editable=@root.editable owner=@root.owner user=@root.user}}
-                {{/each}}
-            </ol>
-        {{/each}}
-    </ol>
+    {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
 </section>
