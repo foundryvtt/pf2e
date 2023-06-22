@@ -308,9 +308,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Whether this actor is immune to an effect of a certain type */
-    isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource): boolean {
-        const item = "parent" in effect ? effect : new ItemProxyPF2e(effect);
-        const statements = new Set(item.getRollOptions("item"));
+    isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource | ConditionSlug): boolean {
+        const item = typeof effect === "string" ? null : "parent" in effect ? effect : new ItemProxyPF2e(effect);
+        const statements = new Set(item ? item.getRollOptions("item") : [`condition:${effect}`]);
         return this.attributes.immunities.some((i) => i.test(statements));
     }
 
@@ -642,6 +642,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Call post-derived-preparation `RuleElement` hooks
         for (const rule of this.rules) {
             rule.afterPrepareData?.();
+        }
+
+        // IWR rule elements were only just processed: set the actor to not flat-footable if immune to the condition
+        if (this.attributes.flanking.flatFootable && this.isImmuneTo("flat-footed")) {
+            this.attributes.flanking.flatFootable = false;
         }
 
         this.preparePrototypeToken();
