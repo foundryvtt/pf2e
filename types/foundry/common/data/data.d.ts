@@ -89,7 +89,9 @@ export interface PrototypeTokenSource
     randomImg: boolean;
 }
 
-export class PrototypeToken<TParent extends BaseActor = BaseActor> extends Document {
+export class PrototypeToken<TParent extends BaseActor | null> extends Document<TParent> {
+    get actor(): TParent;
+
     protected override _initialize(): void;
 
     override toJSON(): RawObject<this>;
@@ -101,7 +103,9 @@ export class PrototypeToken<TParent extends BaseActor = BaseActor> extends Docum
     bar2: TokenBarData;
 }
 
-export interface PrototypeToken extends Omit<PrototypeTokenSource, "bar1" | "bar2"> {
+export interface PrototypeToken<TParent extends BaseActor | null>
+    extends Document<TParent>,
+        Omit<PrototypeTokenSource, "bar1" | "bar2"> {
     readonly _source: PrototypeTokenSource;
 }
 

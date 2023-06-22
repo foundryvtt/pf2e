@@ -11,7 +11,7 @@ import type { BaseActiveEffect, BaseItem, BaseToken, BaseUser } from "./module.d
 export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends Document<TParent> {
     sort: number;
 
-    prototypeToken: foundry.data.PrototypeToken;
+    prototypeToken: foundry.data.PrototypeToken<this>;
 
     /** The default icon used for newly created Actor documents */
     static DEFAULT_ICON: ImageFilePath;
