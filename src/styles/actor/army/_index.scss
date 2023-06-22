@@ -15,9 +15,9 @@ form.army-sheet {
   overflow-y: hidden;
   gap: 12px;
 
-  // ============== //
+  // ============= //
   //    SIDEBAR    //
-  // ============== //
+  // ============= //
   aside.army-sidebar {
     max-width: 160px;
     min-width: 160px;
@@ -49,6 +49,7 @@ form.army-sheet {
           border-bottom: 1px solid;
           border-color: $faded-color;
           align-items: baseline;
+          line-height: 18px;
           h4 {
             font-weight: bold;
             margin-bottom: 0px;
@@ -79,6 +80,7 @@ form.army-sheet {
       //Headers and labels
       label {
         font-size: 0.8rem;
+        height: 20px;
         width: 100%;
         display: flex;
         margin: auto;
@@ -89,7 +91,6 @@ form.army-sheet {
         display: flex;
         input {
           width: 36px;
-          height: 28px;
         }
       }
     }
@@ -176,6 +177,7 @@ form.army-sheet {
     //       Body      //
     // ================ //
     section.sheet-body {
+      padding-right: 0.5rem;
       fieldset {
         border: 1px solid #5e0000;
         border-radius: 3px;
@@ -186,6 +188,9 @@ form.army-sheet {
           text-transform: bold;
         }
       }
+      // ============= //
+      //    STRIKES    //
+      // ============= //
       fieldset.strikes {
         display: flex;
         flex-direction: column;
@@ -199,6 +204,57 @@ form.army-sheet {
           input.name {
             flex: 1;
             text-indent: 0.5rem;
+          }
+          &.locked .strike, &.locked .name, &.locked .pips i {
+            color: darkgrey;
+            pointer-events: none;
+          }
+        }
+      }
+      // ============= //
+      //     ITEMS     //
+      // ============= //
+      ol.item-list {
+        list-style-type: none;
+        padding: 0;
+        li.item {
+          display: flex;
+          align-items: center;
+          line-height: 1.5rem;
+          &:nth-child(odd) { background: rgba(180, 175, 175, 0.25); }
+          .item-name {
+            display: flex;
+            text-indent: 0.5rem;
+            font-weight: bold;
+            flex: 1 1;
+            .item-icon {
+              border-radius: 6px;
+              border: none;
+              max-height: 1.5rem;
+              max-width: 1.5rem;
+            }
+            h4 {
+              margin: auto 0;
+            }
+          }
+          .item-frequency {
+            flex: 0.2 0 4rem;
+            gap: 0.25rem;
+            display: flex;
+            input {
+              text-align: right;
+            }
+            input, span {
+              flex: 1;
+              margin: auto;
+            }
+          }
+          .item-controls i {
+            flex: 0 0 4rem;
+            visibility: hidden;
+          }
+          &:hover .item-controls i {
+            visibility: unset;
           }
         }
       }
@@ -245,6 +301,7 @@ form.army-sheet {
     }
     &.pips {
       width: 3.5rem;
+      height: 24px;
       display: flex;
       flex-flow: row nowrap;
       justify-content: center;
@@ -279,10 +336,17 @@ form.army-sheet {
     align-items: baseline;
     width: 100%;
     label {
-        min-width: 50%;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        }
+      min-width: 50%;
+      text-align: left;
+      display: flex;
+      align-items: center;
     }
+  }
+
+  i.fa-dice-d20 {
+    opacity: 0.75;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
