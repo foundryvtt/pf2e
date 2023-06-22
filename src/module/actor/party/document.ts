@@ -139,9 +139,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (statistic) return statistic;
 
         const campaignStat = this.campaign?.getStatistic?.(slug);
-        if (campaignStat) return campaignStat;
 
-        return null;
+        return campaignStat ?? null;
     }
 
     private _resetAndRerenderDebounced = foundry.utils.debounce(() => {
