@@ -23,23 +23,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      - name: Cache NPM Deps
-        id: cache-npm
-        uses: actions/cache@v3
-        with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
-
-      - name: Install NPM Deps
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+      - name: Install PNPM Deps
         run: |
-          npm ci
+          pnpm install --frozen-lockfile
 
       - name: Build
         run: |
-          npm run build
+          pnpm run build
 
       - name: Test
         run: |
-          npm run test
+          pnpm run test

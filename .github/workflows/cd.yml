@@ -22,11 +22,11 @@ jobs:
 
       - name: Build
         run: |
-          npm ci
-          npm run build
+          pnpm install --frozen-lockfile
+          pnpm run build
 
       - name: Build JSON packs
-        run: npm run build:packs:json
+        run: pnpm run build:packs:json
 
       - name: Update Manifest
         run: |
