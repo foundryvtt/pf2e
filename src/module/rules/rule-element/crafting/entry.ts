@@ -103,6 +103,10 @@ type PreparedFormulaSchema = {
     isSignatureItem: BooleanField<boolean, boolean, false, false, false>;
 };
 
+type CraftingEntryRuleData = Omit<SourceFromSchema<CraftingEntryRuleSchema>, "preparedFormulas"> & {
+    preparedFormulas: (Partial<SourceFromSchema<PreparedFormulaSchema>> & { itemUUID: string })[];
+};
+
 interface CraftingEntryRuleSource extends RuleElementSource {
     selector?: unknown;
     name?: unknown;
@@ -115,4 +119,4 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     preparedFormulas?: unknown;
 }
 
-export { CraftingEntryRuleElement, CraftingEntryRuleSource };
+export { CraftingEntryRuleData, CraftingEntryRuleElement, CraftingEntryRuleSource };
