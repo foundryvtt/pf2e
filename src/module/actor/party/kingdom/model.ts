@@ -1,13 +1,23 @@
 import { FeatGroup } from "@actor/character/feats.ts";
+import { ModifierPF2e, createProficiencyModifier } from "@actor/modifiers.ts";
 import { ItemType } from "@item/data/index.ts";
-import { createHTMLElement, fontAwesomeIcon } from "@util";
+import { Statistic } from "@system/statistic/index.ts";
+import { createHTMLElement, fontAwesomeIcon, objectHasKey } from "@util";
+import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomBuilder } from "./builder.ts";
-import { KingdomCHG, KingdomGovernment, KingdomSchema, KingdomSource } from "./data.ts";
+import { KingdomCHG, KingdomGovernment, KingdomSchema, KingdomSkill, KingdomSource } from "./data.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
 import { KINGDOM_SCHEMA } from "./schema.ts";
-import { KINGDOM_ABILITIES } from "./values.ts";
+import {
+    CONTROL_DC_BY_LEVEL,
+    KINGDOM_ABILITIES,
+    KINGDOM_ABILITY_LABELS,
+    KINGDOM_SKILLS,
+    KINGDOM_SKILL_ABILITIES,
+    KINGDOM_SKILL_LABELS,
+} from "./values.ts";
 
 const { DataModel } = foundry.abstract;
 
@@ -15,6 +25,8 @@ const { DataModel } = foundry.abstract;
 class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampaign {
     declare feats: FeatGroup<PartyPF2e>;
     declare bonusFeats: FeatGroup<PartyPF2e>;
+    declare skills: Record<KingdomSkill, Statistic>;
+    declare control: Statistic;
 
     static override defineSchema(): KingdomSchema {
         return KINGDOM_SCHEMA;
@@ -43,6 +55,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     override _initialize(options?: Record<string, unknown>): void {
         super._initialize(options);
         this.prepareAbilityScores();
+        this.prepareStatistics();
         this.prepareFeats();
     }
 
@@ -69,36 +82,76 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 
     private prepareAbilityScores(): void {
-        if (this.build.manual) return;
+        // Calculate Ability Boosts (if calculated automatically)
+        if (!this.build.manual) {
+            for (const ability of KINGDOM_ABILITIES) {
+                this.abilities[ability].value = 10;
+            }
 
+            // Charter/Heartland/Government boosts
+            for (const category of ["charter", "heartland", "government"] as const) {
+                const data = this.build[category];
+                const chosen = this.build.boosts[category];
+                if (!data) continue;
+
+                if (data.flaw) {
+                    this.abilities[data.flaw].value -= 2;
+                }
+
+                const activeBoosts = resolveKingdomBoosts(data, chosen);
+                for (const ability of activeBoosts) {
+                    this.abilities[ability].value += this.abilities[ability].value >= 18 ? 1 : 2;
+                }
+            }
+
+            // Level boosts
+            const activeLevels = ([1, 5, 10, 15, 20] as const).filter((l) => this.level >= l);
+            for (const level of activeLevels) {
+                const chosen = this.build.boosts[level].slice(0, 2);
+                for (const ability of chosen) {
+                    this.abilities[ability].value += this.abilities[ability].value >= 18 ? 1 : 2;
+                }
+            }
+        }
+
+        // Assign Ability modifiers base on values
         for (const ability of KINGDOM_ABILITIES) {
-            this.abilities[ability].value = 10;
+            this.abilities[ability].mod = (this.abilities[ability].value - 10) / 2;
         }
+    }
 
-        // Charter/Heartland/Government boosts
-        for (const category of ["charter", "heartland", "government"] as const) {
-            const data = this.build[category];
-            const chosen = this.build.boosts[category];
-            if (!data) continue;
+    private prepareStatistics(): void {
+        const controlMod = CONTROL_DC_BY_LEVEL[Math.clamped(this.level - 1, 0, 19)] - 10;
+        this.control = new Statistic(this.actor, {
+            slug: "control",
+            label: "PF2E.Kingmaker.Kingdom.ControlDC",
+            domains: ["control-dc"],
+            modifiers: [new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: controlMod })],
+        });
 
-            if (data.flaw) {
-                this.abilities[data.flaw].value -= 2;
-            }
+        this.skills = R.mapToObj(KINGDOM_SKILLS, (skill) => {
+            const ability = KINGDOM_SKILL_ABILITIES[skill];
+            const abilityMod = this.abilities[ability].mod;
+            const rank = this.build.skills[skill].rank;
+            const domains = [`${ability}-based`, skill];
+            const statistic = new Statistic(this.actor, {
+                slug: skill,
+                rank,
+                label: KINGDOM_SKILL_LABELS[skill],
+                domains,
+                modifiers: [
+                    new ModifierPF2e({
+                        slug: ability,
+                        label: KINGDOM_ABILITY_LABELS[ability],
+                        modifier: abilityMod,
+                    }),
+                    createProficiencyModifier({ actor: this.actor, rank, domains }),
+                ],
+                check: { type: "skill-check" },
+            });
 
-            const activeBoosts = resolveKingdomBoosts(data, chosen);
-            for (const ability of activeBoosts) {
-                this.abilities[ability].value += this.abilities[ability].value >= 18 ? 1 : 2;
-            }
-        }
-
-        // Level boosts
-        const activeLevels = ([1, 5, 10, 15, 20] as const).filter((l) => this.level >= l);
-        for (const level of activeLevels) {
-            const chosen = this.build.boosts[level].slice(0, 2);
-            for (const ability of chosen) {
-                this.abilities[ability].value += this.abilities[ability].value >= 18 ? 1 : 2;
-            }
-        }
+            return [skill, statistic];
+        });
     }
 
     private prepareFeats(): void {
@@ -127,6 +180,14 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 this.bonusFeats.assignFeat(feat);
             }
         }
+    }
+
+    getStatistic(slug: string): Statistic | null {
+        if (this.skills && objectHasKey(this.skills, slug)) {
+            return this.skills[slug] ?? null;
+        }
+
+        return null;
     }
 }
 

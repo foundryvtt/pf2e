@@ -2,7 +2,8 @@ import { ActorPF2e } from "@actor";
 import { ArrayField, StringField } from "types/foundry/common/data/fields.js";
 import { KingdomAbility } from "./data.ts";
 import { mapValuesFromKeys } from "./helpers.ts";
-import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP } from "./values.ts";
+import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
+import { ZeroToFour } from "@module/data.ts";
 
 const { fields } = foundry.data;
 
@@ -37,6 +38,19 @@ const KINGDOM_BUILD_SCHEMA = {
             ),
         },
         { nullable: true, initial: null }
+    ),
+    skills: new fields.SchemaField(
+        mapValuesFromKeys(KINGDOM_SKILLS, () => {
+            return new fields.SchemaField({
+                rank: new fields.NumberField<ZeroToFour, ZeroToFour, true, false>({
+                    initial: 0,
+                    min: 0,
+                    max: 4,
+                    required: true,
+                    nullable: false,
+                }),
+            });
+        })
     ),
     /** Boost selections made by the user, both during the build process and levelling */
     boosts: new fields.SchemaField(
@@ -104,6 +118,11 @@ const KINGDOM_SCHEMA = {
             return new fields.SchemaField({
                 value: new fields.NumberField<number, number, true, false>({
                     initial: 10,
+                    required: true,
+                    nullable: false,
+                }),
+                mod: new fields.NumberField<number, number, true, false>({
+                    initial: 0,
                     required: true,
                     nullable: false,
                 }),

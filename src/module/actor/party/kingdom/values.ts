@@ -1,6 +1,6 @@
 import * as R from "remeda";
 import { localizer } from "@util";
-import { KingdomCHG, KingdomGovernment } from "./data.ts";
+import { KingdomAbility, KingdomCHG, KingdomGovernment, KingdomSkill } from "./data.ts";
 
 const KINGDOM_ABILITIES = ["culture", "economy", "loyalty", "stability"] as const;
 const KINGDOM_LEADERSHIP = [
@@ -16,6 +16,48 @@ const KINGDOM_LEADERSHIP = [
 const KINGDOM_COMMODITIES = ["food", "lumber", "luxuries", "ore", "stone"] as const;
 
 const KINGDOM_ABILITY_LABELS = R.mapToObj(KINGDOM_ABILITIES, (a) => [a, `PF2E.Kingmaker.Abilities.${a}`]);
+
+const KINGDOM_SKILLS = [
+    "agriculture",
+    "arts",
+    "boating",
+    "defense",
+    "engineering",
+    "exploration",
+    "folklore",
+    "industry",
+    "intrigue",
+    "magic",
+    "politics",
+    "scholarship",
+    "statecraft",
+    "trade",
+    "warfare",
+    "wilderness",
+] as const;
+
+const KINGDOM_SKILL_LABELS = R.mapToObj(KINGDOM_SKILLS, (a) => [a, `PF2E.Kingmaker.Skills.${a}`]);
+
+const KINGDOM_SKILL_ABILITIES: Record<KingdomSkill, KingdomAbility> = {
+    agriculture: "stability",
+    arts: "culture",
+    boating: "economy",
+    defense: "stability",
+    engineering: "stability",
+    exploration: "economy",
+    folklore: "culture",
+    industry: "economy",
+    intrigue: "loyalty",
+    magic: "culture",
+    politics: "loyalty",
+    scholarship: "culture",
+    statecraft: "loyalty",
+    trade: "economy",
+    warfare: "loyalty",
+    wilderness: "stability",
+};
+
+const CONTROL_DC_BY_LEVEL = [14, 15, 16, 18, 20, 22, 23, 24, 26, 27, 28, 30, 31, 32, 34, 35, 36, 38, 39, 40];
 
 function getKingdomABCData(): {
     charter: Record<string, KingdomCHG | undefined>;
@@ -144,4 +186,14 @@ function getKingdomABCData(): {
     };
 }
 
-export { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_COMMODITIES, getKingdomABCData, KINGDOM_LEADERSHIP };
+export {
+    CONTROL_DC_BY_LEVEL,
+    KINGDOM_ABILITIES,
+    KINGDOM_ABILITY_LABELS,
+    KINGDOM_COMMODITIES,
+    KINGDOM_SKILLS,
+    KINGDOM_SKILL_ABILITIES,
+    KINGDOM_SKILL_LABELS,
+    getKingdomABCData,
+    KINGDOM_LEADERSHIP,
+};
