@@ -636,5 +636,8 @@ declare global {
         keepId?: boolean;
     }
 
-    type DocumentSourceUpdateContext = Omit<DocumentModificationContext<null>, "parent">;
+    interface DocumentSourceUpdateContext extends Omit<DocumentModificationContext<null>, "parent"> {
+        dryRun?: boolean;
+        fallback?: boolean;
+    }
 }

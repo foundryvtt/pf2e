@@ -10,6 +10,7 @@ import { InvalidCampaign } from "./invalid-campaign.ts";
 import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -130,6 +131,17 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         } else {
             super.reset();
         }
+    }
+
+    /** Include campaign statistics in party statistics */
+    override getStatistic(slug: string): Statistic | null {
+        const statistic = super.getStatistic(slug);
+        if (statistic) return statistic;
+
+        const campaignStat = this.campaign?.getStatistic?.(slug);
+        if (campaignStat) return campaignStat;
+
+        return null;
     }
 
     private _resetAndRerenderDebounced = foundry.utils.debounce(() => {

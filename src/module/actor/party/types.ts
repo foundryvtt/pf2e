@@ -8,6 +8,7 @@ import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { TokenDocumentPF2e } from "@scene";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import { PartyPF2e } from "./document.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     members: MemberBreakdown[];
@@ -54,6 +55,8 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     extraItemTypes?: ItemType[];
     /** Sidebar buttons to inject into the party header */
     createSidebarButtons?(): HTMLElement[];
+    /** Returns any additional statistics that should be returned by the party */
+    getStatistic?(slug: string): Statistic | null;
 }
 
 export { LanguageSheetData, MemberBreakdown, PartyCampaign, PartySheetData, PartyUpdateContext };
