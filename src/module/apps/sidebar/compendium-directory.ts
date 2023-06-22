@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
-import { ErrorPF2e, fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
@@ -124,32 +124,9 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     }
 
     /** System compendium search */
-    protected override _onSearchFilter(_event: KeyboardEvent, query: string): void {
+    protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, listElem: HTMLElement): void {
+        super._onSearchFilter(event, query, rgx, listElem);
         const html = this.element[0];
-        // Match compendiums by title
-        const matchesQuery = (pack: CompendiumCollection): boolean => {
-            return pack.title.toLocaleLowerCase(game.i18n.lang).includes(query.toLocaleLowerCase(game.i18n.lang));
-        };
-        const filteredPacks = query.length > 0 ? game.packs.filter(matchesQuery) : game.packs.contents;
-        const packRows = htmlQueryAll(html, "li.directory-item.compendium");
-
-        // Display matching compendium rows along with any document matches within each compendium
-        for (const pack of filteredPacks) {
-            const packRow = packRows.find((r) => r.dataset.pack === pack.collection);
-            if (!packRow || !pack.testUserPermission(game.user, "OBSERVER")) {
-                continue;
-            }
-            packRow.style.display = "";
-        }
-
-        // Hide the rest
-        const rowsToHide =
-            query.length > 0
-                ? packRows.filter((r) => !filteredPacks.includes(game.packs.get(r.dataset.pack ?? "")!))
-                : [];
-        for (const row of rowsToHide) {
-            row.style.display = "none";
-        }
 
         // Match documents within each compendium by name
         const docMatches = query.length > 0 ? this.constructor.searchEngine.search(query) : [];
