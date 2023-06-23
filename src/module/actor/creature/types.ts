@@ -20,11 +20,6 @@ interface GetReachParameters {
     weapon?: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e> | null;
 }
 
-interface IsFlatFootedParams {
-    /** The circumstance potentially imposing the flat-footed condition */
-    dueTo: "flanking" | "surprise" | "hidden" | "undetected";
-}
-
 interface CreatureUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
     allowHPOverage?: boolean;
 }
@@ -63,6 +58,5 @@ export {
     CreatureTrait,
     CreatureUpdateContext,
     GetReachParameters,
-    IsFlatFootedParams,
     ModeOfBeing,
 };

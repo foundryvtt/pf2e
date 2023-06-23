@@ -61,6 +61,7 @@ import {
     calculateRangePenalty,
     checkAreaEffects,
     getRangeIncrement,
+    isOffGuardFromFlanking,
     isReallyPC,
     migrateActorSource,
 } from "./helpers.ts";
@@ -310,7 +311,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Whether this actor is immune to an effect of a certain type */
     isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource | ConditionSlug): boolean {
         const item = typeof effect === "string" ? null : "parent" in effect ? effect : new ItemProxyPF2e(effect);
-        const statements = new Set(item ? item.getRollOptions("item") : [`condition:${effect}`]);
+        const statements = new Set(item ? item.getRollOptions("item") : ["item:type:condition", `item:slug:${effect}`]);
         return this.attributes.immunities.some((i) => i.test(statements));
     }
 
@@ -810,16 +811,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   ]
                 : [null, null];
 
-        const [reach, isMelee] = params.item?.isOfType("melee")
-            ? [params.item.reach, params.item.isMelee]
-            : params.item?.isOfType("weapon")
-            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
-            : [null, false];
-
         const selfOptions = this.getRollOptions(params.domains ?? []);
-        if (targetToken && isMelee && typeof reach === "number" && selfToken?.isFlanking(targetToken, { reach })) {
-            selfOptions.push("self:flanking");
-        }
 
         // Get ephemeral effects from the target that affect this actor while attacking
         const originEphemeralEffects = await extractEphemeralEffects({
@@ -931,6 +923,26 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             domains: params.domains,
             options: [...params.options, ...itemOptions, ...targetRollOptions],
         });
+
+        const [reach, isMelee] = params.item?.isOfType("melee")
+            ? [params.item.reach, params.item.isMelee]
+            : params.item?.isOfType("weapon")
+            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
+            : [null, false];
+
+        // Add an epehemeral effect from flanking
+        const isFlankingStrike = !!(
+            isMelee &&
+            typeof reach === "number" &&
+            params.statistic instanceof StatisticModifier &&
+            targetToken &&
+            selfToken?.isFlanking(targetToken, { reach })
+        );
+        if (isFlankingStrike && params.target?.token?.actor && isOffGuardFromFlanking(params.target.token.actor)) {
+            const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
+            targetEphemeralEffects.push(condition.toObject());
+        }
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
