@@ -160,14 +160,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         if (!this.actor || !this.isEmbedded) return;
 
-        // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault = [
-            ActorPF2e.DEFAULT_ICON,
-            `systems/pf2e/icons/default-icons/${this.actor.type}.svg`,
-        ].some((path) => this.texture.src?.endsWith(path));
-        if (tokenImgIsDefault) {
-            this.texture.src = this.actor._source.img;
-        }
+        TokenDocumentPF2e.assignDefaultImage(this);
 
         for (const [key, data] of this.actor.auras.entries()) {
             this.auras.set(
@@ -193,21 +186,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Autoscaling is a secondary feature of linking to actor size
         const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
-
-        // Nath mode
-        const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
-        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.texture.src)) {
-            this.texture.src = ((): VideoFilePath => {
-                switch (this.actor.alliance) {
-                    case "party":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
-                    case "opposition":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
-                    default:
-                        return this.texture.src;
-                }
-            })();
-        }
 
         // Alliance coloration, appropriating core token dispositions
         const { alliance } = this.actor.system.details;
@@ -263,7 +241,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         // Token dimensions from actor size
-        TokenDocumentPF2e.prepareSize(this, this.actor);
+        TokenDocumentPF2e.prepareSize(this);
 
         // Set vision and detection modes
         this.#prepareDerivedPerception();
@@ -312,8 +290,33 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
+    /** Synchronize the token image with the actor image if the token does not currently have an image */
+    static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        const { actor } = token;
+        if (!actor) return;
+
+        const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${actor.type}.svg`];
+
+        // Always override token images if in Nath mode
+        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(token.texture.src)) {
+            token.texture.src = ((): VideoFilePath => {
+                switch (actor.alliance) {
+                    case "party":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
+                    case "opposition":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+                    default:
+                        return token.texture.src;
+                }
+            })();
+        } else if (defaultIcons.some((path) => token.texture.src?.endsWith(path))) {
+            token.texture.src = actor._source.img;
+        }
+    }
+
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
-    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e, actor: ActorPF2e | null): void {
+    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        const { actor } = token;
         if (!(actor && token.flags.pf2e.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)

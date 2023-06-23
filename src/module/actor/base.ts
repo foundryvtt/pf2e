@@ -762,7 +762,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
             this.prototypeToken.flags
         );
-        TokenDocumentPF2e.prepareSize(this.prototypeToken, this);
+        TokenDocumentPF2e.assignDefaultImage(this.prototypeToken);
+        TokenDocumentPF2e.prepareSize(this.prototypeToken);
     }
 
     /** If there is an active encounter, set roll options for it and this actor's participant */
@@ -1843,7 +1844,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e<this>>;
     system: ActorSystemData;
 
-    prototypeToken: PrototypeTokenPF2e;
+    prototypeToken: PrototypeTokenPF2e<this>;
 
     get sheet(): ActorSheetPF2e<this>;
 
