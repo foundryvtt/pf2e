@@ -11,6 +11,7 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
+import { ResolvableValueField } from "../data.ts";
 
 /**
  * @category RuleElement
@@ -26,7 +27,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
             isAlchemical: new fields.BooleanField({ required: false, initial: undefined }),
             isDailyPrep: new fields.BooleanField({ required: false, initial: undefined }),
             isPrepared: new fields.BooleanField({ required: false, initial: undefined }),
-            maxItemLevel: new fields.NumberField({ required: false, nullable: false, initial: 1 }),
+            maxItemLevel: new ResolvableValueField({ required: false, nullable: false, initial: 1 }),
             maxSlots: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             craftableItems: new PredicateField(),
             preparedFormulas: new fields.ArrayField(
@@ -66,7 +67,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
             isDailyPrep: this.isDailyPrep,
             isPrepared: this.isPrepared,
             craftableItems,
-            maxItemLevel: Number(this.resolveValue(this.maxItemLevel)),
+            maxItemLevel: Number(this.resolveValue(this.maxItemLevel)) || 1,
             maxSlots: this.maxSlots,
             parentItem: this.item.id,
             preparedFormulaData: this.preparedFormulas,
@@ -89,7 +90,7 @@ type CraftingEntryRuleSchema = RuleElementSchema & {
     isAlchemical: BooleanField<boolean, boolean, false, false, false>;
     isDailyPrep: BooleanField<boolean, boolean, false, false, false>;
     isPrepared: BooleanField<boolean, boolean, false, false, false>;
-    maxItemLevel: NumberField<number, number, false, false, true>;
+    maxItemLevel: ResolvableValueField<false, false, true>;
     maxSlots: NumberField<number, number, false, false, false>;
     craftableItems: PredicateField<false, false, false>;
     preparedFormulas: ArrayField<SchemaField<PreparedFormulaSchema>>;
