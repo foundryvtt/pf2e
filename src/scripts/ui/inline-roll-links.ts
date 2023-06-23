@@ -99,12 +99,24 @@ export const InlineRollLinks = {
         });
 
         $links.filter("[data-pf2-check]").on("click", (event) => {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment } = event.currentTarget.dataset;
-            const actors = getSelectedOrOwnActors();
-            if (actors.length === 0) {
-                ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
-                return;
-            }
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller } = event.currentTarget.dataset;
+            const parent = documentFromDOM(event.currentTarget);
+            const actors = (() => {
+                if (pf2Roller === "self") {
+                    const document = documentFromDOM(event.currentTarget);
+                    const validActor = document instanceof ActorPF2e && document.canUserModify(game.user, "update");
+                    return validActor ? [document] : [];
+                }
+
+                const actors = getSelectedOrOwnActors();
+                if (actors.length === 0) {
+                    ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    return [];
+                }
+                return actors;
+            })();
+
+            if (actors.length === 0) return;
             const parsedTraits = pf2Traits
                 ?.split(",")
                 .map((trait) => trait.trim())
@@ -149,7 +161,6 @@ export const InlineRollLinks = {
                             })();
 
                             const dc = Number.isInteger(dcValue) ? { label: pf2Label, value: dcValue } : null;
-                            const maybeOrigin = documentFromDOM(event.currentTarget);
                             // Retrieve the item if this is a saving throw (relevant for predicated abilities that
                             // depend on the item involved in provoking the saving throw)
                             const item = (() => {
@@ -164,7 +175,7 @@ export const InlineRollLinks = {
                             statistic.check.roll({
                                 ...eventRollParams,
                                 extraRollOptions: parsedTraits,
-                                origin: maybeOrigin instanceof ActorPF2e ? maybeOrigin : null,
+                                origin: parent instanceof ActorPF2e ? parent : null,
                                 dc,
                                 item,
                             });
