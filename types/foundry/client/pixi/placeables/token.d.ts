@@ -54,6 +54,18 @@ declare global {
         /** A Graphics instance which renders the border frame for this Token inside the GridLayer. */
         border: PIXI.Graphics;
 
+        /** Track the set of User entities which are currently targeting this Token */
+        targeted: Set<User>;
+
+        /** A reference to the SpriteMesh which displays this Token in the PrimaryCanvasGroup. */
+        mesh: TokenMesh;
+
+        /** A reference to the PointSource object which defines this vision source area of effect */
+        vision: VisionSource<this>;
+
+        /** A reference to the PointSource object which defines this light source area of effect */
+        light: LightSource<this>;
+
         /** A reference to an animation that is currently in progress for this Token, if any */
         _animation: Promise<unknown> | null;
 
@@ -65,22 +77,6 @@ declare global {
 
         /** The Token's most recent valid position */
         protected _validPosition: Point;
-
-        /** Track the set of User entities which are currently targeting this Token */
-        targeted: Set<User>;
-
-        /** A reference to the SpriteMesh which displays this Token in the PrimaryCanvasGroup. */
-        mesh: PIXI.DisplayObject & {
-            refresh(): void;
-            get sort(): number;
-            data: { sort: number };
-        };
-
-        /** A reference to the PointSource object which defines this vision source area of effect */
-        vision: VisionSource<this>;
-
-        /** A reference to the PointSource object which defines this light source area of effect */
-        light: LightSource<this>;
 
         /** Load token texture */
         texture: PIXI.Texture;
@@ -99,7 +95,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** A convenient reference to the Actor object associated with the Token embedded document. */
-        get actor(): TDocument["actor"] | null;
+        get actor(): TDocument["actor"];
 
         /** A convenient reference for whether the current User has full control over the Token document. */
         get isOwner(): boolean;
@@ -111,7 +107,7 @@ declare global {
         get hasActiveHUD(): boolean;
 
         /** Convenience access to the token's nameplate string */
-        readonly name: string;
+        get name(): string;
 
         /* -------------------------------------------- */
         /*  Rendering Attributes                        */
