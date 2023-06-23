@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
 import { ArmorPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas/index.ts";
-import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
+import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
+import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e } from "@system/check/index.ts";
+import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
-import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
-import { TokenDocumentPF2e } from "@scene";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     /** Replace parent method in order to use DamageRoll class as needed */
@@ -46,18 +46,17 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         const html = $html[0];
 
         html.addEventListener("click", async (event): Promise<void> => {
-            const target = event.target;
-            if (!(target instanceof HTMLElement)) return;
-            const messageEl = htmlClosest<HTMLLIElement>(target, "li.chat-message");
-            if (!messageEl) return;
-            const message = game.messages.get(messageEl.dataset.messageId ?? "");
+            const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
+
+            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            if (senderEl && message) return this.#onClickSender(message, event);
 
             if (message?.isDamageRoll) {
-                const button = htmlClosest(target, "button");
+                const button = htmlClosest(event.target, "button");
                 if (!button) return;
 
                 if (button.classList.contains("shield-block")) {
-                    return this.#handleShieldButtonClick(button, messageEl);
+                    return this.#onClickShieldBlock(button, messageEl);
                 }
                 const buttonClasses = [
                     "heal-damage",
@@ -69,16 +68,16 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 for (const cssClass of buttonClasses) {
                     if (button.classList.contains(cssClass)) {
                         const index = htmlClosest(button, ".damage-application")?.dataset.rollIndex;
-                        return this.#handleDamageButtonClick(message, cssClass, event.shiftKey, index);
+                        return this.#onClickDamageButton(message, cssClass, event.shiftKey, index);
                     }
                 }
             }
 
-            const revertDamageButton = htmlClosest<HTMLButtonElement>(target, "button[data-action=revert-damage]");
+            const revertDamageButton = htmlClosest(event.target, "button[data-action=revert-damage]");
             if (revertDamageButton) {
                 const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
                 if (appliedDamageFlag) {
-                    const reverted = await this.#handleRevertDamageClick(appliedDamageFlag);
+                    const reverted = await this.#onClickRevertDamage(appliedDamageFlag);
                     if (reverted) {
                         htmlQuery(messageEl, "span.statements")?.classList.add("reverted");
                         revertDamageButton.remove();
@@ -90,9 +89,24 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 }
             }
         });
+
+        html.addEventListener("dblclick", async (event): Promise<void> => {
+            const { message } = ChatLogPF2e.#messageFromEvent(event);
+            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            if (senderEl && message) return this.#onClickSender(message, event);
+        });
     }
 
-    #handleDamageButtonClick(
+    static #messageFromEvent(
+        event: Event
+    ): { element: HTMLLIElement; message: ChatMessagePF2e } | { element: null; message: null } {
+        const element = htmlClosest<HTMLLIElement>(event.target, "li[data-message-id]");
+        const messageId = element?.dataset.messageId ?? "";
+        const message = game.messages.get(messageId);
+        return element && message ? { element, message } : { element: null, message: null };
+    }
+
+    #onClickDamageButton(
         message: ChatMessagePF2e,
         cssClass: DamageButtonClass,
         shiftKey: boolean,
@@ -122,7 +136,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         });
     }
 
-    async #handleRevertDamageClick(flag: AppliedDamageFlag): Promise<boolean> {
+    async #onClickRevertDamage(flag: AppliedDamageFlag): Promise<boolean> {
         const actorOrToken = fromUuidSync(flag.uuid);
         const actor =
             actorOrToken instanceof ActorPF2e
@@ -142,7 +156,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         return false;
     }
 
-    #handleShieldButtonClick(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
+    #onClickShieldBlock(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
         const getTokens = (): TokenPF2e[] => {
             const tokens = canvas.tokens.controlled.filter((token) => token.actor);
             if (!tokens.length) {
@@ -240,6 +254,19 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     },
                 })
                 .tooltipster("open");
+        }
+    }
+
+    #onClickSender(message: ChatMessagePF2e, event: MouseEvent): void {
+        if (!canvas) return;
+        const token = message.token?.object;
+        if (token?.isVisible && token.isOwner) {
+            token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            // If a double click, also pan to the token
+            if (event.type === "dblclick") {
+                const scale = Math.max(1, canvas.stage.scale.x);
+                canvas.animatePan({ ...token.center, scale, duration: 1000 });
+            }
         }
     }
 
