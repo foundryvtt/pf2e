@@ -1124,6 +1124,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         rollOptions = new Set(),
         skipIWR = false,
         shieldBlockRequest = false,
+        breakdown = [],
+        notes = [],
+        rolls = [],
     }: ApplyDamageParams): Promise<this> {
         const { hitPoints } = this;
         if (!hitPoints) return this;
@@ -1313,6 +1316,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const canUndoDamage = !!(hpDamage || shieldDamage || persistentCreated.length);
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
+            breakdown,
+            notes,
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
             iwr: {
@@ -1350,13 +1355,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         await ChatMessagePF2e.create({
             speaker: ChatMessagePF2e.getSpeaker({ token }),
-            content,
             flags: {
                 pf2e: {
                     appliedDamage,
                 },
             },
-            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+            flavor: content,
+            rolls: rolls.map((roll) => roll.toJSON()),
+            type: rolls.length ? CONST.CHAT_MESSAGE_TYPES.ROLL : CONST.CHAT_MESSAGE_TYPES.OTHER,
             whisper:
                 game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
