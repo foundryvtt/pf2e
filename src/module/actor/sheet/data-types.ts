@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { InventoryBulk } from "@actor/inventory/index.ts";
-import { PhysicalItemPF2e } from "@item";
+import { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { Coins } from "@item/physical/data.ts";
 import { PhysicalItemType } from "@item/physical/types.ts";
 import { RollOptionToggle } from "@module/rules/synthetics.ts";
@@ -52,4 +52,5 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     totalWealthGold: string;
     inventory: SheetInventory;
     enrichedContent: Record<string, string>;
+    availableContainers: ContainerPF2e<TActor>[];
 }

@@ -154,6 +154,29 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             carryTypeMenu.addEventListener("click", carryMenuListener);
         }
 
+        // Send to container
+        for (const sendToContainer of htmlQueryAll(html, ".tab.inventory a[data-action=send-to-container]")) {
+            sendToContainer.addEventListener("click", (event) => {
+                if (!(event.currentTarget instanceof HTMLElement)) {
+                    throw ErrorPF2e("Unexpected error retrieving carry-type link");
+                }
+
+                const containerId = event.currentTarget.dataset.containerId;
+                if (!containerId || !this.actor.items.has(containerId)) {
+                    throw ErrorPF2e(`Unexpected error retrieving container with id: ${containerId}`);
+                }
+
+                const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.inventory.get(itemId, { strict: true });
+                if (!item) {
+                    throw ErrorPF2e(`Unexpected error retrieving item with id: ${itemId}`);
+                }
+
+                if (item.system.containerId === containerId) return;
+                item.update({ "system.containerId": containerId });
+            });
+        }
+
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
         $html.find(selectors).on("change", (event) => {

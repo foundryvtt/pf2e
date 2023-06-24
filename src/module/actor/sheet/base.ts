@@ -134,6 +134,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             totalWealthGold,
             inventory: this.prepareInventory(),
             enrichedContent: {},
+            availableContainers: this.actor.itemTypes.backpack.filter((container) => container.isIdentified),
         };
 
         await this.prepareItems?.(sheetData);

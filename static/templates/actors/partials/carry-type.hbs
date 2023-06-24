@@ -43,5 +43,15 @@
             <a class="item-control item-location-option {{#if (eq item.system.equipped.carryType "dropped")}}selected{{/if}}"
                 data-carry-type="dropped"><i class="fas fa-grip-lines"></i>{{localize "PF2E.CarryType.dropped"}}</a>
         </li>
+        {{#each @root.availableContainers as |container|}}
+            {{#if (ne container ../item)}}
+                <li>
+                    <a class="item-control item-location-option {{#if (eq container ../item.container)}}selected{{/if}}" 
+                        data-container-id="{{container.id}}" data-action="send-to-container">
+                        <i class="fas fa-box"></i>{{container.name}}
+                    </a>
+                </li>
+            {{/if}}
+        {{/each}}
     </ul>
 </div>
