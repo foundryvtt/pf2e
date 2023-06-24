@@ -162,7 +162,7 @@ declare global {
         /** Whether or not this detection mode is presently enabled */
         enabled: boolean;
         /** The maximum range in distance units at which this mode can detect targets */
-        range: number | null;
+        range: number;
     }
 
     type DetectionType = (typeof DetectionMode.DETECTION_TYPES)[keyof typeof DetectionMode.DETECTION_TYPES];

@@ -38,7 +38,7 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
 
     sight: {
         enabled: boolean;
-        range: number | null;
+        range: number;
         angle: number;
         color: HexColorString;
         attenuation: number;
