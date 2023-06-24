@@ -52,6 +52,7 @@ function chatTemplate(skillName: string, earnIncomeResult: EarnIncomeResult): st
             <p><strong>Skill</strong> ${escapeHtml(skillName)}</p>
             <p><strong>Salary per day</strong> ${payPerDay}</p>
             ${forDays}
+            <p>Added ${combinedPay} to inventory</p>
         </div>
     </div>
     `;
@@ -77,6 +78,7 @@ function calculateIncome({ actor, skill, rollBrief, level, days, dc }: Calculate
     const proficiency = Math.max(1, skill.rank ?? 1) as OneToFour; // earn income is a trained check
     const result = earnIncome({ level, days, rollBrief, proficiency, options, dc });
 
+    actor.inventory.addCoins(result.rewards.combined);
     postToChat(skill.label, result);
 }
 
