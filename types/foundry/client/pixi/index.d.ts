@@ -1,6 +1,7 @@
 import * as smooth from "@pixi/graphics-smooth";
 import * as particles from "@pixi/particle-emitter";
 import {
+    ALPHA_MODES,
     AccessibilityManager,
     AlphaFilter,
     Application,
@@ -43,11 +44,13 @@ import {
     UniformGroup,
     utils,
 } from "pixi.js";
+import "./canvas.d.ts";
 import "./core/index.d.ts";
 import "./groups/index.d.ts";
 import "./layers/controls/ruler.d.ts";
 import "./layers/effects/visibility.d.ts";
 import "./perception/index.d.ts";
+import "./placeables/index.d.ts";
 import "./sources/index.d.ts";
 import "./webgl/index.d.ts";
 
@@ -57,6 +60,7 @@ declare global {
             AccessibilityManager,
             AlphaFilter,
             Application,
+            ALPHA_MODES,
             BLEND_MODES,
             BlurFilter,
             CLEAR_MODES,

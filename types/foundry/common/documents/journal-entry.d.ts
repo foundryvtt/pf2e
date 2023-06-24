@@ -1,5 +1,5 @@
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
-import { JournalEntryPageSchema } from "./journal-entry-page.js";
+import type { JournalEntryPageSchema } from "./journal-entry-page.d.ts";
 import type { BaseJournalEntryPage } from "./module.d.ts";
 
 /** The JournalEntry document model. */

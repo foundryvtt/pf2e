@@ -4,6 +4,7 @@ import "./base.d.ts";
 import "./drawing.d.ts";
 import "./measured-template.d.ts";
 import "./note.d.ts";
+import "./primary-canvas-objects/index.d.ts";
 import "./tile.d.ts";
 import "./token.d.ts";
 import "./wall.d.ts";
