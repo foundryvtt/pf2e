@@ -1,5 +1,6 @@
 import type DataModel from "../abstract/data.d.ts";
 import type { EmbeddedCollection } from "../abstract/embedded-collection.d.mts";
+import { DataModelValidationFailure } from "./validation-failure.js";
 
 /* ---------------------------------------- */
 /*  Abstract Data Field                     */
@@ -31,12 +32,28 @@ export interface DataFieldOptions<
         : THasInitial extends false
         ? undefined
         : TSourceProp | (() => TSourceProp) | null | undefined;
-    validate?: (value: unknown) => boolean | Error | void;
+    validate?: (value: unknown) => DataModelValidationFailure | boolean | void;
     choices?: readonly TSourceProp[] | Record<string, string> | Function;
     readonly?: boolean;
     label?: string;
     hint?: string;
     validationError?: string;
+}
+
+/**
+ * @typedef DataFieldValidationOptions
+ * @property [partial]              Whether this is a partial schema validation, or a complete one.
+ * @property [fallback]             Whether to allow replacing invalid values with valid fallbacks.
+ * @property [source]               The full source object being evaluated.
+ * @property [dropInvalidEmbedded]  If true, invalid embedded documents will emit a warning and be placed in
+ *                                  the invalidDocuments collection rather than causing the parent to be
+ *                                  considered invalid.
+ */
+interface DataFieldValidationOptions {
+    partial?: boolean;
+    fallback?: boolean;
+    source?: object;
+    dropInvalidEmbedded?: boolean;
 }
 
 /**
@@ -148,13 +165,15 @@ export abstract class DataField<
 
     /**
      * Validate a candidate input for this field, ensuring it meets the field requirements.
-     * A validation failure can be provided as a raised Error (with a string message) or by returning false.
+     * A validation failure can be provided as a raised Error (with a string message), by returning false, or by returning
+     * a DataModelValidationFailure instance.
      * A validator which returns true denotes that the result is certainly valid and further validations are unnecessary.
-     * @param value The initial value
-     * @param [options={}] Options which affect validation behavior
-     * @returns Returns a `ModelValidationError` if a validation failure occurred
+     * @param value          The initial value
+     * @param [options={}]   Options which affect validation behavior
+     * @returns              Returns a DataModelValidationFailure if a validation failure
+     *                       occurred.
      */
-    validate(value: unknown, options?: Record<string, unknown>): ModelValidationError | void;
+    validate(value: unknown, options?: DataFieldValidationOptions): DataModelValidationFailure | void;
 
     /**
      * Special validation rules which supersede regular field validation.
@@ -494,7 +513,7 @@ export class ArrayField<
      * @param options Validation options
      * @returns An array of element-specific errors
      */
-    protected _validateElements(value: unknown[], options?: Record<string, unknown>): ModelValidationError[];
+    protected _validateElements(value: unknown[], options?: Record<string, unknown>): DataModelValidationFailure | void;
 
     override initialize(
         value: TSourceProp,
@@ -534,7 +553,10 @@ export class SetField<
     TNullable extends boolean = false,
     THasInitial extends boolean = true
 > extends ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
-    protected override _validateElements(value: unknown[], options?: Record<string, unknown>): ModelValidationError[];
+    protected override _validateElements(
+        value: unknown[],
+        options?: Record<string, unknown>
+    ): DataModelValidationFailure | void;
 
     override initialize(
         value: TSourceProp,
@@ -621,7 +643,10 @@ export class EmbeddedCollectionField<
         options?: CleanFieldOptions
     ): MaybeSchemaProp<SourceFromSchema<TDataSchema>[], TRequired, TNullable, THasInitial>;
 
-    protected override _validateElements(value: unknown[], options?: Record<string, unknown>): ModelValidationError[];
+    protected override _validateElements(
+        value: unknown[],
+        options?: Record<string, unknown>
+    ): DataModelValidationFailure | void;
 
     override initialize(_value: unknown, model: ConstructorOf<DataModel>): EmbeddedCollection<DataModel>;
 
@@ -892,27 +917,6 @@ type DocumentStatsSchema = {
     modifiedTime: NumberField;
     lastModifiedBy: ForeignDocumentField<string>;
 };
-
-/* ---------------------------------------- */
-/*  Errors                                  */
-/* ---------------------------------------- */
-
-/**
- * A special type of error that wraps multiple errors which occurred during DataModel validation.
- * @param errors  An array or object containing several errors.
- */
-export class ModelValidationError extends Error {
-    constructor(errors: Error | Error[] | string);
-
-    errors: Error | Error[] | string;
-
-    /**
-     * Collect all the errors into a single message for consumers who do not handle the ModelValidationError specially.
-     * @param errors The raw error structure
-     * @returns A formatted error message
-     */
-    static formatErrors(errors: Error | Error[] | string): string;
-}
 
 // System utility types
 
