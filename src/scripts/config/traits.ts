@@ -580,6 +580,7 @@ const featTraits = {
     ...magicSchools,
     ...magicTraditions,
     ...spellTraits,
+    ...armyTraits,
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
@@ -701,6 +702,13 @@ const consumableTraits = {
     wand: "PF2E.TraitWand",
 };
 
+const armyTraits = {
+    infantry: "PF2E.Actor.Army.ArmyTypeInfantry",
+    cavalry: "PF2E.Actor.Army.ArmyTypeCavalry",
+    skirmisher: "PF2E.Actor.Army.ArmyTypeSkirmisher",
+    siege: "PF2E.Actor.Army.ArmyTypeSiege",
+};
+
 const actionTraits = {
     ...featTraits,
     ...consumableTraits,
@@ -737,13 +745,6 @@ const hazardTraits = {
     trap: "PF2E.TraitTrap",
     virulent: "PF2E.TraitVirulent",
     visual: "PF2E.TraitVisual",
-};
-
-const armyTraits = {
-    infantry: "PF2E.TraitInfantry",
-    cavalry: "PF2E.TraitCavalry",
-    skirmisher: "PF2E.TraitSkirmisher",
-    siege: "PF2E.TraitSiege",
 };
 
 const vehicleTraits = {
