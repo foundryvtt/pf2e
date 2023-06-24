@@ -163,7 +163,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const canBeEquipped = !item.isInContainer;
 
             return {
-                item: item,
+                item,
                 itemSize: sizeDifference !== 0 ? itemSize : null,
                 editable,
                 isContainer: item.isOfType("backpack"),
@@ -182,10 +182,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             category.items.push(createInventoryItem(item));
         }
 
-        const invested = this.actor.inventory.invested;
-        const showValueAlways = this.actor.isOfType("npc", "loot");
-        const showIndividualPricing = this.actor.isOfType("loot");
-        return { sections, bulk: this.actor.inventory.bulk, showValueAlways, showIndividualPricing, invested };
+        return {
+            sections,
+            bulk: this.actor.inventory.bulk,
+            showValueAlways: this.actor.isOfType("npc", "loot"),
+            showIndividualPricing: this.actor.isOfType("loot"),
+            hasStowingContainers: this.actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
+            invested: this.actor.inventory.invested,
+        };
     }
 
     protected static coinsToSheetData(coins: Coins): CoinageSummary {

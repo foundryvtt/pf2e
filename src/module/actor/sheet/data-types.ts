@@ -38,6 +38,7 @@ export interface SheetInventory {
     bulk: InventoryBulk;
     showValueAlways: boolean;
     showIndividualPricing: boolean;
+    hasStowingContainers: boolean;
     invested?: { value: number; max: number } | null;
 }
 
