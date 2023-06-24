@@ -10,7 +10,7 @@ import { armyTraits } from "@scripts/config/traits.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        return ["action", "effect"];
+        return ["action", "feat", "effect"];
     }
 }
 
@@ -42,6 +42,7 @@ interface ArmySystemSource extends ActorSystemSource {
             value: number;
             max: number;
             temp: number;
+            rt: number;
             details: string;
             negativeHealing: boolean;
         };
@@ -54,7 +55,6 @@ interface ArmySystemSource extends ActorSystemSource {
         scouting: {
             value: number;
             details: string;
-            darkvision: boolean;
         };
     };
 
@@ -121,23 +121,6 @@ interface ArmySystemSource extends ActorSystemSource {
                 bonus: number;
             };
         };
-    };
-
-    conditions: {
-        visibility: "clear" | "dim" | "dark";
-        range: "engaged" | "near" | "distant";
-        status: "OK" | "defeated" | "destroyed";
-        position: "OK" | "outflanked" | "pinned";
-        difficultterrain: boolean;
-        wind: boolean;
-        concealed: boolean;
-        efficient: boolean;
-        fortified: boolean;
-        lost: boolean;
-        mired: number;
-        shaken: number;
-        routed: boolean;
-        weary: number;
     };
 
     traits: {

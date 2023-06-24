@@ -83,11 +83,6 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                     const property = actor.system.gear.ranged.unlocked;
                     actor.update({ "system.gear.ranged.unlocked": !property });
                 }
-                if (buttonclass.includes("darkvision")) {
-                    console.log("Toggling darkvision");
-                    const property = actor.attributes.scouting.darkvision;
-                    actor.update({ "system.attributes.scouting.darkvision": !property });
-                }
                 return;
             });
         }
