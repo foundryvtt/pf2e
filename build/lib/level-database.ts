@@ -58,7 +58,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
                     }
                 }
             }
-            docBatch.put(source._id, source);
+            docBatch.put(source._id!, source);
         }
         await docBatch.write();
         if (embeddedBatch?.length) {

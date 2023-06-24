@@ -235,7 +235,7 @@ class PackExtractor {
     }
 
     #convertLinks(docSource: PackEntry, packName: string): PackEntry {
-        this.#newDocIdMap[docSource._id] = docSource.name;
+        this.#newDocIdMap[docSource._id!] = docSource.name;
 
         const sanitized = this.#sanitizeDocument(docSource);
         if (isActorSource(sanitized)) {
