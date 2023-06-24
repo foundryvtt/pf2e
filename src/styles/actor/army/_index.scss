@@ -81,6 +81,7 @@ form.army-sheet {
       label {
         font-size: 0.8rem;
         height: 20px;
+        line-height: 20px;
         width: 100%;
         display: flex;
         margin: auto;
@@ -156,14 +157,17 @@ form.army-sheet {
           }
         }
         .trait {
-            background: var(--primary);
-            border: 2px solid var(--color-border-trait);
-            color: var(--color-text-trait);
             font-size: 0.9em;
             font-weight: 500;
             text-transform: uppercase;
             height: 28px;
-            width: 128px;    
+            width: 128px;
+            text-indent: 0.2rem;
+            &.armytype-select {
+              background: var(--primary);
+              border: 2px solid var(--color-border-trait);
+              color: var(--color-text-trait);
+            }
         }
         .paizo-style {
             border: none;
