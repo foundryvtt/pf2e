@@ -134,6 +134,9 @@ declare global {
         /** The HTML source element for the primary Tile texture */
         get sourceElement(): HTMLImageElement | HTMLVideoElement;
 
+        /** The named identified for the source object associated with this Token */
+        override get sourceId(): `Token.${string}`;
+
         /** Does this Tile depict an animated video texture? */
         get isVideo(): boolean;
 
@@ -189,8 +192,11 @@ declare global {
          */
         get brightRadius(): number;
 
-        /** The named identified for the source object associated with this Token */
-        get sourceId(): `Token.${string}`;
+        /** Translate the token's vision range in units into a radius in pixels. */
+        get sightRange(): number;
+
+        /** Translate the token's maximum vision range that takes into account lights. */
+        get optimalSightRange(): number;
 
         /**
          * Update the light and vision source objects associated with this Token.

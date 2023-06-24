@@ -48,6 +48,16 @@ class VisionDetectionMode extends DetectionModeBasicSight {
             target instanceof TokenPF2e && !!target.actor?.hasCondition("undetected", "unnoticed");
         return !targetIsUndetected;
     }
+
+    /** Potentially short-circuit range test */
+    protected override _testRange(
+        visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
+        mode: TokenDetectionMode,
+        target: PlaceableObject<CanvasDocument>,
+        test: CanvasVisibilityTest
+    ): boolean {
+        return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
+    }
 }
 
 class HearingDetectionMode extends DetectionMode {
@@ -115,6 +125,16 @@ class HearingDetectionMode extends DetectionMode {
         test.loh.set(hearingSource, hasLOH);
 
         return hasLOH;
+    }
+
+    /** Potentially short-circuit range test */
+    protected override _testRange(
+        visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
+        mode: TokenDetectionMode,
+        target: PlaceableObject<CanvasDocument>,
+        test: CanvasVisibilityTest
+    ): boolean {
+        return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
     }
 }
 

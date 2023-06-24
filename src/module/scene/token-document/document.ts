@@ -203,12 +203,12 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             return super._prepareDetectionModes();
         }
 
-        this.detectionModes = [{ id: "basicSight", enabled: true, range: null }];
+        this.detectionModes = [{ id: "basicSight", enabled: true, range: 0 }];
         if (["character", "familiar"].includes(this.actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
             this.sight.contrast = 0;
-            this.sight.range = null;
+            this.sight.range = 0;
             this.sight.saturation = 0;
             this.sight.visionMode = "basic";
         }
@@ -262,7 +262,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
             const basicDetection = this.detectionModes.at(0);
             if (!basicDetection) return;
-            this.sight.range = basicDetection.range = defaults.range ?? null;
+            this.sight.range = basicDetection.range = defaults.range ?? 0;
 
             if (this.actor.isOfType("character") && this.actor.flags.pf2e.colorDarkvision) {
                 this.sight.saturation = 1;
