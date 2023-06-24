@@ -7,7 +7,7 @@
         {{!-- Portrait --}}
         <section class="image-container">
             <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
-            <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+            <a class="hover-icon" data-feat="show-image"><i class="fas fa-image fa-fw"></i></a>
         </section>
 
         {{!-- AC --}}
@@ -51,6 +51,7 @@
                     <button title="Use Potion (+1 HP)" class="usepotion" type="button"><i class="fas fa-champagne-glasses"></i>
                 {{/if}}
                 </button>
+                <label>RT: <input type="number" data-property="system.attributes.hp.rt" value="{{data.attributes.hp.rt}}" data-dtype="Number"/></label>
             </div>
             <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
         </section>
@@ -63,11 +64,6 @@
                 <a class="roll-icon"><i class="fas fa-dice-d20"></i></a>
                 <input type="number" data-property="system.attributes.scouting.value" value="{{data.attributes.scouting.value}}" data-dtype="Number"/>
             </div>
-            {{#if data.attributes.scouting.darkvision}}
-                <button class="darkvision toggle" title="Army has Darkvision"><i class="fas fa-eye filled"></i></button>
-            {{else}}
-                <button class="darkvision toggle" title="Army does not have Darkvision"><i class="fal fa-eye empty"></i></button>
-            {{/if}}
         </section>
 
         {{!-- Saves --}}
@@ -146,10 +142,10 @@
                 </select>
                 <select name="system.traits.type" class="armytype-select trait">
                     {{#select data.traits.type}}
-                        <option value="infantry">Infantry</option>
-                        <option value="cavalry">Cavalry</option>
-                        <option value="skirmishers">Skirmishers</option>
-                        <option value="siege">Siege</option>
+                        <option title="{{localize "PF2E.Actor.Army.ArmyTypeDescriptionInfantry"}}" value="infantry">{{localize "PF2E.Actor.Army.ArmyTypeInfantry"}}</option>
+                        <option title="{{localize "PF2E.Actor.Army.ArmyTypeDescriptionCavalry"}}" value="cavalry">{{localize "PF2E.Actor.Army.ArmyTypeCavalry"}}</option>
+                        <option title="{{localize "PF2E.Actor.Army.ArmyTypeDescriptionSkirmisher"}}" value="skirmisher">{{localize "PF2E.Actor.Army.ArmyTypeSkirmisher"}}</option>
+                        <option title="{{localize "PF2E.Actor.Army.ArmyTypeDescriptionSiege"}}" value="siege">{{localize "PF2E.Actor.Army.ArmyTypeSiege"}}</option>
                     {{/select}}
                 </select>
             </div>
@@ -202,11 +198,11 @@
                 </fieldset>
 
                 {{!-- ============== --}}
-                {{!--     Tactics    --}}
+                {{!--     Actions    --}}
                 {{!-- ============== --}}
                 {{#if document.itemTypes.action}}
-                    <fieldset>
-                        <legend><i class="fa-light fa-flag-swallowtail"></i>&nbsp;Tactics</legend>
+                <fieldset>
+                    <legend><i class="fa-light fa-diamond"></i>&nbsp;Actions</legend>
                         <ol class="item-list">
                             {{#each document.itemTypes.action as |action|}}
                                 <li class="item" data-item-id="{{action._id}}">
@@ -235,15 +231,54 @@
                                 </li>
                             {{/each}}
                         </ol>
-                    </fieldset>
+                </fieldset>
                 {{/if}}
+
+                {{!-- ============== --}}
+                {{!--     Tactics    --}}
+                {{!-- ============== --}}
+                <fieldset>
+                    <legend><i class="fa-light fa-flag-swallowtail"></i>&nbsp;Tactics</legend>
+                        <ol class="item-list">
+                        {{#if document.itemTypes.feat}}
+                            {{#each document.itemTypes.feat as |feat|}}
+                                <li class="item" data-item-id="{{feat._id}}">
+                                    <label class="item-name">
+                                        <img class="item-icon" src="{{feat.img}}" alt="{{feat.name}}" />
+                                        <a>{{feat.name}}</a>
+                                    </label>
+                                        {{#if feat.system.frequency}}
+                                            <section class="item-frequency">
+                                                <input type="number" value="{{feat.system.frequency.value}}" data-item-id="{{feat._id}}" data-item-property="system.frequency.value"/>
+                                                <span>
+                                                    /
+                                                    {{feat.system.frequency.max}}
+                                                    {{localize "PF2E.Frequency.per"}}
+                                                    {{localize (lookup @root.frequencies feat.system.frequency.per)}}
+                                                </span>
+                                            </section>
+                                        {{/if}}
+                                    <div class="item-controls">
+                                            <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt"></i></a>
+                                        {{#if @root.options.editable}}
+                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                        {{/if}}
+                                    </div>
+                                </li>
+                            {{/each}}
+                        </ol>
+                    {{else}}
+                    <p>Drag initial tactics here!</p>
+                    {{/if}}
+                </fieldset>
 
                 {{!-- ============== --}}
                 {{!--     Effects    --}}
                 {{!-- ============== --}}
                 {{#if document.itemTypes.effect}}
                     <fieldset>
-                        <legend><i class="fa-light fa-sparkles"></i>&nbsp;{{localize "PF2E.EffectsLabel"}}</legend>
+                        <legend><i class="fa-light fa-sparkles"></i>&nbsp;Conditions</legend>
                         <ol class="item-list">
                             {{#each document.itemTypes.effect as |effect|}}
                                 <li class="item" data-item-id="{{effect._id}}">

@@ -555,6 +555,18 @@ const rangeTraits = RANGE_TRAITS.reduce(
     {} as Record<(typeof RANGE_TRAITS)[number], string>
 );
 
+const armyTraits = {
+    infantry: "PF2E.Actor.Army.ArmyTypeInfantry",
+    cavalry: "PF2E.Actor.Army.ArmyTypeCavalry",
+    skirmisher: "PF2E.Actor.Army.ArmyTypeSkirmisher",
+    siege: "PF2E.Actor.Army.ArmyTypeSiege",
+};
+
+const warfareActionTraits = {
+    morale: "PF2E.Actor.Army.ArmyTraitMorale",
+    maneuver: "PF2E.Actor.Army.ArmyTraitManeuver",
+};
+
 const npcAttackTraits = {
     ...weaponTraits,
     ...preciousMaterials,
@@ -715,17 +727,11 @@ const consumableTraits = {
     wand: "PF2E.TraitWand",
 };
 
-const armyTraits = {
-    infantry: "PF2E.Actor.Army.ArmyTypeInfantry",
-    cavalry: "PF2E.Actor.Army.ArmyTypeCavalry",
-    skirmisher: "PF2E.Actor.Army.ArmyTypeSkirmisher",
-    siege: "PF2E.Actor.Army.ArmyTypeSiege",
-};
-
 const actionTraits = {
     ...featTraits,
     ...consumableTraits,
     ...spellTraits,
+    ...warfareActionTraits,
     circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
