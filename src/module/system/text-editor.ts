@@ -447,8 +447,8 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // If the roller is self, don't create an inline roll if the user has no control over it
-        if (params.roller === "self" && !actor?.canUserModify(game.user, "update")) {
-            return createHTMLElement("span", { children: [html.innerHTML] });
+        if (params.roller === "self" && actor && !actor.canUserModify(game.user, "update")) {
+            return createHTMLElement("span", { children: [html.innerText] });
         }
 
         return html;

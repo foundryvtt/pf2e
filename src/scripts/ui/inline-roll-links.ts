@@ -37,6 +37,15 @@ export const InlineRollLinks = {
             newButton.setAttribute("data-pf2-repost", "");
             newButton.setAttribute("title", game.i18n.localize("PF2E.Repost"));
             link.appendChild(newButton);
+
+            newButton.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const target = event.target;
+                if (!(target instanceof HTMLElement)) return;
+                const parent = target?.parentElement;
+                const document = InlineRollLinks._documentFromDOM(target, foundryDoc);
+                if (parent) InlineRollLinks.repostAction(parent, document);
+            });
         }
     },
 
@@ -48,92 +57,63 @@ export const InlineRollLinks = {
 
         InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
 
-        const documentFromDOM = (
-            html: HTMLElement
-        ): ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null => {
-            if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
-            if (
-                foundryDoc instanceof ActorPF2e ||
-                foundryDoc instanceof JournalEntry ||
-                foundryDoc instanceof JournalEntryPage
-            ) {
-                return foundryDoc;
-            }
-
-            const sheet: { id?: string; document?: unknown; actor?: unknown; journalEntry?: unknown } | null =
-                ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)];
-
-            return sheet.document instanceof ActorPF2e || sheet.document instanceof JournalEntry
-                ? sheet.document
-                : null;
-        };
-
-        htmlQueryAll(html, "i[data-pf2-repost]").forEach((btn) =>
-            btn.addEventListener("click", (event) => {
-                const target = event.target;
-                if (!(target instanceof HTMLElement)) return;
-                const parent = target?.parentElement;
-                const document = documentFromDOM(target);
-                if (parent) InlineRollLinks.repostAction(parent, document);
-                event.stopPropagation();
-            })
-        );
-
-        const $links = $(links);
-        $links.filter("[data-pf2-action]").on("click", (event) => {
-            const $target = $(event.currentTarget);
-            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = $target[0]?.dataset ?? {};
-            const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
-            const visibility = pf2ShowDc ?? "all";
-            if (pf2Action && action) {
-                action({
-                    event,
-                    glyph: pf2Glyph,
-                    variant: pf2Variant,
-                    difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
-                    skill: pf2Skill,
-                });
-            } else {
-                console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
-            }
-        });
-
-        $links.filter("[data-pf2-check]").on("click", (event) => {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller } = event.currentTarget.dataset;
-            const parent = documentFromDOM(event.currentTarget);
-            const actors = (() => {
-                if (pf2Roller === "self") {
-                    const document = documentFromDOM(event.currentTarget);
-                    const validActor = document instanceof ActorPF2e && document.canUserModify(game.user, "update");
-                    return validActor ? [document] : [];
+        for (const link of links.filter((l) => l.hasAttribute("data-pf2-action"))) {
+            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = link.dataset;
+            link.addEventListener("click", (event) => {
+                const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
+                const visibility = pf2ShowDc ?? "all";
+                if (pf2Action && action) {
+                    action({
+                        event,
+                        glyph: pf2Glyph,
+                        variant: pf2Variant,
+                        difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
+                        skill: pf2Skill,
+                    });
+                } else {
+                    console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
                 }
+            });
+        }
 
-                const actors = getSelectedOrOwnActors();
-                if (actors.length === 0) {
-                    ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
-                    return [];
-                }
-                return actors;
-            })();
+        for (const link of links.filter((l) => l.hasAttribute("data-pf2-check"))) {
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller } = link.dataset;
+            link.addEventListener("click", (event) => {
+                const parent = InlineRollLinks._documentFromDOM(link, foundryDoc);
+                const actors = (() => {
+                    if (pf2Roller === "self") {
+                        const validActor = parent instanceof ActorPF2e && parent.canUserModify(game.user, "update");
+                        if (!validActor) {
+                            ui.notifications.warn(game.i18n.localize("PF2E.UI.warnNoActor"));
+                        }
+                        return validActor ? [parent] : [];
+                    }
 
-            if (actors.length === 0) return;
-            const parsedTraits = pf2Traits
-                ?.split(",")
-                .map((trait) => trait.trim())
-                .filter((trait) => !!trait);
-            const eventRollParams = eventToRollParams(event);
+                    const actors = getSelectedOrOwnActors();
+                    if (actors.length === 0) {
+                        ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    }
+                    return actors;
+                })();
 
-            switch (pf2Check) {
-                case "flat": {
-                    for (const actor of actors) {
-                        const flatCheck = new Statistic(actor, {
-                            label: "",
-                            slug: "flat-check",
-                            modifiers: [],
-                            check: { type: "flat-check" },
-                            domains: ["flat-check"],
-                        });
-                        if (flatCheck) {
+                if (actors.length === 0) return;
+
+                const parsedTraits = pf2Traits
+                    ?.split(",")
+                    .map((trait) => trait.trim())
+                    .filter((trait) => !!trait);
+                const eventRollParams = eventToRollParams(event);
+
+                switch (pf2Check) {
+                    case "flat": {
+                        for (const actor of actors) {
+                            const flatCheck = new Statistic(actor, {
+                                label: "",
+                                slug: "flat-check",
+                                modifiers: [],
+                                check: { type: "flat-check" },
+                                domains: ["flat-check"],
+                            });
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
                                 : null;
@@ -142,16 +122,17 @@ export const InlineRollLinks = {
                                 extraRollOptions: parsedTraits,
                                 dc,
                             });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling flat check for "${actor}"`);
                         }
+                        break;
                     }
-                    break;
-                }
-                default: {
-                    for (const actor of actors) {
-                        const statistic = actor.getStatistic(pf2Check ?? "");
-                        if (statistic) {
+                    default: {
+                        for (const actor of actors) {
+                            const statistic = actor.getStatistic(pf2Check ?? "");
+                            if (!statistic) {
+                                console.warn(`PF2e System | Skip rolling unknown statistic ${pf2Check}`);
+                                continue;
+                            }
+
                             const dcValue = (() => {
                                 const adjustment = Number(pf2Adjustment) || 0;
                                 if (pf2Dc === "@self.level") {
@@ -179,25 +160,28 @@ export const InlineRollLinks = {
                                 dc,
                                 item,
                             });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling unknown statistic ${pf2Check}`);
                         }
                     }
                 }
-            }
-        });
+            });
+        }
 
-        $links.filter("[data-pf2-effect-area]").on("click", async (event) => {
-            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = event.currentTarget.dataset;
-            const templateConversion: Record<string, MeasuredTemplateType> = {
-                burst: "circle",
-                emanation: "circle",
-                line: "ray",
-                cone: "cone",
-                rect: "rect",
-            } as const;
+        const templateConversion: Record<string, MeasuredTemplateType> = {
+            burst: "circle",
+            emanation: "circle",
+            line: "ray",
+            cone: "cone",
+            rect: "rect",
+        } as const;
 
-            if (typeof pf2EffectArea === "string") {
+        for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
+            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
+            link.addEventListener("click", () => {
+                if (typeof pf2EffectArea !== "string") {
+                    console.warn(`PF2e System | Could not create template'`);
+                    return;
+                }
+
                 const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(
                     pf2TemplateData ?? "{}"
                 );
@@ -223,11 +207,9 @@ export const InlineRollLinks = {
                 }
 
                 const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-                await new MeasuredTemplatePF2e(templateDoc).drawPreview();
-            } else {
-                console.warn(`PF2e System | Could not create template'`);
-            }
-        });
+                new MeasuredTemplatePF2e(templateDoc).drawPreview();
+            });
+        }
     },
 
     makeRepostHtml: (target: HTMLElement, defaultVisibility: string): string => {
@@ -289,5 +271,24 @@ export const InlineRollLinks = {
             const item = actor?.items.get(itemId ?? "");
             if (item) rollLink.dataset.flavor ||= item.name;
         }
+    },
+
+    _documentFromDOM: (
+        html: HTMLElement,
+        foundryDoc?: ClientDocument
+    ): ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null => {
+        if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
+        if (
+            foundryDoc instanceof ActorPF2e ||
+            foundryDoc instanceof JournalEntry ||
+            foundryDoc instanceof JournalEntryPage
+        ) {
+            return foundryDoc;
+        }
+
+        const sheet: { id?: string; document?: unknown; actor?: unknown; journalEntry?: unknown } | null =
+            ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)];
+
+        return sheet.document instanceof ActorPF2e || sheet.document instanceof JournalEntry ? sheet.document : null;
     },
 };
