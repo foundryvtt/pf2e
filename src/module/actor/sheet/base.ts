@@ -403,7 +403,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Trait Selector
-        $html.find(".tag-selector").on("click", (event) => this.openTagSelector(event));
+        for (const link of htmlQueryAll(html, ".tag-selector")) {
+            link.addEventListener("click", () => this.openTagSelector(link));
+        }
 
         // Create a custom item
         for (const link of htmlQueryAll(html, ".item-create, .item-control.spell-create")) {
@@ -1285,27 +1287,26 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }).render(true);
     }
 
-    protected openTagSelector(event: JQuery.ClickEvent | MouseEvent): void {
-        event.preventDefault();
-        const $anchor = $(event.currentTarget);
-        const selectorType = $anchor.attr("data-tag-selector") ?? "";
+    protected openTagSelector(anchor: HTMLElement, options: Partial<TagSelectorOptions> = {}): void {
+        const selectorType = anchor.dataset.tagSelector;
         if (!tupleHasValue(TAG_SELECTOR_TYPES, selectorType)) {
-            throw ErrorPF2e(`Unrecognized trait selector type "${selectorType}"`);
+            throw ErrorPF2e(`Unrecognized tag selector type "${selectorType}"`);
         }
         if (selectorType === "basic") {
-            const objectProperty = $anchor.attr("data-property") ?? "";
-            const title = $anchor.attr("data-title");
-            const configTypes = ($anchor.attr("data-config-types") ?? "")
+            const objectProperty = anchor.dataset.property ?? "";
+            const title = anchor.dataset.title ?? "";
+            const configTypes = (anchor.dataset.configTypes ?? "")
                 .split(",")
                 .map((type) => type.trim())
                 .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
             this.tagSelector("basic", {
+                ...options,
                 objectProperty,
                 configTypes,
                 title,
             });
         } else {
-            this.tagSelector(selectorType);
+            this.tagSelector(selectorType, options);
         }
     }
 

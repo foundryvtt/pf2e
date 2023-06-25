@@ -21,6 +21,13 @@ function isValuesList(value: unknown): value is ValuesList {
 }
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
+    static override get defaultOptions(): TagSelectorOptions {
+        return mergeObject(super.defaultOptions, {
+            template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
+            height: 700,
+        });
+    }
+
     allowCustom: boolean;
     /** Search string for filtering */
     searchString = "";
@@ -42,13 +49,6 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
 
     protected get configTypes(): readonly SelectableTagField[] {
         return this.options.configTypes ?? [];
-    }
-
-    static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
-            template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
-            height: 710,
-        });
     }
 
     override async getData(): Promise<TagSelectorBasicData<TDocument>> {

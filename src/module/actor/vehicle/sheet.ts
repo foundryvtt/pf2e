@@ -80,11 +80,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                 if (title) titleElem.textContent = title;
             });
         }
-
-        // Add tag selector listeners
-        for (const element of htmlQueryAll(html, ".crb-tag-selector")) {
-            element.addEventListener("click", (event) => this.openTagSelector(event));
-        }
     }
 }
 

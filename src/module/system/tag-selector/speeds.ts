@@ -8,6 +8,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
 
     static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
+            id: "speed-selector",
             template: "systems/pf2e/templates/system/tag-selector/speeds.hbs",
             title: "PF2E.SpeedTypes",
         });
@@ -17,7 +18,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         return ["speedTypes"] as const;
     }
 
-    override async getData(): Promise<SpeedSelectorData<TActor>> {
+    override async getData(options?: Partial<FormApplicationOptions>): Promise<SpeedSelectorData<TActor>> {
         if (!this.object.isOfType("creature")) {
             throw ErrorPF2e("The Speed selector is usable only with creature-type actors");
         }
@@ -38,7 +39,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         }, {});
 
         return {
-            ...(await super.getData()),
+            ...(await super.getData(options)),
             hasExceptions: this.object.isOfType("npc"),
             choices,
         };

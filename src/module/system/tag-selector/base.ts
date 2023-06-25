@@ -12,6 +12,14 @@ interface TagSelectorOptions extends FormApplicationOptions {
 }
 
 abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends FormApplication<TDocument> {
+    static override get defaultOptions(): TagSelectorOptions {
+        return mergeObject(super.defaultOptions, {
+            id: "tag-selector",
+            classes: ["pf2e", "tag-selector"],
+            width: "auto",
+        });
+    }
+
     choices: Record<string, string>;
 
     /** The object path to the property containing the tags */
@@ -26,16 +34,11 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends F
         this.choices = this.getChoices();
     }
 
-    protected abstract get configTypes(): readonly SelectableTagField[];
-
-    static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
-            id: "tag-selector",
-            classes: ["pf2e"],
-            width: "auto",
-            height: 700,
-        });
+    override get id(): string {
+        return `${this.options.id}-${this.object.uuid}`;
     }
+
+    protected abstract get configTypes(): readonly SelectableTagField[];
 
     protected abstract override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
