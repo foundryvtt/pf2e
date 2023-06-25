@@ -1326,6 +1326,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             },
             canUndoDamage,
         });
+        const flavor = await (async (): Promise<string | undefined> => {
+            if (breakdown.length || notes.length) {
+                return renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
+                    breakdown,
+                    notes,
+                });
+            }
+            return;
+        })();
 
         const appliedDamage = canUndoDamage
             ? {
@@ -1360,7 +1369,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     appliedDamage,
                 },
             },
-            flavor: content,
+            flavor,
+            content,
             rolls: rolls.map((roll) => roll.toJSON()),
             type: rolls.length ? CONST.CHAT_MESSAGE_TYPES.ROLL : CONST.CHAT_MESSAGE_TYPES.OTHER,
             whisper:

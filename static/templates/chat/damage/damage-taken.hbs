@@ -1,15 +1,4 @@
 <section class="damage-taken">
-    <ul class="tags">
-        {{#each breakdown as |modifier|}}
-        <li class="tag tag_transparent">{{modifier}}</li>
-        {{/each}}
-    </ul>
-    <div class="notes">
-        {{#each notes as |note|}}
-            {{{note}}}
-        {{/each}}
-    </div>
-    {{#if (or breakdown.length notes.length)}}<hr>{{/if}}
     <span class="statements">{{{statements}}}</span>
     {{#if iwr.applications}}
         <span class="iwr" data-visibility="{{iwr.visibility}}" data-applications="{{json iwr.applications}}"><i class="fas fa-info-circle small"></i></span>
