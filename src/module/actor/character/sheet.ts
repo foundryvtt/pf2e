@@ -497,7 +497,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             { eventName: "click" }
         );
 
-        $html.find(".crb-tag-selector").on("click", (event) => this.openTagSelector(event));
+        for (const link of htmlQueryAll(html, ".crb-tag-selector")) {
+            link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
+        }
 
         // ACTIONS
         const actionsPanel = htmlQuery(html, ".tab.actions");

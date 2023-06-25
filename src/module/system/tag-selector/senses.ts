@@ -9,7 +9,9 @@ export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
 
     static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, {
+            height: "auto",
             template: "systems/pf2e/templates/system/tag-selector/senses.hbs",
+            id: "sense-selector",
             title: "PF2E.Actor.Creature.Sense.Label",
         });
     }
@@ -18,7 +20,7 @@ export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         return ["senses"] as const;
     }
 
-    override async getData(): Promise<SenseSelectorData<TActor>> {
+    override async getData(options?: FormApplicationOptions): Promise<SenseSelectorData<TActor>> {
         if (!this.object.isOfType("character")) {
             throw ErrorPF2e("The Sense selector is usable only with PCs");
         }
@@ -42,7 +44,7 @@ export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         }, {});
 
         return {
-            ...(await super.getData()),
+            ...(await super.getData(options)),
             hasExceptions: false,
             choices,
             senseAcuity: CONFIG.PF2E.senseAcuity,

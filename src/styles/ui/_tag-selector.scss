@@ -2,31 +2,30 @@
 /* Tag Selector                              */
 /* ----------------------------------------- */
 
-#tag-selector {
-    .trait-list {
-        flex: 1;
-        list-style: none;
-        margin: 0 0 0.5em;
+.app.tag-selector form {
+    height: 100%;
+
+    ol.trait-list {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        max-height: 87%;
+        overflow-y: scroll;
         padding: 0;
-        overflow-y: auto;
-        scrollbar-width: thin;
 
-        td.list {
+        &.has-custom {
+            max-height: 78%;
+        }
+    }
+
+    table {
+        th, td {
             text-align: left;
+            white-space: nowrap;
+        }
 
-            input[type="checkbox"],
-            label {
-                float: left;
-                line-height: 1.6em;
-                height: 1.6em;
-                margin: 0px 2px;
-                padding: 0px;
-                font-size: inherit;
-            }
-
-            input[type="checkbox"] {
-                clear: left;
-            }
+        tbody td:first-child label {
+            vertical-align: super;
         }
     }
 
@@ -53,14 +52,6 @@
         margin: 0;
         margin-bottom: 5px;
         border-top: 1px solid grey;
-    }
-}
-
-#tag-selector .window {
-    overflow-y: hidden;
-
-    .trait-label {
-        line-height: normal;
     }
 
     .trait-selection-label {
