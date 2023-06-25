@@ -242,3 +242,4 @@ export { Migration841V11UUIDFormat } from "./841-v11-uuid-format.ts";
 export { Migration842NumifyNumericSettings } from "./842-numify-numeric-settings.ts";
 export { Migration843RMArmorCustomModifiers } from "./843-rm-armor-custom-modifiers.ts";
 export { Migration844DeityDomainUUIDs } from "./844-deity-domains-uuids.ts";
+export { Migration845EmptySpellConsumables } from "./845-empty-spell-consumables.ts";
