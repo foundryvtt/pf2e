@@ -367,9 +367,15 @@ abstract class CreaturePF2e<
      */
     async adjustCarryType(
         item: PhysicalItemPF2e<CreaturePF2e>,
-        carryType: ItemCarryType,
-        handsHeld = 0,
-        inSlot = false
+        {
+            carryType,
+            handsHeld = 0,
+            inSlot = false,
+        }: {
+            carryType: ItemCarryType;
+            handsHeld?: number;
+            inSlot?: boolean;
+        }
     ): Promise<void> {
         const { usage } = item.system;
         if (carryType === "stowed") {
