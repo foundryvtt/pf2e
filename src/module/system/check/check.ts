@@ -65,7 +65,8 @@ class CheckPF2e {
             check.calculateTotal(rollOptions);
         }
 
-        if (!context.skipDialog) {
+        // Show dialog for adding/editing modifiers, unless skipped or flat check
+        if (!context.skipDialog && context.type !== "flat-check") {
             const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
                 new CheckModifiersDialog(check, resolve, context).render(true);
             });
