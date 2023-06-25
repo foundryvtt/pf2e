@@ -134,7 +134,7 @@ async function treat(
         dc,
         ...eventToRollParams(event),
         extraRollOptions: rollOptions,
-        callback: async (_roll, outcome) => {
+        callback: async (_roll, outcome, message) => {
             const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
             const magicHands = CheckFeat(actor, "magic-hands");
             const bonusString = bonus > 0 ? `+ ${bonus}` : "";
@@ -156,6 +156,7 @@ async function treat(
 
             if (riskySurgery) {
                 ChatMessagePF2e.create({
+                    flags: message.toObject().flags,
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
                     rolls: [(await new DamageRoll("{1d8[slashing]}").roll({ async: true })).toJSON()],
@@ -170,6 +171,7 @@ async function treat(
                         ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
                         : game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWoundsCriticalFailure");
                 ChatMessagePF2e.create({
+                    flags: message.toObject().flags,
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${rollType}</strong> (${successLabel})`,
                     rolls: [healRoll.toJSON()],
