@@ -1,14 +1,20 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, sluggify } from "@util";
+import { isObject } from "remeda";
 import type {
     ArrayFieldOptions,
     CleanFieldOptions,
+    DataField,
     DataFieldOptions,
+    DataFieldValidationOptions,
     DataSchema,
     MaybeSchemaProp,
+    ModelPropFromDataField,
+    SourcePropFromDataField,
     StringField,
     StringFieldOptions,
 } from "types/foundry/common/data/fields.d.ts";
+import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 
 /* -------------------------------------------- */
 /*  System `DataSchema` `DataField`s            */
@@ -136,4 +142,101 @@ class PredicateField<
     }
 }
 
-export { LaxSchemaField, PredicateField, SlugField };
+class RecordField<
+    TDataField extends DataField,
+    TSourceProp extends Record<string, SourcePropFromDataField<TDataField>> = Record<
+        string,
+        SourcePropFromDataField<TDataField>
+    >,
+    TModelProp extends Record<string, ModelPropFromDataField<TDataField>> = Record<
+        string,
+        ModelPropFromDataField<TDataField>
+    >,
+    TRequired extends boolean = false,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true
+> extends fields.DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    static override recursive = true;
+
+    field: TDataField;
+    keys: string[];
+
+    constructor(
+        field: TDataField,
+        options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> & { keys?: string[] }
+    ) {
+        super(options);
+
+        this.field = this._validateFieldType(field);
+        this.keys = options.keys ?? [];
+    }
+
+    protected _validateFieldType(field: unknown): TDataField {
+        if (!(field instanceof fields.DataField)) {
+            throw new Error(`${this.name} must have a DataField as its contained field`);
+        }
+        return field as TDataField;
+    }
+
+    protected _validateValues(
+        values: Record<string, unknown>,
+        options?: DataFieldValidationOptions
+    ): DataModelValidationFailure | void {
+        const validationFailure = foundry.data.validation.DataModelValidationFailure;
+        const valueFailure = new validationFailure();
+        for (const [key, value] of Object.entries(values)) {
+            if (this.keys.length && !this.keys.includes(key)) {
+                valueFailure.elements.push({
+                    id: key,
+                    failure: new validationFailure({ message: `is not in the list of specified keys` }),
+                });
+                continue;
+            }
+            const failure = this.field.validate(value, options);
+            if (failure) {
+                valueFailure.elements.push({ id: key, failure });
+            }
+        }
+        if (valueFailure.elements.length) {
+            return valueFailure;
+        }
+    }
+
+    protected override _validateType(
+        values: unknown,
+        options?: DataFieldValidationOptions
+    ): boolean | DataModelValidationFailure | void {
+        if (!isObject(values)) {
+            return new foundry.data.validation.DataModelValidationFailure({ message: "must be an Object" });
+        }
+        return this._validateValues(values, options);
+    }
+
+    protected override _cast(value?: unknown): unknown {
+        return value;
+    }
+
+    protected override _cleanType(value: unknown): unknown {
+        return value;
+    }
+
+    override initialize(
+        values: Record<string, unknown> | null | undefined,
+        model: ConstructorOf<foundry.abstract.DataModel>,
+        options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+    override initialize(
+        values: Record<string, unknown> | null | undefined,
+        model: ConstructorOf<foundry.abstract.DataModel>,
+        options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+    ): Record<string, ModelPropFromDataField<TDataField>> | null | undefined {
+        if (!values) return values;
+        const data: Record<string, ModelPropFromDataField<TDataField>> = {};
+        for (const [key, value] of Object.entries(values)) {
+            data[key] = this.field.initialize(value, model, options) as ModelPropFromDataField<TDataField>;
+        }
+        return data;
+    }
+}
+
+export { LaxSchemaField, PredicateField, RecordField, SlugField };

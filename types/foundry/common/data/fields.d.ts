@@ -101,6 +101,16 @@ export abstract class DataField<
      */
     parent: DataSchema | undefined;
 
+    /** Whether this field defines part of a Document/Embedded Document hierarchy. */
+    static hierarchical: boolean;
+
+    /**
+     * Does this field type contain other fields in a recursive structure?
+     * Examples of recursive fields are SchemaField, ArrayField, or TypeDataField
+     * Examples of non-recursive fields are StringField, NumberField, or ObjectField
+     */
+    static recursive: boolean;
+
     /** Default parameters for this field type */
     protected static get _defaults(): DataFieldOptions<unknown, boolean, boolean, boolean>;
 
@@ -189,10 +199,14 @@ export abstract class DataField<
      * A default type-specific validator that can be overridden by child classes
      * @param value The candidate value
      * @param [options={}] Options which affect validation behavior
-     * @returns A boolean to indicate with certainty whether the value is valid. Otherwise, return void.
+     * @returns A boolean to indicate with certainty whether the value is valid, or specific DataModelValidationFailure
+     *          information, otherwise void.
      * @throws May throw a specific error if the value is not valid
      */
-    protected _validateType(value: unknown, options?: Record<string, unknown>): boolean | void;
+    protected _validateType(
+        value: unknown,
+        options?: DataFieldValidationOptions
+    ): boolean | DataModelValidationFailure | void;
 
     /* -------------------------------------------- */
     /*  Initialization and Serialization            */

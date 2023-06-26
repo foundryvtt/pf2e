@@ -1,7 +1,7 @@
 import { CharacterPF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data.ts";
 import { CharacterSkill } from "@actor/character/types.ts";
-import { SENSE_TYPES } from "@actor/creature/sense.ts";
+import { SENSE_ACUITIES, SENSE_TYPES } from "@actor/creature/sense.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
@@ -21,6 +21,7 @@ import { StrikeRuleElement } from "../strike.ts";
 import { TempHPRuleElement } from "../temp-hp.ts";
 import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
 import { BattleFormRuleOverrideSchema, BattleFormRuleSchema } from "./schema.ts";
+import { RecordField } from "@system/schema-data-fields.ts";
 
 class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     /** The label given to modifiers of AC, skills, and strikes */
@@ -57,7 +58,18 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                         { required: false, initial: undefined }
                     ),
                     tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
-                    senses: new fields.ObjectField({ required: false, initial: undefined }),
+                    senses: new RecordField(
+                        new fields.SchemaField({
+                            acuity: new fields.StringField({
+                                choices: SENSE_ACUITIES,
+                                required: false,
+                                blank: false,
+                                initial: undefined,
+                            }),
+                            range: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
+                        }),
+                        { required: false, initial: undefined }
+                    ),
                     size: new fields.StringField({ required: false, blank: false, initial: undefined }),
                     speeds: new fields.ObjectField({ required: false, initial: undefined }),
                     skills: new fields.ObjectField({ required: false, initial: undefined }),
