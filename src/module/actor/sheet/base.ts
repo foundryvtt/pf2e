@@ -10,7 +10,6 @@ import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
     SelectableTagField,
@@ -288,8 +287,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         /* -------------------------------------------- */
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
-
-        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html, this.actor);
 
         // Roll saving throws
         for (const link of htmlQueryAll(html, ".save-name")) {
