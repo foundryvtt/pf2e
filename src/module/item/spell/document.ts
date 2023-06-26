@@ -11,8 +11,8 @@ import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data/index.ts";
-import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, ZeroToTwo } from "@module/data.ts";
@@ -22,18 +22,18 @@ import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
+import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { DamageFormulaData, DamageRollContext, BaseDamageData, SpellDamageTemplate } from "@system/damage/types.ts";
+import { BaseDamageData, DamageFormulaData, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, ordinal, traitSlugToObject } from "@util";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
+import { applyDamageDiceOverrides } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
-import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
-import { applyDamageDiceOverrides } from "./helpers.ts";
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
@@ -205,7 +205,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Loop over the user defined damage fields
         const base: BaseDamageData[] = [];
         for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
-            if (!Roll.validate(damage.value)) {
+            if (!DamageRoll.validate(damage.value)) {
                 console.error(`Failed to parse damage formula "${damage.value}"`);
                 return null;
             }
