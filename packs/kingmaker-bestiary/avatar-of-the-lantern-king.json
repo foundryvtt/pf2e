@@ -3410,16 +3410,20 @@
                         "value": 11
                     },
                     {
+                        "attackModifier": 44,
                         "category": "unarmed",
                         "damage": {
                             "base": {
                                 "damageType": "fire",
                                 "dice": 4,
-                                "die": "d8"
-                            }
+                                "die": "d8",
+                                "modifier": 19
+                            },
+                            "fixed": true
                         },
                         "key": "Strike",
                         "label": "Blinding Beam (Fire)",
+                        "maxRange": 100,
                         "predicate": [
                             "fire-not-cold",
                             {
@@ -3429,21 +3433,24 @@
                         "traits": [
                             "fire",
                             "magical",
-                            "mental",
-                            "range-100"
+                            "mental"
                         ]
                     },
                     {
+                        "attackModifier": 44,
                         "category": "unarmed",
                         "damage": {
                             "base": {
                                 "damageType": "cold",
                                 "dice": 4,
-                                "die": "d8"
-                            }
+                                "die": "d8",
+                                "modifier": 19
+                            },
+                            "fixed": true
                         },
                         "key": "Strike",
                         "label": "Blinding Beam (Cold)",
+                        "maxRange": 100,
                         "predicate": [
                             {
                                 "nor": [
@@ -3455,37 +3462,8 @@
                         "traits": [
                             "cold",
                             "magical",
-                            "mental",
-                            "range-100"
+                            "mental"
                         ]
-                    },
-                    {
-                        "damageType": "fire",
-                        "key": "FlatModifier",
-                        "label": "Strength",
-                        "predicate": [
-                            "fire-not-cold",
-                            {
-                                "not": "change-shape"
-                            }
-                        ],
-                        "selector": "blinding-beam-fire-damage",
-                        "value": 6
-                    },
-                    {
-                        "damageType": "cold",
-                        "key": "FlatModifier",
-                        "label": "Strength",
-                        "predicate": [
-                            {
-                                "nor": [
-                                    "change-shape",
-                                    "fire-not-cold"
-                                ]
-                            }
-                        ],
-                        "selector": "blinding-beam-cold-damage",
-                        "value": 6
                     },
                     {
                         "damageType": "fire",

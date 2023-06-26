@@ -339,24 +339,22 @@ export class BooleanField<
     protected override _validateType(value: unknown): value is boolean;
 }
 
-/**
- * @typedef NumberFieldOptions
- * @property [min]            A minimum allowed value
- * @property [max]            A maximum allowed value
- * @property [step]           A permitted step size
- * @property [integer=false]  Must the number be an integer?
- * @property [positive=false] Must the number be positive?
- */
 interface NumberFieldOptions<
     TSourceProp extends number,
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean
 > extends DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> {
+    /** A minimum allowed value */
     min?: number;
+    /** A maximum allowed value */
     max?: number;
+    /** A permitted step size */
     step?: number;
+    /** Must the number be an integer? */
     integer?: boolean;
+    /** Must the number be positive? */
+    positive?: boolean;
 }
 
 /** A subclass of [DataField]{@link DataField} which deals with number-typed data. */
