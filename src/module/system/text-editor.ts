@@ -239,29 +239,18 @@ class TextEditorPF2e extends TextEditor {
         options: { first?: string } = {}
     ): Record<string, string | undefined> | null {
         const parts = paramString.split("|");
-        const invalid: string[] = [];
         const result = parts.reduce((result, part, idx) => {
             if (idx === 0 && options.first && !part.includes(":")) {
                 result[options.first] = part.trim();
                 return result;
             }
 
-            const portions = part.includes(":") ? part.split(":") : [part, ""];
-            if (portions.length > 2) {
-                invalid.push(part);
-                return result;
-            }
-
+            const colonIdx = part.indexOf(":");
+            const portions = colonIdx >= 0 ? [part.slice(0, colonIdx), part.slice(colonIdx + 1)] : [part, ""];
             result[portions[0]] = portions[1];
 
             return result;
         }, {} as Record<string, string | undefined>);
-
-        // todo: better way to warn
-        if (invalid.length) {
-            ui.notifications.warn(`Error. Expected "parameter:value" but got: ${invalid}`);
-            return null;
-        }
 
         return result;
     }
