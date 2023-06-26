@@ -140,6 +140,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             ?.lineStyle(AuraRenderer.LINE_THICKNESS, 0x000000)
             .beginFill(0x000000, 0.5)
             .drawCircle(text.position.x, text.position.y, 6)
+            .endFill()
             .addChild(text);
     }
 }
