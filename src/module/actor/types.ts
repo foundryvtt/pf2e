@@ -172,7 +172,6 @@ interface ApplyDamageParams {
     shieldBlockRequest?: boolean;
     breakdown?: string[];
     notes?: string[];
-    rolls?: Rolled<Roll>[];
 }
 
 type ImmunityType = keyof typeof immunityTypes;
