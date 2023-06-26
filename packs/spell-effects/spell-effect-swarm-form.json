@@ -1,0 +1,58 @@
+{
+    "_id": "tC0Qk4AjYRd3csL7",
+    "img": "systems/pf2e/icons/spells/swarm-form.webp",
+    "name": "Spell Effect: Swarm Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Swarm Form]</em></p>\n<p>While in swarm form, you have the swarm trait and you gain resistance to slashing and piercing damage and weakness to area and splash damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "add": [
+                    "swarm"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "piercing",
+                    "slashing"
+                ],
+                "value": "max((floor(@item.level/2)-1)*5,5)"
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "area-damage",
+                    "splash-damage"
+                ],
+                "value": "max((floor(@item.level/2)-1)*5,5)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
