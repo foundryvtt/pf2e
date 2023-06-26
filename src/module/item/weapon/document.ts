@@ -728,8 +728,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                         !["artifact", "cursed"].includes(t)
                 );
 
-            if (this.isRanged && !this.isThrown) {
-                newTraits.push(`range-increment-${this.rangeIncrement!}`);
+            if (this.rangeIncrement && !this.isThrown) {
+                const prefix = this.maxRange === this.rangeIncrement * 6 ? "range-increment" : "range";
+                newTraits.push(`${prefix}-${this.rangeIncrement}`);
             }
 
             const actorSize = new ActorSizePF2e({ value: actor.size });
