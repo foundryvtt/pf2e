@@ -7,9 +7,10 @@ import type * as fields from "../data/fields.d.ts";
  * @param data    Initial data from which to construct the document.
  * @param context Construction context options
  */
-export default class BaseActiveEffect<
-    TParent extends BaseActor | BaseItem<BaseActor | null> | null
-> extends Document<TParent> {
+export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null> extends Document<
+    TParent,
+    ActiveEffectSchema
+> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
@@ -42,7 +43,7 @@ export default class BaseActiveEffect<
 }
 
 export default interface BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null>
-    extends Document<TParent>,
+    extends Document<TParent, ActiveEffectSchema>,
         ModelPropsFromSchema<ActiveEffectSchema> {
     readonly _source: SourceFromSchema<ActiveEffectSchema>;
 }

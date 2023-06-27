@@ -471,7 +471,9 @@ type ArrayFieldOptions<
 /** A subclass of `DataField` which deals with array-typed data. */
 export class ArrayField<
         TElementField extends DataField,
-        TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
+        TSourceProp extends Partial<
+            SourcePropFromDataField<TElementField>
+        >[] = SourcePropFromDataField<TElementField>[],
         TModelProp extends object = ModelPropFromDataField<TElementField>[],
         TRequired extends boolean = false,
         TNullable extends boolean = false,
@@ -530,7 +532,7 @@ export class ArrayField<
 
 export interface ArrayField<
     TElementField extends DataField,
-    TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
+    TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
     TRequired extends boolean = false,
     TNullable extends boolean = false,
@@ -608,17 +610,11 @@ export class EmbeddedDataField<
  */
 export class EmbeddedCollectionField<
     TDocument extends abstract.Document,
+    TSource extends object[] = SourceFromSchema<TDocument["schema"]["fields"]>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends ArrayField<
-    SchemaField<TDocument["schema"]["fields"]>,
-    SourceFromSchema<TDocument["schema"]["fields"]>[],
-    EmbeddedCollection<TDocument>,
-    TRequired,
-    TNullable,
-    THasInitial
-> {
+> extends ArrayField<TDocument["schema"], TSource, EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial> {
     /**
      * @param element The type of Document which belongs to this embedded collection
      * @param options Options which configure the behavior of the field
@@ -650,7 +646,7 @@ export class EmbeddedCollectionField<
 
     override toObject(
         value: EmbeddedCollection<TDocument>
-    ): MaybeSchemaProp<SourceFromSchema<TDocument["schema"]["fields"]>[], TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TSource, TRequired, TNullable, THasInitial>;
 
     override apply(
         fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
@@ -666,10 +662,19 @@ export class EmbeddedCollectionField<
  */
 export class EmbeddedCollectionDeltaField<
     TDocument extends abstract.Document,
+    TSource extends (SourceFromSchema<TDocument["schema"]["fields"]> | DeltaTombstone)[] = (
+        | SourceFromSchema<TDocument["schema"]["fields"]>
+        | DeltaTombstone
+    )[],
     TRequired extends boolean = true,
-    TNullable extends boolean = false,
+    TNullable extends boolean = true,
     THasInitial extends boolean = true
-> extends EmbeddedCollectionField<TDocument, TRequired, TNullable, THasInitial> {}
+> extends EmbeddedCollectionField<TDocument, TSource, TRequired, TNullable, THasInitial> {}
+
+interface DeltaTombstone {
+    _id: string;
+    _tombstone: true;
+}
 
 /* -------------------------------------------- */
 /*  Special Field Types                         */

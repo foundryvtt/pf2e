@@ -1,6 +1,7 @@
 import type * as abstract from "../abstract/module.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import type { BaseActor, BaseItem, BaseToken } from "./module.d.ts";
+import { ActiveEffectSchema } from "./active-effect.js";
+import type { BaseActiveEffect, BaseActor, BaseItem, BaseToken, ItemSource } from "./module.d.ts";
 
 /**
  * The Document definition for an ActorDelta.
@@ -10,7 +11,10 @@ import type { BaseActor, BaseItem, BaseToken } from "./module.d.ts";
  * @param data    Initial data used to construct the ActorDelta.
  * @param context Construction context options.
  */
-export default class BaseActorDelta<TParent extends BaseToken | null> extends abstract.Document<TParent> {
+export default class BaseActorDelta<TParent extends BaseToken | null> extends abstract.Document<
+    TParent,
+    ActorDeltaSchema
+> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
@@ -21,7 +25,7 @@ export default class BaseActorDelta<TParent extends BaseToken | null> extends ab
 }
 
 export default interface BaseActorDelta<TParent extends BaseToken | null>
-    extends abstract.Document<TParent>,
+    extends abstract.Document<TParent, ActorDeltaSchema>,
         ModelPropsFromSchema<ActorDeltaSchema> {
     readonly _source: SourceFromSchema<ActorDeltaSchema>;
 }
@@ -43,9 +47,9 @@ type ActorDeltaSchema = {
     name: fields.StringField<string, string, false, true, true>;
     type: fields.StringField<string, string, false, true, true>;
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
-    system: fields.ObjectField<object>;
-    items: fields.EmbeddedCollectionDeltaField<BaseItem<BaseActor>>;
-    effects: fields.EmbeddedCollectionDeltaField<BaseItem<BaseActor>>;
+    system: fields.ObjectField<object, object, true, true, true>;
+    items: fields.EmbeddedCollectionDeltaField<BaseItem<BaseActor>, (ItemSource | fields.DeltaTombstone)[]>;
+    effects: fields.EmbeddedCollectionDeltaField<BaseActiveEffect<BaseActor>>;
     ownership: fields.DocumentOwnershipField;
     flags: fields.ObjectField<DocumentFlags>;
 };
