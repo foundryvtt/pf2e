@@ -133,12 +133,14 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     die: new fields.StringField({ required: true, choices: CONFIG.PF2E.damageDie, initial: "d4" }),
                     modifier: new fields.NumberField({ nullable: false, min: 0, initial: 0 }),
                 }),
+                fixed: new fields.BooleanField(),
             }),
             img: new fields.FilePathField({
                 categories: ["IMAGE"],
                 nullable: false,
                 initial: () => "systems/pf2e/icons/default-icons/melee.svg",
             }),
+            attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             replaceBasicUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             battleForm: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -194,6 +196,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     damageType: "bludgeoning",
                     modifier: 0,
                 },
+                fixed: false,
             };
 
             this.battleForm = false;
@@ -263,12 +266,19 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      * @param damageType The resolved damage type for the strike
      */
     #constructWeapon(damageType: DamageType): WeaponPF2e<ActorPF2e> {
+        const actorIsNPC = this.actor.isOfType("npc");
         const source: PreCreate<WeaponSource> = deepClone({
             _id: this.item.id,
             name: this.label,
             type: "weapon",
             img: this.img,
-            flags: { pf2e: { battleForm: this.battleForm } },
+            flags: {
+                pf2e: {
+                    battleForm: this.battleForm,
+                    fixedAttackModifier: actorIsNPC ? this.attackModifier ?? null : null,
+                    fixedDamage: actorIsNPC && this.damage.fixed,
+                },
+            },
             system: {
                 slug: this.slug,
                 description: { value: "" },
@@ -276,7 +286,13 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 group: this.group,
                 baseItem: this.baseType,
                 ability: this.ability,
-                damage: { ...this.damage.base, damageType },
+                bonus: {
+                    value: actorIsNPC ? this.attackModifier ?? 0 : 0,
+                },
+                damage: {
+                    ...this.damage.base,
+                    damageType,
+                },
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
                 maxRange: this.range?.max ?? null,
                 traits: {
@@ -347,6 +363,8 @@ type StrikeSchema = RuleElementSchema & {
         false,
         true
     >;
+    /** A fixed attack modifier: usable only if the strike is generated for an NPC */
+    attackModifier: NumberField<number, number, false, true, true>;
     range: SchemaField<
         {
             increment: NumberField<number, number, true, false, true>;
@@ -365,6 +383,8 @@ type StrikeSchema = RuleElementSchema & {
             die: StringField<DamageDieSize, DamageDieSize, true, false, true>;
             modifier: NumberField<number, number, false, false, true>;
         }>;
+        /** Declare the weapon damage to be fixed: usable only if the strike is generated for an NPC */
+        fixed: BooleanField;
     }>;
     ability: StringField<AbilityString, AbilityString, false, true, true>;
     /** A representative icon for the strike */

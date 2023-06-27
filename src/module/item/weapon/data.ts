@@ -35,6 +35,9 @@ type WeaponFlags = ItemFlagsPF2e & {
         /** Whether this attack is from a battle form */
         battleForm?: boolean;
         comboMeleeUsage: boolean;
+        /** Used for NPC attacks generated from strike rule elements */
+        fixedDamage?: boolean;
+        fixedAttackModifier?: number | null;
     };
 };
 
