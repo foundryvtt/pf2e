@@ -15,6 +15,7 @@ import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
+    extractModifierAdjustments,
     extractModifiers,
     extractNotes,
     extractRollSubstitutions,
@@ -287,13 +288,25 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.label = this.#determineLabel(data);
         this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
 
-        const rollOptions = parent.createRollOptions(this.domains, options);
+        // Acquire additional adjustments for cloned parent modifiers
+        const { modifierAdjustments } = parent.actor.synthetics;
+        const parentModifiers = parent.modifiers.map((modifier) => {
+            const clone = modifier.clone();
+            clone.adjustments.push(
+                ...extractModifierAdjustments(modifierAdjustments, data.check?.domains ?? [], clone.slug)
+            );
+            return clone;
+        });
+
         const allCheckModifiers = [
-            parent.modifiers,
             data.check?.modifiers ?? [],
             data.check?.domains ? extractModifiers(parent.actor.synthetics, data.check.domains) : [],
         ].flat();
-        this.modifiers = allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
+        const rollOptions = parent.createRollOptions(this.domains, options);
+        this.modifiers = [
+            ...parentModifiers,
+            ...allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions })),
+        ];
         this.mod = new StatisticModifier(this.label, this.modifiers, rollOptions).totalModifier;
     }
 
@@ -490,18 +503,24 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
         this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
 
+        // Acquire additional adjustments for cloned parent modifiers
+        const { modifierAdjustments } = parent.actor.synthetics;
+        const parentModifiers = parent.modifiers.map((modifier) => {
+            const clone = modifier.clone();
+            clone.adjustments.push(
+                ...extractModifierAdjustments(modifierAdjustments, data.dc?.domains ?? [], clone.slug)
+            );
+            return clone;
+        });
+
         // Add all modifiers from all sources together, then test them
         const allDCModifiers = [
-            parent.modifiers,
             data.dc?.modifiers ?? [],
             data.dc?.domains ? extractModifiers(parent.actor.synthetics, data.dc.domains) : [],
         ].flat();
         this.modifiers = [
-            ...new StatisticModifier(
-                "",
-                allDCModifiers.map((m) => m.clone()),
-                this.options
-            ).modifiers,
+            ...new StatisticModifier("", [...parentModifiers, ...allDCModifiers.map((m) => m.clone())], this.options)
+                .modifiers,
         ];
     }
 
