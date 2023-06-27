@@ -659,7 +659,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.system.details.level.base;
             // Use the base dice if damage is fixed
-            const dice = this.flags.pf2e.fixedDamage
+            const dice = this.flags.pf2e.fixedAttack
                 ? weaponDamage.dice
                 : [1, 2, 3, 4].reduce((closest, dice) =>
                       Math.abs(dice - Math.round((actorLevel + 2) / 4)) <
@@ -672,7 +672,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const constant = ((): string => {
                 const fromAbility = actor.abilities[ability].mod;
                 // Use the base modifier if damage is fixed
-                const totalModifier = this.flags.pf2e.fixedDamage
+                const totalModifier = this.flags.pf2e.fixedAttack
                     ? weaponDamage.modifier
                     : fromAbility + (actor.level > 1 ? dice : 0);
                 const sign = totalModifier < 0 ? "-" : "+";
@@ -782,7 +782,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 weaponType: { value: this.isMelee ? "melee" : "ranged" },
                 bonus: {
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
-                    value: this.flags.pf2e.fixedAttackModifier || Math.round(1.5 * this.actor.level + 7),
+                    value: this.flags.pf2e.fixedAttack || Math.round(1.5 * this.actor.level + 7),
                 },
                 damageRolls: [baseDamage, splashDamage, fromPropertyRunes, persistentDamage]
                     .flat()

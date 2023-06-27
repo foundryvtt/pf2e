@@ -133,7 +133,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     die: new fields.StringField({ required: true, choices: CONFIG.PF2E.damageDie, initial: "d4" }),
                     modifier: new fields.NumberField({ nullable: false, min: 0, initial: 0 }),
                 }),
-                fixed: new fields.BooleanField(),
             }),
             img: new fields.FilePathField({
                 categories: ["IMAGE"],
@@ -196,7 +195,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     damageType: "bludgeoning",
                     modifier: 0,
                 },
-                fixed: false,
             };
 
             this.battleForm = false;
@@ -275,8 +273,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             flags: {
                 pf2e: {
                     battleForm: this.battleForm,
-                    fixedAttackModifier: actorIsNPC ? this.attackModifier ?? null : null,
-                    fixedDamage: actorIsNPC && this.damage.fixed,
+                    fixedAttack: actorIsNPC ? this.attackModifier ?? null : null,
                 },
             },
             system: {
@@ -363,7 +360,10 @@ type StrikeSchema = RuleElementSchema & {
         false,
         true
     >;
-    /** A fixed attack modifier: usable only if the strike is generated for an NPC */
+    /**
+     * A fixed attack modifier: usable only if the strike is generated for an NPC
+     * Also causes the damage to not be recalculated when converting the resulting weapon to an NPC attack
+     */
     attackModifier: NumberField<number, number, false, true, true>;
     range: SchemaField<
         {
@@ -383,8 +383,6 @@ type StrikeSchema = RuleElementSchema & {
             die: StringField<DamageDieSize, DamageDieSize, true, false, true>;
             modifier: NumberField<number, number, false, false, true>;
         }>;
-        /** Declare the weapon damage to be fixed: usable only if the strike is generated for an NPC */
-        fixed: BooleanField;
     }>;
     ability: StringField<AbilityString, AbilityString, false, true, true>;
     /** A representative icon for the strike */
