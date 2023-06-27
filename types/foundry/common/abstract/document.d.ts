@@ -5,7 +5,10 @@ import type { DataModelValidationOptions } from "./data.d.ts";
 import type EmbeddedCollection from "./embedded-collection.d.ts";
 
 /** The abstract base interface for all Document types. */
-export default abstract class Document<TParent extends Document | null = _Document | null> {
+export default abstract class Document<
+    TParent extends Document | null = _Document | null,
+    TSchema extends DataSchema = DataSchema
+> {
     constructor(data: object, context?: DocumentConstructionContext<Document | null>);
 
     _id: string | null;
@@ -17,7 +20,7 @@ export default abstract class Document<TParent extends Document | null = _Docume
     readonly pack: string | null;
 
     _source: object;
-    get schema(): SchemaField<DataSchema>;
+    get schema(): SchemaField<TSchema>;
 
     // actually in `DataModel`
     static defineSchema(): DataSchema;

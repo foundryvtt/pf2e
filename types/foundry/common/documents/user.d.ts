@@ -11,7 +11,7 @@ import type * as fields from "../data/fields.d.ts";
  * @param data Initial data from which to construct the document.
  * @property   data The constructed data object for the document.
  */
-export default class BaseUser extends Document<null> {
+export default class BaseUser extends Document<null, UserSchema> {
     static override get metadata(): UserMetadata;
 
     static override defineSchema(): UserSchema;
@@ -51,7 +51,7 @@ export default class BaseUser extends Document<null> {
     hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
 }
 
-export default interface BaseUser extends Document<null>, ModelPropsFromSchema<UserSchema> {
+export default interface BaseUser extends Document<null, UserSchema>, ModelPropsFromSchema<UserSchema> {
     readonly _source: UserSource;
 
     get documentName(): "User";
