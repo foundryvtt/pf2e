@@ -3,7 +3,7 @@ import { Alignment } from "@actor/creature/types.ts";
 import { ALIGNMENTS } from "@actor/creature/values.ts";
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types.ts";
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { DeitySource, DeitySystemData } from "./data.ts";
 
 class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -52,6 +52,12 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         for (const domain of this.system.domains.primary) {
             const label = CONFIG.PF2E.deityDomains[domain]?.label;
             deities.domains[domain] = label ?? domain;
+            // Add the apocryphal variant if there is one
+            const apocryphaKey = `${domain}-apocryphal`;
+            if (objectHasKey(CONFIG.PF2E.deityDomains, apocryphaKey)) {
+                const apocrypha = CONFIG.PF2E.deityDomains[apocryphaKey];
+                deities.domains[apocryphaKey] = apocrypha.label;
+            }
         }
 
         // Set some character roll options

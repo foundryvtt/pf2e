@@ -3,9 +3,10 @@ import { Alignment } from "@actor/creature/types.ts";
 import { DeityPF2e, ItemPF2e, SpellPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
+import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -61,8 +62,10 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         if (this.item.category === "philosophy") return;
 
         tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
-        tagify(getInput("system.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
-        tagify(getInput("system.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
+
+        const domainWhitelist = R.omitBy(CONFIG.PF2E.deityDomains, (_v, k) => k.endsWith("-apocryphal"));
+        tagify(getInput("system.domains.primary"), { whitelist: domainWhitelist, maxTags: 6 });
+        tagify(getInput("system.domains.alternate"), { whitelist: domainWhitelist, maxTags: 6 });
 
         const clericSpells = htmlQuery(html, ".cleric-spells");
         if (!clericSpells) return;
