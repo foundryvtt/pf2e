@@ -1,5 +1,5 @@
 import type * as CONST from "../constants.d.ts";
-import type { DataSchema } from "../data/fields.d.ts";
+import type { DataSchema, SchemaField } from "../data/fields.d.ts";
 import type BaseUser from "../documents/user.d.ts";
 import type { DataModelValidationOptions } from "./data.d.ts";
 import type EmbeddedCollection from "./embedded-collection.d.ts";
@@ -17,6 +17,7 @@ export default abstract class Document<TParent extends Document | null = _Docume
     readonly pack: string | null;
 
     _source: object;
+    get schema(): SchemaField<DataSchema>;
 
     // actually in `DataModel`
     static defineSchema(): DataSchema;
@@ -97,9 +98,6 @@ export default abstract class Document<TParent extends Document | null = _Docume
 
     /** Test whether this Document is embedded within a parent Document */
     get isEmbedded(): boolean;
-
-    /** The name of this Document, if it has one assigned */
-    name: string;
 
     /* ---------------------------------------- */
     /*  Methods                                 */
@@ -586,7 +584,7 @@ type MetadataPermission =
 
 export interface DocumentMetadata {
     collection: string;
-    embedded: Record<string, ConstructorOf<Document>>;
+    embedded: Record<string, string>;
     hasSystemData: boolean;
     isEmbedded?: boolean;
     isPrimary?: boolean;

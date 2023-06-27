@@ -53,7 +53,7 @@ type MacroSchema = {
     _id: fields.DocumentIdField;
     name: fields.StringField<string, string, true, false, false>;
     type: fields.StringField<MacroType, MacroType, true, false, true>;
-    author: fields.ForeignDocumentField<DataModel>;
+    author: fields.ForeignDocumentField<BaseUser>;
     img: fields.FilePathField<ImageFilePath>;
     scope: fields.StringField<MacroScope, MacroScope, true, false, true>;
     command: fields.StringField<string, string, true, false, true>;

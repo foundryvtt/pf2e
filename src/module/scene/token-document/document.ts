@@ -6,6 +6,7 @@ import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { LightLevels } from "@scene/data.ts";
 import { ScenePF2e, TokenConfigPF2e } from "@scene/index.ts";
 import { objectHasKey, sluggify } from "@util";
+import { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 
@@ -490,6 +491,7 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
+    delta: ActorDeltaPF2e<this> | null;
 
     overlayEffect: ImageFilePath;
 }

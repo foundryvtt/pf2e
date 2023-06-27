@@ -14,3 +14,7 @@ declare class PrimaryCanvasGroup extends CachedContainer {
      */
     protected _renderTokens(renderer: PIXI.Renderer): void;
 }
+
+declare interface PrimaryCanvasGroup extends CachedContainer {
+    readonly children: PIXI.Container[];
+}

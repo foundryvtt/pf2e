@@ -44,7 +44,7 @@ declare global {
         get isToken(): boolean;
 
         /** An array of ActiveEffect instances which are present on the Actor which have a limited duration. */
-        get temporaryEffects(): TemporaryEffect<this>[];
+        get temporaryEffects(): TemporaryEffect[];
 
         /** Return a reference to the TokenDocument which owns this Actor as a synthetic override */
         get token(): TParent | null;
@@ -159,7 +159,7 @@ declare global {
         readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect<this>>;
         readonly items: foundry.abstract.EmbeddedCollection<Item<this>>;
 
-        prototypeToken: foundry.data.PrototypeToken;
+        prototypeToken: foundry.data.PrototypeToken<this>;
 
         _sheet: ActorSheet<this> | null;
 

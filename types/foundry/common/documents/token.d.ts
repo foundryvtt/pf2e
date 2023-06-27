@@ -8,6 +8,8 @@ import type { BaseActorDelta, BaseScene, BaseUser } from "./module.d.ts";
  * @property data The constructed data object for the document.
  */
 export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<TParent> {
+    name: string;
+
     readonly actorLink: boolean;
 
     displayName: TokenDisplayMode;

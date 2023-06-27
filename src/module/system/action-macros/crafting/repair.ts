@@ -13,7 +13,9 @@ async function repair(options: RepairActionOptions): Promise<void> {
 
     // ensure specified item is a valid crafting target
     if (item && !(item instanceof PhysicalItemPF2e)) {
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item.name }));
+        ui.notifications.warn(
+            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item.name ?? "" })
+        );
         return;
     }
 

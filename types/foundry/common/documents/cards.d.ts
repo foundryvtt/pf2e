@@ -5,6 +5,8 @@ import type { BaseCard, BaseUser } from "./module.d.ts";
 export default class BaseCards extends Document<null> {
     static override get metadata(): DocumentMetadata;
 
+    name: string;
+
     /** The sub-type of Card. */
     readonly type: string;
 
