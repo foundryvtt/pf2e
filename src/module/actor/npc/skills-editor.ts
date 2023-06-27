@@ -133,7 +133,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     #isRegularSkill(skillId: string): boolean {
         for (const longForm of SKILL_LONG_FORMS) {
             if (longForm === skillId) return true;
-            if (SKILL_EXPANDED[longForm].shortform === skillId) return true;
+            if (SKILL_EXPANDED[longForm].shortForm === skillId) return true;
         }
 
         return false;
@@ -147,7 +147,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         for (const longForm of SKILL_LONG_FORMS) {
             const skillData = SKILL_EXPANDED[longForm];
 
-            if (skillData.shortform === skillId) {
+            if (skillData.shortForm === skillId) {
                 return longForm;
             }
         }

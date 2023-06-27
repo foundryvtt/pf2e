@@ -396,10 +396,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Internal function to create trace data, since NPCs still use the lore item type
         system.skills = {};
         function createTrace(stat: Statistic, item?: LorePF2e<NPCPF2e>) {
-            const { ability, shortform } = objectHasKey(SKILL_EXPANDED, stat.slug)
+            const { ability, shortForm } = objectHasKey(SKILL_EXPANDED, stat.slug)
                 ? SKILL_EXPANDED[stat.slug]
-                : { ability: "int" as AbilityString, shortform: stat.slug };
-            system.skills[shortform] = {
+                : { ability: "int" as AbilityString, shortForm: stat.slug };
+            system.skills[shortForm] = {
                 ...stat.getTraceData(),
                 base: item?.system.mod.value,
                 isLore: !!stat.lore,
@@ -413,9 +413,9 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Create default "untrained" skills for all basic types first
         const skills: Partial<CreatureSkills> = {};
         for (const skill of SKILL_LONG_FORMS) {
-            const { ability, shortform } = SKILL_EXPANDED[skill];
+            const { ability, shortForm } = SKILL_EXPANDED[skill];
             const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
-            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
+            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortForm].capitalize()}`);
 
             const statistic = new Statistic(this, {
                 slug: skill,

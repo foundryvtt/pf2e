@@ -59,8 +59,8 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
     override afterPrepareData(): void {
         const selector = this.resolveInjectedProperties(this.selector);
         const systemData = this.actor.system;
-        const skillLongForms: Record<string, { shortform?: string } | undefined> = SKILL_EXPANDED;
-        const proficiency = skillLongForms[selector]?.shortform ?? selector;
+        const skillLongForms: Record<string, { shortForm?: string } | undefined> = SKILL_EXPANDED;
+        const proficiency = skillLongForms[selector]?.shortForm ?? selector;
         const statistic = setHasElement(SKILL_ABBREVIATIONS, proficiency)
             ? this.actor.skills[proficiency]
             : proficiency === "ac"
