@@ -5,6 +5,7 @@ import type { BaseCombat, BaseUser } from "./module.d.ts";
 export default class BaseCombatant<TParent extends BaseCombat | null> extends Document<TParent> {
     static override get metadata(): CombatantMetadata;
 
+    name: string;
     flags: DocumentFlags;
 
     /** Is a user able to update an existing Combatant? */

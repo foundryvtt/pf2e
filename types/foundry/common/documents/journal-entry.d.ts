@@ -49,7 +49,7 @@ interface JournalEntryMetadata extends DocumentMetadata {
     indexed: true;
     compendiumIndexFields: ["_id", "name", "sort"];
     embedded: {
-        JournalEntryPage: typeof BaseJournalEntryPage;
+        JournalEntryPage: "pages";
     };
     label: "DOCUMENT.JournalEntry";
     labelPlural: "DOCUMENT.JournalEntries";

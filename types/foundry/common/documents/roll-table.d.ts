@@ -10,6 +10,8 @@ import type { TableResultSource } from "./table-result.d.ts";
 export default class BaseRollTable extends Document<null> {
     static override get metadata(): RollTableMetadata;
 
+    name: string;
+
     /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
     readonly results: EmbeddedCollection<BaseTableResult<this>>;
 }
@@ -60,7 +62,7 @@ interface RollTableMetadata extends DocumentMetadata {
     collection: "tables";
     label: "DOCUMENT.RollTable";
     embedded: {
-        TableResult: typeof BaseTableResult;
+        TableResult: "results";
     };
     isPrimary: true;
 }

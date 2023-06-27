@@ -27,9 +27,6 @@ declare global {
         /*  User Properties                         */
         /* ---------------------------------------- */
 
-        /** A convenience shortcut for the permissions object of the current User */
-        get permissions(): Record<string, DocumentOwnershipLevel>;
-
         /** A flag for whether the current User is a Trusted Player */
         get isTrusted(): boolean;
 

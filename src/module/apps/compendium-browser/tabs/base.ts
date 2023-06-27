@@ -269,14 +269,14 @@ export abstract class CompendiumBrowserTab {
         weight?: number;
     }): Partial<TableResultSource>[] {
         return this.currentIndex.flatMap((e, i) => {
-            const documentData = fromUuidSync(e.uuid);
-            if (!documentData?.pack || !documentData?._id) return [];
+            const data = fromUuidSync(e.uuid);
+            if (!data?.pack || !data._id || !("name" in data)) return [];
             const rangeMinMax = initial + i + 1;
             return {
-                text: documentData.name,
+                text: data.name,
                 type: CONST.TABLE_RESULT_TYPES.COMPENDIUM,
-                collection: documentData.pack,
-                resultId: documentData._id,
+                collection: data.pack,
+                resultId: data._id,
                 img: e.img,
                 weight,
                 range: [rangeMinMax, rangeMinMax],

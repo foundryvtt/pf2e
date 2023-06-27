@@ -4,6 +4,7 @@ import type { BaseActiveEffect, BaseActor, BaseUser } from "./module.d.ts";
 
 /** The Item document model. */
 export default class BaseItem<TParent extends BaseActor | null> extends Document<TParent> {
+    name: string;
     sort: number;
 
     /** The default icon used for newly created Item documents */
@@ -92,7 +93,7 @@ interface ItemMetadata extends DocumentMetadata {
     collection: "items";
     label: "DOCUMENT.Item";
     embedded: {
-        ActiveEffect: typeof BaseActiveEffect;
+        ActiveEffect: "effects";
     };
     isPrimary: true;
     hasSystemData: true;

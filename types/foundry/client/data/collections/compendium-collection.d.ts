@@ -195,10 +195,10 @@ declare global {
      * @returns The Document or its index entry if it resides in a Compendium, otherwise null.
      * @throws If the uuid resolves to a Document that cannot be retrieved synchronously.
      */
-    function fromUuidSync(
-        uuid: WorldDocumentUUID,
+    function fromUuidSync<TDocument extends WorldDocument>(
+        uuid: WorldDocumentUUID<TDocument>,
         relative?: ClientDocument | CompendiumIndexData | null
-    ): foundry.abstract.Document | null;
+    ): TDocument | null;
     function fromUuidSync(
         uuid: string,
         relative?: ClientDocument | CompendiumIndexData | null

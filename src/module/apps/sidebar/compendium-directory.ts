@@ -193,7 +193,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         // Create a new drag preview
         const dragPreview = this.#dragPreview.cloneNode(true) as HTMLElement;
         const [img, title] = Array.from(dragPreview.childNodes) as [HTMLImageElement, HTMLHeadingElement];
-        title.innerText = indexEntry.name;
+        title.innerText = indexEntry.name ?? "";
         img.src = "img" in indexEntry && indexEntry.img ? indexEntry.img : "icons/svg/book.svg";
 
         document.body.appendChild(dragPreview);

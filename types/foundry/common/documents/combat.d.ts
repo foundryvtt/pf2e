@@ -26,7 +26,7 @@ interface CombatMetadata extends DocumentMetadata {
     collection: "combats";
     label: "DOCUMENT.Combat";
     embedded: {
-        Combatant: typeof BaseCombatant;
+        Combatant: "combatants";
     };
     isPrimary: true;
     permissions: {
