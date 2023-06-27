@@ -10,6 +10,8 @@ import type {
     DataSchema,
     MaybeSchemaProp,
     ModelPropFromDataField,
+    NumberField,
+    ObjectFieldOptions,
     SourcePropFromDataField,
     StringField,
     StringFieldOptions,
@@ -143,39 +145,47 @@ class PredicateField<
 }
 
 class RecordField<
-    TDataField extends DataField,
-    TSourceProp extends Record<string, SourcePropFromDataField<TDataField>> = Record<
-        string,
-        SourcePropFromDataField<TDataField>
-    >,
-    TModelProp extends Record<string, ModelPropFromDataField<TDataField>> = Record<
-        string,
-        ModelPropFromDataField<TDataField>
-    >,
-    TRequired extends boolean = false,
+    TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
+    TValueField extends DataField,
+    TSourceProp extends Record<string, SourcePropFromDataField<TValueField>>,
+    TModelProp extends Record<string, ModelPropFromDataField<TValueField>>,
+    TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends fields.DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+> extends fields.ObjectField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     static override recursive = true;
 
-    field: TDataField;
-    keys: string[];
+    keyField: TKeyField;
+    valueField: TValueField;
 
     constructor(
-        field: TDataField,
-        options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> & { keys?: string[] }
+        keyField: TKeyField,
+        valueField: TValueField,
+        options: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
     ) {
         super(options);
 
-        this.field = this._validateFieldType(field);
-        this.keys = options.keys ?? [];
-    }
+        if (!this._isValidKeyFieldType(keyField)) {
+            throw new Error(`key field must be a StringField or a NumberField`);
+        }
+        this.keyField = keyField;
 
-    protected _validateFieldType(field: unknown): TDataField {
-        if (!(field instanceof fields.DataField)) {
+        if (!(valueField instanceof fields.DataField)) {
             throw new Error(`${this.name} must have a DataField as its contained field`);
         }
-        return field as TDataField;
+        this.valueField = valueField;
+    }
+
+    protected _isValidKeyFieldType(
+        keyField: unknown
+    ): keyField is StringField<string, string, true, false, false> | NumberField<number, number, true, false, false> {
+        if (keyField instanceof fields.StringField || keyField instanceof fields.NumberField) {
+            if (keyField.options.required !== true || keyField.options.nullable === true) {
+                throw new Error(`key field must be required and non-nullable`);
+            }
+            return true;
+        }
+        return false;
     }
 
     protected _validateValues(
@@ -183,22 +193,19 @@ class RecordField<
         options?: DataFieldValidationOptions
     ): DataModelValidationFailure | void {
         const validationFailure = foundry.data.validation.DataModelValidationFailure;
-        const valueFailure = new validationFailure();
+        const failures = new validationFailure();
         for (const [key, value] of Object.entries(values)) {
-            if (this.keys.length && !this.keys.includes(key)) {
-                valueFailure.elements.push({
-                    id: key,
-                    failure: new validationFailure({ message: `is not in the list of specified keys` }),
-                });
-                continue;
+            const keyFailure = this.keyField.validate(key, options);
+            if (keyFailure) {
+                failures.elements.push({ id: key, failure: keyFailure });
             }
-            const failure = this.field.validate(value, options);
-            if (failure) {
-                valueFailure.elements.push({ id: key, failure });
+            const valueFailure = this.valueField.validate(value, options);
+            if (valueFailure) {
+                failures.elements.push({ id: `${key}-value`, failure: valueFailure });
             }
         }
-        if (valueFailure.elements.length) {
-            return valueFailure;
+        if (failures.elements.length) {
+            return failures;
         }
     }
 
@@ -212,28 +219,20 @@ class RecordField<
         return this._validateValues(values, options);
     }
 
-    protected override _cast(value?: unknown): unknown {
-        return value;
-    }
-
-    protected override _cleanType(value: unknown): unknown {
-        return value;
-    }
-
     override initialize(
-        values: Record<string, unknown> | null | undefined,
+        values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
-        options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+        options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
     override initialize(
-        values: Record<string, unknown> | null | undefined,
+        values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
-        options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
-    ): Record<string, ModelPropFromDataField<TDataField>> | null | undefined {
+        options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+    ): Record<string, ModelPropFromDataField<TValueField>> | null | undefined {
         if (!values) return values;
-        const data: Record<string, ModelPropFromDataField<TDataField>> = {};
+        const data: Record<string, ModelPropFromDataField<TValueField>> = {};
         for (const [key, value] of Object.entries(values)) {
-            data[key] = this.field.initialize(value, model, options) as ModelPropFromDataField<TDataField>;
+            data[key] = this.valueField.initialize(value, model, options) as ModelPropFromDataField<TValueField>;
         }
         return data;
     }

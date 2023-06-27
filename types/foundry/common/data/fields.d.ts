@@ -462,11 +462,18 @@ export class ObjectField<
 
     protected override _cast(value: unknown): TSourceProp;
 
-    override initialize(value: unknown): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+    override initialize(
+        value: unknown,
+        model?: ConstructorOf<DataModel>,
+        options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
-    protected override _validateType(value: unknown): boolean | void;
+    protected override _validateType(
+        value: unknown,
+        options?: DataFieldValidationOptions
+    ): DataModelValidationFailure | boolean | void;
 }
 
 export type FlagField<

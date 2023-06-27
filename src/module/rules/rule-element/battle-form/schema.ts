@@ -38,6 +38,7 @@ type BattleFormRuleOverrideSchema = {
     >;
     tempHP: ResolvableValueField<false, true, true>;
     senses: RecordField<
+        StringField<string, string, true, false, false>,
         SchemaField<OverrideSenseSchema>,
         Record<string, SourcePropFromDataField<SchemaField<OverrideSenseSchema>>>,
         Record<string, ModelPropFromDataField<SchemaField<OverrideSenseSchema>>>,
