@@ -101,6 +101,16 @@ export abstract class DataField<
      */
     parent: DataSchema | undefined;
 
+    /** Whether this field defines part of a Document/Embedded Document hierarchy. */
+    static hierarchical: boolean;
+
+    /**
+     * Does this field type contain other fields in a recursive structure?
+     * Examples of recursive fields are SchemaField, ArrayField, or TypeDataField
+     * Examples of non-recursive fields are StringField, NumberField, or ObjectField
+     */
+    static recursive: boolean;
+
     /** Default parameters for this field type */
     protected static get _defaults(): DataFieldOptions<unknown, boolean, boolean, boolean>;
 
@@ -189,10 +199,24 @@ export abstract class DataField<
      * A default type-specific validator that can be overridden by child classes
      * @param value The candidate value
      * @param [options={}] Options which affect validation behavior
-     * @returns A boolean to indicate with certainty whether the value is valid. Otherwise, return void.
+     * @returns A boolean to indicate with certainty whether the value is valid, or specific DataModelValidationFailure
+     *          information, otherwise void.
      * @throws May throw a specific error if the value is not valid
      */
-    protected _validateType(value: unknown, options?: Record<string, unknown>): boolean | void;
+    protected _validateType(
+        value: unknown,
+        options?: DataFieldValidationOptions
+    ): boolean | DataModelValidationFailure | void;
+
+    /**
+     * Certain fields may declare joint data validation criteria.
+     * This method will only be called if the field is designated as recursive.
+     * @param data       Candidate data for joint model validation
+     * @param options    Options which modify joint model validation
+     * @throws  An error if joint model validation fails
+     * @internal
+     */
+    _validateModel(data: Record<string, unknown>, options?: Record<string, unknown>): void;
 
     /* -------------------------------------------- */
     /*  Initialization and Serialization            */
@@ -446,11 +470,18 @@ export class ObjectField<
 
     protected override _cast(value: unknown): TSourceProp;
 
-    override initialize(value: unknown): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+    override initialize(
+        value: unknown,
+        model?: ConstructorOf<DataModel>,
+        options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
-    protected override _validateType(value: unknown): boolean | void;
+    protected override _validateType(
+        value: unknown,
+        options?: DataFieldValidationOptions
+    ): DataModelValidationFailure | boolean | void;
 }
 
 export type FlagField<
