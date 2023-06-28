@@ -157,7 +157,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "fire",
                     category: "persistent",
                     diceNumber: 1,
-                    dieSize: "d4"
+                    dieSize: "d4",
                 },
             ],
             notes: [
@@ -506,7 +506,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "fire",
                     category: "persistent",
                     diceNumber: 1,
-                    dieSize: "d8"
+                    dieSize: "d8",
                 },
             ],
             notes: [
