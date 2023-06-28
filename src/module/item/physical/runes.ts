@@ -150,6 +150,31 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "anchoring",
         traits: ["abjuration", "magical"],
     },
+    ashen: {
+        damage: {
+            dice: [
+                {
+                    damageType: "fire",
+                    category: "persistent",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                },
+            ],
+            notes: [
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.ashen.Name",
+                    text: "PF2E.WeaponPropertyRune.ashen.Note.success",
+                },
+            ],
+        },
+        level: 9,
+        name: "PF2E.WeaponPropertyRune.ashen.Name",
+        price: 700,
+        rarity: "common",
+        slug: "ashen",
+        traits: ["enchantment", "magical"],
+    },
     authorized: {
         level: 3,
         name: "PF2E.WeaponPropertyRune.authorized.Name",
@@ -473,6 +498,31 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "uncommon",
         slug: "greaterAnchoring",
         traits: ["abjuration", "magical"],
+    },
+    greaterAshen: {
+        damage: {
+            dice: [
+                {
+                    damageType: "fire",
+                    category: "persistent",
+                    diceNumber: 1,
+                    dieSize: "d8",
+                },
+            ],
+            notes: [
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterAshen.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterAshen.Note.success",
+                },
+            ],
+        },
+        level: 16,
+        name: "PF2E.WeaponPropertyRune.greaterAshen.Name",
+        price: 9000,
+        rarity: "common",
+        slug: "ashen",
+        traits: ["enchantment", "magical"],
     },
     greaterBloodbane: {
         level: 13,

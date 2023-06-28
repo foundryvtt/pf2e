@@ -1,0 +1,53 @@
+{
+    "_id": "6sbuDCFHt89Uqykn",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Mountain Skin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in medium and heavy armor. Whenever you gain a class feature that grants you expert or greater proficiency in any armor (but not unarmored defense), you also gain that proficiency rank in the armor types granted to you by this feat.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "stalwart defender dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "priority": 41,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.heavy.rank",
+                "priority": 41,
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
