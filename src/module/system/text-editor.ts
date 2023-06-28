@@ -402,7 +402,7 @@ class TextEditorPF2e extends TextEditor {
                 // Skill or Lore
                 const shortForm = (() => {
                     if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                        return SKILL_EXPANDED[params.type].shortform;
+                        return SKILL_EXPANDED[params.type].shortForm;
                     } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
                         return params.type;
                     }

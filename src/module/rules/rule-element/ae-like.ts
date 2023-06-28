@@ -102,7 +102,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         const path = this.resolveInjectedProperties(this.path).replace(
             AELikeRuleElement.SKILL_LONG_FORM_PATH,
             (match, group) =>
-                objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortform}` : match
+                objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match
         );
 
         // Do not proceed if injected-property resolution failed
