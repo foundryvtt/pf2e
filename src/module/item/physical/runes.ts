@@ -164,7 +164,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 {
                     outcome: ["success"],
                     title: "PF2E.WeaponPropertyRune.ashen.Name",
-                    text: "PF2E.WeaponPropertyRune.ashen.Note.criticalSuccess",
+                    text: "PF2E.WeaponPropertyRune.ashen.Note.success",
                 },
             ],
         },
