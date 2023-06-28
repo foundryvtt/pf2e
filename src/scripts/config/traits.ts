@@ -461,7 +461,7 @@ const weaponTraits = {
     "scatter-5": "PF2E.TraitScatter5",
     "scatter-10": "PF2E.TraitScatter10",
     "scatter-15": "PF2E.TraitScatter15",
-    "scatter-20": "PF2E.TraitScatter20",    
+    "scatter-20": "PF2E.TraitScatter20",
     scrying: "PF2E.TraitScrying",
     shadow: "PF2E.TraitShadow",
     shove: "PF2E.TraitShove",
