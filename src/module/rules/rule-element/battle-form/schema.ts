@@ -1,11 +1,9 @@
 import type {
     ArrayField,
     BooleanField,
-    ModelPropFromDataField,
     NumberField,
     ObjectField,
     SchemaField,
-    SourcePropFromDataField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema } from "../data.ts";
@@ -13,7 +11,7 @@ import { RecordField } from "@system/schema-data-fields.ts";
 import { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 import { BattleFormSkills, BattleFormSpeeds, BattleFormStrike } from "./types.ts";
 import { CreatureTrait } from "@actor/creature/index.ts";
-import { SenseAcuity } from "@actor/creature/sense.ts";
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 
 type OverrideACSchema = {
     modifier: ResolvableValueField<false, false, true>;
@@ -38,10 +36,8 @@ type BattleFormRuleOverrideSchema = {
     >;
     tempHP: ResolvableValueField<false, true, true>;
     senses: RecordField<
-        StringField<string, string, true, false, false>,
+        StringField<SenseType, SenseType, true, false, false>,
         SchemaField<OverrideSenseSchema>,
-        Record<string, SourcePropFromDataField<SchemaField<OverrideSenseSchema>>>,
-        Record<string, ModelPropFromDataField<SchemaField<OverrideSenseSchema>>>,
         false,
         false,
         false

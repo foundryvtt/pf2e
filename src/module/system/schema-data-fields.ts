@@ -144,15 +144,29 @@ class PredicateField<
     }
 }
 
+type RecordFieldModelProp<
+    TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
+    TValueField extends DataField
+> = Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>;
+
+type RecordFieldSourceProp<
+    TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
+    TValueField extends DataField
+> = Partial<Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>>;
+
 class RecordField<
     TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
     TValueField extends DataField,
-    TSourceProp extends Record<string, SourcePropFromDataField<TValueField>>,
-    TModelProp extends Record<string, ModelPropFromDataField<TValueField>>,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends fields.ObjectField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+> extends fields.ObjectField<
+    RecordFieldSourceProp<TKeyField, TValueField>,
+    RecordFieldModelProp<TKeyField, TValueField>,
+    TRequired,
+    TNullable,
+    THasInitial
+> {
     static override recursive = true;
 
     keyField: TKeyField;
@@ -161,7 +175,7 @@ class RecordField<
     constructor(
         keyField: TKeyField,
         valueField: TValueField,
-        options: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+        options: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>
     ) {
         super(options);
 
@@ -222,19 +236,19 @@ class RecordField<
     override initialize(
         values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
-        options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
-    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+        options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>
+    ): MaybeSchemaProp<RecordFieldModelProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>;
     override initialize(
         values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
-        options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
-    ): Record<string, ModelPropFromDataField<TValueField>> | null | undefined {
+        options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>
+    ): RecordFieldModelProp<TKeyField, TValueField> | null | undefined {
         if (!values) return values;
-        const data: Record<string, ModelPropFromDataField<TValueField>> = {};
+        const data: Record<string, unknown> = {};
         for (const [key, value] of Object.entries(values)) {
-            data[key] = this.valueField.initialize(value, model, options) as ModelPropFromDataField<TValueField>;
+            data[key] = this.valueField.initialize(value, model, options);
         }
-        return data;
+        return data as RecordFieldModelProp<TKeyField, TValueField>;
     }
 }
 

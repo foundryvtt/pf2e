@@ -59,7 +59,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                     ),
                     tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
                     senses: new RecordField(
-                        new fields.StringField({ required: true, blank: false }),
+                        new fields.StringField({ required: true, blank: false, choices: [...SENSE_TYPES] }),
                         new fields.SchemaField({
                             acuity: new fields.StringField({
                                 choices: SENSE_ACUITIES,

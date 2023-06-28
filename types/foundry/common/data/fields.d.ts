@@ -208,6 +208,16 @@ export abstract class DataField<
         options?: DataFieldValidationOptions
     ): boolean | DataModelValidationFailure | void;
 
+    /**
+     * Certain fields may declare joint data validation criteria.
+     * This method will only be called if the field is designated as recursive.
+     * @param data       Candidate data for joint model validation
+     * @param options    Options which modify joint model validation
+     * @throws  An error if joint model validation fails
+     * @internal
+     */
+    _validateModel(data: Record<string, unknown>, options?: Record<string, unknown>): void;
+
     /* -------------------------------------------- */
     /*  Initialization and Serialization            */
     /* -------------------------------------------- */
