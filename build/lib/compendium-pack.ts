@@ -250,10 +250,10 @@ class CompendiumPack {
             docSource.effects = [];
             docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id!, { docType: "Actor" }) };
             this.#assertSizeValid(docSource);
-            docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
                 item.effects = [];
-                item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+                item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
         }
@@ -262,7 +262,7 @@ class CompendiumPack {
             docSource.effects = [];
             docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id, { docType: "Item" }) };
             docSource.system.slug = sluggify(docSource.name);
-            docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
 
             if (isPhysicalData(docSource)) {
                 docSource.system.equipped = { carryType: "worn" };

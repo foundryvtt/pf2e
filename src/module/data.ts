@@ -66,23 +66,21 @@ function goesToEleven(value: number): value is ZeroToEleven {
 }
 
 /** The tracked schema data of actors and items */
-interface NewDocumentSchemaRecord {
+interface NewDocumentMigrationRecord {
     version: null;
-    lastMigration: null;
+    previous: null;
 }
 
-interface MigratedDocumentSchemaRecord {
+interface MigratedDocumentMigrationRecord {
     version: number;
-    lastMigration: {
-        version: {
-            schema: number | null;
-            system?: string;
-            foundry?: string;
-        };
+    previous: {
+        schema: number | null;
+        system?: string;
+        foundry?: string;
     } | null;
 }
 
-type DocumentSchemaRecord = NewDocumentSchemaRecord | MigratedDocumentSchemaRecord;
+type MigrationRecord = NewDocumentMigrationRecord | MigratedDocumentMigrationRecord;
 
 export const PROFICIENCY_RANKS = ["untrained", "trained", "expert", "master", "legendary"] as const;
 
@@ -138,11 +136,11 @@ type EnfolderableDocumentPF2e =
 
 export { RARITIES, SIZES, SIZE_SLUGS, goesToEleven };
 export type {
-    DocumentSchemaRecord,
     EnfolderableDocumentPF2e,
     LabeledNumber,
     LabeledString,
     LabeledValue,
+    MigrationRecord,
     OneToFive,
     OneToFour,
     OneToTen,

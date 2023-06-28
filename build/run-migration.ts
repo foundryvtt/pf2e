@@ -209,7 +209,7 @@ async function migrate() {
                     }
 
                     const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    delete (updatedActor.system as { schema?: unknown }).schema;
+                    delete (updatedActor.system as { _migrations?: unknown })._migrations;
                     pruneFlags(source);
                     pruneFlags(updatedActor);
                     for (const item of source.items) {
@@ -217,7 +217,7 @@ async function migrate() {
                     }
 
                     for (const updatedItem of updatedActor.items) {
-                        delete (updatedItem.system as { schema?: unknown }).schema;
+                        delete (updatedItem.system as { _migrations?: unknown })._migrations;
                         if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
                             delete (updatedItem.system as { spell?: unknown }).spell;
                         }
@@ -229,7 +229,7 @@ async function migrate() {
                     source.system.slug = sluggify(source.name);
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (source.system as { slug?: unknown }).slug;
-                    delete (updatedItem.system as { schema?: unknown }).schema;
+                    delete (updatedItem.system as { _migrations?: unknown })._migrations;
                     delete (updatedItem.system as { slug?: unknown }).slug;
                     if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
                         delete (updatedItem.system as { spell?: unknown }).spell;

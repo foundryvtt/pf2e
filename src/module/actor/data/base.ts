@@ -6,7 +6,7 @@ import type { StatisticModifier } from "@actor/modifiers.ts";
 import { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
 import type { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
+import { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@module/system/rolls.ts";
 import type { CheckRoll } from "@system/check/roll.ts";
@@ -44,7 +44,9 @@ interface ActorSystemSource {
     traits?: ActorTraitsSource<string>;
 
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
-    schema: DocumentSchemaRecord;
+    _migration: MigrationRecord;
+    /** Legacy location of `MigrationRecord` */
+    schema?: Readonly<{ version: number | null; lastMigration: object | null }>;
 }
 
 interface ActorAttributesSource {

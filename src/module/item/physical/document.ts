@@ -320,7 +320,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         thisData.quantity = otherData.quantity;
         thisData.equipped = otherData.equipped;
         thisData.containerId = otherData.containerId;
-        thisData.schema = otherData.schema;
+        thisData._migration = otherData._migration;
         thisData.identification = otherData.identification;
 
         return R.equals(thisData, otherData);

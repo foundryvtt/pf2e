@@ -193,6 +193,7 @@ export class Migration711HeritageItems extends MigrationBase {
                 description: feature.system.description,
                 rules: feature.system.rules,
                 schema: feature.system.schema,
+                _migration: { version: null, previous: null },
                 slug: feature.system.slug,
                 ancestry: ancestryReference,
                 traits: {

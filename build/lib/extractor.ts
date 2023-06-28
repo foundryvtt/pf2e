@@ -437,7 +437,7 @@ class PackExtractor {
                         docSource.name = docSource.name.trim();
                         delete (docSource as { ownership?: unknown }).ownership;
                         delete (docSource as { effects?: unknown }).effects;
-                        delete (docSource.system as { schema?: unknown }).schema;
+                        delete (docSource.system as { _migrations?: unknown })._migrations;
                     }
 
                     if (isActorSource(docSource)) {
