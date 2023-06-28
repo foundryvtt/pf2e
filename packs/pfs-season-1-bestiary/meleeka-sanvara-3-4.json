@@ -365,35 +365,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Meelika is using Blazing-Talon Surge",
-                        "option": "blazing-talon-surge",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "label": "Blazing-Talon Surge",
-                        "predicate": [
-                            "blazing-talon-surge"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "blazing-talon-surge"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "When Meleeka hits a target enemy, she can immediately Grab them as a free action.",
-                        "title": "Blazing-Talon Surge Grab"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -481,7 +453,40 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blazing-talon-surge",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "blazing-talon-surge",
+                            "rain-of-embers"
+                        ],
+                        "selector": "fire-talon-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "blazing-talon-surge",
+                            "rain-of-embers"
+                        ],
+                        "selector": "fire-talon-attack",
+                        "text": "PF2E.NPC.Abilities.Glossary.ImprovedGrab",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -559,55 +564,60 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Meleeka is in Mastered Rain of Embers Stance (Full HP)",
-                        "option": "rain-of-embers-max-hp",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Meleeka is in Mastered Rain of Embers Stance (Below Full HP)",
-                        "option": "rain-of-embers-not-max-hp",
+                        "option": "rain-of-embers",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Mastered Rain of Embers Stance (Full HP)",
                         "predicate": [
-                            "rain-of-embers-max-hp"
+                            "rain-of-embers"
                         ],
-                        "selector": "ac",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
                         "type": "status",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Mastered Rain of Embers Stance (Below Full HP)",
                         "predicate": [
-                            "rain-of-embers-not-max-hp"
+                            "rain-of-embers",
+                            {
+                                "lt": [
+                                    "hp-percent",
+                                    100
+                                ]
+                            }
                         ],
-                        "selector": "ac",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "rain-of-embers-not-max-hp",
                         "type": "status",
                         "value": 3
                     },
                     {
-                        "key": "FlatModifier",
-                        "label": "Mastered Rain of Embers Stance (Full HP)",
+                        "key": "Resistance",
                         "predicate": [
-                            "rain-of-embers-max-hp"
+                            "rain-of-embers"
                         ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
+                        "type": "fire",
+                        "value": 2
                     },
                     {
-                        "key": "FlatModifier",
-                        "label": "Mastered Rain of Embers Stance (Below Full HP)",
+                        "key": "Resistance",
                         "predicate": [
-                            "rain-of-embers-not-max-hp"
+                            "rain-of-embers",
+                            {
+                                "lt": [
+                                    "hp-percent",
+                                    100
+                                ]
+                            }
                         ],
-                        "selector": "saving-throw",
-                        "type": "status",
+                        "type": "fire",
                         "value": 3
                     }
                 ],
