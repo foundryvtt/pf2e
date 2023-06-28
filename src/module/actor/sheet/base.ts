@@ -34,7 +34,13 @@ import {
     tupleHasValue,
 } from "@util";
 import { ActorSizePF2e } from "../data/size.ts";
-import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types.ts";
+import {
+    ActorSheetDataPF2e,
+    ActorSheetRenderOptionsPF2e,
+    CoinageSummary,
+    InventoryItem,
+    SheetInventory,
+} from "./data-types.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { MoveLootPopup } from "./loot/move-loot-popup.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
@@ -1349,8 +1355,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Overriden _render to maintain focus on tagify elements */
-    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+    protected override async _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void> {
         await maintainTagifyFocusInRender(this, () => super._render(force, options));
+        if (options?.tab) {
+            this._tabs[0].activate(options.tab);
+        }
     }
 
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */

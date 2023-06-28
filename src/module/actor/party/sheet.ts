@@ -4,11 +4,12 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import { PartyPF2e } from "./document.ts";
 import { LanguageSheetData, MemberBreakdown, PartySheetData } from "./types.ts";
+import { ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 
-interface PartySheetRenderOptions extends RenderOptions {
+interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
 }
 
@@ -132,25 +133,26 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // Add open actor sheet links
+        for (const openSheetLink of htmlQueryAll(html, "[data-action=open-sheet]")) {
+            const tab = openSheetLink.dataset.tab;
+            const actorUUID = htmlClosest(openSheetLink, "[data-actor-uuid]")?.dataset.actorUuid;
+            const actor = fromUuidSync(actorUUID ?? "");
+            openSheetLink.addEventListener("click", async () => actor?.sheet.render(true, { tab }));
+        }
+
         for (const memberElem of htmlQueryAll(html, "[data-actor-uuid]")) {
             const actorUUID = memberElem.dataset.actorUuid;
             const actor = this.document.members.find((m) => m.uuid === actorUUID);
-
-            const openSheetLinks =
-                memberElem.dataset.action === "open-sheet"
-                    ? [memberElem]
-                    : htmlQueryAll(memberElem, "[data-action=open-sheet]");
-            for (const link of openSheetLinks) {
-                link.addEventListener("click", () => {
-                    actor?.sheet.render(true);
-                });
-            }
 
             if (game.user.isGM) {
                 htmlQuery(memberElem, "a[data-action=remove-member]")?.addEventListener("click", async (event) => {
                     const confirmed = event.ctrlKey
                         ? true
-                        : await Dialog.confirm({ title: "Remove member", content: "Remove member from party?" });
+                        : await Dialog.confirm({
+                              title: game.i18n.localize("PF2E.Actor.Party.RemoveMember.Title"),
+                              content: game.i18n.localize("PF2E.Actor.Party.RemoveMember.Content"),
+                          });
                     if (confirmed && actor) {
                         this.document.removeMembers(actor);
                     }

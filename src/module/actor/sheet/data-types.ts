@@ -54,3 +54,8 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     inventory: SheetInventory;
     enrichedContent: Record<string, string>;
 }
+
+export interface ActorSheetRenderOptionsPF2e extends RenderOptions {
+    /** What tab to switch to when rendering the sheet */
+    tab?: string;
+}
