@@ -72,21 +72,27 @@ async function applyDamageFromMessage({
         if (typeof damage === "number" && damage < 0) {
             const critical = outcome === "criticalSuccess";
 
-            const dice = (contextClone.synthetics.damageDice["healing-received"] ?? [])
+            const damageDice = (contextClone.synthetics.damageDice["healing-received"] ?? [])
                 .map((deferred) => deferred())
                 .filter((dice): dice is DamageDicePF2e => dice instanceof DamageDicePF2e)
                 .filter((dice) => dice.critical === null || dice.critical === critical)
                 .filter((dice) => dice.predicate.test(applicationRollOptions));
-            await Promise.allSettled(
-                dice.map((dice) => {
-                    const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
-                    return new Roll(formula).evaluate({ async: true }).then((roll) => {
-                        roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
-                        breakdown.push(`${dice.label} ${dice.diceNumber}${dice.dieSize}`);
-                        rolls.push(roll);
-                    });
-                })
-            );
+            for (const dice of damageDice) {
+                const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
+                const roll = await new Roll(formula).evaluate({ async: true });
+                roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
+                await roll.toMessage({
+                    flags: {
+                        pf2e: {
+                            suppressDamageButtons: true,
+                        },
+                    },
+                    flavor: dice.label,
+                    speaker: ChatMessage.getSpeaker({ token }),
+                });
+                breakdown.push(`${dice.label} ${dice.diceNumber}${dice.dieSize}`);
+                rolls.push(roll);
+            }
             if (rolls.length) {
                 damage -= rolls.map((roll) => roll.total).reduce((previous, current) => previous + current);
             }
@@ -125,7 +131,6 @@ async function applyDamageFromMessage({
             shieldBlockRequest,
             breakdown,
             notes,
-            rolls,
         });
     }
     toggleOffShieldBlock(message.id);
