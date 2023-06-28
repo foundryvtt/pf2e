@@ -300,10 +300,12 @@ export class MigrationRunner extends MigrationRunnerBase {
                 const wasSuccessful = !!(await this.#migrateSceneToken(token, migrations));
                 if (!wasSuccessful) continue;
 
-                // Only migrate if the synthetic actor has replaced migratable data
+                // Only migrate if the delta of the synthetic actor has migratable data
+                const deltaSource = token.delta?._source;
                 const hasMigratableData =
-                    !!token._source.delta?.flags?.pf2e ||
-                    Object.keys(token._source.delta ?? {}).some((k) => ["items", "system"].includes(k));
+                    (!!deltaSource && !!deltaSource.flags?.pf2e) ||
+                    ((deltaSource ?? {}).items ?? []).length > 0 ||
+                    Object.keys(deltaSource?.system ?? {}).length > 0;
 
                 if (actor.isToken) {
                     if (hasMigratableData) {
@@ -316,7 +318,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                             }
                         }
                     }
-                    progress.advance({ by: 1 });
+                    progress.advance();
                 }
             }
         }
