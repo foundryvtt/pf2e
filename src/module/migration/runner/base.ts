@@ -4,7 +4,6 @@ import { DocumentSchemaRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { DateTime } from "luxon";
 
 interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e> {
     inserted: T[];
@@ -209,7 +208,6 @@ export class MigrationRunnerBase {
         const fromVersion = typeof schema.version === "number" ? schema.version : null;
         schema.version = latestMigration.version;
         schema.lastMigration = {
-            datetime: DateTime.now().toISO(),
             version: {
                 schema: fromVersion,
                 foundry: "game" in globalThis ? game.version : undefined,
