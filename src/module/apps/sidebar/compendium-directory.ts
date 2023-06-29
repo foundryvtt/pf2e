@@ -130,12 +130,17 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         // Match documents within each compendium by name
         const docMatches = query.length > 0 ? this.constructor.searchEngine.search(query) : [];
+        const { activeFilters } = this;
+        const filteredMatches =
+            this.activeFilters.length > 0
+                ? docMatches.filter((m) => activeFilters.includes(m.documentType))
+                : docMatches;
 
         // Create a list of document matches
         const matchTemplate = htmlQuery<HTMLTemplateElement>(html, ".compendium-search-match");
         if (!matchTemplate) throw ErrorPF2e("Match template not found");
 
-        const listElements = docMatches.map((match): HTMLLIElement => {
+        const listElements = filteredMatches.map((match): HTMLLIElement => {
             const li = matchTemplate.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
             li.dataset.uuid = match.uuid;
             li.dataset.score = match.score.toString();
