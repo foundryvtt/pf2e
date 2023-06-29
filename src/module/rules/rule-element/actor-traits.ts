@@ -1,35 +1,18 @@
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 
-class ActorTraitsRuleElement extends RuleElementPF2e {
-    add: string[] = [];
+class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
+    static override defineSchema(): ActorTraitsRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            add: new fields.ArrayField(new fields.StringField({ required: true, nullable: false })),
+            remove: new fields.ArrayField(new fields.StringField({ required: true, nullable: false })),
+        };
+    }
 
-    remove: string[] = [];
-
-    constructor(data: ActorTraitsSource, options: RuleElementOptions) {
-        data.add ??= [];
-        data.remove ??= [];
-
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
         super({ ...data, priority: 99 }, options);
-
-        if (!(Array.isArray(data.add) && Array.isArray(data.remove))) {
-            this.failValidation("`add` and `remove` properties must be arrays or omitted");
-            return;
-        }
-
-        if (data.add.length === 0 && data.remove.length === 0) {
-            this.failValidation("At least one non-empty `add` or `remove` array is required");
-            return;
-        }
-
-        for (const array of [data.add, data.remove]) {
-            if (!array.every((t): t is string => typeof t === "string")) {
-                this.failValidation("Actor traits must consist only of strings");
-                return;
-            }
-        }
-
-        this.add = data.add;
-        this.remove = data.remove;
     }
 
     override beforePrepareData(): void {
@@ -52,9 +35,13 @@ class ActorTraitsRuleElement extends RuleElementPF2e {
     }
 }
 
-interface ActorTraitsSource extends RuleElementSource {
-    add?: unknown;
-    remove?: unknown;
-}
+type ActorTraitsRuleSchema = RuleElementSchema & {
+    add: ArrayField<StringField<string, string, true, false, false>>;
+    remove: ArrayField<StringField<string, string, true, false, false>>;
+};
+
+interface ActorTraitsRuleElement
+    extends RuleElementPF2e<ActorTraitsRuleSchema>,
+        ModelPropsFromSchema<ActorTraitsRuleSchema> {}
 
 export { ActorTraitsRuleElement };
