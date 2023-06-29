@@ -42,7 +42,7 @@ interface ArmySystemSource extends ActorSystemSource {
             value: number;
             max: number;
             temp: number;
-            rt: number;
+            rout: number;
             details: string;
             negativeHealing: boolean;
         };
@@ -52,16 +52,9 @@ interface ArmySystemSource extends ActorSystemSource {
             details: string;
         };
 
-        scouting: {
-            value: number;
-            details: string;
-        };
-    };
-
-    saves: {
-        maneuver: number;
-        morale: number;
-        details: string;
+        scouting: { bonus: number };
+        maneuver: { bonus: number };
+        morale: { bonus: number };
     };
 
     details: {
@@ -121,6 +114,10 @@ interface ArmySystemSource extends ActorSystemSource {
                 bonus: number;
             };
         };
+        ammunition: {
+            max: number;
+            value: number;
+        }
     };
 
     traits: {
