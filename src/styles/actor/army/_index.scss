@@ -59,17 +59,6 @@ form.army-sheet {
             text-align: left;
           }
         }
-        // The rows with selectors
-        &.select {
-          align-items: center;
-          select {
-            width: 80%
-          }
-          label, a {
-            margin: auto;
-            width: 20px;
-          }
-        }
         // Rows with buttons
         &.buttons {
           label {
@@ -188,29 +177,47 @@ form.army-sheet {
           color: rgb(95, 0, 0);
           text-transform: bold;
         }
+      }   
+      label {
+        display: flex;
+        align-items: center;
+        position: relative;
       }
       // ============= //
       //    STRIKES    //
       // ============= //
-      fieldset.strikes {
+      section.weapons {
         display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        .strike {
-          flex: 0;
+        justify-content: space-between;
+        gap: 1rem;
+        fieldset.weapons, .upgrades {
           display: flex;
-          gap: 0.25rem;
-          justify-content: space-between;
-          align-items: center;
-          line-height: 1.5rem;
-          input.name {
-            flex: 1;
-            text-indent: 0.5rem;
+          flex-direction: column;
+          justify-content: space-evenly;
+          .strike {
+            flex: 0;
+            display: flex;
+            gap: 0.25rem;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 1.5rem;
+            input.name {
+              flex: 1;
+              text-indent: 0.5rem;
+            }
+            .unlock {
+              width: 1.5rem;
+            }
+            &.locked {
+                .strike, .name, .pips i, .pips, .info {
+                color: darkgrey;
+                pointer-events: none;
+              }
+            }
           }
-          &.locked .strike, &.locked .name, &.locked .pips i {
-            color: darkgrey;
-            pointer-events: none;
-          }
+        }
+        fieldset.weapons {
+          flex: 1;
         }
       }
       // ============= //
@@ -224,17 +231,18 @@ form.army-sheet {
           align-items: center;
           line-height: 1.5rem;
           &:nth-child(odd) { background: rgba(180, 175, 175, 0.25); }
+          .item-icon {
+            border-radius: 6px;
+            border: none;
+            max-height: 1.5rem;
+            max-width: 1.5rem;
+            position: relative;
+          }
           .item-name {
             display: flex;
             text-indent: 0.5rem;
             font-weight: bold;
             flex: 1 1;
-            .item-icon {
-              border-radius: 6px;
-              border: none;
-              max-height: 1.5rem;
-              max-width: 1.5rem;
-            }
             h4 {
               margin: auto 0;
             }
@@ -253,10 +261,6 @@ form.army-sheet {
           }
           .item-controls i {
             flex: 0 0 4rem;
-            visibility: hidden;
-          }
-          &:hover .item-controls i {
-            visibility: unset;
           }
         }
       }
@@ -283,6 +287,21 @@ form.army-sheet {
     }
   }
 
+  button:hover, .item-chat:hover {
+    text-shadow: 0 0 5px var(--color-shadow-highlight);
+    box-shadow: none;
+    cursor: pointer;
+  }
+  a.item-chat .imgicon {
+    position: absolute;
+    background: beige;
+    width: 1.5rem;
+    font-size: 1rem;
+    opacity: 0.5;
+    z-index: 1;
+    line-height: 1.5rem;
+  }
+
   button {
     height: 100%;
     width: 2rem;
@@ -293,13 +312,6 @@ form.army-sheet {
     background: none;
     label, i {
       margin: auto;
-    }
-    &:hover {
-      text-shadow: 0 0 5px var(--color-shadow-highlight);
-      box-shadow: none;
-    }
-    &.strike {
-      min-width: 4rem;
     }
     &.pips {
       width: 3.5rem;
@@ -326,10 +338,31 @@ form.army-sheet {
     }
   }
 
-  input.roll-bonus {
+  // Buttons that should be hidden unless the parent element is hovered
+  li.item .item-controls i, div.strike .unlock i, a.item-icon i.imgicon {
+    visibility: hidden;
+  }
+  li.item:hover .item-controls i, div.strike:hover .unlock i, a.item-icon:hover i.imgicon {
+    visibility: unset;
+  }
+
+  section.roll {
+    display: flex;
+    align-items: center;
+    min-width: 4rem;
+    i {
+      min-width: 1.5rem;
+      font-size: 1rem;
+    }
+    input.roll-bonus {
     text-align: center;
     width: 2rem;
     height: 1.5rem;
+    }
+  }
+
+  span.plus {
+    font-size: 0.75rem;
   }
 
   legend.compendium-items:hover {
@@ -358,7 +391,6 @@ form.army-sheet {
     label {
       min-width: 50%;
       text-align: left;
-      display: flex;
       align-items: center;
     }
   }
