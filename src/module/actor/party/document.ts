@@ -146,7 +146,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     private _resetAndRerenderDebounced = foundry.utils.debounce(() => {
         super.reset();
         this.sheet.render(false, { actor: true } as PartySheetRenderOptions);
-    }, 500);
+    }, 50);
 
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
