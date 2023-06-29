@@ -143,18 +143,18 @@ export class Bulk {
     toString(): string {
         const { light, normal } = this;
         if (normal === 0 && light === 0) {
-            return "-";
+            return game.i18n.localize("PF2E.Item.Physical.Bulk.Negligible");
         }
         if (normal > 0 && light === 0) {
-            return `${normal}`;
+            return normal.toString();
         }
         if (light === 1 && normal === 0) {
-            return `L`;
+            return game.i18n.localize("PF2E.Item.Physical.Bulk.Light");
         }
         if (light > 0 && normal === 0) {
-            return `${light}L`;
+            return game.i18n.format("PF2E.Item.Physical.Bulk.NLight", { light });
         }
-        return `${normal}; ${light}L`;
+        return game.i18n.format("PF2E.Item.Physical.Bulk.WithLight", { bulk: normal, light });
     }
 
     double(): Bulk {
