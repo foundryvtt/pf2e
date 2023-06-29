@@ -1,11 +1,13 @@
-import { CreatureConfig } from "@actor/creature/config.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { htmlQueryAll } from "@util";
 import { ArmyPF2e } from "./document.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import {
+    htmlQueryAll,
+} from "@util";
+import { DicePF2e } from "@scripts/dice.ts";
 
 class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
-    protected readonly actorConfigClass = CreatureConfig;
+    protected readonly actorConfigClass = CONFIG;
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
@@ -25,7 +27,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             async: true,
         });
 
-        return { ...sheetData } ;
+        return { ...sheetData };
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {
@@ -87,6 +89,18 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             });
         }
 
+        // This is probably a bad way to do it, but it's very easy
+        for (const header of htmlQueryAll(html, "legend.compendium-items")) {
+            header.addEventListener("click", () => {
+                const compendium = game.packs.get("pf2e.kingmaker-features")
+                if ( compendium ) {
+                    compendium.render(true)
+                } else {
+                    ui.notifications.error("Compendium not found");
+                }
+            })
+        }
+
         // Drink potions
         for (const button of htmlQueryAll(html, "button.usepotion")) {
             button.addEventListener("click", () => {
@@ -104,6 +118,42 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 }
             });
         }
+
+        // Listens to all roll buttons
+        const rollables = [".rollable"].join(", ");
+        for (const rollable of htmlQueryAll(html, rollables)) {
+            rollable.addEventListener("click", (event) => {
+                this.#onClickRollable(rollable, event);
+            });
+        }
+    }
+
+    // Function that handles all checks and rolls
+    async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
+        const { attribute, strike } = link?.dataset ?? {};
+        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
+        let title = "Title Not Found"
+        let bonus = 0
+        let parts = ["@bonus"];
+
+        if ( strike === "melee" || strike === "ranged" ) {
+            bonus = this.actor.system.gear[strike].bonus + this.actor.system.gear[strike].magic.bonus;
+            parts = ["@bonus", "@magicbonus"];
+            title = game.i18n.localize(`PF2E.Actor.Army.Strike${strike}`);
+        } else if ( attribute === "scouting" || attribute === "morale" || attribute === "maneuver" ) {
+            bonus = this.actor.system.attributes[attribute].bonus;
+            title = game.i18n.localize(`PF2E.Actor.Army.Attr${attribute}`);
+        }
+
+        let data = { bonus };
+
+        await DicePF2e.d20Roll({
+            event,
+            parts,
+            data,
+            title,
+            speaker,
+        });
     }
 }
 
