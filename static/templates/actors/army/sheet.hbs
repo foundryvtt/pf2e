@@ -23,7 +23,7 @@
                         <i class="{{#if (gt @root.data.gear.armor.magic.bonus this)}}far fa-shield filled{{else}}fal fa-shield empty{{/if}}"></i>
                     {{/times}}
                 </button>
-                <label for="data.gear.armor.magic.name"> + {{data.gear.armor.magic.bonus}}</label>
+                <label for="data.gear.armor.magic.name"><span class="plus">+</span>{{data.gear.armor.magic.bonus}}</label>
             </div>
             <input type="text" data-dtype="String" data-property="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
         </section>
@@ -63,19 +63,27 @@
             </div>
             <div>
                 <label for="system.attributes.scouting.bonus">{{localize "PF2E.Actor.Army.Attrscouting"}}</label>
-                <a data-attribute="scouting" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
-                <input class="roll-bonus" type="number" data-property="system.attributes.scouting.bonus" value="{{data.attributes.scouting.bonus}}" data-dtype="Number"/>
+                <section class="roll">
+                    <a data-attribute="scouting" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
+                    <span class="plus">+</span>
+                    <input class="roll-bonus" type="number" data-property="system.attributes.scouting.bonus" value="{{data.attributes.scouting.bonus}}" data-dtype="Number"/>
+                </section>
             </div>
             <div>
                 <label for="system.attributes.morale.bonus">{{localize "PF2E.Actor.Army.Attrmorale"}}</label>
-                <a data-attribute="morale" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
-                <input class="roll-bonus" type="number" data-property="system.attributes.morale.bonus" value="{{data.attributes.morale.bonus}}" data-dtype="Number"/>
+                <section class="roll">
+                    <a data-attribute="morale" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
+                    <span class="plus">+</span>
+                    <input class="roll-bonus" type="number" data-property="system.attributes.morale.bonus" value="{{data.attributes.morale.bonus}}" data-dtype="Number"/>
+                </section>
             </div>
             <div>
                 <label for="system.attributes.maneuver.bonus">{{localize "PF2E.Actor.Army.Attrmaneuver"}}</label>
-                <a data-attribute="maneuver" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
-                <span> + </span>
-                <input class="roll-bonus" type="number" data-property="system.attributes.maneuver.bonus" value="{{data.attributes.maneuver.bonus}}" data-dtype="Number"/>
+                <section class="roll">
+                    <a data-attribute="maneuver" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
+                    <span class="plus">+</span>
+                    <input class="roll-bonus" type="number" data-property="system.attributes.maneuver.bonus" value="{{data.attributes.maneuver.bonus}}" data-dtype="Number"/>
+                </section>
             </div>
         </section>
 
@@ -150,46 +158,66 @@
                 {{!-- ============== --}}
                 {{!--     Strikes    --}}
                 {{!-- ============== --}}
-                <fieldset class="strikes">
-                <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
-                    <div class="melee strike {{#if data.gear.melee.unlocked}}unlocked{{else}}locked{{/if}}">
-                        <label class="strike" title="{{localize "PF2E.Actor.Army.Strikemelee"}} ( +{{data.gear.melee.bonus}} proficiency, +{{data.gear.melee.magic.bonus}} potency )">
-                            <a data-strike="melee" class="rollable melee"><i class="fas fa-dice-d20"></i></a>+<input class="roll-bonus" type="number" data-property="system.gear.melee.bonus" value="{{add data.gear.melee.bonus data.gear.melee.magic.bonus}}" data-dtype="Number"/>
-                        </label>              
-                        <input class="melee name" type="text" data-property="system.gear.melee.name" value="{{data.gear.melee.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikemelee"}}" />
-                        <button title="{{data.gear.melee.melee.rank}}" class="melee pips" type="button">
-                            {{#times 3}}
-                            <i class="{{#if (gt @root.data.gear.melee.magic.bonus this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
-                            {{/times}}
-                        </button>
-                        {{#if data.gear.melee.unlocked}}
-                            <button class="melee toggle"><i class="fas fa-lock-open empty" title="Weapon is available"></i></button>
-                        {{else}}
-                            <button class="melee toggle"><i class="fas fa-lock filled" title="Weapon is not available"></i></button>
-                        {{/if}}
-                    </div>
-                    <div class="ranged strike {{#if data.gear.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
-                        <label class="strike" title="{{localize "PF2E.Actor.Army.Strikeranged"}} ( +{{data.gear.ranged.bonus}} proficiency, +{{data.gear.ranged.magic.bonus}} potency )">
-                            <a data-strike="ranged" class="rollable ranged"><i class="fas fa-dice-d20"></i></a>+<input class="roll-bonus" type="number" data-property="system.gear.ranged.bonus" value="{{add data.gear.ranged.bonus data.gear.ranged.magic.bonus}}" data-dtype="Number"/>
-                        </label>              
-                        <input class="ranged name" type="text" data-property="system.gear.ranged.name" value="{{data.gear.ranged.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikeranged"}}" />
-                        <button title="{{data.gear.ammunition.value}}" class="ammo pips" type="button">
-                            {{#times {{data.gear.ammunition.max}}}}
-                            <i class="{{#if (gt @root.data.gear.ammunition.value this)}}far fa-dagger filled{{else}}fal fa-dagger empty{{/if}}"></i>
-                            {{/times}}
-                        </button>
-                        <button title="{{data.gear.ranged.magic.rank}}" class="ranged pips" type="button">
-                            {{#times 3}}
-                            <i class="{{#if (gt @root.data.gear.ranged.magic.bonus this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
-                            {{/times}}
-                        </button>
-                        {{#if data.gear.ranged.unlocked}}
-                            <button class="ranged toggle"><i class="fas fa-lock-open empty" title="Weapon is available"></i></button>
-                        {{else}}
-                            <button class="ranged toggle"><i class="fas fa-lock filled" title="Weapon is not available"></i></button>
-                        {{/if}}
-                    </div>
-                </fieldset>
+                <section class="weapons">
+                    <fieldset class="weapons">
+                    <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
+                        <div class="strike {{#if data.gear.melee.unlocked}}unlocked{{else}}locked{{/if}}">
+                            <section class="roll strike" title="{{localize "PF2E.Actor.Army.Strikemelee"}} ( +{{data.gear.melee.bonus}} proficiency, +{{data.gear.melee.magic.bonus}} potency )">
+                                <a data-strike="melee" class="rollable melee"><i class="fas fa-dice-d20"></i></a>
+                                <span class="plus">+</span>
+                                <input class="roll-bonus" type="number" data-property="system.gear.melee.bonus" value="{{add data.gear.melee.bonus data.gear.melee.magic.bonus}}" data-dtype="Number"/>              
+                            </section>                        
+                            <input class="melee name" type="text" data-property="system.gear.melee.name" value="{{data.gear.melee.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikemelee"}}" />
+                            {{#if data.gear.melee.unlocked}}
+                                <button class="melee unlock" type="button"><i class="fas fa-lock-open empty" title="Weapon is available"></i></button>
+                            {{else}}
+                                <button class="melee unlock" type="button"><i class="fas fa-lock filled" title="Weapon is not available"></i></button>
+                            {{/if}}
+                        </div>
+                        <div class="strike {{#if data.gear.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
+                            <section class="roll strike" title="{{localize "PF2E.Actor.Army.Strikeranged"}} ( +{{data.gear.ranged.bonus}} proficiency, +{{data.gear.ranged.magic.bonus}} potency )">
+                                <a data-strike="ranged" class="rollable ranged"><i class="fas fa-dice-d20"></i></a>
+                                <span class="plus">+</span>
+                                <input class="roll-bonus" type="number" data-property="system.gear.ranged.bonus" value="{{add data.gear.ranged.bonus data.gear.ranged.magic.bonus}}" data-dtype="Number"/>              
+                            </section>
+                            <input class="ranged name" type="text" data-property="system.gear.ranged.name" value="{{data.gear.ranged.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikeranged"}}" />
+                            <button title="Ammunition: {{data.gear.ammunition.value}}" class="ammunition pips" type="button">
+                                {{#times data.gear.ammunition.max}}
+                                <i class="{{#if (gt @root.data.gear.ammunition.value this)}}far fa-dagger filled{{else}}fal fa-dagger empty{{/if}}"></i>
+                                {{/times}}
+                            </button>
+                            {{#if data.gear.ranged.unlocked}}
+                                <button class="ranged unlock" type="button"><i class="fas fa-lock-open empty" title="Weapon is available"></i></button>
+                            {{else}}
+                                <button class="ranged unlock" type="button"><i class="fas fa-lock filled" title="Weapon is not available"></i></button>
+                            {{/if}}
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="upgrades">
+                    <legend><i class="fa-light fa-sparkle"></i>&nbsp;Upgrades</legend>
+                        <div class="strike rank {{#if data.gear.melee.unlocked}}unlocked{{else}}locked{{/if}}">
+                            <button title="{{data.gear.melee.magic.rank}}" class="melee pips" type="button">
+                                {{#times 3}}
+                                <i class="{{#if (gt @root.data.gear.melee.magic.bonus this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
+                                {{/times}}
+                            </button>
+                            <button class="info" data-info="melee" type="button">
+                                <i class="far fa-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="strike rank {{#if data.gear.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
+                            <button title="{{data.gear.ranged.magic.rank}}" class="ranged pips" type="button">
+                                {{#times 3}}
+                                <i class="{{#if (gt @root.data.gear.ranged.magic.bonus this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
+                                {{/times}}
+                            </button>
+                            <button class="info" data-info="ranged" type="button">
+                                <i class="far fa-question-circle"></i>
+                            </button>
+                        </div>
+                    </fieldset>
+                </section>
 
                 {{!-- ============== --}}
                 {{!--     Actions    --}}
@@ -200,10 +228,13 @@
                         <ol class="item-list">
                             {{#each document.itemTypes.action as |action|}}
                                 <li class="item" data-item-id="{{action._id}}">
-                                    <label class="item-name">
+                                    <a class="item-icon item-chat">
+                                        <i class="imgicon fa-solid fa-fw fa-comment-alt"></i>
                                         <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
+                                    </a>
+                                    <label class="item-name">
                                         <a>{{action.name}}</a>
-                                    </label>
+                                    </label>                                    </label>
                                         {{#if action.system.frequency}}
                                             <section class="item-frequency">
                                                 <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
@@ -237,10 +268,13 @@
                         {{#if document.itemTypes.feat}}
                             {{#each document.itemTypes.feat as |feat|}}
                                 <li class="item" data-item-id="{{feat._id}}">
-                                    <label class="item-name">
+                                    <a class="item-icon item-chat">
+                                        <i class="imgicon fa-solid fa-fw fa-comment-alt"></i>
                                         <img class="item-icon" src="{{feat.img}}" alt="{{feat.name}}" />
+                                    </a>
+                                    <label class="item-name">
                                         <a>{{feat.name}}</a>
-                                    </label>
+                                    </label>                                    </label>
                                         {{#if feat.system.frequency}}
                                             <section class="item-frequency">
                                                 <input type="number" value="{{feat.system.frequency.value}}" data-item-id="{{feat._id}}" data-item-property="system.frequency.value"/>
@@ -276,8 +310,11 @@
                         <ol class="item-list">
                             {{#each document.itemTypes.effect as |effect|}}
                                 <li class="item" data-item-id="{{effect._id}}">
-                                    <label class="item-name">
+                                    <a class="item-icon item-chat">
+                                        <i class="imgicon fa-solid fa-fw fa-comment-alt"></i>
                                         <img class="item-icon" src="{{effect.img}}" alt="{{effect.name}}" />
+                                    </a>
+                                    <label class="item-name">
                                         <a>{{effect.name}}</a>
                                     </label>
                                         {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}

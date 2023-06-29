@@ -5,6 +5,7 @@ import {
     htmlQueryAll,
 } from "@util";
 import { DicePF2e } from "@scripts/dice.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts"
 
 class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     protected readonly actorConfigClass = CONFIG;
@@ -39,20 +40,22 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
         // Gear pips
         for (const button of htmlQueryAll(html, "button.pips")) {
-            const action = Array.from(button.classList).find((c) => ["melee", "ranged", "potion", "armor"].includes(c));
+            const action = Array.from(button.classList).find((c) => ["melee", "ranged", "potion", "armor", "ammunition"].includes(c));
             const piplistener = (event: MouseEvent) => {
                 // Identify the button
-                const [updatePath, pipCount] = ((): [string, number] | [null, null] => {
+                const [updatePath, pipCount, pipMax] = ((): [string, number, number] | [null, null] => {
                     const { gear } = actor.system;
                     switch (action) {
                         case "melee":
-                            return ["system.gear.melee.magic.bonus", gear.melee.magic.bonus];
+                            return ["system.gear.melee.magic.bonus", gear.melee.magic.bonus, 3];
                         case "ranged":
-                            return ["system.gear.ranged.magic.bonus", gear.ranged.magic.bonus];
+                            return ["system.gear.ranged.magic.bonus", gear.ranged.magic.bonus, 3];
                         case "armor":
-                            return ["system.gear.armor.magic.bonus", gear.armor.magic.bonus];
+                            return ["system.gear.armor.magic.bonus", gear.armor.magic.bonus, 3];
                         case "potion":
-                            return ["system.gear.potions.unlocked", gear.potions.unlocked];
+                            return ["system.gear.potions.unlocked", gear.potions.unlocked, 3];
+                        case "ammunition":
+                            return ["system.gear.ammunition.value", gear.ammunition.value, gear.ammunition.max];
                         default:
                             return [null, null];
                     }
@@ -60,15 +63,15 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
                 if (updatePath) {
                     const change = event.type === "click" ? 1 : -1;
-                    actor.update({ [updatePath]: Math.clamped(pipCount + change, 0, 3) });
+                    actor.update({ [updatePath]: Math.clamped(pipCount + change, 0, pipMax) });
                 }
             };
             button.addEventListener("click", piplistener);
             button.addEventListener("contextmenu", piplistener);
         }
 
-        // Toggles
-        for (const button of htmlQueryAll(html, "button.toggle")) {
+        // Lock/unlock weapons
+        for (const button of htmlQueryAll(html, "button.unlock")) {
             // Then for each one
             button.addEventListener("click", () => {
                 // When they click
@@ -89,7 +92,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             });
         }
 
-        // This is probably a bad way to do it, but it's very easy
+        // This is definitely a bad way to do it, but it's also very easy
         for (const header of htmlQueryAll(html, "legend.compendium-items")) {
             header.addEventListener("click", () => {
                 const compendium = game.packs.get("pf2e.kingmaker-features")
@@ -119,6 +122,13 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             });
         }
 
+        // Gear Info Buttons
+        for (const button of htmlQueryAll(html, "button.info")) {
+            button.addEventListener("click", () => {
+                this.#onClickInfo(button);
+            });
+        }
+
         // Listens to all roll buttons
         const rollables = [".rollable"].join(", ");
         for (const rollable of htmlQueryAll(html, rollables)) {
@@ -135,23 +145,44 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         let title = "Title Not Found"
         let bonus = 0
         let parts = ["@bonus"];
+        let data = {};
 
         if ( strike === "melee" || strike === "ranged" ) {
-            bonus = this.actor.system.gear[strike].bonus + this.actor.system.gear[strike].magic.bonus;
-            parts = ["@bonus", "@magicbonus"];
-            title = game.i18n.localize(`PF2E.Actor.Army.Strike${strike}`);
+            const proficiencybonus = this.actor.system.gear[strike].bonus;
+            const potencybonus = this.actor.system.gear[strike].magic.bonus;
+            data = { proficiencybonus, potencybonus };
+            parts = ["@proficiencybonus", "@potencybonus"];
+            title = this.actor.system.gear[strike].name || game.i18n.localize(`PF2E.Actor.Army.Strike${strike}`);
         } else if ( attribute === "scouting" || attribute === "morale" || attribute === "maneuver" ) {
             bonus = this.actor.system.attributes[attribute].bonus;
             title = game.i18n.localize(`PF2E.Actor.Army.Attr${attribute}`);
+            data = { bonus };
         }
-
-        let data = { bonus };
 
         await DicePF2e.d20Roll({
             event,
             parts,
             data,
             title,
+            speaker,
+        });
+    }
+
+    // Function that creates the chat cards for the embedded gear data (not finished)
+    async #onClickInfo(link: HTMLElement): Promise<void> {
+        const { gear } = link?.dataset ?? {};
+        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
+        let name = "Title Not Found"
+        let text = {};
+
+        if ( gear === "melee" || gear === "ranged" ) {
+            name = this.actor.system.gear[gear].magic.rank;
+            text = this.actor.system.gear[gear].magic.description;
+        } else if ( gear === "potions" ) {
+        } else if ( gear === "armor" ) {
+        }
+
+        await ChatMessagePF2e.create({
             speaker,
         });
     }

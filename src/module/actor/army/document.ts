@@ -91,7 +91,6 @@ interface ArmySystemSource extends ActorSystemSource {
             name: string;
             bonus: number;
             magic: {
-                name: "Magic Weapons";
                 traits: ["Army", "Evocation", "Magical"];
                 description: "The army's weapons are magic. If the army has melee and ranged weapons, choose which one is made magic when this gear is purchased. You can buy this gear twice—once for melee weapons and once for ranged weapons. If you purchase a more powerful version, it replaces the previous version, and the RP cost of the more powerful version is reduced by the RP cost of the replaced weapons.";
                 rank: "Mundane Weapons" | "Magic Weapons" | "Greater Magic Weapons" | "Major Magic Weapons";
@@ -105,10 +104,9 @@ interface ArmySystemSource extends ActorSystemSource {
             name: string;
             bonus: number;
             magic: {
-                name: "Magic Weapons";
                 traits: ["Army", "Evocation", "Magical"];
                 description: "The army's weapons are magic. If the army has melee and ranged weapons, choose which one is made magic when this gear is purchased. You can buy this gear twice—once for melee weapons and once for ranged weapons. If you purchase a more powerful version, it replaces the previous version, and the RP cost of the more powerful version is reduced by the RP cost of the replaced weapons.";
-                rank: "Mundane Weapons" | "Magic Weapons" | "Greater Magic Weapons" | "Major Magic Weapons";
+                rank: "Mundane" | "Magic" | "Greater Magic" | "Major Magic";
                 level: 0 | 2 | 10 | 16;
                 price: 0 | 20 | 40 | 60;
                 bonus: number;
