@@ -1,13 +1,15 @@
-import { CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Language } from "@actor/creature/index.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
+import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
+import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import { PartyPF2e } from "./document.ts";
-import { LanguageSheetData, MemberBreakdown, PartySheetData } from "./types.ts";
-import { ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -51,6 +53,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...base,
+            restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
             members: this.#prepareMembers(),
             inventorySummary: {
                 totalCoins:
@@ -79,35 +82,40 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         return this.actor.members.map((actor) => {
-            const hasBulk = actor.inventory.bulk.encumberedAt !== Infinity;
-            const bestSkills = Object.values(actor.skills ?? {})
-                .filter((s): s is Statistic => !!s?.proficient)
-                .sort(sortBy((s) => s.mod ?? 0))
-                .reverse()
-                .slice(0, 5)
-                .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank }));
-            const heroPoints = actor.isOfType("character") ? actor.system.resources.heroPoints : null;
-            const senses = (() => {
-                const rawSenses = actor.system.traits.senses ?? [];
-                if (!Array.isArray(rawSenses)) {
-                    return rawSenses.value.split(",").map((l) => ({
-                        labelFull: l.trim(),
-                        label: sanitizeSense(l),
-                    }));
-                }
+            return {
+                actor,
+                hasBulk: actor.inventory.bulk.encumberedAt !== Infinity,
+                bestSkills: Object.values(actor.skills ?? {})
+                    .filter((s): s is Statistic => !!s?.proficient)
+                    .sort(sortBy((s) => s.mod ?? 0))
+                    .reverse()
+                    .slice(0, 5)
+                    .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
+                heroPoints: actor.isOfType("character") ? actor.system.resources.heroPoints : null,
+                senses: (() => {
+                    const rawSenses = actor.system.traits.senses ?? [];
+                    if (!Array.isArray(rawSenses)) {
+                        return rawSenses.value.split(",").map((l) => ({
+                            labelFull: l.trim(),
+                            label: sanitizeSense(l),
+                        }));
+                    }
 
-                // An actor sometimes has only darkvision (fetchling), or darkvision and low-light vision (elf aasimar).
-                // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
-                // We remove low-light vision from the result if the actor has darkvision.
-                const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
-                const adjustedSenses = hasDarkvision ? rawSenses.filter((r) => r.type !== "lowLightVision") : rawSenses;
-                return adjustedSenses.map((r) => ({
-                    acuity: r.acuity,
-                    labelFull: r.label ?? "",
-                    label: CONFIG.PF2E.senses[r.type] ?? r.type,
-                }));
-            })();
-            return { actor, hasBulk, bestSkills, heroPoints, senses };
+                    // An actor sometimes has only darkvision (fetchling), or darkvision and low-light vision (elf aasimar).
+                    // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
+                    // We remove low-light vision from the result if the actor has darkvision.
+                    const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
+                    const adjustedSenses = hasDarkvision
+                        ? rawSenses.filter((r) => r.type !== "lowLightVision")
+                        : rawSenses;
+                    return adjustedSenses.map((r) => ({
+                        acuity: r.acuity,
+                        labelFull: r.label ?? "",
+                        label: CONFIG.PF2E.senses[r.type] ?? r.type,
+                    }));
+                })(),
+                restricted: !(game.settings.get("pf2e", "metagame_showPartyStats") || actor.isOwner),
+            };
         });
     }
 
@@ -257,6 +265,43 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.document.addMembers(actor);
         }
     }
+}
+
+interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
+    restricted: boolean;
+    members: MemberBreakdown[];
+    languages: LanguageSheetData[];
+    inventorySummary: {
+        totalCoins: number;
+        totalWealth: number;
+        totalBulk: Bulk;
+    };
+    /** Unsupported items on the sheet, may occur due to disabled campaign data */
+    orphaned: ItemPF2e[];
+}
+
+interface SkillData {
+    slug: string;
+    label: string;
+    mod: number;
+    rank?: ZeroToFour | null;
+}
+
+interface MemberBreakdown {
+    actor: ActorPF2e;
+    heroPoints: ValueAndMax | null;
+    hasBulk: boolean;
+    bestSkills: SkillData[];
+    senses: { label: string | null; labelFull: string; acuity?: string }[];
+
+    /** If true, the current user is restricted from seeing meta details */
+    restricted: boolean;
+}
+
+interface LanguageSheetData {
+    slug: string;
+    label: string;
+    actors: ActorPF2e[];
 }
 
 export { PartySheetPF2e, PartySheetRenderOptions };

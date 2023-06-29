@@ -186,6 +186,7 @@ declare global {
         get(module: "pf2e", setting: "metagame_secretDamage"): boolean;
         get(module: "pf2e", setting: "metagame_showDC"): boolean;
         get(module: "pf2e", setting: "metagame_showResults"): boolean;
+        get(module: "pf2e", setting: "metagame_showPartyStats"): boolean;
         get(module: "pf2e", setting: "metagame_tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;

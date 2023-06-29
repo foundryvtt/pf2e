@@ -1,3 +1,4 @@
+import { resetActors } from "@actor/helpers.ts";
 import { SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
@@ -12,6 +13,16 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.ShowResults.Hint",
         default: true,
         type: Boolean,
+    },
+    showPartyStats: {
+        name: "PF2E.SETTINGS.Metagame.ShowPartyStats.Name",
+        hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
+        config: BUILD_MODE === "development" || game.actors.some((a) => a.isOfType("party")),
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.isOfType("party")));
+        },
     },
     tokenSetsNameVisibility: {
         name: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Name",
