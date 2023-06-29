@@ -115,7 +115,7 @@ interface ArmySystemSource extends ActorSystemSource {
         ammunition: {
             max: number;
             value: number;
-        }
+        };
     };
 
     traits: {

@@ -1,11 +1,9 @@
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ArmyPF2e } from "./document.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import {
-    htmlQueryAll,
-} from "@util";
+import { htmlQueryAll } from "@util";
 import { DicePF2e } from "@scripts/dice.ts";
-import { ChatMessagePF2e } from "@module/chat-message/document.ts"
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     protected readonly actorConfigClass = CONFIG;
@@ -95,13 +93,13 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         // This is definitely a bad way to do it, but it's also very easy
         for (const header of htmlQueryAll(html, "legend.compendium-items")) {
             header.addEventListener("click", () => {
-                const compendium = game.packs.get("pf2e.kingmaker-features")
-                if ( compendium ) {
-                    compendium.render(true)
+                const compendium = game.packs.get("pf2e.kingmaker-features");
+                if (compendium) {
+                    compendium.render(true);
                 } else {
                     ui.notifications.error("Compendium not found");
                 }
-            })
+            });
         }
 
         // Drink potions
@@ -142,18 +140,18 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
         const { attribute, strike } = link?.dataset ?? {};
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-        let title = "Title Not Found"
-        let bonus = 0
+        let title = "Title Not Found";
+        let bonus = 0;
         let parts = ["@bonus"];
         let data = {};
 
-        if ( strike === "melee" || strike === "ranged" ) {
+        if (strike === "melee" || strike === "ranged") {
             const proficiencybonus = this.actor.system.gear[strike].bonus;
             const potencybonus = this.actor.system.gear[strike].magic.bonus;
             data = { proficiencybonus, potencybonus };
             parts = ["@proficiencybonus", "@potencybonus"];
             title = this.actor.system.gear[strike].name || game.i18n.localize(`PF2E.Actor.Army.Strike${strike}`);
-        } else if ( attribute === "scouting" || attribute === "morale" || attribute === "maneuver" ) {
+        } else if (attribute === "scouting" || attribute === "morale" || attribute === "maneuver") {
             bonus = this.actor.system.attributes[attribute].bonus;
             title = game.i18n.localize(`PF2E.Actor.Army.Attr${attribute}`);
             data = { bonus };
@@ -172,14 +170,16 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     async #onClickInfo(link: HTMLElement): Promise<void> {
         const { gear } = link?.dataset ?? {};
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-        let name = "Title Not Found"
+        let name = "Title Not Found";
         let text = {};
 
-        if ( gear === "melee" || gear === "ranged" ) {
+        if (gear === "melee" || gear === "ranged") {
             name = this.actor.system.gear[gear].magic.rank;
             text = this.actor.system.gear[gear].magic.description;
-        } else if ( gear === "potions" ) {
-        } else if ( gear === "armor" ) {
+        } else if (gear === "potions") {
+            name = "name";
+        } else if (gear === "armor") {
+            name = "name";
         }
 
         await ChatMessagePF2e.create({
