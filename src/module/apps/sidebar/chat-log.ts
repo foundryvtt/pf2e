@@ -45,6 +45,17 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        this.activateClickListener(html);
+
+        html.addEventListener("dblclick", async (event): Promise<void> => {
+            const { message } = ChatLogPF2e.#messageFromEvent(event);
+            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            if (senderEl && message) return this.#onClickSender(message, event);
+        });
+    }
+
+    /** Separate public method so as to be accessible from renderChatPopout hook */
+    activateClickListener(html: HTMLElement): void {
         html.addEventListener("click", async (event): Promise<void> => {
             const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
 
@@ -88,12 +99,6 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     }
                 }
             }
-        });
-
-        html.addEventListener("dblclick", async (event): Promise<void> => {
-            const { message } = ChatLogPF2e.#messageFromEvent(event);
-            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
-            if (senderEl && message) return this.#onClickSender(message, event);
         });
     }
 
