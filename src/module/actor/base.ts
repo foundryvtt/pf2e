@@ -889,8 +889,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ? ("manipulate" as const)
                 : [],
         ].flat();
-        for (const adjustment of this.synthetics.strikeAdjustments) {
-            if (selfItem?.isOfType("weapon", "melee")) {
+
+        if (selfItem?.isOfType("weapon", "melee")) {
+            for (const adjustment of this.synthetics.strikeAdjustments) {
                 adjustment.adjustTraits?.(selfItem, traitSlugs);
             }
         }

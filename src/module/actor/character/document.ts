@@ -47,7 +47,7 @@ import {
 import { ActionTrait } from "@item/action/data.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
-import { getResilientBonus } from "@item/physical/runes.ts";
+import { getPropertyRuneStrikeAdjustments, getResilientBonus } from "@item/physical/runes.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
@@ -1186,7 +1186,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const ammos = options.ammos ?? [];
 
         // Apply strike adjustments affecting the weapon
-        for (const adjustment of synthetics.strikeAdjustments) {
+        const strikeAdjustments = [
+            synthetics.strikeAdjustments,
+            getPropertyRuneStrikeAdjustments(weapon.system.runes.property),
+        ].flat();
+        for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
         const weaponRollOptions = weapon.getRollOptions("item");
