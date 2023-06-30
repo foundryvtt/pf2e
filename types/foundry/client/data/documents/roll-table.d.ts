@@ -126,7 +126,7 @@ declare global {
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        protected override _onCreateEmbeddedDocuments(
+        protected override _onCreateDescendantDocuments(
             embeddedName: "TableResult",
             documents: TableResult<this>[],
             result: TableResult<this>["_source"][],
@@ -134,7 +134,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onDeleteEmbeddedDocuments(
+        protected override _onDeleteDescendantDocuments(
             embeddedName: "TableResult",
             documents: TableResult<this>[],
             result: string[],
