@@ -516,7 +516,7 @@ export const PF2ECONFIG = {
         bomb: "PF2E.WeaponDescriptionBomb",
     },
 
-    usageTraits: {
+    usages: {
         "affixed-to-a-creature": "PF2E.TraitAffixedToCreature",
         "affixed-to-a-magical-staff": "PF2E.TraitAffixedToMagicalStaff",
         "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
