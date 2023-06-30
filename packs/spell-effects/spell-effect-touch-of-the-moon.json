@@ -1,0 +1,104 @@
+{
+    "_id": "3hDKcbhn0j6DsRgm",
+    "img": "systems/pf2e/icons/spells/touch-of-the-moon.webp",
+    "name": "Spell Effect: Touch of the Moon",
+    "system": {
+        "badge": {
+            "labels": [
+                "New",
+                "Waxing",
+                "Full",
+                "Waning"
+            ],
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of the Moon]</em></p>\n<p>The target glows with dim light in a 20-foot radius. It also gets a benefit based on a phase of the moon, starting with the new moon and changing to the next phase at the end of each of its turns.</p>\n<ul>\n<li><strong>New Moon</strong> The target receives no benefit.</li>\n<li><strong>Waxing Moon</strong> The target gains a +1 status bonus to attack rolls and a +4 status bonus to damage rolls.</li>\n<li><strong>Full Moon</strong> The target gains a +1 status bonus to attack rolls, AC, and saves, and a +4 status bonus to damage.</li>\n<li><strong>Waning Moon</strong> The target gains a +1 status bonus to AC and saving throws. After this phase, return to the new moon.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 1,
+                        "type": "pulse"
+                    },
+                    "color": "#343434",
+                    "dim": 20,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:touch-of-the-moon:2",
+                            "self:effect:touch-of-the-moon:3"
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:touch-of-the-moon:2",
+                            "self:effect:touch-of-the-moon:3"
+                        ]
+                    }
+                ],
+                "selector": "damage",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:touch-of-the-moon:3",
+                            "self:effect:touch-of-the-moon:4"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
