@@ -15,6 +15,7 @@ const materialDamageEffects = pick(preciousMaterials, [
     "cold-iron",
     "darkwood",
     "djezet",
+    "keep-stone",
     "mithral",
     "noqual",
     "orichalcum",

@@ -119,6 +119,8 @@ abstract class IWRData<TType extends IWRType> {
 
                 if (objectHasKey(CONFIG.PF2E.materialDamageEffects, iwrType)) {
                     switch (iwrType) {
+                        case "adamantine":
+                            return [{ or: ["damage:material:adamantine", "damage:material:keep-stone"] }];
                         case "cold-iron":
                             return [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }];
                         case "darkwood":
