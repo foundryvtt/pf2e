@@ -472,7 +472,7 @@ export class ObjectField<
 
     override initialize(
         value: unknown,
-        model?: ConstructorOf<DataModel>,
+        model?: ConstructorOf<abstract.DataModel>,
         options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 

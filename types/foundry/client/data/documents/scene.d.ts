@@ -77,21 +77,21 @@ declare global {
          */
         protected _onActivate(active: boolean): Promise<this>;
 
-        protected override _preCreateEmbeddedDocuments(
+        protected override _preCreateDescendantDocuments(
             embeddedName: "Token",
             result: foundry.documents.TokenSource[],
             options: SceneEmbeddedModificationContext<this>,
             userId: string
         ): void;
 
-        protected override _onCreateEmbeddedDocuments(
+        protected override _onCreateDescendantDocuments(
             embeddedName: "Token",
             documents: TokenDocument<this>[],
             result: foundry.documents.TokenSource[],
             options: SceneEmbeddedModificationContext<this>,
             userId: string
         ): void;
-        protected override _onCreateEmbeddedDocuments(
+        protected override _onCreateDescendantDocuments(
             embeddedName: string,
             documents: foundry.abstract.Document<this>[],
             result: object[],
@@ -99,14 +99,14 @@ declare global {
             userId: string
         ): void;
 
-        protected override _preUpdateEmbeddedDocuments(
+        protected override _preUpdateDescendantDocuments(
             embeddedName: "Token",
             result: TokenDocument<this>["_source"][],
             options: SceneEmbeddedModificationContext<this>,
             userId: string
         ): void;
 
-        protected override _onUpdateEmbeddedDocuments(
+        protected override _onUpdateDescendantDocuments(
             embeddedName: "Token",
             documents: TokenDocument<this>[],
             result: TokenDocument<this>["_source"][],
@@ -114,21 +114,21 @@ declare global {
             userId: string
         ): void;
 
-        protected override _preDeleteEmbeddedDocuments(
+        protected override _preDeleteDescendantDocuments(
             embeddedName: "Token",
             result: string[],
             options: SceneEmbeddedModificationContext<this>,
             userId: string
         ): void;
 
-        protected override _onDeleteEmbeddedDocuments(
+        protected override _onDeleteDescendantDocuments(
             embeddedName: "Token",
             documents: TokenDocument<this>[],
             result: string[],
             options: SceneEmbeddedModificationContext<this>,
             userId: string
         ): void;
-        protected override _onDeleteEmbeddedDocuments(
+        protected override _onDeleteDescendantDocuments(
             embeddedName: string,
             documents: foundry.abstract.Document<this>[],
             result: string[],

@@ -167,7 +167,7 @@ declare global {
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 
-        protected override _onCreateEmbeddedDocuments(
+        protected override _onCreateDescendantDocuments(
             type: "Combatant",
             documents: Combatant<this>[],
             result: Combatant<this>["_source"][],
@@ -175,7 +175,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onUpdateEmbeddedDocuments(
+        protected override _onUpdateDescendantDocuments(
             embeddedName: "Combatant",
             documents: Combatant<this>[],
             result: Combatant<this>["_source"][],
@@ -183,7 +183,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onDeleteEmbeddedDocuments(
+        protected override _onDeleteDescendantDocuments(
             embeddedName: "Combatant",
             documents: Combatant<this>[],
             result: string[],

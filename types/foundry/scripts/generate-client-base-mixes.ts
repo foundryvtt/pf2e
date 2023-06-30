@@ -170,7 +170,7 @@ const genClientBase = (
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -185,7 +185,7 @@ const genClientBase = (
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -200,7 +200,7 @@ const genClientBase = (
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -215,7 +215,7 @@ const genClientBase = (
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -230,7 +230,7 @@ const genClientBase = (
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -245,7 +245,7 @@ const genClientBase = (
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
