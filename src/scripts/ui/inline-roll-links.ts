@@ -142,13 +142,13 @@ export const InlineRollLinks = {
                             })();
 
                             const dc = Number.isInteger(dcValue) ? { label: pf2Label, value: dcValue } : null;
-                            // Retrieve the item if this is a saving throw (relevant for predicated abilities that
-                            // depend on the item involved in provoking the saving throw)
+                            // Retrieve the item if it is a spell and the check is a saving throw (for, e.g.,
+                            // incapacitation handling)
                             const item = (() => {
                                 if (!tupleHasValue(SAVE_TYPES, statistic.slug)) return null;
-                                return foundryDoc instanceof ItemPF2e
+                                return foundryDoc instanceof ItemPF2e && foundryDoc.isOfType("spell")
                                     ? foundryDoc
-                                    : foundryDoc instanceof ChatMessagePF2e
+                                    : foundryDoc instanceof ChatMessagePF2e && foundryDoc.item?.isOfType("spell")
                                     ? foundryDoc.item
                                     : null;
                             })();
