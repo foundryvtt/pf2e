@@ -367,10 +367,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
-        // Ignore hover events coming from `Application` windows
-        if (htmlClosest(event.nativeEvent?.target, ".window-app")) {
-            return false;
-        }
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
         this.auras.refresh();
