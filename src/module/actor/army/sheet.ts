@@ -41,21 +41,20 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             const action = Array.from(button.classList).find((c) => ["melee", "ranged", "potion", "armor", "ammunition"].includes(c));
             const piplistener = (event: MouseEvent) => {
                 // Identify the button
-                const [updatePath, pipCount, pipMax] = ((): [string, number, number] | [null, null] => {
-                    const { gear } = actor.system;
+                const [updatePath, pipCount, pipMax] = ((): [string, number, number] | [null, null, null] => {
                     switch (action) {
                         case "melee":
-                            return ["system.gear.melee.magic.bonus", gear.melee.magic.bonus, 3];
+                            return ["system.weapons.melee.", actor.system.weapons.melee.potency, 3];
                         case "ranged":
-                            return ["system.gear.ranged.magic.bonus", gear.ranged.magic.bonus, 3];
+                            return ["system.weapons.ranged.potency", actor.system.weapons.ranged.potency, 3];
                         case "armor":
-                            return ["system.gear.armor.magic.bonus", gear.armor.magic.bonus, 3];
+                            return ["system.attributes.ac.potency", actor.system.attributes.ac.potency, 3];
                         case "potion":
-                            return ["system.gear.potions.unlocked", gear.potions.unlocked, 3];
+                            return ["system.attributes.hp.potions", actor.system.attributes.hp.potions, 3];
                         case "ammunition":
-                            return ["system.gear.ammunition.value", gear.ammunition.value, gear.ammunition.max];
+                            return ["system.system.weapons.ammunition.value", actor.system.weapons.ammunition.value, actor.system.weapons.ammunition.max];
                         default:
-                            return [null, null];
+                            return [null, null, null];
                     }
                 })();
 
@@ -78,13 +77,13 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 if (buttonclass.includes("melee")) {
                     // If it's melee,
                     console.log("Toggling melee");
-                    const property = actor.system.gear.melee.unlocked; // Then find the lock status
-                    actor.update({ "system.gear.melee.unlocked": !property }); // And invert it
+                    const property = actor.system.weapons.melee.unlocked; // Then find the lock status
+                    actor.update({ "system.weapons.melee.unlocked": !property }); // And invert it
                 }
                 if (buttonclass.includes("ranged")) {
                     console.log("Toggling ranged");
-                    const property = actor.system.gear.ranged.unlocked;
-                    actor.update({ "system.gear.ranged.unlocked": !property });
+                    const property = actor.system.weapons.ranged.unlocked;
+                    actor.update({ "system.weapons.ranged.unlocked": !property });
                 }
                 return;
             });
@@ -106,7 +105,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         for (const button of htmlQueryAll(html, "button.usepotion")) {
             button.addEventListener("click", () => {
                 const { hitPoints } = actor;
-                const currentPotions = actor.system.gear.potions.unlocked;
+                const currentPotions = actor.system.attributes.hp.potions;
                 if (currentPotions < 1) {
                     ui.notifications.warn("No potions!");
                 } else if (hitPoints.value === hitPoints.max) {
@@ -114,9 +113,17 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 } else {
                     actor.update({
                         "system.attributes.hp.value": hitPoints.value + 1,
-                        "system.gear.potions.unlocked": currentPotions - 1,
+                        "system.attributes.hp.potions": currentPotions - 1,
                     });
                 }
+            });
+        }
+
+        // All roll buttons
+        const rollables = [".rollable"].join(", ");
+        for (const rollable of htmlQueryAll(html, rollables)) {
+            rollable.addEventListener("click", (event) => {
+                this.#onClickRollable(rollable, event);
             });
         }
 
@@ -127,16 +134,15 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             });
         }
 
-        // Listens to all roll buttons
-        const rollables = [".rollable"].join(", ");
-        for (const rollable of htmlQueryAll(html, rollables)) {
-            rollable.addEventListener("click", (event) => {
-                this.#onClickRollable(rollable, event);
+        // Generate Stats Button
+        for (const button of htmlQueryAll(html, "button.generate-stats")) {
+            button.addEventListener("click", () => {
+                this.#GenerateStatsPopup();
             });
         }
     }
 
-    // Function that handles all checks and rolls
+    // This is the function that handles all checks and rolls
     async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
         const { attribute, strike } = link?.dataset ?? {};
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
@@ -146,11 +152,11 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         let data = {};
 
         if (strike === "melee" || strike === "ranged") {
-            const proficiencybonus = this.actor.system.gear[strike].bonus;
-            const potencybonus = this.actor.system.gear[strike].magic.bonus;
+            const proficiencybonus = this.actor.system.weapons.bonus;
+            const potencybonus = this.actor.system.weapons[strike].potency;
             data = { proficiencybonus, potencybonus };
             parts = ["@proficiencybonus", "@potencybonus"];
-            title = this.actor.system.gear[strike].name || game.i18n.localize(`PF2E.Actor.Army.Strike${strike}`);
+            title = this.actor.system.weapons[strike].name || game.i18n.localize(`PF2E.Actor.Army.Strike${strike}`);
         } else if (attribute === "scouting" || attribute === "morale" || attribute === "maneuver") {
             bonus = this.actor.system.attributes[attribute].bonus;
             title = game.i18n.localize(`PF2E.Actor.Army.Attr${attribute}`);
@@ -166,26 +172,122 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         });
     }
 
-    // Function that creates the chat cards for the embedded gear data (not finished)
+    // The "Info" buttons call a function that creates chat cards for the embedded gear data (not finished, at the very least all this data needs moving to the en.json file)
     async #onClickInfo(link: HTMLElement): Promise<void> {
-        const { gear } = link?.dataset ?? {};
+        const { info } = link?.dataset ?? {};
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-        let name = "Title Not Found";
-        let text = {};
+        let bonus = 0;
+        let traits = "";
+        let description = "";
+        let name = [""];
+        let level = [0];
+        let price = [0];
 
-        if (gear === "melee" || gear === "ranged") {
-            name = this.actor.system.gear[gear].magic.rank;
-            text = this.actor.system.gear[gear].magic.description;
-        } else if (gear === "potions") {
-            name = "name";
-        } else if (gear === "armor") {
-            name = "name";
+        if (info === "melee" || info === "ranged") {
+            bonus =  this.actor.system.weapons[info].potency;
+            name = ["Mundane Weapons", "Magic Weapons", "Greater Magic Weapons", "Major Magic Weapons"];
+            traits = "Army, Evocation, Magical";
+            description = "The army's weapons are magic. If the army has melee and ranged weapons, choose which one is made magic when this gear is purchased. You can buy this gear twice—once for melee weapons and once for ranged weapons. If you purchase a more powerful version, it replaces the previous version, and the RP cost of the more powerful version is reduced by the RP cost of the replaced weapons.";
+            level = [0, 2, 10, 16];
+            price = [0, 20, 40, 60];
+        } else if (info === "potions") {
+            bonus = 0;
+            name = ["Healing Potions"];
+            traits = "Army, Consumable, Healing, Magical, Necromancy, Potion";
+            description = "An army equipped with healing potions (these rules are the same if you instead supply the army with alchemical healing elixirs) can use a single dose as part of any Maneuver action. When an army uses a dose of healing potions, it regains 1 HP. An army can be outfitted with up to 3 doses of healing potions at a time; unlike ranged Strike shots, healing potion doses do not automatically replenish after a war encounter—new doses must be purchased.";
+            price = [15];
+        } else if (info === "armor") {
+            bonus =  this.actor.system.attributes.ac.potency;
+            name = ["Mundane Armor", "Magic Armor", "Greater Magic Armor", "Major Magic Armor"];
+            traits = "Abjuration, Army, Magical";
+            description = "Magic armor is magically enchanted to bolster the protection it affords to the soldiers.";
+            level = [0, 5, 11, 18];
+            price = [0, 25, 50, 75];
         }
 
+        let content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/>" + "<p>Level: " + level[bonus] + "</p><p>Price: " + price[bonus] + " RP</p>" ;
+
         await ChatMessagePF2e.create({
+            content,
             speaker,
         });
-    }
+    };
+
+    // This function is used for creating new armies- it just grabs the "default" values for the army's level
+    async #GenerateStatsPopup(): Promise<void> {
+        const actor = this.actor
+        // Create the input dialogue
+        let d = new Dialog({
+            title: "Army Stat Generator",
+            content: `
+            <html>
+                <head><style>
+                    input#level { width: 3rem; }
+                    fieldset {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    div.dialog-buttons { padding-top: 0.5rem; }
+                </style></head>
+                <body><form>
+                    <p>Generates stats for armies using the default values as defined in the Warfare rules. New statistics will be dependent on the level. Can be used for creating new armies or for leveling up existing ones. Gear, tactics, actions, and traits will not be replaced.</p>
+                    <p><strong>Warning: The old statistics will be permanently overwritten.</strong></p>
+                    <fieldset><legend>Parameters:</legend>
+                        <label for="level">Level: <input required="true" autofocus="true" type="number" id="level" name="level"/></label>
+                        <label for="save">Strong save: <select id="save">
+                            <option selected="true" value="maneuver">Maneuver</option>
+                            <option value="morale">Morale</option>
+                        </select></label>
+                    </fieldset>
+                </form></body>
+            </html>
+            `,
+            buttons: {
+                generate: {
+                    label: "Generate Stats",
+                    callback: (html) => generate(html),
+                    icon: `<i class="fas fa-cog"></i>`
+                    },
+                cancel: {
+                    label: "Cancel",
+                    callback: close,
+                    icon: `<i class="fas fa-times"></i>`
+                }
+            },
+            default: "cancel",
+            render: () => console.log("Rendered"),
+            close: () => console.log("Closed")
+        });
+        d.render(true);        
+        
+        async function generate(html: JQuery<HTMLElement>) {
+            // Record results of user selection
+            let newLevel = Number(html.find("#level").val());
+            let chosenSave = String(html.find("#save").val());
+            let strongsave = ((chosenSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
+            let weaksave = ((chosenSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
+            console.log(newLevel, chosenSave)
+            // Create object containing arrays of default values
+            const StatisticArrays = {
+                "system.attributes.scouting.bonus" : [0, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33],
+                "system.attributes.standardDC" : [0, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27, 28, 30, 31, 32, 34, 35, 36, 38, 39, 40],
+                "system.attributes.ac.value" : [0, 16, 18, 19, 21, 22, 24, 25, 27, 28, 30, 31, 33, 34, 36, 37, 39, 40, 42, 43, 45],
+                [strongsave] : [0, 10, 11, 12, 14, 15, 17, 18, 19, 21, 22, 24, 25, 26, 28, 29, 30, 32, 33, 35, 36],
+                [weaksave] : [0, 4, 5, 6, 8, 9, 11, 12, 13, 15, 16, 18, 19, 20, 22, 23, 25, 26, 27, 29, 30],
+                "system.weapons.bonus" : [0, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33, 35, 36, 38],
+                "system.attributes.maxTactics" : [0, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6],
+            };
+            // Update level directly
+            console.log("Updating level to ", newLevel)
+            await actor.update({"system.details.level.value" : newLevel});
+            // For each array, assign that stat to the relevant statistic
+            for (const statistic of Object.keys(StatisticArrays)) {
+                let newStatisticValue = StatisticArrays[statistic];
+                console.log("Actor statistic ", statistic, " updating to ", newStatisticValue[newLevel])
+                await actor.update({[statistic] : newStatisticValue[newLevel]});
+            };
+        };
+    };
 }
 
 interface ArmySheetDataPF2e<TActor extends ArmyPF2e> extends ActorSheetDataPF2e<TActor> {}
