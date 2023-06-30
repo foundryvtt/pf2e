@@ -1832,21 +1832,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
+        super._onEmbeddedDocumentChange(embeddedName);
+
         // Send any accrued warnings to the console
         this.synthetics.preparationWarnings.flush();
-
-        if (this.isToken) {
-            return super._onEmbeddedDocumentChange(embeddedName);
-        } else if (game.combat?.getCombatantByActor(this.id)) {
-            // Needs to be done since `super._onEmbeddedDocumentChange` isn't called
-            ui.combat.render();
-        }
-
-        // For linked tokens, replace parent method with alternative workflow to control canvas re-rendering
-        const tokenDocs = this.getActiveTokens(true, true);
-        for (const tokenDoc of tokenDocs) {
-            tokenDoc.onActorEmbeddedItemChange();
-        }
     }
 }
 

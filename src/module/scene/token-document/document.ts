@@ -422,15 +422,45 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     /** Reinitialize vision if the actor's senses were updated directly */
-    override _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void {
-        super._onUpdateBaseActor(update, options);
-        if (!this.isLinked) return;
+    protected override _onRelatedUpdate(
+        update: Record<string, unknown> = {},
+        options: DocumentModificationContext<null> = {}
+    ): void {
+        super._onRelatedUpdate(update, options);
+        if (!this.isLinked || !this.rendered || !this.visible) return;
 
-        if (Object.keys(flattenObject(update ?? {})).some((k) => k.startsWith("system.traits.senses"))) {
+        if (Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"))) {
             this.reset();
             if (canvas.effects.visionSources.some((s) => s.object === this.object)) {
                 canvas.perception.update({ initializeVision: true }, true);
             }
+            return;
+        }
+
+        // Only direct actor changes include the actual change data: what follows is for embedded item changes
+        if (Object.keys(update).length > 0) return;
+
+        const preUpdate = this.toObject(false);
+        const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+        this.reset();
+        const postUpdate = this.toObject(false);
+        const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+        const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+
+        // Assess the full diff using `diffObject`: additions, removals, and changes
+        const aurasChanged = ((): boolean => {
+            const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
+            const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
+            return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
+        })();
+        if (aurasChanged) changes.effects = []; // Nudge upstream to redraw effects
+
+        if (Object.keys(changes).length > 0) {
+            this._onUpdate(changes, {}, game.user.id);
+        }
+
+        if (aurasChanged || "width" in changes || "height" in changes) {
+            this.scene?.checkAuras();
         }
     }
 
@@ -447,40 +477,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 game.pf2e.effectTracker.unregister(effect);
             }
         }
-    }
-
-    /** Re-render token placeable if REs have ephemerally changed any visuals of this token */
-    onActorEmbeddedItemChange(): void {
-        if (!(this.isLinked && this.rendered && this.object?.visible)) return;
-
-        this.object.drawEffects().then(() => {
-            const preUpdate = this.toObject(false);
-            const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
-            this.reset();
-            const postUpdate = this.toObject(false);
-            const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
-            const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-
-            // Assess the full diff using `diffObject`: additions, removals, and changes
-            const aurasChanged = ((): boolean => {
-                const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
-                const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
-                return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
-            })();
-            if (aurasChanged) changes.effects = []; // Nudge upstream to redraw effects
-
-            if (Object.keys(changes).length > 0) {
-                this._onUpdate(changes, {}, game.user.id);
-            }
-
-            if (aurasChanged || "width" in changes || "height" in changes) {
-                this.scene?.checkAuras();
-            }
-
-            // Update combat tracker with changed effects
-            if (this.combatant?.parent.active) ui.combat.render();
-        });
-        this.object?.drawBars();
     }
 }
 
