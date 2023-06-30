@@ -1078,6 +1078,9 @@ class CompendiumBrowser extends Application {
                 uuid: item.dataset.entryUuid,
             })
         );
+        // awful hack (dataTransfer.types will include "from-browser")
+        event.dataTransfer.setData("from-browser", "true");
+
         item.addEventListener(
             "dragend",
             () => {
@@ -1093,7 +1096,9 @@ class CompendiumBrowser extends Application {
 
     protected override _onDragOver(event: ElementDragEvent): void {
         super._onDragOver(event);
-        this.element.css({ pointerEvents: "none" });
+        if (event.dataTransfer.types.includes("from-browser")) {
+            this.element.css({ pointerEvents: "none" });
+        }
     }
 
     override getData(): {
