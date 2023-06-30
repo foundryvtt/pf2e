@@ -61,13 +61,17 @@ form.army-sheet {
         }
         // Rows with buttons
         &.buttons {
+          &>* {
+            flex: 1 1 25%;
+          }
           label {
-            width: unset;
+            justify-content: center;
           }
         }
       }
       //Headers and labels
       label {
+        justify-content: space-between;
         font-size: 0.8rem;
         height: 20px;
         line-height: 20px;
@@ -231,6 +235,13 @@ form.army-sheet {
           align-items: center;
           line-height: 1.5rem;
           &:nth-child(odd) { background: rgba(180, 175, 175, 0.25); }
+          &.expanded {
+            flex-wrap: wrap;
+            .tags {
+              line-height: 1rem;
+              padding: 0.5rem 0 0 0;
+            }
+          }
           .item-icon {
             border-radius: 6px;
             border: none;
@@ -313,6 +324,11 @@ form.army-sheet {
     label, i {
       margin: auto;
     }
+    &.sheet-settings button {
+      font-size: 1rem;
+      width: 3rem;
+      margin: 0;
+    }
     &.pips {
       width: 3.5rem;
       height: 24px;
@@ -385,8 +401,8 @@ form.army-sheet {
 
   .flex {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: baseline;
     width: 100%;
     label {
       min-width: 50%;
