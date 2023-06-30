@@ -64,7 +64,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             frequencies: CONFIG.PF2E.frequencies,
             sizes: CONFIG.PF2E.actorSizes,
             stackGroups: CONFIG.PF2E.stackGroups,
-            usage: CONFIG.PF2E.usageTraits,
+            usages: CONFIG.PF2E.usages,
             isPhysical: true,
             activations,
             // Do not let user set bulk if in a stack group because the group determines bulk
@@ -234,7 +234,7 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
     sizes: ConfigPF2e["PF2E"]["actorSizes"];
     stackGroups: ConfigPF2e["PF2E"]["stackGroups"];
-    usage: ConfigPF2e["PF2E"]["usageTraits"];
+    usages: ConfigPF2e["PF2E"]["usages"];
     bulkDisabled: boolean;
     activations: {
         action: ItemActivation;
