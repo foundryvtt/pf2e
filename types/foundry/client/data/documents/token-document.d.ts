@@ -110,8 +110,12 @@ declare global {
             userId: string
         ): void;
 
-        /** When the base Actor for a TokenDocument changes, we may need to update its Actor instance */
-        _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
+        /**
+         * Whenever the token's actor delta changes, or the base actor changes, perform associated refreshes.
+         * @param [update]  The update delta.
+         * @param [options] The options provided to the update.
+         */
+        protected _onRelatedUpdate(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
 
         /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
         static getTrackedAttributes(data?: object, _path?: string[]): TrackedAttributesDescription;

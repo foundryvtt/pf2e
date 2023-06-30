@@ -21,6 +21,10 @@ export const CanvasReady = {
                 if (game.ready) canvas.scene.reset();
                 // Accomodate hex grid play with a usable default cone angle
                 CONFIG.MeasuredTemplate.defaults.angle = canvas.scene.hasHexGrid ? 60 : 90;
+
+                for (const token of canvas.tokens.placeables.filter((t) => t.visible)) {
+                    token.renderFlags.set({ redrawEffects: true });
+                }
             }
         });
     },
