@@ -184,7 +184,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         let price = [0];
 
         if (info === "melee" || info === "ranged") {
-            bonus =  this.actor.system.weapons[info].potency;
+            bonus = this.actor.system.weapons[info].potency;
             name = ["Mundane Weapons", "Magic Weapons", "Greater Magic Weapons", "Major Magic Weapons"];
             traits = "Army, Evocation, Magical";
             description = "The army's weapons are magic. If the army has melee and ranged weapons, choose which one is made magic when this gear is purchased. You can buy this gear twice—once for melee weapons and once for ranged weapons. If you purchase a more powerful version, it replaces the previous version, and the RP cost of the more powerful version is reduced by the RP cost of the replaced weapons.";
@@ -197,7 +197,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             description = "An army equipped with healing potions (these rules are the same if you instead supply the army with alchemical healing elixirs) can use a single dose as part of any Maneuver action. When an army uses a dose of healing potions, it regains 1 HP. An army can be outfitted with up to 3 doses of healing potions at a time; unlike ranged Strike shots, healing potion doses do not automatically replenish after a war encounter—new doses must be purchased.";
             price = [15];
         } else if (info === "armor") {
-            bonus =  this.actor.system.attributes.ac.potency;
+            bonus = this.actor.system.attributes.ac.potency;
             name = ["Mundane Armor", "Magic Armor", "Greater Magic Armor", "Major Magic Armor"];
             traits = "Abjuration, Army, Magical";
             description = "Magic armor is magically enchanted to bolster the protection it affords to the soldiers.";
@@ -205,19 +205,19 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             price = [0, 25, 50, 75];
         }
 
-        let content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/>" + "<p>Level: " + level[bonus] + "</p><p>Price: " + price[bonus] + " RP</p>" ;
+        const content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/>" + "<p>Level: " + level[bonus] + "</p><p>Price: " + price[bonus] + " RP</p>" ;
 
         await ChatMessagePF2e.create({
             content,
             speaker,
         });
-    };
+    }
 
     // This function is used for creating new armies- it just grabs the "default" values for the army's level
     async #GenerateStatsPopup(): Promise<void> {
-        const actor = this.actor
+        const actor = this.actor; // Should I just move this to the top and use it everywhere
         // Create the input dialogue
-        let d = new Dialog({
+        const d = new Dialog({
             title: "Army Stat Generator",
             content: `
             <html>
@@ -246,27 +246,27 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 generate: {
                     label: "Generate Stats",
                     callback: (html) => generate(html),
-                    icon: `<i class="fas fa-cog"></i>`
-                    },
+                    icon: `<i class="fas fa-cog"></i>`,
+                },
                 cancel: {
                     label: "Cancel",
                     callback: close,
-                    icon: `<i class="fas fa-times"></i>`
-                }
+                    icon: `<i class="fas fa-times"></i>`,
+                },
             },
             default: "cancel",
             render: () => console.log("Rendered"),
-            close: () => console.log("Closed")
+            close: () => console.log("Closed"),
         });
-        d.render(true);        
-        
+        d.render(true);
+
         async function generate(html: JQuery<HTMLElement>) {
             // Record results of user selection
-            let newLevel = Number(html.find("#level").val());
-            let chosenSave = String(html.find("#save").val());
-            let strongsave = ((chosenSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
-            let weaksave = ((chosenSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
-            console.log(newLevel, chosenSave)
+            const newLevel = Number(html.find("#level").val());
+            const chosenSave = String(html.find("#save").val());
+            const strongsave = ((chosenSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
+            const weaksave = ((chosenSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
+            console.log(newLevel, chosenSave);
             // Create object containing arrays of default values
             const StatisticArrays = {
                 "system.attributes.scouting.bonus" : [0, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33],
@@ -278,16 +278,16 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 "system.attributes.maxTactics" : [0, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6],
             };
             // Update level directly
-            console.log("Updating level to ", newLevel)
-            await actor.update({"system.details.level.value" : newLevel});
+            console.log("Updating level to ", newLevel);
+            await actor.update({"system.details.level.value": newLevel});
             // For each array, assign that stat to the relevant statistic
             for (const statistic of Object.keys(StatisticArrays)) {
                 let newStatisticValue = StatisticArrays[statistic];
-                console.log("Actor statistic ", statistic, " updating to ", newStatisticValue[newLevel])
+                console.log("Actor statistic ", statistic, " updating to ", newStatisticValue[newLevel]);
                 await actor.update({[statistic] : newStatisticValue[newLevel]});
-            };
-        };
-    };
+            }
+        }
+    }
 }
 
 interface ArmySheetDataPF2e<TActor extends ArmyPF2e> extends ActorSheetDataPF2e<TActor> {}

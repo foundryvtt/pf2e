@@ -68,12 +68,12 @@ interface ArmySystemSource extends ActorSystemSource {
         ranged: {
             name: string;
             unlocked: boolean;
-            potency : number;
+            potency: number;
         };
         melee: {
             name: string;
             unlocked: boolean;
-            potency : number;
+            potency: number;
         };
         ammunition: {
             value: number;
