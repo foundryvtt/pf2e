@@ -40,7 +40,8 @@ function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
 function getUsageDetails(usage: string): UsageDetails {
     switch (usage) {
         case "carried":
-            return { value: usage, type: usage };
+        case "":
+            return { value: "carried", type: "carried" };
 
         case "held-in-one-hand":
         case "held-in-one-plus-hands":
