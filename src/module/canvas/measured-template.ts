@@ -30,7 +30,7 @@ class MeasuredTemplatePF2e<
         }
 
         highlightGrid({
-            type: this.type === "circle" ? "burst" : "cone",
+            areaType: this.type === "circle" ? "burst" : "cone",
             object: this,
             document: this.document,
             colors: { border: this.borderColor, fill: this.fillColor },
