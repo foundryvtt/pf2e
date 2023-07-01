@@ -23,7 +23,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...options,
             classes: [...options.classes, "party"],
             width: 720,
-            height: 580,
+            height: 600,
             template: "systems/pf2e/templates/actors/party/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
@@ -66,6 +66,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .map((actor) => actor.inventory.bulk.value)
                     .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
             },
+            explorationSummary: {
+                speed: this.actor.system.attributes.speed.value,
+                activities:
+                    Object.entries(CONFIG.PF2E.hexplorationActivities).find(
+                        ([max]) => Number(max) >= this.actor.system.attributes.speed.value
+                    )?.[1] ?? 0,
+            },
+            explorationMembers: this.#prepareExploration(),
             languages: this.#prepareLanguages(),
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };
@@ -131,6 +139,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 })
             )
             .sort(sortBy((l) => l.label));
+    }
+
+    #prepareExploration(): MemberExploration[] {
+        const characters = this.actor.members.filter((m) => m.isOfType("character"));
+        return characters.map((actor): MemberExploration => {
+            return {
+                actor,
+                activities: [],
+            };
+        });
     }
 
     #getActorsThatUnderstand(slug: Language) {
@@ -276,6 +294,11 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
         totalWealth: number;
         totalBulk: Bulk;
     };
+    explorationSummary: {
+        speed: number;
+        activities: number;
+    };
+    explorationMembers: MemberExploration[];
     /** Unsupported items on the sheet, may occur due to disabled campaign data */
     orphaned: ItemPF2e[];
 }
@@ -296,6 +319,11 @@ interface MemberBreakdown {
 
     /** If true, the current user is restricted from seeing meta details */
     restricted: boolean;
+}
+
+interface MemberExploration {
+    actor: ActorPF2e;
+    activities: { img: string; name: string; traits: string[] }[];
 }
 
 interface LanguageSheetData {

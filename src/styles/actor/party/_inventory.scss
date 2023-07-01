@@ -1,25 +1,5 @@
 .inventory-members {
-    display: flex;
-    color: var(--alt-dark);
-    flex-direction: column;
-    font-family: var(--sans-serif);
-    padding: 0;
-    margin: 0;
-    gap: 0.5rem;
-
     .box {
-        .summary-data {
-            & > div {
-                align-items: center;
-                display: flex;
-                margin: 0.5rem 0.25rem 0.5rem 0.5rem;
-                label {
-                    flex: 1;
-                    font-weight: 600;
-                }
-            }
-        }
-
         .actor-link {
             align-items: center;
             display: grid;
@@ -31,22 +11,23 @@
             overflow: hidden;
 
             img {
-                border: none;
                 grid-area: image;
-                width: 2rem;
-                height: 2rem;
                 margin-right: 0.4rem;
-                object-fit: contain;
             }
             .name {
                 grid-area: name;
-                font-weight: 700;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
             }
             .value {
                 grid-area: value;
+            }
+        }
+
+        footer {
+            align-items: center;
+            display: flex;
+            gap: 0.25rem;
+            i {
+                font-size: 0.8em;
             }
         }
 

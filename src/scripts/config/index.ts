@@ -1149,6 +1149,15 @@ export const PF2ECONFIG = {
         CE: { yearOffset: 0 },
     }),
 
+    /** Max speed for number of hexploration activities */
+    hexplorationActivities: {
+        10: 0.5,
+        25: 1,
+        40: 2,
+        55: 3,
+        Infinity: 4,
+    },
+
     runes: {
         weapon: {
             property: { ...WEAPON_PROPERTY_RUNES },
