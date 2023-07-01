@@ -3,6 +3,7 @@ import { ArmyPF2e } from "./document.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { htmlQueryAll } from "@util";
 import { DicePF2e } from "@scripts/dice.ts";
+import { ARMY_STATS } from "./values.ts"; 
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
@@ -44,7 +45,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 const [updatePath, pipCount, pipMax] = ((): [string, number, number] | [null, null, null] => {
                     switch (action) {
                         case "melee":
-                            return ["system.weapons.melee.", actor.system.weapons.melee.potency, 3];
+                            return ["system.weapons.melee.potency", actor.system.weapons.melee.potency, 3];
                         case "ranged":
                             return ["system.weapons.ranged.potency", actor.system.weapons.ranged.potency, 3];
                         case "armor":
@@ -52,7 +53,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                         case "potion":
                             return ["system.attributes.hp.potions", actor.system.attributes.hp.potions, 3];
                         case "ammunition":
-                            return ["system.system.weapons.ammunition.value", actor.system.weapons.ammunition.value, actor.system.weapons.ammunition.max];
+                            return ["system.weapons.ammunition.value", actor.system.weapons.ammunition.value, actor.system.weapons.ammunition.max];
                         default:
                             return [null, null, null];
                     }
@@ -69,16 +70,13 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
         // Lock/unlock weapons
         for (const button of htmlQueryAll(html, "button.unlock")) {
-            // Then for each one
             button.addEventListener("click", () => {
-                // When they click
-                const buttonclass = button.className; // Find the type of button
+                const buttonclass = button.className;
                 console.log(buttonclass);
                 if (buttonclass.includes("melee")) {
-                    // If it's melee,
                     console.log("Toggling melee");
-                    const property = actor.system.weapons.melee.unlocked; // Then find the lock status
-                    actor.update({ "system.weapons.melee.unlocked": !property }); // And invert it
+                    const property = actor.system.weapons.melee.unlocked;
+                    actor.update({ "system.weapons.melee.unlocked": !property });
                 }
                 if (buttonclass.includes("ranged")) {
                     console.log("Toggling ranged");
@@ -120,8 +118,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         }
 
         // All roll buttons
-        const rollables = [".rollable"].join(", ");
-        for (const rollable of htmlQueryAll(html, rollables)) {
+        for (const rollable of htmlQueryAll(html, ".rollable")) {
             rollable.addEventListener("click", (event) => {
                 this.#onClickRollable(rollable, event);
             });
@@ -172,7 +169,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         });
     }
 
-    // The "Info" buttons call a function that creates chat cards for the embedded gear data (not finished, at the very least all this data needs moving to the en.json file)
+    // The "Info" buttons call a function that creates chat cards for the embedded gear data (not finished, at the very least all this data needs moving to the values.ts or en.json files)
     async #onClickInfo(link: HTMLElement): Promise<void> {
         const { info } = link?.dataset ?? {};
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
@@ -264,28 +261,21 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             // Record results of user selection
             const newLevel = Number(html.find("#level").val());
             const chosenSave = String(html.find("#save").val());
-            const strongsave = ((chosenSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
-            const weaksave = ((chosenSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
+            const strongSave = ((chosenSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
+            const weakSave = ((chosenSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
             console.log(newLevel, chosenSave);
-            // Create object containing arrays of default values
-            const StatisticArrays = {
-                "system.attributes.scouting.bonus" : [0, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33],
-                "system.attributes.standardDC" : [0, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27, 28, 30, 31, 32, 34, 35, 36, 38, 39, 40],
-                "system.attributes.ac.value" : [0, 16, 18, 19, 21, 22, 24, 25, 27, 28, 30, 31, 33, 34, 36, 37, 39, 40, 42, 43, 45],
-                [strongsave] : [0, 10, 11, 12, 14, 15, 17, 18, 19, 21, 22, 24, 25, 26, 28, 29, 30, 32, 33, 35, 36],
-                [weaksave] : [0, 4, 5, 6, 8, 9, 11, 12, 13, 15, 16, 18, 19, 20, 22, 23, 25, 26, 27, 29, 30],
-                "system.weapons.bonus" : [0, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33, 35, 36, 38],
-                "system.attributes.maxTactics" : [0, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6],
+            // Update stats with default values
+            const newStatistics = {
+                "system.details.level.value" : newLevel,
+                "system.attributes.scouting.bonus" : ARMY_STATS.scouting[newLevel],
+                "system.attributes.standardDC" : ARMY_STATS.standardDC[newLevel],
+                "system.attributes.ac.value" : ARMY_STATS.ac[newLevel],
+                [strongSave] : ARMY_STATS.strongSave[newLevel],
+                [weakSave] : ARMY_STATS.weakSave[newLevel],
+                "system.weapons.bonus" : ARMY_STATS.attack[newLevel],
+                "system.attributes.maxTactics" : ARMY_STATS.maxTactics[newLevel],
             };
-            // Update level directly
-            console.log("Updating level to ", newLevel);
-            await actor.update({"system.details.level.value": newLevel});
-            // For each array, assign that stat to the relevant statistic
-            for (const statistic of Object.keys(StatisticArrays)) {
-                let newStatisticValue = StatisticArrays[statistic];
-                console.log("Actor statistic ", statistic, " updating to ", newStatisticValue[newLevel]);
-                await actor.update({[statistic] : newStatisticValue[newLevel]});
-            }
+            await actor.update(newStatistics);
         }
     }
 }
