@@ -168,7 +168,7 @@ function measureDistanceOnGrid(
 
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
 function highlightGrid({
-    type,
+    areaType,
     object,
     colors,
     document,
@@ -205,7 +205,7 @@ function highlightGrid({
 
     // Offset measurement for cones to ensure that cones only start measuring from cell borders
     const coneOriginOffset = ((): Point => {
-        if (type !== "cone") return { x: 0, y: 0 };
+        if (areaType !== "cone") return { x: 0, y: 0 };
 
         // Degrees anticlockwise from pointing right. In 45-degree increments from 0 to 360
         const dir = (direction >= 0 ? 360 - direction : -direction) % 360;
@@ -230,7 +230,7 @@ function highlightGrid({
 
     // If this is an emanation, measure from the outer squares of the token's space
     const offsetEmanationOrigin = (destination: Point): Point => {
-        if (!(type === "emanation" && object instanceof TokenPF2e)) {
+        if (!(areaType === "emanation" && object instanceof TokenPF2e)) {
             return { x: 0, y: 0 };
         }
 
@@ -259,14 +259,15 @@ function highlightGrid({
             if (destination.x < 0 || destination.y < 0) continue;
 
             // Determine point of origin
+            const snappedDocCoords = canvas.grid.getSnappedPosition(document.x, document.y, object.layer.gridPrecision);
             const emanationOriginOffset = offsetEmanationOrigin(destination);
             const origin = {
-                x: document.x + coneOriginOffset.x + emanationOriginOffset.x,
-                y: document.y + coneOriginOffset.y + emanationOriginOffset.y,
+                x: snappedDocCoords.x + coneOriginOffset.x + emanationOriginOffset.x,
+                y: snappedDocCoords.y + coneOriginOffset.y + emanationOriginOffset.y,
             };
             const ray = new Ray(origin, destination);
 
-            if (type === "cone") {
+            if (areaType === "cone") {
                 const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
                 if (ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
                     continue;
@@ -309,7 +310,7 @@ function highlightGrid({
 }
 
 interface HighlightGridParams {
-    type: "burst" | "cone" | "emanation";
+    areaType: "burst" | "cone" | "emanation";
     object: MeasuredTemplatePF2e | TokenPF2e;
     /** Border and fill colors in hexadecimal */
     colors: { border: number; fill: number };
