@@ -6,6 +6,7 @@ import type { ResilientRuneType } from "@item/armor/types.ts";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types.ts";
 import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
+import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { isBlank } from "@util";
 
@@ -84,6 +85,7 @@ interface WeaponPropertyRuneData {
          */
         ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
+    strikeAdjustments?: StrikeAdjustment[];
     level: number;
     name: string;
     price: number; // in gp
@@ -271,6 +273,22 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "brilliant",
         traits: ["evocation", "magical"],
     },
+    called: {
+        level: 7,
+        name: "PF2E.WeaponPropertyRune.called.Name",
+        price: 350,
+        rarity: "common",
+        slug: "called",
+        traits: ["conjuration", "magical"],
+    },
+    coating: {
+        level: 9,
+        name: "PF2E.WeaponPropertyRune.coating.Name",
+        price: 700,
+        rarity: "common",
+        slug: "coating",
+        traits: ["conjuration", "extradimensional", "magical"],
+    },
     conducting: {
         level: 7,
         name: "PF2E.WeaponPropertyRune.conducting.Name",
@@ -441,6 +459,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "common",
         slug: "flaming",
         traits: ["conjuration", "fire", "magical"],
+    },
+    flurrying: {
+        level: 7,
+        name: "PF2E.WeaponPropertyRune.flurrying.Name",
+        price: 360,
+        rarity: "common",
+        slug: "flurrying",
+        traits: ["evocation", "magical"],
     },
     frost: {
         damage: {
@@ -955,6 +981,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "impactful",
         traits: ["evocation", "force", "magical"],
     },
+    impossible: {
+        level: 20,
+        name: "PF2E.WeaponPropertyRune.impossible.Name",
+        price: 70_000,
+        rarity: "common",
+        slug: "impossible",
+        traits: ["conjuration", "magical"],
+    },
     keen: {
         attack: {
             notes: [
@@ -987,6 +1021,23 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "uncommon",
         slug: "majorFanged",
         traits: ["magical", "transmutation"],
+    },
+    merciful: {
+        strikeAdjustments: [
+            {
+                adjustWeapon: (weapon) => {
+                    if (!weapon.system.traits.value.includes("nonlethal")) {
+                        weapon.system.traits.value.push("nonlethal");
+                    }
+                },
+            },
+        ],
+        level: 4,
+        name: "PF2E.WeaponPropertyRune.merciful.Name",
+        price: 70,
+        rarity: "common",
+        slug: "merciful",
+        traits: ["abjuration", "magical", "mental"],
     },
     pacifying: {
         level: 5,
@@ -1062,6 +1113,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "spellStoring",
         traits: ["abjuration", "magical"],
     },
+    swarming: {
+        level: 9,
+        name: "PF2E.WeaponPropertyRune.swarming.Name",
+        price: 700,
+        rarity: "common",
+        slug: "swarming",
+        traits: ["conjuration", "magical"],
+    },
     thundering: {
         damage: {
             dice: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
@@ -1125,7 +1184,11 @@ function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] 
     });
 }
 
-function getPropertyRuneAdjustments(runes: WeaponPropertyRuneType[]): ModifierAdjustment[] {
+function getPropertyRuneStrikeAdjustments(runes: WeaponPropertyRuneType[]): StrikeAdjustment[] {
+    return runes.flatMap((rune) => CONFIG.PF2E.runes.weapon.property[rune].strikeAdjustments ?? []);
+}
+
+function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): ModifierAdjustment[] {
     return runes.flatMap(
         (rune) =>
             CONFIG.PF2E.runes.weapon.property[rune].damage?.adjustments?.map(
@@ -1172,13 +1235,14 @@ const WEAPON_VALUATION_DATA: WeaponValuationData = {
 };
 
 export {
-    RuneValuationData,
-    WEAPON_VALUATION_DATA,
-    WeaponPropertyRuneData,
-    getPropertyRuneAdjustments,
     getPropertyRuneDice,
+    getPropertyRuneModifierAdjustments,
     getPropertyRunes,
+    getPropertyRuneStrikeAdjustments,
     getPropertySlots,
     getResilientBonus,
     getStrikingDice,
+    RuneValuationData,
+    WEAPON_VALUATION_DATA,
+    WeaponPropertyRuneData,
 };
