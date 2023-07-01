@@ -357,26 +357,41 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Of Three Minds (Second Attempt)",
-                        "option": "second-mind",
-                        "toggleable": true
+                        "key": "Note",
+                        "outcome": [
+                            "criticalFailure",
+                            "failure"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "of-three-minds:third"
+                            }
+                        ],
+                        "selector": "will",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Of Three Minds (Third Attempt)",
-                        "option": "third-mind",
+                        "option": "of-three-minds",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Label.SecondAttempt",
+                                "value": "second"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Label.ThirdAttempt",
+                                "value": "third"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "not": "third-mind"
-                            },
-                            "second-mind"
+                            "of-three-minds:second"
                         ],
                         "selector": "will",
                         "slug": "second-mind",
@@ -385,7 +400,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "third-mind"
+                            "of-three-minds:third"
                         ],
                         "selector": "will",
                         "slug": "third-mind",
