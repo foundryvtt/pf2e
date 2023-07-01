@@ -151,7 +151,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
-        return { actor: this.actor, item: this };
+        const actorRollData = this.actor?.getRollData() ?? { actor: null };
+        return { ...actorRollData, item: this };
     }
 
     /**

@@ -3,6 +3,7 @@ import { ItemType } from "@item/data/index.ts";
 import { UserPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { sortBy, tupleHasValue } from "@util";
 import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
@@ -10,7 +11,6 @@ import { InvalidCampaign } from "./invalid-campaign.ts";
 import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
-import { Statistic } from "@system/statistic/index.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -122,6 +122,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const promises = this.members.map((a) => CombatantPF2e.fromActor(a, true, { combat: options.combat }));
         const combatants = (await Promise.all(promises)).filter((c): c is CombatantPF2e<EncounterPF2e> => !!c);
         return combatants;
+    }
+
+    override getRollData(): Record<string, unknown> {
+        return mergeObject(super.getRollData(), this.campaign?.getRollData?.() ?? {});
     }
 
     /** Re-render the sheet if data preparation is called from the familiar's master */

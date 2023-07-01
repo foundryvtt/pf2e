@@ -41,7 +41,7 @@ import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { TextEditorPF2e } from "@system/text-editor.ts";
+import { EnrichHTMLOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
@@ -1615,9 +1615,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return Array.from(toReturn).sort();
     }
 
-    /** This allows @actor.level and such to work for roll macros */
-    override getRollData(): Record<string, unknown> {
-        return { ...duplicate(super.getRollData()), actor: this };
+    /** This allows @actor.level and such to work for macros and inline rolls */
+    override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
+        const rollData = { actor: this };
+        for (const prop of ["details", "attributes", "skills", "saves"] as const) {
+            Object.defineProperty(rollData, prop, {
+                get: () => {
+                    foundry.utils.logCompatibilityWarning(`@${prop} is deprecated`, {
+                        since: "5.0.1",
+                        until: "6",
+                    });
+                    return objectHasKey(this.system, prop) ? deepClone(this.system[prop]) : null;
+                },
+            });
+        }
+
+        return rollData;
     }
 
     /* -------------------------------------------- */
