@@ -18,7 +18,7 @@
                 <input type="number" data-property="system.attributes.ac.value" value="{{add data.attributes.ac.value data.attributes.ac.potency}}" data-dtype="Number"/>
             </div>
             <div class="buttons">
-                <label for="data.attributes.ac.potency"><span class="plus">+</span>{{data.attributes.ac.potency}}</label>
+                <label for="system.attributes.ac.potency"><span class="plus">+</span>{{data.attributes.ac.potency}}</label>
                 <button data-tooltip="{{data.attributes.ac.potency}}" class="armor pips" type="button">
                     {{#times 3}}
                         <i class="{{#if (gt @root.data.attributes.ac.potency this)}}far fa-shield filled{{else}}fal fa-shield empty{{/if}}"></i>
@@ -181,11 +181,9 @@
                     <fieldset class="weapons">
                     <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
                         <div class="strike {{#if data.weapons.melee.unlocked}}unlocked{{else}}locked{{/if}}">
-                            <section class="roll strike" data-tooltip="{{localize "PF2E.Actor.Army.Strikemelee"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.melee.potency}} potency )">
-                                <a data-strike="melee" class="rollable melee"><i class="fas fa-dice-d20"></i></a>
-                                <span class="plus">+</span>
-                                <input class="roll-bonus" type="number" data-property="system.weapons.bonus" value="{{add data.weapons.bonus data.weapons.melee.potency}}" data-dtype="Number"/>              
-                            </section>                        
+                            <label class="roll"><a data-strike="melee" class="rollable melee"><i data-tooltip="{{localize "PF2E.Actor.Army.Strikemelee"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.melee.potency}} potency )" class="fas fa-dice-d20"></i></a> + {{add data.weapons.bonus data.weapons.melee.potency}}</label>
+                            <label class="roll"><a data-strike="melee" class="rollable melee map1"></a>+ {{add data.weapons.bonus data.weapons.melee.potency -5}}</a></label>
+                            <label class="roll"><a data-strike="melee" class="rollable melee map2"></a>+ {{add data.weapons.bonus data.weapons.melee.potency -10}}</a></label>              
                             <input class="melee name" type="text" data-property="system.weapons.melee.name" value="{{data.weapons.melee.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikemelee"}}" />
                             {{#if data.weapons.melee.unlocked}}
                                 <button class="melee unlock" type="button"><i class="fas fa-lock-open empty" data-tooltip="Weapon is available"></i></button>
@@ -194,11 +192,9 @@
                             {{/if}}
                         </div>
                         <div class="strike {{#if data.weapons.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
-                            <section class="roll strike" data-tooltip="{{localize "PF2E.Actor.Army.Strikeranged"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.ranged.potency}} potency )">
-                                <a data-strike="ranged" class="rollable ranged"><i class="fas fa-dice-d20"></i></a>
-                                <span class="plus">+</span>
-                                <input class="roll-bonus" type="number" data-property="system.weapons.bonus" value="{{add data.weapons.bonus data.weapons.ranged.potency}}" data-dtype="Number"/>              
-                            </section>
+                            <label class="roll"><a data-strike="ranged" class="rollable ranged"><i data-tooltip="{{localize "PF2E.Actor.Army.Strikeranged"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.ranged.potency}} potency )" class="fas fa-dice-d20"></i></a> + {{add data.weapons.bonus data.weapons.ranged.potency}}</label>
+                            <label class="roll"><a data-strike="ranged" class="rollable ranged map1"></a>+ {{add data.weapons.bonus data.weapons.ranged.potency -5}}</a></label>
+                            <label class="roll"><a data-strike="ranged" class="rollable ranged map2"></a>+ {{add data.weapons.bonus data.weapons.ranged.potency -10}}</a></label>              
                             <input class="ranged name" type="text" data-property="system.weapons.ranged.name" value="{{data.weapons.ranged.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikeranged"}}" />
                             <button data-tooltip="Ammunition: {{data.weapons.ammunition.value}}" class="ammunition pips" type="button">
                                 {{#times data.weapons.ammunition.max}}
@@ -214,9 +210,9 @@
                     </fieldset>
 
                     <fieldset class="upgrades">
-                    <legend><i class="fa-light fa-sparkle"></i>&nbsp;Upgrades</legend>
+                    <legend><i class="fa-light fa-sparkle"></i>&nbsp;Potency</legend>
                         <div class="strike rank {{#if data.weapons.melee.unlocked}}unlocked{{else}}locked{{/if}}">
-                            <button data-tooltip="Magic Weapons ({{localise data.weapons.melee.potency}})" class="melee pips" type="button">
+                            <button data-tooltip="Magic Weapons ({{localize data.weapons.melee.potency}})" class="melee pips" type="button">
                                 {{#times 3}}
                                 <i class="{{#if (gt @root.data.weapons.melee.potency this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
                                 {{/times}}
@@ -253,18 +249,18 @@
                                     </a>
                                     <label class="item-name">
                                         <h4>{{action.name}}</h4>
-                                    </label>                                    </label>
-                                        {{#if action.system.frequency}}
-                                            <section class="item-frequency">
-                                                <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
-                                                <span>
-                                                    /
-                                                    {{action.system.frequency.max}}
-                                                    {{localize "PF2E.Frequency.per"}}
-                                                    {{localize (lookup @root.frequencies action.system.frequency.per)}}
-                                                </span>
-                                            </section>
-                                        {{/if}}
+                                    </label>
+                                    {{#if action.system.frequency}}
+                                        <section class="item-frequency">
+                                            <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                                            <span>
+                                                /
+                                                {{action.system.frequency.max}}
+                                                {{localize "PF2E.Frequency.per"}}
+                                                {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                                            </span>
+                                        </section>
+                                    {{/if}}
                                     <div class="item-controls">
                                             <a class="item-chat chat" data-tooltip="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt"></i></a>
                                         {{#if @root.options.editable}}
@@ -293,18 +289,18 @@
                                     </a>
                                     <label class="item-name">
                                         <h4>{{feat.name}}</h4>
-                                    </label>                                    </label>
-                                        {{#if feat.system.frequency}}
-                                            <section class="item-frequency">
-                                                <input type="number" value="{{feat.system.frequency.value}}" data-item-id="{{feat._id}}" data-item-property="system.frequency.value"/>
-                                                <span>
-                                                    /
-                                                    {{feat.system.frequency.max}}
-                                                    {{localize "PF2E.Frequency.per"}}
-                                                    {{localize (lookup @root.frequencies feat.system.frequency.per)}}
-                                                </span>
-                                            </section>
-                                        {{/if}}
+                                    </label>
+                                    {{#if feat.system.frequency}}
+                                        <section class="item-frequency">
+                                            <input type="number" value="{{feat.system.frequency.value}}" data-item-id="{{feat._id}}" data-item-property="system.frequency.value"/>
+                                            <span>
+                                                /
+                                                {{feat.system.frequency.max}}
+                                                {{localize "PF2E.Frequency.per"}}
+                                                {{localize (lookup @root.frequencies feat.system.frequency.per)}}
+                                            </span>
+                                        </section>
+                                    {{/if}}
                                     <div class="item-controls">
                                             <a class="item-chat chat" data-tooltip="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt"></i></a>
                                         {{#if @root.options.editable}}
