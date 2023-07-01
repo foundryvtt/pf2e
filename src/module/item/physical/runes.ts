@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { DamageDiceParameters, DamageDicePF2e, ModifierAdjustment } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
-import { ArmorPF2e, WeaponPF2e } from "@item";
+import { ArmorPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types.ts";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types.ts";
 import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
@@ -1025,7 +1025,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     merciful: {
         strikeAdjustments: [
             {
-                adjustWeapon: (weapon) => {
+                adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
                     if (!weapon.system.traits.value.includes("nonlethal")) {
                         weapon.system.traits.value.push("nonlethal");
                     }
