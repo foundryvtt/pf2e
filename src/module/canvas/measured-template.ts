@@ -43,22 +43,22 @@ class MeasuredTemplatePF2e<
         await this.draw();
         this.layer.preview.addChild(this);
 
-        canvas.stage.on("mousemove", this.#onMouseMove);
-        canvas.stage.on("mousedown", this.#onLeftClick);
-        canvas.stage.on("rightdown", this.#onRightClick);
-        canvas.app.view.addEventListener?.("wheel", this.#onMouseWheel, this.#wheelListenerOptions);
+        canvas.stage.on("mousemove", this.#onPreviewMouseMove);
+        canvas.stage.on("mousedown", this.#onPreviewLeftClick);
+        canvas.stage.on("rightdown", this.#onPreviewRightClick);
+        canvas.app.view.addEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
     }
 
     /** Overriden to ensure preview canvas events are removed (if any) on destruction */
     override destroy(options?: boolean | PIXI.IDestroyOptions): void {
-        canvas.stage.off("mousemove", this.#onMouseMove);
-        canvas.stage.off("mousedown", this.#onLeftClick);
-        canvas.stage.off("rightdown", this.#onRightClick);
-        canvas.app.view.removeEventListener?.("wheel", this.#onMouseWheel, this.#wheelListenerOptions);
+        canvas.stage.off("mousemove", this.#onPreviewMouseMove);
+        canvas.stage.off("mousedown", this.#onPreviewLeftClick);
+        canvas.stage.off("rightdown", this.#onPreviewRightClick);
+        canvas.app.view.removeEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
         super.destroy(options);
     }
 
-    #onMouseMove = (event: PIXI.FederatedPointerEvent) => {
+    #onPreviewMouseMove = (event: PIXI.FederatedPointerEvent) => {
         event.stopPropagation();
         const now = Date.now();
         if (now - this.#moveTime <= 20) return;
@@ -75,7 +75,7 @@ class MeasuredTemplatePF2e<
         this.#moveTime = now;
     };
 
-    #onLeftClick = () => {
+    #onPreviewLeftClick = () => {
         if (canvas.scene) {
             canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.document.toObject()]);
         }
@@ -84,12 +84,12 @@ class MeasuredTemplatePF2e<
         this.destroy();
     };
 
-    #onRightClick = () => {
+    #onPreviewRightClick = () => {
         canvas.tokens.activate();
         this.destroy();
     };
 
-    #onMouseWheel = (event: Event) => {
+    #onPreviewMouseWheel = (event: Event) => {
         if (!(event instanceof WheelEvent)) return;
 
         if (event.ctrlKey) {
