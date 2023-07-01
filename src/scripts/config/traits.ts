@@ -355,6 +355,14 @@ const magicSchools: Record<MagicSchool, string> = {
     transmutation: "PF2E.TraitTransmutation",
 };
 
+const kingdomActivityTraits = {
+    civic: "PF2E.TraitCivic",
+    commerce: "PF2E.TraitCommerce",
+    leadership: "PF2E.TraitLeadership",
+    region: "PF2E.TraitRegion",
+    upkeep: "PF2E.TraitUpkeep",
+};
+
 const spellTraits = {
     ...alignmentTraits,
     ...classTraits,
@@ -707,6 +715,7 @@ const actionTraits = {
     ...featTraits,
     ...consumableTraits,
     ...spellTraits,
+    ...kingdomActivityTraits,
     circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
