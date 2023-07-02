@@ -1,3 +1,45 @@
+## 5.1.0
+
+### Data Updates
+
+-   (SpartanCPA) Add content from Lost Omens: Highhelm
+-   (Tikael) Add content from A Few Flowers More
+-   (TMun) Add NPCs from PFS 4-15
+-   (Dire Weasel) Add fix heightening effects of Etheric Shards spell
+-   (Dire Weasel) Add effect for Swarm Form, Touch of the Moon
+-   (Dire Weasel) Add missing traits to Grimbal's Drain Mind
+-   (Dire Weasel) Allow PFS Hireling boons to be taken multiple times
+-   (Dire Weasel) Brush up Meleeka's Blazing-Talon Surge and Mastered Rain of Embers Stance
+-   (Dire Weasel) Fix cast time of Thoughtful Gift
+-   (Dire Weasel) Fix damage link in Gray Prince and add line template
+-   (Dire Weasel) Fix malformed link in Grand Archive Champion, Improved
+-   (Dire Weasel) Fix name of Toxic Furnace's Boiling Toxin
+-   (Dire Weasel) Fix range on Meteor Shield and Razor Disc
+-   (Dire Weasel) Fix reach on Blood Lords Mithral Golem's Spike
+-   (Dire Weasel) Fix Strike category for Throwing Shield
+-   (Dire Weasel) Move Princess Kerinza's key details to GM note
+-   (stwlam) Add Keep Stone as precious material
+-   (stwlam) Add remaining weapon property runes from TV and LO:KoL
+
+### System Improvements
+
+-   (nikolaj-a, In3luki) Add support for modifiers and notes healing recipients received modifiers and roll notes
+-   (stwlam) Bump max domains settable in deity-item sheet to 6
+-   (stwlam) Allow setting fixed attack modifier and damage for rule-element-based NPC strikes
+-   (Supe) Always skip roll dialog for flat checks
+
+### Bugfixes
+
+-   (In3luki) Fix revert damage button showing for lootable NPCs
+-   (In3luki) Reevaluate roll notes upon rerolling checks
+-   (stwlam) Add click listener to popped-out damage messages
+-   (stwlam) Fix grid highlighting placement of measured templates while dragging
+-   (stwlam) Incorporate flat-footed condition immunity into flanking checks
+-   (stwlam) Include roll option on NPC attacks indicating whether they are magical
+-   (stwlam) Fix issue causing incorrect level to be used for some incapacitation abilities
+-   (stwlam) Fix issue causing compendium browser to get stuck semi-transparent and non-interactable
+-   (Supe) Fix some minor visual issues with actor inventories
+
 ## 5.0.2
 
 ### System Improvements
