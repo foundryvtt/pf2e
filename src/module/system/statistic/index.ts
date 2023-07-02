@@ -347,7 +347,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         })();
 
         const actor = this.parent.actor;
-        const token = args.token ?? actor.token;
+        const token = args.token ?? actor.getActiveTokens(false, true).shift();
         const item = args.item ?? null;
         const domains = this.domains;
 
