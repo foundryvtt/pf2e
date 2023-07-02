@@ -2,7 +2,7 @@ import { ActorType } from "@actor/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { localizeList, objectHasKey } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 
@@ -27,31 +27,42 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
             }),
             details: new fields.StringField({
                 required: false,
-                nullable: false,
-                initial: undefined,
+                nullable: true,
+                initial: null,
             }),
             deactivatedBy: new fields.ArrayField(
-                new fields.StringField({ required: true, nullable: false, blank: false })
+                new fields.StringField({ required: true, nullable: false, blank: false }),
+                { required: false, initial: undefined }
             ),
         };
     }
 
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super(data, options);
+    static override validateJoint(data: SourceFromSchema<FastHealingRuleSchema>): void {
+        super.validateJoint(data);
 
-        if (this.details) {
-            this.details = game.i18n.localize(this.details);
-        } else if (this.deactivatedBy.length > 0) {
-            const typesArr = this.deactivatedBy.map((type) =>
-                objectHasKey(CONFIG.PF2E.weaknessTypes, type)
-                    ? game.i18n.localize(CONFIG.PF2E.weaknessTypes[type])
-                    : type
-            );
+        if (data.type === "fast-healing") {
+            if (data.deactivatedBy) {
+                data.ignored = true;
+                throw Error("deactivatedBy is only valid for type regeneration");
+            }
+            if (data.details) {
+                data.details = game.i18n.localize(data.details);
+            }
+        } else if (data.type === "regeneration") {
+            if (data.details) {
+                data.ignored = true;
+                throw Error("details is only valid for type fast-healing");
+            }
+            if (data.deactivatedBy?.length) {
+                const typesArr = data.deactivatedBy.map((type) =>
+                    objectHasKey(CONFIG.PF2E.weaknessTypes, type)
+                        ? game.i18n.localize(CONFIG.PF2E.weaknessTypes[type])
+                        : type
+                );
 
-            const types = localizeList(typesArr);
-            this.details = game.i18n.format("PF2E.Encounter.Broadcast.FastHealing.DeactivatedBy", { types });
-        } else {
-            this.details = this.getReducedLabel();
+                const types = localizeList(typesArr);
+                data.details = game.i18n.format("PF2E.Encounter.Broadcast.FastHealing.DeactivatedBy", { types });
+            }
         }
     }
 
@@ -66,7 +77,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
 
         const roll = (await new DamageRoll(`${value}`).evaluate({ async: true })).toJSON();
         const receivedMessage = game.i18n.localize(`PF2E.Encounter.Broadcast.FastHealing.${this.type}.ReceivedMessage`);
-        const postFlavor = `<div data-visibility="owner">${this.details}</div>`;
+        const postFlavor = `<div data-visibility="owner">${this.details ?? this.getReducedLabel()}</div>`;
         const flavor = `<div>${receivedMessage}</div>${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
@@ -77,8 +88,8 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
 type FastHealingRuleSchema = RuleElementSchema & {
     value: ResolvableValueField<true, false, false>;
     type: StringField<FastHealingType, FastHealingType, false, false, true>;
-    details: StringField<string, string, false, false, false>;
-    deactivatedBy: ArrayField<StringField<string, string, true, false, false>>;
+    details: StringField<string, string, false, true, true>;
+    deactivatedBy: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
 };
 
 interface FastHealingRuleElement
