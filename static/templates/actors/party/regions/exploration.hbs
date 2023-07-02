@@ -1,0 +1,64 @@
+<aside class="sidebar">
+    {{#if members}}
+        <ol class="box-list exploration-members">
+            <li class="box summary">
+                <header>{{localize "PF2E.TravelSpeed.PartySpeed"}}</header>
+                <div class="summary-data">
+                    <div>
+                        <label>{{localize "PF2E.Speed"}}</label>
+                        <span class="value">{{explorationSummary.speed}} {{localize "PF2E.Feet"}}</span>
+                    </div>
+                    <div>
+                        <label>{{localize "PF2E.TravelSpeed.ActivitiesPerDay"}}</label>
+                        <span class="value">{{explorationSummary.activities}}</span>
+                    </div>
+                </div>
+            </li>
+            {{#each members as |member|}}
+                <li class="box member">
+                    <div class="actor-link content" data-action="open-sheet" data-actor-uuid="{{member.actor.uuid}}">
+                        <img src="{{member.actor.img}}" />
+                        <span class="name">{{member.actor.name}}</span>
+                    </div>
+                    {{#unless member.restricted}}
+                        <div class="sub-data">
+                            <span>
+                                <i class="fas fa-person-running"></i> {{member.actor.attributes.speed.value}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}
+                            </span>
+                            <span>
+                                <i class="fas fa-eye"></i> {{member.actor.perception.dc.value}}
+                            </span>
+                        </div>
+                            <footer>
+                                {{#with member.actor.attributes.hp as |hp|}}
+                                    <div class="bar" style="width: {{percentage hp.value hp.max}}%;"></div>
+                                    <span><i class="fas fa-heart"></i> {{hp.value}} / {{hp.max}}</span>
+                                {{/with}}
+                            </footer>
+                    {{/unless}}
+                </li>
+            {{/each}}
+        </ol>
+    {{else}}
+        {{localize "PF2E.Actor.Party.BlankSlate"}}
+    {{/if}}
+</aside>
+<section class="content">
+    <div class="activities">
+        {{#each explorationMembers as |member|}}
+            <section class="activity" data-actor-uuid="{{member.actor.uuid}}">
+                <img class="actor-link" data-action="open-sheet" src="{{member.actor.img}}">
+                {{#if member.activities}}
+                    {{#each member.activities as |activity|}}
+                        <div class="activity">
+                            <img src="{{activity.img}}">
+                            <span>{{activity.name}}</span>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div>In development</div>
+                {{/if}}
+            </section>
+        {{/each}}
+    </div>
+</section>
