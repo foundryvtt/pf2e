@@ -541,6 +541,10 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
             .concat(enabledMods.map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`))
             .join(", ");
     }
+
+    toString(): string {
+        return String(this.value);
+    }
 }
 
 interface StatisticRollParameters {
