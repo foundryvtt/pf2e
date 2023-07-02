@@ -1618,7 +1618,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** This allows @actor.level and such to work for macros and inline rolls */
     override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
         const rollData = { actor: this };
-        for (const prop of ["details", "attributes", "skills", "saves"] as const) {
+        for (const prop of ["abilities", "attributes", "details", "skills", "saves"] as const) {
             Object.defineProperty(rollData, prop, {
                 get: () => {
                     foundry.utils.logCompatibilityWarning(`@${prop} is deprecated`, {
