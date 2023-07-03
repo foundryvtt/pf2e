@@ -7,8 +7,6 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:import/errors",
-        "plugin:import/typescript",
         "prettier"
     ],
     "parserOptions": {
@@ -24,8 +22,6 @@
             "error",
             "always"
         ],
-        "import/named": "off",
-        "import/no-default-export": "error",
         "prettier/prettier": "error",
         "no-console": "off",
         "no-plusplus": [
@@ -72,39 +68,10 @@
             }
         ]
     },
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "paths": [
-                    "src",
-                    "types",
-                    "",
-                    "dist"
-                ],
-                "extensions": [
-                    ".css",
-                    ".js",
-                    ".json",
-                    ".jsx",
-                    ".scss",
-                    ".ts",
-                    ".tsx"
-                ]
-            },
-            "eslint-import-resolver-typescript": true,
-            "typescript": true
-        },
-        "import/parsers": {
-            "@typescript-eslint/parser": [
-                ".ts"
-            ]
-        }
-    },
     "plugins": [
         "jest",
         "prettier",
-        "@typescript-eslint",
-        "import"
+        "@typescript-eslint"
     ],
     "overrides": [
         {
