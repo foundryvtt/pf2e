@@ -37,7 +37,8 @@ export const ChatCards = {
                 const mapIncreases = context && "mapIncreases" in context ? context.mapIncreases : null;
                 const altUsage = context && "altUsage" in context ? context.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
-                const rollArgs = { event, altUsage, mapIncreases, options };
+                const target = message.target?.token?.object ?? null;
+                const rollArgs = { event, altUsage, mapIncreases, options, target };
 
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":

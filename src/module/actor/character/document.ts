@@ -1609,12 +1609,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 const domains = ["all", `${weapon.id}-damage`, "strike-damage", "damage-roll"];
                 params.options ??= [];
+                const targetToken = params.target ?? game.user.targets.first() ?? null;
 
                 const context = await this.getRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     statistic: action,
-                    target: { token: game.user.targets.first() ?? null },
+                    target: { token: targetToken },
                     domains,
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
