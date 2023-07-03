@@ -12,8 +12,6 @@ import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
 import { RuleElementOptions } from "./base.ts";
 import { ResolvableValueField } from "./data.ts";
 
-const { fields } = foundry.data;
-
 class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
@@ -30,6 +28,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     ] as const);
 
     static override defineSchema(): AdjustStrikeSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             // `path` isn't used for AdjustAdjustStrike REs

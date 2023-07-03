@@ -7,13 +7,12 @@ import type { BooleanField, StringField } from "types/foundry/common/data/fields
 import { CritSpecEffect } from "../synthetics.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
-const { fields } = foundry.data;
-
 /** Substitute a pre-determined result for a check's D20 roll */
 class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): CritSpecRuleSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             alternate: new fields.BooleanField(),
