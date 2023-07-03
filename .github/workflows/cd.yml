@@ -33,6 +33,15 @@ jobs:
           SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
           echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
 
+      # Substitute the Manifest and Download URLs in the module.json
+      - name: Substitute Download Link For Versioned One
+        id: sub_manifest_link_version
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: 'system.json'
+        env:
+          download: https://github.com/${{github.repository}}/releases/download/${{ env.systemVersion }}/module.zip
+
       - name: Zip Files
         working-directory: ./dist
         run: zip -r ./pf2e.zip ./*
