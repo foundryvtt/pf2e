@@ -1,8 +1,18 @@
 import * as R from "remeda";
 import { localizer } from "@util";
-import { KingdomAbility, KingdomCHG, KingdomGovernment, KingdomSkill } from "./data.ts";
+import {
+    KingdomAbility,
+    KingdomCHG,
+    KingdomGovernment,
+    KingdomLeadershipRole,
+    KingdomNationType,
+    KingdomSkill,
+} from "./data.ts";
+import { ModifierAdjustment, RawModifier } from "@actor/modifiers.ts";
 
 const KINGDOM_ABILITIES = ["culture", "economy", "loyalty", "stability"] as const;
+const KINGDOM_ABILITY_LABELS = R.mapToObj(KINGDOM_ABILITIES, (a) => [a, `PF2E.Kingmaker.Abilities.${a}`]);
+
 const KINGDOM_LEADERSHIP = [
     "ruler",
     "counselor",
@@ -13,9 +23,8 @@ const KINGDOM_LEADERSHIP = [
     "viceroy",
     "warden",
 ] as const;
-const KINGDOM_COMMODITIES = ["food", "lumber", "luxuries", "ore", "stone"] as const;
 
-const KINGDOM_ABILITY_LABELS = R.mapToObj(KINGDOM_ABILITIES, (a) => [a, `PF2E.Kingmaker.Abilities.${a}`]);
+const KINGDOM_COMMODITIES = ["food", "lumber", "luxuries", "ore", "stone"] as const;
 
 const KINGDOM_SKILLS = [
     "agriculture",
@@ -58,6 +67,68 @@ const KINGDOM_SKILL_ABILITIES: Record<KingdomSkill, KingdomAbility> = {
 };
 
 const CONTROL_DC_BY_LEVEL = [14, 15, 16, 18, 20, 22, 23, 24, 26, 27, 28, 30, 31, 32, 34, 35, 36, 38, 39, 40];
+const KINGDOM_SIZE_DATA = {
+    1: { faces: 4, type: "territory", controlMod: 0 },
+    10: { faces: 6, type: "province", controlMod: 1 },
+    25: { faces: 8, type: "state", controlMod: 2 },
+    50: { faces: 10, type: "country", controlMod: 3 },
+    100: { faces: 12, type: "dominion", controlMod: 4 },
+} satisfies Record<number, { faces: number; type: KingdomNationType; controlMod: number }>;
+
+const vacancyLabel = (role: KingdomLeadershipRole) =>
+    game.i18n.format("PF2E.Kingmaker.Kingdom.VacantRole", {
+        role: game.i18n.localize(`PF2E.Kingmaker.Kingdom.Leadership.${role}`),
+    });
+
+type VacancyPenalty = { adjustments?: ModifierAdjustment[]; modifiers?: Record<string, RawModifier[]> };
+const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
+    ruler: () => ({
+        // ruler vacancy stacks with all sources
+        modifiers: {
+            "kingdom-check": [{ slug: "vacancy-ruler", label: vacancyLabel("ruler"), modifier: -1 }],
+            "control-dc": [{ slug: "vacancy-ruler", label: vacancyLabel("ruler"), modifier: 2 }],
+        },
+    }),
+    counselor: () => ({
+        modifiers: {
+            "culture-based": [{ slug: "vacancy", label: vacancyLabel("counselor"), modifier: -1 }],
+        },
+    }),
+    general: () => ({
+        modifiers: {
+            "kingdom-check": [
+                { slug: "vacancy", label: vacancyLabel("general"), modifier: -4, predicate: ["warfare"] },
+            ],
+        },
+    }),
+    emissary: () => ({
+        modifiers: {
+            "loyalty-based": [{ slug: "vacancy", label: vacancyLabel("emissary"), modifier: -1 }],
+        },
+    }),
+    magister: () => ({
+        modifiers: {
+            "kingdom-check": [
+                { slug: "vacancy", label: vacancyLabel("magister"), modifier: -4, predicate: ["warfare"] },
+            ],
+        },
+    }),
+    treasurer: () => ({
+        modifiers: {
+            "economy-based": [{ slug: "vacancy", label: vacancyLabel("treasurer"), modifier: -1 }],
+        },
+    }),
+    viceroy: () => ({
+        modifiers: {
+            "stability-based": [{ slug: "vacancy", label: vacancyLabel("viceroy"), modifier: -1 }],
+        },
+    }),
+    warden: () => ({
+        modifiers: {
+            "kingdom-check": [{ slug: "vacancy", label: vacancyLabel("warden"), modifier: -4, predicate: ["region"] }],
+        },
+    }),
+};
 
 function getKingdomABCData(): {
     charter: Record<string, KingdomCHG | undefined>;
@@ -191,9 +262,11 @@ export {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
+    KINGDOM_SIZE_DATA,
     KINGDOM_SKILLS,
     KINGDOM_SKILL_ABILITIES,
     KINGDOM_SKILL_LABELS,
-    getKingdomABCData,
     KINGDOM_LEADERSHIP,
+    VACANCY_PENALTIES,
+    getKingdomABCData,
 };
