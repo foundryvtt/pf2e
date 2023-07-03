@@ -200,7 +200,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
         event.type = "pointerover";
         event.nativeEvent = nativeEvent;
-        this.emit("pointerover", event);
+        this._onHoverIn(event, { hoverOutOthers: true });
     }
 
     /** Emulate a pointer hover ("pointerout") event */
@@ -208,7 +208,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
         event.type = "pointerout";
         event.nativeEvent = nativeEvent;
-        this.emit("pointerout", event);
+        this._onHoverOut(event);
     }
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
