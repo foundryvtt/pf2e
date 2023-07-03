@@ -355,7 +355,7 @@ class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weapon.isOfType("weapon") ? weapon.system.runes.property : [];
-        damageDice.push(...getPropertyRuneDice(propertyRunes));
+        damageDice.push(...getPropertyRuneDice(propertyRunes, options));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
         const ignoredResistances = propertyRunes.flatMap(
             (r) => CONFIG.PF2E.runes.weapon.property[r].damage?.ignoredResistances ?? []
