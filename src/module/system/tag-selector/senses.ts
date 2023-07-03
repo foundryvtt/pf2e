@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor";
 import { SENSES_WITH_MANDATORY_ACUITIES } from "@actor/creature/values.ts";
 import { ErrorPF2e, objectHasKey } from "@util";
-import { BaseTagSelector } from "./base.ts";
+import { BaseTagSelector, TagSelectorOptions } from "./base.ts";
 import { SelectableTagField } from "./index.ts";
 
 export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.traits.senses";
 
-    static override get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
             height: "auto",
             template: "systems/pf2e/templates/system/tag-selector/senses.hbs",
@@ -20,7 +20,7 @@ export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         return ["senses"] as const;
     }
 
-    override async getData(options?: FormApplicationOptions): Promise<SenseSelectorData<TActor>> {
+    override async getData(options?: Partial<TagSelectorOptions>): Promise<SenseSelectorData<TActor>> {
         if (!this.object.isOfType("character")) {
             throw ErrorPF2e("The Sense selector is usable only with PCs");
         }

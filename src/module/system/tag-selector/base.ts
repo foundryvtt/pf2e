@@ -12,7 +12,10 @@ interface TagSelectorOptions extends FormApplicationOptions {
     customChoices?: Record<string, string>;
 }
 
-abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends FormApplication<TDocument> {
+abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends FormApplication<
+    TDocument,
+    TagSelectorOptions
+> {
     static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
             id: "tag-selector",
