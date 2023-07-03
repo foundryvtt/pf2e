@@ -50,7 +50,7 @@ function getResilientBonus(itemData: { resiliencyRune: { value: ResilientRuneTyp
     return resilientRuneValues.get(itemData.resiliencyRune.value) ?? 0;
 }
 
-type RuneDiceProperty = "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
+type RuneDiceProperty = "slug" | "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
 type RuneDiceData = Partial<Pick<DamageDiceParameters, RuneDiceProperty>>;
 
 interface WeaponPropertyRuneData {
@@ -330,6 +330,34 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "uncommon",
         slug: "dancing",
         traits: ["evocation", "magical"],
+    },
+    deathdrinking: {
+        damage: {
+            dice: [
+                {
+                    slug: "deathdrinking-negative",
+                    damageType: "negative",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    critical: true,
+                    predicate: ["target:mode:living", { not: "target:negative-healing" }],
+                },
+                {
+                    slug: "deathdrinking-positive",
+                    damageType: "positive",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    critical: true,
+                    predicate: ["target:negative-healing"],
+                },
+            ],
+        },
+        level: 7,
+        name: "PF2E.WeaponPropertyRune.deathdrinking.Name",
+        price: 360,
+        rarity: "rare",
+        slug: "deathdrinking",
+        traits: ["magical", "necromancy"],
     },
     demolishing: {
         damage: {
