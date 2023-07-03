@@ -11,7 +11,6 @@ import type { DataModelValidationOptions } from "types/foundry/common/abstract/d
 import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 const { DataModel } = foundry.abstract;
-const { fields } = foundry.data;
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -87,6 +86,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     static override defineSchema(): RuleElementSchema {
+        const { fields } = foundry.data;
         return {
             key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             slug: new SlugField({ required: true, nullable: true }),

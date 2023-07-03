@@ -13,8 +13,6 @@ import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
 import { GrantItemSchema } from "./schema.ts";
 
-const { fields } = foundry.data;
-
 class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
@@ -60,6 +58,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 
     static override defineSchema(): GrantItemSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             uuid: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),

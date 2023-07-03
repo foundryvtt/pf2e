@@ -5,8 +5,6 @@ import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
-const { fields } = foundry.data;
-
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
@@ -23,6 +21,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     }
 
     static override defineSchema(): AELikeSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             mode: new fields.StringField({

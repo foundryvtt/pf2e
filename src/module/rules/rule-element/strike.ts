@@ -25,8 +25,6 @@ import type {
 } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
-const { fields } = foundry.data;
-
 /**
  * Create an ephemeral strike on an actor
  * @category RuleElement
@@ -52,6 +50,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 
     static override defineSchema(): StrikeSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             category: new fields.StringField({
