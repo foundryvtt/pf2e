@@ -702,21 +702,23 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Calikang.SuspendedAnimationEnter",
-                        "option": "suspended-animation-enter",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "initiative",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Calikang.SuspendedAnimationExit",
-                        "option": "suspended-animation-exit",
+                        "option": "suspended-animation",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Label.Enter",
+                                "value": "enter"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Label.Exit",
+                                "value": "exit"
+                            }
+                        ],
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "suspended-animation-enter"
+                            "suspended-animation:enter"
                         ],
                         "selector": "fortitude",
                         "type": "status",
@@ -725,7 +727,7 @@
                     {
                         "key": "Immunity",
                         "predicate": [
-                            "suspended-animation-enter"
+                            "suspended-animation:enter"
                         ],
                         "type": [
                             "disease",
@@ -735,7 +737,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "suspended-animation-exit"
+                            "suspended-animation:exit"
                         ],
                         "selector": "initiative",
                         "type": "circumstance",
