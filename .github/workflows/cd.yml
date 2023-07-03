@@ -38,7 +38,7 @@ jobs:
         id: sub_manifest_link_version
         uses: microsoft/variable-substitution@v1
         with:
-          files: 'system.json'
+          files: 'dist/system.json'
         env:
           download: https://github.com/${{github.repository}}/releases/download/${{ env.systemVersion }}/module.zip
 
