@@ -690,6 +690,12 @@ class DamageDicePF2e extends DiceModifierPF2e {
         }
     }
 
+    /** Test the `predicate` against a set of roll options */
+    test(options: Set<string>): void {
+        this.enabled = this.predicate.test(options);
+        this.ignored = !this.enabled;
+    }
+
     clone(): DamageDicePF2e {
         return new DamageDicePF2e(this);
     }

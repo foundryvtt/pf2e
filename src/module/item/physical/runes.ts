@@ -53,23 +53,6 @@ function getResilientBonus(itemData: { resiliencyRune: { value: ResilientRuneTyp
 type RuneDiceProperty = "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
 type RuneDiceData = Partial<Pick<DamageDiceParameters, RuneDiceProperty>>;
 
-function toDamageDice(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): DamageDicePF2e[] {
-    return deepClone(dice).map(
-        (d) =>
-            new DamageDicePF2e({
-                selector: "strike-damage",
-                slug: rune,
-                label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
-                diceNumber: d.diceNumber ?? 1,
-                dieSize: d.dieSize ?? "d6",
-                damageType: d.damageType,
-                category: d.category ?? null,
-                predicate: d.predicate,
-                critical: d.critical ?? null,
-            })
-    );
-}
-
 interface WeaponPropertyRuneData {
     attack?: {
         notes?: RuneNoteData[];
@@ -1177,10 +1160,24 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
 };
 
-function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
+function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<string>): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
         const runeData = CONFIG.PF2E.runes.weapon.property[rune];
-        return toDamageDice(rune, runeData.damage?.dice ?? []);
+        return deepClone(runeData.damage?.dice ?? []).map((data) => {
+            const dice = new DamageDicePF2e({
+                selector: "strike-damage",
+                slug: rune,
+                label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
+                diceNumber: data.diceNumber ?? 1,
+                dieSize: data.dieSize ?? "d6",
+                damageType: data.damageType,
+                category: data.category ?? null,
+                predicate: data.predicate,
+                critical: data.critical ?? null,
+            });
+            dice.test(options);
+            return dice;
+        });
     });
 }
 
