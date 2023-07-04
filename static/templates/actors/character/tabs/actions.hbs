@@ -170,6 +170,26 @@
                 </div>
 
                 <div class="actions-panel tab" data-tab="exploration" data-group="actions-tabs">
+                    {{!# Active exploration activities are only shown if one exists}}
+                    {{#if actions.exploration.active}}
+                        <h3 class="header">
+                            {{localize "PF2E.Actor.Character.ActiveHeader"}}
+                            {{#if @root.options.editable}}
+                                <div class="controls">
+                                    <button type="button" class="item-control" data-action="clear-exploration">
+                                        <i class="fa-solid fa-fw fa-times"></i>{{localize "PF2E.Actor.Character.Clear"}}
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </h3>
+
+                        <ol class="actions-list item-list directory-list">
+                            {{#each actions.exploration.active as |action|}}
+                                {{> action action=action}}
+                            {{/each}}
+                        </ol>
+                    {{/if}}
+
                     <h3 class="header">
                         {{localize "PF2E.ActionsActionsHeader"}}
                         {{#if @root.options.editable}}
@@ -185,7 +205,7 @@
                     </h3>
 
                     <ol class="actions-list item-list directory-list">
-                        {{#each actions.exploration as |action aid|}}
+                        {{#each actions.exploration.other as |action|}}
                             {{> action action=action}}
                         {{/each}}
                     </ol>
@@ -270,6 +290,11 @@
                         {{localize (lookup @root.frequencies action.frequency.per)}}
                     </span>
                 </div>
+            {{/if}}
+            {{#if action.exploration}}
+                <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
+                    {{localize "PF2E.Actor.Character.Active"}}
+                </button>
             {{/if}}
         </div>
         {{#if @root.options.editable}}

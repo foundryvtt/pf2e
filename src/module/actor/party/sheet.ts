@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { Language } from "@actor/creature/index.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
@@ -9,7 +9,9 @@ import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -142,11 +144,20 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     #prepareExploration(): MemberExploration[] {
-        const characters = this.actor.members.filter((m) => m.isOfType("character"));
+        const characters = this.actor.members.filter((m): m is CharacterPF2e => m.isOfType("character"));
         return characters.map((actor): MemberExploration => {
+            const activities = R.compact(actor.system.exploration.map((id) => actor.items.get(id)));
+
             return {
                 actor,
-                activities: [],
+                owner: actor.isOwner,
+                activities: activities.map((action) => ({
+                    id: action.id,
+                    name: action.name,
+                    img: action.img,
+                    traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
+                })),
+                choices: actor.itemTypes.action.filter((a) => a.system.traits.value.includes("exploration")),
             };
         });
     }
@@ -210,6 +221,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const content = createHTMLElement("span", { children: [title, members] });
             $(languageTag).tooltipster({ content });
         }
+
+        htmlQuery(html, "[data-action=clear-exploration]")?.addEventListener("click", async () => {
+            await Promise.all(this.actor.members.map((m) => m.update({ "system.exploration": [] })));
+            ui.notifications.info("PF2E.Actor.Party.ClearActivities.Complete", { localize: true });
+        });
+
+        htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
+            game.pf2e.actions.restForTheNight({ event, actors: this.actor.members });
+        });
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
@@ -323,7 +343,9 @@ interface MemberBreakdown {
 
 interface MemberExploration {
     actor: ActorPF2e;
-    activities: { img: string; name: string; traits: string[] }[];
+    owner: boolean;
+    activities: { img: string; id: string; name: string; traits: SheetOptions }[];
+    choices: { id: string; name: string }[];
 }
 
 interface LanguageSheetData {

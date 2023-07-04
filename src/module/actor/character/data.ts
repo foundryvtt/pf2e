@@ -124,6 +124,8 @@ interface CharacterSystemData extends CreatureSystemData {
         formulas: CraftingFormulaData[];
         entries: Record<string, Partial<CraftingEntryData>>;
     };
+
+    exploration: string[];
 }
 
 interface CharacterAbilityData extends AbilityData {

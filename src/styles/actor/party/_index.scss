@@ -124,8 +124,29 @@
         }
     }
 
-    [data-tab="exploration"] {
-        @import "exploration";
+    .content header {
+        align-items: center;
+        background-color: var(--sub);
+        color: white;
+        display: flex;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        padding: 0 0.5rem;
+        line-height: 2.375rem;
+
+        .buttons {
+            align-items: center;
+            display: flex;
+            margin-left: auto;
+        }
+
+        button {
+            background-color: var(--tertiary);
+            border-color: 1px solid var(--alt-dark);
+            color: var(--alt-dark);
+            min-width: 1.875rem;
+            height: 1.875rem;
+        }
     }
 
     .sidebar {
@@ -233,6 +254,10 @@
 
     [data-tab="overview"] {
         @import "overview";
+    }
+
+    [data-tab="exploration"] {
+        @import "exploration";
     }
 
     [data-tab="orphaned"] {
