@@ -20,7 +20,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, nullable: false }),
+            selector: new fields.StringField({ required: true, nullable: false, blank: false }),
             adjustment: new RecordField(
                 new fields.StringField({
                     required: true,

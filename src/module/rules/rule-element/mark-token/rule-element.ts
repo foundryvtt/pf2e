@@ -14,7 +14,7 @@ class MarkTokenRuleElement extends RuleElementPF2e<MarkTokenRuleSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            tokenUUID: new fields.StringField({ required: false, nullable: true, initial: undefined }),
+            tokenUUID: new fields.StringField({ required: false, nullable: true, initial: null }),
         };
     }
 
@@ -61,7 +61,7 @@ class MarkTokenRuleElement extends RuleElementPF2e<MarkTokenRuleSchema> {
 }
 
 type MarkTokenRuleSchema = RuleElementSchema & {
-    tokenUUID: StringField<string, string, false, true, false>;
+    tokenUUID: StringField<string, string, false, true, true>;
 };
 
 interface MarkTokenRuleElement

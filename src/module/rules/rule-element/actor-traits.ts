@@ -6,8 +6,8 @@ class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            add: new fields.ArrayField(new fields.StringField({ required: true, nullable: false })),
-            remove: new fields.ArrayField(new fields.StringField({ required: true, nullable: false })),
+            add: new fields.ArrayField(new fields.StringField({ required: true, nullable: false, blank: false })),
+            remove: new fields.ArrayField(new fields.StringField({ required: true, nullable: false, blank: false })),
         };
     }
 
