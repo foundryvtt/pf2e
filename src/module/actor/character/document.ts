@@ -473,9 +473,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             99.5
         );
 
-        // Get the itemTypes object only once for the entire run of the method
-        const itemTypes = this.itemTypes;
-
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
             const params = { slug: "level-bump", label: "PF2E.PFS.LevelBump", modifier: 1 };
@@ -632,7 +629,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
 
         // Spellcasting Entries
-        for (const entry of itemTypes.spellcastingEntry) {
+        for (const entry of this.itemTypes.spellcastingEntry) {
             if (entry.isInnate) {
                 const allRanks = Object.values(this.traditions).map((t) => t.rank ?? 0);
                 entry.system.proficiency.value = Math.max(1, entry.rank, ...allRanks) as ZeroToFour;
@@ -659,8 +656,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Expose best spellcasting DC to character attributes
-        if (itemTypes.spellcastingEntry.length > 0) {
-            const best = itemTypes.spellcastingEntry.reduce((previous, current) => {
+        if (this.itemTypes.spellcastingEntry.length > 0) {
+            const best = this.itemTypes.spellcastingEntry.reduce((previous, current) => {
                 return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
             });
             this.system.attributes.spellDC = { rank: best.statistic.rank ?? 0, value: best.statistic.dc.value };
