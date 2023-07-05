@@ -24,6 +24,7 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { ResolvableValueField } from "./data.ts";
 
 /**
  * Create an ephemeral strike on an actor
@@ -121,14 +122,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             damage: new fields.SchemaField({
                 base: new fields.SchemaField({
                     damageType: new fields.StringField({ required: true, blank: false, initial: "bludgeoning" }),
-                    dice: new fields.NumberField({
-                        required: true,
-                        nullable: false,
-                        integer: true,
-                        min: 0,
-                        max: 8,
-                        initial: 1,
-                    }),
+                    dice: new ResolvableValueField({ required: true, nullable: false, initial: 1 }),
                     die: new fields.StringField({ required: true, choices: CONFIG.PF2E.damageDie, initial: "d4" }),
                     modifier: new fields.NumberField({ nullable: false, min: 0, initial: 0 }),
                 }),
@@ -236,8 +230,13 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             return this.failValidation("Unrecognized damage type");
         }
 
+        const dice = this.resolveValue(this.damage.base.dice);
+        if (typeof dice !== "number") {
+            return this.failValidation("dice does not resolve to a number");
+        }
+
         if (predicatePassed) {
-            const weapon = this.#constructWeapon(damageType);
+            const weapon = this.#constructWeapon(damageType, Math.clamped(Math.trunc(dice), 0, 8));
             const slug = weapon.slug ?? sluggify(weapon.name);
             this.actor.synthetics.strikes.set(slug, weapon);
         }
@@ -262,7 +261,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      * Construct a `WeaponPF2e` instance for use as the synthetic strike
      * @param damageType The resolved damage type for the strike
      */
-    #constructWeapon(damageType: DamageType): WeaponPF2e<ActorPF2e> {
+    #constructWeapon(damageType: DamageType, dice: number): WeaponPF2e<ActorPF2e> {
         const actorIsNPC = this.actor.isOfType("npc");
         const source: PreCreate<WeaponSource> = deepClone({
             _id: this.item.id,
@@ -287,6 +286,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 },
                 damage: {
                     ...this.damage.base,
+                    dice,
                     damageType,
                 },
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
@@ -378,7 +378,7 @@ type StrikeSchema = RuleElementSchema & {
     damage: SchemaField<{
         base: SchemaField<{
             damageType: StringField<string, string, true, false, true>;
-            dice: NumberField<number, number, true, false, true>;
+            dice: ResolvableValueField<true, false, true>;
             die: StringField<DamageDieSize, DamageDieSize, true, false, true>;
             modifier: NumberField<number, number, false, false, true>;
         }>;
