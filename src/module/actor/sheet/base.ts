@@ -1333,6 +1333,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
+    /** Opens a sheet tab by name. May be overriden to handle sub-tabs */
+    protected openTab(name: string): void {
+        this._tabs[0].activate(name);
+    }
+
     /** Hide the sheet-config button unless there is more than one sheet option. */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
@@ -1355,7 +1360,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     protected override async _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void> {
         await maintainTagifyFocusInRender(this, () => super._render(force, options));
         if (options?.tab) {
-            this._tabs[0].activate(options.tab);
+            this.openTab(options.tab);
         }
     }
 
