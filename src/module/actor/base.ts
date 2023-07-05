@@ -1845,8 +1845,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         super._onDelete(options, userId);
     }
 
-    protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
-        super._onEmbeddedDocumentChange(embeddedName);
+    protected override _onEmbeddedDocumentChange(): void {
+        super._onEmbeddedDocumentChange();
 
         // Send any accrued warnings to the console
         this.synthetics.preparationWarnings.flush();

@@ -148,11 +148,8 @@ declare global {
             userId: string
         ): void;
 
-        /**
-         * Perform various actions on active tokens if embedded documents were changed.
-         * @param embeddedName The type of embedded document that was modified.
-         */
-        protected _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void;
+        /** Additional workflows to perform when any descendant document within this Actor changes. */
+        protected _onEmbeddedDocumentChange(): void;
     }
 
     interface Actor<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActor<TParent> {

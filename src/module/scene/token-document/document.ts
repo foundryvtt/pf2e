@@ -427,7 +427,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         options: DocumentModificationContext<null> = {}
     ): void {
         super._onRelatedUpdate(update, options);
-        if (!this.isLinked || !this.rendered || !this.visible) return;
+        if (!this.isLinked || !this.object?.visible) return;
 
         if (Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"))) {
             this.reset();
