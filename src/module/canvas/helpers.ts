@@ -193,7 +193,7 @@ function highlightGrid({
     const [col0, row0] = grid.grid.getGridPositionFromPixels(cx, cy);
     const minAngle = (360 + ((direction - angle * 0.5) % 360)) % 360;
     const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
-
+    const snappedOrigin = canvas.grid.getSnappedPosition(document.x, document.y, object.layer.gridPrecision);
     const withinAngle = (min: number, max: number, value: number) => {
         min = (360 + (min % 360)) % 360;
         max = (360 + (max % 360)) % 360;
@@ -211,12 +211,12 @@ function highlightGrid({
         const dir = (direction >= 0 ? 360 - direction : -direction) % 360;
         // If we're not on a border for X, offset by 0.5 or -0.5 to the border of the cell in the direction we're looking on X axis
         const xOffset =
-            document.x % dimensions.size !== 0
+            snappedOrigin.x % dimensions.size !== 0
                 ? Math.sign((1 * Math.round(Math.cos(Math.toRadians(dir)) * 100)) / 100) / 2
                 : 0;
         // Same for Y, but cos Y goes down on screens, we invert
         const yOffset =
-            document.y % dimensions.size !== 0
+            snappedOrigin.y % dimensions.size !== 0
                 ? -Math.sign((1 * Math.round(Math.sin(Math.toRadians(dir)) * 100)) / 100) / 2
                 : 0;
         return { x: xOffset * dimensions.size, y: yOffset * dimensions.size };
@@ -259,15 +259,14 @@ function highlightGrid({
             if (destination.x < 0 || destination.y < 0) continue;
 
             // Determine point of origin
-            const snappedDocCoords = canvas.grid.getSnappedPosition(document.x, document.y, object.layer.gridPrecision);
             const emanationOriginOffset = offsetEmanationOrigin(destination);
             const origin = {
-                x: snappedDocCoords.x + coneOriginOffset.x + emanationOriginOffset.x,
-                y: snappedDocCoords.y + coneOriginOffset.y + emanationOriginOffset.y,
+                x: snappedOrigin.x + coneOriginOffset.x + emanationOriginOffset.x,
+                y: snappedOrigin.y + coneOriginOffset.y + emanationOriginOffset.y,
             };
-            const ray = new Ray(origin, destination);
 
             if (areaType === "cone") {
+                const ray = new Ray(origin, destination);
                 const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
                 if (ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
                     continue;
