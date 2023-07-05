@@ -124,9 +124,9 @@
 
                 <div class="skills">
                     {{#with member.actor.perception as |perception|}}
-                        <span class="perception tag-light" {{#if perception.rank}}data-rank="{{perception.rank}}"{{/if}}>
+                        <button type="button" class="perception tag-light rollable" {{#if perception.rank}}data-rank="{{perception.rank}}"{{/if}} {{#if @root.user.isGM}}data-action="roll" data-statistic="perception" data-secret="true"{{/if}}>
                             {{perception.label}} {{numberFormat perception.mod sign=true}}
-                        </span>
+                        </button>
                     {{/with}}
                     {{#each member.bestSkills as |skill|}}
                         <span class="tag-light" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>

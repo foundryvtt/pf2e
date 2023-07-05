@@ -7,11 +7,12 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -169,6 +170,19 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
+
+        // Enable all roll actions
+        for (const rollLink of htmlQueryAll(html, "[data-action=roll]")) {
+            const actorUUID = htmlClosest(rollLink, "[data-actor-uuid]")?.dataset.actorUuid;
+            const actor = fromUuidSync(actorUUID ?? "");
+            if (!(actor instanceof ActorPF2e)) continue;
+
+            rollLink.addEventListener("click", (event) => {
+                const rollMode = rollLink.dataset.secret ? (game.user.isGM ? "gmroll" : "blindroll") : undefined;
+                const statistic = actor.getStatistic(rollLink.dataset.statistic ?? "");
+                statistic?.roll({ ...eventToRollParams(event), rollMode });
+            });
+        }
 
         // Add open actor sheet links
         for (const openSheetLink of htmlQueryAll(html, "[data-action=open-sheet]")) {
