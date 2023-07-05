@@ -216,7 +216,7 @@ export abstract class DataField<
      * @throws  An error if joint model validation fails
      * @internal
      */
-    _validateModel(data: Record<string, unknown>, options?: Record<string, unknown>): void;
+    _validateModel(data: TSourceProp, options?: Record<string, unknown>): void;
 
     /* -------------------------------------------- */
     /*  Initialization and Serialization            */
@@ -240,6 +240,12 @@ export abstract class DataField<
      * @returns An exported representation of the field
      */
     toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+
+    /**
+     * Recursively traverse a schema and retrieve a field specification by a given path
+     * @param path The field path as an array of strings
+     */
+    protected _getField(path: string[]): this | undefined;
 }
 
 /* -------------------------------------------- */
@@ -321,7 +327,10 @@ export class SchemaField<
         model: ConstructorOf<abstract.DataModel>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
-    protected override _validateType(data: object, options?: Record<string, unknown>): void;
+    protected override _validateType(
+        data: object,
+        options?: Record<string, unknown>
+    ): boolean | DataModelValidationFailure | void;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -530,6 +539,8 @@ export class ArrayField<
      */
     protected static _validateElementType(element: unknown): unknown;
 
+    override _validateModel(changes: TSourceProp, options?: Record<string, unknown>): void;
+
     protected static override get _defaults(): ArrayFieldOptions<unknown[], boolean, boolean, boolean>;
 
     protected override _cast(value: unknown): unknown;
@@ -616,8 +627,13 @@ export class EmbeddedDataField<
      * @param options Options which configure the behavior of the field
      */
     constructor(
-        model: TModelProp,
-        options: ObjectFieldOptions<SourceFromSchema<TModelProp["schema"]["fields"]>, TRequired, TNullable, THasInitial>
+        model: ConstructorOf<TModelProp>,
+        options?: ObjectFieldOptions<
+            SourceFromSchema<TModelProp["schema"]["fields"]>,
+            TRequired,
+            TNullable,
+            THasInitial
+        >
     );
 
     /** The embedded DataModel definition which is contained in this field. */
