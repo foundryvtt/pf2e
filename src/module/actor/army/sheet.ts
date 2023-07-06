@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ArmyPF2e } from "./document.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { htmlQueryAll } from "@util";
+import { htmlQueryAll, localizer } from "@util";
 import { DicePF2e } from "@scripts/dice.ts";
 import { ARMY_STATS } from "./values.ts"; 
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -178,6 +178,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
     // The "Info" buttons call a function that creates chat cards for the embedded gear data (not finished, at the very least all this data needs moving to the values.ts or en.json files)
     async #onClickInfo(link: HTMLElement): Promise<void> {
+        const localize = localizer("PF2E.Warfare.Gear");
         const { info } = link?.dataset ?? {};
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
         let bonus = 0;
@@ -190,26 +191,52 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         if (info === "melee" || info === "ranged") {
             bonus = this.actor.system.weapons[info].potency;
             name = ["Mundane Weapons", "Magic Weapons", "Greater Magic Weapons", "Major Magic Weapons"];
-            traits = "Army, Evocation, Magical";
-            description = "The army's weapons are magic. If the army has melee and ranged weapons, choose which one is made magic when this gear is purchased. You can buy this gear twice—once for melee weapons and once for ranged weapons. If you purchase a more powerful version, it replaces the previous version, and the RP cost of the more powerful version is reduced by the RP cost of the replaced weapons.";
+            traits = localize("Weapons.traits");
+            description = localize("Weapons.description");
             level = [0, 2, 10, 16];
             price = [0, 20, 40, 60];
         } else if (info === "potions") {
             bonus = 0;
             name = ["Healing Potions"];
-            traits = "Army, Consumable, Healing, Magical, Necromancy, Potion";
-            description = "An army equipped with healing potions (these rules are the same if you instead supply the army with alchemical healing elixirs) can use a single dose as part of any Maneuver action. When an army uses a dose of healing potions, it regains 1 HP. An army can be outfitted with up to 3 doses of healing potions at a time; unlike ranged Strike shots, healing potion doses do not automatically replenish after a war encounter—new doses must be purchased.";
+            traits = localize("Potions.traits");
+            description = localize("Potions.description");
             price = [15];
         } else if (info === "armor") {
             bonus = this.actor.system.attributes.ac.potency;
             name = ["Mundane Armor", "Magic Armor", "Greater Magic Armor", "Major Magic Armor"];
-            traits = "Abjuration, Army, Magical";
-            description = "Magic armor is magically enchanted to bolster the protection it affords to the soldiers.";
+            traits = localize("Armor.traits");
+            description = localize("Armor.description");
             level = [0, 5, 11, 18];
             price = [0, 25, 50, 75];
         }
 
         const content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/>" + "<p>Level: " + level[bonus] + "</p><p>Price: " + price[bonus] + " RP</p>" ;
+
+        /* Failed attempt to streamline this (couldn't work out how to access the values by index after swapping it to an object)
+        const { info } = link?.dataset ?? {};
+        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
+        let bonus = 0;
+        let details = {
+            name : [""],
+            traits : "",
+            description : "",
+            level : [0],
+            price : [0],
+        };
+
+        if (info === "melee" || info === "ranged") {
+            bonus = this.actor.system.weapons[info].potency;
+            details = ARMY_GEAR_WEAPONS;
+        } else if (info === "potions") {
+            bonus = 0;
+            details = ARMY_GEAR_POTIONS;
+        } else if (info === "armor") {
+            bonus = this.actor.system.attributes.ac.potency,
+            details = ARMY_GEAR_ARMOR;
+        }
+
+        const content = "<h3>" + details.name[bonus] + "</h3>" + details.traits + "<hr/>" + details.description + "<hr/>" + "<p>Level: " + details.level[bonus] + "</p><p>Price: " + details.price[bonus] + " RP</p>" ;
+        **/
 
         await ChatMessagePF2e.create({
             content,
