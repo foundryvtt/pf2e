@@ -83,6 +83,9 @@ interface ArmySystemSource extends ActorSystemSource {
 
     details: {
         alliance: ActorAlliance;
+        strongSave: string;
+        weakSave: string;
+        editLock : boolean;
         level: { value: number };
         alignment: Alignment;
         description: string;
