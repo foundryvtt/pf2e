@@ -1,4 +1,4 @@
-<form class="army-sheet" autocomplete="off">
+<form class="army-sheet{{#if data.details.editLock}} editLock{{/if}}" autocomplete="off">
 
     {{!-- ============== --}}
     {{!--    SIDEBAR     --}}
@@ -15,7 +15,7 @@
             <div class="section-head">
                 <i class="fa-solid fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
-                <input type="number" data-property="system.attributes.ac.value" value="{{add data.attributes.ac.value data.attributes.ac.potency}}" data-dtype="Number"/>
+                <input class="stats" type="number" data-property="system.attributes.ac.value" value="{{add data.attributes.ac.value data.attributes.ac.potency}}" data-dtype="Number"/>
             </div>
             <div class="buttons">
                 <label for="system.attributes.ac.potency"><span class="plus">+</span>{{data.attributes.ac.potency}}</label>
@@ -68,6 +68,7 @@
         {{!-- Attributes --}}
         <section class="sidebar-section">
             <div class="section-head">
+                <i class="fa-solid fa-fw fa-eye"></i>
                 <h4>Attributes</h4>
             </div>
             <div>
@@ -75,7 +76,7 @@
                 <section class="roll">
                     <a data-attribute="scouting" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
                     <span class="plus">+</span>
-                    <input class="roll-bonus" type="number" data-property="system.attributes.scouting.bonus" value="{{data.attributes.scouting.bonus}}" data-dtype="Number"/>
+                    <input class="stats roll-bonus" type="number" data-property="system.attributes.scouting.bonus" value="{{data.attributes.scouting.bonus}}" data-dtype="Number"/>
                 </section>
             </div>
             <div>
@@ -83,7 +84,7 @@
                 <section class="roll">
                     <a data-attribute="morale" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
                     <span class="plus">+</span>
-                    <input class="roll-bonus" type="number" data-property="system.attributes.morale.bonus" value="{{data.attributes.morale.bonus}}" data-dtype="Number"/>
+                    <input class="stats roll-bonus" type="number" data-property="system.attributes.morale.bonus" value="{{data.attributes.morale.bonus}}" data-dtype="Number"/>
                 </section>
             </div>
             <div>
@@ -91,20 +92,20 @@
                 <section class="roll">
                     <a data-attribute="maneuver" class="rollable roll-icon"><i class="fas fa-dice-d20"></i></a>
                     <span class="plus">+</span>
-                    <input class="roll-bonus" type="number" data-property="system.attributes.maneuver.bonus" value="{{data.attributes.maneuver.bonus}}" data-dtype="Number"/>
+                    <input class="stats roll-bonus" type="number" data-property="system.attributes.maneuver.bonus" value="{{data.attributes.maneuver.bonus}}" data-dtype="Number"/>
                 </section>
             </div>
             <div>
-                <label for="data.attributes.consumption">Consumption:</label>
-                <input type="number" data-property="system.attributes.consumption" value="{{data.attributes.consumption}}" data-dtype="Number"/>
+                <label for="data.attributes.consumption">Consumption</label>
+                <input class="stats" type="number" data-property="system.attributes.consumption" value="{{data.attributes.consumption}}" data-dtype="Number"/>
             </div>
             <div>
-                <label for="data.attributes.standardDC">Standard DC:</label>
-                <input type="number" data-property="system.attributes.standardDC" value="{{data.attributes.standardDC}}" data-dtype="Number"/>
+                <label for="data.attributes.standardDC">Standard DC</label>
+                <input class="stats" type="number" data-property="system.attributes.standardDC" value="{{data.attributes.standardDC}}" data-dtype="Number"/>
             </div>
             <div>
-                <label for="data.attributes.maxTactics">Max Tactics:</label>
-                <input type="number" data-property="system.attributes.maxTactics" value="{{data.attributes.maxTactics}}" data-dtype="Number"/>
+                <label for="data.attributes.maxTactics">Max Tactics</label>
+                <input class="stats" type="number" data-property="system.attributes.maxTactics" value="{{data.attributes.maxTactics}}" data-dtype="Number"/>
             </div>
         </section>
     </aside>
@@ -117,8 +118,8 @@
         <header class="army-sheet-header">
             {{!-- NAME --}}
             <div class="name flex">
-                <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="Army Name" spellcheck="false" />
-                <label class="level-label">Army <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}"/></label>
+                <input class="name" name="name" type="text" value="{{actor.name}}" placeholder="Army Name" spellcheck="false" />
+                <label class="level-label">Army <input class="level stats" name="system.details.level.value" type="number" value="{{data.details.level.value}}"/></label>
             </div>
             {{!-- TRAITS --}}
             <div class="flex">
@@ -153,14 +154,18 @@
                         {{/select}}
                     </select>
                 </div>
-                <div class="sheet-settings">
-                    <button data-tooltip="Lock" class="lock-sheet" type="button">
-                        <i class="far fa-lock"></i>
+                <div class="sheet-settings">                            
+                    <button class="unlock editLock" type="button">
+                        {{#if data.details.editLock}}
+                        <i data-tooltip="Unlock Input Fields" class="far fa-lock"></i>                    
+                        {{else}}
+                        <i data-tooltip="Lock Input Fields" class="far fa-lock-open"></i>
+                        {{/if}}
                     </button>
-                    <button data-tooltip="Edit Stats" class="generate-stats" type="button">
+                    <button data-tooltip="Edit Stats" class="generate-stats popup" type="button">
                         <i class="far fa-cog"></i>
                     </button>
-                    <button data-tooltip="Level Up" class="level-up" type="button">
+                    <button data-tooltip="Level Up" class="generate-stats level-up" type="button">
                         <i class="far fa-angle-double-up"></i>
                     </button>
                 </div>

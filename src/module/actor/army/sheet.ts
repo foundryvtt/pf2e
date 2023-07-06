@@ -83,6 +83,11 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                     const property = actor.system.weapons.ranged.unlocked;
                     actor.update({ "system.weapons.ranged.unlocked": !property });
                 }
+                if (buttonclass.includes("editLock")) {
+                    console.log("Toggling Sheet Lock");
+                    const property = actor.system.details.editLock;
+                    actor.update({ "system.details.editLock": !property });
+                }
                 return;
             });
         }
@@ -131,10 +136,10 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             });
         }
 
-        // Generate Stats Button
+        // Army Builder Buttons
         for (const button of htmlQueryAll(html, "button.generate-stats")) {
             button.addEventListener("click", () => {
-                this.#GenerateStatsPopup();
+                this.#generateStats(button);
             });
         }
     }
@@ -212,68 +217,101 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         });
     }
 
-    // This function is used for creating new armies- it just grabs the "default" values for the army's level
-    async #GenerateStatsPopup(): Promise<void> {
-        const actor = this.actor; // Should I just move this to the top and use it everywhere
-        // Create the input dialogue
-        const d = new Dialog({
-            title: "Army Stat Generator",
-            content: `
-            <html>
-                <head><style>
-                    input#level { width: 3rem; }
-                    fieldset {
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                    div.dialog-buttons { padding-top: 0.5rem; }
-                </style></head>
-                <body><form>
-                    <p>Generates stats for armies using the default values as defined in the Warfare rules. New statistics will be dependent on the level. Can be used for creating new armies or for leveling up existing ones. Gear, tactics, actions, and traits will not be replaced.</p>
-                    <p><strong>Warning: The old statistics will be permanently overwritten.</strong></p>
-                    <fieldset><legend>Parameters:</legend>
-                        <label for="level">Level: <input required="true" autofocus="true" type="number" id="level" name="level"/></label>
-                        <label for="save">Strong save: <select id="save">
-                            <option selected="true" value="maneuver">Maneuver</option>
-                            <option value="morale">Morale</option>
-                        </select></label>
-                    </fieldset>
-                </form></body>
-            </html>
-            `,
-            buttons: {
-                generate: {
-                    label: "Generate Stats",
-                    callback: (html) => generate(html),
-                    icon: `<i class="fas fa-cog"></i>`,
-                },
-                cancel: {
-                    label: "Cancel",
-                    callback: close,
-                    icon: `<i class="fas fa-times"></i>`,
-                },
-            },
-            default: "cancel",
-            render: () => console.log("Rendered"),
-            close: () => console.log("Closed"),
-        });
-        d.render(true);
+    // This function is used for creating new army stat blocks- it just grabs the "default" values for the army's level
+    async #generateStats(button: HTMLElement): Promise<void> {
+        const actor = this.actor; // Should I just move this to the top and use it everywhere? Why does it not work without it?
+        const action = Array.from(button.classList).find((c) => ["level-up", "popup"].includes(c));
 
-        async function generate(html: JQuery<HTMLElement>) {
-            // Record results of user selection
-            const newLevel = Number(html.find("#level").val());
-            const chosenSave = String(html.find("#save").val());
-            const strongSave = ((chosenSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
-            const weakSave = ((chosenSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
-            console.log(newLevel, chosenSave);
-            // Update stats with default values
+        // The full "build" popup which queries for the desired level and weak/strong save
+        if (action === "popup") {
+
+            // Create the input form
+            const d = new Dialog({
+                title: "Army Stat Generator",
+                content: `
+                <html>
+                    <head><style>
+                        input#level { width: 3rem; }
+                        fieldset {
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                        div.dialog-buttons { padding-top: 0.5rem; }
+                    </style></head>
+                    <body><form>
+                        <p>Generates stats for armies using the default values as defined in the Warfare rules. New statistics will be dependent on the level. Can be used for creating new armies or for leveling up existing ones. Gear, tactics, actions, and traits will not be replaced.</p>
+                        <p><strong>Warning: The old statistics will be permanently overwritten.</strong></p>
+                        <fieldset><legend>Parameters:</legend>
+                            <label for="level">Level: <input required="true" autofocus="true" type="number" id="level" name="level"/></label>
+                            <label for="save">Strong save: <select id="save">
+                                <option selected="true" value="maneuver">Maneuver</option>
+                                <option value="morale">Morale</option>
+                            </select></label>
+                        </fieldset>
+                    </form></body>
+                </html>
+                `,
+                buttons: {
+                    generate: {
+                        label: "Generate Stats",
+                        callback: (html) => processForm(html),
+                        icon: `<i class="fas fa-cog"></i>`,
+                    },
+            },});
+            d.render(true);
+            
+            async function processForm(html: JQuery<HTMLElement>) {
+                // Record results of user selection
+                const newLevel = Number(html.find("#level").val());
+                const strongSave = String(html.find("#save").val());
+                replaceStats(newLevel, strongSave);
+            }
+
+        } else if (action === "level-up") {
+            // We already know the values, the form is just a confirmation
+
+            const d = new Dialog({
+                title: "Level Up Army",
+                content: `
+                <html>
+                    <head><style>
+                        div.dialog-buttons { padding-top: 0.5rem; }
+                    </style></head>
+                    <body><form>
+                        <p>Increases Army level by 1, updating stats using the default values as defined in the Warfare rules. New statistics will be dependent on the level. Gear, tactics, actions, and traits will not be replaced.</p>
+                        <p><strong>Warning: The old statistics will be permanently overwritten.</strong></p>
+                    </form></body>
+                </html>
+                `,
+                buttons: {
+                    generate: {
+                        label: "Level Up",
+                        callback: () => processForm(),
+                        icon: `<i class="fas fa-angle-double-up"></i>`,
+                    },
+                },});
+            d.render(true);
+
+            async function processForm() {
+                // Record results of user selection
+                const newLevel = Number(actor.system.details.level.value + 1);
+                const strongSave = String(actor.system.details.strongSave || "morale");
+                replaceStats(newLevel, strongSave);
+            }
+        }
+
+        // Function that updates stats with default values
+        async function replaceStats(newLevel: number, strongSave: string) {
+            const strongSaveMod = ((strongSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
+            const weakSaveMod = ((strongSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
             const newStatistics = {
                 "system.details.level.value" : newLevel,
                 "system.attributes.scouting.bonus" : ARMY_STATS.scouting[newLevel],
                 "system.attributes.standardDC" : ARMY_STATS.standardDC[newLevel],
                 "system.attributes.ac.value" : ARMY_STATS.ac[newLevel],
-                [strongSave] : ARMY_STATS.strongSave[newLevel],
-                [weakSave] : ARMY_STATS.weakSave[newLevel],
+                "system.details.strongSave" : strongSave,
+                [strongSaveMod] : ARMY_STATS.strongSave[newLevel],
+                [weakSaveMod] : ARMY_STATS.weakSave[newLevel],
                 "system.weapons.bonus" : ARMY_STATS.attack[newLevel],
                 "system.attributes.maxTactics" : ARMY_STATS.maxTactics[newLevel],
             };

@@ -7,7 +7,7 @@ $primary-accent: $primary-color;
 $secondary-accent: $secondary-color;
 $light-text: #f5efe0;
 
-form.army-sheet {
+div.pf2e.army.sheet form.army-sheet {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -116,7 +116,7 @@ form.army-sheet {
         display: flex;
         flex: 1 0 auto;
         flex-direction: column;
-        .name {
+        div.name {
           font-family: var(--sans-serif-condensed);
           font-size: 1.75rem;
           font-weight: 700;
@@ -127,14 +127,15 @@ form.army-sheet {
             font-weight: inherit;
             height: 32px;
           }
-          .name-value {
+          input.name {
             max-width: calc(100% - 5.5rem);
             font-variant: small-caps;
+            text-indent: 0.5rem;
             margin-left: 6px;
             margin-right: 18px;
           }
           .level-label {
-            max-width: 5rem;
+            min-width: 9rem;
             text-align: right;
             margin-right: 0.1em;
             text-transform: uppercase;
@@ -225,7 +226,8 @@ form.army-sheet {
             }
             input.name {
               flex: 1;
-              text-indent: 0.5rem;
+              text-indent: 0.25rem;
+              height: 1.5rem;
             }
             .unlock {
               width: 1.5rem;
@@ -384,6 +386,7 @@ form.army-sheet {
     display: flex;
     align-items: center;
     min-width: 4rem;
+    justify-content: space-between;
     i {
       min-width: 1.5rem;
       font-size: 1rem;
@@ -411,19 +414,12 @@ form.army-sheet {
     color: darkred;
   }
 
-  select  {
-    font-size: var(--font-size-10);
-    height: 20px;
-    background: rgba(255, 255, 255, 0.5);
-  }
-
   .flex {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     label {
-      min-width: 50%;
       text-align: left;
       align-items: center;
     }
@@ -433,6 +429,19 @@ form.army-sheet {
     opacity: 0.75;
     &:hover {
       opacity: 1;
+    }
+  }
+
+  // "manual" vs "automatic" statgen mode
+  input[type="number"], input.name {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+  &.editLock {
+    input.stats {
+      cursor: default;
+      pointer-events: none;
+      background: none;
     }
   }
 }
