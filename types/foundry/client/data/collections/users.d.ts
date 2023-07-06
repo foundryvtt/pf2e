@@ -20,11 +20,16 @@ declare global {
         /** Get the users with player roles */
         get players(): TUser[];
 
+        /**
+         * Get one User who is an active Gamemaster, or null if no active GM is available.
+         * This can be useful for workflows which occur on all clients, but where only one user should take action.
+         */
+        get activeGM(): TUser | null;
+
         /* -------------------------------------------- */
         /*  Socket Listeners and Handlers               */
         /* -------------------------------------------- */
 
-        /** @override */
         protected static _activateSocketListeners(socket: io.Socket): void;
 
         /**
