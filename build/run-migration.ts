@@ -26,6 +26,7 @@ import { Migration837MoveHazardBookSources } from "@module/migration/migrations/
 import { Migration838StrikeAttackRollSelector } from "@module/migration/migrations/838-strike-attack-roll-selector.ts";
 import { Migration839ActionCategories } from "@module/migration/migrations/839-action-categories.ts";
 import { Migration841V11UUIDFormat } from "@module/migration/migrations/841-v11-uuid-format.ts";
+import { Migration844DeityDomainUUIDs } from "@module/migration/migrations/844-deity-domains-uuids.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -55,6 +56,7 @@ const migrations: MigrationBase[] = [
     new Migration838StrikeAttackRollSelector(),
     new Migration839ActionCategories(),
     new Migration841V11UUIDFormat(),
+    new Migration844DeityDomainUUIDs(),
 ];
 
 global.deepClone = <T>(original: T): T => {

@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import { htmlQueryAll } from "@util";
 import { SelectableTagField } from "./index.ts";
 
 interface TagSelectorOptions extends FormApplicationOptions {
@@ -11,7 +12,18 @@ interface TagSelectorOptions extends FormApplicationOptions {
     customChoices?: Record<string, string>;
 }
 
-abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends FormApplication<TDocument> {
+abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends FormApplication<
+    TDocument,
+    TagSelectorOptions
+> {
+    static override get defaultOptions(): TagSelectorOptions {
+        return mergeObject(super.defaultOptions, {
+            id: "tag-selector",
+            classes: ["pf2e", "tag-selector"],
+            width: "auto",
+        });
+    }
+
     choices: Record<string, string>;
 
     /** The object path to the property containing the tags */
@@ -23,34 +35,32 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends F
     constructor(object: TDocument, options: Partial<TagSelectorOptions> = {}) {
         super(object, options);
         this.flat = options.flat ?? false;
-        this.choices = this.getChoices();
+        this.choices = this.#getChoices();
+    }
+
+    override get id(): string {
+        return `${this.options.id}-${this.object.uuid}`;
     }
 
     protected abstract get configTypes(): readonly SelectableTagField[];
-
-    static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
-            id: "tag-selector",
-            classes: ["pf2e"],
-            width: "auto",
-            height: 700,
-        });
-    }
 
     protected abstract override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        $html.find<HTMLInputElement>('input[type="text"], input[type="number"]').on("focusin", (event) => {
-            event.currentTarget.select();
-        });
+        const html = $html[0];
+        for (const input of htmlQueryAll<HTMLInputElement>(html, "input:not([type=checkbox])")) {
+            input.addEventListener("focusin", () => {
+                input.select();
+            });
+        }
     }
 
     /**
      * Builds an object of all keys of this.configTypes from CONFIG.PF2E
      * @returns An object of all key and translated value pairs sorted by key
      */
-    private getChoices(): Record<string, string> {
+    #getChoices(): Record<string, string> {
         const choices = this.configTypes.reduce(
             (types, key) => mergeObject(types, CONFIG.PF2E[key]),
             {} as Record<string, string>

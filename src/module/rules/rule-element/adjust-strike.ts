@@ -12,8 +12,6 @@ import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
 import { RuleElementOptions } from "./base.ts";
 import { ResolvableValueField } from "./data.ts";
 
-const { fields } = foundry.data;
-
 class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
@@ -30,6 +28,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     ] as const);
 
     static override defineSchema(): AdjustStrikeSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             // `path` isn't used for AdjustAdjustStrike REs
@@ -71,7 +70,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                                 return;
                             }
                             if (!objectHasKey(CONFIG.PF2E.materialDamageEffects, change)) {
-                                return this.failValidation(`"${change} is not a supported weapon material effect.`);
+                                return this.failValidation(`"${change}" is not a supported weapon material effect.`);
                             }
 
                             const method = this.mode === "add" ? "add" : "delete";
@@ -112,7 +111,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                                 );
                             }
                             if (!objectHasKey(CONFIG.PF2E.actionTraits, change)) {
-                                return this.failValidation(`"${change} is not a recognized action trait.`);
+                                return this.failValidation(`"${change}" is not a recognized action trait.`);
                             }
                             if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
@@ -134,7 +133,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                                 );
                             }
                             if (!objectHasKey(CONFIG.PF2E.weaponTraits, change)) {
-                                return this.failValidation(`"${change} is not a recognized weapon trait.`);
+                                return this.failValidation(`"${change}" is not a recognized weapon trait.`);
                             }
                             if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
@@ -193,7 +192,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                             }
                             const runeSlug = sluggify(String(change), { camel: "dromedary" });
                             if (!objectHasKey(CONFIG.PF2E.weaponPropertyRunes, runeSlug)) {
-                                return this.failValidation(`"${change} is not a recognized weapon property rune.`);
+                                return this.failValidation(`"${change}" is not a recognized weapon property rune.`);
                             }
                             if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;

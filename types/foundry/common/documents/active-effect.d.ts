@@ -1,89 +1,51 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseActor, BaseItem, BaseUser } from "./module.d.ts";
+import type { BaseActor, BaseCombat, BaseItem, BaseUser } from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
 /**
  * The ActiveEffect document model.
- * @param data Initial data from which to construct the document.
- * @property data The constructed data object for the document.
+ * @param data    Initial data from which to construct the document.
+ * @param context Construction context options
  */
-export default class BaseActiveEffect<
-    TParent extends BaseActor | BaseItem<BaseActor | null> | null
-> extends Document<TParent> {
+export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null> extends Document<
+    TParent,
+    ActiveEffectSchema
+> {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
     static override get metadata(): ActiveEffectMetadata;
 
-    protected override _preCreate(
-        data: PreDocumentId<ActiveEffectSource>,
-        options: DocumentModificationContext<TParent>,
-        user: BaseUser
-    ): Promise<void>;
+    static override defineSchema(): ActiveEffectSchema;
+
+    /* -------------------------------------------- */
+    /*  Model Methods                               */
+    /* -------------------------------------------- */
+
+    override canUserModify(user: BaseUser, action: UserAction, data?: object): boolean;
 
     override testUserPermission(
         user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean }
     ): boolean;
+
+    /* -------------------------------------------- */
+    /*  Database Event Handlers                     */
+    /* -------------------------------------------- */
+
+    protected override _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: BaseUser
+    ): Promise<void>;
 }
 
 export default interface BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null>
-    extends Document<TParent> {
-    readonly _source: ActiveEffectSource;
-}
-
-/**
- * @property _id         The EmbeddedEntity id of the Active Effect
- * @property label       The label which describes this effect
- * @property [disabled]  Is this effect currently disabled?
- * @property [icon]      An image icon path for this effect
- * @property [tint]      A hex color string to tint the effect icon
- * @property [origin]    The UUID of an Entity or EmbeddedEntity which was the source of this effect
- * @property [transfer]  Should this effect transfer automatically to an Actor when its Item becomes owned?
- * @property flags       Additional key/value flags
- */
-export interface ActiveEffectSource {
-    _id: string;
-    label: string;
-    duration: EffectDurationSource;
-    changes: EffectChangeSource[];
-    disabled: boolean;
-    icon: ImageFilePath;
-    tint: string;
-    origin: string | undefined;
-    transfer: boolean;
-    flags: Record<string, unknown>;
-}
-
-/**
- * An embedded data structure which tracks the duration of an ActiveEffect.
- * @property startTime    The world time when the active effect first started
- * @property [seconds]    The maximum duration of the effect, in seconds
- * @property [combat]     The _id of the CombatEncounter in which the effect first started
- * @property [rounds]     The maximum duration of the effect, in combat rounds
- * @property [turns]      The maximum duration of the effect, in combat turns
- * @property [startRound] The round of the CombatEncounter in which the effect first started
- * @property [startTurn]  The turn of the CombatEncounter in which the effect first started
- */
-export interface EffectDurationSource {
-    startTime: number;
-    seconds: number | undefined;
-    combat?: string;
-    rounds: number | undefined;
-    turns: number | undefined;
-    startRound: number | null;
-    startTurn: number | null;
-}
-
-/**
- * An embedded data structure which defines the structure of a change applied by an ActiveEffect.
- * @property key The attribute path in the Actor or Item data which the change modifies
- * @property value The value of the change effect
- * @property mode The modification mode with which the change is applied
- * @property priority The priority level with which this change is applied
- */
-export interface EffectChangeSource {
-    key: string;
-    value: string;
-    mode: ActiveEffectChangeMode;
-    priority: number;
+    extends Document<TParent, ActiveEffectSchema>,
+        ModelPropsFromSchema<ActiveEffectSchema> {
+    readonly _source: SourceFromSchema<ActiveEffectSchema>;
 }
 
 export interface ActiveEffectMetadata extends DocumentMetadata {
@@ -92,3 +54,38 @@ export interface ActiveEffectMetadata extends DocumentMetadata {
     label: "DOCUMENT.ActiveEffect";
     isEmbedded: true;
 }
+
+type ActiveEffectSchema = {
+    _id: fields.DocumentIdField;
+    name: fields.StringField<string, string, true, false, false>;
+    changes: fields.ArrayField<
+        fields.SchemaField<{
+            key: fields.StringField<string, string, true, false, false>;
+            value: fields.StringField<string, string, true, false, false>;
+            mode: fields.NumberField<ActiveEffectChangeMode, ActiveEffectChangeMode, false, false, true>;
+            priority: fields.NumberField;
+        }>
+    >;
+    disabled: fields.BooleanField;
+    duration: fields.SchemaField<{
+        startTime: fields.NumberField<number, number, false, true, true>;
+        seconds: fields.NumberField;
+        combat: fields.ForeignDocumentField;
+        rounds: fields.NumberField;
+        turns: fields.NumberField;
+        startRound: fields.NumberField;
+        startTurn: fields.NumberField;
+    }>;
+    description: fields.HTMLField;
+    icon: fields.FilePathField<ImageFilePath>;
+    origin: fields.StringField<string, string, false, true, true>;
+    tint: fields.ColorField;
+    transfer: fields.BooleanField;
+    statuses: fields.SetField<fields.StringField<string, string, true, false, false>>;
+    flags: fields.ObjectField<DocumentFlags>;
+};
+
+export type ActiveEffectSource = SourceFromSchema<ActiveEffectSchema>;
+
+export type EffectChangeData = BaseActiveEffect<null>["changes"][number];
+export type EffectDurationData = BaseActiveEffect<null>["duration"];

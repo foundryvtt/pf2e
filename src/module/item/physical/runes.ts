@@ -1,11 +1,12 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { DamageDiceParameters, DamageDicePF2e, ModifierAdjustment } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
-import { ArmorPF2e, WeaponPF2e } from "@item";
+import { ArmorPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types.ts";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types.ts";
 import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
+import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { isBlank } from "@util";
 
@@ -49,25 +50,8 @@ function getResilientBonus(itemData: { resiliencyRune: { value: ResilientRuneTyp
     return resilientRuneValues.get(itemData.resiliencyRune.value) ?? 0;
 }
 
-type RuneDiceProperty = "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
+type RuneDiceProperty = "slug" | "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
 type RuneDiceData = Partial<Pick<DamageDiceParameters, RuneDiceProperty>>;
-
-function toDamageDice(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): DamageDicePF2e[] {
-    return deepClone(dice).map(
-        (d) =>
-            new DamageDicePF2e({
-                selector: "strike-damage",
-                slug: rune,
-                label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
-                diceNumber: d.diceNumber ?? 1,
-                dieSize: d.dieSize ?? "d6",
-                damageType: d.damageType,
-                category: d.category ?? null,
-                predicate: d.predicate,
-                critical: d.critical ?? null,
-            })
-    );
-}
 
 interface WeaponPropertyRuneData {
     attack?: {
@@ -84,6 +68,7 @@ interface WeaponPropertyRuneData {
          */
         ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
+    strikeAdjustments?: StrikeAdjustment[];
     level: number;
     name: string;
     price: number; // in gp
@@ -149,6 +134,31 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "uncommon",
         slug: "anchoring",
         traits: ["abjuration", "magical"],
+    },
+    ashen: {
+        damage: {
+            dice: [
+                {
+                    damageType: "fire",
+                    category: "persistent",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                },
+            ],
+            notes: [
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.ashen.Name",
+                    text: "PF2E.WeaponPropertyRune.ashen.Note.success",
+                },
+            ],
+        },
+        level: 9,
+        name: "PF2E.WeaponPropertyRune.ashen.Name",
+        price: 700,
+        rarity: "common",
+        slug: "ashen",
+        traits: ["enchantment", "magical"],
     },
     authorized: {
         level: 3,
@@ -246,6 +256,22 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "brilliant",
         traits: ["evocation", "magical"],
     },
+    called: {
+        level: 7,
+        name: "PF2E.WeaponPropertyRune.called.Name",
+        price: 350,
+        rarity: "common",
+        slug: "called",
+        traits: ["conjuration", "magical"],
+    },
+    coating: {
+        level: 9,
+        name: "PF2E.WeaponPropertyRune.coating.Name",
+        price: 700,
+        rarity: "common",
+        slug: "coating",
+        traits: ["conjuration", "extradimensional", "magical"],
+    },
     conducting: {
         level: 7,
         name: "PF2E.WeaponPropertyRune.conducting.Name",
@@ -304,6 +330,34 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "uncommon",
         slug: "dancing",
         traits: ["evocation", "magical"],
+    },
+    deathdrinking: {
+        damage: {
+            dice: [
+                {
+                    slug: "deathdrinking-negative",
+                    damageType: "negative",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    critical: true,
+                    predicate: ["target:mode:living", { not: "target:negative-healing" }],
+                },
+                {
+                    slug: "deathdrinking-positive",
+                    damageType: "positive",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    critical: true,
+                    predicate: ["target:negative-healing"],
+                },
+            ],
+        },
+        level: 7,
+        name: "PF2E.WeaponPropertyRune.deathdrinking.Name",
+        price: 360,
+        rarity: "rare",
+        slug: "deathdrinking",
+        traits: ["magical", "necromancy"],
     },
     demolishing: {
         damage: {
@@ -417,6 +471,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "flaming",
         traits: ["conjuration", "fire", "magical"],
     },
+    flurrying: {
+        level: 7,
+        name: "PF2E.WeaponPropertyRune.flurrying.Name",
+        price: 360,
+        rarity: "common",
+        slug: "flurrying",
+        traits: ["evocation", "magical"],
+    },
     frost: {
         damage: {
             dice: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
@@ -473,6 +535,31 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "uncommon",
         slug: "greaterAnchoring",
         traits: ["abjuration", "magical"],
+    },
+    greaterAshen: {
+        damage: {
+            dice: [
+                {
+                    damageType: "fire",
+                    category: "persistent",
+                    diceNumber: 1,
+                    dieSize: "d8",
+                },
+            ],
+            notes: [
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterAshen.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterAshen.Note.success",
+                },
+            ],
+        },
+        level: 16,
+        name: "PF2E.WeaponPropertyRune.greaterAshen.Name",
+        price: 9000,
+        rarity: "common",
+        slug: "ashen",
+        traits: ["enchantment", "magical"],
     },
     greaterBloodbane: {
         level: 13,
@@ -905,6 +992,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "impactful",
         traits: ["evocation", "force", "magical"],
     },
+    impossible: {
+        level: 20,
+        name: "PF2E.WeaponPropertyRune.impossible.Name",
+        price: 70_000,
+        rarity: "common",
+        slug: "impossible",
+        traits: ["conjuration", "magical"],
+    },
     keen: {
         attack: {
             notes: [
@@ -937,6 +1032,23 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "uncommon",
         slug: "majorFanged",
         traits: ["magical", "transmutation"],
+    },
+    merciful: {
+        strikeAdjustments: [
+            {
+                adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                    if (!weapon.system.traits.value.includes("nonlethal")) {
+                        weapon.system.traits.value.push("nonlethal");
+                    }
+                },
+            },
+        ],
+        level: 4,
+        name: "PF2E.WeaponPropertyRune.merciful.Name",
+        price: 70,
+        rarity: "common",
+        slug: "merciful",
+        traits: ["abjuration", "magical", "mental"],
     },
     pacifying: {
         level: 5,
@@ -1012,6 +1124,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "spellStoring",
         traits: ["abjuration", "magical"],
     },
+    swarming: {
+        level: 9,
+        name: "PF2E.WeaponPropertyRune.swarming.Name",
+        price: 700,
+        rarity: "common",
+        slug: "swarming",
+        traits: ["conjuration", "magical"],
+    },
     thundering: {
         damage: {
             dice: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
@@ -1068,14 +1188,32 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
 };
 
-function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
+function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<string>): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
         const runeData = CONFIG.PF2E.runes.weapon.property[rune];
-        return toDamageDice(rune, runeData.damage?.dice ?? []);
+        return deepClone(runeData.damage?.dice ?? []).map((data) => {
+            const dice = new DamageDicePF2e({
+                selector: "strike-damage",
+                slug: rune,
+                label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
+                diceNumber: data.diceNumber ?? 1,
+                dieSize: data.dieSize ?? "d6",
+                damageType: data.damageType,
+                category: data.category ?? null,
+                predicate: data.predicate,
+                critical: data.critical ?? null,
+            });
+            dice.test(options);
+            return dice;
+        });
     });
 }
 
-function getPropertyRuneAdjustments(runes: WeaponPropertyRuneType[]): ModifierAdjustment[] {
+function getPropertyRuneStrikeAdjustments(runes: WeaponPropertyRuneType[]): StrikeAdjustment[] {
+    return runes.flatMap((rune) => CONFIG.PF2E.runes.weapon.property[rune].strikeAdjustments ?? []);
+}
+
+function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): ModifierAdjustment[] {
     return runes.flatMap(
         (rune) =>
             CONFIG.PF2E.runes.weapon.property[rune].damage?.adjustments?.map(
@@ -1122,13 +1260,14 @@ const WEAPON_VALUATION_DATA: WeaponValuationData = {
 };
 
 export {
-    RuneValuationData,
-    WEAPON_VALUATION_DATA,
-    WeaponPropertyRuneData,
-    getPropertyRuneAdjustments,
     getPropertyRuneDice,
+    getPropertyRuneModifierAdjustments,
     getPropertyRunes,
+    getPropertyRuneStrikeAdjustments,
     getPropertySlots,
     getResilientBonus,
     getStrikingDice,
+    RuneValuationData,
+    WEAPON_VALUATION_DATA,
+    WeaponPropertyRuneData,
 };

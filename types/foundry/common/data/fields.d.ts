@@ -1,5 +1,6 @@
-import type DataModel from "../abstract/data.d.ts";
+import type * as abstract from "../abstract/module.d.ts";
 import type { EmbeddedCollection } from "../abstract/embedded-collection.d.mts";
+import { DataModelValidationFailure } from "./validation-failure.js";
 
 /* ---------------------------------------- */
 /*  Abstract Data Field                     */
@@ -31,11 +32,28 @@ export interface DataFieldOptions<
         : THasInitial extends false
         ? undefined
         : TSourceProp | (() => TSourceProp) | null | undefined;
-    validate?: (value: unknown) => boolean | Error | void;
+    validate?: (value: unknown) => DataModelValidationFailure | boolean | void;
     choices?: readonly TSourceProp[] | Record<string, string> | Function;
+    readonly?: boolean;
     label?: string;
     hint?: string;
     validationError?: string;
+}
+
+/**
+ * @typedef DataFieldValidationOptions
+ * @property [partial]              Whether this is a partial schema validation, or a complete one.
+ * @property [fallback]             Whether to allow replacing invalid values with valid fallbacks.
+ * @property [source]               The full source object being evaluated.
+ * @property [dropInvalidEmbedded]  If true, invalid embedded documents will emit a warning and be placed in
+ *                                  the invalidDocuments collection rather than causing the parent to be
+ *                                  considered invalid.
+ */
+interface DataFieldValidationOptions {
+    partial?: boolean;
+    fallback?: boolean;
+    source?: object;
+    dropInvalidEmbedded?: boolean;
 }
 
 /**
@@ -82,6 +100,16 @@ export abstract class DataField<
      * @internal
      */
     parent: DataSchema | undefined;
+
+    /** Whether this field defines part of a Document/Embedded Document hierarchy. */
+    static hierarchical: boolean;
+
+    /**
+     * Does this field type contain other fields in a recursive structure?
+     * Examples of recursive fields are SchemaField, ArrayField, or TypeDataField
+     * Examples of non-recursive fields are StringField, NumberField, or ObjectField
+     */
+    static recursive: boolean;
 
     /** Default parameters for this field type */
     protected static get _defaults(): DataFieldOptions<unknown, boolean, boolean, boolean>;
@@ -147,13 +175,15 @@ export abstract class DataField<
 
     /**
      * Validate a candidate input for this field, ensuring it meets the field requirements.
-     * A validation failure can be provided as a raised Error (with a string message) or by returning false.
+     * A validation failure can be provided as a raised Error (with a string message), by returning false, or by returning
+     * a DataModelValidationFailure instance.
      * A validator which returns true denotes that the result is certainly valid and further validations are unnecessary.
-     * @param value The initial value
-     * @param [options={}] Options which affect validation behavior
-     * @returns Returns a `ModelValidationError` if a validation failure occurred
+     * @param value          The initial value
+     * @param [options={}]   Options which affect validation behavior
+     * @returns              Returns a DataModelValidationFailure if a validation failure
+     *                       occurred.
      */
-    validate(value: unknown, options?: Record<string, unknown>): ModelValidationError | void;
+    validate(value: unknown, options?: DataFieldValidationOptions): DataModelValidationFailure | void;
 
     /**
      * Special validation rules which supersede regular field validation.
@@ -169,10 +199,24 @@ export abstract class DataField<
      * A default type-specific validator that can be overridden by child classes
      * @param value The candidate value
      * @param [options={}] Options which affect validation behavior
-     * @returns A boolean to indicate with certainty whether the value is valid. Otherwise, return void.
+     * @returns A boolean to indicate with certainty whether the value is valid, or specific DataModelValidationFailure
+     *          information, otherwise void.
      * @throws May throw a specific error if the value is not valid
      */
-    protected _validateType(value: unknown, options?: Record<string, unknown>): boolean | void;
+    protected _validateType(
+        value: unknown,
+        options?: DataFieldValidationOptions
+    ): boolean | DataModelValidationFailure | void;
+
+    /**
+     * Certain fields may declare joint data validation criteria.
+     * This method will only be called if the field is designated as recursive.
+     * @param data       Candidate data for joint model validation
+     * @param options    Options which modify joint model validation
+     * @throws  An error if joint model validation fails
+     * @internal
+     */
+    _validateModel(data: TSourceProp, options?: Record<string, unknown>): void;
 
     /* -------------------------------------------- */
     /*  Initialization and Serialization            */
@@ -186,7 +230,7 @@ export abstract class DataField<
      */
     initialize(
         value: unknown,
-        model?: ConstructorOf<DataModel>,
+        model?: ConstructorOf<abstract.DataModel>,
         options?: object
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -196,6 +240,12 @@ export abstract class DataField<
      * @returns An exported representation of the field
      */
     toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+
+    /**
+     * Recursively traverse a schema and retrieve a field specification by a given path
+     * @param path The field path as an array of strings
+     */
+    protected _getField(path: string[]): this | undefined;
 }
 
 /* -------------------------------------------- */
@@ -274,10 +324,13 @@ export class SchemaField<
 
     override initialize(
         value: TSourceProp,
-        model: ConstructorOf<DataModel>
+        model: ConstructorOf<abstract.DataModel>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
-    protected override _validateType(data: object, options?: Record<string, unknown>): void;
+    protected override _validateType(
+        data: object,
+        options?: Record<string, unknown>
+    ): boolean | DataModelValidationFailure | void;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -319,24 +372,22 @@ export class BooleanField<
     protected override _validateType(value: unknown): value is boolean;
 }
 
-/**
- * @typedef NumberFieldOptions
- * @property [min]            A minimum allowed value
- * @property [max]            A maximum allowed value
- * @property [step]           A permitted step size
- * @property [integer=false]  Must the number be an integer?
- * @property [positive=false] Must the number be positive?
- */
 interface NumberFieldOptions<
     TSourceProp extends number,
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean
 > extends DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> {
+    /** A minimum allowed value */
     min?: number;
+    /** A maximum allowed value */
     max?: number;
+    /** A permitted step size */
     step?: number;
+    /** Must the number be an integer? */
     integer?: boolean;
+    /** Must the number be positive? */
+    positive?: boolean;
 }
 
 /** A subclass of [DataField]{@link DataField} which deals with number-typed data. */
@@ -428,11 +479,18 @@ export class ObjectField<
 
     protected override _cast(value: unknown): TSourceProp;
 
-    override initialize(value: unknown): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+    override initialize(
+        value: unknown,
+        model?: ConstructorOf<abstract.DataModel>,
+        options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
-    protected override _validateType(value: unknown): boolean | void;
+    protected override _validateType(
+        value: unknown,
+        options?: DataFieldValidationOptions
+    ): DataModelValidationFailure | boolean | void;
 }
 
 export type FlagField<
@@ -453,7 +511,9 @@ type ArrayFieldOptions<
 /** A subclass of `DataField` which deals with array-typed data. */
 export class ArrayField<
         TElementField extends DataField,
-        TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
+        TSourceProp extends Partial<
+            SourcePropFromDataField<TElementField>
+        >[] = SourcePropFromDataField<TElementField>[],
         TModelProp extends object = ModelPropFromDataField<TElementField>[],
         TRequired extends boolean = false,
         TNullable extends boolean = false,
@@ -479,6 +539,8 @@ export class ArrayField<
      */
     protected static _validateElementType(element: unknown): unknown;
 
+    override _validateModel(changes: TSourceProp, options?: Record<string, unknown>): void;
+
     protected static override get _defaults(): ArrayFieldOptions<unknown[], boolean, boolean, boolean>;
 
     protected override _cast(value: unknown): unknown;
@@ -493,11 +555,11 @@ export class ArrayField<
      * @param options Validation options
      * @returns An array of element-specific errors
      */
-    protected _validateElements(value: unknown[], options?: Record<string, unknown>): ModelValidationError[];
+    protected _validateElements(value: unknown[], options?: Record<string, unknown>): DataModelValidationFailure | void;
 
     override initialize(
         value: TSourceProp,
-        model: ConstructorOf<DataModel>,
+        model: ConstructorOf<abstract.DataModel>,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -512,7 +574,7 @@ export class ArrayField<
 
 export interface ArrayField<
     TElementField extends DataField,
-    TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
+    TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
     TRequired extends boolean = false,
     TNullable extends boolean = false,
@@ -533,11 +595,14 @@ export class SetField<
     TNullable extends boolean = false,
     THasInitial extends boolean = true
 > extends ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
-    protected override _validateElements(value: unknown[], options?: Record<string, unknown>): ModelValidationError[];
+    protected override _validateElements(
+        value: unknown[],
+        options?: Record<string, unknown>
+    ): DataModelValidationFailure | void;
 
     override initialize(
         value: TSourceProp,
-        model: ConstructorOf<DataModel>
+        model: ConstructorOf<abstract.DataModel>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
@@ -545,7 +610,7 @@ export class SetField<
 
 /** A subclass of `SchemaField` which embeds some other DataModel definition as an inner object. */
 export class EmbeddedDataField<
-    TModelProp extends DataModel = DataModel,
+    TModelProp extends abstract.DataModel = abstract.DataModel,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
@@ -562,8 +627,13 @@ export class EmbeddedDataField<
      * @param options Options which configure the behavior of the field
      */
     constructor(
-        model: TModelProp,
-        options: ObjectFieldOptions<SourceFromSchema<TModelProp["schema"]["fields"]>, TRequired, TNullable, THasInitial>
+        model: ConstructorOf<TModelProp>,
+        options?: ObjectFieldOptions<
+            SourceFromSchema<TModelProp["schema"]["fields"]>,
+            TRequired,
+            TNullable,
+            THasInitial
+        >
     );
 
     /** The embedded DataModel definition which is contained in this field. */
@@ -573,7 +643,7 @@ export class EmbeddedDataField<
 
     override initialize(
         value: SourceFromSchema<TModelProp["schema"]["fields"]>,
-        model: ConstructorOf<DataModel>
+        model: ConstructorOf<abstract.DataModel>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(
@@ -586,25 +656,19 @@ export class EmbeddedDataField<
  * Invalid elements will be dropped from the collection during validation rather than failing for the field entirely.
  */
 export class EmbeddedCollectionField<
-    TDataSchema extends DataSchema,
+    TDocument extends abstract.Document,
+    TSource extends object[] = SourceFromSchema<TDocument["schema"]["fields"]>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends ArrayField<
-    SchemaField<TDataSchema>,
-    SourceFromSchema<TDataSchema>[],
-    EmbeddedCollection<DataModel>,
-    TRequired,
-    TNullable,
-    THasInitial
-> {
+> extends ArrayField<TDocument["schema"], TSource, EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial> {
     /**
      * @param element The type of Document which belongs to this embedded collection
      * @param options Options which configure the behavior of the field
      */
     constructor(
         element: ConstructorOf<Document>,
-        options?: ArrayFieldOptions<SourceFromSchema<TDataSchema>[], TRequired, TNullable, THasInitial>
+        options?: ArrayFieldOptions<TDocument["schema"]["fields"][], TRequired, TNullable, THasInitial>
     );
 
     static override _validateElementType(element: unknown): Document;
@@ -613,26 +677,50 @@ export class EmbeddedCollectionField<
     get model(): ConstructorOf<Document>;
 
     /** The DataSchema of the contained Document model. */
-    get schema(): DataModel["schema"];
+    get schema(): TDocument["schema"];
 
     protected override _cleanType(
         value: unknown,
         options?: CleanFieldOptions
-    ): MaybeSchemaProp<SourceFromSchema<TDataSchema>[], TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TDocument["schema"]["fields"][], TRequired, TNullable, THasInitial>;
 
-    protected override _validateElements(value: unknown[], options?: Record<string, unknown>): ModelValidationError[];
+    protected override _validateElements(
+        value: unknown[],
+        options?: Record<string, unknown>
+    ): DataModelValidationFailure | void;
 
-    override initialize(_value: unknown, model: ConstructorOf<DataModel>): EmbeddedCollection<DataModel>;
+    override initialize(_value: unknown, model: ConstructorOf<abstract.DataModel>): EmbeddedCollection<TDocument>;
 
     override toObject(
-        value: EmbeddedCollection<DataModel>
-    ): MaybeSchemaProp<SourceFromSchema<TDataSchema>[], TRequired, TNullable, THasInitial>;
+        value: EmbeddedCollection<TDocument>
+    ): MaybeSchemaProp<TSource, TRequired, TNullable, THasInitial>;
 
     override apply(
         fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
         data?: object,
         options?: Record<string, unknown>
     ): unknown;
+}
+
+/**
+ * A subclass of {@link EmbeddedCollectionField} which manages a collection of delta objects relative to another
+ * collection.
+ * @todo: fill in
+ */
+export class EmbeddedCollectionDeltaField<
+    TDocument extends abstract.Document,
+    TSource extends (SourceFromSchema<TDocument["schema"]["fields"]> | DeltaTombstone)[] = (
+        | SourceFromSchema<TDocument["schema"]["fields"]>
+        | DeltaTombstone
+    )[],
+    TRequired extends boolean = true,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true
+> extends EmbeddedCollectionField<TDocument, TSource, TRequired, TNullable, THasInitial> {}
+
+interface DeltaTombstone {
+    _id: string;
+    _tombstone: true;
 }
 
 /* -------------------------------------------- */
@@ -644,7 +732,7 @@ export class EmbeddedCollectionField<
  * The field may be initially null, but it must be non-null when it is saved to the database.
  */
 export class DocumentIdField<
-    TModelProp extends string | DataModel = string,
+    TModelProp extends string | abstract.Document = string,
     TRequired extends boolean = true,
     TNullable extends boolean = true,
     THasInitial extends boolean = true
@@ -661,7 +749,7 @@ export class DocumentIdField<
  * This field may also be null to indicate that no foreign model is linked.
  */
 export class ForeignDocumentField<
-    TModelProp extends string | DataModel = DataModel,
+    TModelProp extends string | abstract.Document = abstract.Document,
     TRequired extends boolean = true,
     TNullable extends boolean = true,
     THasInitial extends boolean = true
@@ -671,12 +759,12 @@ export class ForeignDocumentField<
      * @param options Options which configure the behavior of the field
      */
     constructor(
-        model: ConstructorOf<DataModel>,
+        model: ConstructorOf<abstract.DataModel>,
         options?: StringFieldOptions<string, TRequired, TNullable, THasInitial>
     );
 
     /** A reference to the model class which is stored in this field */
-    model: DataModel;
+    model: abstract.DataModel;
 
     protected static override get _defaults(): StringFieldOptions<string, boolean, boolean, boolean>;
 
@@ -684,7 +772,7 @@ export class ForeignDocumentField<
 
     override initialize(
         value: string,
-        model: ConstructorOf<DataModel>
+        model: ConstructorOf<abstract.DataModel>
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     toObject(value: TModelProp): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
@@ -699,10 +787,13 @@ export class TypeDataField<TSourceProp extends object = object, TModelProp = TSo
      * @param document The base document class which belongs in this field
      * @param options  Options which configure the behavior of the field
      */
-    constructor(document: ConstructorOf<DataModel>, options?: ObjectFieldOptions<TSourceProp, true, false, true>);
+    constructor(
+        document: ConstructorOf<abstract.DataModel>,
+        options?: ObjectFieldOptions<TSourceProp, true, false, true>
+    );
 
     /** The canonical document name of the document type which belongs in this field */
-    document: ConstructorOf<DataModel>;
+    document: ConstructorOf<abstract.DataModel>;
 
     protected static override get _defaults(): ObjectFieldOptions<object, true, false, true>;
 
@@ -714,7 +805,7 @@ export class TypeDataField<TSourceProp extends object = object, TModelProp = TSo
      * @param type The Document instance type
      * @returns The DataModel class, or null
      */
-    getModelForType(type: string): ConstructorOf<DataModel> | null;
+    getModelForType(type: string): ConstructorOf<abstract.DataModel> | null;
 
     getInitialValue(data: unknown): TSourceProp;
 
@@ -725,7 +816,7 @@ export class TypeDataField<TSourceProp extends object = object, TModelProp = TSo
 
     override initialize(
         value: string,
-        model?: ConstructorOf<DataModel>
+        model?: ConstructorOf<abstract.DataModel>
     ): MaybeSchemaProp<TModelProp, true, false, true>;
 
     toObject(value: TModelProp): TSourceProp;
@@ -891,27 +982,6 @@ type DocumentStatsSchema = {
     modifiedTime: NumberField;
     lastModifiedBy: ForeignDocumentField<string>;
 };
-
-/* ---------------------------------------- */
-/*  Errors                                  */
-/* ---------------------------------------- */
-
-/**
- * A special type of error that wraps multiple errors which occurred during DataModel validation.
- * @param errors  An array or object containing several errors.
- */
-export class ModelValidationError extends Error {
-    constructor(errors: Error | Error[] | string);
-
-    errors: Error | Error[] | string;
-
-    /**
-     * Collect all the errors into a single message for consumers who do not handle the ModelValidationError specially.
-     * @param errors The raw error structure
-     * @returns A formatted error message
-     */
-    static formatErrors(errors: Error | Error[] | string): string;
-}
 
 // System utility types
 

@@ -1,9 +1,9 @@
-import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseJournalEntry, BaseUser } from "./module.d.ts";
+import type * as abstract from "../abstract/module.d.ts";
 import type * as fields from "../data/fields.d.ts";
+import type { BaseJournalEntry, BaseUser } from "./module.d.ts";
 
 /** The JournalEntryPage document model. */
-export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends Document<TParent> {
+export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends abstract.Document<TParent> {
     static override get metadata(): JournalEntryPageMetadata;
 
     static override defineSchema(): JournalEntryPageSchema;
@@ -12,14 +12,14 @@ export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | nul
 }
 
 export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null>
-    extends Document<TParent>,
+    extends abstract.Document<TParent>,
         ModelPropsFromSchema<JournalEntryPageSchema> {
     readonly _source: SourceFromSchema<JournalEntryPageSchema>;
 
     get documentName(): (typeof BaseJournalEntryPage)["metadata"]["name"];
 }
 
-interface JournalEntryPageMetadata extends DocumentMetadata {
+interface JournalEntryPageMetadata extends abstract.DocumentMetadata {
     name: "JournalEntryPage";
     collection: "pages";
     indexed: true;

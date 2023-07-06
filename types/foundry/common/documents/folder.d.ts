@@ -8,6 +8,8 @@ import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
  */
 export default class BaseFolder extends Document<null> {
     static override get metadata(): FolderMetadata;
+
+    name: string;
 }
 
 export default interface BaseFolder extends Document<null> {

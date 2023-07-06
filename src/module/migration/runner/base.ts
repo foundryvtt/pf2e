@@ -4,7 +4,6 @@ import { DocumentSchemaRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { DateTime } from "luxon";
 
 interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e> {
     inserted: T[];
@@ -15,7 +14,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.842;
+    static LATEST_SCHEMA_VERSION = 0.845;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -29,47 +28,38 @@ export class MigrationRunnerBase {
         return currentVersion < (this.constructor as typeof MigrationRunnerBase).LATEST_SCHEMA_VERSION;
     }
 
-    diffCollection<T extends foundry.documents.ActiveEffectSource>(orig: T[], updated: T[]): CollectionDiff<T>;
-    diffCollection<T extends ItemSourcePF2e>(orig: T[], updated: T[]): CollectionDiff<T>;
-    diffCollection<T extends foundry.documents.ActiveEffectSource | ItemSourcePF2e>(
-        orig: T[],
-        updated: T[]
-    ): CollectionDiff<T>;
-    diffCollection<TSource extends foundry.documents.ActiveEffectSource | ItemSourcePF2e>(
-        orig: TSource[],
-        updated: TSource[]
-    ): CollectionDiff<TSource> {
-        const ret: CollectionDiff<TSource> = {
+    diffCollection(orig: ItemSourcePF2e[], updated: ItemSourcePF2e[]): CollectionDiff<ItemSourcePF2e> {
+        const diffs: CollectionDiff<ItemSourcePF2e> = {
             inserted: [],
             deleted: [],
             updated: [],
         };
 
-        const origSources: Map<string, TSource> = new Map();
+        const origSources: Map<string, ItemSourcePF2e> = new Map();
         for (const source of orig) {
-            origSources.set(source._id, source);
+            origSources.set(source._id!, source);
         }
 
         for (const source of updated) {
-            const origSource = origSources.get(source._id);
+            const origSource = origSources.get(source._id!);
             if (origSource) {
                 // check to see if anything changed
                 if (JSON.stringify(origSource) !== JSON.stringify(source)) {
-                    ret.updated.push(source);
+                    diffs.updated.push(source);
                 }
-                origSources.delete(source._id);
+                origSources.delete(source._id!);
             } else {
                 // it's new
-                ret.inserted.push(source);
+                diffs.inserted.push(source);
             }
         }
 
         // since we've been deleting them as we process, the ones remaining need to be deleted
         for (const source of origSources.values()) {
-            ret.deleted.push(source._id);
+            diffs.deleted.push(source._id);
         }
 
-        return ret;
+        return diffs;
     }
 
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
@@ -218,7 +208,6 @@ export class MigrationRunnerBase {
         const fromVersion = typeof schema.version === "number" ? schema.version : null;
         schema.version = latestMigration.version;
         schema.lastMigration = {
-            datetime: DateTime.now().toISO(),
             version: {
                 schema: fromVersion,
                 foundry: "game" in globalThis ? game.version : undefined,

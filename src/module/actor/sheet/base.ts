@@ -10,7 +10,6 @@ import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
     SelectableTagField,
@@ -34,7 +33,13 @@ import {
     tupleHasValue,
 } from "@util";
 import { ActorSizePF2e } from "../data/size.ts";
-import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types.ts";
+import {
+    ActorSheetDataPF2e,
+    ActorSheetRenderOptionsPF2e,
+    CoinageSummary,
+    InventoryItem,
+    SheetInventory,
+} from "./data-types.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { MoveLootPopup } from "./loot/move-loot-popup.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
@@ -163,7 +168,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const canBeEquipped = !item.isInContainer;
 
             return {
-                item: item,
+                item,
                 itemSize: sizeDifference !== 0 ? itemSize : null,
                 editable,
                 isContainer: item.isOfType("backpack"),
@@ -182,10 +187,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             category.items.push(createInventoryItem(item));
         }
 
-        const invested = this.actor.inventory.invested;
-        const showValueAlways = this.actor.isOfType("npc", "loot");
-        const showIndividualPricing = this.actor.isOfType("loot");
-        return { sections, bulk: this.actor.inventory.bulk, showValueAlways, showIndividualPricing, invested };
+        return {
+            sections,
+            bulk: this.actor.inventory.bulk,
+            showValueAlways: this.actor.isOfType("npc", "loot"),
+            showIndividualPricing: this.actor.isOfType("loot"),
+            hasStowingContainers: this.actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
+            invested: this.actor.inventory.invested,
+        };
     }
 
     protected static coinsToSheetData(coins: Coins): CoinageSummary {
@@ -284,8 +293,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         /* -------------------------------------------- */
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
-
-        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html, this.actor);
 
         // Roll saving throws
         for (const link of htmlQueryAll(html, ".save-name")) {
@@ -399,7 +406,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Trait Selector
-        $html.find(".tag-selector").on("click", (event) => this.openTagSelector(event));
+        for (const link of htmlQueryAll(html, ".tag-selector")) {
+            link.addEventListener("click", () => this.openTagSelector(link));
+        }
 
         // Create a custom item
         for (const link of htmlQueryAll(html, ".item-create, .item-control.spell-create")) {
@@ -1281,27 +1290,26 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }).render(true);
     }
 
-    protected openTagSelector(event: JQuery.ClickEvent | MouseEvent): void {
-        event.preventDefault();
-        const $anchor = $(event.currentTarget);
-        const selectorType = $anchor.attr("data-tag-selector") ?? "";
+    protected openTagSelector(anchor: HTMLElement, options: Partial<TagSelectorOptions> = {}): void {
+        const selectorType = anchor.dataset.tagSelector;
         if (!tupleHasValue(TAG_SELECTOR_TYPES, selectorType)) {
-            throw ErrorPF2e(`Unrecognized trait selector type "${selectorType}"`);
+            throw ErrorPF2e(`Unrecognized tag selector type "${selectorType}"`);
         }
         if (selectorType === "basic") {
-            const objectProperty = $anchor.attr("data-property") ?? "";
-            const title = $anchor.attr("data-title");
-            const configTypes = ($anchor.attr("data-config-types") ?? "")
+            const objectProperty = anchor.dataset.property ?? "";
+            const title = anchor.dataset.title ?? "";
+            const configTypes = (anchor.dataset.configTypes ?? "")
                 .split(",")
                 .map((type) => type.trim())
                 .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
             this.tagSelector("basic", {
+                ...options,
                 objectProperty,
                 configTypes,
                 title,
             });
         } else {
-            this.tagSelector(selectorType);
+            this.tagSelector(selectorType, options);
         }
     }
 
@@ -1325,6 +1333,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
+    /** Opens a sheet tab by name. May be overriden to handle sub-tabs */
+    protected openTab(name: string): void {
+        this._tabs[0].activate(name);
+    }
+
     /** Hide the sheet-config button unless there is more than one sheet option. */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
@@ -1344,8 +1357,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Overriden _render to maintain focus on tagify elements */
-    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+    protected override async _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void> {
         await maintainTagifyFocusInRender(this, () => super._render(force, options));
+        if (options?.tab) {
+            this.openTab(options.tab);
+        }
     }
 
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */

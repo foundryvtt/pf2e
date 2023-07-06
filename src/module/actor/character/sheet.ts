@@ -321,35 +321,36 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Prepares all ability type items that create an action in the sheet */
     #prepareActions(): CharacterSheetData["actions"] {
+        const actor = this.actor;
         const result: CharacterSheetData["actions"] = {
             combat: {
                 action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
                 reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
                 free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
             },
-            exploration: [],
+            exploration: { active: [], other: [] },
             downtime: [],
         };
 
-        for (const item of this.actor.items) {
+        for (const item of actor.items) {
             if (!item.isOfType("action") && !(item.isOfType("feat") && item.actionCost)) {
                 continue;
             }
 
+            const traits = item.system.traits.value;
             const traitDescriptions = item.isOfType("feat") ? CONFIG.PF2E.featTraits : CONFIG.PF2E.actionTraits;
             const action: ActionSheetData = {
                 ...R.pick(item, ["id", "name", "actionCost", "frequency"]),
                 img: getActionIcon(item.actionCost),
-                traits: createSheetTags(traitDescriptions, item.system.traits.value),
+                traits: createSheetTags(traitDescriptions, traits),
+                feat: item.isOfType("feat") ? item : null,
             };
 
-            if (item.isOfType("feat")) {
-                action.feat = item;
-            }
-
-            if (item.system.traits.value.includes("exploration")) {
-                result.exploration.push(action);
-            } else if (item.system.traits.value.includes("downtime")) {
+            if (traits.includes("exploration")) {
+                const active = actor.system.exploration.includes(item.id);
+                action.exploration = { active };
+                (active ? result.exploration.active : result.exploration.other).push(action);
+            } else if (traits.includes("downtime")) {
                 result.downtime.push(action);
             } else {
                 const category = result.combat[item.actionCost?.type ?? "free"];
@@ -497,7 +498,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             { eventName: "click" }
         );
 
-        $html.find(".crb-tag-selector").on("click", (event) => this.openTagSelector(event));
+        for (const link of htmlQueryAll(html, ".crb-tag-selector")) {
+            link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
+        }
 
         // ACTIONS
         const actionsPanel = htmlQuery(html, ".tab.actions");
@@ -577,6 +580,24 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 weapon?.update({ system: { selectedAmmoId: ammo?.id ?? null } });
             });
         }
+
+        for (const activeToggle of htmlQueryAll(actionsPanel, "[data-action=toggle-exploration]")) {
+            activeToggle.addEventListener("click", () => {
+                const actionId = htmlClosest(activeToggle, "[data-item-id]")?.dataset.itemId;
+                if (!actionId) return;
+
+                const exploration = this.actor.system.exploration.filter((id) => this.actor.items.has(id));
+                if (!exploration.findSplice((id) => id === actionId)) {
+                    exploration.push(actionId);
+                }
+
+                this.actor.update({ "system.exploration": exploration });
+            });
+        }
+
+        htmlQuery(actionsPanel, "[data-action=clear-exploration]")?.addEventListener("click", () => {
+            this.actor.update({ "system.exploration": [] });
+        });
 
         $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.#onIncrementModifierValue(event));
         $html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.#onDecrementModifierValue(event));
@@ -1245,6 +1266,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         ];
         return icons[level] ?? icons[0];
     }
+
+    /** Overriden to open sub-tabs if requested */
+    protected override openTab(name: string): void {
+        if (["encounter", "exploration", "downtime"].includes(name)) {
+            super.openTab("actions");
+            this._tabs[1].activate(name);
+        } else {
+            super.openTab(name);
+        }
+    }
 }
 
 interface CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
@@ -1331,7 +1362,10 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
         combat: Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
-        exploration: ActionSheetData[];
+        exploration: {
+            active: ActionSheetData[];
+            other: ActionSheetData[];
+        };
         downtime: ActionSheetData[];
     };
     feats: FeatGroup[];
@@ -1343,8 +1377,11 @@ interface ActionSheetData {
     img: string;
     actionCost: ActionCost | null;
     frequency: Frequency | null;
-    feat?: FeatPF2e;
+    feat: FeatPF2e | null;
     traits: SheetOptions;
+    exploration?: {
+        active: boolean;
+    };
 }
 
 interface ClassDCSheetData extends ClassDCData {

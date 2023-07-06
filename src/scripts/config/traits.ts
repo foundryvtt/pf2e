@@ -355,6 +355,14 @@ const magicSchools: Record<MagicSchool, string> = {
     transmutation: "PF2E.TraitTransmutation",
 };
 
+const kingdomActivityTraits = {
+    civic: "PF2E.TraitCivic",
+    commerce: "PF2E.TraitCommerce",
+    leadership: "PF2E.TraitLeadership",
+    region: "PF2E.TraitRegion",
+    upkeep: "PF2E.TraitUpkeep",
+};
+
 const spellTraits = {
     ...alignmentTraits,
     ...classTraits,
@@ -461,6 +469,7 @@ const weaponTraits = {
     "scatter-5": "PF2E.TraitScatter5",
     "scatter-10": "PF2E.TraitScatter10",
     "scatter-15": "PF2E.TraitScatter15",
+    "scatter-20": "PF2E.TraitScatter20",
     scrying: "PF2E.TraitScrying",
     shadow: "PF2E.TraitShadow",
     shove: "PF2E.TraitShove",
@@ -518,6 +527,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     dragonhide: "PF2E.PreciousMaterialDragonhide",
     "grisantian-pelt": "PF2E.PreciousMaterialGrisantianPelt",
     inubrix: "PF2E.PreciousMaterialInubrix",
+    "keep-stone": "PF2E.PreciousMaterialKeepStone",
     mithral: "PF2E.PreciousMaterialMithral",
     noqual: "PF2E.PreciousMaterialNoqual",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
@@ -718,6 +728,7 @@ const actionTraits = {
     ...featTraits,
     ...consumableTraits,
     ...spellTraits,
+    ...kingdomActivityTraits,
     ...warfareActionTraits,
     circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
@@ -1122,6 +1133,7 @@ const traitDescriptions = {
     invested: "PF2E.TraitDescriptionInvested",
     investigator: "PF2E.TraitDescriptionInvestigator",
     kashrishi: "PF2E.TraitDescriptionKashrishi",
+    "keep-stone": "PF2E.PreciousMaterialKeepStoneDescription",
     kickback: "PF2E.TraitDescriptionKickback",
     kitsune: "PF2E.TraitDescriptionKitsune",
     kobold: "PF2E.TraitDescriptionKobold",
@@ -1219,6 +1231,7 @@ const traitDescriptions = {
     saggorak: "PF2E.TraitDescriptionSaggorak",
     "scatter-10": "PF2E.TraitDescriptionScatter",
     "scatter-15": "PF2E.TraitDescriptionScatter",
+    "scatter-20": "PF2E.TraitDescriptionScatter",
     "scatter-5": "PF2E.TraitDescriptionScatter",
     scroll: "PF2E.TraitDescriptionScroll",
     scrying: "PF2E.TraitDescriptionScrying",

@@ -1,4 +1,10 @@
-import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
+import {
+    DamageDicePF2e,
+    DeferredValueParams,
+    ModifierAdjustment,
+    ModifierPF2e,
+    TestableDeferredValueParams,
+} from "@actor/modifiers.ts";
 import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -25,15 +31,16 @@ function extractModifiers(
     return modifiers;
 }
 
-/** */
-function extractDamageModifiers(...args: Parameters<typeof extractModifiers>): {
-    persistent: ModifierPF2e[];
-    main: ModifierPF2e[];
-} {
-    const synthetics = extractModifiers(...args);
+/** Extract modifiers for damage rolls, grouping them by immediate and persistent damage */
+function extractDamageModifiers(
+    synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "statisticsModifiers">,
+    selectors: string[],
+    options: TestableDeferredValueParams
+): { main: ModifierPF2e[]; persistent: ModifierPF2e[] } {
+    const modifiers = extractModifiers(synthetics, selectors, options);
     return {
-        main: synthetics.filter((m) => m.category !== "persistent"),
-        persistent: synthetics.filter((m) => m.category === "persistent"),
+        main: modifiers.filter((m) => m.category !== "persistent"),
+        persistent: modifiers.filter((m) => m.category === "persistent"),
     };
 }
 
@@ -54,7 +61,7 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
 function extractDamageDice(
     deferredDice: DamageDiceSynthetics,
     selectors: string[],
-    options: DeferredValueParams = {}
+    options: TestableDeferredValueParams
 ): DamageDicePF2e[] {
     return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
 }
@@ -165,10 +172,10 @@ export {
     extractDamageDice,
     extractDamageModifiers,
     extractDegreeOfSuccessAdjustments,
+    extractEphemeralEffects,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
-    extractEphemeralEffects,
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,

@@ -141,13 +141,22 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 $(toggle).tooltipster("close");
             }
 
+            const carryType = menu.dataset.carryType;
+            if (!setHasElement(ITEM_CARRY_TYPES, carryType)) {
+                throw ErrorPF2e("Unexpected error retrieving requested carry type");
+            }
+
             const itemId = htmlClosest(menu, "[data-item-id]")?.dataset.itemId;
             const item = this.actor.inventory.get(itemId, { strict: true });
-            const carryType = menu.dataset.carryType;
             const handsHeld = Number(menu.dataset.handsHeld) || 0;
             const inSlot = menu.dataset.inSlot === "true";
-            if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
-                this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
+            const current = item.system.equipped;
+            if (
+                carryType !== current.carryType ||
+                inSlot !== current.inSlot ||
+                (carryType === "held" && handsHeld !== current.handsHeld)
+            ) {
+                this.actor.adjustCarryType(item, { carryType, handsHeld, inSlot });
             }
         };
         for (const carryTypeMenu of htmlQueryAll(html, ".tab.inventory a[data-carry-type]")) {

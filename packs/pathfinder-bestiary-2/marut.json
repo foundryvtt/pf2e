@@ -2011,25 +2011,29 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "label": "Fists of Thunder",
-                        "option": "thunder-fists",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Fists of Lightning",
-                        "option": "lightning-fists",
-                        "toggleable": true
+                        "option": "fists-of-thunder-and-lightning",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Marut.Thunder",
+                                "selected": true,
+                                "value": "thunder"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Marut.Lightning",
+                                "selected": false,
+                                "value": "lightning"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "damageType": "electricity",
                         "diceNumber": 2,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "label": "Fists of Lightning",
                         "predicate": [
-                            "lightning-fists"
+                            "fists-of-thunder-and-lightning:lightning"
                         ],
                         "selector": "strike-damage"
                     },
@@ -2038,9 +2042,8 @@
                         "diceNumber": 3,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "label": "Fists of Thunder",
                         "predicate": [
-                            "thunder-fists"
+                            "fists-of-thunder-and-lightning:thunder"
                         ],
                         "selector": "strike-damage"
                     }

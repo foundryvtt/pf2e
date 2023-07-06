@@ -152,7 +152,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -167,7 +167,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -182,7 +182,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -197,7 +197,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -212,7 +212,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -227,7 +227,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -554,7 +554,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -569,7 +569,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -584,7 +584,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -599,7 +599,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -614,7 +614,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -629,7 +629,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -966,7 +966,7 @@ export class ClientBaseActiveEffect<
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -981,7 +981,7 @@ export class ClientBaseActiveEffect<
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -996,7 +996,7 @@ export class ClientBaseActiveEffect<
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -1011,7 +1011,7 @@ export class ClientBaseActiveEffect<
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -1026,7 +1026,7 @@ export class ClientBaseActiveEffect<
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -1041,7 +1041,7 @@ export class ClientBaseActiveEffect<
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -1312,7 +1312,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | n
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -1327,7 +1327,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | n
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -1342,7 +1342,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | n
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -1357,7 +1357,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | n
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -1372,7 +1372,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | n
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -1387,7 +1387,7 @@ export class ClientBaseActor<TParent extends ClientBaseToken<ClientBaseScene | n
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -1659,7 +1659,7 @@ export class ClientBaseActorDelta<TParent extends ClientBaseToken<ClientBaseScen
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -1674,7 +1674,7 @@ export class ClientBaseActorDelta<TParent extends ClientBaseToken<ClientBaseScen
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -1689,7 +1689,7 @@ export class ClientBaseActorDelta<TParent extends ClientBaseToken<ClientBaseScen
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -1704,7 +1704,7 @@ export class ClientBaseActorDelta<TParent extends ClientBaseToken<ClientBaseScen
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -1719,7 +1719,7 @@ export class ClientBaseActorDelta<TParent extends ClientBaseToken<ClientBaseScen
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -1734,7 +1734,7 @@ export class ClientBaseActorDelta<TParent extends ClientBaseToken<ClientBaseScen
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -2005,7 +2005,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -2020,7 +2020,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -2035,7 +2035,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -2050,7 +2050,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -2065,7 +2065,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -2080,7 +2080,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -2351,7 +2351,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -2366,7 +2366,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -2381,7 +2381,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -2396,7 +2396,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -2411,7 +2411,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -2426,7 +2426,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -2697,7 +2697,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -2712,7 +2712,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -2727,7 +2727,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -2742,7 +2742,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -2757,7 +2757,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -2772,7 +2772,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -3043,7 +3043,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -3058,7 +3058,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -3073,7 +3073,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -3088,7 +3088,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -3103,7 +3103,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -3118,7 +3118,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -3390,7 +3390,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -3405,7 +3405,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -3420,7 +3420,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -3435,7 +3435,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -3450,7 +3450,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -3465,7 +3465,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -3736,7 +3736,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -3751,7 +3751,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -3766,7 +3766,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -3781,7 +3781,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -3796,7 +3796,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -3811,7 +3811,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -4142,7 +4142,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -4157,7 +4157,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -4172,7 +4172,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -4187,7 +4187,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -4202,7 +4202,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -4217,7 +4217,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -4488,7 +4488,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -4503,7 +4503,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -4518,7 +4518,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -4533,7 +4533,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -4548,7 +4548,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -4563,7 +4563,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -4836,7 +4836,7 @@ export class ClientBaseItem<
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -4851,7 +4851,7 @@ export class ClientBaseItem<
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -4866,7 +4866,7 @@ export class ClientBaseItem<
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -4881,7 +4881,7 @@ export class ClientBaseItem<
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -4896,7 +4896,7 @@ export class ClientBaseItem<
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -4911,7 +4911,7 @@ export class ClientBaseItem<
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -5182,7 +5182,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -5197,7 +5197,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -5212,7 +5212,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -5227,7 +5227,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -5242,7 +5242,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -5257,7 +5257,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -5529,7 +5529,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -5544,7 +5544,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -5559,7 +5559,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -5574,7 +5574,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -5589,7 +5589,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -5604,7 +5604,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -5875,7 +5875,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -5890,7 +5890,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -5905,7 +5905,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -5920,7 +5920,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -5935,7 +5935,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -5950,7 +5950,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -6222,7 +6222,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -6237,7 +6237,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -6252,7 +6252,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -6267,7 +6267,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -6282,7 +6282,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -6297,7 +6297,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -6631,7 +6631,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -6646,7 +6646,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -6661,7 +6661,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -6676,7 +6676,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -6691,7 +6691,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -6706,7 +6706,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -7037,7 +7037,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -7052,7 +7052,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -7067,7 +7067,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -7082,7 +7082,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -7097,7 +7097,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -7112,7 +7112,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -7384,7 +7384,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -7399,7 +7399,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -7414,7 +7414,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -7429,7 +7429,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -7444,7 +7444,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -7459,7 +7459,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -7730,7 +7730,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -7745,7 +7745,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -7760,7 +7760,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -7775,7 +7775,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -7790,7 +7790,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -7805,7 +7805,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -8076,7 +8076,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -8091,7 +8091,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -8106,7 +8106,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -8121,7 +8121,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -8136,7 +8136,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -8151,7 +8151,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -8423,7 +8423,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -8438,7 +8438,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -8453,7 +8453,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -8468,7 +8468,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -8483,7 +8483,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -8498,7 +8498,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -8769,7 +8769,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -8784,7 +8784,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -8799,7 +8799,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -8814,7 +8814,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -8829,7 +8829,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -8844,7 +8844,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -9175,7 +9175,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -9190,7 +9190,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -9205,7 +9205,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -9220,7 +9220,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -9235,7 +9235,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -9250,7 +9250,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -9581,7 +9581,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -9596,7 +9596,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -9611,7 +9611,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -9626,7 +9626,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -9641,7 +9641,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -9656,7 +9656,7 @@ export class ClientBaseUser extends foundry.documents.BaseUser {
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],
@@ -9927,7 +9927,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preCreateEmbeddedDocuments(
+    protected _preCreateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -9942,7 +9942,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onCreateEmbeddedDocuments(
+    protected _onCreateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object[],
@@ -9957,7 +9957,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preUpdateEmbeddedDocuments(
+    protected _preUpdateDescendantDocuments(
         embeddedName: string,
         result: object[],
         options: DocumentModificationContext<this>,
@@ -9972,7 +9972,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onUpdateEmbeddedDocuments(
+    protected _onUpdateDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: object,
@@ -9987,7 +9987,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _preDeleteEmbeddedDocuments(
+    protected _preDeleteDescendantDocuments(
         embeddedName: string,
         result: string[],
         options: DocumentModificationContext<this>,
@@ -10002,7 +10002,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    protected _onDeleteEmbeddedDocuments(
+    protected _onDeleteDescendantDocuments(
         embeddedName: string,
         documents: foundry.abstract.Document<this>[],
         result: string[],

@@ -1,0 +1,74 @@
+{
+    "_id": "lLZ9B0KeMDf3BNuA",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Rivethun Disciple",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> Rivethun Adherent background or you are a member of the Rivethun</p>\n<hr />\n<p>By studying with the dwarven shamans of Highhelm, you have become aware of the friction between your body and spirit. With some concentration, you can make the best of this dichotomy. You gain a +1 circumstance bonus to Crafting, Deception, Intimidation, and Medicine as long as you have the @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Drained], or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] conditions. You also gain a +1 circumstance bonus to Athletics, Stealth, and Thievery checks as long as you have the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] conditions.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:clumsy",
+                            "self:condition:drained",
+                            "self:condition:enfeebled"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "crafting",
+                    "deception",
+                    "intimidation",
+                    "medicine"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:immobilized",
+                            "self:condition:slowed",
+                            "self:condition:stupefied"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "stealth",
+                    "thievery"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

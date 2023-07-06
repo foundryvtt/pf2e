@@ -1,8 +1,8 @@
-import { ActorPF2e } from "@actor";
+import { ZeroToFour } from "@module/data.ts";
+import * as R from "remeda";
 import { ArrayField, StringField } from "types/foundry/common/data/fields.js";
 import { KingdomAbility } from "./data.ts";
-import { mapValuesFromKeys } from "./helpers.ts";
-import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP } from "./values.ts";
+import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
 
 const { fields } = foundry.data;
 
@@ -38,32 +38,67 @@ const KINGDOM_BUILD_SCHEMA = {
         },
         { nullable: true, initial: null }
     ),
+    skills: new fields.SchemaField(
+        R.mapToObj(KINGDOM_SKILLS, (skill) => {
+            const schema = new fields.SchemaField({
+                rank: new fields.NumberField<ZeroToFour, ZeroToFour, true, false>({
+                    initial: 0,
+                    min: 0,
+                    max: 4,
+                    required: true,
+                    nullable: false,
+                }),
+            });
+
+            return [skill, schema];
+        })
+    ),
     /** Boost selections made by the user, both during the build process and levelling */
     boosts: new fields.SchemaField(
-        mapValuesFromKeys(["charter", "heartland", "government", "1", "5", "10", "15", "20"] as const, () => {
-            return new fields.ArrayField<StringField<KingdomAbility, KingdomAbility, true, false>>(
+        R.mapToObj(["charter", "heartland", "government", "1", "5", "10", "15", "20"] as const, (category) => {
+            const schema = new fields.ArrayField<StringField<KingdomAbility, KingdomAbility, true, false>>(
                 new fields.StringField<KingdomAbility, KingdomAbility, true, false>({
                     choices: KINGDOM_ABILITIES,
                     nullable: false,
                 })
             );
+
+            return [category, schema];
         })
     ),
 };
 
 const KINGDOM_RESOURCES_SCHEMA = {
+    dice: new fields.SchemaField({
+        number: new fields.NumberField<number, number>(),
+        faces: new fields.NumberField<number, number>(),
+        bonus: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 0 }),
+        penalty: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 0 }),
+    }),
     fame: new fields.SchemaField({
         value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
         max: new fields.NumberField({ required: true, nullable: false, initial: 3 }),
     }),
     commodities: new fields.SchemaField(
-        mapValuesFromKeys(KINGDOM_COMMODITIES, () => {
-            return new fields.SchemaField({
-                value: new fields.NumberField({ required: true, initial: 0 }),
-                max: new fields.NumberField({ required: true, initial: 0 }),
-                maxBase: new fields.NumberField({ required: false, nullable: true }),
-                maxExtra: new fields.NumberField({ required: true, initial: 0 }),
+        R.mapToObj(KINGDOM_COMMODITIES, (type) => {
+            const schema = new fields.SchemaField({
+                value: new fields.NumberField<number, number, true>({ required: true, initial: 0 }),
+                max: new fields.NumberField<number, number, true>({ required: true, initial: 0 }),
+                sites: new fields.NumberField<number, number, true, false>({
+                    required: true,
+                    nullable: false,
+                    min: 0,
+                    initial: 0,
+                }),
+                resourceSites: new fields.NumberField<number, number, true, false>({
+                    required: true,
+                    nullable: false,
+                    min: 0,
+                    initial: 0,
+                }),
             });
+
+            return [type, schema];
         })
     ),
 };
@@ -75,8 +110,11 @@ const KINGDOM_SCHEMA = {
         nullable: false,
         initial: "kingmaker",
     }),
+
+    name: new fields.StringField<string, string, true, false>({ required: true, nullable: false, initial: "" }),
+    img: new fields.StringField({ required: true, nullable: false }),
     capital: new fields.StringField({ initial: "", required: true }),
-    size: new fields.NumberField({ initial: 1, required: true, nullable: false }),
+    size: new fields.NumberField<number, number, true, false>({ initial: 1, min: 1, required: true, nullable: false }),
     level: new fields.NumberField<number, number, true, false>({
         required: true,
         nullable: false,
@@ -100,10 +138,15 @@ const KINGDOM_SCHEMA = {
         initial: "fame",
     }),
     abilities: new fields.SchemaField(
-        mapValuesFromKeys(KINGDOM_ABILITIES, () => {
-            return new fields.SchemaField({
+        R.mapToObj(KINGDOM_ABILITIES, (ability) => {
+            const schema = new fields.SchemaField({
                 value: new fields.NumberField<number, number, true, false>({
                     initial: 10,
+                    required: true,
+                    nullable: false,
+                }),
+                mod: new fields.NumberField<number, number, true, false>({
+                    initial: 0,
                     required: true,
                     nullable: false,
                 }),
@@ -126,27 +169,25 @@ const KINGDOM_SCHEMA = {
                     nullable: false,
                 }),
             });
+
+            return [ability, schema];
         })
     ),
     leadership: new fields.SchemaField(
-        mapValuesFromKeys(KINGDOM_LEADERSHIP, () => {
-            return new fields.SchemaField({
-                img: new fields.FilePathField({ categories: ["IMAGE"], initial: () => ActorPF2e.DEFAULT_ICON }),
-                name: new fields.StringField<string, string, false>({
+        R.mapToObj(KINGDOM_LEADERSHIP, (role) => {
+            const schema = new fields.SchemaField({
+                uuid: new fields.StringField<string, string, false, true>({
                     required: false,
                     nullable: true,
-                    blank: false,
                     initial: null,
                 }),
                 vacant: new fields.BooleanField<boolean>({ initial: true }),
                 invested: new fields.BooleanField<boolean, boolean, false>({ required: false, initial: false }),
             });
+
+            return [role, schema];
         })
     ),
-    attributes: new fields.SchemaField({
-        controlDC: new fields.SchemaField({}),
-        eventDC: new fields.SchemaField({}),
-    }),
     build: new fields.SchemaField(KINGDOM_BUILD_SCHEMA),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
 };

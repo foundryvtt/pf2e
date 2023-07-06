@@ -15,7 +15,7 @@ declare global {
         constructor();
 
         /** The current global light source */
-        globalLightSource: LightSource<null>;
+        globalLightSource: GlobalLightSource;
 
         /** Whether to currently animate light sources. */
         animateLightSources: boolean;
@@ -28,6 +28,21 @@ declare global {
 
         /** A Collection of vision sources which are currently active within the rendered Scene. */
         visionSources: Collection<VisionSource<Token>>;
+
+        /** A set of vision mask filters used in visual effects group */
+        visualEffectsMaskingFilters: Set<PIXI.Filter>;
+
+        /** A layer of background alteration effects which change the appearance of the primary group render texture. */
+        background: CanvasLayer;
+
+        /** A layer which adds illumination-based effects to the scene. */
+        illumination: CanvasLayer;
+
+        /** A layer which adds color-based effects to the scene. */
+        coloration: CanvasLayer;
+
+        /** A layer which controls the current visibility of the scene. */
+        visibility: CanvasVisibility;
 
         /** Clear all effects containers and animated sources. */
         clearEffects(): void;

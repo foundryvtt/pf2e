@@ -4,7 +4,7 @@ import { StrikeData } from "@actor/data/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
-import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ArmorSource, ItemType } from "@item/data/index.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
@@ -19,12 +19,10 @@ import { UserPF2e } from "@module/user/index.ts";
 import { LightLevels } from "@scene/data.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
-import { DamageType } from "@system/damage/types.ts";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import type { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, isObject, localizer, setHasElement } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -36,16 +34,8 @@ import {
 } from "./data.ts";
 import { setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureSensePF2e } from "./sense.ts";
-import {
-    Alignment,
-    AlignmentTrait,
-    CreatureTrait,
-    CreatureUpdateContext,
-    GetReachParameters,
-    IsFlatFootedParams,
-} from "./types.ts";
+import { Alignment, AlignmentTrait, CreatureTrait, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -206,29 +196,6 @@ abstract class CreaturePF2e<
               }, heldShields.slice(-1)[0]);
     }
 
-    /** Whether the actor is flat-footed in the current scene context: currently only handles flanking */
-    isFlatFooted({ dueTo }: IsFlatFootedParams): boolean {
-        // The first data preparation round will occur before the game is ready
-        if (!game.ready) return false;
-
-        if (dueTo === "flanking") {
-            const { flanking } = this.attributes;
-            if (!flanking.flankable) return false;
-
-            const rollOptions = this.getRollOptions();
-            if (typeof flanking.flatFootable === "number") {
-                flanking.flatFootable = !PredicatePF2e.test(
-                    [{ lte: ["origin:level", flanking.flatFootable] }],
-                    rollOptions
-                );
-            }
-
-            return flanking.flatFootable && PredicatePF2e.test(["origin:flanking"], rollOptions);
-        }
-
-        return false;
-    }
-
     override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
@@ -364,19 +331,6 @@ abstract class CreaturePF2e<
         rollOptions.all[`self:size:${sizeIndex}`] = true;
         rollOptions.all[`self:size:${sizeSlug}`] = true;
 
-        // Add modifiers from being flanked
-        if (this.isFlatFooted({ dueTo: "flanking" })) {
-            const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
-            const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
-            const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this });
-
-            const rule = flatFooted.prepareRuleElements().shift();
-            if (!rule) throw ErrorPF2e("Unexpected error retrieving condition");
-            rule.beforePrepareData?.();
-
-            this.rollOptions.all["self:condition:flat-footed"] = true;
-        }
-
         // Handle caps derived from dying
         attributes.wounded.max = Math.max(0, attributes.dying.max - 1);
         attributes.doomed.max = attributes.dying.max;
@@ -413,9 +367,15 @@ abstract class CreaturePF2e<
      */
     async adjustCarryType(
         item: PhysicalItemPF2e<CreaturePF2e>,
-        carryType: ItemCarryType,
-        handsHeld = 0,
-        inSlot = false
+        {
+            carryType,
+            handsHeld = 0,
+            inSlot = false,
+        }: {
+            carryType: ItemCarryType;
+            handsHeld?: number;
+            inSlot?: boolean;
+        }
     ): Promise<void> {
         const { usage } = item.system;
         if (carryType === "stowed") {
@@ -448,15 +408,8 @@ abstract class CreaturePF2e<
      * Adds a custom modifier that will be included when determining the final value of a stat. The slug generated by
      * the name parameter must be unique for the custom modifiers for the specified stat, or it will be ignored.
      */
-    async addCustomModifier(
-        stat: string,
-        label: string,
-        value: number,
-        type: string,
-        predicate: RawPredicate = [],
-        damageType?: DamageType,
-        damageCategory?: string
-    ): Promise<void> {
+    async addCustomModifier(stat: string, label: string, value: number, type: string): Promise<void> {
+        stat = stat === "armor" ? "ac" : stat;
         if (!this.isOfType("character", "npc")) return;
         if (stat.length === 0) throw ErrorPF2e("A custom modifier's statistic must be a non-empty string");
         if (label.length === 0) throw ErrorPF2e("A custom modifier's label must be a non-empty string");
@@ -469,15 +422,8 @@ abstract class CreaturePF2e<
                 label,
                 modifier: value,
                 type: modifierType,
-                predicate,
                 custom: true,
             }).toObject();
-            if (objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
-                modifier.damageType = damageType;
-            }
-            if (setHasElement(DAMAGE_CATEGORIES_UNIQUE, damageCategory)) {
-                modifier.damageCategory = damageCategory;
-            }
 
             await this.update({ [`system.customModifiers.${stat}`]: [...modifiers, modifier] });
         }
@@ -485,6 +431,7 @@ abstract class CreaturePF2e<
 
     /** Removes a custom modifier by slug */
     async removeCustomModifier(stat: string, slug: string): Promise<void> {
+        stat = stat === "armor" ? "ac" : stat;
         if (stat.length === 0) throw ErrorPF2e("A custom modifier's statistic must be a non-empty string");
 
         const customModifiers = this.toObject().system.customModifiers ?? {};

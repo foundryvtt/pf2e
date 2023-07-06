@@ -5,10 +5,9 @@ import { isObject } from "@util";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
-const { fields } = foundry.data;
-
 class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false, initial: undefined }),

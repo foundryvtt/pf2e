@@ -1,4 +1,5 @@
-import { ChatMessagePF2e } from "./chat-message/index.ts";
+import { TokenPF2e } from "./canvas/index.ts";
+import { ActorPF2e } from "./documents.ts";
 
 export class MacroPF2e extends Macro {
     /** Raise permission requirement of world macro visibility to observer */
@@ -6,25 +7,15 @@ export class MacroPF2e extends Macro {
         return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
     }
 
-    /** Allow unbound variables to be shadowed in script's evaluation scope */
-    protected override _executeScript({
-        actor,
-        token,
-    }: { actor?: Actor<TokenDocument<Scene | null> | null>; token?: Token | null } = {}): void {
-        // Add variables to the evaluation scope
-        const speaker = ChatMessagePF2e.getSpeaker();
-        const character = game.user.character;
-        actor ??= game.actors.get(speaker.actor ?? "");
-        token ??= canvas.ready ? canvas.tokens.get(speaker.token ?? "") : null;
+    /** Wrap script `command` in curly braces to place macro-execution parameters in outer scope  */
+    override execute(scope?: { actor?: ActorPF2e; token?: TokenPF2e } | undefined): unknown {
+        if (this.type !== "script") return super.execute(scope);
 
-        // Attempt script execution
-        const AsyncFunction = async function () {}.constructor as { new (...args: string[]): Function };
-        const command = ["{", this.command, "}"].join("\n");
-        const fn = new AsyncFunction("speaker", "actor", "token", "character", command);
-        try {
-            return fn.call(this, speaker, actor, token, character);
-        } catch {
-            ui.notifications.error("There was an error in your macro syntax. See the console (F12) for details");
-        }
+        const originalCommand = this.command;
+        this.command = ["{", this.command, "}"].join("\n");
+        const result = super.execute(scope);
+        this.command = originalCommand;
+
+        return result;
     }
 }

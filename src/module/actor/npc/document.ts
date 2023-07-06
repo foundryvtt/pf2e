@@ -249,6 +249,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     adjustments: extractModifierAdjustments(modifierAdjustments, ["all", "ac", "dex-based"], "base"),
                 }),
             ],
+            details: system.attributes.ac.details,
         });
         this.armorClass = armorStatistic.dc;
         this.system.attributes.ac = armorStatistic.getTraceData();
@@ -395,10 +396,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Internal function to create trace data, since NPCs still use the lore item type
         system.skills = {};
         function createTrace(stat: Statistic, item?: LorePF2e<NPCPF2e>) {
-            const { ability, shortform } = objectHasKey(SKILL_EXPANDED, stat.slug)
+            const { ability, shortForm } = objectHasKey(SKILL_EXPANDED, stat.slug)
                 ? SKILL_EXPANDED[stat.slug]
-                : { ability: "int" as AbilityString, shortform: stat.slug };
-            system.skills[shortform] = {
+                : { ability: "int" as AbilityString, shortForm: stat.slug };
+            system.skills[shortForm] = {
                 ...stat.getTraceData(),
                 base: item?.system.mod.value,
                 isLore: !!stat.lore,
@@ -412,9 +413,9 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Create default "untrained" skills for all basic types first
         const skills: Partial<CreatureSkills> = {};
         for (const skill of SKILL_LONG_FORMS) {
-            const { ability, shortform } = SKILL_EXPANDED[skill];
+            const { ability, shortForm } = SKILL_EXPANDED[skill];
             const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
-            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
+            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortForm].capitalize()}`);
 
             const statistic = new Statistic(this, {
                 slug: skill,
@@ -523,7 +524,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
-                const packItem = (await compendium.getDocuments({ "system.slug": { $in: [attackEffect] } }))[0];
+                const packItem = (await compendium.getDocuments({ system: { slug: attackEffect } }))[0];
                 if (packItem instanceof ItemPF2e) {
                     const note = new RollNotePF2e({
                         selector: "all",

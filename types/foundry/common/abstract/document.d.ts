@@ -1,11 +1,14 @@
 import type * as CONST from "../constants.d.ts";
-import type { DataSchema } from "../data/fields.d.ts";
+import type { DataSchema, SchemaField } from "../data/fields.d.ts";
 import type BaseUser from "../documents/user.d.ts";
 import type { DataModelValidationOptions } from "./data.d.ts";
 import type EmbeddedCollection from "./embedded-collection.d.ts";
 
 /** The abstract base interface for all Document types. */
-export default abstract class Document<TParent extends Document | null = _Document | null> {
+export default abstract class Document<
+    TParent extends Document | null = _Document | null,
+    TSchema extends DataSchema = DataSchema
+> {
     constructor(data: object, context?: DocumentConstructionContext<Document | null>);
 
     _id: string | null;
@@ -17,6 +20,7 @@ export default abstract class Document<TParent extends Document | null = _Docume
     readonly pack: string | null;
 
     _source: object;
+    get schema(): SchemaField<TSchema>;
 
     // actually in `DataModel`
     static defineSchema(): DataSchema;
@@ -97,9 +101,6 @@ export default abstract class Document<TParent extends Document | null = _Docume
 
     /** Test whether this Document is embedded within a parent Document */
     get isEmbedded(): boolean;
-
-    /** The name of this Document, if it has one assigned */
-    name: string;
 
     /* ---------------------------------------- */
     /*  Methods                                 */
@@ -586,7 +587,7 @@ type MetadataPermission =
 
 export interface DocumentMetadata {
     collection: string;
-    embedded: Record<string, ConstructorOf<Document>>;
+    embedded: Record<string, string>;
     hasSystemData: boolean;
     isEmbedded?: boolean;
     isPrimary?: boolean;
@@ -636,5 +637,8 @@ declare global {
         keepId?: boolean;
     }
 
-    type DocumentSourceUpdateContext = Omit<DocumentModificationContext<null>, "parent">;
+    interface DocumentSourceUpdateContext extends Omit<DocumentModificationContext<null>, "parent"> {
+        dryRun?: boolean;
+        fallback?: boolean;
+    }
 }

@@ -38,6 +38,7 @@ export interface SheetInventory {
     bulk: InventoryBulk;
     showValueAlways: boolean;
     showIndividualPricing: boolean;
+    hasStowingContainers: boolean;
     invested?: { value: number; max: number } | null;
 }
 
@@ -52,4 +53,9 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     totalWealthGold: string;
     inventory: SheetInventory;
     enrichedContent: Record<string, string>;
+}
+
+export interface ActorSheetRenderOptionsPF2e extends RenderOptions {
+    /** What tab to switch to when rendering the sheet */
+    tab?: string;
 }

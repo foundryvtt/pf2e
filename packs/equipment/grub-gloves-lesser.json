@@ -1,0 +1,97 @@
+{
+    "_id": "pDaFDSY1keNfbdTl",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Grub Gloves (Lesser)",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>Danila Kenn and Depa Stepwell of Common Goods developed these gloves after complaints from an exhausted grindlegrub rancher. Since their development, the gloves have become popular not just among grindlegrub ranchers, but laborers of all kinds in Stonebreach. The thick gloves are designed to help ranchers hold on to the squirming, slimy bodies of grindlegrubs, and help soothe the wear and tear of the day while restoring energy for after-hours pursuits. While wearing the gloves, you gain a +1 item bonus to Athletics checks. The gripping power of the gloves provides you with a +2 circumstance bonus to Reflex saves to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge]. If you roll a success to Grab an Edge, you get a critical success instead, as the gripping gloves allow you to hold on even with just a few fingertips.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day;</p>\n<hr />\n<p><strong>Effect</strong> You rub your hands together and take a deep breath to prepare for the rest of your day. You regain [[/r (3d8+10)[healing]]] Hit Points and feel refreshed, losing the @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] condition. As normal for effects that remove fatigue, this doesn't remove any underlying source of fatigue, such as lack of sleep, causing the condition to return if the underlying source isn't addressed.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 225
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grab-an-edge"
+                ],
+                "selector": "reflex",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:grab-an-edge"
+                ],
+                "selector": "reflex",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:grab-an-edge"
+                ],
+                "selector": "reflex",
+                "text": "If you roll a success to Grab an Edge, you get a critical success instead, as the gripping gloves allow you to hold on even with just a few fingertips.",
+                "title": "{item|name}"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical",
+                "necromancy"
+            ]
+        },
+        "usage": {
+            "value": "worngloves"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

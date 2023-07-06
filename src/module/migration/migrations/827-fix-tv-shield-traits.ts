@@ -25,11 +25,11 @@ export class Migration827FixTVShieldTraits extends MigrationBase {
                 return;
             }
             case "meteor-shield": {
-                source.system.traits.value = ["shield-throw-20"];
+                source.system.traits.value = ["shield-throw-30"];
                 return;
             }
             case "razor-disc": {
-                source.system.traits.value = ["integrated-1d6-s", "shield-throw-30"];
+                source.system.traits.value = ["integrated-1d6-s", "shield-throw-20"];
                 return;
             }
         }

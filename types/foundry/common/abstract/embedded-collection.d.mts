@@ -1,4 +1,4 @@
-import type DataModel from "./data.d.ts";
+import type * as abstract from "./module.d.ts";
 import type { RawObject } from "./data.d.ts";
 
 /**
@@ -6,7 +6,7 @@ import type { RawObject } from "./data.d.ts";
  * Used for the specific task of containing embedded Document instances within a parent Document.
  * @param sourceArray The source data array for the collection in the parent Document data
  */
-export class EmbeddedCollection<TModel extends DataModel> extends Collection<TModel> {
+export class EmbeddedCollection<TModel extends abstract.DataModel | abstract.Document> extends Collection<TModel> {
     constructor(
         sourceArray: TModel["_source"][],
         documentClass: {

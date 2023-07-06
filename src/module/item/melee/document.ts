@@ -101,6 +101,12 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.system.attackEffects.value;
     }
 
+    get isMagical(): boolean {
+        const { traits } = this;
+        const magicTraits = ["magical", "arcane", "primal", "divine", "occult"] as const;
+        return magicTraits.some((t) => traits.has(t));
+    }
+
     /** The linked inventory weapon, if this melee item was spawned from one */
     get linkedWeapon(): WeaponPF2e<ActorPF2e> | null {
         const item = this.actor?.items.get(this.flags.pf2e.linkedWeapon ?? "");
@@ -175,6 +181,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             [`category:${this.category}`]: !!this.category,
             [`group:${this.group}`]: !!this.group,
             [`base:${this.baseType}`]: !!this.baseType,
+            magical: this.isMagical,
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
             [`damage:type:${damageType}`]: true,
             [`damage:category:${damageCategory}`]: !!damageCategory,

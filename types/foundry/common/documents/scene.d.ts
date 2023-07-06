@@ -26,6 +26,7 @@ import type { WallSource } from "./wall.d.ts";
  * @property data The constructed data object for the document.
  */
 export default class BaseScene extends Document<null> {
+    name: string;
     active: boolean;
     background: foundry.data.TextureData;
     grid: GridData;
@@ -170,14 +171,14 @@ export interface SceneMetadata extends DocumentMetadata {
     label: "DOCUMENT.Scene";
     isPrimary: true;
     embedded: {
-        AmbientLight: typeof BaseAmbientLight;
-        AmbientSound: typeof BaseAmbientSound;
-        Drawing: typeof BaseDrawing;
-        MeasuredTemplate: typeof BaseMeasuredTemplate;
-        Note: typeof BaseNote;
-        Tile: typeof BaseTile;
-        Token: typeof BaseToken;
-        Wall: typeof BaseWall;
+        AmbientLight: "lights";
+        AmbientSound: "sounds";
+        Drawing: "drawings";
+        MeasuredTemplate: "templates";
+        Note: "notes";
+        Tile: "tiles";
+        Token: "tokens";
+        Wall: "walls";
     };
 }
 

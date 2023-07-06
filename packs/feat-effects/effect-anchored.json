@@ -1,0 +1,46 @@
+{
+    "_id": "R6mx6EfLxSrQlrRa",
+    "img": "systems/pf2e/icons/spells/battlefield-persistence.webp",
+    "name": "Effect: Anchored",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Tunnel Wall]</p>\n<p>You become Anchored and gain a +4 circumstance bonus to the DC to @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] your space.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

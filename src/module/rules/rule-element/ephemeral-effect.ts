@@ -6,11 +6,10 @@ import type { ArrayField, BooleanField, StringField } from "types/foundry/common
 import { ItemAlterationField, applyAlterations } from "./alter-item/index.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
-const { fields } = foundry.data;
-
 /** An effect that applies ephemerally during a single action, such as a strike */
 class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> {
     static override defineSchema(): EphemeralEffectSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             affects: new fields.StringField({ required: true, choices: ["target", "origin"], initial: "target" }),

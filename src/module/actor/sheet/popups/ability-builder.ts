@@ -1,10 +1,10 @@
-import * as R from "remeda";
 import { CharacterPF2e } from "@actor";
 import { Abilities } from "@actor/creature/data.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
-import { htmlClosest, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import * as R from "remeda";
 
 class AbilityBuilderPopup extends Application {
     constructor(private actor: CharacterPF2e) {
@@ -154,7 +154,7 @@ class AbilityBuilderPopup extends Application {
 
         const buttons = this.#createButtons();
 
-        const boosts = Object.values(actor.background.system.boosts);
+        const boosts = Object.values(actor.background.system.boosts).filter((b) => b.value.length > 0);
         const selectedBoosts = boosts.map((b) => b.selected).filter((b): b is AbilityString => !!b);
         const unselectedRestricted = boosts.filter((b) => b.value.length < 6 && !b.selected).flatMap((b) => b.value);
         const remaining = boosts.length - selectedBoosts.length;
@@ -252,9 +252,9 @@ class AbilityBuilderPopup extends Application {
 
         $html.find("div.tooltip").tooltipster();
 
-        $html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
-            event.currentTarget.select();
-        });
+        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
+            input.addEventListener("focus", () => input.select());
+        }
 
         htmlQuery(html, "[data-action=toggle-alternate-ancestry-boosts]")?.addEventListener("click", () => {
             if (!actor.ancestry) return;
@@ -262,12 +262,6 @@ class AbilityBuilderPopup extends Application {
                 actor.ancestry.update({ "system.-=alternateAncestryBoosts": null });
             } else {
                 actor.ancestry.update({ "system.alternateAncestryBoosts": [] });
-            }
-        });
-
-        $html.find<HTMLInputElement>("input[name=toggle-manual-mode]").on("change", async (event) => {
-            if (event.originalEvent) {
-                await actor.toggleAbilityManagement();
             }
         });
 
@@ -381,14 +375,20 @@ class AbilityBuilderPopup extends Application {
             });
         }
 
-        $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
-            if (actor.system.build.abilities.manual) {
-                await actor.update({ [`system.details.keyability.value`]: ability });
-            } else {
-                await actor.class?.update({ [`system.keyAbility.selected`]: ability });
-            }
-        });
+        for (const button of htmlQueryAll(html, "button[data-action=class-key-ability]")) {
+            button.addEventListener("click", () => {
+                const ability = button.dataset.ability;
+                if (!setHasElement(ABILITY_ABBREVIATIONS, ability)) {
+                    throw ErrorPF2e(`Unrecognized ability abbreviation: ${ability}`);
+                }
+
+                if (actor.system.build.abilities.manual) {
+                    actor.update({ [`system.details.keyability.value`]: ability });
+                } else {
+                    actor.class?.update({ [`system.keyAbility.selected`]: ability });
+                }
+            });
+        }
 
         for (const button of htmlQueryAll(html, "[data-level] .boost")) {
             button.addEventListener("click", () => {
@@ -408,15 +408,19 @@ class AbilityBuilderPopup extends Application {
             });
         }
 
-        $html.find<HTMLInputElement>("input[data-property]").on("blur", async (event) => {
-            const $input = $(event.target);
-            const propertyPath = $input.attr("data-property") ?? "";
-            await actor.update({ [propertyPath]: $input.val() });
-        });
+        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=number][data-property]")) {
+            input.addEventListener("blur", () => {
+                const propertyPath = input.dataset.property;
+                if (!propertyPath) throw ErrorPF2e("Empty property path");
+                const value = Math.trunc(Number(input.value));
+                actor.update({ [propertyPath]: value });
+            });
+        }
 
-        $html.find("button[data-action=close]").on("click", () => {
-            this.close();
+        htmlQuery(html, "input[name=toggle-manual-mode]")?.addEventListener("click", () => {
+            actor.toggleAbilityManagement();
         });
+        htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => this.close());
     }
 }
 

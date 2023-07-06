@@ -162,18 +162,21 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
      */
     async saveAndRestoreState(callback: () => Promise<JQuery<HTMLElement>>): Promise<JQuery<HTMLElement>> {
         // Identify which item and action summaries are expanded currently
-        const $element = this.sheet.element;
-        const expandedSummaryElements = $element.find(".item.expanded[data-item-summary-id]");
-        const expandedItemElements = $element.find(".item.expanded[data-item-id]:not([data-item-summary-id])");
-        const expandedActionElements = $element.find(".item.expanded[data-action-index]");
-        const openActionIdxs = new Set(expandedActionElements.map((_i, el) => el.dataset.actionIndex));
+        const element = this.sheet.element[0];
+        const expandedSummaryElements = htmlQueryAll(element, ".item.expanded[data-item-summary-id]");
+        const expandedItemElements = htmlQueryAll(element, ".item.expanded[data-item-id]:not([data-item-summary-id])");
+        const expandedActionElements = htmlQueryAll(element, ".item.expanded[data-action-index]");
 
         // Create a list of records that act as identification keys for expanded entries
-        const openItemsIds = expandedItemElements.map((_, el) => $(el).attr("data-item-id")).get();
-        const openSummaryIds = expandedSummaryElements.map((_, el) => $(el).attr("data-item-summary-id")).get();
+        const openActionIdxs = new Set(expandedActionElements.map((el) => el.dataset.actionIndex));
+        const openItemsIds = expandedItemElements.map((el) => el.dataset.itemId);
+        const openSummaryIds = expandedSummaryElements.map((el) => el.dataset.itemSummaryId);
 
         const $result = await callback.apply(null);
         const result = $result[0]!;
+
+        // Listen to inline rolls before opening the item summaries (to avoid double listeners)
+        InlineRollLinks.listen(result, this.sheet.actor);
 
         // Re-open hidden item summaries
         for (const itemId of openItemsIds) {

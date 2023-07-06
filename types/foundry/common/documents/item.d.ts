@@ -4,6 +4,7 @@ import type { BaseActiveEffect, BaseActor, BaseUser } from "./module.d.ts";
 
 /** The Item document model. */
 export default class BaseItem<TParent extends BaseActor | null> extends Document<TParent> {
+    name: string;
     sort: number;
 
     /** The default icon used for newly created Item documents */
@@ -67,7 +68,7 @@ export default interface BaseItem<TParent extends BaseActor | null> extends Docu
  * @property [ownership] An object which configures user permissions to this Item
  * @property [flags={}]   An object of optional key/value flags
  */
-interface ItemSource<TType extends string = string, TSystemSource extends object = object> {
+type ItemSource<TType extends string = string, TSystemSource extends object = object> = {
     _id: string;
     name: string;
     type: TType;
@@ -78,7 +79,7 @@ interface ItemSource<TType extends string = string, TSystemSource extends object
     sort: number;
     ownership: Record<string, DocumentOwnershipLevel>;
     flags: ItemFlags;
-}
+};
 
 interface ItemFlags extends DocumentFlags {
     core?: {
@@ -92,7 +93,7 @@ interface ItemMetadata extends DocumentMetadata {
     collection: "items";
     label: "DOCUMENT.Item";
     embedded: {
-        ActiveEffect: typeof BaseActiveEffect;
+        ActiveEffect: "effects";
     };
     isPrimary: true;
     hasSystemData: true;

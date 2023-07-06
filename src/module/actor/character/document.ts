@@ -47,7 +47,7 @@ import {
 import { ActionTrait } from "@item/action/data.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
-import { getResilientBonus } from "@item/physical/runes.ts";
+import { getPropertyRuneStrikeAdjustments, getResilientBonus } from "@item/physical/runes.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
@@ -473,9 +473,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             99.5
         );
 
-        // Get the itemTypes object only once for the entire run of the method
-        const itemTypes = this.itemTypes;
-
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
             const params = { slug: "level-bump", label: "PF2E.PFS.LevelBump", modifier: 1 };
@@ -632,7 +629,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
 
         // Spellcasting Entries
-        for (const entry of itemTypes.spellcastingEntry) {
+        for (const entry of this.itemTypes.spellcastingEntry) {
             if (entry.isInnate) {
                 const allRanks = Object.values(this.traditions).map((t) => t.rank ?? 0);
                 entry.system.proficiency.value = Math.max(1, entry.rank, ...allRanks) as ZeroToFour;
@@ -659,8 +656,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Expose best spellcasting DC to character attributes
-        if (itemTypes.spellcastingEntry.length > 0) {
-            const best = itemTypes.spellcastingEntry.reduce((previous, current) => {
+        if (this.itemTypes.spellcastingEntry.length > 0) {
+            const best = this.itemTypes.spellcastingEntry.reduce((previous, current) => {
                 return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
             });
             this.system.attributes.spellDC = { rank: best.statistic.rank ?? 0, value: best.statistic.dc.value };
@@ -1186,7 +1183,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const ammos = options.ammos ?? [];
 
         // Apply strike adjustments affecting the weapon
-        for (const adjustment of synthetics.strikeAdjustments) {
+        const strikeAdjustments = [
+            synthetics.strikeAdjustments,
+            getPropertyRuneStrikeAdjustments(weapon.system.runes.property),
+        ].flat();
+        for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
         const weaponRollOptions = weapon.getRollOptions("item");
@@ -1605,12 +1606,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 const domains = ["all", `${weapon.id}-damage`, "strike-damage", "damage-roll"];
                 params.options ??= [];
+                const targetToken = params.target ?? game.user.targets.first() ?? null;
 
                 const context = await this.getRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     statistic: action,
-                    target: { token: game.user.targets.first() ?? null },
+                    target: { token: targetToken },
                     domains,
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
@@ -1792,7 +1794,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // If investing and unequipped, equip first
         if (!invested && !item.isEquipped) {
             const newCarryType = item.system.usage.type === "carried" ? "worn" : item.system.usage.type;
-            await this.adjustCarryType(item, newCarryType, item.system.usage.hands, true);
+            await this.adjustCarryType(item, {
+                carryType: newCarryType,
+                handsHeld: item.system.usage.hands,
+                inSlot: true,
+            });
         }
 
         return !!(await item.update({ "system.equipped.invested": !invested }));

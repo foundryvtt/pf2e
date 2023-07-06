@@ -658,16 +658,23 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const weaponDamage = this.baseDamage;
             const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.system.details.level.base;
-            const dice = [1, 2, 3, 4].reduce((closest, dice) =>
-                Math.abs(dice - Math.round((actorLevel + 2) / 4)) < Math.abs(closest - Math.round((actorLevel + 2) / 4))
-                    ? dice
-                    : closest
-            );
+            // Use the base dice if damage is fixed
+            const dice = this.flags.pf2e.fixedAttack
+                ? weaponDamage.dice
+                : [1, 2, 3, 4].reduce((closest, dice) =>
+                      Math.abs(dice - Math.round((actorLevel + 2) / 4)) <
+                      Math.abs(closest - Math.round((actorLevel + 2) / 4))
+                          ? dice
+                          : closest
+                  );
 
             // Approximate weapon specialization
             const constant = ((): string => {
                 const fromAbility = actor.abilities[ability].mod;
-                const totalModifier = fromAbility + (actor.level > 1 ? dice : 0);
+                // Use the base modifier if damage is fixed
+                const totalModifier = this.flags.pf2e.fixedAttack
+                    ? weaponDamage.modifier
+                    : fromAbility + (actor.level > 1 ? dice : 0);
                 const sign = totalModifier < 0 ? "-" : "+";
                 return totalModifier === 0 ? "" : [sign, Math.abs(totalModifier)].join("");
             })();
@@ -728,12 +735,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                         !["artifact", "cursed"].includes(t)
                 );
 
-            if (this.isRanged && !this.isThrown) {
-                newTraits.push(`range-increment-${this.rangeIncrement!}`);
+            if (this.rangeIncrement && !this.isThrown) {
+                const prefix = this.maxRange === this.rangeIncrement * 6 ? "range-increment" : "range";
+                newTraits.push(`${prefix}-${this.rangeIncrement}`);
             }
 
             const actorSize = new ActorSizePF2e({ value: actor.size });
-            if (actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
+            if (this.isMelee && actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
                 actorSize.decrement();
                 newTraits.push(...[npcReach[actorSize.value] ?? []].flat());
             }
@@ -773,8 +781,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             system: {
                 weaponType: { value: this.isMelee ? "melee" : "ranged" },
                 bonus: {
-                    // Give an attack bonus approximating a high-threat NPC
-                    value: Math.round(1.5 * this.actor.level + 7),
+                    // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
+                    value: this.flags.pf2e.fixedAttack || Math.round(1.5 * this.actor.level + 7),
                 },
                 damageRolls: [baseDamage, splashDamage, fromPropertyRunes, persistentDamage]
                     .flat()

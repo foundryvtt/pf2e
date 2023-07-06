@@ -4,7 +4,7 @@ import type * as fields from "../data/fields.d.ts";
 import type BaseScene from "./scene.d.ts";
 
 /** The AmbientLight embedded document model. */
-export default class BaseAmbientLight<TParent extends BaseScene | null> extends Document<TParent> {
+export default class BaseAmbientLight<TParent extends BaseScene | null> extends Document<TParent, AmbientLightSchema> {
     static override get metadata(): AmbientLightMetadata;
 
     static override defineSchema(): AmbientLightSchema;
@@ -13,7 +13,7 @@ export default class BaseAmbientLight<TParent extends BaseScene | null> extends 
 }
 
 export default interface BaseAmbientLight<TParent extends BaseScene | null>
-    extends Document<TParent>,
+    extends Document<TParent, AmbientLightSchema>,
         ModelPropsFromSchema<AmbientLightSchema> {
     readonly _source: SourceFromSchema<AmbientLightSchema>;
 }

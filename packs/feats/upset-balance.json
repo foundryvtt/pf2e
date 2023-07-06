@@ -1,0 +1,52 @@
+{
+    "_id": "zZZmRwvtwQazhU0b",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Upset Balance",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You are damaged by a melee Strike.</p>\n<p><strong>Requirements</strong> You are in Tenacious Stance.</p>\n<hr />\n<p>You lean into your foe's attack, using the weight of your body and armor to send them reeling. Attempt an Athletics check against the creature's Reflex DC. On a success, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of its next turn (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} on a critical success). If you are anchored, you gain a +2 circumstance bonus to this check.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "stalwart defender dedication"
+                },
+                {
+                    "value": "expert in Athletics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "upset-balance",
+                    "self:effect:anchored"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,87 @@
+<aside class="sidebar">
+    {{#if members}}
+        <ol class="box-list exploration-members">
+            <li class="box summary">
+                <header>{{localize "PF2E.TravelSpeed.PartySpeed"}}</header>
+                <div class="summary-data">
+                    <div>
+                        <label>{{localize "PF2E.Speed"}}</label>
+                        <span class="value">{{explorationSummary.speed}} {{localize "PF2E.Feet"}}</span>
+                    </div>
+                    <div>
+                        <label>{{localize "PF2E.TravelSpeed.ActivitiesPerDay"}}</label>
+                        <span class="value">{{explorationSummary.activities}}</span>
+                    </div>
+                </div>
+            </li>
+            {{#each members as |member|}}
+                <li class="box member">
+                    <div class="actor-link content" data-action="open-sheet" data-actor-uuid="{{member.actor.uuid}}">
+                        <img src="{{member.actor.img}}" />
+                        <span class="name">{{member.actor.name}}</span>
+                    </div>
+                    {{#unless member.restricted}}
+                        <div class="sub-data">
+                            <span>
+                                <i class="fas fa-person-running"></i> {{member.actor.attributes.speed.value}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}
+                            </span>
+                            <span>
+                                <i class="fas fa-eye"></i> {{member.actor.perception.dc.value}}
+                            </span>
+                        </div>
+                            <footer>
+                                {{#with member.actor.attributes.hp as |hp|}}
+                                    <div class="bar" style="width: {{percentage hp.value hp.max}}%;"></div>
+                                    <span><i class="fas fa-heart"></i> {{hp.value}} / {{hp.max}}</span>
+                                {{/with}}
+                            </footer>
+                    {{/unless}}
+                </li>
+            {{/each}}
+        </ol>
+    {{else}}
+        {{localize "PF2E.Actor.Party.BlankSlate"}}
+    {{/if}}
+</aside>
+<section class="content">
+    {{#if @root.options.editable}}
+        <header>
+            <a data-action="clear-exploration">{{localize "PF2E.Actor.Party.ClearActivities.Label"}}</a>
+            <div class="buttons">
+                <button type="button" data-action="rest"><i class="fa-solid fa-fw fa-bed"></i> {{localize "PF2E.Actor.Party.Rest"}}</button>
+            </div>
+        </header>
+    {{/if}}
+    <div class="activities">
+        {{#each explorationMembers as |member|}}
+            <section class="member-activity" data-actor-uuid="{{member.actor.uuid}}">
+                <div class="actor-image">
+                    <img class="actor-link" data-action="open-sheet" data-tab="exploration" src="{{member.actor.img}}">
+                </div>
+
+                {{#if member.activities}}
+                    <div class="activity-entries">
+                        {{#each member.activities as |activity|}}
+                            <section class="activity {{#if (eq member.activities.length 1)}}single{{/if}}">
+                                <span class="name">{{activity.name}}</span>
+                                <span class="tags">
+                                    {{#each traits as |trait|}}
+                                        <span class="tag tag_transparent">{{trait.label}}</span>
+                                    {{/each}}
+                                </span>
+                            </section>
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <div class="empty" data-action="open-sheet" data-tab="exploration">
+                        <div class="icon"><i class="fa-solid fa-plus fa-fw"></i></div>
+                        <div>
+                            <div class="name">{{localize "PF2E.Item.Action.Type.Activity"}}</div>
+                            <div class="hint">{{localize "PF2E.Actor.Party.SlotAvailable"}}</div>
+                        </div>
+                    </div>
+                {{/if}}
+            </section>
+        {{/each}}
+    </div>
+</section>

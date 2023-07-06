@@ -1,0 +1,77 @@
+{
+    "_id": "zkN2FndJxGt711fj",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Gravel Guts",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Stone never becomes queasy, so why should you? You gain a +1 circumstance bonus to saving throws against the @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition. When you succeed at a Fortitude save to reduce your sickened value, you reduce it by 2 (or by 3 on a critical success).</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "stalwart defender dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:sickened",
+                            "action:retch"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:retch"
+                ],
+                "selector": "fortitude",
+                "text": "PF2E.SpecificRule.Conditions.Sickened.Reduce.success",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:retch"
+                ],
+                "selector": "fortitude",
+                "text": "PF2E.SpecificRule.Conditions.Sickened.Reduce.criticalSuccess",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

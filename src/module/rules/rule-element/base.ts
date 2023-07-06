@@ -11,7 +11,6 @@ import type { DataModelValidationOptions } from "types/foundry/common/abstract/d
 import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 const { DataModel } = foundry.abstract;
-const { fields } = foundry.data;
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -87,6 +86,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     static override defineSchema(): RuleElementSchema {
+        const { fields } = foundry.data;
         return {
             key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             slug: new SlugField({ required: true, nullable: true }),
@@ -182,12 +182,17 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      *   }
      * }
      *
-     * @param source string that should be parsed
+     * @param source The string that is to be resolved
+     * @param options.warn Whether to warn on a failed resolution
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties<T extends string | number | object | null | undefined>(source: T): T;
+    resolveInjectedProperties<T extends string | number | object | null | undefined>(
+        source: T,
+        options?: { warn?: boolean }
+    ): T;
     resolveInjectedProperties(
-        source: string | number | object | null | undefined
+        source: string | number | object | null | undefined,
+        { warn = true } = {}
     ): string | number | object | null | undefined {
         if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
             return source;
@@ -196,12 +201,12 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         // Walk the object tree and resolve any string values found
         if (Array.isArray(source)) {
             for (let i = 0; i < source.length; i++) {
-                source[i] = this.resolveInjectedProperties(source[i]);
+                source[i] = this.resolveInjectedProperties(source[i], { warn });
             }
         } else if (isObject<Record<string, unknown>>(source)) {
             for (const [key, value] of Object.entries(source)) {
                 if (typeof value === "string" || isObject(value)) {
-                    source[key] = this.resolveInjectedProperties(value);
+                    source[key] = this.resolveInjectedProperties(value, { warn });
                 }
             }
 
@@ -211,7 +216,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
                 if (value === undefined) {
-                    this.failValidation(`Failed to resolve injected property "${source}"`);
+                    this.ignored = true;
+                    if (warn) this.failValidation(`Failed to resolve injected property "${source}"`);
                 }
                 return String(value);
             });
@@ -238,14 +244,14 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     protected resolveValue(
         valueData = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true, resolvables = {} }: { evaluate?: boolean; resolvables?: Record<string, unknown> } = {}
+        { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {}
     ): number | string | boolean | object | null {
         let value: RuleValue = valueData ?? defaultValue ?? null;
 
         if (["number", "boolean"].includes(typeof value) || value === null) {
             return value;
         }
-        if (typeof value === "string") value = this.resolveInjectedProperties(value);
+        if (typeof value === "string") value = this.resolveInjectedProperties(value, { warn });
 
         // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
         if (this.actor.isOfType("character")) {
@@ -300,7 +306,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 // Allow failure of "@target" with no warning
                 if (unresolveds.length > 0) {
                     if (!unresolveds.every((u) => u === "@target")) {
-                        this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+                        this.ignored = true;
+                        if (warn) this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
                     }
                     return 0;
                 }
@@ -452,6 +459,12 @@ namespace RuleElementPF2e {
     }
 
     export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
+}
+
+interface ResolveValueParams {
+    evaluate?: boolean;
+    resolvables?: Record<string, unknown>;
+    warn?: boolean;
 }
 
 type RuleElementOptions = {

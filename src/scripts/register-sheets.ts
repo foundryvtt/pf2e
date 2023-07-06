@@ -65,7 +65,7 @@ export function registerSheets(): void {
         Actors.registerSheet("pf2e", SimpleNPCSheet, {
             types: ["npc"],
             label: "PF2E.Actor.NPC.SimpleSheet",
-            makeDefault: false,
+            canBeDefault: false,
         });
     }
 

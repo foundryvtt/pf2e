@@ -6,6 +6,8 @@ import type { PlaylistSoundSource } from "./playlist-sound.d.ts";
 export default class BasePlaylist extends Document<null> {
     static override get metadata(): PlaylistMetadata;
 
+    name: string;
+
     /** A reference to the Collection of PlaylistSound instances in the Playlist document, indexed by _id. */
     readonly sounds: EmbeddedCollection<BasePlaylistSound<this>>;
 }
@@ -48,7 +50,7 @@ interface PlaylistMetadata extends DocumentMetadata {
     collection: "playlists";
     label: "DOCUMENT.Playlist";
     embedded: {
-        PlaylistSound: typeof BasePlaylistSound;
+        PlaylistSound: "sounds";
     };
     isPrimary: true;
 }

@@ -225,6 +225,10 @@
         }
     }
 
+    h4 {
+        flex: 1;
+    }
+
     .action-tracking {
         align-items: center;
         display: flex;
@@ -245,8 +249,25 @@
         }
     }
 
+    button.activate {
+        background: none;
+        border: 1px solid #00000066;
+        border-radius: 5px;
+        flex: 0;
+        line-height: 1.25em;
+        opacity: 0.7;
+        margin-right: 0.5rem;
+        padding: 0 0.25rem;
+        &.active, &:hover {
+            background-color: var(--primary);
+            color: white;
+            opacity: 1;
+        }
+    }
+
     .item-controls {
-        min-width: 28px;
-        text-align: right;
+        display: flex;
+        min-width: 2.5em;
+        justify-content: end;
     }
 }

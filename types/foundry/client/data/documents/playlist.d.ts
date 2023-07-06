@@ -103,7 +103,7 @@ declare global {
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 
-        protected override _onCreateEmbeddedDocuments(
+        protected override _onCreateDescendantDocuments(
             embeddedName: "PlaylistSound",
             documents: PlaylistSound<this>[],
             result: PlaylistSound<this>["_source"][],
@@ -111,7 +111,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onUpdateEmbeddedDocuments(
+        protected override _onUpdateDescendantDocuments(
             embeddedName: "PlaylistSound",
             documents: PlaylistSound<this>[],
             result: PlaylistSound<this>["_source"][],
@@ -119,7 +119,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onDeleteEmbeddedDocuments(
+        protected override _onDeleteDescendantDocuments(
             embeddedName: "PlaylistSound",
             documents: PlaylistSound<this>[],
             result: string[],

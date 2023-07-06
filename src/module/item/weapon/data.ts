@@ -35,6 +35,11 @@ type WeaponFlags = ItemFlagsPF2e & {
         /** Whether this attack is from a battle form */
         battleForm?: boolean;
         comboMeleeUsage: boolean;
+        /**
+         * Used for NPC attacks generated from strike rule elements: if numeric, it will be used as the NPC attack's
+         * modifier, and damage will also not be recalculated.
+         */
+        fixedAttack?: number | null;
     };
 };
 

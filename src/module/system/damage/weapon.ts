@@ -11,7 +11,7 @@ import {
 import { AbilityString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
-import { getPropertyRuneAdjustments, getPropertyRuneDice } from "@item/physical/runes.ts";
+import { getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
@@ -161,13 +161,17 @@ class WeaponDamagePF2e {
         // Find the best active ability modifier in order to get the correct synthetics selectors
         const resolvables = { weapon };
         const injectables = resolvables;
-        const fromDamageSelector = extractModifiers(actor.synthetics, baseDomains, { resolvables, injectables });
+        const fromDamageSelector = extractModifiers(actor.synthetics, baseDomains, {
+            resolvables,
+            injectables,
+            test: options,
+        });
         const modifiersAndSelectors = modifiers
             .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
-            .flatMap((modifier) => {
+            .map((modifier) => {
                 const selectors = this.#getSelectors(weapon, modifier.ability, proficiencyRank);
-                return modifier.predicate.test(options) ? { modifier, selectors } : [];
+                return { modifier, selectors };
             });
 
         const { selectors } =
@@ -351,8 +355,8 @@ class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weapon.isOfType("weapon") ? weapon.system.runes.property : [];
-        damageDice.push(...getPropertyRuneDice(propertyRunes));
-        const propertyRuneAdjustments = getPropertyRuneAdjustments(propertyRunes);
+        damageDice.push(...getPropertyRuneDice(propertyRunes, options));
+        const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
         const ignoredResistances = propertyRunes.flatMap(
             (r) => CONFIG.PF2E.runes.weapon.property[r].damage?.ignoredResistances ?? []
         );
@@ -479,7 +483,11 @@ class WeaponDamagePF2e {
         // Synthetics
 
         // Separate damage modifiers into persistent and all others for stacking rules processing
-        const synthetics = extractDamageModifiers(actor.synthetics, selectors, { resolvables, injectables });
+        const synthetics = extractDamageModifiers(actor.synthetics, selectors, {
+            resolvables,
+            injectables,
+            test: options,
+        });
         const testedModifiers = [
             ...new StatisticModifier("strike-damage", [...modifiers, ...synthetics.main], options).modifiers,
             ...new StatisticModifier("strike-persistent", synthetics.persistent, options).modifiers,

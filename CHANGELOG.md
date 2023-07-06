@@ -1,3 +1,91 @@
+## 5.1.0
+
+### Data Updates
+
+-   (SpartanCPA) Add content from Lost Omens: Highhelm
+-   (Tikael) Add content from A Few Flowers More
+-   (TMun) Add NPCs from PFS 4-15
+-   (Dire Weasel) Add fix heightening effects of Etheric Shards spell
+-   (Dire Weasel) Add effect for Swarm Form, Touch of the Moon
+-   (Dire Weasel) Add missing traits to Grimbal's Drain Mind
+-   (Dire Weasel) Allow PFS Hireling boons to be taken multiple times
+-   (Dire Weasel) Brush up Meleeka's Blazing-Talon Surge and Mastered Rain of Embers Stance
+-   (Dire Weasel) Fix cast time of Thoughtful Gift
+-   (Dire Weasel) Fix damage link in Gray Prince and add line template
+-   (Dire Weasel) Fix malformed link in Grand Archive Champion, Improved
+-   (Dire Weasel) Fix name of Toxic Furnace's Boiling Toxin
+-   (Dire Weasel) Fix range on Meteor Shield and Razor Disc
+-   (Dire Weasel) Fix reach on Blood Lords Mithral Golem's Spike
+-   (Dire Weasel) Fix Strike category for Throwing Shield
+-   (Dire Weasel) Move Princess Kerinza's key details to GM note
+-   (stwlam) Add Keep Stone as precious material
+-   (stwlam) Add remaining weapon property runes from TV and LO:KoL
+
+### System Improvements
+
+-   (nikolaj-a, In3luki) Add support for modifiers and notes healing recipients received modifiers and roll notes
+-   (stwlam) Bump max domains settable in deity-item sheet to 6
+-   (stwlam) Allow setting fixed attack modifier and damage for rule-element-based NPC strikes
+-   (Supe) Always skip roll dialog for flat checks
+
+### Bugfixes
+
+-   (In3luki) Fix revert damage button showing for lootable NPCs
+-   (In3luki) Reevaluate roll notes upon rerolling checks
+-   (stwlam) Add click listener to popped-out damage messages
+-   (stwlam) Fix grid highlighting placement of measured templates while dragging
+-   (stwlam) Incorporate flat-footed condition immunity into flanking checks
+-   (stwlam) Include roll option on NPC attacks indicating whether they are magical
+-   (stwlam) Fix issue causing incorrect level to be used for some incapacitation abilities
+-   (stwlam) Fix issue causing compendium browser to get stuck semi-transparent and non-interactable
+-   (Supe) Fix some minor visual issues with actor inventories
+
+## 5.0.2
+
+### System Improvements
+
+-   (stwlam) Set toggled RollOption rule element suboptions as `rulesSelections`
+
+### Bugfixes
+
+-   (Dire Weasel) Localize some Treat Wounds macro strings
+-   (reyzor1991) Include rarity in ancestry item roll options
+-   (stwlam) Fix compendium directory search while app is popped out
+-   (stwlam) Remove 11.301 `ActorDelta` workaround, add new one for 11.302
+-   (stwlam) Fix editability of AC details on NPC sheet
+-   (stwlam) Refrain from adding reach trait to generated NPC range attacks
+-   (stwlam) Make system `Actor#temporaryEffects` getter return objects more faithful to `ActiveEffect` interface
+-   (stwlam) Fix issue causing custom AC modifiers from being editable
+-   (Supe) Fix scrolling behavior on limited-permission NPC and loot sheets
+-   (Supe) Filter out damage dice with invalid outcomes
+-   (Supe) Fix heighten level when retrieving prepared spells from chat message
+
+### Data Updates
+
+-   (Dire Weasel) Add automation to Skeletal Crocodile's Reconfigure ability
+-   (Dire Weasel) Add missing critical hits immunity to Carnivorous Crystal
+-   (Dire Weasel) Add some missing NPC auras
+-   (Dire Weasel) Add speed bonus to Grace "The Rhino" Owano's Celestial Rage
+-   (Dire Weasel) Automate Lomok's Powerful Will and add aura to Aura of Courage
+-   (Dire Weasel) Automate the Rabbit Prince's Perfect Will and Bloody Jab
+-   (Dire Weasel) Fix Displaced Robot's Divert Power rule elements and switch to suboptions
+-   (Dire Weasel) Fix Seal Fate's spell type and add effect
+-   (Dire Weasel) Update several RollOption roll elements to utilize suboptions
+-   (Dire Weasel) Update NPC copies of spell Seal Fate
+-   (Dire Weasel) Update Sky Dragon's Divine Lightning to predicate off target rather than RollOption toggles
+-   (LebombJames) Add missing True Name trait to Reveal True Name feat
+-   (OrangeChris) Fix rule elements on Subtle Dampeners and Otherworldly Protection
+-   (putty) Add cooking ingredients from kingmaker companion guide
+-   (stwlam) Add damaging-effect roll option to Aeolaeka's Liberate the Earth ability
+-   (stwlam) Fix rule element in Adopted Ancestry feat
+-   (stwlam) Prevent ancestral weapon proficiencies from cascading
+-   (stwlam) Prevent Order Explorer (Leaf or Storm) from granting focus points
+-   (stwlam) Remove domains compendium, migrate @UUID links
+-   (Tikael) Add missing gravity trait localization
+-   (Tikael) Clean up creature ability glossary entries
+-   (Tikael) Fix damage in Oppali statblock
+-   (Tikael) Fix localization of unarmed attack resistance
+
 ## 5.0.1
 
 ### System Improvements

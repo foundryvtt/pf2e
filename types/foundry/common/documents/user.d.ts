@@ -1,6 +1,7 @@
 import type Document from "../abstract/document.d.ts";
 import type { DocumentMetadata } from "../abstract/document.d.ts";
 import type { BaseActor } from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
 /**
  * The base User document, which is extended by both the server and client.
@@ -10,17 +11,10 @@ import type { BaseActor } from "./module.d.ts";
  * @param data Initial data from which to construct the document.
  * @property   data The constructed data object for the document.
  */
-export default class BaseUser extends Document<null> {
-    avatar: ImageFilePath;
-    border: HexColorString;
-    character: BaseActor | null | undefined;
-    charname: string;
-    color: HexColorString;
-    flags: DocumentFlags;
-    name: string;
-    readonly role: UserRole;
-
+export default class BaseUser extends Document<null, UserSchema> {
     static override get metadata(): UserMetadata;
+
+    static override defineSchema(): UserSchema;
 
     /* ---------------------------------------- */
     /*  Permissions                             */
@@ -57,7 +51,7 @@ export default class BaseUser extends Document<null> {
     hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
 }
 
-export default interface BaseUser extends Document<null> {
+export default interface BaseUser extends Document<null, UserSchema>, ModelPropsFromSchema<UserSchema> {
     readonly _source: UserSource;
 
     get documentName(): "User";
@@ -67,18 +61,23 @@ interface UserMetadata extends DocumentMetadata {
     name: "User";
     collection: "users";
     label: "DOCUMENT.User";
-    isPrimary: true;
+    labelPlural: "DOCUMENT.Users";
 }
 
-interface UserSource {
-    _id: string;
-    avatar: ImageFilePath;
-    img: ImageFilePath;
-    character: string | null;
-    color: HexColorString;
-    hotbar: Record<number, string>;
-    name: string;
-    password: string;
-    role: UserRole;
-    flags: DocumentFlags;
-}
+type UserSchema = {
+    _id: fields.DocumentIdField;
+    name: fields.StringField<string, string, true, false, false>;
+    role: fields.NumberField<UserRole, UserRole, true, false, true>;
+    password: fields.StringField<string, string, true, false, true>;
+    passwordSalt: fields.StringField<string>;
+    avatar: fields.FilePathField<ImageFilePath>;
+    character: fields.ForeignDocumentField<BaseActor<null>>;
+    color: fields.ColorField<true, false, true>;
+    pronouns: fields.StringField<string, string, true, false, true>;
+    hotbar: fields.ObjectField<Record<number, string>>;
+    permissions: fields.ObjectField<Record<string, boolean>>;
+    flags: fields.ObjectField<DocumentFlags>;
+    _stats: fields.DocumentStatsField;
+};
+
+type UserSource = SourceFromSchema<UserSchema>;

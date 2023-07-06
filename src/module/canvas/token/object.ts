@@ -1,7 +1,7 @@
 import { ANIMAL_COMPANION_SOURCE_IDS } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { pick } from "@util";
+import { htmlClosest, pick } from "@util";
 import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
@@ -21,9 +21,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** Guarantee boolean return */
+    /** Increase center-to-center point tolerance to be more compliant with 2e rules */
     override get isVisible(): boolean {
-        return super.isVisible ?? false;
+        // Clear the detection filter
+        this.detectionFilter = null;
+
+        // Only GM users can see hidden tokens
+        if (this.document.hidden && !game.user.isGM) return false;
+
+        // Some tokens are always visible
+        if (!canvas.effects.visibility.tokenVision) return true;
+        if (this.controlled) return true;
+
+        // Otherwise, test visibility against current sight polygons
+        if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
+        const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
+        return canvas.effects.visibility.testVisibility(this.center, { tolerance, object: this });
     }
 
     /** Is this token currently animating? */
@@ -54,6 +67,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** The ID of the highlight layer for this token */
     get highlightId(): string {
         return `Token.${this.id}`;
+    }
+
+    /** Short-circuit calculation for long sight ranges */
+    override get sightRange(): number {
+        return this.document.sight.range >= canvas.dimensions!.maxR ? canvas.dimensions!.maxR : super.sightRange;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -190,14 +208,20 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.draw();
     }
 
-    /** @fixme */
-    emitHoverIn(): void {
-        this.emit("mouseover", { interactionData: { object: this } } as unknown as PIXI.FederatedPointerEvent);
+    /** Emulate a pointer hover ("pointerover") event */
+    emitHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerover";
+        event.nativeEvent = nativeEvent;
+        this._onHoverIn(event, { hoverOutOthers: true });
     }
 
-    /** @fixme */
-    emitHoverOut(): void {
-        this.emit("mouseout", { interactionData: { object: this } } as unknown as PIXI.FederatedPointerEvent);
+    /** Emulate a pointer hover ("pointerout") event */
+    emitHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerout";
+        event.nativeEvent = nativeEvent;
+        this._onHoverOut(event);
     }
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
@@ -355,21 +379,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.clearHighlights();
     }
 
-    /** If a single token (this one) was dropped, re-establish the hover status */
-    protected override async _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<this["document"][]> {
-        const clones = event.interactionData.clones ?? [];
-        const dropped = await super._onDragLeftDrop(event);
-
-        if (clones.length === 1) {
-            this.emitHoverOut();
-            this.emitHoverIn();
-        }
-
-        this.auras.refresh();
-
-        return dropped;
-    }
-
     protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
@@ -379,6 +388,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean {
+        // Ignore hover events coming from `Application` windows
+        if (htmlClosest(event.nativeEvent?.target, ".app.sheet")) {
+            return false;
+        }
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
         this.auras.refresh();

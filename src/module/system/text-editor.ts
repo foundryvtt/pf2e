@@ -5,9 +5,9 @@ import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
-import { htmlClosest, objectHasKey, sluggify } from "@util";
+import { createHTMLElement, htmlClosest, objectHasKey, sluggify } from "@util";
 import { damageDiceIcon, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { Statistic } from "./statistic/index.ts";
@@ -185,30 +185,8 @@ class TextEditorPF2e extends TextEditor {
     /** Create inline template button from @template command */
     static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
         // Get parameters from data
-        const rawParams = ((): Map<string, string> | string => {
-            const error = "Wrong notation for params - use [type1:value1|type2:value2|...]";
-            const parameters = new Map();
-
-            const paramStrings = paramString.trim().split("|");
-            if (!Array.isArray(paramStrings)) return error;
-
-            for (const param of paramStrings) {
-                const paramComponents = param.trim().split(":");
-                if (paramComponents.length !== 2) return error;
-
-                parameters.set(paramComponents[0].trim(), paramComponents[1].trim());
-            }
-
-            return parameters;
-        })();
-
-        // Check for correct syntax
-        if (typeof rawParams === "string") {
-            ui.notifications.error(rawParams);
-            return null;
-        }
-
-        const params = Object.fromEntries(rawParams);
+        const params = this.#parseInlineParams(paramString, { first: "type" });
+        if (!params) return null;
 
         // Check for correct param notation
         if (!params.type) {
@@ -256,6 +234,27 @@ class TextEditorPF2e extends TextEditor {
         return null;
     }
 
+    static #parseInlineParams(
+        paramString: string,
+        options: { first?: string } = {}
+    ): Record<string, string | undefined> | null {
+        const parts = paramString.split("|");
+        const result = parts.reduce((result, part, idx) => {
+            if (idx === 0 && options.first && !part.includes(":")) {
+                result[options.first] = part.trim();
+                return result;
+            }
+
+            const colonIdx = part.indexOf(":");
+            const portions = colonIdx >= 0 ? [part.slice(0, colonIdx), part.slice(colonIdx + 1)] : [part, ""];
+            result[portions[0]] = portions[1];
+
+            return result;
+        }, {} as Record<string, string | undefined>);
+
+        return result;
+    }
+
     static #createCheck({
         paramString,
         inlineLabel,
@@ -268,57 +267,50 @@ class TextEditorPF2e extends TextEditor {
         actor?: ActorPF2e | null;
     }): HTMLElement | null {
         // Parse the parameter string
-        const parts = paramString.split("|");
-        const params: { type: string; dc: string } & Record<string, string> = { type: "", dc: "" };
-        for (const paramPart of parts) {
-            const param = paramPart.trim();
-            if (param.startsWith("traits:")) {
-                // Special case for "traits" that may be roll options
-                params.traits = param.substring(7);
-            } else if (param === "showDC") {
-                params.showDC = "all";
-            } else {
-                const paramParts = param.split(":");
-                if (paramParts.length !== 2) {
-                    ui.notifications.warn(`Error. Expected "parameter:value" but got: ${param}`);
-                    return null;
-                }
-                params[paramParts[0].trim()] = paramParts[1].trim();
-            }
-        }
-        if (!params.type) {
+        const rawParams = this.#parseInlineParams(paramString, { first: "type" });
+        if (!rawParams) return null;
+
+        if (!rawParams.type) {
             ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
             return null;
         }
 
-        const traits: string[] = [];
+        const params: CheckParams = {
+            ...rawParams,
+            type: rawParams.type,
+            dc: rawParams.dc ?? "",
+            basic: rawParams.basic !== undefined && ["true", ""].includes(rawParams.basic),
+            showDC: rawParams.showDC === "" ? "all" : rawParams.showDC,
+            traits: (() => {
+                const traits: string[] = [];
+                // Set item traits
+                const itemTraits = item?.system.traits?.value ?? [];
+                if (rawParams.overrideTraits !== "true") {
+                    traits.push(...itemTraits);
+                }
 
-        // Set item traits
-        const itemTraits = item?.system.traits?.value ?? [];
-        if (params.overrideTraits !== "true") {
-            traits.push(...itemTraits);
-        }
+                // Set action slug as a roll option
+                if (item?.slug) {
+                    const actionName = "action:" + item?.slug;
+                    traits.push(actionName);
+                }
 
-        // Set action slug as a roll option
-        if (item?.slug) {
-            const actionName = "action:" + item?.slug;
-            traits.push(actionName);
-        }
+                // Set origin actor traits.
+                const actorTraits = actor?.getSelfRollOptions("origin");
+                if (actorTraits && rawParams.overrideTraits !== "true") {
+                    traits.push(...actorTraits);
+                }
 
-        // Set origin actor traits.
-        const actorTraits = actor?.getSelfRollOptions("origin");
-        if (actorTraits && params.overrideTraits !== "true") {
-            traits.push(...actorTraits);
-        }
+                // Add traits for basic checks
+                if (rawParams.basic === "true") traits.push("damaging-effect");
 
-        // Add traits for basic checks
-        if (params.basic === "true") traits.push("damaging-effect");
+                // Add param traits
+                if (rawParams.traits) traits.push(...rawParams.traits.split(",").map((trait) => trait.trim()));
 
-        // Add param traits
-        if (params.traits) traits.push(...params.traits.split(",").map((trait) => trait.trim()));
-
-        // Deduplicate traits
-        const allTraits = Array.from(new Set(traits));
+                // Deduplicate traits
+                return Array.from(new Set(traits));
+            })(),
+        };
 
         const types = params.type.split(",");
         let adjustments = params.adjustment?.split(",") ?? ["0"];
@@ -337,7 +329,6 @@ class TextEditorPF2e extends TextEditor {
 
         const buttons = types.map((type, i) =>
             this.#createSingleCheck({
-                allTraits,
                 actor,
                 item,
                 inlineLabel,
@@ -365,26 +356,27 @@ class TextEditorPF2e extends TextEditor {
 
     static #createSingleCheck({
         params,
-        allTraits,
         item,
         actor,
         inlineLabel,
     }: {
-        params: { type: string; dc: string } & Record<string, string>;
-        allTraits: string[];
+        params: CheckParams;
         item?: ItemPF2e | null;
         actor?: ActorPF2e | null;
         inlineLabel?: string;
     }): HTMLSpanElement | null {
         // Build the inline link
         const html = document.createElement("span");
-        html.setAttribute("data-pf2-traits", `${allTraits}`);
+        html.setAttribute("data-pf2-traits", `${params.traits}`);
         const name = params.name ?? item?.name ?? params.type;
         html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
         html.setAttribute("data-pf2-repost-flavor", name);
         const role = params.showDC ?? "owner";
         html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
         html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
+        if (params.roller) {
+            html.setAttribute("data-pf2-roller", params.roller);
+        }
 
         switch (params.type) {
             case "flat":
@@ -399,10 +391,9 @@ class TextEditorPF2e extends TextEditor {
             case "reflex":
             case "will": {
                 const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
-                const saveLabel =
-                    params.basic === "true"
-                        ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
-                        : saveName;
+                const saveLabel = params.basic
+                    ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
+                    : saveName;
                 html.innerHTML = inlineLabel ?? saveLabel;
                 html.setAttribute("data-pf2-check", params.type);
                 break;
@@ -411,7 +402,7 @@ class TextEditorPF2e extends TextEditor {
                 // Skill or Lore
                 const shortForm = (() => {
                     if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                        return SKILL_EXPANDED[params.type].shortform;
+                        return SKILL_EXPANDED[params.type].shortForm;
                     } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
                         return params.type;
                     }
@@ -436,14 +427,19 @@ class TextEditorPF2e extends TextEditor {
             html.setAttribute("data-pf2-dc", checkDC);
 
             // When using fixed DCs/adjustments, parse and add them to render the real DC
-            const displayedDC = !isNaN(parseInt(params.dc))
-                ? `${parseInt(params.dc) + parseInt(params.adjustment)}`
-                : checkDC;
+            const dc = params.dc === "" ? NaN : Number(params.dc);
+            const displayedDC = !isNaN(dc) ? `${dc + Number(params.adjustment)}` : checkDC;
             const text = html.innerHTML;
             if (checkDC !== "@self.level") {
                 html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: displayedDC, text });
             }
         }
+
+        // If the roller is self, don't create an inline roll if the user has no control over it
+        if (params.roller === "self" && actor && !actor.canUserModify(game.user, "update")) {
+            return createHTMLElement("span", { children: [html.innerText] });
+        }
+
         return html;
     }
 }
@@ -455,7 +451,7 @@ function getCheckDC({
     actor = item?.actor ?? null,
 }: {
     name: string;
-    params: { type: string; dc: string } & Record<string, string | undefined>;
+    params: CheckParams;
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
@@ -468,7 +464,8 @@ function getCheckDC({
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
                 try {
-                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, { actor, item: item ?? {} }));
+                    const rollData = item?.getRollData() ?? actor?.getRollData();
+                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, rollData));
                 } catch {
                     return 0;
                 }
@@ -493,7 +490,7 @@ function getCheckDC({
                     slug: type,
                     label: name,
                     domains: selectors,
-                    modifiers: [modifier, ...extractModifiers(synthetics, selectors)],
+                    modifiers: [modifier],
                 });
 
                 return String(stat.dc.value);
@@ -502,25 +499,13 @@ function getCheckDC({
         };
 
         const slugName = sluggify(name);
-
-        switch (type) {
-            case "flat":
-                return params.immutable === "false"
-                    ? getStatisticValue(["inline-dc", `${slugName}-inline-dc`])
-                    : base.toString();
-            case "perception":
-                return getStatisticValue(["all", "inline-dc", `${slugName}-inline-dc`]);
-            case "fortitude":
-            case "reflex":
-            case "will": {
-                const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
-                return getStatisticValue(selectors);
-            }
-            default: {
-                // Skill or Lore
-                const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
-                return getStatisticValue(selectors);
-            }
+        if (type === "flat") {
+            return params.immutable === "false"
+                ? getStatisticValue(["inline-dc", `${slugName}-inline-dc`])
+                : base.toString();
+        } else {
+            const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
+            return getStatisticValue(selectors);
         }
     }
     return "0";
@@ -550,4 +535,16 @@ interface ConvertXMLNodeOptions {
     classes?: string[];
 }
 
-export { TextEditorPF2e, EnrichHTMLOptionsPF2e };
+interface CheckParams {
+    type: string;
+    dc: string;
+    basic: boolean;
+    adjustment?: string;
+    traits: string[];
+    name?: string;
+    showDC?: string;
+    immutable?: string;
+    roller?: string;
+}
+
+export { EnrichHTMLOptionsPF2e, TextEditorPF2e };

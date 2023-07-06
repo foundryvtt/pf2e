@@ -129,7 +129,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         super._onUpdate(changed, options, userId);
     }
 
-    protected override _onCreateEmbeddedDocuments(
+    protected override _onCreateDescendantDocuments(
         embeddedName: "ActiveEffect" | "Item",
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         result: foundry.documents.ActiveEffectSource[] | ItemSourcePF2e[],
@@ -137,10 +137,10 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         userId: string
     ): void {
         this.toggleTokenHiding();
-        super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        super._onCreateDescendantDocuments(embeddedName, documents, result, options, userId);
     }
 
-    protected override _onDeleteEmbeddedDocuments(
+    protected override _onDeleteDescendantDocuments(
         embeddedName: "ActiveEffect" | "Item",
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         result: string[],
@@ -148,7 +148,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         userId: string
     ): void {
         this.toggleTokenHiding();
-        super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        super._onDeleteDescendantDocuments(embeddedName, documents, result, options, userId);
     }
 }
 

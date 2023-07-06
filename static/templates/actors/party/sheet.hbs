@@ -14,16 +14,20 @@
     </header>
 
     <nav class="sub-nav">
-        <a data-tab="overview">{{localize "PF2E.Actor.Party.Tabs.Overview"}}</a>
+        {{#unless restricted}}
+            <a data-tab="overview">{{localize "PF2E.Actor.Party.Tabs.Overview"}}</a>
+        {{/unless}}
         <a data-tab="inventory">{{localize "PF2E.Actor.Party.Tabs.Inventory"}}</a>
+        <a data-tab="exploration">{{localize "PF2E.Actor.Party.Tabs.Exploration"}}</a>
         {{#if orphaned}}
             <a data-tab="orphaned">{{localize "PF2E.Actor.Party.Tabs.Orphaned"}}</a>
         {{/if}}
     </nav>
 
     <section class="container">
-        <div class="tab" data-tab="overview" data-region="overview">
-        </div>
+        {{#unless restricted}}
+            <div class="tab" data-tab="overview" data-region="overview"></div>
+        {{/unless}}
 
         <div class="tab" data-tab="inventory">
             <aside class="sidebar">
@@ -34,6 +38,9 @@
                 {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
                 {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
             </section>
+        </div>
+
+        <div class="tab" data-tab="exploration" data-region="exploration">
         </div>
 
         {{#if orphaned}}

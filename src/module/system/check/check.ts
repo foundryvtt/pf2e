@@ -10,7 +10,17 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
+import {
+    ErrorPF2e,
+    fontAwesomeIcon,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
+    parseHTML,
+    signedInteger,
+    sluggify,
+    traitSlugToObject,
+} from "@util";
 import * as R from "remeda";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
@@ -65,7 +75,8 @@ class CheckPF2e {
             check.calculateTotal(rollOptions);
         }
 
-        if (!context.skipDialog) {
+        // Show dialog for adding/editing modifiers, unless skipped or flat check
+        if (!context.skipDialog && context.type !== "flat-check") {
             const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
                 new CheckModifiersDialog(check, resolve, context).render(true);
             });
@@ -432,11 +443,31 @@ class CheckPF2e {
 
         const newFlavor = useNewRoll
             ? await (async (): Promise<string> => {
-                  const $parsedFlavor = $("<div>").append(oldFlavor);
+                  const parsedFlavor = document.createElement("div");
+                  parsedFlavor.innerHTML = oldFlavor;
                   const target = context.target ?? null;
-                  const flavor = await this.createResultFlavor({ degree, target });
-                  if (flavor) $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
-                  return $parsedFlavor.html();
+                  const targetFlavor = await this.createResultFlavor({ degree, target });
+                  if (targetFlavor) {
+                      htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
+                  }
+                  for (const element of htmlQueryAll(parsedFlavor, ".roll-note")) {
+                      element.remove();
+                  }
+                  const notes = context.notes?.map((n) => new RollNotePF2e(n)) ?? [];
+                  const notesText =
+                      notes
+                          .filter((note) => {
+                              if (!context.dc || note.outcome.length === 0) {
+                                  // Always show the note if the check has no DC or no outcome is specified.
+                                  return true;
+                              }
+                              const outcome = context.outcome ?? context.unadjustedOutcome;
+                              return !!(outcome && note.outcome.includes(outcome));
+                          })
+                          .map((n) => n.text)
+                          .join("\n") ?? "";
+
+                  return parsedFlavor.innerHTML + notesText;
               })()
             : oldFlavor;
 

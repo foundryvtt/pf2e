@@ -60,7 +60,7 @@ export class InventoryBulk {
     }
 
     static computeTotalBulk(items: PhysicalItemPF2e[], actorSize: Size): Bulk {
-        items = this.flattenNonStowing(items);
+        items = this.#flattenNonStowing(items);
 
         // Figure out which items have stack groups and which don't
         const nonStackingItems = items.filter(
@@ -92,11 +92,11 @@ export class InventoryBulk {
     }
 
     /** Non-stowing containers are not "real" and thus shouldn't split stack groups */
-    private static flattenNonStowing(items: PhysicalItemPF2e[]): PhysicalItemPF2e[] {
+    static #flattenNonStowing(items: PhysicalItemPF2e[]): PhysicalItemPF2e[] {
         return items
             .map((item) => {
                 if (item.isOfType("backpack") && !item.stowsItems) {
-                    return this.flattenNonStowing(item.contents.contents);
+                    return this.#flattenNonStowing(item.contents.contents);
                 }
                 return item;
             })

@@ -3,6 +3,7 @@ import { ItemType } from "@item/data/index.ts";
 import { UserPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { sortBy, tupleHasValue } from "@util";
 import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
@@ -96,6 +97,12 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    override prepareDerivedData(): void {
+        // Compute travel speed. Creature travel speed isn't implemented yet
+        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.value));
+        this.attributes.speed = { value: travelSpeed };
+    }
+
     async addMembers(...newMembers: CreaturePF2e[]): Promise<void> {
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
         const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
@@ -123,6 +130,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return combatants;
     }
 
+    override getRollData(): Record<string, unknown> {
+        return mergeObject(super.getRollData(), this.campaign?.getRollData?.() ?? {});
+    }
+
     /** Re-render the sheet if data preparation is called from the familiar's master */
     override reset({ actor = false } = {}): void {
         if (actor) {
@@ -132,10 +143,20 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Include campaign statistics in party statistics */
+    override getStatistic(slug: string): Statistic | null {
+        const statistic = super.getStatistic(slug);
+        if (statistic) return statistic;
+
+        const campaignStat = this.campaign?.getStatistic?.(slug);
+
+        return campaignStat ?? null;
+    }
+
     private _resetAndRerenderDebounced = foundry.utils.debounce(() => {
         super.reset();
         this.sheet.render(false, { actor: true } as PartySheetRenderOptions);
-    }, 500);
+    }, 50);
 
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,

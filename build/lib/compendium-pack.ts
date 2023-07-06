@@ -111,14 +111,14 @@ class CompendiumPack {
             if (a._id === b._id) {
                 throw PackError(`_id collision in ${this.packId}: ${a._id}`);
             }
-            return a._id > b._id ? 1 : -1;
+            return a._id!.localeCompare(b._id!);
         });
 
         this.data = parsedData;
 
         for (const docSource of this.data) {
             // Populate CompendiumPack.namesToIds for later conversion of compendium links
-            packMap.set(docSource.name, docSource._id);
+            packMap.set(docSource.name, docSource._id!);
 
             // Check img paths
             if ("img" in docSource && typeof docSource.img === "string") {

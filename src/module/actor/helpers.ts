@@ -17,6 +17,7 @@ import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { StrikeAttackTraits } from "./creature/helpers.ts";
@@ -144,6 +145,21 @@ function calculateMAPs(
 
     // Find lowest multiple attack penalty: penalties are negative, so actually looking for the highest value
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
+}
+
+/** Whether flanking puts this actor off-guard */
+function isOffGuardFromFlanking(actor: ActorPF2e): boolean {
+    if (!actor.isOfType("creature")) return false;
+
+    const { flanking } = actor.attributes;
+    if (!flanking.flankable) return false;
+
+    const rollOptions = actor.getRollOptions();
+    if (typeof flanking.flatFootable === "number") {
+        return !PredicatePF2e.test([{ lte: ["origin:level", flanking.flatFootable] }], rollOptions);
+    }
+
+    return flanking.flatFootable;
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
@@ -333,10 +349,12 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
             const domains = ["all", `${item.id}-damage`, "strike-damage", "damage-roll"];
+            const targetToken = params.target ?? game.user.targets.first() ?? null;
+
             const context = await actor.getRollContext({
                 item,
                 statistic: strike,
-                target: { token: game.user.targets.first() ?? null },
+                target: { token: targetToken },
                 viewOnly: params.getFormula ?? false,
                 domains,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
@@ -466,6 +484,7 @@ export {
     calculateRangePenalty,
     checkAreaEffects,
     getRangeIncrement,
+    isOffGuardFromFlanking,
     isReallyPC,
     migrateActorSource,
     resetActors,

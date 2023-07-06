@@ -355,38 +355,28 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "medical-malpractice",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Surgeon.MedicalMalpracticeCriticalSuccess",
-                        "option": "medical-malpractice-crit",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "medical-malpractice",
+                        "suboptions": [
                             {
-                                "not": "medical-malpractice-crit"
+                                "label": "PF2E.Check.Result.Degree.Check.success",
+                                "value": "1"
+                            },
+                            {
+                                "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                                "value": "2"
                             }
                         ],
-                        "selector": "strike-damage"
+                        "toggleable": true
                     },
                     {
                         "category": "precision",
-                        "diceNumber": 2,
+                        "diceNumber": "@item.flags.pf2e.rulesSelections.medicalMalpractice",
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "medical-malpractice-crit"
+                            "medical-malpractice"
                         ],
                         "selector": "strike-damage"
                     }

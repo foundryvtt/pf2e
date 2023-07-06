@@ -48,6 +48,7 @@ interface PartyAttributes
     immunities: never[];
     weaknesses: never[];
     resistances: never[];
+    speed: { value: number };
 }
 
 interface PartyDetails extends PartyDetailsSource, ActorDetails {}

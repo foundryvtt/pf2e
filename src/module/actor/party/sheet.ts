@@ -1,14 +1,20 @@
-import { CreaturePF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { Language } from "@actor/creature/index.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
+import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
+import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
-import { LanguageSheetData, MemberBreakdown, PartySheetData } from "./types.ts";
 
-interface PartySheetRenderOptions extends RenderOptions {
+interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
 }
 
@@ -20,7 +26,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...options,
             classes: [...options.classes, "party"],
             width: 720,
-            height: 580,
+            height: 600,
             template: "systems/pf2e/templates/actors/party/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
@@ -50,6 +56,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...base,
+            restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
             members: this.#prepareMembers(),
             inventorySummary: {
                 totalCoins:
@@ -62,6 +69,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .map((actor) => actor.inventory.bulk.value)
                     .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
             },
+            explorationSummary: {
+                speed: this.actor.system.attributes.speed.value,
+                activities:
+                    Object.entries(CONFIG.PF2E.hexplorationActivities).find(
+                        ([max]) => Number(max) >= this.actor.system.attributes.speed.value
+                    )?.[1] ?? 0,
+            },
+            explorationMembers: this.#prepareExploration(),
             languages: this.#prepareLanguages(),
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };
@@ -78,35 +93,40 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         return this.actor.members.map((actor) => {
-            const hasBulk = actor.inventory.bulk.encumberedAt !== Infinity;
-            const bestSkills = Object.values(actor.skills ?? {})
-                .filter((s): s is Statistic => !!s?.proficient)
-                .sort(sortBy((s) => s.mod ?? 0))
-                .reverse()
-                .slice(0, 5)
-                .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank }));
-            const heroPoints = actor.isOfType("character") ? actor.system.resources.heroPoints : null;
-            const senses = (() => {
-                const rawSenses = actor.system.traits.senses ?? [];
-                if (!Array.isArray(rawSenses)) {
-                    return rawSenses.value.split(",").map((l) => ({
-                        labelFull: l.trim(),
-                        label: sanitizeSense(l),
-                    }));
-                }
+            return {
+                actor,
+                hasBulk: actor.inventory.bulk.encumberedAt !== Infinity,
+                bestSkills: Object.values(actor.skills ?? {})
+                    .filter((s): s is Statistic => !!s?.proficient)
+                    .sort(sortBy((s) => s.mod ?? 0))
+                    .reverse()
+                    .slice(0, 5)
+                    .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
+                heroPoints: actor.isOfType("character") ? actor.system.resources.heroPoints : null,
+                senses: (() => {
+                    const rawSenses = actor.system.traits.senses ?? [];
+                    if (!Array.isArray(rawSenses)) {
+                        return rawSenses.value.split(",").map((l) => ({
+                            labelFull: l.trim(),
+                            label: sanitizeSense(l),
+                        }));
+                    }
 
-                // An actor sometimes has only darkvision (fetchling), or darkvision and low-light vision (elf aasimar).
-                // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
-                // We remove low-light vision from the result if the actor has darkvision.
-                const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
-                const adjustedSenses = hasDarkvision ? rawSenses.filter((r) => r.type !== "lowLightVision") : rawSenses;
-                return adjustedSenses.map((r) => ({
-                    acuity: r.acuity,
-                    labelFull: r.label ?? "",
-                    label: CONFIG.PF2E.senses[r.type] ?? r.type,
-                }));
-            })();
-            return { actor, hasBulk, bestSkills, heroPoints, senses };
+                    // An actor sometimes has only darkvision (fetchling), or darkvision and low-light vision (elf aasimar).
+                    // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
+                    // We remove low-light vision from the result if the actor has darkvision.
+                    const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
+                    const adjustedSenses = hasDarkvision
+                        ? rawSenses.filter((r) => r.type !== "lowLightVision")
+                        : rawSenses;
+                    return adjustedSenses.map((r) => ({
+                        acuity: r.acuity,
+                        labelFull: r.label ?? "",
+                        label: CONFIG.PF2E.senses[r.type] ?? r.type,
+                    }));
+                })(),
+                restricted: !(game.settings.get("pf2e", "metagame_showPartyStats") || actor.isOwner),
+            };
         });
     }
 
@@ -124,6 +144,25 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             .sort(sortBy((l) => l.label));
     }
 
+    #prepareExploration(): MemberExploration[] {
+        const characters = this.actor.members.filter((m): m is CharacterPF2e => m.isOfType("character"));
+        return characters.map((actor): MemberExploration => {
+            const activities = R.compact(actor.system.exploration.map((id) => actor.items.get(id)));
+
+            return {
+                actor,
+                owner: actor.isOwner,
+                activities: activities.map((action) => ({
+                    id: action.id,
+                    name: action.name,
+                    img: action.img,
+                    traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
+                })),
+                choices: actor.itemTypes.action.filter((a) => a.system.traits.value.includes("exploration")),
+            };
+        });
+    }
+
     #getActorsThatUnderstand(slug: Language) {
         return this.actor.members.filter((m): m is CreaturePF2e => !!m?.system.traits.languages?.value.includes(slug));
     }
@@ -132,25 +171,39 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // Enable all roll actions
+        for (const rollLink of htmlQueryAll(html, "[data-action=roll]")) {
+            const actorUUID = htmlClosest(rollLink, "[data-actor-uuid]")?.dataset.actorUuid;
+            const actor = fromUuidSync(actorUUID ?? "");
+            if (!(actor instanceof ActorPF2e)) continue;
+
+            rollLink.addEventListener("click", (event) => {
+                const rollMode = rollLink.dataset.secret ? (game.user.isGM ? "gmroll" : "blindroll") : undefined;
+                const statistic = actor.getStatistic(rollLink.dataset.statistic ?? "");
+                statistic?.roll({ ...eventToRollParams(event), rollMode });
+            });
+        }
+
+        // Add open actor sheet links
+        for (const openSheetLink of htmlQueryAll(html, "[data-action=open-sheet]")) {
+            const tab = openSheetLink.dataset.tab;
+            const actorUUID = htmlClosest(openSheetLink, "[data-actor-uuid]")?.dataset.actorUuid;
+            const actor = fromUuidSync(actorUUID ?? "");
+            openSheetLink.addEventListener("click", async () => actor?.sheet.render(true, { tab }));
+        }
+
         for (const memberElem of htmlQueryAll(html, "[data-actor-uuid]")) {
             const actorUUID = memberElem.dataset.actorUuid;
             const actor = this.document.members.find((m) => m.uuid === actorUUID);
-
-            const openSheetLinks =
-                memberElem.dataset.action === "open-sheet"
-                    ? [memberElem]
-                    : htmlQueryAll(memberElem, "[data-action=open-sheet]");
-            for (const link of openSheetLinks) {
-                link.addEventListener("click", () => {
-                    actor?.sheet.render(true);
-                });
-            }
 
             if (game.user.isGM) {
                 htmlQuery(memberElem, "a[data-action=remove-member]")?.addEventListener("click", async (event) => {
                     const confirmed = event.ctrlKey
                         ? true
-                        : await Dialog.confirm({ title: "Remove member", content: "Remove member from party?" });
+                        : await Dialog.confirm({
+                              title: game.i18n.localize("PF2E.Actor.Party.RemoveMember.Title"),
+                              content: game.i18n.localize("PF2E.Actor.Party.RemoveMember.Content"),
+                          });
                     if (confirmed && actor) {
                         this.document.removeMembers(actor);
                     }
@@ -182,6 +235,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const content = createHTMLElement("span", { children: [title, members] });
             $(languageTag).tooltipster({ content });
         }
+
+        htmlQuery(html, "[data-action=clear-exploration]")?.addEventListener("click", async () => {
+            await Promise.all(this.actor.members.map((m) => m.update({ "system.exploration": [] })));
+            ui.notifications.info("PF2E.Actor.Party.ClearActivities.Complete", { localize: true });
+        });
+
+        htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
+            game.pf2e.actions.restForTheNight({ event, actors: this.actor.members });
+        });
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
@@ -255,6 +317,55 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             this.document.addMembers(actor);
         }
     }
+}
+
+interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
+    restricted: boolean;
+    members: MemberBreakdown[];
+    languages: LanguageSheetData[];
+    inventorySummary: {
+        totalCoins: number;
+        totalWealth: number;
+        totalBulk: Bulk;
+    };
+    explorationSummary: {
+        speed: number;
+        activities: number;
+    };
+    explorationMembers: MemberExploration[];
+    /** Unsupported items on the sheet, may occur due to disabled campaign data */
+    orphaned: ItemPF2e[];
+}
+
+interface SkillData {
+    slug: string;
+    label: string;
+    mod: number;
+    rank?: ZeroToFour | null;
+}
+
+interface MemberBreakdown {
+    actor: ActorPF2e;
+    heroPoints: ValueAndMax | null;
+    hasBulk: boolean;
+    bestSkills: SkillData[];
+    senses: { label: string | null; labelFull: string; acuity?: string }[];
+
+    /** If true, the current user is restricted from seeing meta details */
+    restricted: boolean;
+}
+
+interface MemberExploration {
+    actor: ActorPF2e;
+    owner: boolean;
+    activities: { img: string; id: string; name: string; traits: SheetOptions }[];
+    choices: { id: string; name: string }[];
+}
+
+interface LanguageSheetData {
+    slug: string;
+    label: string;
+    actors: ActorPF2e[];
 }
 
 export { PartySheetPF2e, PartySheetRenderOptions };

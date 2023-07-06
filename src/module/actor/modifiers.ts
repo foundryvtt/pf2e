@@ -96,6 +96,11 @@ interface DeferredValueParams {
     /** Roll Options to get against a predicate (if available) */
     test?: string[] | Set<string>;
 }
+
+interface TestableDeferredValueParams extends DeferredValueParams {
+    test: Set<string>;
+}
+
 type DeferredValue<T> = (options?: DeferredValueParams) => T | null;
 type DeferredPromise<T> = (options?: DeferredValueParams) => Promise<T | null>;
 
@@ -462,13 +467,14 @@ class StatisticModifier {
         rollOptions = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
         this.slug = slug;
 
-        // De-duplication
-        const seen: ModifierPF2e[] = [];
-        for (const modifier of modifiers) {
-            const found = seen.some((m) => m.slug === modifier.slug);
-            if (!found) seen.push(modifier);
-        }
-        this._modifiers = seen;
+        // De-duplication. Prefer higher valued
+        const seen = modifiers.reduce((result, modifier) => {
+            if (!(modifier.slug in result) || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
+                result[modifier.slug] = modifier;
+            }
+            return result;
+        }, {} as Record<string, ModifierPF2e>);
+        this._modifiers = Object.values(seen);
 
         this.calculateTotal(rollOptions);
     }
@@ -480,11 +486,17 @@ class StatisticModifier {
 
     /** Add a modifier to the end of this collection. */
     push(modifier: ModifierPF2e): number {
-        // de-duplication
-        if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
+        // de-duplication. If an existing one exists, replace if higher valued
+        const existingIdx = this._modifiers.findIndex((o) => o.slug === modifier.slug);
+        const existing = this._modifiers[existingIdx];
+        if (!existing) {
             this._modifiers.push(modifier);
             this.calculateTotal();
+        } else if (Math.abs(modifier.modifier) > Math.abs(existing.modifier)) {
+            this._modifiers[existingIdx] = modifier;
+            this.calculateTotal();
         }
+
         return this._modifiers.length;
     }
 
@@ -678,6 +690,12 @@ class DamageDicePF2e extends DiceModifierPF2e {
         }
     }
 
+    /** Test the `predicate` against a set of roll options */
+    test(options: Set<string>): void {
+        this.enabled = this.predicate.test(options);
+        this.ignored = !this.enabled;
+    }
+
     clone(): DamageDicePF2e {
         return new DamageDicePF2e(this);
     }
@@ -709,6 +727,7 @@ export {
     PROFICIENCY_RANK_OPTION,
     RawModifier,
     StatisticModifier,
+    TestableDeferredValueParams,
     adjustModifiers,
     applyStackingRules,
     createAbilityModifier,

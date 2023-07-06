@@ -94,45 +94,6 @@ declare global {
             options: DocumentModificationContext<this>
         ): Promise<Actor<this>[]>;
 
-        /**
-         * Redirect creation of Documents within a synthetic Token Actor to instead update the tokenData override object.
-         * @param embeddedName The named embedded Document type being modified
-         * @param data The provided initial data with which to create the embedded Documents
-         * @param options Provided options which modify the creation request
-         * @returns The created Embedded Document instances
-         */
-        createActorEmbeddedDocuments(
-            embeddedName: "ActiveEffect" | "Item",
-            data: PreCreate<foundry.documents.ActiveEffectSource>[] | Partial<foundry.documents.ActiveEffectSource>[],
-            options?: DocumentModificationContext<this>
-        ): ActiveEffect<Actor<this>> | Item<Actor<this>>[];
-
-        /**
-         * Redirect updating of Documents within a synthetic Token Actor to instead update the tokenData override object.
-         * @param embeddedName The named embedded Document type being modified
-         * @param updates      The provided differential data with which to update the embedded Documents
-         * @param options      Provided options which modify the update request
-         * @returns The updated Embedded Document instances
-         */
-        updateActorEmbeddedDocuments(
-            embeddedName: "ActiveEffect" | "Item",
-            updates: EmbeddedDocumentUpdateData<ActiveEffect<Actor<this>> | Item<Actor<this>>>[],
-            options: DocumentModificationContext<this>
-        ): Promise<ActiveEffect<Actor<this>>[] | Item<Actor<this>>[]>;
-
-        /**
-         * Redirect deletion of Documents within a synthetic Token Actor to instead update the tokenData override object.
-         * @param embeddedName The named embedded Document type being modified
-         * @param ids          The provided differential data with which to update the embedded Documents
-         * @param options      Provided options which modify the update request
-         * @returns The updated Embedded Document instances
-         */
-        deleteActorEmbeddedDocuments(
-            embeddedName: "ActiveEffect" | "Item",
-            ids: string[],
-            options: DocumentModificationContext<this>
-        ): Promise<ActiveEffect<Actor<this>>[] | Item<Actor<this>>[]>;
-
         /* -------------------------------------------- */
         /*  Event Handlers                              */
         /* -------------------------------------------- */
@@ -149,8 +110,12 @@ declare global {
             userId: string
         ): void;
 
-        /** When the base Actor for a TokenDocument changes, we may need to update its Actor instance */
-        _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
+        /**
+         * Whenever the token's actor delta changes, or the base actor changes, perform associated refreshes.
+         * @param [update]  The update delta.
+         * @param [options] The options provided to the update.
+         */
+        protected _onRelatedUpdate(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
 
         /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
         static getTrackedAttributes(data?: object, _path?: string[]): TrackedAttributesDescription;

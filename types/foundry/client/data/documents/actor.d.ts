@@ -124,7 +124,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onCreateEmbeddedDocuments(
+        protected override _onCreateDescendantDocuments(
             embeddedName: "ActiveEffect" | "Item",
             documents: ActiveEffect<this>[] | Item<this>[],
             result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
@@ -132,7 +132,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onUpdateEmbeddedDocuments(
+        protected override _onUpdateDescendantDocuments(
             embeddedName: "ActiveEffect" | "Item",
             documents: ActiveEffect<this>[] | Item<this>[],
             result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
@@ -140,7 +140,7 @@ declare global {
             userId: string
         ): void;
 
-        protected override _onDeleteEmbeddedDocuments(
+        protected override _onDeleteDescendantDocuments(
             embeddedName: "ActiveEffect" | "Item",
             documents: ActiveEffect<this>[] | Item<this>[],
             result: string[],
@@ -148,18 +148,15 @@ declare global {
             userId: string
         ): void;
 
-        /**
-         * Perform various actions on active tokens if embedded documents were changed.
-         * @param embeddedName The type of embedded document that was modified.
-         */
-        protected _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void;
+        /** Additional workflows to perform when any descendant document within this Actor changes. */
+        protected _onEmbeddedDocumentChange(): void;
     }
 
     interface Actor<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActor<TParent> {
         readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect<this>>;
         readonly items: foundry.abstract.EmbeddedCollection<Item<this>>;
 
-        prototypeToken: foundry.data.PrototypeToken;
+        prototypeToken: foundry.data.PrototypeToken<this>;
 
         _sheet: ActorSheet<this> | null;
 

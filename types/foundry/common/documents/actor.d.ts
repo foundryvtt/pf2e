@@ -1,4 +1,4 @@
-import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
+import type * as abstract from "../abstract/module.d.ts";
 import type { ActiveEffectSource } from "./active-effect.d.ts";
 import type { ItemSource } from "./item.d.ts";
 import type { BaseActiveEffect, BaseItem, BaseToken, BaseUser } from "./module.d.ts";
@@ -8,10 +8,11 @@ import type { BaseActiveEffect, BaseItem, BaseToken, BaseUser } from "./module.d
  * @param    data Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
-export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends Document<TParent> {
+export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends abstract.Document<TParent> {
+    name: string;
     sort: number;
 
-    prototypeToken: foundry.data.PrototypeToken;
+    prototypeToken: foundry.data.PrototypeToken<this>;
 
     /** The default icon used for newly created Actor documents */
     static DEFAULT_ICON: ImageFilePath;
@@ -19,10 +20,10 @@ export default class BaseActor<TParent extends BaseToken | null = BaseToken | nu
     static override get metadata(): ActorMetadata;
 
     /** A Collection of Item embedded Documents */
-    readonly items: EmbeddedCollection<BaseItem<this>>;
+    readonly items: abstract.EmbeddedCollection<BaseItem<this>>;
 
     /** A Collection of ActiveEffect embedded Documents */
-    readonly effects: EmbeddedCollection<BaseActiveEffect<this>>;
+    readonly effects: abstract.EmbeddedCollection<BaseActiveEffect<this>>;
 
     /**
      * Migrate the system data object to conform to data model defined by the current system version.
@@ -56,7 +57,8 @@ export default class BaseActor<TParent extends BaseToken | null = BaseToken | nu
     ): Promise<void>;
 }
 
-export default interface BaseActor<TParent extends BaseToken | null = BaseToken | null> extends Document<TParent> {
+export default interface BaseActor<TParent extends BaseToken | null = BaseToken | null>
+    extends abstract.Document<TParent> {
     flags: ActorFlags;
     readonly _source: ActorSource;
     system: object;
@@ -109,13 +111,13 @@ export interface ActorFlags extends DocumentFlags {
     };
 }
 
-export interface ActorMetadata extends DocumentMetadata {
+export interface ActorMetadata extends abstract.DocumentMetadata {
     name: "Actor";
     collection: "actors";
     label: "DOCUMENT.Actor";
     embedded: {
-        ActiveEffect: typeof BaseActiveEffect;
-        Item: typeof BaseItem;
+        ActiveEffect: "effects";
+        Item: "items";
     };
     isPrimary: true;
     hasSystemData: true;

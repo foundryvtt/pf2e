@@ -151,7 +151,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
-        return { actor: this.actor, item: this };
+        const actorRollData = this.actor?.getRollData() ?? { actor: null };
+        return { ...actorRollData, item: this };
     }
 
     /**
@@ -236,6 +237,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const { flags } = this;
         flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
+
+        // Temporary measure until upstream issue is addressed (`null` slug is being set to empty string)
+        this.system.slug ||= null;
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         if (isObject(flags.pf2e.grantedBy)) {

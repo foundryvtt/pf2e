@@ -66,7 +66,7 @@ type LightDataSchema = {
     attenuation: fields.NumberField<number, number, true>;
     luminosity: fields.NumberField<number, number, true, false, true>;
     saturation: fields.NumberField<number, number, true, false, true>;
-    constrast: fields.NumberField<number, number, true, false, true>;
+    contrast: fields.NumberField<number, number, true, false, true>;
     shadows: fields.NumberField<number, number, true, false, true>;
     animation: fields.SchemaField<{
         type: fields.StringField<string, string, true, true, true>;
@@ -89,7 +89,9 @@ export interface PrototypeTokenSource
     randomImg: boolean;
 }
 
-export class PrototypeToken<TParent extends BaseActor = BaseActor> extends Document {
+export class PrototypeToken<TParent extends BaseActor | null> extends Document<TParent> {
+    get actor(): TParent;
+
     protected override _initialize(): void;
 
     override toJSON(): RawObject<this>;
@@ -101,7 +103,9 @@ export class PrototypeToken<TParent extends BaseActor = BaseActor> extends Docum
     bar2: TokenBarData;
 }
 
-export interface PrototypeToken extends Omit<PrototypeTokenSource, "bar1" | "bar2"> {
+export interface PrototypeToken<TParent extends BaseActor | null>
+    extends Document<TParent>,
+        Omit<PrototypeTokenSource, "bar1" | "bar2"> {
     readonly _source: PrototypeTokenSource;
 }
 

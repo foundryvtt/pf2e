@@ -1,8 +1,9 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ActorPF2e } from "@actor";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ValuesList } from "@module/data.ts";
+import { htmlQuery, htmlQueryAll } from "@util";
 import { BaseTagSelector } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
@@ -21,34 +22,33 @@ function isValuesList(value: unknown): value is ValuesList {
 }
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
+    static override get defaultOptions(): TagSelectorOptions {
+        return mergeObject(super.defaultOptions, {
+            template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
+            height: 700,
+        });
+    }
+
     allowCustom: boolean;
-    /** Search string for filtering */
-    searchString = "";
 
     #filterTimeout: number | null = null;
 
     protected objectProperty: string;
 
     constructor(object: TDocument, options: BasicConstructorOptions) {
+        options.title ||= "PF2E.TraitsLabel";
         super(object, options);
+
         this.objectProperty = options.objectProperty;
         this.allowCustom = options.allowCustom ?? true;
         if (options.customChoices) {
             mergeObject(this.choices, options.customChoices);
             this.choices = this.sortChoices(this.choices);
         }
-        this.options.title = options.title ?? "PF2E.TraitsLabel";
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
         return this.options.configTypes ?? [];
-    }
-
-    static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
-            template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
-            height: 710,
-        });
     }
 
     override async getData(): Promise<TagSelectorBasicData<TDocument>> {
@@ -94,17 +94,18 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
         // Search filtering
-        $html.find<HTMLInputElement>('input[id="search"]').on("keyup", (event) => this.onFilterResults(event));
-        if (this.searchString) {
-            this.search(this.searchString);
-        }
+        const searchInput = htmlQuery<HTMLInputElement>(html, "input[type=search]");
+        searchInput?.addEventListener("input", () => {
+            this.#onFilterResults(searchInput);
+        });
     }
 
-    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const { flat } = event.target ? $(event.target).data() : { flat: false };
-        const value = this.getUpdateData(formData);
+        const value = this.#getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
             await this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });
         } else if (flat) {
@@ -114,7 +115,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         }
     }
 
-    private getUpdateData(formData: Record<string, unknown>): string[] | number[] {
+    #getUpdateData(formData: Record<string, unknown>): string[] | number[] {
         const optionsAreNumeric = Object.keys(formData).every((tag) => Number.isInteger(Number(tag)));
         const selections = Object.entries(formData)
             .flatMap(([tag, selected]) => (selected ? tag : []))
@@ -126,27 +127,25 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
      * Filter the potential traits to only show ones which match a provided search string
      * @param searchString The search string to match
      */
-    private search(searchString: string) {
+    #search(searchString: string): void {
         const query = new RegExp(RegExp.escape(searchString), "i");
-        (this.element as JQuery).find("li.trait-item").each((_i, li) => {
-            const name = li.getElementsByClassName("trait-label")[0].textContent ?? "";
-            li.style.display = query.test(name) ? "flex" : "none";
-        });
-        this.searchString = searchString;
+        const html = this.element[0];
+        for (const row of htmlQueryAll(html, "li.trait-item")) {
+            const name = row.getElementsByClassName("trait-label")[0]?.textContent ?? "";
+            row.style.display = query.test(name) ? "flex" : "none";
+        }
     }
 
     /**
      * Handle trait filtering through search field
      * Toggle the visibility of indexed trait entries by name match
      */
-    private onFilterResults(event: JQuery.TriggeredEvent) {
-        event.preventDefault();
-        const input: HTMLFormElement = event.currentTarget;
+    #onFilterResults(input: HTMLInputElement): void {
         if (this.#filterTimeout) {
             clearTimeout(this.#filterTimeout);
             this.#filterTimeout = null;
         }
-        this.#filterTimeout = window.setTimeout(() => this.search(input.value), 100);
+        this.#filterTimeout = window.setTimeout(() => this.#search(input.value), 100);
     }
 }
 

@@ -3,9 +3,9 @@
         {{#each choices as |choice key|}}
         <li class="trait-item">
             <div class="form-group form-fields">
-                <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
-                <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
-                <input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="0" {{disabled choice.disabled}} />
+                <input type="checkbox" id="{{options.id}}-{{key}}" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
+                <label class="trait-label" for="{{options.id}}-{{key}}">{{choice.label}}</label>
+                <input type="number" name="{{key}}" value="{{choice.value}}" placeholder="0" {{disabled choice.disabled}} />
             </div>
         </li>
         {{/each}}

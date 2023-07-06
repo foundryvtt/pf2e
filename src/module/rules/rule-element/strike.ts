@@ -25,8 +25,6 @@ import type {
 } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
-const { fields } = foundry.data;
-
 /**
  * Create an ephemeral strike on an actor
  * @category RuleElement
@@ -52,6 +50,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 
     static override defineSchema(): StrikeSchema {
+        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             category: new fields.StringField({
@@ -139,6 +138,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 nullable: false,
                 initial: () => "systems/pf2e/icons/default-icons/melee.svg",
             }),
+            attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             replaceBasicUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             battleForm: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -263,12 +263,18 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      * @param damageType The resolved damage type for the strike
      */
     #constructWeapon(damageType: DamageType): WeaponPF2e<ActorPF2e> {
+        const actorIsNPC = this.actor.isOfType("npc");
         const source: PreCreate<WeaponSource> = deepClone({
             _id: this.item.id,
             name: this.label,
             type: "weapon",
             img: this.img,
-            flags: { pf2e: { battleForm: this.battleForm } },
+            flags: {
+                pf2e: {
+                    battleForm: this.battleForm,
+                    fixedAttack: actorIsNPC ? this.attackModifier ?? null : null,
+                },
+            },
             system: {
                 slug: this.slug,
                 description: { value: "" },
@@ -276,7 +282,13 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 group: this.group,
                 baseItem: this.baseType,
                 ability: this.ability,
-                damage: { ...this.damage.base, damageType },
+                bonus: {
+                    value: actorIsNPC ? this.attackModifier ?? 0 : 0,
+                },
+                damage: {
+                    ...this.damage.base,
+                    damageType,
+                },
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
                 maxRange: this.range?.max ?? null,
                 traits: {
@@ -347,6 +359,11 @@ type StrikeSchema = RuleElementSchema & {
         false,
         true
     >;
+    /**
+     * A fixed attack modifier: usable only if the strike is generated for an NPC
+     * Also causes the damage to not be recalculated when converting the resulting weapon to an NPC attack
+     */
+    attackModifier: NumberField<number, number, false, true, true>;
     range: SchemaField<
         {
             increment: NumberField<number, number, true, false, true>;

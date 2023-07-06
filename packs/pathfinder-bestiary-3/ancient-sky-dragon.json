@@ -452,8 +452,8 @@
                             {
                                 "nor": [
                                     "countered-by-fire",
-                                    "divine-lighning-good",
-                                    "divine-lightning-positive"
+                                    "target:trait:fiend",
+                                    "target:trait:undead"
                                 ]
                             }
                         ],
@@ -984,34 +984,14 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.SkyDragon.DivineLightningGood",
-                        "option": "divine-lightning-good",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.SkyDragon.DivineLightningPositive",
-                        "option": "divine-lightning-positive",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
                         "damageType": "good",
                         "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "label": "PF2E.NPCAbility.SkyDragon.DivineLightningGood",
                         "predicate": [
-                            "divine-lightning-good",
+                            "target:trait:fiend",
                             {
-                                "nor": [
-                                    "countered-by-fire",
-                                    "divine-lightning-positive"
-                                ]
+                                "not": "countered-by-fire"
                             }
                         ],
                         "selector": "jaws-damage"
@@ -1021,14 +1001,10 @@
                         "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "label": "PF2E.NPCAbility.SkyDragon.DivineLightningPositive",
                         "predicate": [
-                            "divine-lightning-positive",
+                            "target:trait:undead",
                             {
-                                "nor": [
-                                    "countered-by-fire",
-                                    "divine-lightning-good"
-                                ]
+                                "not": "countered-by-fire"
                             }
                         ],
                         "selector": "jaws-damage"

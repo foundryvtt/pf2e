@@ -4,28 +4,31 @@ import { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { tupleHasValue } from "@util";
 import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
 
 /**
  * @category RuleElement
  */
-class BaseSpeedRuleElement extends RuleElementPF2e {
+class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    private selector: string;
+    static override defineSchema(): BaseSpeedRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            selector: new fields.StringField({ required: true, nullable: false, blank: false }),
+            value: new ResolvableValueField({ required: true, nullable: false }),
+        };
+    }
 
-    private value: number | string | BracketedValue = 0;
-
-    constructor(data: BaseSpeedSource, options: RuleElementOptions) {
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
 
-        this.selector = String(data.selector)
-            .trim()
-            .replace(/-speed$/, "");
+        this.selector = this.selector.trim().replace(/-speed$/, "");
 
-        if (typeof data.value === "string" || typeof data.value === "number" || this.isBracketedValue(data.value)) {
-            this.value = data.value;
-        } else {
+        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
             this.failValidation("A value must be a number, string, or bracketed value");
         }
     }
@@ -62,12 +65,13 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
     }
 }
 
-interface BaseSpeedSource extends RuleElementSource {
-    selector?: unknown;
-}
-
-interface BaseSpeedRuleElement extends RuleElementPF2e {
+interface BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema>, ModelPropsFromSchema<BaseSpeedRuleSchema> {
     get actor(): CreaturePF2e;
 }
+
+type BaseSpeedRuleSchema = RuleElementSchema & {
+    selector: StringField<string, string, true, false, false>;
+    value: ResolvableValueField<true, false, true>;
+};
 
 export { BaseSpeedRuleElement };

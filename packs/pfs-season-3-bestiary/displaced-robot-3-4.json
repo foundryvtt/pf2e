@@ -19,14 +19,36 @@
                 },
                 "damageRolls": {
                     "wtdggtihiwagc1tigh0c": {
-                        "damage": "2d6+5",
+                        "damage": "1d6+5",
                         "damageType": "bludgeoning"
                     }
                 },
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "not": "divert-power:laser"
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "PF2E.NPCAbility.DisplacedRobot.DivertPower.Fists",
+                        "predicate": [
+                            "divert-power:fist"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -60,14 +82,34 @@
                 },
                 "damageRolls": {
                     "311vqwmyzj2cus89nvqi": {
-                        "damage": "2d6+2",
+                        "damage": "1d6+2",
                         "damageType": "fire"
                     }
                 },
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "not": "divert-power:fist"
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "label": "PF2E.NPCAbility.DisplacedRobot.DivertPower.LaserBeam",
+                        "predicate": [
+                            "divert-power:laser"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -149,62 +191,18 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Divert power to fists",
-                        "option": "divert-power-fist",
+                        "option": "divert-power",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.DisplacedRobot.Fists",
+                                "value": "fist"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.DisplacedRobot.LaserBeam",
+                                "value": "laser"
+                            }
+                        ],
                         "toggleable": true
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Divert power to the laser beam",
-                        "option": "divert-power-laser",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "electricity",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Divert Power to Fists",
-                        "predicate": [
-                            "divert-power-fist"
-                        ],
-                        "selector": "fist-damage"
-                    },
-                    {
-                        "diceNumber": -1,
-                        "key": "DamageDice",
-                        "label": "Divert Power to Fists",
-                        "override": {
-                            "dieSize": "d6"
-                        },
-                        "predicate": [
-                            "divert-power-fist"
-                        ],
-                        "selector": "laser-beam-damage"
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Divert Power to Laser Beam",
-                        "predicate": [
-                            "divert-power-laser"
-                        ],
-                        "selector": "laser-beam-damage"
-                    },
-                    {
-                        "diceNumber": -1,
-                        "key": "DamageDice",
-                        "label": "Divert Power to Laser Beam",
-                        "override": {
-                            "dieSize": "d6"
-                        },
-                        "predicate": [
-                            "divert-power-laser"
-                        ],
-                        "selector": "fist-damage"
                     }
                 ],
                 "slug": null,

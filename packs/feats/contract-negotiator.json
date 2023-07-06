@@ -1,0 +1,59 @@
+{
+    "_id": "BujTSrQI7o0dZolY",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Contract Negotiator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your experience with bargaining and deciding terms as part of Highhelm's guilds helps you make deals in other situations. When negotiating deals or agreements, you can use Legal Lore in place of Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] or a @UUID[Compendium.pf2e.actionspf2e.Item.Request], even if there is no legal framework under which you are negotiating. If you are an expert in Diplomacy, you gain a +1 circumstance bonus to these checks; if you are a master in Diplomacy, this increases to +2, and +3 if you are legendary.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Legal Lore"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "skill:dip:rank",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "legal-lore",
+                "value": "ternary(eq(@actor.skills.diplomacy.rank,4),3,ternary(eq(@actor.skills.diplomacy.rank,3),2,1))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}
