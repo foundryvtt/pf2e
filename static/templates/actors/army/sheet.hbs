@@ -155,13 +155,13 @@
                 </div>
                 <div class="sheet-settings">
                     <button data-tooltip="Lock" class="lock-sheet" type="button">
-                        <i class="far fa-padlock"></i>
+                        <i class="far fa-lock"></i>
                     </button>
-                    <button data-tooltip="Generate Statistics" class="generate-stats" type="button">
+                    <button data-tooltip="Edit Stats" class="generate-stats" type="button">
                         <i class="far fa-cog"></i>
                     </button>
                     <button data-tooltip="Level Up" class="level-up" type="button">
-                        <i class="far fa-plus"></i>
+                        <i class="far fa-angle-double-up"></i>
                     </button>
                 </div>
             </div>
@@ -181,9 +181,9 @@
                     <fieldset class="weapons">
                     <legend><i class="fa-light fa-swords"></i>&nbsp;Strikes</legend>
                         <div class="strike {{#if data.weapons.melee.unlocked}}unlocked{{else}}locked{{/if}}">
-                            <label class="roll"><a data-strike="melee" class="rollable melee"><i data-tooltip="{{localize "PF2E.Actor.Army.Strikemelee"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.melee.potency}} potency )" class="fas fa-dice-d20"></i></a> + {{add data.weapons.bonus data.weapons.melee.potency}}</label>
-                            <label class="roll"><a data-strike="melee" class="rollable melee map1"></a>+ {{add data.weapons.bonus data.weapons.melee.potency -5}}</a></label>
-                            <label class="roll"><a data-strike="melee" class="rollable melee map2"></a>+ {{add data.weapons.bonus data.weapons.melee.potency -10}}</a></label>              
+                            <label class="roll"><a data-weapon="melee" data-attack="0" class="rollable melee"><i data-tooltip="{{localize "PF2E.Actor.Army.Strikemelee"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.melee.potency}} potency )" class="fas fa-dice-d20"></i> + {{add data.weapons.bonus data.weapons.melee.potency}}</a></label>
+                            <label class="roll"><a data-weapon="melee" data-attack="1" class="rollable melee">-5</a></label>
+                            <label class="roll"><a data-weapon="melee" data-attack="2" class="rollable melee">-10</a></label>              
                             <input class="melee name" type="text" data-property="system.weapons.melee.name" value="{{data.weapons.melee.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikemelee"}}" />
                             {{#if data.weapons.melee.unlocked}}
                                 <button class="melee unlock" type="button"><i class="fas fa-lock-open empty" data-tooltip="Weapon is available"></i></button>
@@ -192,15 +192,16 @@
                             {{/if}}
                         </div>
                         <div class="strike {{#if data.weapons.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
-                            <label class="roll"><a data-strike="ranged" class="rollable ranged"><i data-tooltip="{{localize "PF2E.Actor.Army.Strikeranged"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.ranged.potency}} potency )" class="fas fa-dice-d20"></i></a> + {{add data.weapons.bonus data.weapons.ranged.potency}}</label>
-                            <label class="roll"><a data-strike="ranged" class="rollable ranged map1"></a>+ {{add data.weapons.bonus data.weapons.ranged.potency -5}}</a></label>
-                            <label class="roll"><a data-strike="ranged" class="rollable ranged map2"></a>+ {{add data.weapons.bonus data.weapons.ranged.potency -10}}</a></label>              
+                            <label class="roll"><a data-weapon="ranged" data-attack="0" class="rollable ranged"><i data-tooltip="{{localize "PF2E.Actor.Army.Strikeranged"}} ( +{{data.weapons.bonus}} proficiency, +{{data.weapons.ranged.potency}} potency )" class="fas fa-dice-d20"></i> + {{add data.weapons.bonus data.weapons.ranged.potency}}</a></label>
+                            <label class="roll"><a data-weapon="ranged" data-attack="1" class="rollable ranged">-5</a></label>
+                            <label class="roll"><a data-weapon="ranged" data-attack="2" class="rollable ranged">-10</a></label>              
                             <input class="ranged name" type="text" data-property="system.weapons.ranged.name" value="{{data.weapons.ranged.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikeranged"}}" />
                             <button data-tooltip="Ammunition: {{data.weapons.ammunition.value}}" class="ammunition pips" type="button">
                                 {{#times data.weapons.ammunition.max}}
                                 <i class="{{#if (gt @root.data.weapons.ammunition.value this)}}far fa-dagger filled{{else}}fal fa-dagger empty{{/if}}"></i>
                                 {{/times}}
                             </button>
+                            <button data-tooltip="Restore Ammunition" class="ammunition restore"><i class="{{#if (eq @root.data.weapons.ammunition.value 5)}}fal fa-refresh empty{{else}}far fa-refresh filled{{/if}}"></i></button>
                             {{#if data.weapons.ranged.unlocked}}
                                 <button class="ranged unlock" type="button"><i class="fas fa-lock-open empty" data-tooltip="Weapon is available"></i></button>
                             {{else}}
@@ -212,7 +213,7 @@
                     <fieldset class="upgrades">
                     <legend><i class="fa-light fa-sparkle"></i>&nbsp;Potency</legend>
                         <div class="strike rank {{#if data.weapons.melee.unlocked}}unlocked{{else}}locked{{/if}}">
-                            <button data-tooltip="Magic Weapons ({{localize data.weapons.melee.potency}})" class="melee pips" type="button">
+                            <button data-tooltip="Magic Weapons" class="melee pips" type="button">
                                 {{#times 3}}
                                 <i class="{{#if (gt @root.data.weapons.melee.potency this)}}far fa-sword filled{{else}}fal fa-sword empty{{/if}}"></i>
                                 {{/times}}
@@ -222,7 +223,7 @@
                             </button>
                         </div>
                         <div class="strike rank {{#if data.weapons.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
-                            <button data-tooltip="Magic Weapons (+{{localize data.weapons.ranged.potency}})" class="ranged pips" type="button">
+                            <button data-tooltip="Magic Weapons" class="ranged pips" type="button">
                                 {{#times 3}}
                                 <i class="{{#if (gt @root.data.weapons.ranged.potency this)}}far fa-bow-arrow filled{{else}}fal fa-bow-arrow empty{{/if}}"></i>
                                 {{/times}}
@@ -279,8 +280,8 @@
                 {{!-- ============== --}}
                 <fieldset>
                     <legend class="compendium-items"><i class="fa-light fa-flag-swallowtail"></i>&nbsp;Tactics</legend>
-                        <ol class="item-list">
                         {{#if document.itemTypes.feat}}
+                        <ol class="item-list">
                             {{#each document.itemTypes.feat as |feat|}}
                                 <li class="item" data-item-id="{{feat._id}}">
                                     <a class="item-icon item-chat">
@@ -312,7 +313,7 @@
                             {{/each}}
                         </ol>
                     {{else}}
-                    <p class="placeholder"><em>Drag initial tactics here!</em></p>
+                    <p class="placeholder"><em>Drag tactics here to add!</em></p>
                     {{/if}}
                 </fieldset>
 

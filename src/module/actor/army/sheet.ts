@@ -141,19 +141,21 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
     // This is the function that handles all checks and rolls
     async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
-        const { attribute, strike } = link?.dataset ?? {};
+        const { attribute, weapon, attack } = link?.dataset ?? {};
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
         let title = "Title Not Found";
         let bonus = 0;
         let parts = ["@bonus"];
         let data = {};
 
-        if (strike === "melee" || strike === "ranged") {
+        if (weapon === "melee" || weapon === "ranged") {
             const proficiencybonus = this.actor.system.weapons.bonus;
-            const potencybonus = this.actor.system.weapons[strike].potency;
-            data = { proficiencybonus, potencybonus };
-            parts = ["@proficiencybonus", "@potencybonus"];
-            title = this.actor.system.weapons[strike].name || game.i18n.localize(`PF2E.Actor.Army.Strike${strike}`);
+            const potencybonus = this.actor.system.weapons[weapon].potency;
+            const multipleattackpenalties = [0, -5, -10];
+            const multipleattackpenalty = multipleattackpenalties[Number(attack)];
+            data = { proficiencybonus, potencybonus, multipleattackpenalty };
+            parts = ["@proficiencybonus", "@potencybonus", "@multipleattackpenalty"];
+            title = this.actor.system.weapons[weapon].name || game.i18n.localize(`PF2E.Actor.Army.Strike${weapon}`);
         } else if (attribute === "scouting" || attribute === "morale" || attribute === "maneuver") {
             bonus = this.actor.system.attributes[attribute].bonus;
             title = game.i18n.localize(`PF2E.Actor.Army.Attr${attribute}`);
