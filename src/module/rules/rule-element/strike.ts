@@ -230,8 +230,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             return this.failValidation("Unrecognized damage type");
         }
 
-        const dice = this.resolveValue(this.damage.base.dice);
-        if (typeof dice !== "number") {
+        const dice = Number(this.resolveValue(this.damage.base.dice));
+        if (Number.isNaN(dice)) {
             return this.failValidation("dice does not resolve to a number");
         }
 
