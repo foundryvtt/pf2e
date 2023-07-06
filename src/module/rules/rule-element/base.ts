@@ -37,7 +37,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         source.label ??= options.parent.name;
-        super(source, { parent: options.parent, strict: false });
+        super(source, { parent: options.parent, strict: true, fallback: false });
         const { item } = this;
 
         // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
@@ -133,10 +133,23 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
     }
 
-    /** Disallow invalid data fallbacks */
+    /** Include parent item's name and UUID in `DataModel` validation error messages */
     override validate(options: DataModelValidationOptions = {}): boolean {
-        options.fallback = false;
-        return super.validate(options);
+        try {
+            return super.validate(options);
+        } catch (error) {
+            if (error instanceof foundry.data.validation.DataModelValidationError) {
+                const substring = "validation errors";
+                const message = error.message.replace(
+                    substring,
+                    `${substring} on item ${this.item.name} (${this.item.uuid})`
+                );
+                console.warn(message);
+                return false;
+            } else {
+                throw error;
+            }
+        }
     }
 
     /** Test this rule element's predicate, if present */
