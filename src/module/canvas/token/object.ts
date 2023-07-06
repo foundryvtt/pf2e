@@ -21,9 +21,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** Guarantee boolean return */
+    /** Increase center-to-center point tolerance to be more compliant with 2e rules */
     override get isVisible(): boolean {
-        return super.isVisible ?? false;
+        // Clear the detection filter
+        this.detectionFilter = null;
+
+        // Only GM users can see hidden tokens
+        if (this.document.hidden && !game.user.isGM) return false;
+
+        // Some tokens are always visible
+        if (!canvas.effects.visibility.tokenVision) return true;
+        if (this.controlled) return true;
+
+        // Otherwise, test visibility against current sight polygons
+        if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
+        const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
+        return canvas.effects.visibility.testVisibility(this.center, { tolerance, object: this });
     }
 
     /** Is this token currently animating? */
