@@ -15,20 +15,10 @@ declare global {
         turns: CollectionValue<this["combatants"]>[];
 
         /** Record the current round, turn, and tokenId to understand changes in the encounter state */
-        current: {
-            round: number | null;
-            turn: number | null;
-            tokenId: string | null;
-            combatantId: string | null;
-        };
+        current: CombatHistoryData;
 
         /** Track the previous round, turn, and tokenId to understand changes in the encounter state */
-        previous: {
-            round: number | null;
-            turn: number | null;
-            tokenId: string | null;
-            combatantId: string | null;
-        };
+        previous: CombatHistoryData;
 
         /** The configuration setting used to record Combat preferences */
         static CONFIG_SETTING: "combatTrackerConfig";
@@ -190,10 +180,67 @@ declare global {
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
+
+        /* -------------------------------------------- */
+        /*  Turn Events                                 */
+        /* -------------------------------------------- */
+
+        /**
+         * Manage the execution of Combat lifecycle events.
+         * This method orchestrates the execution of four events in the following order, as applicable:
+         * 1. End Turn
+         * 2. End Round
+         * 3. Begin Round
+         * 4. Begin Turn
+         * Each lifecycle event is an async method, and each is awaited before proceeding.
+         * @param [adjustedTurn]   Optionally, an adjusted turn to commit to the Combat.
+         */
+        protected _manageTurnEvents(adjustedTurn?: number): Promise<void>;
+
+        /**
+         * A workflow that occurs at the end of each Combat Turn.
+         * This workflow occurs after the Combat document update, prior round information exists in this.previous.
+         * This can be overridden to implement system-specific combat tracking behaviors.
+         * This method only executes for one designated GM user. If no GM users are present this method will not be called.
+         * @param combatant The Combatant whose turn just ended
+         */
+        protected _onEndTurn(combatant: Combatant<this>): Promise<void>;
+
+        /**
+         * A workflow that occurs at the end of each Combat Round.
+         * This workflow occurs after the Combat document update, prior round information exists in this.previous.
+         * This can be overridden to implement system-specific combat tracking behaviors.
+         * This method only executes for one designated GM user. If no GM users are present this method will not be called.
+         */
+        protected _onEndRound(): Promise<void>;
+
+        /**
+         * A workflow that occurs at the start of each Combat Round.
+         * This workflow occurs after the Combat document update, new round information exists in this.current.
+         * This can be overridden to implement system-specific combat tracking behaviors.
+         * This method only executes for one designated GM user. If no GM users are present this method will not be called.
+         */
+        protected _onStartRound(): Promise<void>;
+
+        /**
+         * A workflow that occurs at the start of each Combat Turn.
+         * This workflow occurs after the Combat document update, new turn information exists in this.current.
+         * This can be overridden to implement system-specific combat tracking behaviors.
+         * This method only executes for one designated GM user. If no GM users are present this method will not be called.
+         * @param combatant The Combatant whose turn just started
+         */
+        protected _onStartTurn(combatant: Combatant<this>): Promise<void>;
     }
 
     interface Combat extends ClientBaseCombat {
         readonly combatants: foundry.abstract.EmbeddedCollection<Combatant<this>>;
+    }
+
+    interface CombatHistoryData {
+        round: number | null;
+        turn: number | null;
+        tokenId: string | null;
+        combatantId: string | null;
     }
 
     interface RollInitiativeOptions {
