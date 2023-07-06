@@ -146,15 +146,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Get an active GM or, failing that, a player who can update this actor */
     get primaryUpdater(): UserPF2e | null {
-        const activeUsers = game.users.filter((u) => u.active);
-
         // 1. The first active GM, sorted by ID
-        const firstGM = activeUsers
-            .filter((u) => u.isGM)
-            .sort((a, b) => (a.id > b.id ? 1 : -1))
-            .shift();
-        if (firstGM) return firstGM;
+        const { activeGM } = game.users;
+        if (activeGM) return activeGM;
 
+        const activeUsers = game.users.filter((u) => u.active);
         // 2. The user with this actor assigned
         const primaryPlayer = this.isToken ? null : activeUsers.find((u) => u.character?.id === this.id);
         if (primaryPlayer) return primaryPlayer;
