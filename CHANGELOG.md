@@ -1,3 +1,40 @@
+## 5.1.1
+
+### System Improvements
+
+-   (stwlam) Indicate verified compatibility with 11.305
+-   (stwlam) Have token HUD show Broken for vehicles/loot and Hidden for others
+-   (stwlam) Include parent items' names and UUIDs in all rule element validation warnings
+-   (stwlam) Obscure token sprite if hearing/tremorsense detection filter is applied
+-   (stwlam) Remove hidden tokens from vision detection
+-   (Supe) Deprecate direct access of actor system data properties (`@abilities`, `@attributes`, `@details`, etc.) in roll formulas
+
+### Bugfixes
+
+-   (Drental) Localize "legacy flaws" in ability builder
+-   (stwlam) Apply damage-type overrides to fatal damage dice
+-   (stwlam) Fix issue causing players to not immediately see token light changes from rule elements
+-   (stwlam) Update emulated token hover from chat messages to work with 11.304+
+-   (stwlam) Fix aberrent grid highlighting when dragging cone templates
+-   (stwlam) Dodge upstream error when encounters are created
+-   (stwlam) Show token name when available (instead of actor name) in roll messages for skill checks and saving throws
+-   (stwlam) Fix search in basic tag selector application
+-   (Tikael) Add missing localization string on NPC sheet
+
+### Data Updates
+
+-   (Dire Weasel) Add Frequency to Rupture Stomp description
+-   (Dire Weasel) Add missing traits to Shatterstone
+-   (Dire Weasel) Fix category of Gathering Moss and Propulsive Leap.
+-   (Dire Weasel) Add duration to Effect: Gathering Moss.
+-   (Dire Weasel) Fix level and price of Grub Gloves
+-   (Dire Weasel) Fix level of Bloodknuckles
+-   (Dire Weasel) Group Ankhrav's Spray Acid damage
+-   (Dire Weasel) Update Calikang's Suspended Animation to use suboptions
+-   (Dire Weasel) Update Effect: Fiddle to include grant of flat-footed and slowed
+-   (rectulo) Fix action format for highhelm stronghold plate
+-   (stwlam) Add deathdrinking weapon property rune
+
 ## 5.1.0
 
 ### Data Updates
