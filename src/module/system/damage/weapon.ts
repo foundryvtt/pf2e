@@ -594,7 +594,7 @@ class WeaponDamagePF2e {
                 base.dieSize = override.override?.dieSize ?? base.dieSize;
                 base.damageType = override.override?.damageType ?? base.damageType;
                 base.diceNumber = override.override?.diceNumber ?? base.diceNumber;
-                for (const die of damage.dice.filter((d) => d.slug.startsWith("deadly-"))) {
+                for (const die of damage.dice.filter((d) => /^(?:deadly|fatal)-/.test(d.slug))) {
                     die.damageType = override.override?.damageType ?? die.damageType;
                 }
             }
