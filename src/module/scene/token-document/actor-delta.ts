@@ -51,7 +51,10 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
         const items = (args[0] ?? []).filter((i): i is ItemPF2e => i instanceof ItemPF2e);
         const nameChanged = items.some((i) => i.system.rules.some((r) => r.key === "TokenName"));
         const sizeChanged = items.some((i) => i.system.rules.some((r) => r.key === "CreatureSize"));
-        const textureChanged = items.some((i) => i.system.rules.some((r) => r.key === "TokenImage"));
+        // Assume there is a texture change if there exists a TokenImage rule element on the synthetic actor
+        const textureChanged =
+            items.some((i) => i.system.rules.some((r) => r.key === "TokenImage")) ||
+            !!this.syntheticActor?.rules.some((r) => r.key === "TokenImage");
         const lightChanged = items.some((i) => i.system.rules.some((r) => r.key === "TokenLight"));
         const somethingChanged = nameChanged || sizeChanged || textureChanged || lightChanged;
         if (somethingChanged) {
