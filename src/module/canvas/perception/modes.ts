@@ -45,7 +45,7 @@ class VisionDetectionMode extends DetectionModeBasicSight {
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
         if (!super._canDetect(visionSource, target)) return false;
         const targetIsUndetected =
-            target instanceof TokenPF2e && !!target.actor?.hasCondition("undetected", "unnoticed");
+            target instanceof TokenPF2e && !!target.actor?.hasCondition("hidden", "undetected", "unnoticed");
         return !targetIsUndetected;
     }
 
