@@ -8,7 +8,7 @@ declare global {
      */
 
     class ActorDelta<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActorDelta<TParent> {
-        syntheticActor?: Actor<TParent>;
+        syntheticActor?: NonNullable<NonNullable<TParent>["actor"]> | undefined;
 
         override prepareData(): void;
 
