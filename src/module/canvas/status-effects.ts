@@ -125,6 +125,14 @@ export class StatusEffects {
             icon.replaceWith(picture);
 
             const slug = picture.dataset.statusId ?? "";
+
+            // Show hidden for broken for loot/vehicles and hidden for all others
+            const actorType = token.actor?.type ?? "";
+            const hideIcon =
+                (slug === "hidden" && ["loot", "vehicle"].includes(actorType)) ||
+                (slug === "broken" && !["loot", "vehicle"].includes(actorType));
+            if (hideIcon) picture.style.display = "none";
+
             const affecting = affectingConditions.filter((c) => c.slug === slug);
             if (affecting.length > 0 || iconSrc === token.document.overlayEffect) {
                 picture.classList.add("active");
