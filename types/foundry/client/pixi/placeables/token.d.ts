@@ -236,6 +236,14 @@ declare global {
         /* Rendering                                    */
         /* -------------------------------------------- */
 
+        override render(renderer: PIXI.Renderer): void;
+
+        /**
+         * Render the bound mesh detection filter.
+         * Note: this method does not verify that the detection filter exists.
+         */
+        protected _renderDetectionFilter(renderer: PIXI.Renderer): void;
+
         override clear(): this;
 
         protected _draw(): Promise<void>;

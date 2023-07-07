@@ -5,6 +5,7 @@ import { htmlClosest, pick } from "@util";
 import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
+import { Renderer } from "pixi.js";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
@@ -346,6 +347,19 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super.updateVisionSource({ defer, deleted });
         if (this._isVisionSource() && !deleted) {
             this.hearing.initialize();
+        }
+    }
+
+    /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
+    override render(renderer: Renderer): void {
+        super.render(renderer);
+        if (!this.mesh) return;
+
+        const configuredTint = this.document.texture.tint ?? "#FFFFFF";
+        if (this.mesh.tint !== 0 && this.detectionFilter instanceof OutlineOverlayFilter) {
+            this.mesh.tint = 0;
+        } else if (this.mesh.tint === 0 && configuredTint !== "#000000" && !this.detectionFilter) {
+            this.mesh.tint = Number(Color.fromString(configuredTint));
         }
     }
 
