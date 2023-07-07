@@ -5,25 +5,12 @@ declare global {
      * A specialized subclass of the PointSource abstraction which is used to control the rendering of light sources.
      * @param [options.object] The light-emitting object that generates this light source
      */
-    class LightSource<TObject extends AmbientLight | Token | null> extends PointSource<TObject> {
-        constructor(options?: { object?: TObject });
-
-        /** The light or darkness container for this source */
-        background: PIXI.Mesh;
-
-        /** The light or darkness container for this source */
-        illumination: PIXI.Mesh;
-
-        /** This visible color container for this source */
-        coloration: PIXI.Mesh;
-
+    class LightSource<TObject extends AmbientLight | Token | null> extends RenderedPointSource<TObject> {
         static sourceType: string;
 
-        /** Strength of the blur for light source edges */
-        static BLUR_STRENGTH: number;
+        protected static override _initializeShaderKeys: string[];
 
-        /** Keys in the LightSourceData structure which, when modified, change the appearance of the light */
-        protected static _appearanceKeys: string[];
+        protected static override _refreshUniformsKeys: string[];
 
         /* -------------------------------------------- */
         /*  Light Source Attributes                     */
@@ -32,35 +19,15 @@ declare global {
         /** The object of data which configures how the source is rendered */
         override data: LightSourceData;
 
-        /** The animation configuration applied to this source */
-        animation: Partial<LightAnimationConfiguration>;
-
-        /** Internal flag for whether this is a darkness source */
-        isDarkness: boolean;
-
-        /** The rendered field-of-vision texture for the source for use within shaders. */
-        fovTexture: PIXI.RenderTexture | null;
-
-        /** To know if a light source is a preview or not. False by default. */
-        preview: boolean;
-
         /** The ratio of dim:bright as part of the source radius */
         ratio: number;
 
-        /** Track which uniforms need to be reset */
-        _resetUniforms: {
-            background: boolean;
-            illumination: boolean;
-            coloration: boolean;
-        };
+        /* -------------------------------------------- */
+        /*  Light Source Properties                     */
+        /* -------------------------------------------- */
 
-        /** To track if a source is temporarily shutdown to avoid glitches */
-        _shutdown: {
-            illumination: boolean;
-        };
-
-        /** Undocumented */
-        colorRGB: [number, number, number];
+        /** Is this darkness? */
+        get isDarkness(): boolean;
 
         /* -------------------------------------------- */
         /*  Light Source Initialization                 */
@@ -73,71 +40,22 @@ declare global {
          */
         protected override _initialize(data?: Partial<LightSourceData>): void;
 
-        protected _getPolygonConfiguration(): PointSourcePolygonConfig;
+        protected override _configure(changes: object): void;
 
-        /**
-         * Initialize the PointSource with new input data
-         * @param data Initial data provided to the light source
-         * @returns The changes compared to the prior data
-         */
-        _initializeData(data: Partial<LightSourceData>): Partial<LightSourceData>;
+        protected override _getPolygonConfiguration(): PointSourcePolygonConfig;
 
-        /** Initialize the shaders used for this source, swapping to a different shader if the animation has changed. */
-        protected _initializeShaders(): void;
-
-        /** Initialize the blend mode and vertical sorting of this source relative to others in the container. */
-        _initializeBlending(): void;
-
-        /* -------------------------------------------- */
-        /*  Light Source Rendering                      */
-        /* -------------------------------------------- */
-
-        /** Render the containers used to represent this light source within the LightingLayer */
-        drawMeshes(): LightSourceMeshes;
-
-        /**
-         * Draw the display of this source for background container.
-         * @return The rendered light container
-         */
-        drawBackground(): PIXI.Mesh | null;
-
-        /**
-         * Draw the display of this source for the darkness/light container of the SightLayer.
-         * @return The rendered light container
-         */
-        drawLight(): PIXI.Mesh | null;
-
-        /**
-         * Draw and return a container used to depict the visible color tint of the light source on the LightingLayer
-         * @return An updated color container for the source
-         */
-        drawColor(): PIXI.Mesh | null;
+        protected override _initializeBlending(): void;
 
         /* -------------------------------------------- */
         /*  Shader Management                           */
         /* -------------------------------------------- */
 
-        /**
-         * Update shader uniforms by providing data from this PointSource
-         * @param shader The shader being updated
-         */
-        protected _updateColorationUniforms(shader: PIXI.Shader): void;
-        /**
-         * Update shader uniforms by providing data from this PointSource
-         * @param shader The shader being updated
-         */
-        _updateIlluminationUniforms(shader: PIXI.Shader): void;
+        protected override _updateColorationUniforms(): void;
 
-        /**
-         * Update shader uniforms by providing data from this PointSource
-         * @param shader The shader being updated
-         */
-        protected _updateBackgroundUniforms(shader: PIXI.Shader): void;
+        protected override _updateIlluminationUniforms(): void;
 
-        /**
-         * Update shader uniforms shared by all shader types
-         * @param shader The shader being updated
-         */
+        protected override _updateBackgroundUniforms(): void;
+
         protected _updateCommonUniforms(shader: PIXI.Shader): void;
 
         /**
@@ -153,20 +71,29 @@ declare global {
         /* -------------------------------------------- */
         /*  Animation Functions                         */
         /* -------------------------------------------- */
+        /**
+         * An animation with flickering ratio and light intensity.
+         * @param dt           Delta time
+         * @param [options={}] Additional options which modify the flame animation
+         * @param [options.speed=5]       The animation speed, from 1 to 10
+         * @param [options.intensity=5]   The animation intensity, from 1 to 10
+         * @param [options.reverse=false] Reverse the animation direction
+         */
+        animateTorch(dt: number, options?: { speed?: number; intensity?: number; reverse?: boolean }): void;
 
         /**
-         * Animate the PointSource, if an animation is enabled and if it currently has rendered containers.
-         * @param dt Delta time
+         * An animation with flickering ratio and light intensity
+         * @param dt           Delta time
+         * @param [options={}] Additional options which modify the flame animation
+         * @param [options.speed=5]         The animation speed, from 1 to 10
+         * @param [options.intensity=5]     The animation intensity, from 1 to 10
+         * @param [options.amplification=1] Noise amplification (>1) or dampening (<1)
+         * @param [options.reverse=false]   Reverse the animation direction
          */
-        animate(dt: number): void;
-
-        /**
-         * A torch animation where the luminosity and coloration decays each frame and is revitalized by flashes
-         * @param dt        Delta time
-         * @param speed     The animation speed, from 1 to 10
-         * @param intensity The animation intensity, from 1 to 10
-         */
-        animateTorch(dt: number, { speed, intensity }?: { speed?: number; intensity?: number }): void;
+        animateFlickering(
+            dt: number,
+            options?: { speed?: number; intensity?: number; amplification?: boolean; reverse?: boolean }
+        ): void;
 
         /**
          * A basic "pulse" animation which expands and contracts.
@@ -175,34 +102,39 @@ declare global {
          * @param intensity The animation intensity, from 1 to 10
          * @param reverse   Is the animation reversed?
          */
-        animatePulse(
-            dt: number,
-            { speed, intensity, reverse }?: { speed?: number; intensity?: number; reverse?: number }
-        ): void;
+        animatePulse(dt: number, options?: { speed?: number; intensity?: number; reverse?: number }): void;
+
+        /* -------------------------------------------- */
+        /*  Visibility Testing                          */
+        /* -------------------------------------------- */
 
         /**
-         * Emanate waves of light from the source origin point
-         * @param dt        Delta time
-         * @param speed     The animation speed, from 1 to 10
-         * @param intensity The animation intensity, from 1 to 10
-         * @param reverse   Is the animation reversed?
+         * Test whether this LightSource provides visibility to see a certain target object.
+         * @param config The visibility test configuration
+         * @param config.tests   The sequence of tests to perform
+         * @param config.object  The target object being tested
+         * @returns Is the target object visible to this source?
          */
-        animateTime(
-            dt: number,
-            { speed, intensity, reverse }?: { speed?: number; intensity?: number; reverse?: number }
-        ): void;
+        testVisibility(config: { tests: CanvasVisibilityTest[]; object: PlaceableObject }): boolean;
 
         /**
-         * Evolve a value using a stochastic AR(1) process
-         * @param y      The current value
-         * @param phi    The decay rate of prior values
-         * @param center The stationary mean of the series
-         * @param sigma  The volatility of the process - standard deviation of the error term
-         * @param max    The maximum allowed outcome, or null
-         * @param min    The minimum allowed outcome, or null
-         * @return The new value of the process
+         * Can this LightSource theoretically detect a certain object based on its properties?
+         * This check should not consider the relative positions of either object, only their state.
+         * @param target The target object being tested
+         * @returns Can the target object theoretically be detected by this vision source?
          */
-        protected _ar1(y: number, { phi, center, sigma, max, min }?: ARParameters): number;
+        protected _canDetectObject(target: PlaceableObject): boolean;
+    }
+
+    /**
+     * A specialized subclass of the LightSource which is used to render global light source linked to the scene.
+     */
+    class GlobalLightSource extends LightSource<null> {
+        protected override _createPolygon(): PointSourcePolygon;
+
+        protected override _configureSoftEdges(): void;
+
+        protected override _initialize(data?: Partial<LightSourceData>): void;
     }
 
     interface LightSourceData extends RenderedPointSourceData {

@@ -263,6 +263,16 @@ class EncounterPF2e extends Combat {
         // Clear encounter-related roll options and any scene behavior that depends on it
         this.resetActors();
     }
+
+    /**
+     * Work around upstream issue present in versions 11.304 and 11.305
+     * https://github.com/foundryvtt/foundryvtt/issues/9718
+     */
+    protected override async _manageTurnEvents(adjustedTurn?: number): Promise<void> {
+        if (this.previous || !["11.304", "11.305"].includes(game.version)) {
+            return super._manageTurnEvents(adjustedTurn);
+        }
+    }
 }
 
 interface EncounterPF2e extends Combat {

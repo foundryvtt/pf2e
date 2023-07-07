@@ -21,8 +21,8 @@ export const Ready = {
 
             // Save the current world schema version if hasn't before.
             storeInitialWorldVersions().then(async () => {
-                // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
-                if (!game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) return;
+                // Ensure only a single GM will run migrations if multiple are logged in
+                if (game.user !== game.users.activeGM) return;
 
                 // Perform migrations, if any
                 const migrationRunner = new MigrationRunner(MigrationList.constructFromVersion(currentVersion));

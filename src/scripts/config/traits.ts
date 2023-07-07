@@ -355,9 +355,13 @@ const magicSchools: Record<MagicSchool, string> = {
     transmutation: "PF2E.TraitTransmutation",
 };
 
-const kingdomActivityTraits = {
+const kingmakerTraits = {
+    army: "PF2E.TraitArmy",
+    cavalry: "PF2E.TraitCavalry",
     civic: "PF2E.TraitCivic",
     commerce: "PF2E.TraitCommerce",
+    infantry: "PF2E.TraitInfantry",
+    kingdom: "PF2E.TraitKingdom",
     leadership: "PF2E.TraitLeadership",
     region: "PF2E.TraitRegion",
     upkeep: "PF2E.TraitUpkeep",
@@ -715,7 +719,6 @@ const actionTraits = {
     ...featTraits,
     ...consumableTraits,
     ...spellTraits,
-    ...kingdomActivityTraits,
     circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
@@ -1336,6 +1339,7 @@ export {
     equipmentTraits,
     featTraits,
     hazardTraits,
+    kingmakerTraits,
     magicSchools,
     magicTraditions,
     npcAttackTraits,
