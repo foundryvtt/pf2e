@@ -33,7 +33,7 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
         offsetX: number;
         offsetY: number;
         rotation: number | null;
-        tint: HexColorString;
+        tint: HexColorString | undefined;
     };
 
     light: foundry.data.LightData;
