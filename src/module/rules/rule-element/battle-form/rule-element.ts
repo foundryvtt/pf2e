@@ -376,7 +376,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             maxRange: strikeData.maxRange,
             traits: strikeData.traits,
             ability: strikeData.ability,
-            ownIfHigher: strikeData.ownIfHigher ?? true,
+            ownIfHigher: (strikeData.ownIfHigher ??= true),
         }));
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
