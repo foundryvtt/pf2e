@@ -10,17 +10,6 @@
         </select>
     </li>
 
-
-    <li class="form-group">
-        <label class="short">{{localize "PF2E.SpellSchoolLabel"}}</label>
-        <select name="system.school.value">
-            {{#select data.school.value}}
-                {{#each magicSchools as |name school|}}
-                    <option value="{{school}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </li>
     <li class="form-group">
         <label class="short">{{localize "PF2E.SpellTraditionsLabel"}}</label>
         <input class="tags paizo-style" name="system.traditions.value" value="{{json data.traditions.value}}" data-dtype="JSON" />

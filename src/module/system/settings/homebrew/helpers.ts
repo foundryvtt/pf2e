@@ -119,13 +119,7 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                     }
                     break;
                 }
-                case "magicSchools": {
-                    if (source.type === "spell") {
-                        const school = source.system.school;
-                        school.value = deletions.includes(school.value ?? "") ? "evocation" : school.value;
-                    }
-                    break;
-                }
+                case "magicSchools":
                 case "spellTraits": {
                     if (source.type === "spell") {
                         const traits = source.system.traits;

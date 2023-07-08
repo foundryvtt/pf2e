@@ -29,11 +29,12 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { BaseDamageData, DamageFormulaData, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, getActionIcon, htmlClosest, ordinal, traitSlugToObject } from "@util";
+import { ErrorPF2e, getActionIcon, htmlClosest, ordinal, setHasElement, traitSlugToObject } from "@util";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
 import { applyDamageDiceOverrides } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
+import { MAGIC_SCHOOLS } from "./values.ts";
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
@@ -94,8 +95,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         ).flat();
     }
 
-    get school(): MagicSchool {
-        return this.system.school.value;
+    get school(): MagicSchool | null {
+        return this.system.traits.value.find((t): t is MagicSchool => setHasElement(MAGIC_SCHOOLS, t)) ?? null;
     }
 
     get traditions(): Set<MagicTradition> {
@@ -480,9 +481,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // In case bad level data somehow made it in
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
-        // As of FVTT 10.291, data preparation on embedded items is run twice, making it so the spell's school trait
-        // can't be blindly pushed onto the array.
-        this.system.traits.value = [...this._source.system.traits.value, this.school];
 
         if (this.system.area?.value) {
             this.system.area.value = (Number(this.system.area.value) || 5) as EffectAreaSize;
@@ -843,10 +841,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const check = new StatisticModifier(flavor, modifiers);
         const finalOptions = new Set(this.actor.getRollOptions(domains).concat(traits));
         ensureProficiencyOption(finalOptions, proficiencyRank);
-        const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
         const traitObjects = traits.map((trait) => ({
             name: trait,
-            label: spellTraits[trait],
+            label: CONFIG.PF2E.spellTraits[trait],
         }));
 
         return CheckPF2e.roll(
