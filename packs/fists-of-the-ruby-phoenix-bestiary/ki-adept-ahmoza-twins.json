@@ -1352,42 +1352,31 @@
                 },
                 "rules": [
                     {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "unarmed",
-                            "channel-element:manyala"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "damageType": "cold",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "unarmed",
-                            "channel-element:rijana"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
                         "domain": "damage-roll",
                         "key": "RollOption",
                         "option": "channel-element",
                         "suboptions": [
                             {
                                 "label": "Manyala",
-                                "value": "manyala"
+                                "value": "fire"
                             },
                             {
                                 "label": "Rijana",
-                                "value": "rijana"
+                                "value": "cold"
                             }
                         ],
                         "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.channelElement}",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "channel-element",
+                            "unarmed"
+                        ],
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
