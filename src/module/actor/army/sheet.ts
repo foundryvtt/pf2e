@@ -190,27 +190,27 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
         if (info === "melee" || info === "ranged") {
             bonus = this.actor.system.weapons[info].potency;
-            name = ["Mundane Weapons", "Magic Weapons", "Greater Magic Weapons", "Major Magic Weapons"];
+            name = [localize("Weapons.rank0"), localize("Weapons.rank1"), localize("Weapons.rank2"), localize("Weapons.rank3")];
             traits = localize("Weapons.traits");
             description = localize("Weapons.description");
             level = [0, 2, 10, 16];
             price = [0, 20, 40, 60];
         } else if (info === "potions") {
             bonus = 0;
-            name = ["Healing Potions"];
+            name = [localize("Potions.name")];
             traits = localize("Potions.traits");
             description = localize("Potions.description");
             price = [15];
         } else if (info === "armor") {
             bonus = this.actor.system.attributes.ac.potency;
-            name = ["Mundane Armor", "Magic Armor", "Greater Magic Armor", "Major Magic Armor"];
+            name = [localize("Armor.rank0"), localize("Armor.rank1"), localize("Armor.rank2"), localize("Armor.rank3")];
             traits = localize("Armor.traits");
             description = localize("Armor.description");
             level = [0, 5, 11, 18];
             price = [0, 25, 50, 75];
         }
 
-        const content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/>" + "<p>Level: " + level[bonus] + "</p><p>Price: " + price[bonus] + " RP</p>" ;
+        const content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/><p>" + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.infoMessageLevelLabel") + level[bonus] + "</p><p>Price: " + price[bonus] + " RP</p>" ;
 
         /* Failed attempt to streamline this (couldn't work out how to access the values by index after swapping it to an object)
         const { info } = link?.dataset ?? {};
@@ -248,13 +248,14 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     async #generateStats(button: HTMLElement): Promise<void> {
         const actor = this.actor; // Should I just move this to the top and use it everywhere? Why does it not work without it?
         const action = Array.from(button.classList).find((c) => ["level-up", "popup"].includes(c));
+        const localize = localizer("PF2E.Warfare.ArmySheet.StatGenerator");
 
         // The full "build" popup which queries for the desired level and weak/strong save
         if (action === "popup") {
 
             // Create the input form
             const d = new Dialog({
-                title: "Army Stat Generator",
+                title: localize("title"),
                 content: `
                 <html>
                     <head><style>
@@ -266,13 +267,13 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                         div.dialog-buttons { padding-top: 0.5rem; }
                     </style></head>
                     <body><form>
-                        <p>Generates stats for armies using the default values as defined in the Warfare rules. New statistics will be dependent on the level. Can be used for creating new armies or for leveling up existing ones. Gear, tactics, actions, and traits will not be replaced.</p>
-                        <p><strong>Warning: The old statistics will be permanently overwritten.</strong></p>
-                        <fieldset><legend>Parameters:</legend>
-                            <label for="level">Level: <input required="true" autofocus="true" type="number" id="level" name="level"/></label>
-                            <label for="save">Strong save: <select id="save">
-                                <option selected="true" value="maneuver">Maneuver</option>
-                                <option value="morale">Morale</option>
+                        <p>${localize("desc")}</p>
+                        <p><strong>${localize("warning")}</strong></p>
+                        <fieldset><legend>${localize("parametersHeader")}</legend>
+                            <label for="level">${localize("levelLabel")}<input required="true" autofocus="true" type="number" id="level" name="level"/></label>
+                            <label for="save">${localize("saveLabel")}<select id="save">
+                                <option selected="true" value="maneuver">${game.i18n.localize("PF2E.Warfare.Army.maneuver")}</option>
+                                <option value="morale">${game.i18n.localize("PF2E.Warfare.Army.morale")}</option>
                             </select></label>
                         </fieldset>
                     </form></body>
@@ -280,7 +281,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 `,
                 buttons: {
                     generate: {
-                        label: "Generate Stats",
+                        label: localize("confirmButton"),
                         callback: (html) => processForm(html),
                         icon: `<i class="fas fa-cog"></i>`,
                     },
@@ -296,35 +297,26 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
         } else if (action === "level-up") {
             // We already know the values, the form is just a confirmation
-
-            const d = new Dialog({
-                title: "Level Up Army",
+            Dialog.confirm({
+                title: localize("levelUpTitle"),
                 content: `
                 <html>
                     <head><style>
                         div.dialog-buttons { padding-top: 0.5rem; }
                     </style></head>
                     <body><form>
-                        <p>Increases Army level by 1, updating stats using the default values as defined in the Warfare rules. New statistics will be dependent on the level. Gear, tactics, actions, and traits will not be replaced.</p>
-                        <p><strong>Warning: The old statistics will be permanently overwritten.</strong></p>
+                        <p>${localize("levelUpDesc")}</p>
+                        <p><strong>${localize("warning")}</strong></p>
                     </form></body>
                 </html>
                 `,
-                buttons: {
-                    generate: {
-                        label: "Level Up",
-                        callback: () => processForm(),
-                        icon: `<i class="fas fa-angle-double-up"></i>`,
-                    },
-                },});
-            d.render(true);
-
-            async function processForm() {
-                // Record results of user selection
-                const newLevel = Number(actor.system.details.level.value + 1);
-                const strongSave = String(actor.system.details.strongSave || "morale");
-                replaceStats(newLevel, strongSave);
-            }
+                yes: () => {
+                    const newLevel = Number(actor.system.details.level.value + 1);
+                    const strongSave = String(actor.system.details.strongSave || "morale");
+                    replaceStats(newLevel, strongSave);    
+                },
+                defaultYes: false,
+            });
         }
 
         // Function that updates stats with default values
