@@ -285,7 +285,7 @@ const actionGlyphMap: Record<string, string> = {
  * Returns a character that can be used with the Pathfinder action font
  * to display an icon. If null it returns empty string.
  */
-function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }): string {
+function getActionGlyph(action: string | number | null | ActionCost): string {
     if (!action && action !== 0) return "";
 
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
