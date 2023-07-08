@@ -210,7 +210,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             price = [0, 25, 50, 75];
         }
 
-        const content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/><p>" + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.infoMessageLevelLabel") + level[bonus] + "</p><p>Price: " + price[bonus] + " RP</p>" ;
+        const content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/><p>" + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.levelLabel") + level[bonus] + "</p><p>" + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.priceLabel") + price[bonus] + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.resourceLabel") + "</p>" ;
 
         /* Failed attempt to streamline this (couldn't work out how to access the values by index after swapping it to an object)
         const { info } = link?.dataset ?? {};
