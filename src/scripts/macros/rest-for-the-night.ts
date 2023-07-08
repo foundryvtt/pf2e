@@ -26,7 +26,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         return element.outerHTML;
     })();
     if (
-        options.confirmPrompt !== false &&
+        !options.skipDialog &&
         !(await Dialog.confirm({
             title: localize("Label"),
             content: promptMessage,
