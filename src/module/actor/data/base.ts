@@ -64,8 +64,6 @@ interface ActorSystemData extends ActorSystemSource {
     actions?: StrikeData[];
     attributes: ActorAttributes;
     traits?: ActorTraitsData<string>;
-    /** Icons appearing in the Effects Tracker application */
-    tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
     autoChanges: Record<string, AutoChangeEntry[] | undefined>;
 }

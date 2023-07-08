@@ -12,7 +12,7 @@ export class TokenEffectIconRuleElement extends RuleElementPF2e {
 
         const path =
             typeof this.data.value === "string" ? this.resolveInjectedProperties(this.data.value) : this.item.img;
-        this.actor.system.tokenEffects.push(
+        this.actor.synthetics.tokenEffectIcons.push(
             new TokenEffect(new EffectPF2e({ type: "effect", name: this.label, img: path.trim() as ImageFilePath }))
         );
     }

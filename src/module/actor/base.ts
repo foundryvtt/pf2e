@@ -285,7 +285,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => new TokenEffect(e));
 
-        return [super.temporaryEffects, fromConditions, fromEffects].flat();
+        return [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat();
     }
 
     /** A means of checking this actor's type without risk of circular import references */
@@ -596,6 +596,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             striking: {},
             targetMarks: new Map(),
             toggles: [],
+            tokenEffectIcons: [],
             tokenOverrides: {},
             weaponPotency: {},
             preparationWarnings: {
@@ -662,7 +663,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.system.tokenEffects = [];
         this.system.autoChanges = {};
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
 
