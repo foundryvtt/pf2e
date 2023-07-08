@@ -1,12 +1,8 @@
 .inventory-members {
     .box {
-        .actor-link {
+        .content {
             align-items: center;
-            display: grid;
-            grid-template-areas:
-                "image name "
-                "image value";
-            grid-template-columns: auto 1fr;
+            display: flex;
             padding: 0.5rem;
             overflow: hidden;
 
@@ -14,11 +10,10 @@
                 grid-area: image;
                 margin-right: 0.4rem;
             }
-            .name {
-                grid-area: name;
-            }
-            .value {
-                grid-area: value;
+            .sub-data {
+                display: flex;
+                flex-direction: column;
+                gap: 0.125rem;
             }
         }
 
@@ -41,9 +36,8 @@
 }
 
 .inventory {
-    @include scrollbar;
     flex: 1;
-    padding: 0 4px;
+    padding: 0.5rem 4px 0.5em 0.5em;
 
     display: flex;
     flex-direction: column;
