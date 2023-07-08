@@ -255,6 +255,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         super.prepareBaseData();
         const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
 
+        // template.json may be stale, work around it until core is fixed
+        this.system.exploration ??= [];
+
         // Flags
         const { flags } = this;
         flags.pf2e.favoredWeaponRank = 0;
