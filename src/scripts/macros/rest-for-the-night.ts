@@ -8,7 +8,7 @@ import { localizer, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 
 interface RestForTheNightOptions extends ActionDefaultOptions {
-    confirmPrompt?: boolean;
+    skipDialog?: boolean;
 }
 
 /** A macro for the Rest for the Night quasi-action */
