@@ -3,12 +3,12 @@ import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/action/index.ts";
-import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ActionType } from "@item/data/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/data/values.ts";
+import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { goesToEleven, ZeroToFour } from "@module/data.ts";
+import { ZeroToFour, goesToEleven } from "@module/data.ts";
 import { createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
@@ -515,25 +515,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         if (entry) {
             game.pf2e.compendiumBrowser.openSpellTab(entry, level);
         }
-    }
-
-    // Ensure a minimum of zero hit points and a maximum of the current max
-    protected override async _onSubmit(
-        event: Event,
-        options: OnSubmitFormOptions = {}
-    ): Promise<Record<string, unknown>> {
-        // Limit HP value to data.attributes.hp.max value
-        if (!(event.currentTarget instanceof HTMLInputElement)) {
-            return super._onSubmit(event, options);
-        }
-
-        const target = event.currentTarget;
-        if (target.name === "system.attributes.hp.value") {
-            const inputted = Number(target.value) || 0;
-            target.value = Math.floor(Math.clamped(inputted, 0, this.actor.hitPoints.max)).toString();
-        }
-
-        return super._onSubmit(event, options);
     }
 
     /** Redirect an update to shield HP to the actual item */

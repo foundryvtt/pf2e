@@ -176,6 +176,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             value: hp.value,
             max: hp.max,
             temp: hp.temp,
+            unrecoverable: hp.unrecoverable,
             negativeHealing: hp.negativeHealing,
         };
     }
@@ -667,6 +668,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
 
         const { attributes } = this.system;
+        attributes.hp &&= mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
         attributes.immunities = attributes.immunities?.map((i) => new ImmunityData(i)) ?? [];
         attributes.weaknesses = attributes.weaknesses?.map((w) => new WeaknessData(w)) ?? [];
         attributes.resistances = attributes.resistances?.map((r) => new ResistanceData(r)) ?? [];
@@ -1912,6 +1914,7 @@ interface HitPointsSummary {
     value: number;
     max: number;
     temp: number;
+    unrecoverable: number;
     negativeHealing: boolean;
 }
 

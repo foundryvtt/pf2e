@@ -21,7 +21,12 @@
         <div class="container max-hp">
             <span class="sidebar_label">{{localize "PF2E.MaxHitPointsShortLabel"}}</span>
             <div class="data-value">
-                <h2>{{data.attributes.hp.max}}</h2>
+                <h2>
+                    {{~data.attributes.hp.max~}}
+                    {{~#if data.attributes.hp.unrecoverable~}}
+                        <span class="unrecoverable" data-tooltip="{{localize "PF2E.Actor.HitPoints.Unrecoverable" value=data.attributes.hp.unrecoverable}}">*</span>
+                    {{~/if~}}
+                </h2>
             </div>
         </div>
     </div>

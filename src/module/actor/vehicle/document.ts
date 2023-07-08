@@ -39,10 +39,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        // Vehicles never have negative healing
-        const { attributes, details } = this.system;
-        attributes.hp.negativeHealing = false;
-        details.alliance = null;
+        this.system.details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object
         const { size } = this.system.traits;

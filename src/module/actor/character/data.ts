@@ -5,7 +5,6 @@ import {
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
-    CreatureHitPoints,
     CreatureResources,
     CreatureSystemData,
     CreatureTraitsData,
@@ -18,6 +17,7 @@ import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import {
     AbilityBasedStatistic,
     ActorFlagsPF2e,
+    HitPointsStatistic,
     InitiativeData,
     PerceptionData,
     StrikeData,
@@ -430,7 +430,7 @@ interface CharacterAttributes extends CreatureAttributes {
     battleForm: boolean;
 }
 
-interface CharacterHitPoints extends CreatureHitPoints {
+interface CharacterHitPoints extends HitPointsStatistic {
     recoveryMultiplier: number;
     recoveryAddend: number;
 }
