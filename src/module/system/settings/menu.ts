@@ -1,4 +1,6 @@
-export type PartialSettingsData = Omit<SettingRegistration, "scope" | "config">;
+import * as R from "remeda";
+
+export type PartialSettingsData = Omit<SettingRegistration, "scope">;
 
 interface SettingsTemplateData extends PartialSettingsData {
     key: string;
@@ -63,7 +65,8 @@ abstract class SettingsMenuPF2e extends FormApplication {
 
     override async getData(): Promise<MenuTemplateData> {
         const settings = (this.constructor as typeof SettingsMenuPF2e).settings;
-        const templateData = settingsToSheetData(settings, this.cache, this.prefix);
+        const filteredSettings = R.fromPairs(Object.entries(settings).filter(([_, v]) => v.config !== false));
+        const templateData = settingsToSheetData(filteredSettings, this.cache, this.prefix);
         return mergeObject(await super.getData(), {
             settings: templateData,
             instructions: `PF2E.SETTINGS.${this.namespace.titleCase()}.Hint`,

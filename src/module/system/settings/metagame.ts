@@ -1,5 +1,4 @@
 import { resetActors } from "@actor/helpers.ts";
-import * as R from "remeda";
 import { SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
@@ -19,6 +18,7 @@ const MetagameSettingsConfig = {
         name: "PF2E.SETTINGS.Metagame.ShowPartyStats.Name",
         hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
         default: true,
+        config: BUILD_MODE === "development",
         type: Boolean,
         onChange: () => {
             resetActors(game.actors.filter((a) => a.isOfType("party")));
@@ -68,9 +68,7 @@ class MetagameSettings extends SettingsMenuPF2e {
     static override namespace = "metagame";
 
     static override get settings(): Omit<typeof MetagameSettingsConfig, "showPartyStats"> {
-        return BUILD_MODE === "production"
-            ? R.omit(MetagameSettingsConfig, ["showPartyStats"])
-            : MetagameSettingsConfig;
+        return MetagameSettingsConfig;
     }
 
     static override get SETTINGS(): string[] {
