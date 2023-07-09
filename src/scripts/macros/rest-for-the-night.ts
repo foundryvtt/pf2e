@@ -7,8 +7,12 @@ import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { localizer, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 
+interface RestForTheNightOptions extends ActionDefaultOptions {
+    skipDialog?: boolean;
+}
+
 /** A macro for the Rest for the Night quasi-action */
-export async function restForTheNight(options: ActionDefaultOptions): Promise<ChatMessagePF2e[]> {
+export async function restForTheNight(options: RestForTheNightOptions): Promise<ChatMessagePF2e[]> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const characters = actors.filter((a): a is CharacterPF2e => a?.type === "character");
     if (actors.length === 0) {
@@ -22,6 +26,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         return element.outerHTML;
     })();
     if (
+        !options.skipDialog &&
         !(await Dialog.confirm({
             title: localize("Label"),
             content: promptMessage,
