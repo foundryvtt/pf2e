@@ -1,3 +1,17 @@
+## 5.1.2
+
+### Bugfixes
+
+-   (stwlam) Fix regression in determining battle form attack modifiers
+-   (stwlam) Restore rule-element-based token effect icons
+-   (Supe) Work around obscure upstream issue resulting in PC sheets becoming unopenable immediately after updating system
+
+### Data Updates
+
+-   (Dire Weasel) Fix stringified level for Ashen
+-   (stwlam) Fix price of major cloister robe
+-   (Tikael) Fix rule element in Echo of the Fallen
+
 ## 5.1.1
 
 ### System Improvements
