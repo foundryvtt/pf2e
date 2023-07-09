@@ -1,105 +1,84 @@
 import { CharacterPF2e } from "@actor";
-import { MartialProficiency } from "@actor/character/data.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
-import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
-import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { PredicateField } from "@system/schema-data-fields.ts";
+import { ResolvableValueField } from "./data.ts";
+import { sluggify } from "@util";
 
-class MartialProficiencyRuleElement extends RuleElementPF2e {
+class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
+    override slug: string;
 
-    /** Predication test for whether a weapon matches this proficiency */
-    definition: PredicatePF2e;
-
-    constructor(data: MartialProficiencySource, options: RuleElementOptions) {
-        data.priority = 9;
-        data.immutable = Boolean(data.immutable ?? true);
-        data.value ??= 1;
-
-        super(data, options);
-
-        this.definition = new PredicatePF2e(Array.isArray(data.definition) ? data.definition : []);
+    static override defineSchema(): MartialProficiencySchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            definition: new PredicateField({ required: true, nullable: false }),
+            immutable: new fields.BooleanField({ required: false, initial: true }),
+            sameAs: new fields.StringField({
+                required: false,
+                nullable: false,
+                choices: ["simple", "martial", "advanced", "unarmed"],
+            }),
+            maxRank: new fields.StringField({
+                required: false,
+                nullable: false,
+                choices: ["trained", "expert", "master", "legendary"],
+            }),
+            value: new ResolvableValueField({ required: false, initial: undefined }),
+        };
     }
 
-    private validateData(): void {
-        const data = this.data;
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super({ ...data, priority: 9 }, options);
 
-        if (typeof data.slug !== "string") {
-            this.failValidation("A martial proficiency must have a slug");
-        }
-
-        if (!Array.isArray(data.definition)) {
-            this.failValidation("A martial proficiency must have a definition");
-        }
-
-        if ("sameAs" in data) {
-            if (typeof data.sameAs !== "string" || !(data.sameAs in CONFIG.PF2E.weaponCategories)) {
-                this.failValidation('The "sameAs" property is invalid');
-            }
-        }
-
-        if ("maxRank" in data) {
-            const validRanks: string[] = PROFICIENCY_RANKS.filter((rank) => rank !== "untrained");
-            if (!(typeof data.maxRank === "string") || !validRanks.includes(data.maxRank)) {
-                this.failValidation('The "maxRank" property is invalid');
-            }
-        }
+        this.slug ??= sluggify(this.label);
     }
 
     override onApplyActiveEffects(): void {
-        this.validateData();
         if (!this.test()) return;
 
-        this.actor.system.martial[this.data.slug] = this.createValue();
-    }
-
-    /** Set this martial proficiency as an AELike value  */
-    private createValue(): MartialProficiency {
-        const rank = Math.clamped(Number(this.resolveValue()), 1, 4) as ZeroToFour;
-        const proficiency: MartialProficiency = {
+        const rank = Math.clamped(Number(this.resolveValue(this.value)) || 1, 1, 4) as ZeroToFour;
+        this.actor.system.martial[this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),
-            immutable: this.data.immutable ?? true,
+            immutable: this.immutable,
             label: this.label,
+            sameAs: this.sameAs,
             rank,
+            maxRank: this.maxRank,
             value: 0,
             breakdown: "",
         };
-        if (this.data.sameAs) proficiency.sameAs = this.data.sameAs;
-        if (this.data.maxRank) proficiency.maxRank = this.data.maxRank;
-
-        return proficiency;
     }
 }
 
-interface MartialProficiencyRuleElement extends RuleElementPF2e {
-    data: MartialProficiencyData;
-
+interface MartialProficiencyRuleElement
+    extends RuleElementPF2e<MartialProficiencySchema>,
+        ModelPropsFromSchema<MartialProficiencySchema> {
     get actor(): CharacterPF2e;
 }
 
-interface MartialProficiencyData extends RuleElementData {
-    key: "MartialProficiency";
-    /** The key to be used for this proficiency in `CharacterPF2e#system#martial` */
-    slug: string;
+type MartialProficiencySchema = RuleElementSchema & {
     /** The criteria for matching qualifying weapons and other attacks */
-    definition: RawPredicate;
+    definition: PredicateField<true, false, false>;
     /** Whether this proficiency's rank can be manually changed */
-    immutable: boolean;
+    immutable: BooleanField<boolean, boolean, false, false, true>;
     /** The attack category to which this proficiency's rank is linked */
-    sameAs: WeaponCategory;
+    sameAs: StringField<WeaponCategory, WeaponCategory, false, false, false>;
     /** The maximum rank this proficiency can reach, if any */
-    maxRank?: Exclude<ProficiencyRank, "untrained">;
+    maxRank: StringField<
+        Exclude<ProficiencyRank, "untrained">,
+        Exclude<ProficiencyRank, "untrained">,
+        false,
+        false,
+        false
+    >;
     /** Initially a number indicating rank, changed into a `MartialProficiency` object for overriding as an AE-like */
-    value: number | MartialProficiency;
-}
-
-export interface MartialProficiencySource extends RuleElementSource {
-    definition?: unknown;
-    sameAs?: unknown;
-    immutable?: unknown;
-    maxRank?: unknown;
-}
+    value: ResolvableValueField<false, false, false>;
+};
 
 export { MartialProficiencyRuleElement };

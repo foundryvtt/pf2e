@@ -5,40 +5,30 @@ import { AbilityString } from "@actor/types.ts";
 import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { setHasElement, sluggify } from "@util";
-import { RuleElementOptions } from "./base.ts";
-import { RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField } from "./data.ts";
 
 /**
  * @category RuleElement
  */
-class FixedProficiencyRuleElement extends RuleElementPF2e {
+class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    override slug: string;
+    static override defineSchema(): FixedProficiencyRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            selector: new fields.StringField({ required: true, blank: false }),
+            value: new ResolvableValueField({ required: true, initial: undefined }),
+            ability: new fields.StringField({ required: true, choices: [...ABILITY_ABBREVIATIONS] }),
+        };
+    }
 
-    private selector: string;
-
-    private ability: AbilityString | null;
-
-    constructor(data: FixedProficiencySource, options: RuleElementOptions) {
-        super(data, options);
-
-        if (typeof data.selector === "string") {
-            this.selector = data.selector;
-        } else {
-            this.failValidation("Missing string selector property");
-            this.selector = "";
+    static override validateJoint(data: SourceFromSchema<FixedProficiencyRuleSchema>): void {
+        if (data.selector === "ac") {
+            data.ability = "dex";
         }
-
-        this.slug = sluggify(typeof data.slug === "string" ? data.slug : this.label);
-        this.ability =
-            data.ability === null
-                ? null
-                : setHasElement(ABILITY_ABBREVIATIONS, data.ability)
-                ? data.ability
-                : data.selector === "ac"
-                ? "dex"
-                : null;
     }
 
     override beforePrepareData(): void {
@@ -76,14 +66,16 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
     }
 }
 
-interface FixedProficiencyRuleElement {
+interface FixedProficiencyRuleElement
+    extends RuleElementPF2e<FixedProficiencyRuleSchema>,
+        ModelPropsFromSchema<FixedProficiencyRuleSchema> {
     get actor(): CharacterPF2e;
 }
 
-interface FixedProficiencySource extends RuleElementSource {
-    selector?: unknown;
-    ability?: unknown;
-    force?: unknown;
-}
+type FixedProficiencyRuleSchema = RuleElementSchema & {
+    selector: StringField<string, string, true, false, false>;
+    value: ResolvableValueField<true, false, false>;
+    ability: StringField<AbilityString, AbilityString, true, false, false>;
+};
 
 export { FixedProficiencyRuleElement };
