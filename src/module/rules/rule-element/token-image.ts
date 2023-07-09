@@ -1,37 +1,28 @@
-import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { ResolvableValueField } from "./data.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import type { ColorField, NumberField } from "types/foundry/common/data/fields.d.ts";
 
 /**
  * Change the image representing an actor's token
  * @category RuleElement
  */
-export class TokenImageRuleElement extends RuleElementPF2e {
-    /** An image or video path */
-    value: string | BracketedValue | null;
+class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
+    static override defineSchema(): TokenImageRuleSchema {
+        const { fields } = foundry.data;
+        return {
+            ...super.defineSchema(),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+            scale: new fields.NumberField({ required: false, nullable: false, positive: true, initial: undefined }),
+            tint: new fields.ColorField({ required: false, nullable: false, initial: undefined }),
+            alpha: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+        };
+    }
 
-    /** An optional scale, tint, and alpha adjustment */
-    scale?: number;
-    tint?: HexColorString;
-    alpha?: number;
-
-    constructor(data: TokenImageSource, options: RuleElementOptions) {
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
         super(data, options);
 
-        if (typeof data.value === "string" || this.isBracketedValue(data.value)) {
-            this.value = data.value;
-        } else {
-            this.value = null;
-        }
-
-        if (typeof data.scale === "number" && data.scale > 0) {
-            this.scale = data.scale;
-        }
-
-        if (typeof data.tint === "string") {
-            this.tint = new Color(data.tint).toString();
-        }
-
-        if (typeof data.alpha === "number") {
-            this.alpha = data.alpha;
+        if (!(typeof this.value === "string" || this.isBracketedValue(this.value))) {
+            this.failValidation("value must be a string or a bracketed value");
         }
     }
 
@@ -51,7 +42,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
             texture.tint = this.tint;
         }
 
-        if (typeof this.alpha === "number") {
+        if (this.alpha) {
             this.actor.synthetics.tokenOverrides.alpha = this.alpha;
         }
 
@@ -65,9 +56,19 @@ export class TokenImageRuleElement extends RuleElementPF2e {
     }
 }
 
-interface TokenImageSource extends RuleElementSource {
-    value?: unknown;
-    scale?: unknown;
-    tint?: unknown;
-    alpha?: unknown;
-}
+interface TokenImageRuleElement
+    extends RuleElementPF2e<TokenImageRuleSchema>,
+        ModelPropsFromSchema<TokenImageRuleSchema> {}
+
+type TokenImageRuleSchema = RuleElementSchema & {
+    /** An image or video path */
+    value: ResolvableValueField<true, false, false>;
+    /** An optional scale adjustment */
+    scale: NumberField<number, number, false, false, false>;
+    /** An optional tint adjustment */
+    tint: ColorField<false, false, false>;
+    /** An optional alpha adjustment */
+    alpha: NumberField<number, number, false, false, false>;
+};
+
+export { TokenImageRuleElement };
