@@ -316,6 +316,7 @@ class CompendiumBrowser extends Application {
                 settings.bestiary![pack.collection] = {
                     load,
                     name: pack.metadata.label,
+                    package: pack.metadata.packageName,
                 };
             }
             if (types.has("hazard")) {
@@ -323,6 +324,7 @@ class CompendiumBrowser extends Application {
                 settings.hazard![pack.collection] = {
                     load,
                     name: pack.metadata.label,
+                    package: pack.metadata.packageName,
                 };
             }
 
@@ -331,6 +333,7 @@ class CompendiumBrowser extends Application {
                 settings.action![pack.collection] = {
                     load,
                     name: pack.metadata.label,
+                    package: pack.metadata.packageName,
                 };
             } else if (
                 ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"].some((type) =>
@@ -341,18 +344,21 @@ class CompendiumBrowser extends Application {
                 settings.equipment![pack.collection] = {
                     load,
                     name: pack.metadata.label,
+                    package: pack.metadata.packageName,
                 };
             } else if (types.has("feat")) {
                 const load = this.settings.feat?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.feat![pack.collection] = {
                     load,
                     name: pack.metadata.label,
+                    package: pack.metadata.packageName,
                 };
             } else if (types.has("spell")) {
                 const load = this.settings.spell?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.spell![pack.collection] = {
                     load,
                     name: pack.metadata.label,
+                    package: pack.metadata.packageName,
                 };
             }
         }

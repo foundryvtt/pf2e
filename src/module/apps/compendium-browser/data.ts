@@ -3,6 +3,7 @@ import * as browserTabs from "./tabs/index.ts";
 interface PackInfo {
     load: boolean;
     name: string;
+    package: string;
 }
 
 interface SourceInfo {
