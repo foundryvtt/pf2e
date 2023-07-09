@@ -258,6 +258,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // template.json may be stale, work around it until core is fixed
         this.system.exploration ??= [];
 
+        // If there are no parties, clear the exploration activities list
+        if (!this.parties.size) {
+            this.system.exploration = [];
+        }
+
         // Flags
         const { flags } = this;
         flags.pf2e.favoredWeaponRank = 0;
