@@ -480,7 +480,28 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "negative",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:mode:living"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "positive",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:trait:undead"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": "spirit-touch",
                 "source": {
                     "value": ""
