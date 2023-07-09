@@ -11,6 +11,7 @@ import { InvalidCampaign } from "./invalid-campaign.ts";
 import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
+import { resetActors } from "@actor/helpers.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -103,8 +104,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.attributes.speed = { value: travelSpeed };
     }
 
-    async addMembers(...newMembers: CreaturePF2e[]): Promise<void> {
+    async addMembers(...membersToAdd: CreaturePF2e[]): Promise<void> {
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
+
+        const existingUUIDs = new Set(existing.map((data) => data.uuid));
+        const newMembers = membersToAdd.filter((a) => !existingUUIDs.has(a.uuid));
         const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
         await this.update({ system: { details: { members } } });
 
@@ -114,6 +118,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 await member.update({ folder: null });
             }
         }
+
+        await resetActors(newMembers);
     }
 
     async removeMembers(...remove: (ActorUUID | CreaturePF2e)[]): Promise<void> {
@@ -184,20 +190,25 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
-        for (const removed of options.removedMembers ?? []) {
-            const actor = fromUuidSync(removed);
-            if (actor instanceof ActorPF2e && actor.isOfType("creature")) {
-                actor.parties.delete(this);
-            }
+
+        const removedCreatures = (options.removedMembers ?? [])
+            .map((uuid) => fromUuidSync(uuid))
+            .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"));
+        for (const actor of removedCreatures) {
+            actor.parties.delete(this);
         }
+
+        resetActors(removedCreatures);
     }
 
     /** Overriden to inform creatures the party is defunct */
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
         for (const member of this.members) {
-            member?.parties.delete(this);
+            member.parties.delete(this);
         }
+
+        resetActors(this.members);
     }
 }
 
