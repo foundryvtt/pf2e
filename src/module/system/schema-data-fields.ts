@@ -43,6 +43,20 @@ class LaxSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<
     }
 }
 
+/** A `SchemaField` that does not cast the source value to an object */
+class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {
+    protected override _cast(value: unknown): SourceFromSchema<TDataSchema> {
+        return value as SourceFromSchema<TDataSchema>;
+    }
+
+    protected override _cleanType(data: object, options?: CleanFieldOptions): SourceFromSchema<TDataSchema> {
+        if (!isObject(data)) {
+            throw Error(`${this.name} is not an object`);
+        }
+        return super._cleanType(data, options);
+    }
+}
+
 /** A sluggified string field */
 class SlugField<
     TRequired extends boolean = true,
@@ -252,4 +266,4 @@ class RecordField<
     }
 }
 
-export { LaxSchemaField, PredicateField, RecordField, SlugField };
+export { LaxSchemaField, PredicateField, RecordField, SlugField, StrictSchemaField };

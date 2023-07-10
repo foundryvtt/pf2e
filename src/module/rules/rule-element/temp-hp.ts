@@ -1,9 +1,10 @@
 import { ActorType } from "@actor/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { isObject } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { BooleanField, SchemaField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleElementSource } from "./data.ts";
+import { ResolvableValueField } from "./data.ts";
+import { StrictSchemaField } from "@system/schema-data-fields.ts";
 
 /**
  * @category RuleElement
@@ -16,34 +17,21 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),
-            events: new fields.SchemaField(
+            events: new StrictSchemaField(
                 {
-                    onCreate: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
-                    onTurnStart: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+                    onCreate: new fields.BooleanField({ required: false, nullable: false }),
+                    onTurnStart: new fields.BooleanField({ required: false, nullable: false }),
                 },
-                { required: false, nullable: false, initial: undefined }
+                {
+                    required: true,
+                    nullable: false,
+                    initial: {
+                        onCreate: true,
+                        onTurnStart: false,
+                    },
+                }
             ),
         };
-    }
-
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        // SchemaField coerces invalid source values into an object so these checks must happen before the super call
-        if ("events" in data) {
-            if (!isObject<SourceFromSchema<TempHPEventsSchema>>(data.events)) {
-                throw Error("events must be an object");
-            } else if (data.events.onCreate === undefined && data.events.onTurnStart === undefined) {
-                throw Error("events object must have an onCreate or onTurnStart value or be omitted");
-            }
-        }
-        super(data, options);
-
-        // Set default values if events was omitted
-        if (!this.events) {
-            this.events = {
-                onCreate: true,
-                onTurnStart: false,
-            };
-        }
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
@@ -131,9 +119,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     }
 }
 
-interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromSchema<TempHPRuleSchema> {
-    events: Required<ModelPropsFromSchema<TempHPEventsSchema>>;
-}
+interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromSchema<TempHPRuleSchema> {}
 
 type TempHPEventsSchema = {
     /** Whether the temporary hit points are immediately applied */
@@ -148,9 +134,9 @@ type TempHPRuleSchema = RuleElementSchema & {
         TempHPEventsSchema,
         SourceFromSchema<TempHPEventsSchema>,
         ModelPropsFromSchema<TempHPEventsSchema>,
+        true,
         false,
-        false,
-        false
+        true
     >;
 };
 

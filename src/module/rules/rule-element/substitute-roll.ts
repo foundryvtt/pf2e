@@ -14,7 +14,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
             value: new ResolvableValueField({ required: true, nullable: false }),
             required: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             effectType: new fields.StringField({
-                required: false,
+                required: true,
                 nullable: false,
                 choices: ["fortune", "misfortune"],
                 initial: "fortune",
@@ -48,7 +48,7 @@ type SubstituteRollSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, true>;
     value: ResolvableValueField<true, false, false>;
     required: BooleanField<boolean, boolean, false, false, true>;
-    effectType: StringField<"fortune" | "misfortune", "fortune" | "misfortune", false, false, true>;
+    effectType: StringField<"fortune" | "misfortune", "fortune" | "misfortune", true, false, true>;
 };
 
 export { SubstituteRollRuleElement };
