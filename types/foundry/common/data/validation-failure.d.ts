@@ -15,7 +15,7 @@ export class DataModelValidationFailure {
         unresolved,
     }?: {
         invalidValue?: unknown;
-        fallback?: unknown;
+        fallback?: boolean;
         dropped?: boolean;
         message?: string;
         unresolved?: boolean;
