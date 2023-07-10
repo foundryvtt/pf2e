@@ -2,8 +2,8 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /**  Move TempHPRuleElement source `onCreate` and `onTurnStart` to `events` object */
-export class Migration846TempHPRuleEvents extends MigrationBase {
-    static override version = 0.846;
+export class Migration847TempHPRuleEvents extends MigrationBase {
+    static override version = 0.847;
 
     override async preUpdateItem(source: ItemSourcePF2e): Promise<void> {
         const rules = source.system.rules.filter((r): r is MaybeOldRuleSource => r.key === "TempHP");
