@@ -54,6 +54,8 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
 
     effects: VideoFilePath[];
 
+    hidden: boolean;
+
     flags: DocumentFlags;
 
     static override get metadata(): TokenMetadata;
