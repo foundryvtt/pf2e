@@ -18,6 +18,8 @@ declare global {
     class LightingLayer<TAmbientLight extends AmbientLight = AmbientLight> extends PlaceablesLayer<TAmbientLight> {
         constructor();
 
+        override quadtree: CanvasQuadtree<TAmbientLight>;
+
         /** A mapping of light sources which are active within the rendered Scene */
         sources: Collection<LightSource<TAmbientLight | Token>>;
 
