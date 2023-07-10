@@ -1,10 +1,11 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
-import { getPropertySlots, getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical/index.ts";
+import { PhysicalItemHitPoints, PhysicalItemPF2e, getPropertySlots, getResilientBonus } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
-import { ArmorCategory, ArmorGroup, ArmorSource, ArmorSystemData, BaseArmorType } from "./index.ts";
+import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
+import { ArmorSource, ArmorSystemData } from "./data.ts";
+import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
 
 class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
