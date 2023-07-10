@@ -26,9 +26,17 @@ export class StatusEffects {
     /** Set the theme for condition icons on tokens */
     static initialize(): void {
         const iconTheme = game.settings.get("pf2e", "statusEffectType");
+        CONFIG.controlIcons.defeated = game.settings.get("pf2e", "deathIcon");
         CONFIG.PF2E.statusEffects.lastIconTheme = iconTheme;
         CONFIG.PF2E.statusEffects.iconDir = this.#ICON_THEME_DIRS[iconTheme];
         this.#updateStatusIcons();
+    }
+
+    /** Update status icons and tokens due to certain potential changes */
+    static reset(): void {
+        CONFIG.controlIcons.defeated = game.settings.get("pf2e", "deathIcon");
+        this.#updateStatusIcons();
+        this.refresh();
     }
 
     static get conditions(): Record<ConditionSlug, { name: string; rules: string; summary: string }> {
