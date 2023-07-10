@@ -244,3 +244,4 @@ export { Migration843RMArmorCustomModifiers } from "./843-rm-armor-custom-modifi
 export { Migration844DeityDomainUUIDs } from "./844-deity-domains-uuids.ts";
 export { Migration845EmptySpellConsumables } from "./845-empty-spell-consumables.ts";
 export { Migration846SpellSchoolOptional } from "./846-spell-school-optional.ts";
+export { Migration847TempHPRuleEvents } from "./847-temp-hp-rule-events.ts";
