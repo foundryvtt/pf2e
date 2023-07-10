@@ -160,7 +160,11 @@ export function registerSettings(): void {
         default: "icons/svg/skull.svg",
         type: String,
         onChange: (choice?: string) => {
-            if (isImageOrVideoPath(choice)) CONFIG.controlIcons.defeated = choice;
+            if (isImageOrVideoPath(choice)) {
+                StatusEffects.reset();
+            } else if (!choice) {
+                game.settings.set("pf2e", "deathIcon", "icons/svg/skull.svg");
+            }
         },
     });
 
