@@ -1,5 +1,5 @@
 import { MeasuredTemplateDocumentPF2e } from "@scene/measured-template-document.ts";
-import { TemplateLayerPF2e } from "./index.ts";
+import { TemplateLayerPF2e, TokenPF2e } from "./index.ts";
 import { highlightGrid } from "./helpers.ts";
 import { ScenePF2e } from "@scene/index.ts";
 import { ItemPF2e } from "@item";
@@ -143,6 +143,72 @@ class MeasuredTemplatePF2e<
     get item(): ItemPF2e<ActorPF2e> | null {
         return this.document.item;
     }
+
+    getTokens({ collisionOrigin, collisionType = "move" }: GetTokensParams = {}): TokenPF2e[] {
+        if (!canvas.scene) return [];
+        const { grid, dimensions } = canvas;
+        if (!(grid && dimensions)) return [];
+
+        const gridHighlight = grid.getHighlightLayer(this.highlightId);
+        if (!gridHighlight || grid.type !== CONST.GRID_TYPES.SQUARE) return [];
+        const origin = collisionOrigin ?? this.center;
+
+        // Get all the tokens that are inside the highlight bounds
+        const tokens = canvas.tokens.quadtree.getObjects(gridHighlight.getLocalBounds(undefined, true));
+
+        const containedTokens: TokenPF2e[] = [];
+        for (const token of tokens) {
+            const tokenDoc = token.document;
+
+            // Collect the position of all grid squares that this token occupies as "x.y"
+            const tokenPositions: string[] = [];
+            for (let h = 0; h < tokenDoc.height; h++) {
+                const y = token.y + h * grid.size;
+                tokenPositions.push(`${token.x}.${y}`);
+                if (tokenDoc.width > 1) {
+                    for (let w = 1; w < tokenDoc.width; w++) {
+                        tokenPositions.push(`${token.x + w * grid.size}.${y}`);
+                    }
+                }
+            }
+
+            for (const position of tokenPositions) {
+                // Check if a position exists within this GridHiglight
+                if (!gridHighlight.positions.has(position)) {
+                    continue;
+                }
+                // Position of cell's top-left corner, in pixels
+                const [gx, gy] = position.split(".").map((s) => Number(s));
+                // Position of cell's center in pixels
+                const destination = {
+                    x: gx + dimensions.size * 0.5,
+                    y: gy + dimensions.size * 0.5,
+                };
+                if (destination.x < 0 || destination.y < 0) continue;
+
+                const hasCollision =
+                    canvas.ready &&
+                    collisionType &&
+                    CONFIG.Canvas.polygonBackends[collisionType].testCollision(origin, destination, {
+                        type: collisionType,
+                        mode: "any",
+                    });
+
+                if (!hasCollision) {
+                    containedTokens.push(token);
+                    break;
+                }
+            }
+        }
+        return containedTokens;
+    }
+}
+
+interface GetTokensParams {
+    /** The point to test collison from. Defaults to the template center */
+    collisionOrigin?: Point;
+    /** The collision type to check. Defaults to `move`. Can be set to `null` to disable. */
+    collisionType?: WallRestrictionType | null;
 }
 
 interface PreviewData {
