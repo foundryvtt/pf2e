@@ -63,17 +63,20 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
 }
 
 /** Override to refocus tagify elements in _render() to workaround handlebars full re-render */
-async function maintainTagifyFocusInRender(sheet: DocumentSheet, renderLogic: () => Promise<void>): Promise<void> {
-    const element = sheet.element[0];
-    const active = document.activeElement;
-    const activeWasHere = element?.contains(active);
-
+async function maintainFocusInRender(sheet: DocumentSheet, renderLogic: () => Promise<void>): Promise<void> {
+    const element = sheet.element.get(0);
+    const { activeElement } = document;
+    const activeWasHere = element?.contains(activeElement);
     await renderLogic();
+    if (!activeElement || !activeWasHere) return;
 
     // If the active element was a tagify that is part of this sheet, re-render
-    if (activeWasHere && active?.classList.contains("tagify__input")) {
-        const name = htmlClosest(active, "tags")?.dataset.name;
-        if (name && sheet.element[0]) {
+    if (activeElement instanceof HTMLInputElement && activeElement.dataset.property) {
+        const sameInput = htmlQuery(element, `input[data-property="${activeElement.dataset.property}"]`);
+        sameInput?.focus();
+    } else if (activeElement.classList.contains("tagify__input")) {
+        const name = htmlClosest(activeElement, "tags")?.dataset.name;
+        if (name) {
             htmlQuery(element, `tags[data-name="${name}"] span[contenteditable]`)?.focus();
         }
     }
@@ -101,12 +104,12 @@ interface TraitTagifyEntry {
 }
 
 export {
-    createSheetOptions,
-    createSheetTags,
-    createTagifyTraits,
-    maintainTagifyFocusInRender,
-    processTagifyInSubmitData,
     SheetOption,
     SheetOptions,
     TraitTagifyEntry,
+    createSheetOptions,
+    createSheetTags,
+    createTagifyTraits,
+    maintainFocusInRender,
+    processTagifyInSubmitData,
 };

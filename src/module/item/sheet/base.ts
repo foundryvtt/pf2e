@@ -4,7 +4,7 @@ import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
-    maintainTagifyFocusInRender,
+    maintainFocusInRender,
     processTagifyInSubmitData,
 } from "@module/sheet/helpers.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
@@ -587,6 +587,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
-        await maintainTagifyFocusInRender(this, () => super._render(force, options));
+        await maintainFocusInRender(this, () => super._render(force, options));
     }
 }

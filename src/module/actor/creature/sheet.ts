@@ -3,12 +3,12 @@ import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/action/index.ts";
-import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ActionType } from "@item/data/base.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/data/values.ts";
+import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { goesToEleven, ZeroToFour } from "@module/data.ts";
+import { ZeroToFour, goesToEleven } from "@module/data.ts";
 import { createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
@@ -109,21 +109,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
     protected getProficiencyIcon(level: ZeroToFour): string {
         return [...Array(level)].map(() => fontAwesomeIcon("check-circle").outerHTML).join("");
-    }
-
-    /** Preserve browser focus on unnamed input elements when updating */
-    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
-        const focused = document.activeElement;
-        const contained = this.element.get(0)?.contains(focused);
-
-        await super._render(force, options);
-
-        if (focused instanceof HTMLInputElement && focused.name && contained) {
-            const selector = `input[data-property="${focused.name}"]:not([name])`;
-            const sameInput = this.element.get(0)?.querySelector<HTMLInputElement>(selector);
-            sameInput?.focus();
-            sameInput?.select();
-        }
     }
 
     override activateListeners($html: JQuery): void {

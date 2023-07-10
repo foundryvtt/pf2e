@@ -1,25 +1,27 @@
 import type { ActorPF2e } from "@actor";
+import { CraftingFormula } from "@actor/character/crafting/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ActionType } from "@item/data/base.ts";
 import { isPhysicalData } from "@item/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
+import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
     BasicConstructorOptions,
-    SelectableTagField,
     SELECTABLE_TAG_FIELDS,
+    SelectableTagField,
     SenseSelector,
     SpeedSelector,
+    TAG_SELECTOR_TYPES,
     TagSelectorBasic,
     TagSelectorOptions,
     TagSelectorType,
-    TAG_SELECTOR_TYPES,
 } from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
@@ -32,6 +34,8 @@ import {
     setHasElement,
     tupleHasValue,
 } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
+import Sortable, { type SortableEvent } from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
 import {
     ActorSheetDataPF2e,
@@ -40,6 +44,7 @@ import {
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
+import { onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { MoveLootPopup } from "./loot/move-loot-popup.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
@@ -47,11 +52,6 @@ import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts"
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
-import { CraftingFormula } from "@actor/character/crafting/index.ts";
-import { UUIDUtils } from "@util/uuid.ts";
-import Sortable, { type SortableEvent } from "sortablejs";
-import { onClickCreateSpell } from "./helpers.ts";
-import { ActionType } from "@item/data/base.ts";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1358,7 +1358,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void> {
-        await maintainTagifyFocusInRender(this, () => super._render(force, options));
+        await maintainFocusInRender(this, () => super._render(force, options));
         if (options?.tab) {
             this.openTab(options.tab);
         }
