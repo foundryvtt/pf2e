@@ -13,6 +13,8 @@ declare global {
         /** Keep track of history so that CTRL+Z can undo changes */
         history: CanvasHistory<TObject>[];
 
+        quadtree: CanvasQuadtree<TObject> | null;
+
         /** Track the PlaceableObject on this layer which is currently hovered upon. */
         get hover(): TObject | null;
 

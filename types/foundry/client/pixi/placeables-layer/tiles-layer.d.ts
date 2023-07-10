@@ -6,4 +6,5 @@
 
 declare class TilesLayer<TTile extends Tile> extends PlaceablesLayer<TTile> {
     static override documentName: "Tile";
+    override quadtree: CanvasQuadtree<TTile>;
 }

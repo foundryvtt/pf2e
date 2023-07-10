@@ -7,6 +7,8 @@ declare global {
     > extends PlaceablesLayer<TObject> {
         constructor();
 
+        override quadtree: CanvasQuadtree<TObject>;
+
         /** A graphics layer used to display chained Wall selection */
         chain: PIXI.Graphics;
 

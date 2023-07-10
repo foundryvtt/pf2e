@@ -5,6 +5,8 @@ declare global {
     class TokenLayer<TToken extends Token = Token> extends PlaceablesLayer<TToken> {
         constructor();
 
+        override quadtree: CanvasQuadtree<TToken>;
+
         /** The current index position in the tab cycle */
         protected _tabIndex: number | null;
 
