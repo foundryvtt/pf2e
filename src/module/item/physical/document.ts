@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ItemPF2e, type ContainerPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data/index.ts";
@@ -527,6 +527,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // Clamp hit points to between zero and max
         if (typeof changed.system?.hp?.value === "number") {
             changed.system.hp.value = Math.clamped(changed.system.hp.value, 0, this.system.hp.max);
+        } else if (typeof changed.system?.hp?.max === "number" && changed.system.hp.max < this.system.hp.max) {
+            changed.system.hp.value = Math.clamped(this.system.hp.value, 0, changed.system.hp.max);
         }
 
         if (!changed.system) return super._preUpdate(changed, options, user);
@@ -573,6 +575,36 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = isSlotted;
         } else {
             equipped["-=inSlot"] = null;
+        }
+
+        // Special handling for ephemeral hit point changes: if the max HP would be adjusted when changing this item's
+        // carry type, proportionally adjust the current HP as well.
+        type MaybeItemAlteration = { key: string; property?: unknown; itemType?: unknown };
+        const { actor } = this;
+        const hasHpChangeRules =
+            this.actor?.rules.some(
+                (r: MaybeItemAlteration) =>
+                    r.key === "ItemAlteration" && r.property === "hp-max" && r.itemType === this.type
+            ) ?? false;
+        if (actor && hasHpChangeRules && changed.system?.equipped?.carryType) {
+            // Simulate the update to determine whether max hit points will change
+            const postUpdateHPMax = ((): number => {
+                const actorSource = actor.toObject();
+                const itemSource = actorSource.items.find((i) => i._id === this.id) ?? { system: {} };
+                itemSource.system = mergeObject(itemSource.system, deepClone(changed.system));
+                const actorClone = new ActorProxyPF2e(actorSource);
+                const itemClone = actorClone.items.get(this.id, { strict: true });
+                return itemClone.isOfType("armor") ? itemClone.system.hp.max : this.system.hp.max;
+            })();
+            if (postUpdateHPMax !== this.system.hp.max) {
+                changed.system.hp ??= deepClone(this._source.system.hp);
+                // To avoid creeping values in one direction or the other, use `floor` when increasing and `ceil` when
+                // decreasing
+                const floorOrCeil = postUpdateHPMax > this.system.hp.max ? Math.floor : Math.ceil;
+                changed.system.hp.value = floorOrCeil(
+                    Math.clamped(this.system.hp.value * (postUpdateHPMax / this.system.hp.max), 0, postUpdateHPMax)
+                );
+            }
         }
 
         await super._preUpdate(changed, options, user);

@@ -1172,8 +1172,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
         const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
+        const { heldShield } = this;
+        // The blocking shield may not be the held shield, such as in when the Shield spell is in play
+        const blockingShield = heldShield?.id === actorShield?.itemId ? heldShield : null;
+        const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : actorShield?.hp.value ?? 0;
         const shieldDamage = shieldBlock
-            ? Math.min(actorShield?.hp.value ?? 0, Math.abs(finalDamage) - damageAbsorbedByShield)
+            ? Math.min(currentShieldHP, Math.abs(finalDamage) - damageAbsorbedByShield)
             : 0;
 
         // Reduce damage by actor hardness
@@ -1223,13 +1227,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const preUpdateSource = this.toObject();
 
         // Make updates
-        if (shieldDamage > 0) {
-            const shield = (() => {
-                const item = this.items.get(actorShield?.itemId ?? "");
-                return item?.isOfType("armor") ? item : null;
-            })();
-            await shield?.update(
-                { "system.hp.value": shield.hitPoints.value - shieldDamage },
+        if (blockingShield && shieldDamage > 0) {
+            await blockingShield.update(
+                { "system.hp.value": Math.max(blockingShield._source.system.hp.value - shieldDamage, 0) },
                 { render: hpDamage === 0 }
             );
         }

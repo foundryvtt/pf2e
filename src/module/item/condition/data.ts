@@ -26,6 +26,12 @@ interface ConditionSystemSource extends ItemSystemSource {
     traits?: never;
 }
 
+interface PersistentSourceData {
+    formula: string;
+    damageType: DamageType;
+    dc: number;
+}
+
 interface ConditionSystemData extends ConditionSystemSource, Omit<ItemSystemData, "level" | "slug" | "traits"> {
     persistent?: PersistentDamageData;
 }
@@ -36,11 +42,5 @@ interface PersistentDamageData extends PersistentSourceData {
 }
 
 type ConditionValueData = { isValued: true; value: number } | { isValued: false; value: null };
-
-interface PersistentSourceData {
-    formula: string;
-    damageType: DamageType;
-    dc: number;
-}
 
 export { ConditionSource, ConditionSystemData, ConditionSystemSource, PersistentDamageData, PersistentSourceData };

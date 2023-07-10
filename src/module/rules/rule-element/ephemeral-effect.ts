@@ -2,8 +2,8 @@ import { DeferredValueParams } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource } from "@item/data/index.ts";
 import { UUIDUtils } from "@util/uuid.ts";
-import type { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ItemAlterationField, applyAlterations } from "./alter-item/index.ts";
+import type { ArrayField, BooleanField, EmbeddedDataField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ItemAlteration } from "./item-alteration/alteration.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 /** An effect that applies ephemerally during a single action, such as a strike */
@@ -18,7 +18,7 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             ),
             uuid: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined }),
             adjustName: new fields.BooleanField({ required: true, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(new ItemAlterationField(), {
+            alterations: new fields.ArrayField(new fields.EmbeddedDataField(ItemAlteration), {
                 required: false,
                 nullable: false,
                 initial: [],
@@ -76,7 +76,9 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             }
 
             try {
-                applyAlterations(source, this.alterations);
+                for (const alteration of this.alterations) {
+                    alteration.applyTo(source);
+                }
             } catch (error) {
                 if (error instanceof Error) this.failValidation(error.message);
                 return null;
@@ -96,7 +98,7 @@ type EphemeralEffectSchema = RuleElementSchema & {
     selectors: ArrayField<StringField<string, string, true, false, false>>;
     uuid: StringField<string, string, true, false, false>;
     adjustName: BooleanField<boolean, boolean, true, false, true>;
-    alterations: ArrayField<ItemAlterationField>;
+    alterations: ArrayField<EmbeddedDataField<ItemAlteration>>;
 };
 
 export { EphemeralEffectRuleElement };

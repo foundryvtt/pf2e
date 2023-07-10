@@ -254,8 +254,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    protected resolveValue(
-        valueData = this.data.value,
+    resolveValue(
+        valueData: unknown = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
         { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {}
     ): number | string | boolean | object | null {
@@ -446,7 +446,7 @@ namespace RuleElementPF2e {
 
     export interface PreCreateParams<T extends RuleElementSource = RuleElementSource> {
         /** The source partial of the rule element's parent item to be created */
-        itemSource: PreCreate<ItemSourcePF2e>;
+        itemSource: ItemSourcePF2e;
         /** The source of the rule in `itemSource`'s `system.rules` array */
         ruleSource: T;
         /** All items pending creation in a `ItemPF2e.createDocuments` call */
