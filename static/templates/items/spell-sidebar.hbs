@@ -1,4 +1,6 @@
-<span class="item-summary">{{localize (lookup magicSchools data.school.value)}}</span>
+{{#if document.school}}
+    <span class="item-summary">{{localize (lookup magicSchools document.school)}}</span>
+{{/if}}
 <span class="item-summary">{{localize (lookup spellTypes data.spellType.value)}}</span>
 <span class="item-summary">{{{actionGlyph data.time.value fallback=true}}}</span>
 

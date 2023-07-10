@@ -20,6 +20,7 @@ const SECONDARY_TRAIT_RECORDS = {
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],
     weaponTraits: ["npcAttackTraits"],
+    magicSchools: ["spellTraits"],
 } as const;
 
 type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
