@@ -23,7 +23,7 @@ export class StatusEffects {
         blackWhite: "systems/pf2e/icons/conditions-2/",
     };
 
-    /** Link status effect icons to conditions */
+    /** Set the theme for condition icons on tokens */
     static initialize(): void {
         const iconTheme = game.settings.get("pf2e", "statusEffectType");
         CONFIG.PF2E.statusEffects.lastIconTheme = iconTheme;
