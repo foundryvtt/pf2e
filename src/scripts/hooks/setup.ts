@@ -10,7 +10,6 @@ export const Setup = {
             registerSheets();
 
             CONFIG.controlIcons.defeated = game.settings.get("pf2e", "deathIcon");
-            game.pf2e.StatusEffects.initialize();
 
             // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
             const homebrew = new HomebrewElements();

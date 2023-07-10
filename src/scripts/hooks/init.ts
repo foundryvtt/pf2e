@@ -169,6 +169,8 @@ export const Init = {
                     element.setAttribute("disabled", "");
                 }
             }
+
+            game.pf2e.StatusEffects.initialize();
         });
     },
 };
