@@ -13,6 +13,14 @@ export class TokenEffect implements TemporaryEffect {
         this.#effect = effect;
     }
 
+    get id(): string {
+        return this.#effect.id;
+    }
+
+    get _id(): string {
+        return this.#effect.id;
+    }
+
     get parent(): ActorPF2e {
         return this.#effect.parent;
     }
@@ -23,6 +31,10 @@ export class TokenEffect implements TemporaryEffect {
 
     get icon(): ImageFilePath {
         return this.#effect.img;
+    }
+
+    get changes(): never[] {
+        return [];
     }
 
     get description(): string {
@@ -56,6 +68,14 @@ export class TokenEffect implements TemporaryEffect {
             startTurn: isEffect ? effect.system.start.initiative : null,
             label: isEffect ? effect.system.remaining : "",
         };
+    }
+
+    get transfer(): boolean {
+        return false;
+    }
+
+    get origin(): ItemUUID {
+        return this.#effect.uuid;
     }
 
     getFlag(scope: string, flag: string): unknown {
