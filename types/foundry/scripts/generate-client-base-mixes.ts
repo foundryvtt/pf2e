@@ -164,91 +164,103 @@ const genClientBase = (
     protected override _onDelete(options: DocumentModificationContext<${tParentOrNull}>, userId: string): void;
 
     /**
-     * Preliminary actions taken before a set of embedded Documents in this parent Document are created.
-     * @param embeddedName The name of the embedded Document type
-     * @param result       An Array of created data objects
-     * @param options      Options which modified the creation operation
-     * @param userId       The ID of the User who triggered the operation
+     * Actions taken after descendant documents have been created, but before changes are applied to the client data.
+     * @param parent     The direct parent of the created Documents, may be this Document or a child
+     * @param collection The collection within which documents are being created
+     * @param data       The source data for new documents that are being created
+     * @param options    Options which modified the creation operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
-        embeddedName: string,
-        result: object[],
+        parent: this,
+        collection: string,
+        data: object[],
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
     /**
-     * Follow-up actions taken after a set of embedded Documents in this parent Document are created.
-     * @param embeddedName The name of the embedded Document type
-     * @param documents    An Array of created Documents
-     * @param result       An Array of created data objects
-     * @param options      Options which modified the creation operation
-     * @param userId       The ID of the User who triggered the operation
+     * Actions taken after descendant documents have been created and changes have been applied to client data.
+     * @param parent     The direct parent of the created Documents, may be this Document or a child
+     * @param collection The collection within which documents were created
+     * @param documents  The array of created Documents
+     * @param data       The source data for new documents that were created
+     * @param options    Options which modified the creation operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
-        embeddedName: string,
-        documents: foundry.abstract.Document<this>[],
-        result: object[],
+        parent: this,
+        collection: string,
+        documents: foundry.abstract.Document[],
+        data: object[],
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
     /**
-     * Preliminary actions taken before a set of embedded Documents in this parent Document are updated.
-     * @param embeddedName The name of the embedded Document type
-     * @param result       An Array of incremental data objects
-     * @param options      Options which modified the update operation
-     * @param userId       The ID of the User who triggered the operation
+     * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
+     * @param parent         The direct parent of the updated Documents, may be this Document or a child
+     * @param collection       The collection within which documents are being updated
+     * @param changes        The array of differential Document updates to be applied
+     * @param options          Options which modified the update operation
+     * @param userId           The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
-        embeddedName: string,
-        result: object[],
+        parent: this,
+        collection: string,
+        changes: object[],
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
     /**
-     * Follow-up actions taken after a set of embedded Documents in this parent Document are updated.
-     * @param embeddedName The name of the embedded Document type
-     * @param documents    An Array of updated Documents
-     * @param result       An Array of incremental data objects
-     * @param options      Options which modified the update operation
-     * @param userId       The ID of the User who triggered the operation
+     * Actions taken after descendant documents have been updated and changes have been applied to client data.
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents were updated
+     * @param documents  The array of updated Documents
+     * @param changes    The array of differential Document updates which were applied
+     * @param options    Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
-        embeddedName: string,
-        documents: foundry.abstract.Document<this>[],
-        result: object,
-        options: DocumentUpdateContext<this>,
-        userId: string
-    ): void;
-
-    /**
-     * Preliminary actions taken before a set of embedded Documents in this parent Document are deleted.
-     * @param embeddedName The name of the embedded Document type
-     * @param result       An Array of document IDs being deleted
-     * @param options      Options which modified the deletion operation
-     * @param userId       The ID of the User who triggered the operation
-     */
-    protected _preDeleteDescendantDocuments(
-        embeddedName: string,
-        result: string[],
+        parent: this,
+        collection: string,
+        documents: ClientDocument[],
+        changes: object[],
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
     /**
-     * Follow-up actions taken after a set of embedded Documents in this parent Document are deleted.
-     * @param embeddedName The name of the embedded Document type
-     * @param documents    An Array of deleted Documents
-     * @param result       An Array of document IDs being deleted
-     * @param options      Options which modified the deletion operation
-     * @param userId       The ID of the User who triggered the operation
+     * Actions taken after descendant documents have been deleted, but before deletions are applied to the client data.
+     * @param parent     The direct parent of the deleted Documents, may be this Document or a child
+     * @param collection The collection within which documents were deleted
+     * @param ids        The array of document IDs which were deleted
+     * @param options    Options which modified the deletion operation
+     * @param userId     The ID of the User who triggered the operation
+     */
+    protected _preDeleteDescendantDocuments(
+        parent: this,
+        collection: string,
+        ids: string[],
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void;
+
+    /**
+     * Actions taken after descendant documents have been deleted and those deletions have been applied to client data.
+     * @param parent     The direct parent of the deleted Documents, may be this Document or a child
+     * @param collection The collection within which documents were deleted
+     * @param documents  The array of Documents which were deleted
+     * @param ids        The array of document IDs which were deleted
+     * @param options    Options which modified the deletion operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
-        embeddedName: string,
-        documents: foundry.abstract.Document<this>[],
-        result: string[],
+        parent: this,
+        collection: string,
+        documents: foundry.abstract.Document[],
+        ids: string[],
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
@@ -418,13 +430,6 @@ export class ${canvasBaseName}<
      * @see abstract.Document#_onDelete
      */
     protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
-}
-
-export interface ${canvasBaseName}<
-    TParent extends ClientBaseScene | null
-> extends ${clientBaseName}<TParent> {
-    // System note: in most but not all canvas documents
-    hidden?: boolean;
 }
 `);
     }

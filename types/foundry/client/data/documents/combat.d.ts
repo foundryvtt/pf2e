@@ -158,25 +158,28 @@ declare global {
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 
         protected override _onCreateDescendantDocuments(
-            type: "Combatant",
+            parent: this,
+            collection: "combatants",
             documents: Combatant<this>[],
-            result: Combatant<this>["_source"][],
+            data: Combatant<this>["_source"][],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onUpdateDescendantDocuments(
-            embeddedName: "Combatant",
-            documents: Combatant<this>[],
-            result: Combatant<this>["_source"][],
+            parent: this,
+            collection: "combatants",
+            documents: ClientDocument[],
+            changes: DeepPartial<Combatant<this>["_source"]>[],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onDeleteDescendantDocuments(
-            embeddedName: "Combatant",
+            parent: this,
+            collection: "combatants",
             documents: Combatant<this>[],
-            result: string[],
+            ids: string[],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;

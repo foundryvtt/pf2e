@@ -111,6 +111,71 @@ declare global {
         ): void;
 
         /**
+         * Support the special case descendant document changes within an ActorDelta.
+         * The descendant documents themselves are configured to have a synthetic Actor as their parent.
+         * We need this to ensure that the ActorDelta receives these events which do not bubble up.
+         */
+        protected override _preCreateDescendantDocuments(
+            parent: this,
+            collection: string,
+            data: object[],
+            options: DocumentModificationContext<this>,
+            userId: string
+        ): void;
+
+        protected override _preUpdateDescendantDocuments(
+            parent: this,
+            collection: string,
+            changes: Record<string, unknown>[],
+            options: DocumentModificationContext<this>,
+            userId: string
+        ): void;
+
+        protected override _preDeleteDescendantDocuments(
+            parent: this,
+            collection: string,
+            ids: string[],
+            options: DocumentModificationContext<this>,
+            userId: string
+        ): void;
+
+        protected override _onCreateDescendantDocuments(
+            parent: this,
+            collection: string,
+            documents: ClientDocument[],
+            data: object[],
+            options: DocumentModificationContext<this>,
+            userId: string
+        ): void;
+
+        protected override _onUpdateDescendantDocuments(
+            parent: this,
+            collection: string,
+            documents: ClientDocument[],
+            changes: Record<string, unknown>[],
+            options: DocumentModificationContext<this>,
+            userId: string
+        ): void;
+
+        protected override _onDeleteDescendantDocuments(
+            parent: this,
+            collection: string,
+            documents: ClientDocument[],
+            ids: string[],
+            options: DocumentModificationContext<this>,
+            userId: string
+        ): void;
+
+        /**
+         * When the base Actor for a TokenDocument changes, we may need to update its Actor instance
+         * @internal
+         */
+        _onUpdateBaseActor(
+            update?: Record<string, unknown>,
+            options?: DocumentModificationContext<ClientDocument | null>
+        ): void;
+
+        /**
          * Whenever the token's actor delta changes, or the base actor changes, perform associated refreshes.
          * @param [update]  The update delta.
          * @param [options] The options provided to the update.

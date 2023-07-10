@@ -125,7 +125,8 @@ declare global {
         ): void;
 
         protected override _onCreateDescendantDocuments(
-            embeddedName: "ActiveEffect" | "Item",
+            parent: this,
+            collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
             result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
             options: DocumentModificationContext<this>,
@@ -133,23 +134,26 @@ declare global {
         ): void;
 
         protected override _onUpdateDescendantDocuments(
-            embeddedName: "ActiveEffect" | "Item",
+            parent: this,
+            collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
-            result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-            options: DocumentUpdateContext<this>,
-            userId: string
-        ): void;
-
-        protected override _onDeleteDescendantDocuments(
-            embeddedName: "ActiveEffect" | "Item",
-            documents: ActiveEffect<this>[] | Item<this>[],
-            result: string[],
+            changes: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         /** Additional workflows to perform when any descendant document within this Actor changes. */
         protected _onEmbeddedDocumentChange(): void;
+
+        /**
+         * Update the active TokenDocument instances which represent this Actor.
+         * @param [update]  The update delta.
+         * @param [options] The update context.
+         */
+        protected _updateDependentTokens(
+            update?: Record<string, unknown>,
+            options?: DocumentModificationContext<TParent>
+        ): void;
     }
 
     interface Actor<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActor<TParent> {
