@@ -724,7 +724,7 @@ export class EmbeddedCollectionDeltaField<
         | DeltaTombstone
     )[],
     TRequired extends boolean = true,
-    TNullable extends boolean = true,
+    TNullable extends boolean = false,
     THasInitial extends boolean = true
 > extends EmbeddedCollectionField<TDocument, TSource, TRequired, TNullable, THasInitial> {}
 
