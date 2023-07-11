@@ -25,30 +25,26 @@
                 "predicate": [
                     "action:subsist"
                 ],
-                "selector": "survival",
+                "selector": [
+                    "society",
+                    "survival"
+                ],
                 "slug": "scavenger-subsist",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Goblin.CityScavenger.EarnIncome",
                 "predicate": [
-                    "action:earn-an-income",
+                    "action:earn-income",
                     "with-subsist"
                 ],
-                "selector": "survival",
-                "slug": "scavenger-earn-survival",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:earn-an-income",
-                    "with-subsist"
+                "selector": [
+                    "society",
+                    "survival"
                 ],
-                "selector": "society",
-                "slug": "scavenger-earn-society",
+                "slug": "scavenger-earn",
                 "type": "circumstance",
                 "value": 1
             },
@@ -56,9 +52,12 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
-                    "self:heritage:irongut-goblin"
+                    "heritage:irongut-goblin"
                 ],
-                "selector": "survival",
+                "selectors": [
+                    "society",
+                    "survival"
+                ],
                 "slug": "scavenger-subsist",
                 "value": 1
             },
@@ -66,20 +65,13 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
-                    "self:heritage:irongut-goblin"
+                    "heritage:irongut-goblin"
                 ],
-                "selector": "survival",
-                "slug": "scavenger-earn-survival",
-                "value": 1
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "add",
-                "predicate": [
-                    "self:heritage:irongut-goblin"
+                "selectors": [
+                    "society",
+                    "survival"
                 ],
-                "selector": "survival",
-                "slug": "scavenger-earn-society",
+                "slug": "scavenger-earn",
                 "value": 1
             }
         ],
