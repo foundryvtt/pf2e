@@ -396,7 +396,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
             const effectLevel = item?.isOfType("spell")
-                ? 2 * item.level
+                ? 2 * item.rank
                 : item?.isOfType("physical")
                 ? item.level
                 : origin?.level ?? actor.level;

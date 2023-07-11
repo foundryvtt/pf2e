@@ -9,23 +9,23 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): vo
         throw ErrorPF2e("Unexpected missing spellcasting-entry location");
     }
 
-    const level = Number(data.level ?? 1) as ZeroToTen;
+    const rank = Number(data.level ?? 1) as ZeroToTen;
     const newLabel = game.i18n.localize("PF2E.NewLabel");
-    const [levelLabel, spellLabel] =
-        level > 0
+    const [rankLabel, spellLabel] =
+        rank > 0
             ? [
-                  game.i18n.localize(`PF2E.SpellLevel${data.level}`),
+                  game.i18n.localize(`PF2E.SpellLevel${rank}`),
                   game.i18n.localize(data.location === "rituals" ? "PF2E.SpellCategoryRitual" : "PF2E.SpellLabel"),
               ]
             : [null, game.i18n.localize("PF2E.TraitCantrip")];
     const source = {
         type: "spell",
-        name: R.compact([newLabel, levelLabel, spellLabel]).join(" "),
+        name: R.compact([newLabel, rankLabel, spellLabel]).join(" "),
         system: {
-            level: { value: level || 1 },
+            level: { value: rank || 1 },
             location: { value: String(data.location) },
             traits: {
-                value: level === 0 ? ["cantrip"] : [],
+                value: rank === 0 ? ["cantrip"] : [],
             },
         },
     } satisfies DeepPartial<SpellSource>;

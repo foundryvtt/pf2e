@@ -371,10 +371,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 return [spell ?? []].flat();
             } else if (dropItemEl.dataset.slotId) {
                 const dropId = Number(dropItemEl.dataset.slotId);
-                const slotLevel = Number(dropItemEl.dataset.slotLevel);
+                const slotRank = Number(dropItemEl.dataset.slotLevel);
 
-                if (Number.isInteger(dropId) && Number.isInteger(slotLevel)) {
-                    const allocated = await collection.prepareSpell(item, slotLevel, dropId);
+                if (Number.isInteger(dropId) && Number.isInteger(slotRank)) {
+                    const allocated = await collection.prepareSpell(item, slotRank, dropId);
                     if (allocated instanceof SpellcastingEntryPF2e) return [allocated];
                 }
             } else if (dropSlotType === "spell") {
@@ -388,7 +388,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                         if (item.isCantrip !== test.isCantrip) return false;
                         if (item.isCantrip && test.isCantrip) return true;
                         if (item.isFocusSpell && test.isFocusSpell) return true;
-                        if (item.level === test.level) return true;
+                        if (item.rank === test.rank) return true;
                         return false;
                     };
 
@@ -397,7 +397,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                         await item.sortRelative({ target, siblings });
                         return [target];
                     } else {
-                        const spell = await collection.addSpell(item, { slotLevel: target.level });
+                        const spell = await collection.addSpell(item, { slotLevel: target.rank });
                         this.openSpellPreparationSheet(collection.id);
                         return [spell ?? []].flat();
                     }
@@ -445,7 +445,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             const slotLevel = Number(htmlClosest(event.target, "[data-slot-level]")?.dataset.slotLevel ?? 0);
             this.openSpellPreparationSheet(collection.id);
-            return [(await collection.addSpell(item, { slotLevel: Math.max(slotLevel, item.baseLevel) })) ?? []].flat();
+            return [(await collection.addSpell(item, { slotLevel: Math.max(slotLevel, item.baseRank) })) ?? []].flat();
         }
 
         return super._handleDroppedItem(event, item, data);

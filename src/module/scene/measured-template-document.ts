@@ -16,8 +16,8 @@ export class MeasuredTemplateDocumentPF2e<
 
         if (item?.isOfType("spell")) {
             const overlayIds = origin?.variant?.overlays;
-            const castLevel = (origin?.castLevel ?? item.level) as number;
-            const modifiedSpell = item.loadVariant({ overlayIds, castLevel });
+            const castRank = (origin?.castLevel ?? item.rank) as number;
+            const modifiedSpell = item.loadVariant({ overlayIds, castLevel: castRank });
             return modifiedSpell ?? item;
         }
 
