@@ -1333,47 +1333,38 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Manyala and Rijana can draw upon the power in their bodies to temporarily channel energy. The next unarmed attack that they make deals [[/r 1d8 ]] additional damage. This damage type is fire for Manyala and cold for Rijana.</p>"
+                    "value": "<p>Manyala and Rijana can draw upon the power in their bodies to temporarily channel energy. The next unarmed attack that they make deals 1d8 additional damage. This damage type is fire for Manyala and cold for Rijana.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "damageType": "fire",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "channel-element",
+                        "suboptions": [
+                            {
+                                "label": "Manyala",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "Rijana",
+                                "value": "cold"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.channelElement}",
                         "diceNumber": 1,
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "unarmed",
-                            "channel-element-manyala"
+                            "channel-element",
+                            "unarmed"
                         ],
                         "selector": "strike-damage"
-                    },
-                    {
-                        "damageType": "cold",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "unarmed",
-                            "channel-element-rijana"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Channel Element (Manyala)",
-                        "option": "channel-element-manyala",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Channel Element (Rijana)",
-                        "option": "channel-element-rijana",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -1409,7 +1400,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Manyala and Rijana can infuse energy into their ki blasts, allowing them to change the damage the spell deals. Manyala can choose to deal fire damage instead of force damage and Rijana can choose to deal cold damage instead of force damage.</p>"
+                    "value": "<p>Manyala and Rijana can infuse energy into their <em>ki blasts</em>, allowing them to change the damage the spell deals. Manyala can choose to deal fire damage instead of force damage and Rijana can choose to deal cold damage instead of force damage.</p>"
                 },
                 "requirements": {
                     "value": ""
