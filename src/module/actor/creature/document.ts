@@ -222,7 +222,6 @@ abstract class CreaturePF2e<
         super.prepareBaseData();
 
         const attributes = this.system.attributes;
-        attributes.hp = mergeObject(attributes.hp ?? {}, { negativeHealing: false });
         attributes.hardness ??= { value: 0 };
         attributes.flanking.canFlank = true;
         attributes.flanking.flankable = true;
@@ -642,11 +641,12 @@ abstract class CreaturePF2e<
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points
-        const hitPoints = changed.system?.attributes?.hp;
-        if (typeof hitPoints?.value === "number") {
-            hitPoints.value = options.allowHPOverage
-                ? Math.max(0, hitPoints.value)
-                : Math.clamped(hitPoints.value, 0, this.hitPoints.max);
+        const currentHP = this.hitPoints;
+        const changedHP = changed.system?.attributes?.hp;
+        if (typeof changedHP?.value === "number") {
+            changedHP.value = options.allowHPOverage
+                ? Math.max(0, changedHP.value)
+                : Math.clamped(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
         }
 
         // Clamp focus points

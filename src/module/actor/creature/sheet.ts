@@ -502,25 +502,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         }
     }
 
-    // Ensure a minimum of zero hit points and a maximum of the current max
-    protected override async _onSubmit(
-        event: Event,
-        options: OnSubmitFormOptions = {}
-    ): Promise<Record<string, unknown>> {
-        // Limit HP value to data.attributes.hp.max value
-        if (!(event.currentTarget instanceof HTMLInputElement)) {
-            return super._onSubmit(event, options);
-        }
-
-        const target = event.currentTarget;
-        if (target.name === "system.attributes.hp.value") {
-            const inputted = Number(target.value) || 0;
-            target.value = Math.floor(Math.clamped(inputted, 0, this.actor.hitPoints.max)).toString();
-        }
-
-        return super._onSubmit(event, options);
-    }
-
     /** Redirect an update to shield HP to the actual item */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const heldShield = this.actor.heldShield;

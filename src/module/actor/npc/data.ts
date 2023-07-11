@@ -4,7 +4,6 @@ import {
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
-    CreatureHitPoints,
     CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,
@@ -17,7 +16,13 @@ import {
     LabeledSpeed,
     SaveData,
 } from "@actor/creature/data.ts";
-import { ActorAttributesSource, ActorFlagsPF2e, PerceptionData, StrikeData } from "@actor/data/base.ts";
+import {
+    ActorAttributesSource,
+    ActorFlagsPF2e,
+    HitPointsStatistic,
+    PerceptionData,
+    StrikeData,
+} from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types.ts";
@@ -212,7 +217,7 @@ interface NPCSaves {
     will: NPCSaveData;
 }
 
-interface NPCHitPoints extends CreatureHitPoints {
+interface NPCHitPoints extends HitPointsStatistic {
     base?: number;
 }
 

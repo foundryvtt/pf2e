@@ -1,5 +1,5 @@
 import { CreatureSheetData } from "@actor/creature/types.ts";
-import { HitPointsData, PerceptionData } from "@actor/data/base.ts";
+import { HitPointsStatistic, PerceptionData } from "@actor/data/base.ts";
 import { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
 import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "@item";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
@@ -45,7 +45,7 @@ interface NPCSystemSheetData extends NPCSystemData {
     actions: NPCStrikeSheetData[];
     attributes: NPCAttributes & {
         ac: ArmorClassTraceData & WithAdjustments;
-        hp: HitPointsData & WithAdjustments;
+        hp: HitPointsStatistic & WithAdjustments;
         perception: PerceptionData & WithAdjustments & WithRank;
     };
     details: NPCSystemData["details"] & {

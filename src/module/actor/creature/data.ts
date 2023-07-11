@@ -1,12 +1,12 @@
 import {
     AbilityBasedStatistic,
+    ActorAttributes,
     ActorSystemData,
     ActorSystemSource,
-    ActorAttributes,
-    BaseActorSourcePF2e,
     ActorTraitsData,
     ActorTraitsSource,
-    HitPointsData,
+    BaseActorSourcePF2e,
+    HitPointsStatistic,
     StrikeData,
 } from "@actor/data/base.ts";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
@@ -137,7 +137,7 @@ type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 interface CreatureAttributes extends ActorAttributes {
-    hp: CreatureHitPoints;
+    hp: HitPointsStatistic;
     ac: { value: number };
     hardness?: { value: number };
     perception: CreaturePerception;
@@ -181,10 +181,6 @@ interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     source?: string;
     total?: number;
     derivedFromLand?: boolean;
-}
-
-interface CreatureHitPoints extends HitPointsData {
-    negativeHealing: boolean;
 }
 
 /** Creature initiative statistic */
@@ -242,7 +238,6 @@ export {
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
-    CreatureHitPoints,
     CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,

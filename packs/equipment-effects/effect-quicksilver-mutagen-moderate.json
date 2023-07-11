@@ -4,7 +4,7 @@
     "name": "Effect: Quicksilver Mutagen (Moderate)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Quicksilver Mutagen (Moderate)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+2 item bonus to Acrobatics, Stealth and Thievery checks</li>\n<li>+2 item bonus to Reflex saves</li>\n<li>+2 item bonus to Dexterity-based attack rolls</li>\n<li>+10 foot status bonus to Speed</li>\n<li>-2 penalty to Fortitude saves</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>You take damage equal to twice your level; you can't recover Hit Points lost this way by any means while the mutagen lasts</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Quicksilver Mutagen (Moderate)]</p>\n<p><strong>Benefit</strong> You gain a +2 item bonus to Acrobatics checks, Stealth checks, Thievery checks, Reflex saves, and Dexterity-based attack rolls, and you gain a +10 foot status bonus to your Speed.</p>\n<p><strong>Drawback</strong> You take damage equal to twice your level; you can't recover Hit Points lost this way by any means while the mutagen lasts. You take a -2 penalty to Fortitude saves.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -31,7 +31,6 @@
             {
                 "key": "FlatModifier",
                 "selector": "fortitude",
-                "type": "untyped",
                 "value": -2
             },
             {
@@ -39,6 +38,11 @@
                 "selector": "land-speed",
                 "type": "status",
                 "value": 10
+            },
+            {
+                "key": "LoseHitPoints",
+                "recoverable": false,
+                "value": "2*@actor.level"
             }
         ],
         "source": {
