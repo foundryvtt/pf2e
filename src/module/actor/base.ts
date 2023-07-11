@@ -1842,7 +1842,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         options?: DocumentModificationContext<TParent>
     ): void {
         if (game.release.build > 305) return super._updateDependentTokens(update, options);
-        const tokens = game.scenes.map((s) => s.tokens.filter((t) => !t.actorLink && t.actorId === this.id)).flat();
+        const tokens = game.scenes.map((s) => s.tokens.filter((t) => t.actorId === this.id)).flat();
         for (const token of tokens) {
             token._onUpdateBaseActor(update, options);
         }
