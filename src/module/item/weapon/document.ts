@@ -118,8 +118,18 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.rangeIncrement !== null;
     }
 
+    /** Whether the weapon in its current usage is thrown: a thrown-only weapon or a thrown usage of a melee weapon */
     get isThrown(): boolean {
         return this.isRanged && this.reload === "-";
+    }
+
+    /** Whether the weapon is _can be_ thrown: a thrown-only weapon or one that has a throwable usage */
+    get isThrowable(): boolean {
+        return (
+            this.isThrown ||
+            this.system.traits.value.some((t) => t.startsWith("thrown")) ||
+            !!this.system.meleeUsage?.traits.some((t) => t.startsWith("thrown"))
+        );
     }
 
     get isOversized(): boolean {
@@ -162,13 +172,18 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return this.isRanged && ![null, "-"].includes(this.reload);
     }
 
-    get ammo(): ConsumablePF2e<NonNullable<TParent>> | null {
+    get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
-        return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
+        return ammo?.isOfType("consumable", "weapon") && ammo.quantity > 0 ? ammo : null;
     }
 
     get otherTags(): Set<OtherWeaponTag> {
         return new Set(this.system.traits.otherTags);
+    }
+
+    /** Whether this weapon can serve as ammunition for another weapon */
+    isAmmoFor(weapon: WeaponPF2e): boolean {
+        return this.system.usage.canBeAmmo && !weapon.system.traits.value.includes("repeating");
     }
 
     /** Generate a list of strings for use in predication */
@@ -200,7 +215,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
 
         // Ammunition
-        const ammunitionRollOptions = ((ammunition: ConsumablePF2e | null) => {
+        const ammunitionRollOptions = ((ammunition: ConsumablePF2e | WeaponPF2e | null) => {
             const rollOptions: Record<string, boolean> = {};
             if (ammunition) {
                 rollOptions[`ammo:id:${ammunition.id}`] = true;
@@ -336,8 +351,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
         if (mandatoryMelee) this.system.range = null;
 
-        // Set whether the ammunition or weapon itself should be consumed
+        // Whether the ammunition or weapon itself should be consumed
         systemData.reload.consume = this.isMelee ? null : this.reload !== null;
+
+        // Whether the weapon is also usable as ammunition: set from source since parent prepares initial (clean) usage
+        // object
+        systemData.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.flags.pf2e.comboMeleeUsage ??= false;
@@ -433,6 +452,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             .map((runeData) => runeData.rarity)
             .concat(materialData?.rarity ?? "common")
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
+    }
+
+    override prepareDerivedData(): void {
+        if (this.system.usage.canBeAmmo && !this.isThrowable) {
+            this.system.usage.canBeAmmo = false;
+        }
     }
 
     /** Add the rule elements of this weapon's linked ammunition to its own list */
@@ -806,6 +831,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         attack.baseType = this.baseType;
 
         return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
+    }
+
+    /** Consume a unit of ammunition used by this weapon */
+    async consumeAmmo(): Promise<void> {
+        const { ammo } = this;
+        if (ammo?.isOfType("weapon") && !ammo.system.usage.canBeAmmo) {
+            throw ErrorPF2e("attempted to consume weapon not usable as ammunition");
+        } else {
+            await ammo?.update({ "system.quantity": Math.max(this.quantity - 1, 0) });
+        }
     }
 
     /* -------------------------------------------- */

@@ -117,6 +117,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         value: WeaponReloadTime | null;
     };
     usage: {
+        canBeAmmo?: boolean;
         value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
     };
     MAP: {
@@ -176,9 +177,11 @@ interface WeaponSystemData
         effects: [];
     };
     material: WeaponMaterialData;
-    usage: UsageDetails & WeaponSystemSource["usage"];
+    usage: WeaponUsageDetails;
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
 }
+
+type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 
 interface WeaponTraits extends WeaponTraitsSource {
     otherTags: OtherWeaponTag[];

@@ -1151,7 +1151,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
         }
 
-        const ammos = itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed);
+        const ammos = [
+            ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
+            ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
+        ];
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = [...WEAPON_CATEGORIES, ...homebrewCategoryTags.map((tag) => tag.id)];
 
@@ -1180,7 +1183,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         weapon: WeaponPF2e<this>,
         options: {
             categories: WeaponCategory[];
-            ammos?: ConsumablePF2e<CharacterPF2e>[];
+            ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
             defaultAbility?: AbilityString;
         }
     ): CharacterStrike {
@@ -1465,10 +1468,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {
             const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
-            const incompatible = ammos.filter((a) => !a.isAmmoFor(weapon));
-            const ammo = weapon.ammo;
+            const incompatible = ammos.filter((a) => !compatible.includes(a));
+            const { ammo } = weapon;
             const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
-
             action.ammunition = { compatible, incompatible, selected };
         }
 
@@ -1743,7 +1745,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const existingCallback = params.callback;
             params.callback = async (roll: Rolled<Roll>) => {
                 existingCallback?.(roll);
-                await ammo.consume();
+                await weapon.consumeAmmo();
             };
             return true;
         }

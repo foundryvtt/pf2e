@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e } from "@util";
-import { ConsumableCategory, ConsumableSystemData, ConsumableSource } from "./data.ts";
+import { ConsumableCategory, ConsumableSource, ConsumableSystemData } from "./data.ts";
 import { OtherConsumableTag } from "./types.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
@@ -134,27 +134,30 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         ];
     }
 
-    isAmmoFor(weapon: ItemPF2e): boolean {
+    isAmmoFor(weapon: WeaponPF2e): boolean {
+        if (!this.isAmmunition) return false;
         if (!(weapon instanceof WeaponPF2e)) {
             console.warn("Cannot load a consumable into a non-weapon");
             return false;
         }
 
         const { max } = this.uses;
-        return weapon.traits.has("repeating") ? max > 1 : max <= 1;
+        return weapon.system.traits.value.includes("repeating") ? max > 1 : max <= 1;
     }
 
     /** Use a consumable item, sending the result to chat */
-    async consume(this: ConsumablePF2e<ActorPF2e>): Promise<void> {
+    async consume(): Promise<void> {
+        const { actor } = this;
+        if (!actor) return;
         const { value, max } = this.uses;
 
         if (["scroll", "wand"].includes(this.category) && this.system.spell) {
-            if (this.actor.spellcasting.canCastConsumable(this)) {
+            if (actor.spellcasting.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
-            } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
+            } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
             } else {
-                const formatParams = { actor: this.actor.name, spell: this.name };
+                const formatParams = { actor: actor.name, spell: this.name };
                 const message = game.i18n.format("PF2E.LackCastConsumableCapability", formatParams);
                 ui.notifications.warn(message);
                 return;
@@ -179,7 +182,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             };
 
             if (this.category !== "ammo") {
-                const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+                const speaker = ChatMessage.getSpeaker({ actor });
 
                 if (this.formula) {
                     const damageType = this.traits.has("positive")
@@ -215,10 +218,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
     }
 
-    async castEmbeddedSpell(this: ConsumablePF2e<ActorPF2e>, trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
+    async castEmbeddedSpell(trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
+        const { actor } = this;
         const spell = this.embeddedSpell;
-        if (!spell) return;
-        const actor = this.actor;
+        if (!actor || !spell) return;
 
         // Find the best spellcasting entry to cast this consumable
         const entry = (() => {

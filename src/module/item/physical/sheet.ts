@@ -1,6 +1,7 @@
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
-import { objectHasKey } from "@util";
+import { htmlQueryAll, objectHasKey } from "@util";
+import { ItemSheetPF2e } from "../sheet/base.ts";
 import {
     BasePhysicalItemSource,
     CoinsPF2e,
@@ -11,7 +12,6 @@ import {
     PhysicalItemType,
     PreciousMaterialGrade,
 } from "./index.ts";
-import { ItemSheetPF2e } from "../sheet/base.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
@@ -74,6 +74,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
@@ -133,12 +134,13 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             }
         });
 
-        const $otherTagsHint = $html.find("i.other-tags-hint");
-        $otherTagsHint.tooltipster({
-            maxWidth: 350,
-            theme: "crb-hover",
-            content: game.i18n.localize($otherTagsHint.attr("title") ?? ""),
-        });
+        for (const hintHoverZone of htmlQueryAll(html, "i[data-action=hint-tooltip]")) {
+            $(hintHoverZone).tooltipster({
+                maxWidth: Number(hintHoverZone.dataset.tooltipWidth) || 350,
+                theme: "crb-hover",
+                content: game.i18n.localize(hintHoverZone.title),
+            });
+        }
     }
 
     protected prepareMaterials(valuationData: MaterialValuationData): PreparedMaterials {
