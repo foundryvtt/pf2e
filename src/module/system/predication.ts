@@ -11,11 +11,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
     readonly isValid: boolean;
 
     constructor(...statements: PredicateStatement[] | [PredicateStatement[]]) {
-        if (Array.isArray(statements[0])) {
-            super(...statements[0]);
-        } else {
-            super(...(statements as PredicateStatement[]));
-        }
+        super(...(Array.isArray(statements[0]) ? statements[0] : (statements as PredicateStatement[])));
         this.isValid = PredicatePF2e.isValid(this);
     }
 
@@ -46,7 +42,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
         }
 
         const domain = options instanceof Set ? options : new Set(options);
-        return this.every((s) => this.isTrue(s, domain));
+        return this.every((s) => this.#isTrue(s, domain));
     }
 
     toObject(): RawPredicate {
@@ -58,15 +54,15 @@ class PredicatePF2e extends Array<PredicateStatement> {
     }
 
     /** Is the provided statement true? */
-    private isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
+    #isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
         return (
             (typeof statement === "string" && domain.has(statement)) ||
-            (StatementValidator.isBinaryOp(statement) && this.testBinaryOp(statement, domain)) ||
-            (StatementValidator.isCompound(statement) && this.testCompound(statement, domain))
+            (StatementValidator.isBinaryOp(statement) && this.#testBinaryOp(statement, domain)) ||
+            (StatementValidator.isCompound(statement) && this.#testCompound(statement, domain))
         );
     }
 
-    private testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
+    #testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
         if ("eq" in statement) {
             return domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
         } else {
@@ -102,14 +98,15 @@ class PredicatePF2e extends Array<PredicateStatement> {
     }
 
     /** Is the provided compound statement true? */
-    private testCompound(statement: Exclude<PredicateStatement, Atom>, domain: Set<string>): boolean {
+    #testCompound(statement: Exclude<PredicateStatement, Atom>, domain: Set<string>): boolean {
         return (
-            ("and" in statement && statement.and.every((subProp) => this.isTrue(subProp, domain))) ||
-            ("nand" in statement && !statement.nand.every((subProp) => this.isTrue(subProp, domain))) ||
-            ("or" in statement && statement.or.some((subProp) => this.isTrue(subProp, domain))) ||
-            ("nor" in statement && !statement.nor.some((subProp) => this.isTrue(subProp, domain))) ||
-            ("not" in statement && !this.isTrue(statement.not, domain)) ||
-            ("if" in statement && !(this.isTrue(statement.if, domain) && !this.isTrue(statement.then, domain)))
+            ("and" in statement && statement.and.every((subProp) => this.#isTrue(subProp, domain))) ||
+            ("nand" in statement && !statement.nand.every((subProp) => this.#isTrue(subProp, domain))) ||
+            ("or" in statement && statement.or.some((subProp) => this.#isTrue(subProp, domain))) ||
+            ("xor" in statement && statement.xor.filter((subProp) => this.#isTrue(subProp, domain)).length === 1) ||
+            ("nor" in statement && !statement.nor.some((subProp) => this.#isTrue(subProp, domain))) ||
+            ("not" in statement && !this.#isTrue(statement.not, domain)) ||
+            ("if" in statement && !(this.#isTrue(statement.if, domain) && !this.#isTrue(statement.then, domain)))
         );
     }
 }
@@ -127,7 +124,7 @@ class StatementValidator {
         return (typeof statement === "string" && statement.length > 0) || this.isBinaryOp(statement);
     }
 
-    private static binaryOperators = new Set(["eq", "gt", "gte", "lt", "lte"]);
+    static #binaryOperators = new Set(["eq", "gt", "gte", "lt", "lte"]);
 
     static isBinaryOp(statement: unknown): statement is BinaryOperation {
         if (!isObject(statement)) return false;
@@ -135,7 +132,7 @@ class StatementValidator {
         if (entries.length > 1) return false;
         const [operator, operands]: [string, unknown] = entries[0];
         return (
-            this.binaryOperators.has(operator) &&
+            this.#binaryOperators.has(operator) &&
             Array.isArray(operands) &&
             operands.length === 2 &&
             typeof operands[0] === "string" &&
@@ -149,6 +146,7 @@ class StatementValidator {
             (this.isAnd(statement) ||
                 this.isOr(statement) ||
                 this.isNand(statement) ||
+                this.isXor(statement) ||
                 this.isNor(statement) ||
                 this.isNot(statement) ||
                 this.isIf(statement))
@@ -176,6 +174,14 @@ class StatementValidator {
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.or) &&
             statement.or.every((subProp) => this.isStatement(subProp))
+        );
+    }
+
+    static isXor(statement: { xor?: unknown }): statement is ExclusiveDisjunction {
+        return (
+            Object.keys(statement).length === 1 &&
+            Array.isArray(statement.xor) &&
+            statement.xor.every((subProp) => this.isStatement(subProp))
         );
     }
 
@@ -208,11 +214,19 @@ type Atom = string | BinaryOperation;
 
 type Conjunction = { and: PredicateStatement[] };
 type Disjunction = { or: PredicateStatement[] };
+type ExclusiveDisjunction = { xor: PredicateStatement[] };
 type Negation = { not: PredicateStatement };
 type AlternativeDenial = { nand: PredicateStatement[] };
 type JointDenial = { nor: PredicateStatement[] };
 type Conditional = { if: PredicateStatement; then: PredicateStatement };
-type CompoundStatement = Conjunction | Disjunction | AlternativeDenial | JointDenial | Negation | Conditional;
+type CompoundStatement =
+    | Conjunction
+    | Disjunction
+    | ExclusiveDisjunction
+    | AlternativeDenial
+    | JointDenial
+    | Negation
+    | Conditional;
 
 type PredicateStatement = Atom | CompoundStatement;
 
