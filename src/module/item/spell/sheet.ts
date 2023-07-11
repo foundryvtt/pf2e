@@ -366,7 +366,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     private getAvailableHeightenLevels() {
         const heightenLayers = this.item.getHeightenLayers();
         return [2, 3, 4, 5, 6, 7, 8, 9, 10].filter(
-            (level) => level > this.item.baseLevel && !heightenLayers.some((layer) => layer.level === level)
+            (level) => level > this.item.baseRank && !heightenLayers.some((layer) => layer.level === level)
         );
     }
 

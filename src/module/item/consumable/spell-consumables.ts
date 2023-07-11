@@ -69,7 +69,7 @@ async function createConsumableFromSpell(
     spell: SpellPF2e,
     {
         type,
-        heightenedLevel = spell.baseLevel,
+        heightenedLevel = spell.baseRank,
         mystified = false,
     }: {
         type: SpellConsumableItemType;

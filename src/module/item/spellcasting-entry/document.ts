@@ -74,7 +74,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     get highestLevel(): number {
-        return this.spells?.highestLevel ?? 0;
+        return this.spells?.highestRank ?? 0;
     }
 
     get showSlotlessLevels(): boolean {
@@ -162,15 +162,15 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     async cast(spell: SpellPF2e<ActorPF2e>, options: SpellcastingEntryPF2eCastOptions = {}): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
-        const slotLevel = options.level ?? spell.level;
-        const valid = !consume || spell.isCantrip || (await this.consume(spell, slotLevel, options.slot));
+        const slotRank = options.level ?? spell.rank;
+        const valid = !consume || spell.isCantrip || (await this.consume(spell, slotRank, options.slot));
         if (message && valid) {
-            const castLevel = spell.computeCastLevel(slotLevel);
-            await spell.toMessage(undefined, { rollMode: options.rollMode, data: { castLevel } });
+            const castRank = spell.computeCastRank(slotRank);
+            await spell.toMessage(undefined, { rollMode: options.rollMode, data: { castLevel: castRank } });
         }
     }
 
-    async consume(spell: SpellPF2e<ActorPF2e>, level: number, slot?: number): Promise<boolean> {
+    async consume(spell: SpellPF2e<ActorPF2e>, rank: number, slot?: number): Promise<boolean> {
         const actor = this.actor;
         if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries require an actor");
@@ -192,8 +192,8 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             }
         }
 
-        const levelLabel = game.i18n.localize(CONFIG.PF2E.spellLevels[level as OneToTen]);
-        const slotKey = goesToEleven(level) ? (`slot${level}` as const) : "slot0";
+        const rankLabel = game.i18n.localize(CONFIG.PF2E.spellLevels[rank as OneToTen]);
+        const slotKey = goesToEleven(rank) ? (`slot${rank}` as const) : "slot0";
         if (this.system.slots === null || !this.spells) {
             return false;
         }
@@ -217,7 +217,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 return false;
             }
 
-            await this.spells.setSlotExpendedState(level, slot, true);
+            await this.spells.setSlotExpendedState(rank, slot, true);
             return true;
         }
 
@@ -237,7 +237,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             return true;
         } else {
             ui.notifications.warn(
-                game.i18n.format("PF2E.SpellSlotNotEnoughError", { name: spell.name, level: levelLabel })
+                game.i18n.format("PF2E.SpellSlotNotEnoughError", { name: spell.name, level: rankLabel })
             );
             return false;
         }
@@ -255,18 +255,18 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<this | null> {
-        return this.spells?.prepareSpell(spell, slotLevel, spellSlot) ?? null;
+    async prepareSpell(spell: SpellPF2e, slotRank: number, spellSlot: number): Promise<this | null> {
+        return this.spells?.prepareSpell(spell, slotRank, spellSlot) ?? null;
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    async unprepareSpell(spellLevel: number, slotLevel: number): Promise<this | null> {
-        return this.spells?.unprepareSpell(spellLevel, slotLevel) ?? null;
+    async unprepareSpell(spellLevel: number, slotRank: number): Promise<this | null> {
+        return this.spells?.unprepareSpell(spellLevel, slotRank) ?? null;
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    async setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<this | null> {
-        return this.spells?.setSlotExpendedState(slotLevel, spellSlot, isExpended) ?? null;
+    async setSlotExpendedState(slotRank: number, spellSlot: number, isExpended: boolean): Promise<this | null> {
+        return this.spells?.setSlotExpendedState(slotRank, spellSlot, isExpended) ?? null;
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */

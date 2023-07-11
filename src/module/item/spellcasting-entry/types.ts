@@ -61,7 +61,7 @@ interface SpellcastingSheetData
     statistic: StatisticChatData | null;
     hasCollection: boolean;
     flexibleAvailable?: { value: number; max: number } | null;
-    levels: SpellcastingSlotLevel[];
+    levels: SpellcastingSlotRank[];
     spellPrepList: Record<number, SpellPrepEntry[]> | null;
     isFlexible?: boolean;
     isFocusPool?: boolean;
@@ -72,7 +72,7 @@ interface SpellcastingSheetData
     showSlotlessLevels?: boolean;
 }
 
-interface SpellcastingSlotLevel {
+interface SpellcastingSlotRank {
     label: string;
     level: ZeroToTen;
     isCantrip: boolean;
@@ -115,5 +115,5 @@ export {
     SpellcastingEntry,
     SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
-    SpellcastingSlotLevel,
+    SpellcastingSlotRank,
 };

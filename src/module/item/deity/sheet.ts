@@ -141,7 +141,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             return;
         }
 
-        await this.item.update({ [`system.spells.${item.level}`]: item.uuid });
+        await this.item.update({ [`system.spells.${item.rank}`]: item.uuid });
     }
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */

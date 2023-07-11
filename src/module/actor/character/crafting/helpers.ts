@@ -112,9 +112,9 @@ export async function craftSpellConsumable(
         consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
     ) as OneToTen;
     const validSpells = actor.itemTypes.spell
-        .filter((s) => s.baseLevel <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
+        .filter((s) => s.baseRank <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
         .reduce((result, spell) => {
-            result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
+            result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
             return result;
         }, {} as Record<number, SpellPF2e<ActorPF2e>[]>);
     const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
