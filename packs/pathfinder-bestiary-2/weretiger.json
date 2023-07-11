@@ -342,6 +342,11 @@
         },
         {
             "_id": "AKOKPl5zfFti3EZh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FA0ri2fAcMa1HgZe"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
             "sort": 900000,
@@ -354,31 +359,15 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases their reach by 5 feet, and increases the damage of their jaws Strike (or a similar Strike) by 2. When the moon sets or the sun rises, the werecreature returns to humanoid form and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] for [[/br 2d4 #hours]] hours.</p>"
+                    "value": "<p>When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of its jaws Strike (or a similar Strike) by 2.</p>\n<p>When the moon sets or the sun rises, the werecreature returns to humanoid form and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] for [[/br 2d4 #Fatigued duration]]{2d4 hours}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Moon Frenzy]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "full-moon"
-                        ],
-                        "selector": "jaws-damage",
-                        "value": 2
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Full moon",
-                        "option": "full-moon",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
+                "rules": [],
+                "slug": "werecreature-moon-frenzy",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "rarity": "common",
