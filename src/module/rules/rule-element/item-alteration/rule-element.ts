@@ -1,10 +1,19 @@
 import { ItemType } from "@item/data/index.ts";
+import { objectHasKey } from "@util";
 import * as R from "remeda";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementPF2e, RuleElementSchema } from "../index.ts";
+import { AELikeRuleElement } from "../ae-like.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
+    constructor(source: RuleElementSource, options: RuleElementOptions) {
+        if ("mode" in source && objectHasKey(AELikeRuleElement.CHANGE_MODES, source.mode)) {
+            source.priority ??= AELikeRuleElement.CHANGE_MODES[source.mode];
+        }
+        super(source, options);
+    }
+
     static override defineSchema(): ItemAlterationRuleSchema {
         const { fields } = foundry.data;
         return {
