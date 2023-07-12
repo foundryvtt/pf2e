@@ -169,7 +169,7 @@ declare global {
         protected override _onUpdateDescendantDocuments(
             parent: this,
             collection: "combatants",
-            documents: ClientDocument[],
+            documents: Combatant<this>[],
             changes: DeepPartial<Combatant<this>["_source"]>[],
             options: DocumentModificationContext<this>,
             userId: string

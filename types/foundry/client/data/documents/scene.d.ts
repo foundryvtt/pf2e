@@ -87,27 +87,12 @@ declare global {
 
         protected override _preUpdateDescendantDocuments(
             parent: this,
-            collection: "tokens",
-            changes: DeepPartial<TokenDocument<this>["_source"]>[],
-            options: SceneEmbeddedModificationContext<this>,
-            userId: string
-        ): void;
-        protected override _preUpdateDescendantDocuments(
-            parent: this,
             collection: string,
             changes: object[],
             options: SceneEmbeddedModificationContext<this>,
             userId: string
         ): void;
 
-        protected override _onUpdateDescendantDocuments(
-            parent: this,
-            collection: "tokens",
-            documents: TokenDocument<this>[],
-            changes: DeepPartial<TokenDocument<this>["_source"]>[],
-            options: SceneEmbeddedModificationContext<this>,
-            userId: string
-        ): void;
         protected override _onUpdateDescendantDocuments(
             parent: this,
             collection: string,

@@ -104,25 +104,28 @@ declare global {
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 
         protected override _onCreateDescendantDocuments(
-            embeddedName: "PlaylistSound",
+            parent: this,
+            collection: "sounds",
             documents: PlaylistSound<this>[],
-            result: PlaylistSound<this>["_source"][],
+            data: PlaylistSound<this>["_source"][],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onUpdateDescendantDocuments(
-            embeddedName: "PlaylistSound",
+            parent: this,
+            collection: "sounds",
             documents: PlaylistSound<this>[],
-            result: PlaylistSound<this>["_source"][],
+            changes: DeepPartial<PlaylistSound<this>["_source"]>[],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onDeleteDescendantDocuments(
-            embeddedName: "PlaylistSound",
+            parent: this,
+            collection: "sounds",
             documents: PlaylistSound<this>[],
-            result: string[],
+            ids: string[],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
