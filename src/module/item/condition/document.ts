@@ -110,7 +110,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
-        const actor = this.actor;
+        const { actor } = this;
         const token = options?.token ?? actor?.token;
         if (!this.active || !actor) return;
 
@@ -118,7 +118,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
             roll.toMessage(
                 {
-                    speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
+                    speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
                 },
                 { rollMode: "roll" }
@@ -251,7 +251,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
     }

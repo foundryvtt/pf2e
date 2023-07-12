@@ -411,7 +411,7 @@ export default abstract class Document<
         embeddedName: string,
         dataId: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<Document[]>;
+    ): Promise<Document<this>[]>;
 
     /* -------------------------------------------- */
     /*  Flag Operations                             */
@@ -462,15 +462,17 @@ export default abstract class Document<
     /**
      * Perform preliminary operations before a Document of this type is created.
      * Pre-creation operations only occur for the client which requested the operation.
+     * Modifications to the pending document before it is persisted should be performed with this.updateSource().
      * @param data    The initial data object provided to the document creation request
      * @param options Additional options which modify the creation request
      * @param user    The User requesting the document creation
+     * @returns A return value of false indicates the creation operation should be cancelled.
      */
     protected _preCreate(
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: BaseUser
-    ): Promise<void>;
+    ): Promise<boolean | void>;
 
     /**
      * Perform preliminary operations before a Document of this type is updated.
@@ -478,20 +480,22 @@ export default abstract class Document<
      * @param changed The differential data that is changed relative to the documents prior values
      * @param options Additional options which modify the update request
      * @param user    The User requesting the document update
+     * @returns A return value of false indicates the update operation should be cancelled.
      */
     protected _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
         user: BaseUser
-    ): Promise<void>;
+    ): Promise<boolean | void>;
 
     /**
      * Perform preliminary operations before a Document of this type is deleted.
      * Pre-delete operations only occur for the client which requested the operation.
      * @param options Additional options which modify the deletion request
      * @param user    The User requesting the document deletion
+     * @returns A return value of false indicates the deletion operation should be cancelled.
      */
-    protected _preDelete(options: DocumentModificationContext<TParent>, user: BaseUser): Promise<void>;
+    protected _preDelete(options: DocumentModificationContext<TParent>, user: BaseUser): Promise<boolean | void>;
 
     /**
      * Perform follow-up operations after a Document of this type is created.

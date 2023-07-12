@@ -39,7 +39,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: BaseUser
-    ): Promise<void>;
+    ): Promise<boolean | void>;
 }
 
 export default interface BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null>

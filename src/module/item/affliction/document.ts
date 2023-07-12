@@ -115,7 +115,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         const duration = changed.system?.duration;
         if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
             if (duration.value === -1) duration.value = 1;

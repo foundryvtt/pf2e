@@ -816,7 +816,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         const traits = changed.system?.traits ?? {};
         if ("value" in traits && Array.isArray(traits.value)) {
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);

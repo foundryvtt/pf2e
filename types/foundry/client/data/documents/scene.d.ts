@@ -51,7 +51,7 @@ declare global {
             data: PreDocumentId<this["_source"]>,
             options: DocumentModificationContext<null>,
             user: User
-        ): Promise<void>;
+        ): Promise<boolean | void>;
 
         protected override _onCreate(
             data: this["_source"],
@@ -63,11 +63,11 @@ declare global {
             data: DocumentUpdateData<this>,
             options: SceneUpdateContext,
             user: User
-        ): Promise<void>;
+        ): Promise<boolean | void>;
 
         override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void;
 
-        protected override _preDelete(options: DocumentModificationContext<null>, user: User): Promise<void>;
+        protected override _preDelete(options: DocumentModificationContext<null>, user: User): Promise<boolean | void>;
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
 

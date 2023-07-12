@@ -168,8 +168,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         changed: DeepPartial<PartySource>,
         options: PartyUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        await super._preUpdate(changed, options, user);
+    ): Promise<boolean | void> {
         const members = this.members;
         const newMemberUUIDs = changed?.system?.details?.members?.map((m) => m?.uuid);
         if (newMemberUUIDs) {
@@ -181,6 +180,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (changed.system?.campaign && this.campaign && this.campaign.type !== "invalid") {
             changed.system.campaign.type = this.campaign.type;
         }
+
+        return super._preUpdate(changed, options, user);
     }
 
     /** Override to inform creatures when they were booted from a party */

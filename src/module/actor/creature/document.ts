@@ -625,7 +625,12 @@ abstract class CreaturePF2e<
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["effects"]>[] | CollectionValue<this["items"]>[]> {
+    ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
+    override deleteEmbeddedDocuments(
+        embeddedName: "ActiveEffect" | "Item",
+        ids: string[],
+        context?: DocumentModificationContext<this>
+    ): Promise<foundry.abstract.Document<this>[]> {
         if (embeddedName === "Item") {
             const items = ids.map((id) => this.items.get(id));
             const linked = items.flatMap((item) => item?.getLinkedItems?.() ?? []);
@@ -639,7 +644,7 @@ abstract class CreaturePF2e<
         changed: DeepPartial<this["_source"]>,
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Clamp hit points
         const currentHP = this.hitPoints;
         const changedHP = changed.system?.attributes?.hp;
@@ -662,7 +667,7 @@ abstract class CreaturePF2e<
             if (this.isToken) options.diff = false; // Force an update and sheet re-render
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 
@@ -698,17 +703,17 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
         embeddedName: "ActiveEffect",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["effects"]>[]>;
+    ): Promise<ActiveEffectPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["items"]>[]>;
+    ): Promise<ItemPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["effects"]>[] | CollectionValue<this["items"]>[]>;
+    ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
 
 export { CreaturePF2e };

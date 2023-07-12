@@ -10,6 +10,8 @@ import type { BaseActiveEffect, BaseItem, BaseToken, BaseUser } from "./module.d
  */
 export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends abstract.Document<TParent> {
     name: string;
+    type: string;
+    img: ImageFilePath;
     sort: number;
 
     prototypeToken: foundry.data.PrototypeToken<this>;
@@ -48,13 +50,13 @@ export default class BaseActor<TParent extends BaseToken | null = BaseToken | nu
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: BaseUser
-    ): Promise<void>;
+    ): Promise<boolean | void>;
 
     protected override _preUpdate(
         changed: DocumentUpdateData<this>,
         options: DocumentModificationContext<TParent>,
         user: BaseUser
-    ): Promise<void>;
+    ): Promise<boolean | void>;
 }
 
 export default interface BaseActor<TParent extends BaseToken | null = BaseToken | null>

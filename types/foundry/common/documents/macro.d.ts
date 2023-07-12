@@ -25,7 +25,7 @@ export default class BaseMacro extends Document<null> {
         data: PreDocumentId<MacroSource>,
         options: DocumentModificationContext<null>,
         user: BaseUser
-    ): Promise<void>;
+    ): Promise<boolean | void>;
 
     /* -------------------------------------------- */
     /*  Deprecations and Compatibility              */

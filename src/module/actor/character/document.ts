@@ -1828,7 +1828,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         changed: DeepPartial<CharacterSource>,
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         const systemData = this.system;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
@@ -1908,7 +1908,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 
     /** Toggle between boost-driven and manual management of ability scores */

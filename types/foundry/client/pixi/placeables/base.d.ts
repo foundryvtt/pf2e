@@ -128,6 +128,18 @@ declare global {
         /* -------------------------------------------- */
 
         /**
+         * Apply any current render flags, clearing the renderFlags set.
+         * Subclasses should override this method to define behavior.
+         */
+        applyRenderFlags(): void;
+
+        /**
+         * Apply render flags before a render occurs.
+         * @param flags  The render flags which must be applied
+         */
+        protected _applyRenderFlags(flags: Record<string, boolean>): void;
+
+        /**
          * Clear the display of the existing object
          * @return The cleared object
          */
