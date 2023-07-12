@@ -411,7 +411,7 @@ export default abstract class Document<
         embeddedName: string,
         dataId: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<Document[]>;
+    ): Promise<Document<this>[]>;
 
     /* -------------------------------------------- */
     /*  Flag Operations                             */

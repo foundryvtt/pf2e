@@ -625,7 +625,12 @@ abstract class CreaturePF2e<
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["effects"]>[] | CollectionValue<this["items"]>[]> {
+    ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
+    override deleteEmbeddedDocuments(
+        embeddedName: "ActiveEffect" | "Item",
+        ids: string[],
+        context?: DocumentModificationContext<this>
+    ): Promise<foundry.abstract.Document<this>[]> {
         if (embeddedName === "Item") {
             const items = ids.map((id) => this.items.get(id));
             const linked = items.flatMap((item) => item?.getLinkedItems?.() ?? []);
@@ -698,17 +703,17 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
         embeddedName: "ActiveEffect",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["effects"]>[]>;
+    ): Promise<ActiveEffectPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["items"]>[]>;
+    ): Promise<ItemPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
         context?: DocumentModificationContext<this>
-    ): Promise<CollectionValue<this["effects"]>[] | CollectionValue<this["items"]>[]>;
+    ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
 
 export { CreaturePF2e };
