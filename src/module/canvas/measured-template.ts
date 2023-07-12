@@ -8,6 +8,9 @@ import { ActorPF2e } from "@actor";
 class MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>
 > extends MeasuredTemplate<TDocument> {
+    /** Static data for the currently active preview template */
+    static currentPreview: PreviewData | null = null;
+
     /** Track the timestamp when the last mouse move event was captured. */
     #moveTime = 0;
 
@@ -38,7 +41,7 @@ class MeasuredTemplatePF2e<
         });
     }
 
-    async drawPreview(): Promise<void> {
+    async drawPreview(): Promise<MeasuredTemplatePF2e | null> {
         this.layer.activate();
         await this.draw();
         this.layer.preview.addChild(this);
@@ -47,6 +50,19 @@ class MeasuredTemplatePF2e<
         canvas.stage.on("mousedown", this.#onPreviewLeftClick);
         canvas.stage.on("rightdown", this.#onPreviewRightClick);
         canvas.app.view.addEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
+
+        // Resolve existing preview
+        MeasuredTemplatePF2e.currentPreview?.resolve(null);
+
+        return new Promise((res) => {
+            MeasuredTemplatePF2e.currentPreview = {
+                resolve: (value) => {
+                    res(value);
+                    MeasuredTemplatePF2e.currentPreview = null;
+                },
+                placed: false,
+            };
+        });
     }
 
     /** Overriden to ensure preview canvas events are removed (if any) on destruction */
@@ -56,6 +72,15 @@ class MeasuredTemplatePF2e<
         canvas.stage.off("rightdown", this.#onPreviewRightClick);
         canvas.app.view.removeEventListener?.("wheel", this.#onPreviewMouseWheel, this.#wheelListenerOptions);
         super.destroy(options);
+    }
+
+    override applyRenderFlags(): void {
+        super.applyRenderFlags();
+
+        // Resolve preview Promise after the new template has been fully drawn
+        if (MeasuredTemplatePF2e.currentPreview?.placed) {
+            MeasuredTemplatePF2e.currentPreview.resolve(this);
+        }
     }
 
     #onPreviewMouseMove = (event: PIXI.FederatedPointerEvent) => {
@@ -77,7 +102,12 @@ class MeasuredTemplatePF2e<
 
     #onPreviewLeftClick = () => {
         if (canvas.scene) {
-            canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.document.toObject()]);
+            canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.document.toObject()]).then(() => {
+                if (MeasuredTemplatePF2e.currentPreview) {
+                    // Set the preview as placed. The Promise will resolve after the new template was drawn on the canvas
+                    MeasuredTemplatePF2e.currentPreview.placed = true;
+                }
+            });
         }
 
         canvas.tokens.activate();
@@ -87,6 +117,9 @@ class MeasuredTemplatePF2e<
     #onPreviewRightClick = () => {
         canvas.tokens.activate();
         this.destroy();
+
+        // Reset current preview data
+        MeasuredTemplatePF2e.currentPreview?.resolve(null);
     };
 
     #onPreviewMouseWheel = (event: Event) => {
@@ -110,6 +143,11 @@ class MeasuredTemplatePF2e<
     get item(): ItemPF2e<ActorPF2e> | null {
         return this.document.item;
     }
+}
+
+interface PreviewData {
+    resolve: (value: MeasuredTemplatePF2e | null) => void;
+    placed: boolean;
 }
 
 interface MeasuredTemplatePF2e<
