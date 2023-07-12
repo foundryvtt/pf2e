@@ -153,7 +153,7 @@ declare global {
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<null>,
             user: User
-        ): Promise<void>;
+        ): Promise<boolean | void>;
 
         protected override _onCreate(
             data: this["_source"],

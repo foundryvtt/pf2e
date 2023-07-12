@@ -501,29 +501,21 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        await super._preCreate(data, options, user);
-
-        // Set some defaults
-        this.updateSource({
-            "system.equipped.carryType": "worn",
-            "system.equipped.-=handsHeld": null,
-            "system.equipped.-=inSlot": null,
-        });
-
-        if (this.actor) {
-            const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
-            if (this.actor.isOfType("character", "npc") && isSlottedItem) {
-                this.updateSource({ "system.equipped.inSlot": false });
-            }
+    ): Promise<boolean | void> {
+        this._source.system.equipped = { carryType: "worn" };
+        const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
+        if (isSlottedItem && this.actor?.isOfType("character")) {
+            this._source.system.equipped.inSlot = false;
         }
+
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Clamp hit points to between zero and max
         if (typeof changed.system?.hp?.value === "number") {
             changed.system.hp.value = Math.clamped(changed.system.hp.value, 0, this.system.hp.max);
@@ -607,7 +599,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             }
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

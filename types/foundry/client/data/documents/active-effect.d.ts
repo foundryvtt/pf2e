@@ -145,7 +145,7 @@ declare global {
             data: PreDocumentId<this["_source"]>,
             options: DocumentModificationContext<TParent>,
             user: User
-        ): Promise<void>;
+        ): Promise<boolean | void>;
     }
 
     interface ActiveEffect<

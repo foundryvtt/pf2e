@@ -69,11 +69,13 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        if (!changed.system) return await super._preUpdate(changed, options, user);
+    ): Promise<boolean | void> {
+        if (!changed.system) {
+            return await super._preUpdate(changed, options, user);
+        }
 
         // Clear 0 price denominations
-        if (isObject<Record<string, unknown>>(changed.system?.price)) {
+        if (isObject<Record<string, unknown>>(changed.system.price)) {
             const price: Record<string, unknown> = changed.system.price;
             for (const denomination of DENOMINATIONS) {
                 if (price[denomination] === 0) {
@@ -82,7 +84,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
             }
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

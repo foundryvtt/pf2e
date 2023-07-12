@@ -612,7 +612,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Set default icon
         if (this._source.img === ItemPF2e.DEFAULT_ICON) {
             this._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
@@ -633,10 +633,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         }
 
-        await super._preCreate(data, options, user);
-
         // Remove any rule elements that request their own removal upon item creation
         this._source.system.rules = this._source.system.rules.filter((r) => !r.removeUponCreate);
+
+        return super._preCreate(data, options, user);
     }
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
@@ -644,7 +644,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         if (changed.system?.description?.value === null) {
             changed.system.description.value = "";
         }
@@ -676,7 +676,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             await rule.preUpdate?.(changed);
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 
     /** Call onCreate rule-element hooks */

@@ -156,7 +156,7 @@ declare global {
             data: PreDocumentId<this["_source"]>,
             options: DocumentModificationContext<TParent>,
             user: User
-        ): Promise<void>;
+        ): Promise<boolean | void>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,

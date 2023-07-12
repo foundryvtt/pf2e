@@ -1770,7 +1770,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Set default portrait and token images
         this._source.prototypeToken = mergeObject(this._source.prototypeToken ?? {}, { texture: {} });
         if (this._source.img === ActorPF2e.DEFAULT_ICON) {
@@ -1785,7 +1785,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         changed: DeepPartial<this["_source"]>,
         options: ActorUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
         const changedHP = changed.system?.attributes?.hp;
         const currentHP = this.hitPoints;
@@ -1795,7 +1795,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (damageTaken && !levelChanged) options.damageTaken = damageTaken;
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 
     protected override _onUpdate(

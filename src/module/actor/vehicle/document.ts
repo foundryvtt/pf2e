@@ -170,8 +170,10 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         changed: DeepPartial<VehicleSource>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
-        await super._preUpdate(changed, options, user);
+    ): Promise<boolean | void> {
+        const result = await super._preUpdate(changed, options, user);
+        if (result === false) return result;
+
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
             const { space } = this.system.details;
             const spaceUpdates = {
@@ -179,7 +181,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
                 length: changed.system?.details?.space?.long ?? space.long,
             };
             const tokenDimensions = this.getTokenDimensions(spaceUpdates);
-            mergeObject(changed, { token: tokenDimensions });
+            changed.prototypeToken = mergeObject(changed.prototypeToken ?? {}, tokenDimensions);
 
             if (canvas.scene) {
                 const updates = this.getActiveTokens()

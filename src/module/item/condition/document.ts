@@ -249,7 +249,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
     }
