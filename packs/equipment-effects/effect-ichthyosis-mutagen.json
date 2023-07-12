@@ -4,7 +4,7 @@
     "name": "Effect: Ichthyosis Mutagen",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ichthyosis Mutagen]</p>\n<p><strong>Benefit</strong> For 1 minute, you gain fast healing 2 and automatically succeed at flat checks to recover from persistent bleed damage.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to Reflex saves for 1 minute.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ichthyosis Mutagen]</p>\n<p><strong>Benefit</strong> For 1 minute, you gain fast healing 2.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to Reflex saves for 1 minute.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,16 +24,6 @@
                 "key": "FlatModifier",
                 "selector": "reflex",
                 "value": -2
-            },
-            {
-                "itemType": "condition",
-                "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:damage:type:bleed"
-                ],
-                "property": "pd-recovery-dc",
-                "value": 1
             }
         ],
         "source": {
