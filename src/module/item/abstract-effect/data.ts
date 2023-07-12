@@ -4,6 +4,7 @@ import { CheckRoll } from "@system/check/index.ts";
 
 interface EffectBadgeCounter {
     type: "counter";
+    max?: number;
     value: number;
     label?: string | null;
     labels?: string[];

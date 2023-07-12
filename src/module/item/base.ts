@@ -1,15 +1,19 @@
 import { ActorPF2e } from "@actor/base.ts";
+import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules/index.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import { AfflictionSource } from "./affliction/data.ts";
 import { ContainerPF2e } from "./container/document.ts";
+import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
+import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
 import {
     ConditionSource,
     EffectSource,
@@ -19,14 +23,10 @@ import {
     ItemType,
     TraitChatData,
 } from "./data/index.ts";
-import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
 import { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
 import { ItemSheetPF2e } from "./sheet/base.ts";
-import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
 import { ItemInstances } from "./types.ts";
-import { UUIDUtils } from "@util/uuid.ts";
-import { ItemOriginFlag } from "@module/chat-message/data.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {

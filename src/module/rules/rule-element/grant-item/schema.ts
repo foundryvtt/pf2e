@@ -1,7 +1,7 @@
-import { SlugField } from "@system/schema-data-fields.ts";
-import type { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ItemAlterationField } from "../alter-item/index.ts";
-import { RuleElementSchema } from "../data.ts";
+import type { SlugField } from "@system/schema-data-fields.ts";
+import type { ArrayField, BooleanField, EmbeddedDataField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { RuleElementSchema } from "../data.ts";
+import type { ItemAlteration } from "../item-alteration/alteration.ts";
 
 type GrantItemSchema = RuleElementSchema & {
     /** The UUID of the item to grant: must be a compendium or world item */
@@ -15,7 +15,7 @@ type GrantItemSchema = RuleElementSchema & {
     /** Allow multiple of the same item (as determined by source ID) to be granted */
     allowDuplicate: BooleanField<boolean, boolean, false, false, true>;
     /** A list of alterations to make on the item before granting it */
-    alterations: ArrayField<ItemAlterationField>;
+    alterations: ArrayField<EmbeddedDataField<ItemAlteration>>;
     /**
      * Track a granted physical item from roll options: the sluggified `flag` will serve as a prefix for item roll
      * options, which are added to the `all` domain.

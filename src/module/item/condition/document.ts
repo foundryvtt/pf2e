@@ -93,12 +93,12 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         const options = super.getRollOptions(prefix);
         if (this.system.persistent) {
             const { damageType } = this.system.persistent;
-            options.push(`damage:type:${damageType}`);
+            options.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
             const category = DamageCategorization.fromDamageType(damageType);
-            if (category) options.push(`damage:category:${category}`);
+            if (category) options.push(`damage:category:${category}`, `item:damage:category:${category}`);
         }
 
-        return options;
+        return options.sort();
     }
 
     override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {

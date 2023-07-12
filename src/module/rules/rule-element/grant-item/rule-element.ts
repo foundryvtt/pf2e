@@ -7,7 +7,7 @@ import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { ItemAlterationField, applyAlterations } from "../alter-item/index.ts";
+import { ItemAlteration } from "../item-alteration/alteration.ts";
 import { ChoiceSetSource } from "../choice-set/data.ts";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
@@ -66,7 +66,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             reevaluateOnUpdate: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             replaceSelf: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             allowDuplicate: new fields.BooleanField({ required: false, nullable: false, initial: true }),
-            alterations: new fields.ArrayField(new ItemAlterationField(), {
+            alterations: new fields.ArrayField(new fields.EmbeddedDataField(ItemAlteration), {
                 required: false,
                 nullable: false,
                 initial: [],
@@ -163,12 +163,12 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         this.#applyChoiceSelections(tempGranted);
 
-        const alterations = this.alterations.map((a) => ({ ...a, value: this.resolveValue(a.value) }));
         try {
-            applyAlterations(grantedSource, alterations);
+            for (const alteration of this.alterations) {
+                alteration.applyTo(grantedSource);
+            }
         } catch (error) {
             if (error instanceof Error) this.failValidation(error.message);
-            return;
         }
 
         if (this.ignored) return;
