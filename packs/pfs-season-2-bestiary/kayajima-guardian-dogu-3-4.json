@@ -150,7 +150,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
                         "option": "construct-armor",
@@ -173,6 +173,26 @@
                         ],
                         "selector": "ac",
                         "value": -3
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
                     }
                 ],
                 "slug": null,
