@@ -2,28 +2,33 @@ import type { ClientBaseActor } from "./client-base-mixes.d.ts";
 
 declare global {
     /**
-     * The client-side Actor document which extends the common BaseActor abstraction.
-     * Each Actor document contains ActorData which defines its data schema.
+     * The client-side Actor document which extends the common BaseActor model.
      *
-     * @see {@link data.ActorData}              The Actor data schema
+     * @category - Documents
+     *
      * @see {@link documents.Actors}            The world-level collection of Actor documents
-     * @see {@link applications.ActorConfig}    The Actor configuration application
+     * @see {@link applications.ActorSheet}     The Actor configuration application
      *
-     * @example <caption>Create a new Actor</caption>
+     * @example Create a new Actor
+     * ```js
      * let actor = await Actor.create({
      *   name: "New Test Actor",
      *   type: "character",
      *   img: "artwork/character-profile.jpg"
      * });
+     * ```
      *
-     * @example <caption>Retrieve an existing Actor</caption>
+     * @example Retrieve an existing Actor
+     * ```js
      * let actor = game.actors.get(actorId);
+     * ```
      */
     class Actor<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActor<TParent> {
-        constructor(data: PreCreate<foundry.documents.ActorSource>, context?: DocumentConstructionContext<TParent>);
-
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
         overrides: Omit<DeepPartial<this["_source"]>, "prototypeToken">;
+
+        /** The statuses that are applied to this actor by active effects */
+        statuses: Set<string>;
 
         /**
          * A cached array of image paths which can be used for this Actor's token.
@@ -34,8 +39,12 @@ declare global {
         /** Cache the last drawn wildcard token to avoid repeat draws */
         protected _lastWildcard: string | null;
 
-        /** A convenient reference to the file path of the Actor's profile image */
-        get img(): ImageFilePath;
+        /* -------------------------------------------- */
+        /*  Properties                                  */
+        /* -------------------------------------------- */
+
+        /** Provide a thumbnail image path used to represent this document. */
+        get thumbnail(): ImageFilePath;
 
         /** Provide an object which organizes all embedded Item instances by their type */
         get itemTypes(): object;
@@ -43,16 +52,21 @@ declare global {
         /** Test whether an Actor is a synthetic representation of a Token (if true) or a full Document (if false) */
         get isToken(): boolean;
 
+        /** Retrieve the list of ActiveEffects that are currently applied to this Actor. */
+        get appliedEffects(): ActiveEffect<this>[];
+
         /** An array of ActiveEffect instances which are present on the Actor which have a limited duration. */
         get temporaryEffects(): TemporaryEffect[];
 
         /** Return a reference to the TokenDocument which owns this Actor as a synthetic override */
-        get token(): TParent | null;
+        get token(): TParent;
 
-        /** A convenience reference to the item type (data.type) of this Actor */
-        get type(): string;
+        /** Whether the Actor has at least one Combatant in the active Combat that represents it. */
+        get inCombat(): boolean;
 
-        override get uuid(): ActorUUID;
+        /* -------------------------------------------- */
+        /*  Methods                                     */
+        /* -------------------------------------------- */
 
         /** Apply any transformations to the Actor data which are caused by ActiveEffects. */
         applyActiveEffects(): void;
@@ -72,13 +86,26 @@ declare global {
             document?: boolean
         ): Token<TokenDocument<Scene | null>>[] | TokenDocument<Scene | null>[];
 
+        /**
+         * Get all ActiveEffects that may apply to this Actor.
+         * If CONFIG.ActiveEffect.legacyTransferral is true, this is equivalent to actor.effects.contents.
+         * If CONFIG.ActiveEffect.legacyTransferral is false, this will also return all the transferred ActiveEffects on any
+         * of the Actor's owned Items.
+         */
+        allApplicableEffects(): Generator<ActiveEffect<this>, void, void>;
+
         /** Prepare a data object which defines the data schema used by dice roll commands against this Actor */
         getRollData(): Record<string, unknown>;
 
-        protected override _getSheetClass(): ConstructorOf<NonNullable<this["_sheet"]>>;
+        /**
+         * Create a new Token document, not yet saved to the database, which represents the Actor.
+         * @param [data={}] Additional data, such as x, y, rotation, etc. for the created token data
+         * @returns The created TokenDocument instance
+         */
+        getTokenDocument(data?: DeepPartial<foundry.documents.TokenSource>): Promise<NonNullable<TParent>>;
 
         /** Get an Array of Token images which could represent this Actor */
-        getTokenImages(): Promise<ImageFilePath[]>;
+        getTokenImages(): Promise<(ImageFilePath | VideoFilePath)[]>;
 
         /**
          * Handle how changes to a Token attribute bar are applied to the Actor.
@@ -90,6 +117,8 @@ declare global {
          * @return The updated Actor document
          */
         modifyTokenAttribute(attribute: string, value: number, isDelta?: boolean, isBar?: boolean): Promise<this>;
+
+        override prepareEmbeddedDocuments(): void;
 
         /**
          * Roll initiative for all Combatants in the currently active Combat encounter which are associated with this Actor.
@@ -108,9 +137,20 @@ declare global {
             initiativeOptions?: object;
         }): Promise<Combat | null>;
 
-        override getEmbeddedCollection(embeddedName: "ActiveEffect"): this["effects"];
-        override getEmbeddedCollection(embeddedName: "Item"): this["items"];
-        override getEmbeddedCollection(embeddedName: "ActiveEffect" | "Item"): this["effects"] | this["items"];
+        /**
+         * Request wildcard token images from the server and return them.
+         * @param actorId   The actor whose prototype token contains the wildcard image path.
+         * @param [options]
+         * @param [options.pack] The name of the compendium the actor is in.
+         */
+        protected static _requestTokenImages(
+            actorId: string,
+            options?: { pack?: string }
+        ): Promise<(ImageFilePath | VideoFilePath)[]>;
+
+        /* -------------------------------------------- */
+        /*  Event Handlers                              */
+        /* -------------------------------------------- */
 
         protected override _preCreate(
             data: PreDocumentId<this["_source"]>,
@@ -160,29 +200,13 @@ declare global {
         readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect<this>>;
         readonly items: foundry.abstract.EmbeddedCollection<Item<this>>;
 
-        prototypeToken: foundry.data.PrototypeToken<this>;
-
         _sheet: ActorSheet<this> | null;
 
         get sheet(): ActorSheet<this>;
 
-        get folder(): Folder<Actor<null>> | null;
+        get uuid(): ActorUUID;
 
-        deleteEmbeddedDocuments(
-            embeddedName: "ActiveEffect",
-            ids: string[],
-            context?: DocumentModificationContext<this>
-        ): Promise<CollectionValue<this["effects"]>[]>;
-        deleteEmbeddedDocuments(
-            embeddedName: "Item",
-            ids: string[],
-            context?: DocumentModificationContext<this>
-        ): Promise<CollectionValue<this["items"]>[]>;
-        deleteEmbeddedDocuments(
-            embeddedName: "ActiveEffect" | "Item",
-            ids: string[],
-            context?: DocumentModificationContext<this>
-        ): Promise<CollectionValue<this["effects"]>[] | CollectionValue<this["items"]>[]>;
+        get folder(): Folder<Actor<null>> | null;
     }
 
     type CompendiumActorUUID = `Compendium.${string}.Actor.${string}`;

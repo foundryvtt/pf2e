@@ -10,6 +10,8 @@ import type { BaseActiveEffect, BaseItem, BaseToken, BaseUser } from "./module.d
  */
 export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends abstract.Document<TParent> {
     name: string;
+    type: string;
+    img: ImageFilePath;
     sort: number;
 
     prototypeToken: foundry.data.PrototypeToken<this>;
