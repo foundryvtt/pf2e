@@ -8,15 +8,15 @@ import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { StrikeAdjustment } from "../synthetics.ts";
-import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
-import { RuleElementOptions } from "./base.ts";
-import { ResolvableValueField } from "./data.ts";
+import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
-class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
+class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     constructor(data: AdjustStrikeSource, options: RuleElementOptions) {
-        super({ ...data, path: "ignore", phase: "beforeDerived", priority: 110 }, options);
+        super({ ...data, priority: 110 }, options);
     }
 
     static VALID_PROPERTIES = new Set([
@@ -31,8 +31,11 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            // `path` isn't used for AdjustAdjustStrike REs
-            path: new fields.StringField({ blank: true }),
+            mode: new fields.StringField({
+                required: true,
+                choices: AELikeRuleElement.CHANGE_MODES,
+                initial: undefined,
+            }),
             property: new fields.StringField({
                 required: true,
                 choices: Array.from(this.VALID_PROPERTIES),
@@ -44,7 +47,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     }
 
     /** Instead of applying the change directly to a property path, defer it to a synthetic */
-    override applyAELike(): void {
+    override beforePrepareData(): void {
         if (!this.test()) return;
 
         const change = this.resolveValue(this.value);
@@ -90,16 +93,15 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                                 return;
                             }
 
-                            const rangeIncrement = weapon.rangeIncrement;
+                            const rangeIncrement: number | null = weapon.rangeIncrement;
                             if (typeof rangeIncrement !== "number") {
                                 return this.failValidation(
                                     "A weapon that meets the definition lacks a range increment."
                                 );
                             }
 
-                            const newRangeIncrement = this.getNewValue(rangeIncrement, change);
+                            const newRangeIncrement = AELikeRuleElement.getNewValue(this.mode, rangeIncrement, change);
                             weapon.system.range = newRangeIncrement as WeaponRangeIncrement;
-                            return;
                         },
                     };
                 case "traits":
@@ -225,10 +227,11 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
 }
 
 interface AdjustStrikeRuleElement
-    extends AELikeRuleElement<AdjustStrikeSchema>,
+    extends RuleElementPF2e<AdjustStrikeSchema>,
         ModelPropsFromSchema<AdjustStrikeSchema> {}
 
-type AdjustStrikeSchema = Omit<AELikeSchema, "value"> & {
+type AdjustStrikeSchema = RuleElementSchema & {
+    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     /** The property of the strike to adjust */
     property: StringField<AdjustStrikeProperty, AdjustStrikeProperty, true, false, false>;
     /** The definition of the strike in terms of its item (weapon) roll options */
@@ -238,7 +241,8 @@ type AdjustStrikeSchema = Omit<AELikeSchema, "value"> & {
 
 type AdjustStrikeProperty = SetElement<(typeof AdjustStrikeRuleElement)["VALID_PROPERTIES"]>;
 
-interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {
+interface AdjustStrikeSource extends RuleElementSource {
+    mode?: unknown;
     property?: unknown;
     definition?: unknown;
 }

@@ -5,7 +5,7 @@ import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { isObject } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { AELikeChangeMode } from "../ae-like.ts";
+import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
@@ -70,31 +70,33 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 const effect = data.item;
-                const { mode, value } = data.alteration;
-                const badgeObject = effect.system.badge;
-                if (badgeObject?.type !== "counter" || !badgeObject.value || !badgeObject.max) {
-                    return;
+                const { badge } = effect.system;
+                if (badge?.type !== "counter" || !badge.value || !badge.max) return;
+
+                const newValue = AELikeRuleElement.getNewValue(this.mode, badge.max, data.alteration.value);
+                if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                    throw newValue.asError();
                 }
-                switch (mode) {
-                    case "downgrade":
-                        badgeObject.max = Math.min(badgeObject.max, Math.max(value, 1));
-                        break;
-                    case "override":
-                        badgeObject.max = Math.clamped(value, 1, badgeObject.labels?.length ?? value);
-                        break;
-                }
-                badgeObject.value = Math.clamped(badgeObject.value, 1, badgeObject.max);
+
+                const hardMax = badge.labels?.length ?? newValue;
+                badge.max = Math.clamped(newValue, 1, hardMax);
+                badge.value = Math.clamped(badge.value, 1, badge.max);
                 return;
             }
             case "badge-value": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 const effect = data.item;
-                const { value } = data.alteration;
-                const badgeObject = itemIsOfType(effect, "condition")
+                const badge = itemIsOfType(effect, "condition")
                     ? effect.system.value
                     : effect.system.badge ?? { value: 0 };
-                badgeObject.value = value;
+                if (typeof badge.value !== "number") return;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, badge.value, data.alteration.value);
+                if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                const max = "max" in badge ? badge.max ?? Infinity : Infinity;
+                badge.value = Math.clamped(newValue, 1, max);
                 return;
             }
             case "category": {
@@ -109,11 +111,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (validator.isValid(data)) {
                     const { system } = data.item;
                     const { value } = data.alteration;
-                    if (this.mode === "override") {
-                        system.hardness = Math.trunc(Math.max(value, 0));
-                    } else if (this.mode === "add") {
-                        system.hardness = Math.trunc(Math.max(system.hardness + value, 0));
+                    const newValue = AELikeRuleElement.getNewValue(this.mode, system.hardness, value);
+                    if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                        throw newValue.asError();
                     }
+                    system.hardness = Math.max(newValue, 0);
                     this.#adjustCreatureShieldData(data.item);
                 }
                 return;
@@ -123,14 +125,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (validator.isValid(data)) {
                     const { hp } = data.item.system;
                     const { value } = data.alteration;
-                    if (this.mode === "override") {
-                        hp.max = Math.trunc(Math.max(value, 0));
-                    } else if (this.mode === "multiply") {
-                        hp.max = Math.trunc(Math.max(hp.max * value, 0));
-                    } else if (this.mode === "add") {
-                        hp.max = Math.trunc(Math.max(hp.max + value, 0));
+                    const newValue = AELikeRuleElement.getNewValue(this.mode, hp.max, value);
+                    if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                        throw newValue.asError();
                     }
-                    this.#adjustCreatureShieldData(data.item);
+                    hp.max = Math.max(newValue, 1);
                 }
                 return;
             }
@@ -158,26 +157,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 data.alteration.value = this.resolveValue(data.alteration.value) || 15;
                 if (validator.isValid(data) && data.item.system.persistent) {
                     const { persistent } = data.item.system;
-                    const { value } = data.alteration;
-
-                    switch (this.mode) {
-                        case "add":
-                            persistent.dc = Math.max(persistent.dc + value, 0);
-                            return;
-                        case "override":
-                            persistent.dc = Math.max(value, 0);
-                            return;
-                        case "downgrade":
-                            persistent.dc = Math.max(Math.min(value, persistent.dc), 0);
-                            return;
-                        case "upgrade":
-                            persistent.dc = Math.max(value, persistent.dc);
-                            return;
-                        case "remove":
-                        case "subtract":
-                            persistent.dc = Math.max(persistent.dc - value, 0);
-                            return;
+                    const newValue = AELikeRuleElement.getNewValue(this.mode, persistent.dc, data.alteration.value);
+                    if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                        throw newValue.asError();
                     }
+                    persistent.dc = Math.max(newValue, 0);
                 }
                 return;
             }
