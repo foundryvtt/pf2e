@@ -127,17 +127,19 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _onCreateDescendantDocuments(
-            embeddedName: "TableResult",
+            parent: this,
+            collection: "results",
             documents: TableResult<this>[],
-            result: TableResult<this>["_source"][],
+            data: TableResult<this>["_source"][],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onDeleteDescendantDocuments(
-            embeddedName: "TableResult",
+            parent: this,
+            collection: "results",
             documents: TableResult<this>[],
-            result: string[],
+            ids: string[],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
