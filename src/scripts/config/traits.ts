@@ -579,12 +579,14 @@ const npcAttackTraits = {
     "reach-50": "PF2E.TraitReach50",
     "reach-60": "PF2E.TraitReach60",
     "reach-100": "PF2E.TraitReach100",
+    "reach-120": "PF2E.TraitReach120",
     "reach-200": "PF2E.TraitReach200",
     "reach-1000": "PF2E.TraitReach1000",
     "reload-0": "PF2E.TraitReload0",
     "reload-1": "PF2E.TraitReload1",
     "reload-2": "PF2E.TraitReload2",
     "reload-1-min": "PF2E.TraitReload1Min",
+    visual: "PF2E.TraitVisual"
 };
 
 const featTraits = {
