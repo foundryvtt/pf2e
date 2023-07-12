@@ -21,12 +21,7 @@ import { FastHealingRuleElement } from "./rule-element/fast-healing.ts";
 import { FixedProficiencyRuleElement } from "./rule-element/fixed-proficiency.ts";
 import { FlatModifierRuleElement } from "./rule-element/flat-modifier.ts";
 import { GrantItemRuleElement } from "./rule-element/grant-item/rule-element.ts";
-import type {
-    RuleElementData,
-    RuleElementOptions,
-    RuleElementSchema,
-    RuleElementSource,
-} from "./rule-element/index.ts";
+import type { RuleElementOptions, RuleElementSchema, RuleElementSource } from "./rule-element/index.ts";
 import { ItemAlterationRuleElement } from "./rule-element/item-alteration/rule-element.ts";
 import { ImmunityRuleElement } from "./rule-element/iwr/immunity.ts";
 import { ResistanceRuleElement } from "./rule-element/iwr/resistance.ts";
@@ -145,4 +140,4 @@ type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (n
     options: RuleElementOptions
 ) => RuleElementPF2e);
 
-export { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };
+export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };

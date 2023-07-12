@@ -10,7 +10,6 @@ import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
 import {
-    ChoiceSetData,
     ChoiceSetOwnedItems,
     ChoiceSetPackQuery,
     ChoiceSetSchema,
@@ -24,8 +23,13 @@ import { ChoiceSetPrompt } from "./prompt.ts";
  * @category RuleElement
  */
 class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
-    /** The choices one of various possible "uninflated" forms */
+    /**
+     * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
+     * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
+     */
     choices: UninflatedChoiceSet;
+
+    declare flag: string;
 
     /** Whether this choice set consists of items */
     containsItems = false;
@@ -36,8 +40,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     constructor(data: ChoiceSetSource, options: RuleElementOptions) {
         super(data, options);
 
-        this.flag = this.#setDefaultFlag(this.data);
-        this.choices = this.data.choices;
+        this.choices = data.choices ?? [];
+        this.flag = this.#setDefaultFlag(this);
         this.selection =
             typeof data.selection === "string" || typeof data.selection === "number" || isObject(data.selection)
                 ? data.selection
@@ -404,9 +408,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 }
 
-interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromSchema<ChoiceSetSchema> {
-    data: ChoiceSetData;
-    flag: string;
-}
+interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromSchema<ChoiceSetSchema> {}
 
 export { ChoiceSetRuleElement };

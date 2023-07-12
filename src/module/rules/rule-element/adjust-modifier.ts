@@ -65,8 +65,8 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
             predicate: new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate]))),
             suppress: this.suppress,
             getNewValue: (current: number): number => {
-                const change = this.resolveValue();
-                if (typeof change !== "number") {
+                const change = Number(this.resolveValue(this.value));
+                if (Number.isNaN(change)) {
                     this.failValidation("value does not resolve to a number");
                     return current;
                 } else if (this.ignored) {
