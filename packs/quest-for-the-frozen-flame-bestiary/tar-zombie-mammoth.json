@@ -271,13 +271,24 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A tar zombie requires a successful @Check[type:flat|dc:20] to recover from persistent fire damage. This DC isn't reduced for assisted recovery.</p>"
+                    "value": "<p>A tar zombie requires a successful DC 20 flat check to recover from persistent fire damage. This DC isn't reduced for assisted recovery.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:damage:type:fire"
+                        ],
+                        "property": "pd-recovery-dc",
+                        "value": 20
+                    }
+                ],
+                "slug": "flammable",
                 "source": {
                     "value": ""
                 },
