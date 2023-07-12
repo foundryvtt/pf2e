@@ -95,7 +95,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const { damageType } = this.system.persistent;
             options.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
             const category = DamageCategorization.fromDamageType(damageType);
-            if (category) options.push(`damage:category:${category}`, `item:damage:category:${category}`);
+            if (category) options.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
         }
 
         return options.sort();
@@ -132,13 +132,15 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
         if (this.system.persistent) {
             const { dc, damageType } = this.system.persistent;
+            const rollOptions = this.getRollOptions("recovery");
             const result = await new Statistic(this.actor, {
                 slug: "recovery",
                 label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
                     name: this.name,
                 }),
                 check: { type: "flat-check" },
-                domains: [],
+                domains: ["flat-check"],
+                rollOptions,
             }).roll({ dc: { value: dc }, skipDialog: true });
 
             if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
