@@ -102,7 +102,7 @@ declare global {
             data: DocumentUpdateData<this>,
             options: TokenUpdateContext<TParent>,
             user: User
-        ): Promise<void>;
+        ): Promise<boolean | void>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,

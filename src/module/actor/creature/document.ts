@@ -644,7 +644,7 @@ abstract class CreaturePF2e<
         changed: DeepPartial<this["_source"]>,
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Clamp hit points
         const currentHP = this.hitPoints;
         const changedHP = changed.system?.attributes?.hp;
@@ -667,7 +667,7 @@ abstract class CreaturePF2e<
             if (this.isToken) options.diff = false; // Force an update and sheet re-render
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

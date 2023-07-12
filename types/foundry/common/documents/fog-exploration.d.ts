@@ -9,7 +9,7 @@ export default class BaseFogExploration extends Document<null> {
         changed: DocumentUpdateData<this>,
         options: DocumentModificationContext<null>,
         user: BaseUser
-    ): Promise<void>;
+    ): Promise<boolean | void>;
 
     /** Test whether a User can modify a FogExploration document. */
     protected static _canUserModify<T extends BaseFogExploration>(user: BaseUser, doc: T): boolean;

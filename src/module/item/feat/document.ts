@@ -167,7 +167,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         data: PreDocumentId<FeatSource>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
             this.updateSource({ "system.location": null });
@@ -183,7 +183,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Ensure an empty-string `location` property is null
         if (typeof changed.system?.location === "string") {
             changed.system.location ||= null;
@@ -218,7 +218,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             mergeObject(changed, { system: { maxTakable: 1 } });
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 
     /** Warn the owning user(s) if this feat was taken despite some restriction */

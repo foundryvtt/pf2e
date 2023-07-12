@@ -45,7 +45,7 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         data: PreDocumentId<ActionItemSource>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // In case this was copied from an actor, clear any active frequency value
         if (!this.parent) {
             if (this._source.system.frequency) {
@@ -60,7 +60,7 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Normalize action data
         if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
             const actionType = changed.system?.actionType?.value ?? this.system.actionType.value;
@@ -71,7 +71,7 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             });
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

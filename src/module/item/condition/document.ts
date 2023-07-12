@@ -95,7 +95,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const { damageType } = this.system.persistent;
             options.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
             const category = DamageCategorization.fromDamageType(damageType);
-            if (category) options.push(`damage:category:${category}`, `item:damage:category:${category}`);
+            if (category) options.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
         }
 
         return options.sort();
@@ -118,7 +118,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
             roll.toMessage(
                 {
-                    speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
+                    speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
                 },
                 { rollMode: "roll" }
@@ -249,7 +249,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
     }
