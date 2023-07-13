@@ -14,10 +14,15 @@ export class TokenLayerPF2e<TToken extends TokenPF2e = TokenPF2e> extends TokenL
         const first = stack.shift()!;
         stack.push(first);
 
-        for (let i = stack.length; i > 0; i--) {
-            stack[i - 1].mesh.data.sort = i - 1;
+        for (let sort = stack.length - 1; sort >= 0; sort--) {
+            const token = stack[sort];
+            token.document.sort = sort;
+            token.mesh.initialize({ sort });
+            if (sort === stack.length - 1) {
+                token.emitHoverIn(new PointerEvent("pointerenter"));
+                this.hover = token;
+            }
         }
-        canvas.primary.sortChildren();
 
         return true;
     }

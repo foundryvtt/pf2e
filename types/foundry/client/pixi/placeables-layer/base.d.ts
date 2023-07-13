@@ -110,7 +110,7 @@ declare global {
          * @param options   Additional options which customize the Object releasing behavior
          * @return          The number of PlaceableObject instances which were released
          */
-        releaseAll(options: Record<string, unknown>): number;
+        releaseAll(options?: Record<string, unknown>): number;
 
         /**
          * Simultaneously rotate multiple PlaceableObjects using a provided angle or incremental.

@@ -84,6 +84,8 @@ declare global {
         /** An indicator for whether the object is currently a hover target */
         get hover(): boolean;
 
+        set hover(state: boolean);
+
         /* -------------------------------------------- */
         /*  Permission Controls                         */
         /* -------------------------------------------- */
