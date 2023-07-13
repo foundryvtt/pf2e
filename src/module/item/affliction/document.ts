@@ -9,7 +9,12 @@ import { DamageRoll } from "@system/damage/roll.ts";
 class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     override get badge(): EffectBadge {
         const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
-        return { type: "counter", value: this.stage, label };
+        return {
+            type: "counter",
+            value: this.stage,
+            max: Object.keys(this.system.stages).length || 1,
+            label,
+        };
     }
 
     get stage(): number {
@@ -17,7 +22,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     override async increase(): Promise<void> {
-        const maxStage = Object.values(this.system.stages).length;
+        const maxStage = Object.keys(this.system.stages).length || 1;
         if (this.stage === maxStage) return;
 
         const stage = Math.min(maxStage, this.system.stage + 1);
@@ -36,7 +41,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const maxStage = Object.values(this.system.stages).length || 1;
+        const maxStage = Object.keys(this.system.stages).length || 1;
         this.system.stage = Math.clamped(this.system.stage, 1, maxStage);
 
         // Set certain defaults

@@ -23,7 +23,14 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             return { type: "formula", value: this.system.persistent.formula };
         }
 
-        return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+        return this.system.value.value
+            ? {
+                  type: "counter",
+                  max: Infinity,
+                  label: null,
+                  value: this.system.value.value,
+              }
+            : null;
     }
 
     /** Retrieve this condition's origin from its granting effect, if any */
