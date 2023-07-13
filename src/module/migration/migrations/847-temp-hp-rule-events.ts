@@ -5,7 +5,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration847TempHPRuleEvents extends MigrationBase {
     static override version = 0.847;
 
-    override async preUpdateItem(source: ItemSourcePF2e): Promise<void> {
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const rules = source.system.rules.filter((r): r is MaybeOldRuleSource => r.key === "TempHP");
         for (const rule of rules) {
             if (rule.onCreate !== undefined) {

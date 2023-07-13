@@ -911,7 +911,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const modifiers: ModifierPF2e[] = [];
 
             // Indicate that the strength requirement of this actor's armor is met
-            if (typeof wornArmor?.strength === "number" && this.system.abilities.str.value >= wornArmor.strength) {
+            if (typeof wornArmor?.strength === "number" && this.system.abilities.str.mod >= wornArmor.strength) {
                 for (const selector of ["skill-check", "initiative"]) {
                     const rollOptions = (this.rollOptions[selector] ??= {});
                     // Nullish assign to not overwrite setting by rule element
@@ -1007,7 +1007,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const { wornArmor } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
-        const strength = this.system.abilities.str.value;
+        const strength = this.system.abilities.str.mod;
         const requirement = wornArmor?.strength ?? strength;
         const penaltyValue = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
 
