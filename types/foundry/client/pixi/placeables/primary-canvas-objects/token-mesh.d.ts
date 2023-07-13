@@ -7,5 +7,7 @@ declare class TokenMesh extends SpriteMesh {
 
     get sort(): number;
 
+    initialize(data: { sort?: number }): void;
+
     refresh(): void;
 }
