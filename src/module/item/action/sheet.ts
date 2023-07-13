@@ -1,6 +1,5 @@
 import { ActionItemPF2e } from "@item/action/document.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
-import { getActionIcon } from "@util/misc.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import { FrequencySource } from "@item/data/base.ts";
 import { htmlQuery } from "@util";
@@ -8,9 +7,6 @@ import { htmlQuery } from "@util";
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ActionSheetData> {
         const data = await super.getData(options);
-
-        // Update icon based on the action cost
-        data.item.img = getActionIcon(this.item.actionCost);
 
         return {
             ...data,
