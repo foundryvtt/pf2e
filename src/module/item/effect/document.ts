@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
 import { EffectBadge } from "@item/abstract-effect/data.ts";
+import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
-import { isObject, objectHasKey, sluggify } from "@util";
+import { sluggify } from "@util";
 import { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
 
 class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
@@ -112,9 +112,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     async increase(): Promise<void> {
         const badge = this.system.badge;
         if (badge?.type === "counter" && !this.isExpired) {
-            const max = badge.labels?.length ?? Infinity;
-            if (badge.value >= max) return;
-
             const value = badge.value + 1;
             await this.update({ system: { badge: { value } } });
         }
@@ -122,7 +119,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     /** Decreases if this is a counter effect, otherwise deletes entirely */
     async decrease(): Promise<void> {
-        if (this.system.badge?.type !== "counter" || this.system.badge.value === 1 || this.isExpired) {
+        if (this.system.badge?.type !== "counter" || this.isExpired) {
             await this.delete();
             return;
         }
@@ -187,10 +184,27 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (duration.value === -1) duration.value = 1;
         }
 
-        // If the badge type changes, reset the value
-        const badge = changed.system?.badge;
-        if (isObject<EffectBadge>(badge) && badge?.type && !objectHasKey(badge, "value")) {
-            badge.value = 1;
+        const currentBadge = this.system.badge;
+        const badgeChange = changed.system?.badge;
+        if (badgeChange?.type && badgeChange.type !== currentBadge?.type) {
+            // If the badge type changes, reset the value
+            badgeChange.value = 1;
+        } else if (currentBadge?.type === "counter" && typeof badgeChange?.value === "number") {
+            const maxValue = ((): number => {
+                if ("labels" in badgeChange && Array.isArray(badgeChange.labels)) {
+                    return badgeChange.labels.length;
+                }
+                if ("max" in badgeChange && typeof badgeChange.max === "number") {
+                    return badgeChange.max;
+                }
+                return currentBadge.max ?? Infinity;
+            })();
+            const newValue = (badgeChange.value = Math.min(badgeChange.value, maxValue));
+            if (newValue <= 0) {
+                // Only delete the item if it is embedded
+                await this.actor?.deleteEmbeddedDocuments("Item", [this.id]);
+                return false;
+            }
         }
 
         return super._preUpdate(changed, options, user);
