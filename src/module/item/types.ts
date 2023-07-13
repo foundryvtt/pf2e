@@ -9,6 +9,7 @@ interface ItemInstances<TParent extends ActorPF2e | null> {
     background: ItemInstance.BackgroundPF2e<TParent>;
     backpack: ItemInstance.ContainerPF2e<TParent>;
     book: ItemInstance.BookPF2e<TParent>;
+    campaignFeature: ItemInstance.CampaignFeaturePF2e<TParent>;
     class: ItemInstance.ClassPF2e<TParent>;
     condition: ItemInstance.ConditionPF2e<TParent>;
     consumable: ItemInstance.ConsumablePF2e<TParent>;

@@ -20,7 +20,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     campaign: PartyCampaign | null = null;
 
     get baseAllowedItemTypes(): (ItemType | "physical")[] {
-        return ["effect", "physical"];
+        return ["physical"];
     }
 
     override get allowedItemTypes(): (ItemType | "physical")[] {

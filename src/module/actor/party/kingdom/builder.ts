@@ -2,7 +2,7 @@ import * as R from "remeda";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import { PartyPF2e } from "../document.ts";
 import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, getKingdomABCData } from "./values.ts";
-import { KingdomAbility, KingdomCHG } from "./data.ts";
+import { KingdomAbility, KingdomCHG } from "./types.ts";
 import { Kingdom } from "./model.ts";
 import { BoostFlawState } from "@actor/sheet/popups/ability-builder.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";

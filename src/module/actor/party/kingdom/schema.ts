@@ -1,7 +1,7 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
 import { ArrayField, StringField } from "types/foundry/common/data/fields.js";
-import { KingdomAbility } from "./data.ts";
+import { KingdomAbility } from "./types.ts";
 import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
 
 const { fields } = foundry.data;

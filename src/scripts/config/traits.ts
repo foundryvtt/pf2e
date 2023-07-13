@@ -355,18 +355,6 @@ const magicSchools: Record<MagicSchool, string> = {
     transmutation: "PF2E.TraitTransmutation",
 };
 
-const kingmakerTraits = {
-    army: "PF2E.TraitArmy",
-    cavalry: "PF2E.TraitCavalry",
-    civic: "PF2E.TraitCivic",
-    commerce: "PF2E.TraitCommerce",
-    infantry: "PF2E.TraitInfantry",
-    kingdom: "PF2E.TraitKingdom",
-    leadership: "PF2E.TraitLeadership",
-    region: "PF2E.TraitRegion",
-    upkeep: "PF2E.TraitUpkeep",
-};
-
 const spellTraits = {
     ...alignmentTraits,
     ...classTraits,
@@ -1324,6 +1312,19 @@ const traitDescriptions = {
     witch: "PF2E.TraitDescriptionWitch",
     wizard: "PF2E.TraitDescriptionWizard",
     ...preciousMaterialDescriptions,
+};
+
+const kingmakerTraits = {
+    ...actionTraits,
+    army: "PF2E.TraitArmy",
+    cavalry: "PF2E.TraitCavalry",
+    civic: "PF2E.TraitCivic",
+    commerce: "PF2E.TraitCommerce",
+    infantry: "PF2E.TraitInfantry",
+    kingdom: "PF2E.TraitKingdom",
+    leadership: "PF2E.TraitLeadership",
+    region: "PF2E.TraitRegion",
+    upkeep: "PF2E.TraitUpkeep",
 };
 
 export {

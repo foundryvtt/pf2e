@@ -24,7 +24,7 @@ import {
     TraitViewData,
 } from "@actor/data/base.ts";
 import { AbilityString, SaveType } from "@actor/types.ts";
-import { FeatPF2e, WeaponPF2e } from "@item";
+import { FeatPF2e, ItemPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
@@ -39,6 +39,9 @@ import { StatisticTraceData } from "@system/statistic/data.ts";
 import { CharacterPF2e } from "./document.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
+import { ItemSystemData } from "@item/data/base.ts";
+import { ActorPF2e } from "@actor";
+import { FeatGroup } from "./feats.ts";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -439,14 +442,25 @@ interface CharacterTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];
 }
 
-interface SlottedFeat {
-    id: string;
-    level: number | string;
-    feat?: FeatPF2e;
+/** Any document that is similar enough to a feat/feature to be used as a feat for the purposes of feat groups */
+interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    category: string;
+    group: FeatGroup<Exclude<TParent, null>, this> | null;
+    isFeat: boolean;
+    isFeature: boolean;
+    system: ItemSystemData & {
+        location: string | null;
+    };
 }
 
-interface BonusFeat {
-    feat: FeatPF2e;
+interface SlottedFeat<T extends FeatLike = FeatPF2e> {
+    id: string;
+    level: number | string;
+    feat?: T;
+}
+
+interface BonusFeat<T extends FeatLike = FeatPF2e> {
+    feat: T;
 }
 
 export {
@@ -466,6 +480,7 @@ export {
     CharacterSystemData,
     CharacterTraitsData,
     ClassDCData,
+    FeatLike,
     LinkedProficiency,
     MagicTraditionProficiencies,
     MartialProficiencies,

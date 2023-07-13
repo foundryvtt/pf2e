@@ -28,6 +28,7 @@ export { ConsumablePF2e } from "./consumable/document.ts";
 export { DeityPF2e } from "./deity/document.ts";
 export { FeatPF2e } from "./feat/document.ts";
 export { HeritagePF2e } from "./heritage/document.ts";
+export { CampaignFeaturePF2e } from "./campaign-feature/document.ts";
 export { KitPF2e } from "./kit/document.ts";
 export { LorePF2e } from "./lore/index.ts";
 export { MeleePF2e } from "./melee/document.ts";

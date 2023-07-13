@@ -5,13 +5,14 @@ import { PhysicalItemTrait } from "@item/physical/data.ts";
 import { DocumentSchemaRecord, OneToThree, Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ItemType } from "./index.ts";
+import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 
 interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource>
     extends foundry.documents.ItemSource<TType, TSystemSource> {
     flags: ItemSourceFlagsPF2e;
 }
 
-type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait;
+type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait | KingmakerTrait;
 
 type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
 
