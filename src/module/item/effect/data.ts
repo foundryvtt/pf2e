@@ -1,4 +1,11 @@
-import { EffectAuraData, EffectBadge, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/index.ts";
+import {
+    EffectAuraData,
+    EffectBadge,
+    EffectBadgeSource,
+    EffectContextData,
+    EffectTraits,
+    TimeUnit,
+} from "@item/abstract-effect/index.ts";
 import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
@@ -31,13 +38,14 @@ interface EffectSystemSource extends ItemSystemSource {
     target: string | null;
     expired?: boolean;
     /** A numeric value or dice expression of some rules significance to the effect */
-    badge: EffectBadge | null;
+    badge: EffectBadgeSource | null;
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
 }
 
 interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "level" | "traits"> {
     expired: boolean;
+    badge: EffectBadge | null;
     remaining: string;
 }
 

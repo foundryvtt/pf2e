@@ -2,12 +2,16 @@ import { ActionTrait } from "@item/action/index.ts";
 import { SpellTrait } from "@item/spell/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 
-interface EffectBadgeCounter {
+interface EffectBadgeCounterSource {
     type: "counter";
     max?: number;
     value: number;
-    label?: string | null;
     labels?: string[];
+}
+
+interface EffectBadgeCounter extends EffectBadgeCounterSource {
+    max: number;
+    label: string | null;
 }
 
 interface EffectTraits {
@@ -49,8 +53,9 @@ interface EffectAuraData {
     removeOnExit: boolean;
 }
 
+type EffectBadgeSource = EffectBadgeCounterSource | EffectBadgeValue | EffectBadgeFormula;
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
 
-export { EffectAuraData, EffectBadge, EffectContextData, EffectTrait, EffectTraits, TimeUnit };
+export { EffectAuraData, EffectBadge, EffectBadgeSource, EffectContextData, EffectTrait, EffectTraits, TimeUnit };
