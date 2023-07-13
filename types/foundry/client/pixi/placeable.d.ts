@@ -1,14 +1,14 @@
-export {};
-
 declare global {
     /**
      * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas
      * @param document The Document instance which is represented by this object
      */
-    abstract class PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
+    abstract class PlaceableObject<
+        TDocument extends CanvasDocument = CanvasDocument
+    > extends RenderFlagsContainer<TDocument> {
         constructor(document: TDocument);
 
-        static RENDER_FLAGS: {
+        static override RENDER_FLAGS: {
             redraw: { propagate: string[] };
             refresh: { propagate: string[]; alias: boolean };
             refreshState: {};
@@ -83,8 +83,6 @@ declare global {
 
         /** An indicator for whether the object is currently a hover target */
         get hover(): boolean;
-
-        set hover(state: boolean);
 
         /* -------------------------------------------- */
         /*  Permission Controls                         */
@@ -316,15 +314,39 @@ declare global {
         protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<this["document"][]>;
+        protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<TDocument[]>;
 
         /** Callback actions which occur on a mouse-move operation. */
         protected _onDragLeftCancel(event: PIXI.FederatedPointerEvent): void;
     }
 
-    interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument> extends PIXI.Container {
-        renderFlags: RenderFlags;
-
+    interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument>
+        extends RenderFlagsContainer<TDocument> {
         hitArea: PIXI.Rectangle;
     }
+}
+
+export class RenderFlagsContainer<TDocument extends CanvasDocument> extends PIXI.Container {
+    constructor(document: TDocument);
+
+    /** Configure the render flags used for this class. */
+    static RENDER_FLAGS: Record<string, Partial<RenderFlag>>;
+
+    /**
+     * The ticker priority when RenderFlags of this class are handled.
+     * Valid values are OBJECTS or PERCEPTION.
+     */
+    static RENDER_FLAG_PRIORITY: "OBJECTS";
+
+    /**
+     * Status flags which are applied at render-time to update the PlaceableObject.
+     * If an object defines RenderFlags, it should at least include flags for "redraw" and "refresh".
+     */
+    renderFlags: RenderFlags;
+
+    /**
+     * Apply any current render flags, clearing the renderFlags set.
+     * Subclasses should override this method to define behavior.
+     */
+    applyRenderFlags(): void;
 }
