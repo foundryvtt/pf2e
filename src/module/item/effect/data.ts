@@ -35,7 +35,6 @@ interface EffectSystemSource extends ItemSystemSource {
         show: boolean;
     };
     unidentified: boolean;
-    target: string | null;
     expired?: boolean;
     /** A numeric value or dice expression of some rules significance to the effect */
     badge: EffectBadgeSource | null;
