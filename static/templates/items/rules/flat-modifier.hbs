@@ -1,7 +1,7 @@
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.General.Label"}}</label>
     <div class="spaced-fields details-container-flex-row">
-        <input type="text" name="system.rules.{{index}}.label" value="{{rule.label}}" {{#unless rule.label}}placeholder="{{object.data.label}}"{{/unless}} />
+        <input type="text" name="system.rules.{{index}}.label" value="{{rule.label}}" placeholder="{{object.label}}" />
         <label>
             {{localize "PF2E.RuleEditor.FlatModifier.HideIfDisabled"}}
             <input type="checkbox" name="system.rules.{{index}}.hideIfDisabled" {{checked rule.hideIfDisabled}}>
@@ -16,7 +16,7 @@
             {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
         </button>
         {{#if selectorIsArray}}
-            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON"/>
+            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON" />
         {{else}}
             <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
         {{/if}}
@@ -60,7 +60,7 @@
         </select>
 
         {{#if (eq value.mode "brackets")}}
-            <a data-action="bracket-add"><i class="fas fa-fw fa-plus"></i></a>
+            <a data-action="bracket-add"><i class="fa-solid fa-fw fa-plus"></i></a>
         {{/if}}
     </div>
 </div>
@@ -77,7 +77,7 @@
                 </div>
                 <label>{{localize "PF2E.RuleEditor.General.Value"}}</label>
                 <input type="text" name="system.rules.{{@root.index}}.value.brackets.{{idx}}.value" value="{{bracket.value}}"/>
-                <a data-action="bracket-delete" data-idx="{{idx}}"><i class="fas fa-fw fa-trash"></i></a>
+                <a data-action="bracket-delete" data-idx="{{idx}}"><i class="fa-solid fa-fw fa-trash"></i></a>
             </div>
         {{/each}}
     </div>

@@ -1,4 +1,3 @@
-import { RawPredicate } from "@system/predication.ts";
 import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject } from "@util";
 import type { BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -17,17 +16,6 @@ type RuleElementSource = {
     requiresEquipped?: unknown;
     removeUponCreate?: unknown;
 };
-
-interface RuleElementData extends RuleElementSource {
-    key: string;
-    value?: RuleValue;
-    label: string;
-    slug?: string | null;
-    predicate?: RawPredicate;
-    priority: number;
-    ignored: boolean;
-    removeUponCreate?: boolean;
-}
 
 type RuleValue = string | number | boolean | object | BracketedValue | null;
 
@@ -84,12 +72,4 @@ class ResolvableValueField<
     }
 }
 
-export {
-    Bracket,
-    BracketedValue,
-    ResolvableValueField,
-    RuleElementData,
-    RuleElementSchema,
-    RuleElementSource,
-    RuleValue,
-};
+export { Bracket, BracketedValue, ResolvableValueField, RuleElementSchema, RuleElementSource, RuleValue };
