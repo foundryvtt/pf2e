@@ -1,6 +1,17 @@
 import { ActionTrait } from "@item/action/index.ts";
+import { ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
 import { SpellTrait } from "@item/spell/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
+
+interface AbstractEffectSystemSource extends ItemSystemSource {
+    /** Whether this effect originated from a spell */
+    fromSpell?: boolean;
+}
+
+interface AbstractEffectSystemData extends ItemSystemData {
+    /** Whether this effect originated from a spell */
+    fromSpell: boolean;
+}
 
 interface EffectBadgeCounterSource {
     type: "counter";
@@ -58,4 +69,14 @@ type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
 
-export { EffectAuraData, EffectBadge, EffectBadgeSource, EffectContextData, EffectTrait, EffectTraits, TimeUnit };
+export {
+    AbstractEffectSystemData,
+    AbstractEffectSystemSource,
+    EffectAuraData,
+    EffectBadge,
+    EffectBadgeSource,
+    EffectContextData,
+    EffectTrait,
+    EffectTraits,
+    TimeUnit,
+};
