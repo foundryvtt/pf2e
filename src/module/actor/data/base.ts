@@ -243,8 +243,8 @@ interface StrikeData extends StatisticModifier {
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {
-        compatible: ConsumablePF2e[];
-        incompatible: ConsumablePF2e[];
+        compatible: (ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e>)[];
+        incompatible: (ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e>)[];
         selected: {
             id: string;
             compatible: boolean;
