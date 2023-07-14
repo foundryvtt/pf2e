@@ -657,7 +657,7 @@ class DiceModifierPF2e implements BaseRawModifier {
         this.override = params.override ?? null;
         this.custom = params.custom ?? false;
 
-        this.category = tupleHasValue(["persistent", "precision", "splash"] as const, params.category)
+        this.category = tupleHasValue(["persistent", "precision", "splash"], params.category)
             ? params.category
             : this.damageType === "bleed"
             ? "persistent"

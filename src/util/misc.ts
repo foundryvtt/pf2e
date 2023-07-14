@@ -124,7 +124,7 @@ function objectHasKey<O extends object>(obj: O, key: unknown): key is keyof O {
 }
 
 /** Check if a value is present in the provided array. Especially useful for checking against literal tuples */
-function tupleHasValue<A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
+function tupleHasValue<const A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
     return array.includes(value);
 }
 

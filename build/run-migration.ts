@@ -9,6 +9,7 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
+
 import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls.ts";
 import { Migration822BladeAllyConsolidation } from "@module/migration/migrations/822-blade-ally-consolidation.ts";
 import { Migration824SneakAttackDamageSource } from "@module/migration/migrations/824-sneak-attack-damage-source.ts";
@@ -31,6 +32,7 @@ import { Migration841V11UUIDFormat } from "@module/migration/migrations/841-v11-
 import { Migration844DeityDomainUUIDs } from "@module/migration/migrations/844-deity-domains-uuids.ts";
 import { Migration846SpellSchoolOptional } from "@module/migration/migrations/846-spell-school-optional.ts";
 import { Migration847TempHPRuleEvents } from "@module/migration/migrations/847-temp-hp-rule-events.ts";
+import { Migration848NumericArmorProperties } from "@module/migration/migrations/848-numeric-armor-properties.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -63,6 +65,7 @@ const migrations: MigrationBase[] = [
     new Migration844DeityDomainUUIDs(),
     new Migration846SpellSchoolOptional(),
     new Migration847TempHPRuleEvents(),
+    new Migration848NumericArmorProperties(),
 ];
 
 global.deepClone = <T>(original: T): T => {

@@ -38,24 +38,24 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     get dexCap(): number | null {
-        return this.isShield ? null : this.system.dex.value;
+        return this.isShield ? null : this.system.dexCap;
     }
 
     get strength(): number | null {
-        return this.isShield ? null : this.system.strength.value;
+        return this.isShield ? null : this.system.strength;
     }
 
     get checkPenalty(): number | null {
-        return this.isShield ? null : this.system.check.value || null;
+        return this.isShield ? null : this.system.checkPenalty || null;
     }
 
-    get speedPenalty(): number {
-        return this.system.speed.value;
+    get speedPenalty(): number | null {
+        return this.system.speedPenalty || null;
     }
 
     get acBonus(): number {
         const potencyRune = this.isArmor && this.isInvested ? this.system.runes.potency : 0;
-        const baseArmor = Number(this.system.armor.value) || 0;
+        const baseArmor = Number(this.system.acBonus) || 0;
         return this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
     }
 
@@ -170,15 +170,17 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
             // Set roll options for certain armor traits
             const traits = this.traits;
-            for (const [trait, domain] of [
-                ["bulwark", "reflex"],
-                ["flexible", "skill-check"],
-                ["noisy", "skill-check"],
+            for (const [trait, domains] of [
+                ["bulwark", ["reflex"]],
+                ["flexible", ["acrobatics", "athletics"]],
+                ["noisy", ["stealth"]],
             ] as const) {
                 if (traits.has(trait)) {
-                    const checkOptions = (actor.rollOptions[domain] ??= {});
-                    checkOptions[`armor:trait:${trait}`] = true;
-                    checkOptions[`self:armor:trait:${trait}`] = true;
+                    for (const domain of domains) {
+                        const checkOptions = (actor.rollOptions[domain] ??= {});
+                        checkOptions[`armor:trait:${trait}`] = true;
+                        checkOptions[`self:armor:trait:${trait}`] = true;
+                    }
                 }
             }
         } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && actor.heldShield === this) {
@@ -209,13 +211,12 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         this: ArmorPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
         const properties = [
             this.isArmor ? CONFIG.PF2E.armorCategories[this.category] : CONFIG.PF2E.weaponCategories.martial,
             `${addSign(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
-            this.isArmor ? `${systemData.dex.value || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}` : null,
-            this.isArmor ? `${systemData.check.value || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}` : null,
-            this.speedPenalty ? `${systemData.speed.value || 0} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
+            this.isArmor ? `${this.system.dexCap || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}` : null,
+            this.isArmor ? `${this.system.checkPenalty || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}` : null,
+            this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
         ];
 
         return this.processChatData(htmlOptions, {
