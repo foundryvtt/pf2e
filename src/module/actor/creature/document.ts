@@ -1,4 +1,4 @@
-import { ActorPF2e, PartyPF2e } from "@actor";
+import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
@@ -17,8 +17,9 @@ import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { LightLevels } from "@scene/data.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import type { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
@@ -491,10 +492,15 @@ abstract class CreaturePF2e<
             }),
         ];
 
-        const modifier = new StatisticModifier(game.i18n.localize("PF2E.Check.Specific.Recovery"), []);
-        const token = this.getActiveTokens(false, true).shift();
-
-        return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
+        return new Statistic(this, {
+            slug: "dying-recovery",
+            label: "PF2E.Check.Specific.Recovery",
+            check: { type: "flat-check" },
+        }).roll({
+            ...eventToRollParams(event),
+            dc,
+            extraRollNotes: notes,
+        });
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */
