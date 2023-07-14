@@ -1824,7 +1824,7 @@
                 },
                 "damageRolls": {
                     "817y9nq26svz371ubpw2": {
-                        "damage": "2d8+1",
+                        "damage": "1d8+1",
                         "damageType": "piercing"
                     }
                 },
@@ -1839,7 +1839,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fatal-d10",
                         "thrown-20"
                     ]
                 },
@@ -1909,7 +1908,9 @@
                     {
                         "key": "Note",
                         "selector": "will",
-                        "text": "<p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r 3d8[mental]]] damage (@Check[type:will|dc:20|basic:true] save).</p>"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     },
                     {
                         "key": "Note",
@@ -1917,7 +1918,9 @@
                             "mental"
                         ],
                         "selector": "fortitude",
-                        "text": "<p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r 3d8[mental]]] damage (@Check[type:will|dc:20|basic:true] save).</p>"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     },
                     {
                         "key": "Note",
@@ -1925,7 +1928,9 @@
                             "mental"
                         ],
                         "selector": "reflex",
-                        "text": "<p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r 3d8[mental]]] damage (@Check[type:will|dc:20|basic:true] save).</p>"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -1959,12 +1964,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Corrupted priests deal an extra [[/r {1d8}]]{1d8 damage} with their tridents, and any trident gains the fatal d10 trait while the priest is using it (both the extra weapon damage die and the fatal trait have already been included above).</p>"
+                    "value": "<p>Corrupted priests deal an extra 1d8 damage with their tridents, and any trident gains the fatal d10 trait while the priest is using it (both the extra weapon damage die and the fatal trait have already been included above).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:trident"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:base:trident"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "fatal-d10"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
