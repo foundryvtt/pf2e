@@ -85,6 +85,7 @@ const elementalTraits = {
     fire: "PF2E.TraitFire",
     metal: "PF2E.TraitMetal",
     water: "PF2E.TraitWater",
+    wood: "PF2E.TraitWood",
 };
 
 const energyDamageTypes = {
@@ -254,6 +255,7 @@ const classTraits: Record<ClassTrait, string> = {
     gunslinger: "PF2E.TraitGunslinger",
     inventor: "PF2E.TraitInventor",
     investigator: "PF2E.TraitInvestigator",
+    kineticist: "PF2E.TraitKineticist",
     magus: "PF2E.TraitMagus",
     monk: "PF2E.TraitMonk",
     oracle: "PF2E.TraitOracle",
@@ -605,6 +607,7 @@ const featTraits = {
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
     class: "PF2E.Class",
+    composite: "PF2E.TraitComposite",
     concentrate: "PF2E.TraitConcentrate",
     dedication: "PF2E.TraitDedication",
     detection: "PF2E.TraitDetection",
@@ -619,6 +622,8 @@ const featTraits = {
     flourish: "PF2E.TraitFlourish",
     fortune: "PF2E.TraitFortune",
     general: "PF2E.TraitGeneral",
+    impulse: "PF2E.TraitImpulse",
+    infusion: "PF2E.TraitInfusion",
     injury: "PF2E.TraitInjury",
     lineage: "PF2E.TraitLineage",
     manipulate: "PF2E.TraitManipulate",
@@ -630,6 +635,7 @@ const featTraits = {
     oath: "PF2E.TraitOath",
     olfactory: "PF2E.TraitOlfactory",
     open: "PF2E.TraitOpen",
+    overflow: "PF2E.TraitOverflow",
     "pervasive-magic": "PF2E.TraitPervasiveMagic",
     poison: "PF2E.TraitPoison",
     press: "PF2E.TraitPress",
@@ -648,6 +654,8 @@ const featTraits = {
     unstable: "PF2E.TraitUnstable",
     vigilante: "PF2E.TraitVigilante",
     virulent: "PF2E.TraitVirulent",
+    vitality: "PF2E.TraitVitality",
+    void: "PF2E.TraitVoid",
 };
 
 const consumableTraits = {

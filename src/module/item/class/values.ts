@@ -11,6 +11,7 @@ export const CLASS_TRAITS = new Set([
     "druid",
     "fighter",
     "gunslinger",
+    "kineticist",
     "inventor",
     "investigator",
     "magus",
