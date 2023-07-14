@@ -287,8 +287,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.type = data.check?.type ?? "check";
         this.label = this.#determineLabel(data);
         this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
-        if (this.type === "flat-check" && this.domains.length > 0) {
-            throw ErrorPF2e("Flat checks cannot have associated domains");
+
+        // If this is a flat check, ensure there are no input domains and replace them
+        if (this.type === "flat-check") {
+            if (this.domains.length > 0) {
+                throw ErrorPF2e("Flat checks cannot have associated domains");
+            }
+            this.domains = [`${this.parent.slug}-check`];
         }
 
         // Acquire additional adjustments for cloned parent modifiers
@@ -303,7 +308,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         const allCheckModifiers = [
             data.check?.modifiers ?? [],
-            data.check?.domains ? extractModifiers(parent.actor.synthetics, data.check.domains) : [],
+            extractModifiers(parent.actor.synthetics, data.check?.domains ?? []),
         ].flat();
         const rollOptions = parent.createRollOptions(this.domains, options);
         this.modifiers = [
@@ -386,16 +391,15 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         })();
 
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
+        const dc = args.dc ?? rollContext?.dc ?? null;
+
+        // Extract modifiers, unless this is a flat check
         const extraModifiers = this.type === "flat-check" ? [] : [...(args.modifiers ?? [])];
+
+        // Get roll options and roll notes
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
         const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
-        // Use a special domain to collect notes and degree-of-success adjustments for flat checks
-        const noteAndAdjustmentDomains = this.type === "flat-check" ? [`${this.parent.slug}-check`] : domains;
-        const notes = [
-            ...extractNotes(actor.synthetics.rollNotes, noteAndAdjustmentDomains),
-            ...(args.extraRollNotes ?? []),
-        ];
-        const dc = args.dc ?? rollContext?.dc ?? null;
+        const notes = [...extractNotes(actor.synthetics.rollNotes, domains), ...(args.extraRollNotes ?? [])];
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -403,9 +407,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = dc
-            ? [extractDegreeOfSuccessAdjustments(actor.synthetics, noteAndAdjustmentDomains)].flat()
-            : [];
+        const dosAdjustments = dc ? [extractDegreeOfSuccessAdjustments(actor.synthetics, domains)].flat() : [];
+
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
             const effectLevel = item?.isOfType("spell")
@@ -529,7 +532,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
         // Add all modifiers from all sources together, then test them
         const allDCModifiers = [
             data.dc?.modifiers ?? [],
-            data.dc?.domains ? extractModifiers(parent.actor.synthetics, data.dc.domains) : [],
+            extractModifiers(parent.actor.synthetics, data.dc?.domains ?? []),
         ].flat();
         this.modifiers = [
             ...new StatisticModifier("", [...parentModifiers, ...allDCModifiers.map((m) => m.clone())], this.options)
