@@ -1,0 +1,218 @@
+{
+    "_id": "4XsYTdkDsNnz8jwq",
+    "folder": "uqr0DQxK8mNW5xpA",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "CN9bLFgfBNP8UHyP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rile",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Algerschmick rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The augdunars roll initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wVpCTVG2l70Z7r4O",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "5L8Jqq11HIFZSZpU": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "n3eyoHmllZSDiy0S",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "qcDci48kenpZGvoq": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "NJoCt3W4N4FJHKJh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lashing Hooves",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An augdunar makes a hoof Strike and compares the attack roll result to the AC of up to two foes who are adjacent to each other.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ornery Augdunars",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Spooked augdunars gallop wildly about the paddock, biting and kicking as they run.</p>",
+            "disable": "<p>Succeed at four of the following checks in any combination: @Check[type:nature|dc:14] (trained) to calm the animals, @Check[type:intimidation|dc:16] (untrained) to scare the augdunars away, @Check[type:will|dc:18] (trained) to avoid flinching and project confidence, causing the augdunars to veer away. For each success, the hazard takes a cumulative &ndash;1 penalty to attack rolls.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) The augdunars use an action to Strike one target with their jaws, and they use another action to @UUID[Compendium.pf2e.actionspf2e.Trip]{Trip} a different target (Athletics [[/r 1d20+9 #Athletics]]{+9}). If the augdunars have taken damage since their last turn, they instead use Lashing Hooves with their first action and then make either a jaws Strike or Trip attempt with their second action.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #193: Mantle of Gold"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal",
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -85,6 +85,7 @@ const elementalTraits = {
     fire: "PF2E.TraitFire",
     metal: "PF2E.TraitMetal",
     water: "PF2E.TraitWater",
+    wood: "PF2E.TraitWood",
 };
 
 const energyDamageTypes = {
@@ -254,6 +255,7 @@ const classTraits: Record<ClassTrait, string> = {
     gunslinger: "PF2E.TraitGunslinger",
     inventor: "PF2E.TraitInventor",
     investigator: "PF2E.TraitInvestigator",
+    kineticist: "PF2E.TraitKineticist",
     magus: "PF2E.TraitMagus",
     monk: "PF2E.TraitMonk",
     oracle: "PF2E.TraitOracle",
@@ -605,6 +607,7 @@ const featTraits = {
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
     class: "PF2E.Class",
+    composite: "PF2E.TraitComposite",
     concentrate: "PF2E.TraitConcentrate",
     dedication: "PF2E.TraitDedication",
     detection: "PF2E.TraitDetection",
@@ -619,6 +622,8 @@ const featTraits = {
     flourish: "PF2E.TraitFlourish",
     fortune: "PF2E.TraitFortune",
     general: "PF2E.TraitGeneral",
+    impulse: "PF2E.TraitImpulse",
+    infusion: "PF2E.TraitInfusion",
     injury: "PF2E.TraitInjury",
     lineage: "PF2E.TraitLineage",
     manipulate: "PF2E.TraitManipulate",
@@ -630,6 +635,7 @@ const featTraits = {
     oath: "PF2E.TraitOath",
     olfactory: "PF2E.TraitOlfactory",
     open: "PF2E.TraitOpen",
+    overflow: "PF2E.TraitOverflow",
     "pervasive-magic": "PF2E.TraitPervasiveMagic",
     poison: "PF2E.TraitPoison",
     press: "PF2E.TraitPress",
@@ -648,6 +654,8 @@ const featTraits = {
     unstable: "PF2E.TraitUnstable",
     vigilante: "PF2E.TraitVigilante",
     virulent: "PF2E.TraitVirulent",
+    vitality: "PF2E.TraitVitality",
+    void: "PF2E.TraitVoid",
 };
 
 const consumableTraits = {
@@ -984,6 +992,7 @@ const traitDescriptions = {
     common: "PF2E.TraitDescriptionCommon",
     companion: "PF2E.TraitDescriptionCompanion",
     complex: "PF2E.TraitDescriptionComplex",
+    composite: "TraitDescriptionComposite",
     composition: "PF2E.TraitDescriptionComposition",
     concealable: "PF2E.TraitDescriptionConcealable",
     concentrate: "PF2E.TraitDescriptionConcentrate",
@@ -1105,10 +1114,12 @@ const traitDescriptions = {
     humanoid: "PF2E.TraitDescriptionHumanoid",
     ifrit: "PF2E.TraitDescriptionIfrit",
     illusion: "PF2E.TraitDescriptionIllusion",
+    impulse: "PF2E.TraitDescriptionImpulse",
     incapacitation: "PF2E.TraitDescriptionIncapacitation",
     incarnate: "PF2E.TraitDescriptionIncarnate",
     incorporeal: "PF2E.TraitDescriptionIncorporeal",
     infused: "PF2E.TraitDescriptionInfused",
+    infusion: "PF2E.TraitDescriptionInfusion",
     ingested: "PF2E.TraitDescriptionIngested",
     inhaled: "PF2E.TraitDescriptionInhaled",
     injection: "PF2E.TraitDescriptionInjection",
@@ -1125,6 +1136,7 @@ const traitDescriptions = {
     kashrishi: "PF2E.TraitDescriptionKashrishi",
     "keep-stone": "PF2E.PreciousMaterialKeepStoneDescription",
     kickback: "PF2E.TraitDescriptionKickback",
+    kineticist: "PF2E.TraitDescriptionKineticist",
     kitsune: "PF2E.TraitDescriptionKitsune",
     kobold: "PF2E.TraitDescriptionKobold",
     laminar: "PF2E.TraitDescriptionLaminar",
@@ -1169,6 +1181,7 @@ const traitDescriptions = {
     oracle: "PF2E.TraitDescriptionOracle",
     orc: "PF2E.TraitDescriptionOrc",
     oread: "PF2E.TraitDescriptionOread",
+    overflow: "PF2E.TraitDescriptionOverflow",
     parry: "PF2E.TraitDescriptionParry",
     peachwood: "PF2E.PreciousMaterialPeachwoodDescription",
     plant: "PF2E.TraitDescriptionPlant",
@@ -1316,6 +1329,8 @@ const traitDescriptions = {
     "versatile-sonic": "PF2E.TraitDescriptionVersatile",
     virulent: "PF2E.TraitDescriptionVirulent",
     visual: "PF2E.TraitDescriptionVisual",
+    vitality: "PF2E.TraitDescriptionVitality",
+    void: "PF2E.TraitDescriptionVoid",
     "volley-20": "PF2E.TraitDescriptionVolley",
     "volley-30": "PF2E.TraitDescriptionVolley",
     "volley-50": "PF2E.TraitDescriptionVolley",
@@ -1323,6 +1338,7 @@ const traitDescriptions = {
     water: "PF2E.TraitDescriptionWater",
     witch: "PF2E.TraitDescriptionWitch",
     wizard: "PF2E.TraitDescriptionWizard",
+    wood: "PF2E.TraitDescriptionWood",
     ...preciousMaterialDescriptions,
 };
 
