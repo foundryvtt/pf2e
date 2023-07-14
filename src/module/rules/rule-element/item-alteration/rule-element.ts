@@ -8,8 +8,8 @@ import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
     constructor(source: RuleElementSource, options: RuleElementOptions) {
-        if ("mode" in source && objectHasKey(AELikeRuleElement.CHANGE_MODES, source.mode)) {
-            source.priority ??= AELikeRuleElement.CHANGE_MODES[source.mode];
+        if ("mode" in source && objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
+            source.priority ??= AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
         }
         super(source, options);
     }

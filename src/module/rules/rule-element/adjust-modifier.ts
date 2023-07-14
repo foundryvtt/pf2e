@@ -3,27 +3,27 @@ import { DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { objectHasKey } from "@util";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like.ts";
+import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
 import { ResolvableValueField } from "./data.ts";
-import { RuleElementOptions } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
-class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> {
+class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     /** The number of times this adjustment has been applied */
     applications = 0;
 
-    constructor(data: AdjustModifierSource, options: RuleElementOptions) {
-        data.path = "ignore"; // Maybe this shouldn't subclass AELikeRuleElement
-
-        if (data.suppress) {
-            data.mode = "override";
-            data.priority ??= 99; // Try to apply last
+    constructor(source: AdjustModifierSource, options: RuleElementOptions) {
+        if (source.suppress) {
+            source.mode = "override";
+            source.priority ??= 99; // Try to apply last
+        } else if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
+            source.priority = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
         }
 
-        super({ ...data, phase: "beforeDerived" }, options);
+        super(source, options);
 
-        if (typeof data.selector === "string" && this.selectors.length === 0) {
-            this.selectors = [data.selector];
+        if (typeof source.selector === "string" && this.selectors.length === 0) {
+            this.selectors = [source.selector];
         }
 
         this.suppress ??= false;
@@ -35,15 +35,18 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 
         return {
             ...super.defineSchema(),
-            value: new ResolvableValueField({ required: true, nullable: true, initial: null }),
-            // `path` isn't used for AdjustModifier REs
-            path: new fields.StringField({ blank: true }),
+            mode: new fields.StringField({
+                required: true,
+                choices: AELikeRuleElement.CHANGE_MODES,
+                initial: undefined,
+            }),
             selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
             selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
             relabel: new fields.StringField({ required: false, nullable: true, blank: false, initial: undefined }),
             damageType: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             suppress: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             maxApplications: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
+            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
         };
     }
 
@@ -56,8 +59,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
     }
 
     /** Instead of applying the change directly to a property path, defer it to a synthetic */
-    override applyAELike(): void {
-        this.validateData();
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const adjustment: ModifierAdjustment = {
@@ -78,7 +80,12 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
                     this.ignored = true;
                 }
 
-                return this.getNewValue(current, change);
+                const newValue = AELikeRuleElement.getNewValue(this.mode, current, change);
+                if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                    this.failValidation(newValue.asError().message);
+                    return current;
+                }
+                return newValue;
             },
             getDamageType: (current: DamageType | null): DamageType | null => {
                 if (!this.damageType) return current;
@@ -105,14 +112,14 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
 }
 
 interface AdjustModifierRuleElement
-    extends AELikeRuleElement<AdjustModifierSchema>,
+    extends RuleElementPF2e<AdjustModifierSchema>,
         ModelPropsFromSchema<AdjustModifierSchema> {
     suppress: boolean;
     maxApplications: number;
 }
 
-type AdjustModifierSchema = Omit<AELikeSchema, "value"> & {
-    value: ResolvableValueField<true, true, true>;
+type AdjustModifierSchema = RuleElementSchema & {
+    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     /** An optional relabeling of the adjusted modifier */
     relabel: StringField<string, string, false, true, false>;
     selector: StringField<string, string, false, false, false>;
@@ -122,9 +129,11 @@ type AdjustModifierSchema = Omit<AELikeSchema, "value"> & {
     suppress: BooleanField<boolean, boolean, false, true, false>;
     /** The maximum number of times this adjustment can be applied */
     maxApplications: NumberField<number, number, false, true, false>;
+    value: ResolvableValueField<true, false, false>;
 };
 
-interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
+interface AdjustModifierSource extends RuleElementSource {
+    mode?: unknown;
     selector?: unknown;
     selectors?: unknown;
     relabel?: unknown;

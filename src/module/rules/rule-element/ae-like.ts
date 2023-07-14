@@ -1,7 +1,8 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { FeatPF2e } from "@item";
-import { isObject, objectHasKey } from "@util";
+import { objectHasKey } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
@@ -10,14 +11,11 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSour
  * @category RuleElement
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
-    constructor(data: AELikeSource, options: RuleElementOptions) {
-        const hasExplicitPriority = typeof data.priority === "number";
-        super(data, options);
-
-        // Set priority according to AE change mode if no priority was explicitly set
-        if (!hasExplicitPriority) {
-            this.priority = AELikeRuleElement.CHANGE_MODES[this.mode];
+    constructor(source: AELikeSource, options: RuleElementOptions) {
+        if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
+            source.priority ??= AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
         }
+        super(source, options);
     }
 
     static override defineSchema(): AELikeSchema {
@@ -26,7 +24,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             ...super.defineSchema(),
             mode: new fields.StringField({
                 required: true,
-                choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
+                choices: this.CHANGE_MODES,
                 initial: undefined,
             }),
             path: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
@@ -40,8 +38,9 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         };
     }
 
-    /** Change modes and their default priority orders */
-    static CHANGE_MODES = {
+    static CHANGE_MODES = ["multiply", "add", "subtract", "remove", "downgrade", "upgrade", "override"] as const;
+
+    static CHANGE_MODE_DEFAULT_PRIORITIES = {
         multiply: 10,
         add: 20,
         subtract: 20,
@@ -110,8 +109,10 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         const { actor } = this;
         const current: unknown = getProperty(actor, path);
         const change: unknown = this.resolveValue(this.value);
-        const newValue = this.getNewValue(current, change);
-        if (this.ignored) return;
+        const newValue = AELikeRuleElement.getNewValue(this.mode, current, change);
+        if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+            return this.failValidation(newValue.asError().message);
+        }
 
         if (this.mode === "add" && Array.isArray(current)) {
             if (!current.includes(newValue)) {
@@ -122,17 +123,21 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         } else {
             try {
                 setProperty(actor, path, newValue);
-                this.logChange(change);
+                this.#logChange(change);
             } catch (error) {
                 console.warn(error);
             }
         }
     }
 
-    protected getNewValue(current: number | undefined, change: number): number;
-    protected getNewValue(current: string | number | undefined, change: string | number): string | number;
-    protected getNewValue(current: unknown, change: unknown): unknown;
-    protected getNewValue(current: unknown, change: unknown): unknown {
+    static getNewValue<TCurrent>(
+        mode: AELikeChangeMode,
+        current: TCurrent,
+        change: TCurrent extends (infer TValue)[] ? TValue : TCurrent
+    ): TCurrent | DataModelValidationFailure;
+    static getNewValue(mode: AELikeChangeMode, current: unknown, change: unknown): unknown {
+        const { DataModelValidationFailure } = foundry.data.validation;
+
         const addOrSubtract = (value: unknown): unknown => {
             // A numeric add is valid if the change value is a number and the current value is a number or nullish
             const isNumericAdd =
@@ -147,15 +152,16 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 return value;
             }
 
-            this.warn("path");
-            return null;
+            return new DataModelValidationFailure({ invalidValue: value, fallback: false });
         };
 
-        switch (this.mode) {
+        switch (mode) {
             case "multiply": {
-                if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
-                    this.warn("path");
-                    return null;
+                if (typeof change !== "number") {
+                    return new DataModelValidationFailure({ invalidValue: change, fallback: false });
+                }
+                if (!(typeof current === "number" || current === undefined)) {
+                    return new DataModelValidationFailure({ invalidValue: current, fallback: false });
                 }
                 return Math.trunc((current ?? 0) * change);
             }
@@ -171,25 +177,24 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 return addOrSubtract(addedChange);
             }
             case "downgrade": {
-                if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
-                    this.warn("path");
-                    return null;
+                if (typeof change !== "number") {
+                    return new DataModelValidationFailure({ invalidValue: change, fallback: false });
+                }
+                if (!(typeof current === "number" || current === undefined)) {
+                    return new DataModelValidationFailure({ invalidValue: current, fallback: false });
                 }
                 return Math.min(current ?? 0, change);
             }
             case "upgrade": {
-                if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
-                    return this.warn("path");
+                if (typeof change !== "number") {
+                    return new DataModelValidationFailure({ invalidValue: change, fallback: false });
+                }
+                if (!(typeof current === "number" || current === undefined)) {
+                    return new DataModelValidationFailure({ invalidValue: current, fallback: false });
                 }
                 return Math.max(current ?? 0, change);
             }
             case "override": {
-                // Resolve all values if the override is an object
-                if (isObject<Record<string, unknown>>(change)) {
-                    for (const [key, value] of Object.entries(change)) {
-                        if (typeof value === "string") change[key] = this.resolveInjectedProperties(value);
-                    }
-                }
                 return change;
             }
             default:
@@ -198,7 +203,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     }
 
     /** Log the numeric change of an actor data property */
-    private logChange(value: unknown): void {
+    #logChange(value: unknown): void {
         const { item, mode } = this;
         const isLoggable =
             !(typeof value === "number" || typeof value === "string") &&
@@ -241,8 +246,8 @@ type AELikeSchema = RuleElementSchema & {
     value: ResolvableValueField<true, boolean, boolean>;
 };
 
-type AELikeChangeMode = keyof (typeof AELikeRuleElement)["CHANGE_MODES"];
-type AELikeDataPrepPhase = (typeof AELikeRuleElement)["PHASES"][number];
+type AELikeChangeMode = (typeof AELikeRuleElement.CHANGE_MODES)[number];
+type AELikeDataPrepPhase = (typeof AELikeRuleElement.PHASES)[number];
 
 interface AELikeSource extends RuleElementSource {
     mode?: unknown;
