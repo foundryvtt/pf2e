@@ -1468,7 +1468,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {
             const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
-            const incompatible = ammos.filter((a) => !a.isAmmoFor(a));
+            const incompatible = ammos.filter((a) => !a.isAmmoFor(weapon));
             const { ammo } = weapon;
             const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
             action.ammunition = { compatible, incompatible, selected };
