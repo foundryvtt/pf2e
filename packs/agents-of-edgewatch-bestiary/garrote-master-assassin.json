@@ -681,12 +681,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The master assassin makes a crossbow Strike against an adjacent enemy; unlike most ranged Strikes, this Strike doesn't provoke reactions. If successful, the attack deals an additional [[/r 4d8]] precision damage.</p>"
+                    "value": "<p>The master assassin makes a crossbow Strike against an adjacent enemy; unlike most ranged Strikes, this Strike doesn't provoke reactions. If successful, the attack deals an additional 4d8 precision damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "point-blank",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 4,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "point-blank"
+                        ],
+                        "selector": "crossbow-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -888,7 +905,7 @@
                         "predicate": [
                             "vorpal-garrote"
                         ],
-                        "selector": "damage"
+                        "selector": "crossbow-damage"
                     }
                 ],
                 "slug": null,

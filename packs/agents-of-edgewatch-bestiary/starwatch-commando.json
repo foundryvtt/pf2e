@@ -803,12 +803,49 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The commando designates a single creature as their culprit. The commando gains a +2 circumstance bonus to Perception checks to Seek their culprit and a +2 circumstance bonus to Survival checks to Track their culprit. The commando's attacks deal an additional [[/r 2d8]] precision damage to the culprit. This designation lasts for 24 hours or until the commando targets another creature with this ability.</p>"
+                    "value": "<p>The commando designates a single creature as their culprit. The commando gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] their culprit and a +2 circumstance bonus to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] their culprit. The commando's attacks deal an additional 2d8 precision damage to the culprit. This designation lasts for 24 hours or until the commando targets another creature with this ability.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "target-culprit",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            "target-culprit"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:track",
+                            "target-culprit"
+                        ],
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target-culprit"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
