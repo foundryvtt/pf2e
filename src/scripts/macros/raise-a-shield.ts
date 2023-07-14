@@ -34,7 +34,10 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
             return false;
         }
 
-        if (shield?.isBroken === false) {
+        if (shield?.isDestroyed) {
+            ui.notifications.warn(localize("ShieldIsDestroyed", { actor: speaker.alias, shield: shield.name }));
+            return false;
+        } else if (shield?.isBroken === false) {
             const effect = await fromUuid(ITEM_UUID);
             if (!(effect instanceof EffectPF2e)) {
                 throw ErrorPF2e("Raise a Shield effect not found");
