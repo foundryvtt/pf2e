@@ -562,10 +562,12 @@ class CheckPF2e {
 
         // DC, circumstance adjustments, and the target's name
         const dcData = ((): ResultFlavorTemplateData["dc"] => {
+            const dcSlug =
+                dc.slug ?? (dc.statistic instanceof StatisticDifficultyClass ? dc.statistic.parent.slug : null);
             const dcType = game.i18n.localize(
                 dc.label?.trim() ||
                     game.i18n.localize(
-                        objectHasKey(checkDCs.Specific, dc.slug) ? checkDCs.Specific[dc.slug] : checkDCs.Unspecific
+                        objectHasKey(checkDCs.Specific, dcSlug) ? checkDCs.Specific[dcSlug] : checkDCs.Unspecific
                     )
             );
 

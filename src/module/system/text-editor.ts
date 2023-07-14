@@ -275,10 +275,9 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
 
-        const params: CheckParams = {
+        const params: CheckLinkParams = {
             ...rawParams,
             type: rawParams.type,
-            dc: rawParams.dc ?? "",
             basic: rawParams.basic !== undefined && ["true", ""].includes(rawParams.basic),
             showDC: rawParams.showDC === "" ? "all" : rawParams.showDC,
             traits: (() => {
@@ -311,6 +310,8 @@ class TextEditorPF2e extends TextEditor {
                 return Array.from(new Set(traits));
             })(),
         };
+        if (rawParams.dc) params.dc = rawParams.dc;
+        if (rawParams.defense) params.defense = rawParams.defense;
 
         const types = params.type.split(",");
         let adjustments = params.adjustment?.split(",") ?? ["0"];
@@ -360,32 +361,31 @@ class TextEditorPF2e extends TextEditor {
         actor,
         inlineLabel,
     }: {
-        params: CheckParams;
+        params: CheckLinkParams;
         item?: ItemPF2e | null;
         actor?: ActorPF2e | null;
         inlineLabel?: string;
     }): HTMLSpanElement | null {
         // Build the inline link
         const html = document.createElement("span");
-        html.setAttribute("data-pf2-traits", `${params.traits}`);
+        html.dataset.pf2Traits = params.traits.toString();
         const name = params.name ?? item?.name ?? params.type;
-        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
-        html.setAttribute("data-pf2-repost-flavor", name);
+        html.dataset.pf2Label = game.i18n.format("PF2E.InlineCheck.DCWithName", { name });
+        html.dataset.pf2RepostFlavor = name;
         const role = params.showDC ?? "owner";
-        html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
-        html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
-        if (params.roller) {
-            html.setAttribute("data-pf2-roller", params.roller);
-        }
+        html.dataset.pf2ShowDc = role;
+        if (params.adjustment) html.dataset.pf2Adjustment = params.adjustment;
+        if (params.roller) html.dataset.pf2Roller = params.roller;
 
         switch (params.type) {
             case "flat":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.FlatCheck");
-                html.setAttribute("data-pf2-check", "flat");
+                html.dataset.pf2Check = "flat";
                 break;
             case "perception":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel");
-                html.setAttribute("data-pf2-check", "perception");
+                html.dataset.pf2Check = "perception";
+                if (params.defense) html.dataset.pf2Defense = params.defense;
                 break;
             case "fortitude":
             case "reflex":
@@ -395,7 +395,8 @@ class TextEditorPF2e extends TextEditor {
                     ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
                     : saveName;
                 html.innerHTML = inlineLabel ?? saveLabel;
-                html.setAttribute("data-pf2-check", params.type);
+                html.dataset.pf2Check = params.type;
+                if (params.defense) html.dataset.pf2Defense = params.defense;
                 break;
             }
             default: {
@@ -418,13 +419,14 @@ class TextEditorPF2e extends TextEditor {
                           .join(" ");
                 html.innerHTML = inlineLabel ?? skillLabel;
                 html.dataset.pf2Check = sluggify(params.type);
+                if (params.defense) html.dataset.pf2Defense = params.defense;
             }
         }
 
         if (params.type && params.dc) {
             // Let the inline roll function handle level base DCs
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
-            html.setAttribute("data-pf2-dc", checkDC);
+            html.dataset.pf2Dc = checkDC;
 
             // When using fixed DCs/adjustments, parse and add them to render the real DC
             const dc = params.dc === "" ? NaN : Number(params.dc);
@@ -451,14 +453,14 @@ function getCheckDC({
     actor = item?.actor ?? null,
 }: {
     name: string;
-    params: CheckParams;
+    params: CheckLinkParams;
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
     const { type } = params;
     const dc = params.dc;
     const base = (() => {
-        if (dc.startsWith("resolve") && actor) {
+        if (dc?.startsWith("resolve") && actor) {
             params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
@@ -535,9 +537,10 @@ interface ConvertXMLNodeOptions {
     classes?: string[];
 }
 
-interface CheckParams {
+interface CheckLinkParams {
     type: string;
-    dc: string;
+    dc?: string;
+    defense?: string;
     basic: boolean;
     adjustment?: string;
     traits: string[];
