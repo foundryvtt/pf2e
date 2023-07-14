@@ -23,7 +23,14 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             return { type: "formula", value: this.system.persistent.formula };
         }
 
-        return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+        return this.system.value.value
+            ? {
+                  type: "counter",
+                  max: Infinity,
+                  label: null,
+                  value: this.system.value.value,
+              }
+            : null;
     }
 
     /** Retrieve this condition's origin from its granting effect, if any */
@@ -132,16 +139,14 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
         if (this.system.persistent) {
             const { dc, damageType } = this.system.persistent;
-            const rollOptions = this.getRollOptions("recovery");
             const result = await new Statistic(this.actor, {
-                slug: "recovery",
+                slug: "pd-recovery",
                 label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
                     name: this.name,
                 }),
                 check: { type: "flat-check" },
-                domains: ["flat-check"],
-                rollOptions,
-            }).roll({ dc: { value: dc }, skipDialog: true });
+                domains: [],
+            }).roll({ dc: { value: dc }, extraRollOptions: this.getRollOptions("item"), skipDialog: true });
 
             if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
                 this.actor.decreaseCondition(`persistent-damage-${damageType}`);
@@ -295,4 +300,4 @@ interface ConditionModificationContext<TParent extends ActorPF2e | null> extends
     conditionValue?: number | null;
 }
 
-export { ConditionPF2e, ConditionModificationContext, PersistentDamagePF2e };
+export { ConditionModificationContext, ConditionPF2e, PersistentDamagePF2e };

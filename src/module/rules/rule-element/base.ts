@@ -8,7 +8,7 @@ import { CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
-import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
+import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 const { DataModel } = foundry.abstract;
 
@@ -22,8 +22,6 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     ItemPF2e<ActorPF2e>,
     TSchema
 > {
-    data: RuleElementData;
-
     sourceIndex: number | null;
 
     protected suppressWarnings: boolean;
@@ -56,14 +54,6 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             typeof source.label === "string"
                 ? game.i18n.localize(this.resolveInjectedProperties(source.label))
                 : item.name;
-
-        this.data = {
-            ...source,
-            key: this.key,
-            predicate: Array.isArray(source.predicate) ? source.predicate : undefined,
-            label: this.label,
-            removeUponCreate: Boolean(source.removeUponCreate ?? false),
-        } as RuleElementData;
 
         if (this.invalid) {
             this.ignored = true;
@@ -226,7 +216,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             return source;
         } else if (typeof source === "string") {
             return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-                const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
+                const data = key === "rule" ? this : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
                 if (value === undefined) {
                     this.ignored = true;
@@ -255,7 +245,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @return the evaluated value
      */
     resolveValue(
-        valueData: unknown = this.data.value,
+        valueData: unknown,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
         { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {}
     ): number | string | boolean | object | null {
@@ -470,8 +460,6 @@ namespace RuleElementPF2e {
         domains: string[];
         rollOptions: Set<string>;
     }
-
-    export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
 }
 
 interface ResolveValueParams {

@@ -1,11 +1,16 @@
-/**
- * A SpriteMesh which visualizes a Token object in the PrimaryCanvasGroup.
- * @todo: fill in
- */
-declare class TokenMesh extends SpriteMesh {
-    data: PrimaryCanvasObjectData;
+import type { PrimaryCanvasObjectData } from "./primary-canvas-object.d.ts";
 
-    get sort(): number;
+declare global {
+    /**
+     * A SpriteMesh which visualizes a Token object in the PrimaryCanvasGroup.
+     * @todo: fill in
+     */
+    class TokenMesh extends SpriteMesh {
+        data: PrimaryCanvasObjectData;
+        get sort(): number;
 
-    refresh(): void;
+        initialize(data: { sort?: number }): void;
+
+        refresh(): void;
+    }
 }

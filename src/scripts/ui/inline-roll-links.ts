@@ -109,19 +109,14 @@ export const InlineRollLinks = {
                         for (const actor of actors) {
                             const flatCheck = new Statistic(actor, {
                                 label: "",
-                                slug: "flat-check",
+                                slug: "flat",
                                 modifiers: [],
                                 check: { type: "flat-check" },
-                                domains: ["flat-check"],
                             });
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
                                 : null;
-                            flatCheck.check.roll({
-                                ...eventRollParams,
-                                extraRollOptions: parsedTraits,
-                                dc,
-                            });
+                            flatCheck.roll({ ...eventRollParams, extraRollOptions: parsedTraits, dc });
                         }
                         break;
                     }

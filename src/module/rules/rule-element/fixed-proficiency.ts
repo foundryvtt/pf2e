@@ -33,7 +33,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
 
     override beforePrepareData(): void {
         const selector = this.resolveInjectedProperties(this.selector);
-        const proficiencyBonus = Number(this.resolveValue(this.data.value)) || 0;
+        const proficiencyBonus = Number(this.resolveValue(this.value)) || 0;
         const abilityModifier = this.ability ? this.actor.system.abilities[this.ability].mod : 0;
 
         const modifier = new ModifierPF2e({

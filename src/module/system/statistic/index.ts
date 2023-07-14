@@ -32,7 +32,7 @@ import {
     RollTwiceOption,
 } from "@system/check/index.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { isObject, Optional, traitSlugToObject } from "@util";
+import { ErrorPF2e, isObject, Optional, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import { StatisticChatData, StatisticCheckData, StatisticData, StatisticTraceData } from "./data.ts";
 
@@ -287,6 +287,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.type = data.check?.type ?? "check";
         this.label = this.#determineLabel(data);
         this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
+        if (this.type === "flat-check" && this.domains.length > 0) {
+            throw ErrorPF2e("Flat checks cannot have associated domains");
+        }
 
         // Acquire additional adjustments for cloned parent modifiers
         const { modifierAdjustments } = parent.actor.synthetics;
@@ -308,6 +311,10 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             ...allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions })),
         ];
         this.mod = new StatisticModifier(this.label, this.modifiers, rollOptions).totalModifier;
+    }
+
+    get actor(): ActorPF2e {
+        return this.parent.actor;
     }
 
     #determineLabel(data: StatisticData): string {
@@ -346,10 +353,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             return args;
         })();
 
-        const actor = this.parent.actor;
+        const { actor, domains } = this;
         const token = args.token ?? actor.getActiveTokens(false, true).shift();
         const item = args.item ?? null;
-        const domains = this.domains;
 
         const { origin } = args;
         const targetToken = origin
@@ -380,10 +386,15 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         })();
 
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
-        const extraModifiers = [...(args.modifiers ?? [])];
+        const extraModifiers = this.type === "flat-check" ? [] : [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
         const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
-        const notes = [...extractNotes(actor.synthetics.rollNotes, this.domains), ...(args.extraRollNotes ?? [])];
+        // Use a special domain to collect notes and degree-of-success adjustments for flat checks
+        const noteAndAdjustmentDomains = this.type === "flat-check" ? [`${this.parent.slug}-check`] : domains;
+        const notes = [
+            ...extractNotes(actor.synthetics.rollNotes, noteAndAdjustmentDomains),
+            ...(args.extraRollNotes ?? []),
+        ];
         const dc = args.dc ?? rollContext?.dc ?? null;
 
         // Get just-in-time roll options from rule elements
@@ -392,7 +403,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
+        const dosAdjustments = dc
+            ? [extractDegreeOfSuccessAdjustments(actor.synthetics, noteAndAdjustmentDomains)].flat()
+            : [];
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
             const effectLevel = item?.isOfType("spell")
@@ -562,9 +575,9 @@ interface StatisticRollParameters {
     label?: string;
     /** Optional override for the dialog's title. Defaults to label */
     title?: string;
-    /** Any additional roll notes which should be used in the roll. */
+    /** Any additional roll notes that should be used in the roll. */
     extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
-    /** Any additional options which should be used in the roll. */
+    /** Any additional options that should be used in the roll. */
     extraRollOptions?: string[];
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];

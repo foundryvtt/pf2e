@@ -55,6 +55,7 @@ import "./groups/index.d.ts";
 import "./layers/controls/ruler.d.ts";
 import "./layers/effects/visibility.d.ts";
 import "./perception/index.d.ts";
+import "./placeable.d.ts";
 import "./placeables/index.d.ts";
 import "./sources/index.d.ts";
 import "./webgl/index.d.ts";

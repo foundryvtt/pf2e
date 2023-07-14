@@ -1,10 +1,12 @@
-import fs from "fs-extra";
-import path from "path";
-import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
+import fs from "fs-extra";
+import { JSDOM } from "jsdom";
+import path from "path";
+import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
+import { getFilesRecursively } from "./lib/helpers.ts";
+
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls.ts";
@@ -162,24 +164,11 @@ function JSONstringifyOrder(obj: object): string {
     return `${newJson}\n`;
 }
 
-async function getAllFiles(): Promise<string[]> {
-    const allEntries: string[] = [];
-    const packs = fs.readdirSync(packsDataPath);
+async function getAllFiles(directory: string = packsDataPath, allEntries: string[] = []): Promise<string[]> {
+    const packs = fs.readdirSync(directory);
     for (const pack of packs) {
         console.log(`Collecting data for "${pack}"`);
-
-        let packFiles: string[];
-        try {
-            // Create an array of files in the ./packs/[packname].db/ directory
-            packFiles = fs.readdirSync(path.resolve(packsDataPath, pack));
-        } catch (error) {
-            if (error instanceof Error) console.error(error.message);
-            return [];
-        }
-
-        for (const fileName of packFiles) {
-            allEntries.push(path.resolve(packsDataPath, pack, fileName));
-        }
+        allEntries.push(...getFilesRecursively(path.join(directory, pack)));
     }
 
     return allEntries;

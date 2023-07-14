@@ -1,6 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
 
 /**
  * @category RuleElement
@@ -30,7 +30,7 @@ interface CraftingFormulaRuleElement extends RuleElementPF2e {
     get actor(): CharacterPF2e;
 }
 
-interface CraftingFormulaData extends RuleElementData {
+interface CraftingFormulaData extends CraftingFormulaRuleElement {
     uuid: ItemUUID;
 }
 
