@@ -652,12 +652,34 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Bloody Barber goon makes one dagger Strike and one club Strike, ignoring the multiple attack penalty until after the second Strike. Each Strike deals an additional [[/r 1d8]] slashing or piercing damage (for the dagger) or bludgeoning damage (for the club).</p>"
+                    "value": "<p>The Bloody Barber goon makes one dagger Strike and one club Strike, ignoring the multiple attack penalty until after the second Strike. Each Strike deals an additional 1d8 slashing or piercing damage (for the dagger) or bludgeoning damage (for the club).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "thunk-n-slice",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "thunk-n-slice",
+                            {
+                                "or": [
+                                    "item:club",
+                                    "item:dagger"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
