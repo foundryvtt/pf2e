@@ -364,7 +364,22 @@ class TextEditorPF2e extends TextEditor {
         // Build the inline link
         const anchor = document.createElement("a");
         anchor.className = "inline-check";
-        anchor.append(fontAwesomeIcon("dice-d20"));
+        const icon = ((): HTMLElement => {
+            switch (params.type) {
+                case "fortitude":
+                    return fontAwesomeIcon("heart-pulse");
+                case "reflex":
+                    return fontAwesomeIcon("person-running");
+                case "will":
+                    return fontAwesomeIcon("brain");
+                case "perception":
+                    return fontAwesomeIcon("heart-pulse");
+                default:
+                    return fontAwesomeIcon("dice-d20");
+            }
+        })();
+        icon.classList.add("icon");
+        anchor.append(icon);
 
         anchor.dataset.pf2Traits = params.traits.toString();
         const name = params.name ?? item?.name ?? params.type;
@@ -439,13 +454,14 @@ class TextEditorPF2e extends TextEditor {
 
             // When using fixed DCs/adjustments, parse and add them to render the real DC
             const dc = params.dc === "" ? NaN : Number(params.dc);
-            const displayedDC = !isNaN(dc) ? `${dc + Number(params.adjustment)}` : checkDC;
-            const text = anchor.innerHTML;
             if (checkDC !== "@self.level") {
-                anchor.querySelector("span.label")?.remove();
-                anchor.append(
-                    createLabel(game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: displayedDC, text }))
-                );
+                const displayedDC = !isNaN(dc) ? `${dc + Number(params.adjustment)}` : checkDC;
+                const text = anchor.innerText;
+                anchor
+                    .querySelector("span.label")
+                    ?.replaceWith(
+                        createLabel(game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: displayedDC, text }))
+                    );
             }
         }
 
