@@ -1,0 +1,30 @@
+{{#if data.requirements.value}}
+    <span class="item-summary">{{data.requirements.value}}</span>
+{{/if}}
+
+<div class="feat-details">
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.CampaignFeature.CampaignLabel"}}</label>
+        <select name="system.campaign" {{disabled document.parent}}>
+            <option value="kingmaker">{{localize "PF2E.SETTINGS.CampaignType.Choices.kingmaker"}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.Category"}}</label>
+        <select name="system.category" {{disabled document.parent}}>
+            {{#select data.category}}
+                {{#each categories as |label type|}}
+                    <option value="{{type}}">{{localize label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
+    <ol class="item-tags tags">
+        {{#each data.prerequisites.value as |v k|}}
+            <li class="tag tag_transparent {{k}}">{{v.value}}</li>
+        {{/each}}
+    </ol>
+</div>

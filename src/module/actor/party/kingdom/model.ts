@@ -14,7 +14,7 @@ import {
     KingdomSchema,
     KingdomSkill,
     KingdomSource,
-} from "./data.ts";
+} from "./types.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
 import { KINGDOM_SCHEMA } from "./schema.ts";
 import {
@@ -28,6 +28,7 @@ import {
     KINGDOM_SKILL_LABELS,
     VACANCY_PENALTIES,
 } from "./values.ts";
+import { CampaignFeaturePF2e } from "@item";
 import { ActorPF2e } from "@actor";
 
 const { DataModel } = foundry.abstract;
@@ -35,8 +36,8 @@ const { DataModel } = foundry.abstract;
 /** Model for the Kingmaker campaign data type, which represents a Kingdom */
 class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampaign {
     declare nationType: KingdomNationType;
-    declare feats: FeatGroup<PartyPF2e>;
-    declare bonusFeats: FeatGroup<PartyPF2e>;
+    declare feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
+    declare bonusFeats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
     declare skills: Record<KingdomSkill, Statistic>;
     declare control: Statistic;
 
@@ -49,7 +50,11 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 
     get extraItemTypes(): ItemType[] {
-        return ["action", "feat"];
+        return ["campaignFeature"];
+    }
+
+    get activities(): CampaignFeaturePF2e[] {
+        return this.actor.itemTypes.campaignFeature.filter((k) => k.category === "kingdom-activity");
     }
 
     get charter(): KingdomCHG | null {
@@ -222,7 +227,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     private prepareFeats(): void {
         const { actor } = this;
 
-        const evenLevels = new Array(actor.level)
+        const evenLevels = new Array(this.level)
             .fill(0)
             .map((_, idx) => idx + 1)
             .filter((idx) => idx % 2 === 0);
@@ -232,15 +237,17 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             label: "Kingdom Feats",
             slots: evenLevels,
             featFilter: ["traits-kingdom"],
+            level: this.level,
         });
 
         this.bonusFeats = new FeatGroup(actor, {
             id: "bonus",
             label: "PF2E.FeatBonusHeader",
             featFilter: ["traits-kingdom"],
+            level: this.level,
         });
 
-        for (const feat of this.actor.itemTypes.feat) {
+        for (const feat of this.actor.itemTypes.campaignFeature.filter((f) => f.isFeat)) {
             if (!this.feats.assignFeat(feat)) {
                 this.bonusFeats.assignFeat(feat);
             }

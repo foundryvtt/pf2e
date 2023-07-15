@@ -7,7 +7,7 @@ import {
     KingdomLeadershipRole,
     KingdomNationType,
     KingdomSkill,
-} from "./data.ts";
+} from "./types.ts";
 import { ModifierAdjustment, RawModifier } from "@actor/modifiers.ts";
 
 const KINGDOM_ABILITIES = ["culture", "economy", "loyalty", "stability"] as const;

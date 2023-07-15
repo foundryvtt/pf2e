@@ -10,6 +10,7 @@ import { UserPF2e } from "@module/user/document.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 import { AfflictionSource } from "./affliction/data.ts";
 import { ContainerPF2e } from "./container/document.ts";
 import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
@@ -390,28 +391,27 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<TDocument | null>;
     static override async createDialog(
         data: { folder?: string } = {},
-        options: {
-            parent?: Actor<TokenDocument<Scene | null> | null> | null;
+        context: {
+            parent?: ActorPF2e | null;
             pack?: Collection<ItemPF2e<null>> | null;
         } & Partial<FormApplicationOptions> = {}
-    ): Promise<Item<Actor<TokenDocument<Scene | null> | null> | null> | null> {
-        const original = game.system.documentTypes.Item;
-        game.system.documentTypes.Item = original.filter(
-            (itemType: string) =>
-                !["condition", "spellcastingEntry", "lore"].includes(itemType) &&
-                !(["affliction", "book"].includes(itemType) && BUILD_MODE === "production")
-        );
-        const withClasses: {
-            parent?: Actor<TokenDocument<Scene | null> | null> | null;
-            pack?: Collection<Item<Actor<TokenDocument<Scene | null> | null> | null>> | null;
-        } & Partial<FormApplicationOptions> = {
-            ...options,
-            classes: [...(options.classes ?? []), "dialog-item-create"],
-        };
-        const newItem = super.createDialog(data, withClasses);
-        game.system.documentTypes.Item = original;
+    ): Promise<Item<ActorPF2e | null> | null> {
+        // Figure out the types to omit
+        const omittedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
+        if (BUILD_MODE === "production") omittedTypes.push("affliction", "book");
+        if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("campaignFeature");
 
-        return newItem;
+        // Create the dialog, temporarily changing the list of allowed items
+        const original = game.system.documentTypes.Item;
+        try {
+            game.system.documentTypes.Item = R.difference(original, omittedTypes);
+            return super.createDialog<ItemPF2e>(data, {
+                ...context,
+                classes: [...(context.classes ?? []), "dialog-item-create"],
+            });
+        } finally {
+            game.system.documentTypes.Item = original;
+        }
     }
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
