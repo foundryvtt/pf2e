@@ -1,6 +1,6 @@
 import { MeasuredTemplateDocumentPF2e } from "@scene/measured-template-document.ts";
 import { TemplateLayerPF2e, TokenPF2e } from "./index.ts";
-import { highlightGrid } from "./helpers.ts";
+import { highlightGrid, measureDistanceCuboid } from "./helpers.ts";
 import { ScenePF2e } from "@scene/index.ts";
 import { ItemPF2e } from "@item";
 import { ActorPF2e } from "@actor";
@@ -17,8 +17,59 @@ class MeasuredTemplatePF2e<
     // Workaround for https://github.com/microsoft/TypeScript/issues/32912
     #wheelListenerOptions: AddEventListenerOptions & EventListenerOptions = { passive: false };
 
+    #centerRect: PIXI.Rectangle | null = null;
+
     get type(): MeasuredTemplateType {
         return this.document.t;
+    }
+
+    get item(): ItemPF2e<ActorPF2e> | null {
+        return this.document.item;
+    }
+
+    get elevation(): number {
+        const flag = this.document.flags.pf2e?.elevation;
+        if (flag) {
+            return flag.value;
+        }
+        return 0;
+    }
+
+    get zHeight(): number | null {
+        const flag = this.document.flags.pf2e?.elevation;
+        if (flag) {
+            return flag.zHeight;
+        }
+        return null;
+    }
+
+    get centerRect(): PIXI.Rectangle {
+        if (this.#centerRect) {
+            return this.#centerRect;
+        }
+
+        const { grid } = canvas;
+        const data = {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+        };
+        const snapped = grid.grid.getSnappedPosition(this.x, this.y);
+        if (snapped.x === this.center.x && snapped.y === this.center.y) {
+            // Center is on a grid intersection. Rectangle needs to be 2x2 squares.
+            data.x = this.center.x - grid.size;
+            data.y = this.center.y - grid.size;
+            data.width = grid.size * 2;
+            data.height = grid.size * 2;
+        } else {
+            // Center should be inside a grid sqaure. Rectangle needs to be that square.
+            data.x = snapped.x - grid.size;
+            data.y = snapped.y - grid.size;
+            data.width = grid.size;
+            data.height = grid.size;
+        }
+        return (this.#centerRect = new PIXI.Rectangle(data.x, data.y, data.width, data.height));
     }
 
     override highlightGrid(): void {
@@ -83,6 +134,15 @@ class MeasuredTemplatePF2e<
         }
     }
 
+    protected override _onUpdate(
+        changed: DeepPartial<foundry.documents.MeasuredTemplateSource>,
+        options: DocumentModificationContext<TDocument["parent"]>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+        this.#centerRect = null;
+    }
+
     #onPreviewMouseMove = (event: PIXI.FederatedPointerEvent) => {
         event.stopPropagation();
         const now = Date.now();
@@ -140,11 +200,7 @@ class MeasuredTemplatePF2e<
         }
     };
 
-    get item(): ItemPF2e<ActorPF2e> | null {
-        return this.document.item;
-    }
-
-    getTokens({ collisionOrigin, collisionType = "move" }: GetTokensParams = {}): TokenPF2e[] {
+    getContainedTokens({ collisionOrigin, collisionType = "move" }: GetContainedTokensParams = {}): TokenPF2e[] {
         if (!canvas.scene) return [];
         const { grid, dimensions } = canvas;
         if (!(grid && dimensions)) return [];
@@ -186,6 +242,37 @@ class MeasuredTemplatePF2e<
                 };
                 if (destination.x < 0 || destination.y < 0) continue;
 
+                // Distance calculations
+                if (this.type === "cone") {
+                    const elevation = token.document.elevation - this.elevation;
+                    // target.x is the relative distance between the origin point and the currently tested highlight square
+                    // target.y is the calculated elevation
+                    const target = new PIXI.Point(Math.ceil(grid.measureDistance(origin, destination)), elevation);
+                    // Draw a ray from a Point 0,0 to the target coordinates to calculate the angle
+                    const ray = new Ray(new PIXI.Point(0, 0), target);
+                    // Convert the angle in radians to a positive number in degrees
+                    const degrees = Math.abs(Math.toDegrees(ray.angle));
+                    if (degrees >= 45) {
+                        continue;
+                    }
+                } else if (this.type === "ray") {
+                    const elevation = Math.abs(token.document.elevation - this.elevation);
+                    if (elevation >= (this.zHeight ?? dimensions.distance)) {
+                        continue;
+                    }
+                } else {
+                    // Draw a rectangle around the template's center and measure distance to token
+                    const sourceRect = this.centerRect;
+                    const distance = measureDistanceCuboid(sourceRect, token.bounds, {
+                        source: { elevation: this.elevation, height: dimensions.distance },
+                        target: token,
+                    });
+                    if (distance >= this.document.distance) {
+                        continue;
+                    }
+                }
+
+                // Wall collision
                 const hasCollision =
                     canvas.ready &&
                     collisionType &&
@@ -202,9 +289,13 @@ class MeasuredTemplatePF2e<
         }
         return containedTokens;
     }
+
+    containsToken(token: TokenPF2e, options?: GetContainedTokensParams): boolean {
+        return this.getContainedTokens(options).includes(token);
+    }
 }
 
-interface GetTokensParams {
+interface GetContainedTokensParams {
     /** The point to test collison from. Defaults to the template center */
     collisionOrigin?: Point;
     /** The collision type to check. Defaults to `move`. Can be set to `null` to disable. */

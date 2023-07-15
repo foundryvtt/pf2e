@@ -14,10 +14,15 @@ function measureDistanceCuboid(
         reach = null,
         token = null,
         target = null,
+        source,
     }: {
         reach?: number | null;
         token?: TokenPF2e | null;
         target?: TokenPF2e | null;
+        source?: {
+            elevation: number;
+            height: number;
+        };
     } = {}
 ): number {
     if (!canvas.dimensions) return NaN;
@@ -61,17 +66,26 @@ function measureDistanceCuboid(
         distance.dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
         distance.dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
     }
-    if (token && target && token?.document?.elevation !== target?.document.elevation && token.actor && target.actor) {
-        const selfElevation = token.document.elevation;
-        const targetElevation = target.document.elevation;
 
-        const [selfDimensions, targetDimensions] = [token.actor.dimensions, target.actor.dimensions];
+    const elevationSource = source ?? {
+        elevation: token?.document.elevation ?? null,
+        height: token?.actor?.dimensions.height ?? null,
+    };
+    if (
+        elevationSource.elevation !== null &&
+        elevationSource.height !== null &&
+        target &&
+        elevationSource.elevation !== target?.document.elevation &&
+        target.actor
+    ) {
+        const targetElevation = target.document.elevation;
+        const targetDimensions = target.actor.dimensions;
 
         const gridSize = canvas.dimensions.size;
         const gridDistance = canvas.dimensions.distance;
 
-        const elevation0 = Math.floor((selfElevation / gridDistance) * gridSize);
-        const height0 = Math.floor((selfDimensions.height / gridDistance) * gridSize);
+        const elevation0 = Math.floor((elevationSource.elevation / gridDistance) * gridSize);
+        const height0 = Math.floor((elevationSource.height / gridDistance) * gridSize);
         const elevation1 = Math.floor((targetElevation / gridDistance) * gridSize);
         const height1 = Math.floor((targetDimensions.height / gridDistance) * gridSize);
 

@@ -32,6 +32,10 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
     flags: DocumentFlags & {
         pf2e?: {
             origin?: ItemOriginFlag;
+            elevation?: {
+                value: number;
+                zHeight: number;
+            };
         };
     };
 }

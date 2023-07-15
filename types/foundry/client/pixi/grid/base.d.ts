@@ -71,7 +71,7 @@ declare global {
          *
          * @return  An object containing the coordinates of the snapped location
          */
-        getSnappedPosition(x: number, y: number, interval: number): { x: number; y: number };
+        getSnappedPosition(x: number, y: number, interval?: number): { x: number; y: number };
 
         /* -------------------------------------------- */
 
