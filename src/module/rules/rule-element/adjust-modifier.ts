@@ -46,15 +46,22 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
             damageType: new fields.StringField({ required: false, nullable: true, blank: false, initial: null }),
             suppress: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             maxApplications: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
-            value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+            value: new ResolvableValueField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
     static override validateJoint(data: Record<string, unknown>): void {
         super.validateJoint(data);
 
-        if (data.suppress === true && typeof data.maxApplications === "number") {
-            throw Error("use of `maxApplications` in combination with `suppress` is not currently supported");
+        const { DataModelValidationError } = foundry.data.validation;
+        if (data.suppress === true) {
+            if (typeof data.maxApplications === "number") {
+                throw new DataModelValidationError(
+                    "  use of `maxApplications` in combination with `suppress` is not currently supported"
+                );
+            }
+        } else if (data.value === undefined) {
+            throw new DataModelValidationError("  value: may not be undefined unless `suppress` is true");
         }
     }
 
@@ -129,7 +136,7 @@ type AdjustModifierSchema = RuleElementSchema & {
     suppress: BooleanField<boolean, boolean, false, true, false>;
     /** The maximum number of times this adjustment can be applied */
     maxApplications: NumberField<number, number, false, true, false>;
-    value: ResolvableValueField<true, false, false>;
+    value: ResolvableValueField<false, false, false>;
 };
 
 interface AdjustModifierSource extends RuleElementSource {

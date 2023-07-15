@@ -129,10 +129,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             return super.validate(options);
         } catch (error) {
             if (error instanceof foundry.data.validation.DataModelValidationError) {
-                const substring = "validation errors";
                 const message = error.message.replace(
-                    substring,
-                    `${substring} on item ${this.item.name} (${this.item.uuid})`
+                    /validation errors|Joint Validation Error/,
+                    `validation errors on item ${this.item.name} (${this.item.uuid})`
                 );
                 console.warn(message);
                 return false;
