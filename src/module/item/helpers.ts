@@ -27,4 +27,9 @@ function itemIsOfType(item: ItemPF2e | ItemSourcePF2e, ...types: string[]): bool
     return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, item.type) : item.type === t));
 }
 
-export { itemIsOfType };
+/** Create a "reduced" item name; that is, one without an "Effect:" or similar prefix */
+function reduceItemName(label: string): string {
+    return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
+}
+
+export { itemIsOfType, reduceItemName };
