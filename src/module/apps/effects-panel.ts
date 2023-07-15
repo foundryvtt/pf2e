@@ -97,7 +97,7 @@ export class EffectsPanel extends Application {
             const itemId = effectEl.dataset.itemId;
             if (!itemId) continue;
 
-            const iconElem = effectEl.querySelector(".icon");
+            const iconElem = effectEl.querySelector(":scope > .icon");
             // Increase or render persistent-damage dialog on left click
             iconElem?.addEventListener("click", async () => {
                 const { actor } = this;
