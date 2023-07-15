@@ -81,7 +81,7 @@ function looksLikeDamageRoll(roll: Roll): boolean {
 }
 
 /** Create a representative Font Awesome icon from a damage roll */
-function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true } = {}): HTMLElement {
+function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false } = {}): HTMLElement {
     // Special case: an `IntermediateDie` with deterministic faces
     const firstTerm =
         roll instanceof DamageRoll && roll.instances[0]?.head instanceof IntermediateDie
