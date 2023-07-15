@@ -776,7 +776,8 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         _target,
         args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>]
     ) {
-        return new CONFIG.PF2E.Item.documentClasses[args[0].type](...args);
+        const ItemClass = CONFIG.PF2E.Item.documentClasses[args[0]?.type] ?? ItemPF2e;
+        return new ItemClass(...args);
     },
 });
 
