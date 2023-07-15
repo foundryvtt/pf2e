@@ -2,7 +2,7 @@
     position: relative; // The panel is positioned relative to this element
 }
 
-.effect-panel {
+#effects-panel {
     pointer-events: initial;
     position: absolute;
     top: 5px;
@@ -10,7 +10,7 @@
 
     .effect-item {
         display: flex;
-        justify-content: flex-end;
+        justify-content: end;
         height: 52px;
 
         &[data-badge-type=formula] .icon {
@@ -75,24 +75,12 @@
                 }
             }
 
-            > a, .description a {
-                display: block;
-                border: 1px outset white;
-                font-size: var(--font-size-10);
-                margin-top: 0.125rem;
-                padding: 0.125rem;
-
-                &.content-link, &.inline-roll {
-                    padding: 1px 4px;
-                    border: 1px solid var(--color-border-dark-tertiary);
-                    width: fit-content;
-                    display: inline;
-                    color: var(--color-text-dark-primary);
-                }
+            a, span[data-pf2-effect-area] {
+                color: var(--color-text-dark-primary);
             }
 
-            span[data-pf2-check] {
-                color: var(--color-text-dark-primary);
+            i[data-pf2-repost] {
+                cursor: pointer;
             }
 
             .instructions, .description {
@@ -103,11 +91,11 @@
             .description {
                 max-height: 15em;
                 overflow-y: auto;
-                text-align: justify;
+                text-align: left;
             }
         }
 
-        .icon {
+        > .icon {
             @include frame-silver;
             align-items: center;
             background-repeat: no-repeat;
