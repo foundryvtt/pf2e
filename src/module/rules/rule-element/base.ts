@@ -244,87 +244,58 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @return the evaluated value
      */
     resolveValue(
-        valueData: unknown,
+        value: unknown,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
         { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {}
     ): number | string | boolean | object | null {
-        let value: RuleValue = valueData ?? defaultValue ?? null;
-
-        if (["number", "boolean"].includes(typeof value) || value === null) {
+        value ??= defaultValue ?? null;
+        if (typeof value === "number" || typeof value === "boolean" || value === null) {
             return value;
         }
-        if (typeof value === "string") value = this.resolveInjectedProperties(value, { warn });
+        value = this.resolveInjectedProperties(value, { warn });
 
-        // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
-        if (this.actor.isOfType("character")) {
-            resolvables.armor = this.actor.wornArmor;
+        const resolvedFromBracket = this.isBracketedValue(value)
+            ? this.#resolveBracketedValue(value, defaultValue)
+            : value;
+
+        if (resolvedFromBracket instanceof Object) {
+            return defaultValue instanceof Object
+                ? mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
+                : resolvedFromBracket;
         }
 
-        if (this.isBracketedValue(valueData)) {
-            const bracketNumber = ((): number => {
-                if (!valueData?.field) return this.actor.level;
-                const field = String(valueData.field);
-                const separator = field.indexOf("|");
-                const source = field.substring(0, separator);
-                const { actor, item } = this;
-
-                switch (source) {
-                    case "actor":
-                        return Number(getProperty(actor, field.substring(separator + 1))) || 0;
-                    case "item":
-                        return Number(getProperty(item, field.substring(separator + 1))) || 0;
-                    case "rule":
-                        return Number(getProperty(this, field.substring(separator + 1))) || 0;
-                    default:
-                        return Number(getProperty(actor, field.substring(0))) || 0;
-                }
-            })();
-            const brackets = valueData?.brackets ?? [];
-            // Set the fallthrough (the value set when no bracket matches) to be of the same type as the default value
-            const bracketFallthrough = (() => {
-                switch (typeof defaultValue) {
-                    case "number":
-                    case "boolean":
-                    case "object":
-                        return defaultValue;
-                    case "string":
-                        return Number.isNaN(Number(defaultValue)) ? defaultValue : Number(defaultValue);
-                    default:
-                        return null;
-                }
-            })();
-            value =
-                brackets.find((bracket) => {
-                    const start = bracket.start ?? 0;
-                    const end = bracket.end ?? Infinity;
-                    return start <= bracketNumber && end >= bracketNumber;
-                })?.value ?? bracketFallthrough;
-        }
-
-        const saferEval = (formula: string): number => {
-            try {
-                // If any resolvables were not provided for this formula, return the default value
-                const unresolveds = formula.match(/@[a-z]+/gi) ?? [];
-                // Allow failure of "@target" with no warning
-                if (unresolveds.length > 0) {
-                    if (!unresolveds.every((u) => u === "@target")) {
-                        this.ignored = true;
-                        if (warn) this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+        if (typeof resolvedFromBracket === "string") {
+            const saferEval = (formula: string): number => {
+                try {
+                    // If any resolvables were not provided for this formula, return the default value
+                    const unresolveds = formula.match(/@[a-z]+/gi) ?? [];
+                    // Allow failure of "@target" with no warning
+                    if (unresolveds.length > 0) {
+                        if (!unresolveds.every((u) => u === "@target")) {
+                            this.ignored = true;
+                            if (warn) this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+                        }
+                        return 0;
                     }
+                    return Roll.safeEval(formula);
+                } catch {
+                    this.failValidation(`Error thrown while attempting to evaluate formula, "${formula}"`);
                     return 0;
                 }
-                return Roll.safeEval(formula);
-            } catch {
-                this.failValidation(`Error thrown while attempting to evaluate formula, "${formula}"`);
-                return 0;
-            }
-        };
+            };
 
-        return value instanceof Object && defaultValue instanceof Object
-            ? mergeObject(defaultValue, value, { inplace: false })
-            : typeof value === "string" && value.includes("@") && evaluate
-            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item, ...resolvables }))
-            : value;
+            // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
+            if (this.actor.isOfType("character")) {
+                resolvables.armor = this.actor.wornArmor;
+            }
+
+            const trimmed = resolvedFromBracket.trim();
+            return (trimmed.includes("@") || /^\d+$/.test(trimmed)) && evaluate
+                ? saferEval(Roll.replaceFormulaData(trimmed, { actor: this.actor, item: this.item, ...resolvables }))
+                : trimmed;
+        }
+
+        return defaultValue;
     }
 
     protected isBracketedValue(value: unknown): value is BracketedValue {
@@ -332,6 +303,51 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             isObject<BracketedValue>(value) &&
             Array.isArray(value.brackets) &&
             (typeof value.field === "string" || !("fields" in value))
+        );
+    }
+
+    #resolveBracketedValue(
+        value: BracketedValue,
+        defaultValue: Exclude<RuleValue, BracketedValue>
+    ): Exclude<RuleValue, BracketedValue> {
+        const bracketNumber = ((): number => {
+            if (!value.field) return this.actor.level;
+            const field = String(value.field);
+            const separator = field.indexOf("|");
+            const source = field.substring(0, separator);
+            const { actor, item } = this;
+
+            switch (source) {
+                case "actor":
+                    return Number(getProperty(actor, field.substring(separator + 1))) || 0;
+                case "item":
+                    return Number(getProperty(item, field.substring(separator + 1))) || 0;
+                case "rule":
+                    return Number(getProperty(this, field.substring(separator + 1))) || 0;
+                default:
+                    return Number(getProperty(actor, field.substring(0))) || 0;
+            }
+        })();
+        const brackets = value.brackets ?? [];
+        // Set the fallthrough (the value set when no bracket matches) to be of the same type as the default value
+        const bracketFallthrough = (() => {
+            switch (typeof defaultValue) {
+                case "number":
+                case "boolean":
+                case "object":
+                    return defaultValue;
+                case "string":
+                    return Number.isNaN(Number(defaultValue)) ? defaultValue : Number(defaultValue);
+                default:
+                    return null;
+            }
+        })();
+        return (
+            brackets.find((bracket) => {
+                const start = bracket.start ?? 0;
+                const end = bracket.end ?? Infinity;
+                return start <= bracketNumber && end >= bracketNumber;
+            })?.value ?? bracketFallthrough
         );
     }
 }
