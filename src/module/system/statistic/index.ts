@@ -375,7 +375,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             const isTargetedCheck =
                 (this.type === "spell-attack-roll" && item?.isOfType("spell")) ||
                 (["perception-check", "skill-check"].includes(this.type) &&
-                    !!(args.dc?.statistic ?? args.dc?.slug) &&
+                    !!(args.dc?.statistic || args.dc?.slug) &&
                     (!item || item.isOfType("weapon")));
 
             return isValidAttacker && isTargetedCheck
