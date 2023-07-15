@@ -347,7 +347,7 @@ class CompendiumPack {
                         effect.uuid = convert(effect.uuid);
                     }
                 }
-            } else if (rule.key === "GrantItem" && typeof rule.uuid === "string") {
+            } else if (tupleHasValue(["EphemeralEffect", "GrantItem"], rule.key) && typeof rule.uuid === "string") {
                 rule.uuid = convert(rule.uuid);
             } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
                 for (const [key, choice] of Object.entries(rule.choices)) {
