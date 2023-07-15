@@ -66,9 +66,9 @@ export const SetGamePF2e = {
 
         const initSafe: Partial<(typeof game)["pf2e"]> = {
             Check: CheckPF2e,
-            CheckModifier: CheckModifier,
+            CheckModifier,
             Coins: CoinsPF2e,
-            ConditionManager: ConditionManager,
+            ConditionManager,
             Dice: DicePF2e,
             Modifier: ModifierPF2e,
             ModifierType: MODIFIER_TYPE,
@@ -94,8 +94,8 @@ export const SetGamePF2e = {
             system: { moduleArt: new ModuleArt(), remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
         };
-
         game.pf2e = mergeObject(game.pf2e ?? {}, initSafe);
+        game.pf2e.ConditionManager.initialize();
     },
 
     onSetup: (): void => {},
