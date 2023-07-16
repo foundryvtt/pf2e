@@ -99,7 +99,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         this.modifierLabel = this.getReducedLabel();
     }
 
-    static defaultIcons: Record<string, ImageFilePath | undefined> = [
+    static #defaultIcons: Record<string, ImageFilePath | undefined> = [
         "antler",
         "beak",
         "body",
@@ -366,7 +366,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 game.i18n.localize(strikeData.label) ??
                 `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
-            img: strikeData.img ?? BattleFormRuleElement.defaultIcons[slug] ?? this.item.img,
+            img: strikeData.img ?? BattleFormRuleElement.#defaultIcons[slug] ?? this.item.img,
             category: strikeData.category,
             group: strikeData.group,
             baseItem: strikeData.baseType,
@@ -374,7 +374,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             damage: { base: strikeData.damage },
             range: strikeData.range,
             maxRange: strikeData.maxRange,
-            traits: strikeData.traits,
+            traits: strikeData.traits ?? [],
             ability: strikeData.ability,
             ownIfHigher: (strikeData.ownIfHigher ??= true),
         }));
