@@ -91,6 +91,8 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/items/book-details.hbs",
         "systems/pf2e/templates/items/book-sidebar.hbs",
         "systems/pf2e/templates/items/treasure-sidebar.hbs",
+        "systems/pf2e/templates/items/campaign-feature-details.hbs",
+        "systems/pf2e/templates/items/campaign-feature-sidebar.hbs",
         "systems/pf2e/templates/items/class-details.hbs",
         "systems/pf2e/templates/items/consumable-details.hbs",
         "systems/pf2e/templates/items/consumable-sidebar.hbs",

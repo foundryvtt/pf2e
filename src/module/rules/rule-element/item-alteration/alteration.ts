@@ -12,6 +12,7 @@ import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
 
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
+        "ac-bonus",
         "badge-max",
         "badge-value",
         "category",
@@ -66,6 +67,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         };
 
         switch (this.property) {
+            case "ac-bonus": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                data.item.system.acBonus;
+                return;
+            }
             case "badge-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;

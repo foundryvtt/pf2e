@@ -48,7 +48,6 @@ class ArmorStatistic extends Statistic {
                   type: "item",
                   slug: armorSlug,
                   modifier: armor.acBonus,
-                  item: armor,
                   adjustments: extractModifierAdjustments(
                       actor.synthetics.modifierAdjustments,
                       ["all", "ac"],

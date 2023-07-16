@@ -1,0 +1,53 @@
+{
+    "_id": "gjo8LR6uOhDM5W7L",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/chain.webp",
+    "name": "Effect: Impaling Chain",
+    "system": {
+        "description": {
+            "value": "<p>The target is impaled and anchored in place, becoming grabbed by the chain. The creature is unable to recover from persistent bleed damage until it gets free.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed"
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "two-degrees-worse",
+                    "success": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "selector": "pd-recovery-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 2"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

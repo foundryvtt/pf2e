@@ -13,6 +13,7 @@ import type { EffectSource } from "@item/effect/data.ts";
 import type { EquipmentSource } from "@item/equipment/data.ts";
 import type { FeatSource } from "@item/feat/data.ts";
 import type { HeritageSource } from "@item/heritage/data.ts";
+import { CampaignFeatureSource } from "@item/campaign-feature/data.ts";
 import type { KitSource } from "@item/kit/data.ts";
 import type { LoreSource } from "@item/lore/data.ts";
 import type { MeleeSource } from "@item/melee/data.ts";
@@ -32,6 +33,7 @@ type NonPhysicalItemType =
     | "affliction"
     | "ancestry"
     | "background"
+    | "campaignFeature"
     | "class"
     | "condition"
     | "deity"
@@ -67,6 +69,7 @@ type ItemSourcePF2e =
     | EffectSource
     | FeatSource
     | HeritageSource
+    | CampaignFeatureSource
     | KitSource
     | LoreSource
     | MeleeSource

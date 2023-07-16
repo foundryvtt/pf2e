@@ -172,8 +172,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }))
                 ),
             },
-            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.hbs`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.hbs`,
+            sidebarTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
+            detailsTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }

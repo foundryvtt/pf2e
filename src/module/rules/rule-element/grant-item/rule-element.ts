@@ -1,16 +1,17 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import { ConditionPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ItemGrantDeleteAction } from "@item/data/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { ItemAlteration } from "../item-alteration/alteration.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import { ChoiceSetSource } from "../choice-set/data.ts";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
+import { ItemAlteration } from "../item-alteration/alteration.ts";
 import { GrantItemSchema } from "./schema.ts";
 
 class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
@@ -29,7 +30,14 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     onDeleteActions: Partial<OnDeleteActions> | null;
 
     constructor(data: GrantItemSource, options: RuleElementOptions) {
+        // Run slightly earlier if granting an in-memory condition
+        if (data.inMemoryOnly) data.priority ??= 99;
         super(data, options);
+
+        // In-memory-only conditions are always reevaluated on update
+        if (this.inMemoryOnly) {
+            this.reevaluateOnUpdate = true;
+        }
 
         if (this.reevaluateOnUpdate) {
             this.replaceSelf = false;
@@ -63,15 +71,16 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             ...super.defineSchema(),
             uuid: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             flag: new SlugField({ required: true, nullable: true, initial: null, camel: "dromedary" }),
-            reevaluateOnUpdate: new fields.BooleanField({ required: false, nullable: false, initial: false }),
-            replaceSelf: new fields.BooleanField({ required: false, nullable: false, initial: false }),
-            allowDuplicate: new fields.BooleanField({ required: false, nullable: false, initial: true }),
+            reevaluateOnUpdate: new fields.BooleanField({ required: false }),
+            inMemoryOnly: new fields.BooleanField({ required: false }),
+            replaceSelf: new fields.BooleanField({ required: false }),
+            allowDuplicate: new fields.BooleanField({ initial: true }),
             alterations: new fields.ArrayField(new fields.EmbeddedDataField(ItemAlteration), {
                 required: false,
                 nullable: false,
                 initial: [],
             }),
-            track: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            track: new fields.BooleanField({ required: false }),
         };
     }
 
@@ -86,6 +95,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
+        if (this.inMemoryOnly) return;
+
         const { itemSource, pendingItems, context } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
 
@@ -207,7 +218,9 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     override async preUpdateActor(): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> {
         const noAction = { create: [], delete: [] };
 
-        if (!this.reevaluateOnUpdate) return noAction;
+        if (!this.reevaluateOnUpdate || this.inMemoryOnly) {
+            return noAction;
+        }
 
         if (this.grantedId && this.actor.items.has(this.grantedId)) {
             if (!this.test()) {
@@ -231,6 +244,20 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         return noAction;
+    }
+
+    /** Add an in-memory-only condition to the actor */
+    override beforePrepareData(): void {
+        const condition = this.#createInMemoryCondition();
+        if (!condition) return;
+
+        const { actor } = this;
+        condition.rules = condition.prepareRuleElements();
+        for (const rule of condition.rules) {
+            rule.beforePrepareData?.();
+            actor.rules.push(rule);
+        }
+        actor.conditions.set(condition.id, condition);
     }
 
     #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
@@ -309,6 +336,35 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
     }
 
+    #createInMemoryCondition(): ConditionPF2e<ActorPF2e> | null {
+        if (!this.inMemoryOnly || !this.test()) return null;
+
+        const validationFailure = "an in-memory-only grant must be a condition";
+        const uuid = this.resolveInjectedProperties(this.uuid);
+        if (!UUIDUtils.isItemUUID(uuid)) {
+            this.failValidation(validationFailure);
+            return null;
+        }
+
+        const conditionSource = game.pf2e.ConditionManager.conditions.get(uuid)?.toObject();
+        if (!conditionSource) {
+            this.failValidation(validationFailure);
+            return null;
+        }
+
+        for (const alteration of this.alterations) {
+            alteration.applyTo(conditionSource);
+        }
+        const condition = new ConditionPF2e(
+            mergeObject(conditionSource, { _id: randomID(), system: { references: { parent: { id: this.item.id } } } }),
+            { parent: this.actor }
+        );
+        condition.prepareSiblingData();
+        condition.prepareActorData();
+
+        return condition;
+    }
+
     /** If this item is being tracked, set an actor flag and add its item roll options to the `all` domain */
     #trackItem(grantedItem: ItemPF2e<ActorPF2e> | null): void {
         if (!(this.track && this.flag && this.grantedId && grantedItem instanceof PhysicalItemPF2e)) {
@@ -331,6 +387,7 @@ interface GrantItemSource extends RuleElementSource {
     replaceSelf?: unknown;
     preselectChoices?: unknown;
     reevaluateOnUpdate?: unknown;
+    inMemoryOnly?: unknown;
     allowDuplicate?: unknown;
     onDeleteActions?: unknown;
     flag?: unknown;

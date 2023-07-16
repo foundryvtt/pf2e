@@ -3,7 +3,7 @@ import { ConditionPF2e } from "@item";
 import { ConditionSource } from "@item/condition/data.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
-import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 
 /** A helper class to manage PF2e Conditions */
@@ -12,21 +12,36 @@ export class ConditionManager {
 
     static conditions: Map<ConditionSlug | ItemUUID, ConditionPF2e<null>> = new Map();
 
+    private static CONDITION_SOURCES?: ConditionSource[] = CONDITION_SOURCES;
+
     /** Gets a list of condition slugs. */
     static get conditionsSlugs(): string[] {
-        return [...this.conditions.keys()];
+        return [...this.conditions.keys()].filter((k) => !k.startsWith("Compendium."));
     }
 
     static async initialize(force = false): Promise<void> {
-        if (this.#initialized && !force) return;
+        if (!this.#initialized) {
+            this.conditions = new Map(
+                this.CONDITION_SOURCES?.flatMap((source) => {
+                    const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: "pf2e.conditionitems" });
+                    return [
+                        [condition.slug, condition],
+                        [condition.uuid, condition],
+                    ];
+                }) ?? []
+            );
+            delete this.CONDITION_SOURCES;
+        }
 
-        type ConditionCollection = CompendiumCollection<ConditionPF2e<null>>;
-        const content = (await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments()) ?? [];
-        const entries = [
-            ...content.map((c): [ConditionSlug, ConditionPF2e<null>] => [c.slug, c]),
-            ...content.map((c): [ItemUUID, ConditionPF2e<null>] => [c.uuid, c]),
-        ];
-        this.conditions = new Map(entries);
+        if ((!this.#initialized || force) && game.i18n.lang !== "en") {
+            const localize = localizer("PF2E.condition");
+            for (const condition of this.conditions.values()) {
+                condition.name = condition._source.name = localize(`${condition.slug}.name`);
+                condition.system.description.value = condition._source.system.description.value = localize(
+                    `${condition.slug}.rules`
+                );
+            }
+        }
         this.#initialized = true;
     }
 

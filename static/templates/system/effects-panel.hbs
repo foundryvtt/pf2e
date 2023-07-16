@@ -1,4 +1,4 @@
-<section class="effect-panel">
+<article id="effects-panel">
     {{#each afflictions as |affliction|}}
         {{> effect effect=affliction descriptions=../descriptions.afflictions}}
     {{/each}}
@@ -14,7 +14,7 @@
     {{#each effects as |effect|}}
         {{> effect effect=effect descriptions=../descriptions.effects}}
     {{/each}}
-</section>
+</article>
 
 {{#*inline "effect"}}
 {{#if (or effect.isIdentified @root.user.isGM)}}

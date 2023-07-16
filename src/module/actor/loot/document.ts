@@ -84,7 +84,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */
     async toggleTokenHiding(): Promise<void> {
-        if (!this.hiddenWhenEmpty) return;
+        if (!this.hiddenWhenEmpty || !this.isOwner) return;
         const hiddenStatus = this.items.size === 0;
         const scenesAndTokens: [ScenePF2e, TokenDocumentPF2e<ScenePF2e>[]][] = game.scenes.map((s) => [
             s,
@@ -114,7 +114,9 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         options: DocumentModificationContext<TParent>,
         userId: string
     ): void {
-        this.toggleTokenHiding();
+        if (game.user.id === userId) {
+            this.toggleTokenHiding();
+        }
         super._onCreate(data, options, userId);
     }
 
@@ -123,7 +125,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         options: DocumentUpdateContext<TParent>,
         userId: string
     ): void {
-        if (changed.system?.hiddenWhenEmpty !== undefined) {
+        if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
         }
         super._onUpdate(changed, options, userId);
@@ -137,7 +139,9 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        this.toggleTokenHiding();
+        if (game.user.id === userId) {
+            this.toggleTokenHiding();
+        }
         super._onCreateDescendantDocuments(parent, collection, documents, result, options, userId);
     }
 
@@ -149,7 +153,9 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        this.toggleTokenHiding();
+        if (game.user.id === userId) {
+            this.toggleTokenHiding();
+        }
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
     }
 }
