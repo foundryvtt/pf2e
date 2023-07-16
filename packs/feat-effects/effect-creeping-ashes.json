@@ -27,12 +27,14 @@
             {
                 "key": "Weakness",
                 "predicate": [
-                    {
-                        "or": [
-                            "parent:origin:oracular-curse:stage:major",
-                            "parent:origin:oracular-curse:stage:extreme"
-                        ]
-                    }
+                    [
+                        {
+                            "gt": [
+                                "parent:badge:value",
+                                3
+                            ]
+                        }
+                    ]
                 ],
                 "type": "fire",
                 "value": "floor(@item.origin.level/2)"
