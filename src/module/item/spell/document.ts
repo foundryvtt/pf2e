@@ -1,12 +1,5 @@
 import { ActorPF2e } from "@actor";
-import {
-    createAbilityModifier,
-    createProficiencyModifier,
-    DamageDicePF2e,
-    ensureProficiencyOption,
-    ModifierPF2e,
-    StatisticModifier,
-} from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data.ts";
@@ -16,20 +9,22 @@ import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, ZeroToTwo } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageModifierDialog } from "@system/damage/modifier-dialog.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { BaseDamageData, DamageFormulaData, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, getActionIcon, htmlClosest, ordinal, setHasElement, traitSlugToObject } from "@util";
+import { ErrorPF2e, getActionIcon, htmlClosest, localizer, ordinal, setHasElement, traitSlugToObject } from "@util";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
 import { applyDamageDiceOverrides } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
@@ -807,7 +802,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Roll counteract check */
-    async rollCounteract(event: JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollCounteract(event?: JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
         if (!this.actor?.isOfType("character", "npc")) return null;
 
         const spellcastingEntry = this.trickMagicEntry ?? this.spellcasting;
@@ -815,58 +810,35 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
 
-        const modifiers: ModifierPF2e[] = [];
-        const ability: AbilityString = spellcastingEntry.system.ability?.value || "int";
-        const domains = ["all", "counteract-check", `${ability}-based`];
-        modifiers.push(createAbilityModifier({ actor: this.actor, ability, domains }));
-
-        const proficiencyRank = spellcastingEntry.rank;
-        modifiers.push(createProficiencyModifier({ actor: this.actor, rank: proficiencyRank, domains }));
+        const domain = "counteract-check";
+        const localize = localizer("PF2E.Item.Spell.Counteract");
+        const notes = [
+            new RollNotePF2e({ selector: domain, text: localize("Hint") }),
+            ...DEGREE_OF_SUCCESS_STRINGS.map((degreeString): RollNotePF2e => {
+                const counteractRank = {
+                    criticalFailure: 0,
+                    failure: this.rank,
+                    success: this.rank + 1,
+                    criticalSuccess: this.rank + 3,
+                }[degreeString];
+                return new RollNotePF2e({
+                    selector: domain,
+                    title: `PF2E.Check.Result.Degree.Check.${degreeString}`,
+                    text: localize(degreeString, { rank: counteractRank }),
+                    outcome: [degreeString],
+                });
+            }),
+        ];
 
         const traits = this.system.traits.value;
+        const { check } = spellcastingEntry.statistic.extend({ domains: [domain], rollOptions: traits });
 
-        let flavor = "<hr>";
-        flavor += `<h3>${game.i18n.localize("PF2E.Counteract")}</h3>`;
-        flavor += `<hr>`;
-
-        const spellRank = (() => {
-            const button = event.currentTarget;
-            const card = button.closest("*[data-spell-lvl]");
-            const cardData = card ? card.dataset : {};
-            return Number(cardData.spellLvl) || 1;
-        })();
-
-        const addFlavor = (success: string, rank: number) => {
-            const title = game.i18n.localize(`PF2E.${success}`);
-            const description = game.i18n.format(`PF2E.CounteractDescription.${success}`, { level: rank });
-            flavor += `<strong>${title}</strong> ${description}<br />`;
-        };
-        flavor += `<p>${game.i18n.localize("PF2E.CounteractDescription.Hint")}</p>`;
-        flavor += "<p>";
-        addFlavor("CritSuccess", spellRank + 3);
-        addFlavor("Success", spellRank + 1);
-        addFlavor("Failure", spellRank);
-        addFlavor("CritFailure", 0);
-        flavor += "</p>";
-        const check = new StatisticModifier(flavor, modifiers);
-        const finalOptions = new Set(this.actor.getRollOptions(domains).concat(traits));
-        ensureProficiencyOption(finalOptions, proficiencyRank);
-        const traitObjects = traits.map((trait) => ({
-            name: trait,
-            label: CONFIG.PF2E.spellTraits[trait],
-        }));
-
-        return CheckPF2e.roll(
-            check,
-            {
-                actor: this.actor,
-                type: "counteract-check",
-                options: finalOptions,
-                title: game.i18n.localize("PF2E.Counteract"),
-                traits: traitObjects,
-            },
-            event
-        );
+        return check.roll({
+            ...eventToRollParams(event),
+            label: game.i18n.localize("PF2E.Check.Specific.Counteract"),
+            extraRollNotes: notes,
+            traits,
+        });
     }
 
     override getOriginData(): ItemOriginFlag {
