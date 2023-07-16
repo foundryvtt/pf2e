@@ -4,11 +4,12 @@ import { CharacterSkill } from "@actor/character/types.ts";
 import { SENSE_ACUITIES, SENSE_TYPES } from "@actor/creature/sense.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
-import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import { RecordField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
 import { ResolvableValueField, RuleElementSource } from "../data.ts";
@@ -19,9 +20,8 @@ import { WeaknessRuleElement } from "../iwr/weakness.ts";
 import { SenseRuleElement } from "../sense.ts";
 import { StrikeRuleElement } from "../strike.ts";
 import { TempHPRuleElement } from "../temp-hp.ts";
-import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
 import { BattleFormRuleOverrideSchema, BattleFormRuleSchema } from "./schema.ts";
-import { RecordField } from "@system/schema-data-fields.ts";
+import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
 
 class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     /** The label given to modifiers of AC, skills, and strikes */
@@ -155,7 +155,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         }
 
         // Look for strikes that are compendium weapon queries and construct using retrieved weapon
-        await this.resolveStrikeQueries(ruleSource);
+        await this.#resolveStrikeQueries(ruleSource);
     }
 
     /** Set temporary hit points */
@@ -479,7 +479,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     }
 
     /** Disable ineligible damage adjustments (modifiers, bonuses, additional damage) */
-    override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DiceModifierPF2e | ModifierPF2e)[]): void {
+    override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DamageDicePF2e | ModifierPF2e)[]): void {
         if (this.ownUnarmed) return;
 
         for (const modifier of modifiers) {
@@ -489,7 +489,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
             const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
             const isAbilityModifier = modifier instanceof ModifierPF2e && modifier.type === "ability";
-            const isExtraDice = modifier instanceof DiceModifierPF2e;
+            const isExtraDice = modifier instanceof DamageDicePF2e;
             const isStatusOrCircumstance = isNumericBonus && ["status", "circumstance"].includes(modifier.type);
             const isDamageTrait =
                 isExtraDice &&
@@ -514,7 +514,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     }
 
     /** Process compendium query and construct full strike object using retrieved weapon */
-    private async resolveStrikeQueries(ruleSource: RuleElementSource & { overrides?: unknown }): Promise<void> {
+    async #resolveStrikeQueries(ruleSource: RuleElementSource & { overrides?: unknown }): Promise<void> {
         const value = ruleSource.overrides ? ruleSource.overrides : (ruleSource.value ??= {});
         const hasStrikes = (v: unknown): v is ValueWithStrikes =>
             isObject<{ strikes: unknown }>(v) && isObject<Record<string, unknown>>(v.strikes);

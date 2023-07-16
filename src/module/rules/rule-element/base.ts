@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
@@ -443,7 +443,7 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
     onDelete?(actorUpdates: Record<string, unknown>): void;
 
     /** An optional method for excluding damage modifiers and extra dice */
-    applyDamageExclusion?(weapon: WeaponPF2e, modifiers: (DiceModifierPF2e | ModifierPF2e)[]): void;
+    applyDamageExclusion?(weapon: WeaponPF2e, modifiers: (DamageDicePF2e | ModifierPF2e)[]): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace

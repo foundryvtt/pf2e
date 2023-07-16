@@ -1,9 +1,8 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import {
-    DamageDiceOverride,
     DamageDicePF2e,
-    DiceModifierPF2e,
+    DamageDiceOverride,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
@@ -727,7 +726,7 @@ interface NPCStrikeCalculateParams {
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;
-    modifiers: (DiceModifierPF2e | ModifierPF2e)[];
+    modifiers: (DamageDicePF2e | ModifierPF2e)[];
     weapon: WeaponPF2e | null;
     options: Set<string>;
 }
