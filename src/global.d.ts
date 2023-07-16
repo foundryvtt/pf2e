@@ -1,10 +1,9 @@
 /// <reference types="vite/client" />
 
-import { ActorPF2e } from "@actor/base.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { FeatGroupOptions } from "@actor/character/feats.ts";
 import { CheckModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { ItemPF2e } from "@item/base.ts";
+import { ConditionSource } from "@item/condition/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser/index.ts";
@@ -22,6 +21,7 @@ import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActorsPF2e } from "@module/collection/actors.ts";
+import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import { MacroPF2e } from "@module/macro.ts";
 import { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -238,6 +238,7 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
+    const CONDITION_SOURCES: ConditionSource[];
     const ROLL_PARSER: Peggy.Parser;
 }
 

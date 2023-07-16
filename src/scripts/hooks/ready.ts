@@ -98,9 +98,6 @@ export const Ready = {
                 canvas.colorManager.initialize();
             }
 
-            // In case there's no canvas, run Condition Manager initialization from this hook as well
-            game.pf2e.ConditionManager.initialize();
-
             // Add Scene Darkness Adjuster to `Scenes` apps list so that it will re-render on scene update
             game.scenes.apps.push(SceneDarknessAdjuster.instance);
 
