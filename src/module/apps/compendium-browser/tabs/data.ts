@@ -139,7 +139,6 @@ interface SpellFilters extends BaseFilterData {
         category: CheckboxData;
         level: CheckboxData;
         rarity: CheckboxData;
-        school: CheckboxData;
         source: CheckboxData;
         traditions: CheckboxData;
     };
