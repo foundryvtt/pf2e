@@ -1,7 +1,14 @@
 import { SaveType } from "@actor/types.ts";
-import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/index.ts";
+import {
+    AbstractEffectSystemData,
+    AbstractEffectSystemSource,
+    EffectAuraData,
+    EffectContextData,
+    EffectTraits,
+    TimeUnit,
+} from "@item/abstract-effect/index.ts";
 import { ConditionSlug } from "@item/condition/index.ts";
-import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
@@ -14,7 +21,7 @@ type AfflictionFlags = ItemFlagsPF2e & {
     };
 };
 
-interface AfflictionSystemSource extends ItemSystemSource {
+interface AfflictionSystemSource extends AbstractEffectSystemSource {
     level: { value: number };
     traits: EffectTraits;
     save: {
@@ -33,7 +40,9 @@ interface AfflictionSystemSource extends ItemSystemSource {
     context: EffectContextData | null;
 }
 
-interface AfflictionSystemData extends AfflictionSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
+interface AfflictionSystemData
+    extends Omit<AfflictionSystemSource, "fromSpell">,
+        Omit<AbstractEffectSystemData, "level" | "traits"> {}
 
 interface AfflictionOnset {
     value: number;
