@@ -70,6 +70,20 @@ const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): void => {
 };
 
 const ITEM_ALTERATION_VALIDATORS = {
+    "ac-bonus": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["armor"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"],
+        }),
+        value: new fields.NumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            positive: true,
+            initial: undefined,
+        } as const),
+    }),
     "badge-max": new ItemAlterationValidator(
         {
             itemType: new fields.StringField({ required: true, choices: ["effect"] }),

@@ -64,7 +64,10 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
             // An ephemeral effect will be added to a contextual clone's item source array and cannot include any
             // asynchronous rule elements
             const hasForbiddenREs = source.system.rules.some(
-                (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key)
+                (r) =>
+                    typeof r.key === "string" &&
+                    (r.key === "ChoiceSet" ||
+                        (r.key === "GrantItem" && !("inMemoryOnly" in r && r.inMemoryOnly === true)))
             );
             if (hasForbiddenREs) {
                 this.failValidation("an ephemeral effect may not include a choice set or grant");

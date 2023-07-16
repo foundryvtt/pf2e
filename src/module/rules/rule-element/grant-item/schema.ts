@@ -12,6 +12,11 @@ type GrantItemSchema = RuleElementSchema & {
     replaceSelf: BooleanField<boolean, boolean, false, false, true>;
     /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
     reevaluateOnUpdate: BooleanField<boolean, boolean, false, false, true>;
+    /**
+     * Instead of creating a new item in the actor's embedded collection, add a "virtual" one. Usable only with
+     * conditions
+     */
+    inMemoryOnly: BooleanField<boolean, boolean, false, false, true>;
     /** Allow multiple of the same item (as determined by source ID) to be granted */
     allowDuplicate: BooleanField<boolean, boolean, false, false, true>;
     /** A list of alterations to make on the item before granting it */

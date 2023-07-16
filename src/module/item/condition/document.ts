@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -80,7 +81,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         );
 
         const list = granters
-            .map((p) => p.name)
+            .map((p) => reduceItemName(p.name))
             .sort((a, b) => a.localeCompare(b, game.i18n.lang))
             .join(", ");
 
