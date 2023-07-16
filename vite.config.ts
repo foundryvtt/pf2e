@@ -1,13 +1,23 @@
+import type { ConditionSource } from "@item/condition/data.ts";
+import esbuild from "esbuild";
 import fs from "fs-extra";
-import * as Vite from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-// eslint-disable-next-line import/default
-import checker from "vite-plugin-checker";
 import path from "path";
 import Peggy from "peggy";
-import packageJSON from "./package.json" assert { type: "json" };
+import * as Vite from "vite";
+import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import esbuild from "esbuild";
+import tsconfigPaths from "vite-tsconfig-paths";
+import packageJSON from "./package.json" assert { type: "json" };
+import { sluggify } from "./src/util/misc.ts";
+
+const CONDITION_SOURCES = ((): ConditionSource[] => {
+    const filenames = fs.readdirSync("packs/conditions");
+    return filenames.map((filename) => {
+        const source = fs.readJSONSync(path.join("packs", "conditions", filename));
+        source.system.slug = sluggify(source.name);
+        return source;
+    });
+})();
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
@@ -92,6 +102,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         publicDir: "static",
         define: {
             BUILD_MODE: JSON.stringify(buildMode),
+            CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             ROLL_PARSER: Peggy.generate(rollGrammar, { output: "source" }),
         },
         esbuild: { keepNames: true },
@@ -136,5 +147,4 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     };
 });
 
-// eslint-disable-next-line import/no-default-export
 export default config;

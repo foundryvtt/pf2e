@@ -10,7 +10,6 @@ import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, pick, setHasElement, tupleHasValue } from "@util";
-import clumsySource from "../../../../packs/conditions/clumsy.json";
 import type { CharacterPF2e } from "./document.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
@@ -223,17 +222,16 @@ function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
         (w) => w.isEquipped && w.isOversized && w.category !== "unarmed"
     );
 
+    const compendiumCondition = game.pf2e.ConditionManager.getCondition("clumsy");
     const conditionSource =
         wieldedOversizedWeapon && actor.conditions.bySlug("clumsy").length === 0
-            ? mergeObject(
-                  clumsySource,
-                  {
-                      _id: "xxxxOVERSIZExxxx",
-                      name: game.i18n.localize(CONFIG.PF2E.statusEffects.conditions.clumsy),
-                      system: { slug: "clumsy", references: { parent: { id: wieldedOversizedWeapon.id } } },
-                  },
-                  { inplace: false }
-              )
+            ? (compendiumCondition.toObject(),
+              {
+                  _id: "xxxxOVERSIZExxxx",
+                  name: game.i18n.localize(CONFIG.PF2E.statusEffects.conditions.clumsy),
+                  system: { slug: "clumsy", references: { parent: { id: wieldedOversizedWeapon.id } } },
+              },
+              { inplace: false })
             : null;
     if (!conditionSource) return;
 
@@ -324,11 +322,11 @@ function createPonderousPenalty(actor: CharacterPF2e): ModifierPF2e | null {
 }
 
 export {
+    PCStrikeAttackTraits,
+    WeaponAuxiliaryAction,
     createForceOpenPenalty,
     createHinderingPenalty,
     createPonderousPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
-    PCStrikeAttackTraits,
-    WeaponAuxiliaryAction,
 };

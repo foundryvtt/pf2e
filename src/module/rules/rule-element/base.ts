@@ -3,6 +3,7 @@ import { ActorType } from "@actor/data/index.ts";
 import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
+import { reduceItemName } from "@item/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
@@ -120,7 +121,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     /** Generate a label without a leading title (such as "Effect:") */
     protected getReducedLabel(label = this.label): string {
-        return label.includes(":") ? label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : label;
+        return reduceItemName(label);
     }
 
     /** Include parent item's name and UUID in `DataModel` validation error messages */
