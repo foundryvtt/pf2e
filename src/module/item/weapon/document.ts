@@ -839,7 +839,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (ammo?.isOfType("weapon") && !ammo.system.usage.canBeAmmo) {
             throw ErrorPF2e("attempted to consume weapon not usable as ammunition");
         } else {
-            await ammo?.update({ "system.quantity": Math.max(this.quantity - 1, 0) });
+            await ammo?.update({ "system.quantity": Math.max(ammo.quantity - 1, 0) });
         }
     }
 

@@ -1,0 +1,46 @@
+{
+    "_id": "ekpt4mFw1kJkZ2pK",
+    "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
+    "name": "Effect: Tenacious Flames",
+    "system": {
+        "description": {
+            "value": "<p>Creatures in the emanation cannot recover from persistent fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "two-degrees-worse",
+                    "success": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:damage:type:fire"
+                ],
+                "selector": "pd-recovery-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 2"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

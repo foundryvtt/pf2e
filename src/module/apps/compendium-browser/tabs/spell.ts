@@ -19,7 +19,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         "level",
         "time",
         "category",
-        "school",
         "traditions",
         "traits",
         "rarity",
@@ -45,7 +44,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             "system.category.value",
             "system.traditions.value",
             "system.time",
-            "system.school.value",
             "system.traits",
             "system.source.value",
         ];
@@ -104,7 +102,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         level: spellData.system.level.value,
                         time: spellData.system.time,
                         category: spellData.system.category.value,
-                        school: spellData.system.school.value,
                         traditions: spellData.system.traditions.value,
                         traits: spellData.system.traits.value,
                         rarity: spellData.system.traits.rarity,
@@ -130,7 +127,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 selected: false,
             };
         }
-        this.filterData.checkboxes.school.options = this.generateCheckboxOptions(CONFIG.PF2E.magicSchools);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
@@ -169,10 +165,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         // Traits
         if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
-        // School
-        if (checkboxes.school.selected.length) {
-            if (!checkboxes.school.selected.includes(entry.school)) return false;
-        }
         // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
@@ -202,12 +194,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 level: {
                     isExpanded: true,
                     label: "PF2E.BrowserFilterLevels",
-                    options: {},
-                    selected: [],
-                },
-                school: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSchools",
                     options: {},
                     selected: [],
                 },

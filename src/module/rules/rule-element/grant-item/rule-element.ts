@@ -29,17 +29,14 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     /** Actions taken when either the parent or child item are deleted */
     onDeleteActions: Partial<OnDeleteActions> | null;
 
-    #inMemoryCondition?: ConditionPF2e<ActorPF2e> | null;
-
     constructor(data: GrantItemSource, options: RuleElementOptions) {
+        // Run slightly earlier if granting an in-memory condition
+        if (data.inMemoryOnly) data.priority ??= 99;
         super(data, options);
 
         // In-memory-only conditions are always reevaluated on update
         if (this.inMemoryOnly) {
             this.reevaluateOnUpdate = true;
-            this.#inMemoryCondition = this.#createInMemoryCondition();
-        } else {
-            this.#inMemoryCondition = null;
         }
 
         if (this.reevaluateOnUpdate) {
@@ -251,16 +248,15 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** Add an in-memory-only condition to the actor */
     override beforePrepareData(): void {
-        if (!this.#inMemoryCondition || !this.test()) return;
+        const condition = this.#createInMemoryCondition();
+        if (!condition) return;
 
-        const condition = this.#inMemoryCondition;
         const { actor } = this;
         condition.rules = condition.prepareRuleElements();
         for (const rule of condition.rules) {
             rule.beforePrepareData?.();
             actor.rules.push(rule);
         }
-
         actor.conditions.set(condition.id, condition);
     }
 
@@ -341,6 +337,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 
     #createInMemoryCondition(): ConditionPF2e<ActorPF2e> | null {
+        if (!this.inMemoryOnly || !this.test()) return null;
+
         const validationFailure = "an in-memory-only grant must be a condition";
         const uuid = this.resolveInjectedProperties(this.uuid);
         if (!UUIDUtils.isItemUUID(uuid)) {

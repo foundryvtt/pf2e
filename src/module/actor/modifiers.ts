@@ -1,9 +1,9 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types.ts";
-import type { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
@@ -120,8 +120,8 @@ class ModifierPF2e implements RawModifier {
     force: boolean;
     enabled: boolean;
     ignored: boolean;
-    /** An optional originating item of this modifier (typically from a rule element) */
-    item: ItemPF2e<ActorPF2e> | null;
+    /** The originating rule element of this modifier, if any: used to retrieve "parent" item roll options */
+    rule: RuleElementPF2e | null;
     source: string | null;
     custom: boolean;
     damageType: DamageType | null;
@@ -184,9 +184,9 @@ class ModifierPF2e implements RawModifier {
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
 
-        this.item = params.item ?? null;
+        this.rule = params.rule ?? null;
         // Prevent upstream from blindly diving into recursion loops
-        Object.defineProperty(this, "item", { enumerable: false });
+        Object.defineProperty(this, "rule", { enumerable: false });
 
         this.damageType = objectHasKey(CONFIG.PF2E.damageTypes, params.damageType) ? params.damageType : null;
         this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
@@ -242,26 +242,14 @@ class ModifierPF2e implements RawModifier {
         if (this.type === "ability" && this.ability) {
             options.push(`modifier:ability:${this.ability}`);
         }
-        // Add statements informing where this modifier came from
-        if (this.item) {
-            const itemSlug = this.item.slug ?? sluggify(this.item.name);
-            options.push(`${this.kind}:item:type:${this.item.type}`);
-            options.push(`${this.kind}:item:slug:${itemSlug}`);
-
-            const grantingItem = this.item.grantedBy;
-            if (grantingItem) {
-                const granterSlug = grantingItem.slug ?? sluggify(grantingItem.name);
-                options.push(`${this.kind}:item:granter:type:${grantingItem.type}`);
-                options.push(`${this.kind}:item:granter:slug:${granterSlug}`);
-            }
-        }
 
         return new Set(options);
     }
 
     /** Sets the ignored property after testing the predicate */
     test(options: string[] | Set<string>): void {
-        this.ignored = !this.predicate.test(options);
+        const rollOptions = this.rule ? [...options, ...this.rule.item.getRollOptions("parent")] : options;
+        this.ignored = !this.predicate.test(rollOptions);
     }
 
     toObject(): Required<RawModifier> {
@@ -275,7 +263,7 @@ class ModifierPF2e implements RawModifier {
 
 interface ModifierObjectParams extends RawModifier {
     name?: string;
-    item?: ItemPF2e<ActorPF2e> | null;
+    rule?: RuleElementPF2e | null;
 }
 
 type ModifierOrderedParams = [
