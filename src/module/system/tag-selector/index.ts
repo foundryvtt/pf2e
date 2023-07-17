@@ -25,7 +25,6 @@ const SELECTABLE_TAG_FIELDS = [
     "armorResiliencyRunes",
     "armorTraits",
     "attackEffects",
-    "attributes",
     "baseWeaponTypes",
     "bulkTypes",
     "classTraits",

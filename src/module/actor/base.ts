@@ -35,14 +35,13 @@ import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rul
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
-import { DicePF2e } from "@scripts/dice.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, isObject, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
+import { ErrorPF2e, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -1013,33 +1012,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         return { ...context, dc: dcData };
-    }
-
-    /**
-     * Roll a Attribute Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    rollAttribute(event: JQuery.TriggeredEvent, attributeName: string): void {
-        if (!objectHasKey(this.system.attributes, attributeName)) {
-            throw ErrorPF2e(`Unrecognized attribute "${attributeName}"`);
-        }
-
-        const attribute = this.attributes[attributeName];
-        if (!(isObject(attribute) && "value" in attribute)) return;
-
-        const parts = ["@mod", "@itemBonus"];
-        const configAttributes = CONFIG.PF2E.attributes;
-        if (isObject(attribute) && objectHasKey(configAttributes, attributeName)) {
-            const flavor = `${game.i18n.localize(configAttributes[attributeName])} Check`;
-            // Call the roll helper utility
-            DicePF2e.d20Roll({
-                event,
-                parts,
-                data: { mod: attribute.value },
-                title: flavor,
-                speaker: ChatMessage.getSpeaker({ actor: this }),
-            });
-        }
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
