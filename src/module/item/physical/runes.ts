@@ -7,7 +7,7 @@ import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTr
 import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { isBlank } from "@util";
 
 function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
@@ -60,7 +60,7 @@ interface WeaponPropertyRuneData {
     damage?: {
         dice?: RuneDiceData[];
         notes?: RuneNoteData[];
-        adjustments?: (Omit<ModifierAdjustment, "predicate"> & { predicate?: RawPredicate })[];
+        adjustments?: ModifierAdjustment[];
         /**
          * A list of resistances this weapon's damage will ignore--not limited to damage from the rune.
          * If `max` is numeric, the resistance ignored will be equal to the lower of the provided maximum and the
@@ -920,7 +920,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
             adjustments: [
                 {
                     slug: "critical-specialization",
-                    predicate: ["item:group:pick"],
+                    test: (options): boolean => new PredicatePF2e("item:group:pick").test(options),
                     getNewValue: (current) => current * 2,
                 },
             ],
@@ -1210,16 +1210,11 @@ function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<strin
 }
 
 function getPropertyRuneStrikeAdjustments(runes: WeaponPropertyRuneType[]): StrikeAdjustment[] {
-    return runes.flatMap((rune) => CONFIG.PF2E.runes.weapon.property[rune].strikeAdjustments ?? []);
+    return runes.flatMap((r) => CONFIG.PF2E.runes.weapon.property[r].strikeAdjustments ?? []);
 }
 
 function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): ModifierAdjustment[] {
-    return runes.flatMap(
-        (rune) =>
-            CONFIG.PF2E.runes.weapon.property[rune].damage?.adjustments?.map(
-                (a): ModifierAdjustment => ({ ...a, predicate: new PredicatePF2e(a.predicate ?? []) })
-            ) ?? []
-    );
+    return runes.flatMap((r) => CONFIG.PF2E.runes.weapon.property[r].damage?.adjustments ?? []);
 }
 
 /* -------------------------------------------- */

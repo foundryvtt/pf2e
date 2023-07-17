@@ -452,7 +452,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     #suppressModifiers(statistic: { modifiers: readonly ModifierPF2e[] }): void {
         for (const modifier of statistic.modifiers) {
             if (!this.#filterModifier(modifier)) {
-                modifier.adjustments.push({ slug: null, predicate: new PredicatePF2e(), suppress: true });
+                modifier.adjustments.push({ slug: null, test: () => true, suppress: true });
                 modifier.ignored = true;
                 modifier.enabled = false;
             }

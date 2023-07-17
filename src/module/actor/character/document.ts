@@ -874,7 +874,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const reflexAdjustments = (this.synthetics.modifierAdjustments[saveType] ??= []);
                 reflexAdjustments.push({
                     slug: "dex",
-                    predicate: new PredicatePF2e("damaging-effect"),
+                    test: (options): boolean => new PredicatePF2e("damaging-effect").test(options),
                     suppress: true,
                 });
             }
