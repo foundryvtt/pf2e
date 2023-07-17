@@ -74,7 +74,7 @@ interface BaseRawModifier {
 interface ModifierAdjustment {
     /** A slug for matching against modifiers: `null` will match against all modifiers within a selector */
     slug: string | null;
-    predicate: PredicatePF2e;
+    test: (options: string[] | Set<string>) => boolean;
     damageType?: DamageType;
     relabel?: string;
     suppress?: boolean;
@@ -531,10 +531,7 @@ class StatisticModifier {
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
     for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
-        const adjustments = modifier.adjustments.filter((a) =>
-            a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
-        );
-
+        const adjustments = modifier.adjustments.filter((a) => a.test([...rollOptions, ...modifier.getRollOptions()]));
         if (adjustments.some((a) => a.suppress)) {
             modifier.ignored = true;
             continue;

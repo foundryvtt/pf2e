@@ -69,9 +69,13 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
+        const predicate = new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate])));
+
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
-            predicate: new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate]))),
+            test: (options): boolean => {
+                return predicate.test([...options, ...this.item.getRollOptions("parent")]);
+            },
             suppress: this.suppress,
             getNewValue: (current: number): number => {
                 const change = Number(this.resolveValue(this.value));

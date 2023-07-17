@@ -13,7 +13,6 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { PredicatePF2e } from "@system/predication.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, sluggify } from "@util";
@@ -166,7 +165,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             modifierAdjustments.all.push({
                 slug: "base",
                 getNewValue: (base: number) => base + 2,
-                predicate: new PredicatePF2e(),
+                test: () => true,
             });
             statisticsModifiers.hp = statisticsModifiers.hp ?? [];
             statisticsModifiers.hp.push(
@@ -181,7 +180,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             modifierAdjustments.all.push({
                 slug: "base",
                 getNewValue: (base: number) => base - 2,
-                predicate: new PredicatePF2e(),
+                test: () => true,
             });
             statisticsModifiers.hp = statisticsModifiers.hp ?? [];
             statisticsModifiers.hp.push(
