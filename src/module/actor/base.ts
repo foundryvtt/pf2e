@@ -42,6 +42,7 @@ import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
@@ -459,29 +460,29 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<TDocument | null>;
     static override async createDialog(
         data: { folder?: string | undefined } = {},
-        options: {
+        context: {
             parent?: TokenDocumentPF2e | null;
             pack?: Collection<ActorPF2e<null>> | null;
             types?: (ActorType | "creature")[];
             [key: string]: unknown;
         } = {}
     ): Promise<Actor<TokenDocument<Scene | null> | null> | null> {
+        const omittedTypes: ActorType[] = [];
+        if (BUILD_MODE === "production") omittedTypes.push("party");
+
         const original = game.system.documentTypes.Actor;
         try {
-            game.system.documentTypes.Actor = original.filter(
-                (actorType: string) => actorType !== "party" || BUILD_MODE !== "production"
-            );
+            game.system.documentTypes.Actor = R.difference(original, omittedTypes);
 
-            if (options.types) {
-                const validTypes = options.types ?? [];
+            if (context.types) {
+                const validTypes = context.types ?? [];
                 if (validTypes.includes("creature")) validTypes.push(...CREATURE_ACTOR_TYPES);
                 game.system.documentTypes.Actor = game.system.documentTypes.Actor.filter((type) =>
                     tupleHasValue(validTypes, type)
                 );
             }
 
-            const newActor = super.createDialog(data, options);
-            return newActor;
+            return super.createDialog(data, context);
         } finally {
             game.system.documentTypes.Actor = original;
         }
