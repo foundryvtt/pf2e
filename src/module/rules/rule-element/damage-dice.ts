@@ -1,4 +1,4 @@
-import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
+import { DamageDicePF2e, DamageDiceOverride, DeferredValueParams } from "@actor/modifiers.ts";
 import { DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, setHasElement, sluggify } from "@util";

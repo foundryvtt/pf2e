@@ -8,6 +8,7 @@ export class Migration833AddRogueToysFixPrecision extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat") return;
 
+        const flatFootedId = "game" in globalThis ? "AJh5ex99aV6VTggg" : "Flat-Footed";
         switch (source.system.slug) {
             case "surprise-attack": {
                 const rules = [
@@ -26,7 +27,7 @@ export class Migration833AddRogueToysFixPrecision extends MigrationBase {
                             },
                         ],
                         selectors: ["strike-attack-roll", "spell-attack-roll", "strike-damage", "attack-spell-damage"],
-                        uuid: "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg",
+                        uuid: `Compendium.pf2e.conditionitems.Item.${flatFootedId}`,
                     },
                 ];
                 source.system.rules = rules;
@@ -38,7 +39,7 @@ export class Migration833AddRogueToysFixPrecision extends MigrationBase {
                         key: "EphemeralEffect",
                         predicate: ["target:condition:frightened"],
                         selectors: ["strike-attack-roll", "spell-attack-roll", "strike-damage", "attack-spell-damage"],
-                        uuid: "Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg",
+                        uuid: `Compendium.pf2e.conditionitems.Item.${flatFootedId}`,
                     },
                 ];
                 source.system.rules = rules;

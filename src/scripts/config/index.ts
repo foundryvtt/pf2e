@@ -320,12 +320,6 @@ export const PF2ECONFIG = {
 
     abilities,
 
-    attributes: {
-        perception: "PF2E.PerceptionLabel",
-        stealth: "PF2E.StealthLabel",
-        initiative: "PF2E.PerceptionLabel",
-    },
-
     dcAdjustments: {
         "incredibly-easy": "PF2E.DCAdjustmentIncrediblyEasy",
         "very-easy": "PF2E.DCAdjustmentVeryEasy",

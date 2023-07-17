@@ -107,7 +107,7 @@ class DamageRoll extends AbstractDamageRoll {
         formula = formula.trim();
         const wrapped = this.replaceFormulaData(formula.startsWith("{") ? formula : `{${formula}}`, {});
         try {
-            const result = this.parser.parse(wrapped);
+            const result = this.parser.parse(wrapped.replace(/@([a-z.0-9_-]+)/gi, "1"));
             return isObject(result) && "class" in result && ["PoolTerm", "InstancePool"].includes(String(result.class));
         } catch {
             return false;

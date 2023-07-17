@@ -1,5 +1,5 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import { RollTarget, ResistanceType, StrikeSelf } from "@actor/types.ts";
+import { ResistanceType, RollTarget, StrikeSelf } from "@actor/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";

@@ -74,7 +74,7 @@ interface BaseRawModifier {
 interface ModifierAdjustment {
     /** A slug for matching against modifiers: `null` will match against all modifiers within a selector */
     slug: string | null;
-    predicate: PredicatePF2e;
+    test: (options: string[] | Set<string>) => boolean;
     damageType?: DamageType;
     relabel?: string;
     suppress?: boolean;
@@ -531,10 +531,7 @@ class StatisticModifier {
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
     for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
-        const adjustments = modifier.adjustments.filter((a) =>
-            a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
-        );
-
+        const adjustments = modifier.adjustments.filter((a) => a.test([...rollOptions, ...modifier.getRollOptions()]));
         if (adjustments.some((a) => a.suppress)) {
             modifier.ignored = true;
             continue;
@@ -604,11 +601,15 @@ interface DamageDiceOverride {
     diceNumber?: number;
 }
 
-/**
- * Represents extra damage dice for one or more weapons or attack actions.
- * @category PF2
- */
-class DiceModifierPF2e implements BaseRawModifier {
+type PartialParameters = Partial<Omit<DamageDicePF2e, "predicate">> & Pick<DamageDicePF2e, "selector" | "slug">;
+interface DamageDiceParameters extends PartialParameters {
+    predicate?: RawPredicate;
+}
+
+class DamageDicePF2e {
+    /** A selector of an actor's associated damaging statistic  */
+    selector: string;
+
     slug: string;
     label: string;
     /** The number of dice to add. */
@@ -630,7 +631,13 @@ class DiceModifierPF2e implements BaseRawModifier {
     custom: boolean;
     predicate: PredicatePF2e;
 
-    constructor(params: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
+    constructor(params: DamageDiceParameters) {
+        if (params.selector) {
+            this.selector = params.selector;
+        } else {
+            throw ErrorPF2e("`selector` is mandatory");
+        }
+
         this.label = game.i18n.localize(params.label ?? "");
         this.slug = sluggify(params.slug ?? this.label);
         if (!this.slug) {
@@ -651,31 +658,11 @@ class DiceModifierPF2e implements BaseRawModifier {
             ? "persistent"
             : null;
 
-        this.predicate = new PredicatePF2e(params.predicate ?? []);
+        this.predicate =
+            params.predicate instanceof PredicatePF2e ? params.predicate : new PredicatePF2e(params.predicate ?? []);
+
         this.enabled = params.enabled ?? this.predicate.test([]);
         this.ignored = params.ignored ?? !this.enabled;
-    }
-}
-
-type PartialParameters = Partial<Omit<DamageDicePF2e, "predicate">> & Pick<DamageDicePF2e, "selector" | "slug">;
-interface DamageDiceParameters extends PartialParameters {
-    predicate?: RawPredicate;
-}
-
-class DamageDicePF2e extends DiceModifierPF2e {
-    /** The selector used to determine when *has a stroke*  */
-    selector: string;
-
-    constructor(params: DamageDiceParameters) {
-        const predicate =
-            params.predicate instanceof PredicatePF2e ? params.predicate : new PredicatePF2e(params.predicate ?? []);
-        super({ ...params, predicate });
-
-        if (params.selector) {
-            this.selector = params.selector;
-        } else {
-            throw ErrorPF2e("Selector is mandatory");
-        }
     }
 
     /** Test the `predicate` against a set of roll options */
@@ -701,13 +688,12 @@ type RawDamageDice = Required<DamageDiceParameters>;
 export {
     BaseRawModifier,
     CheckModifier,
-    DamageDiceOverride,
     DamageDicePF2e,
+    DamageDiceOverride,
     DamageDiceParameters,
     DeferredPromise,
     DeferredValue,
     DeferredValueParams,
-    DiceModifierPF2e,
     MODIFIER_TYPES,
     ModifierAdjustment,
     ModifierPF2e,

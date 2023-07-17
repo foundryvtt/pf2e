@@ -233,7 +233,9 @@ class EncounterPF2e extends Combat {
 
             // Reset all participating actors' data to get updated encounter roll options
             this.resetActors();
-            await game.pf2e.effectTracker.refresh();
+
+            const turnStart = combatant?.roundOfLastTurn === this.round ? null : combatant;
+            await game.pf2e.effectTracker.refresh({ turnStart });
             game.pf2e.effectPanel.refresh();
         });
     }
