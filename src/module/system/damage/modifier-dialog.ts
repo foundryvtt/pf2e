@@ -1,4 +1,4 @@
-import { ModifierPF2e, MODIFIER_TYPES, DamageDicePF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import {
     ErrorPF2e,
     htmlQuery,
@@ -9,6 +9,8 @@ import {
     sortStringRecord,
     tupleHasValue,
 } from "@util";
+import { createDamageFormula } from "./formula.ts";
+import { DamageRoll } from "./roll.ts";
 import {
     BaseDamageData,
     DamageCategoryUnique,
@@ -18,8 +20,6 @@ import {
     DamageType,
 } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
-import { createDamageFormula } from "./formula.ts";
-import { DamageRoll } from "./roll.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
@@ -29,7 +29,7 @@ class DamageModifierDialog extends Application {
     base: BaseDamageData[];
     /** The modifiers which are being edited. */
     modifiers: ModifierPF2e[];
-    /** The damage dice which are being edited. */
+    /** The damage dice that are being edited. */
     dice: DamageDicePF2e[];
     /** The base damage type of this damage roll */
     baseDamageType: DamageType;
@@ -146,7 +146,7 @@ class DamageModifierDialog extends Application {
             } satisfies ModifierData;
         });
 
-        const dice: DamageDiceData[] = this.dice.map((d) => ({
+        const dice: DialogDiceData[] = this.dice.map((d) => ({
             label: d.label,
             category: d.category,
             damageType: d.damageType,
@@ -351,7 +351,7 @@ interface BaseData {
     icon: string | null;
 }
 
-interface DamageDiceData extends BaseData {
+interface DialogDiceData extends BaseData {
     diceLabel: string;
 }
 
@@ -364,7 +364,7 @@ interface ModifierData extends BaseData {
 interface DamageDialogData {
     appId: string;
     modifiers: ModifierData[];
-    dice: DamageDiceData[];
+    dice: DialogDiceData[];
     isCritical: boolean;
     hasVisibleDice: boolean;
     hasVisibleModifiers: boolean;

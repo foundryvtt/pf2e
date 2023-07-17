@@ -1,5 +1,5 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { DamageDiceParameters, DamageDicePF2e, ModifierAdjustment } from "@actor/modifiers.ts";
+import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
 import { ArmorPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types.ts";
@@ -1255,14 +1255,14 @@ const WEAPON_VALUATION_DATA: WeaponValuationData = {
 };
 
 export {
-    getPropertyRuneDice,
-    getPropertyRuneModifierAdjustments,
-    getPropertyRunes,
-    getPropertyRuneStrikeAdjustments,
-    getPropertySlots,
-    getResilientBonus,
-    getStrikingDice,
     RuneValuationData,
     WEAPON_VALUATION_DATA,
     WeaponPropertyRuneData,
+    getPropertyRuneDice,
+    getPropertyRuneModifierAdjustments,
+    getPropertyRuneStrikeAdjustments,
+    getPropertyRunes,
+    getPropertySlots,
+    getResilientBonus,
+    getStrikingDice,
 };
