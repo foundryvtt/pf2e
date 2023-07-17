@@ -14,7 +14,7 @@ import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
-    injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
+    injectRepostElement: (links: HTMLElement[], foundryDoc: ClientDocument | null): void => {
         for (const link of links) {
             if (!foundryDoc || foundryDoc.isOwner) link.classList.add("with-repost");
 
@@ -44,14 +44,17 @@ export const InlineRollLinks = {
                 const target = event.target;
                 if (!(target instanceof HTMLElement)) return;
                 const parent = target?.parentElement;
-                const document = InlineRollLinks._documentFromDOM(target, foundryDoc);
-                if (parent) InlineRollLinks.repostAction(parent, document);
+                if (!parent) return;
+
+                const document = resolveDocument(target, foundryDoc);
+                InlineRollLinks.repostAction(parent, document);
             });
         }
     },
 
-    listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument): void => {
+    listen: ($html: HTMLElement | JQuery, foundryDoc: ClientDocument | null = null): void => {
         const html = $html instanceof HTMLElement ? $html : $html[0]!;
+        foundryDoc ??= resolveDocument(html, foundryDoc);
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => ["A", "SPAN"].includes(l.nodeName));
         InlineRollLinks.injectRepostElement(links, foundryDoc);
@@ -80,7 +83,7 @@ export const InlineRollLinks = {
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
             const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller } = link.dataset;
             link.addEventListener("click", (event) => {
-                const parent = InlineRollLinks._documentFromDOM(link, foundryDoc);
+                const parent = resolveActor(foundryDoc);
                 const actors = (() => {
                     if (pf2Roller === "self") {
                         const validActor = parent instanceof ActorPF2e && parent.canUserModify(game.user, "update");
@@ -235,15 +238,13 @@ export const InlineRollLinks = {
         return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
     },
 
-    repostAction: (
-        target: HTMLElement,
-        foundryDoc: ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null = null
-    ): void => {
+    repostAction: (target: HTMLElement, foundryDoc: ClientDocument | null = null): void => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
 
-        const defaultVisibility = foundryDoc?.hasPlayerOwner ? "all" : "gm";
+        const actor = resolveActor(foundryDoc);
+        const defaultVisibility = (actor ?? foundryDoc)?.hasPlayerOwner ? "all" : "gm";
         const content = (() => {
             if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
                 const content = htmlQueryAll(target.parentElement, inlineSelector)
@@ -256,13 +257,9 @@ export const InlineRollLinks = {
             }
         })();
 
-        const speaker =
-            foundryDoc instanceof ActorPF2e
-                ? ChatMessagePF2e.getSpeaker({
-                      actor: foundryDoc,
-                      token: foundryDoc.token ?? foundryDoc.getActiveTokens(false, true).shift(),
-                  })
-                : ChatMessagePF2e.getSpeaker();
+        const speaker = actor
+            ? ChatMessagePF2e.getSpeaker({ actor, token: actor.getActiveTokens(false, true).shift() })
+            : ChatMessagePF2e.getSpeaker();
 
         // If the originating document is a journal entry, include its UUID as a flag. If a chat message, copy over
         // the origin flag.
@@ -289,23 +286,22 @@ export const InlineRollLinks = {
             if (item) rollLink.dataset.flavor ||= item.name;
         }
     },
-
-    _documentFromDOM: (
-        html: HTMLElement,
-        foundryDoc?: ClientDocument
-    ): ActorPF2e | JournalEntry | JournalEntryPage<JournalEntry> | null => {
-        if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
-        if (
-            foundryDoc instanceof ActorPF2e ||
-            foundryDoc instanceof JournalEntry ||
-            foundryDoc instanceof JournalEntryPage
-        ) {
-            return foundryDoc;
-        }
-
-        const sheet: { id?: string; document?: unknown; actor?: unknown; journalEntry?: unknown } | null =
-            ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)];
-
-        return sheet.document instanceof ActorPF2e || sheet.document instanceof JournalEntry ? sheet.document : null;
-    },
 };
+
+/** If the provided document exists returns it, otherwise attempt to derive it from the sheet */
+function resolveDocument(html: HTMLElement, foundryDoc?: ClientDocument | null): ClientDocument | null {
+    if (foundryDoc) return foundryDoc;
+
+    const sheet: { id?: string; document?: unknown } | null =
+        ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)] ?? null;
+
+    const document = sheet?.document;
+    return document instanceof ActorPF2e || document instanceof JournalEntry ? document : null;
+}
+
+/** Retrieves the actor for the given document, or the document itself if its already an actor */
+function resolveActor(foundryDoc: ClientDocument | null): ActorPF2e | null {
+    if (foundryDoc instanceof ActorPF2e) return foundryDoc;
+    if (foundryDoc instanceof ItemPF2e || foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor;
+    return null;
+}
