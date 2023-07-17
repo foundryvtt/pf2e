@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
 import { EffectBadge } from "@item/abstract-effect/data.ts";
-import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
+import { AbstractEffectPF2e, EffectBadgeFormula, EffectBadgeValue } from "@item/abstract-effect/index.ts";
+import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
-import { sluggify } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
 
 class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
@@ -138,6 +139,23 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         return options;
     }
 
+    /**
+     * Evaluate a formula badge, sending its result to chat.
+     * @returns The resulting value badge
+     */
+    private async evaluateFormulaBadge(badge: EffectBadgeFormula): Promise<EffectBadgeValue> {
+        const { actor } = this;
+        if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
+
+        const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
+        const reevaluate = badge.reevaluate ? ({ formula: badge.value, event: "turn-start" } as const) : null;
+        const token = actor.getActiveTokens(false, true).shift();
+        const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
+        roll.toMessage({ flavor: reduceItemName(this.name), speaker });
+
+        return { type: "value", value: roll.total, reevaluate };
+    }
+
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -150,21 +168,13 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     ): Promise<boolean | void> {
         if (this.isOwned) {
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
-            this.updateSource({
-                "system.start": {
-                    value: game.time.worldTime,
-                    initiative,
-                },
-            });
+            this._source.system.start = { value: game.time.worldTime, initiative };
         }
 
         // If this is an immediate evaluation formula effect, pre-roll and change the badge type on creation
         const badge = data.system.badge;
         if (this.actor && badge?.type === "formula" && badge.evaluate) {
-            const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
-            this._source.system.badge = { type: "value", value: roll.total };
-            const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.actor.token });
-            roll.toMessage({ flavor: this.name, speaker });
+            this._source.system.badge = await this.evaluateFormulaBadge(badge);
         }
 
         return super._preCreate(data, options, user);
@@ -214,6 +224,19 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             game.pf2e.effectTracker.unregister(this as EffectPF2e<ActorPF2e>);
         }
         super._onDelete(options, userId);
+    }
+
+    /** If applicable, reevaluate this effect's badge */
+    async onTurnStart(): Promise<void> {
+        const { badge } = this;
+        if (badge?.type === "value" && badge.reevaluate) {
+            const newBadge = await this.evaluateFormulaBadge({
+                type: "formula",
+                value: badge.reevaluate.formula,
+                reevaluate: badge.reevaluate.event,
+            });
+            await this.update({ "system.badge": newBadge });
+        }
     }
 }
 

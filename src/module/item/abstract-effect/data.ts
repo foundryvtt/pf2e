@@ -37,12 +37,14 @@ type EffectTrait = ActionTrait | SpellTrait;
 interface EffectBadgeValue {
     type?: "value";
     value: number | string;
+    reevaluate?: { formula: string; event: "turn-start" } | null;
 }
 
 interface EffectBadgeFormula {
     type: "formula";
     value: string;
     evaluate?: boolean;
+    reevaluate?: "turn-start" | null;
 }
 
 interface EffectContextData {
@@ -74,7 +76,9 @@ export {
     AbstractEffectSystemSource,
     EffectAuraData,
     EffectBadge,
+    EffectBadgeFormula,
     EffectBadgeSource,
+    EffectBadgeValue,
     EffectContextData,
     EffectTrait,
     EffectTraits,
