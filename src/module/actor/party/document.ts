@@ -27,11 +27,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return [...this.baseAllowedItemTypes, ...(this.campaign?.extraItemTypes ?? [])];
     }
 
-    /** Parties use the campaign's level as their own level, as they otherwise don't have a level */
-    override get level(): number {
-        return this.campaign?.level ?? super.level;
-    }
-
     /** Friendship lives in our hearts */
     override get canAct(): false {
         return false;

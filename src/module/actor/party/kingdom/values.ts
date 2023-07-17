@@ -77,7 +77,7 @@ const KINGDOM_SIZE_DATA = {
 
 const vacancyLabel = (role: KingdomLeadershipRole) =>
     game.i18n.format("PF2E.Kingmaker.Kingdom.VacantRole", {
-        role: game.i18n.localize(`PF2E.Kingmaker.Kingdom.Leadership.${role}`),
+        role: game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${role}`),
     });
 
 type VacancyPenalty = { adjustments?: ModifierAdjustment[]; modifiers?: Record<string, RawModifier[]> };

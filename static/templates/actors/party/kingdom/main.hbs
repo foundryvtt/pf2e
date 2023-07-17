@@ -1,0 +1,93 @@
+<div class="content">
+    <section class="leaders">
+        <h3 class="header">{{localize "PF2E.Kingmaker.Kingdom.Leaders"}}</h3>
+        {{#each leadership as |leader|}}
+            <section class="leader" data-role="{{leader.slug}}">
+                <img src="{{leader.img}}"/>
+                <div class="name">
+                    {{#if leader.actor}}
+                        {{leader.actor.name}}
+                        <a data-action="remove-leader"><i class="fa-solid fa-times"></i></a>
+                    {{else}}
+                        {{localize "PF2E.Kingmaker.Kingdom.LeaderMissing"}}
+                    {{/if}}
+                </div>
+                <div class="details">
+                    <span class="role">{{label}}</span>
+                    {{#if leader.actor.hasPlayerOwner}}
+                        <label class="vacant">
+                            <input type="checkbox" name="leadership.{{leader.slug}}.vacant" {{checked leader.vacant}}>
+                            <span>{{localize "PF2E.Kingmaker.Kingdom.Leaders"}}</span>
+                            <i class="fas fa-info-circle"></i>
+                        </label>
+                    {{else if leader.vacant}}
+                        <label class="vacant">
+                            {{localize "PF2E.Kingmaker.Kingdom.Vacant"}} <i class="fa-solid fa-info-circle"></i>
+                        </label>
+                    {{/if}}
+                </div>
+            </section>
+        {{/each}}
+    </section>
+    <section class="resources">
+        <h3 class="header">
+            {{localize "PF2E.Kingmaker.Kingdom.Resources.Header"}}
+            <button type="button">{{localize "PF2E.Kingmaker.Kingdom.Resources.Collect"}}</button>
+        </h3>
+        <div class="resource-data">
+            <section class="resource-dice">
+                {{localize "PF2E.Kingmaker.Kingdom.Resources.Dice"}}
+                <span class="rollable">{{{resources.dice.icon}}} {{resources.dice.number}}d{{resources.dice.faces}}</span>
+                <label>{{localize "PF2E.Bonus"}} <input type="number" value="{{resources.dice.bonus}}" name="resources.dice.bonus"/></label>
+                <label>{{localize "PF2E.Kingmaker.Penalty"}} <input type="number" value="{{resources.dice.penalty}}" name="resources.dice.penalty"/></label>
+            </section>
+            <div class="commodities">
+                {{#each resources.commodities as |commodity|}}
+                    <section class="commodity">
+                        <span class="type">{{commodity.label}}</span>
+                        <div class="value-max">
+                            <input type="number" value="{{commodity.value}}" name="resources.commodities.{{type}}.value" />
+                            / {{commodity.max}}
+                        </div>
+                        <label>
+                            {{localize "PF2E.Kingmaker.Kingdom.Resources.WorkSites"}}
+                            <input type="number" value="{{commodity.sites}}" name="resources.commodities.{{type}}.sites" />
+                        </label>
+                        <label>
+                            {{localize "PF2E.Kingmaker.Kingdom.Resources.ResourceWorkSites"}}
+                            <input type="number" value="{{commodity.resourceSites}}" name="resources.commodities.{{type}}.resourceSites" />
+                        </label>
+
+                    </section>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    <section class="ability-scores">
+        <h3 class="header">
+            {{localize "PF2E.Kingmaker.AbilityScores"}}
+            <button type="button" data-action="builder">
+                <i class="fa-solid fa-fw fa-crown"></i>{{localize "PF2E.Kingmaker.KingdomBuilder.Builder"}}
+            </button>
+        </h3>
+        {{#each abilities as |ability|}}
+            <section class="ability">
+                <div class="score">
+                    <label>{{ability.label}}</label>
+                    <div class="value">{{numberFormat ability.mod sign=true}}</div>
+                </div>
+                <div class="corruption-section">
+                    <div class="corruption">
+                        <label>{{localize "PF2E.Kingmaker.Kingdom.Corruption"}}</label>
+                        <span>4 / 10</span>
+                    </div>
+                    <div class="penalty">
+                        <label>{{localize "PF2E.Kingmaker.Penalty"}}</label>
+                        <span>{{numberFormat ability.penalty}}</span>
+                    </div>
+                    <progress value="2" max="10"></progress>
+                </div>
+            </section>
+        {{/each}}
+    </section>
+</div>

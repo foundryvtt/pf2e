@@ -29,6 +29,7 @@ import {
     VACANCY_PENALTIES,
 } from "./values.ts";
 import { CampaignFeaturePF2e } from "@item";
+import { KingdomSheetPF2e } from "./sheet.ts";
 import { ActorPF2e } from "@actor";
 
 const { DataModel } = foundry.abstract;
@@ -88,8 +89,11 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         }
 
         icon.addEventListener("click", () => {
-            // todo: open actual kingdom sheet once active
-            new KingdomBuilder(this).render(true);
+            if (this.active) {
+                new KingdomSheetPF2e(this.actor).render(true);
+            } else {
+                new KingdomBuilder(this).render(true);
+            }
         });
         return [icon];
     }
