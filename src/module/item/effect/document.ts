@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { EffectBadge } from "@item/abstract-effect/data.ts";
-import { AbstractEffectPF2e, EffectBadgeFormula, EffectBadgeValue } from "@item/abstract-effect/index.ts";
+import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
@@ -88,11 +88,15 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         }
         system.expired = this.remainingDuration.expired;
 
-        const badge = this.system.badge;
-        if (badge?.type === "counter") {
-            badge.max = badge.labels?.length ?? badge.max ?? Infinity;
-            badge.value = Math.clamped(badge.value, 1, badge.max);
-            badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
+        const { badge } = this.system;
+        if (badge) {
+            if (badge.type === "formula") {
+                badge.label = null;
+            } else {
+                badge.max = badge.labels?.length ?? badge.max ?? Infinity;
+                badge.value = Math.clamped(badge.value, 1, badge.max);
+                badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
+            }
         }
     }
 
@@ -143,7 +147,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
      * Evaluate a formula badge, sending its result to chat.
      * @returns The resulting value badge
      */
-    private async evaluateFormulaBadge(badge: EffectBadgeFormula): Promise<EffectBadgeValue> {
+    private async evaluateFormulaBadge(badge: EffectBadgeFormulaSource): Promise<EffectBadgeValueSource> {
         const { actor } = this;
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
 
@@ -153,7 +157,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
         roll.toMessage({ flavor: reduceItemName(this.name), speaker });
 
-        return { type: "value", value: roll.total, reevaluate };
+        return { type: "value", value: roll.total, labels: badge.labels, reevaluate };
     }
 
     /* -------------------------------------------- */
@@ -234,6 +238,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 type: "formula",
                 value: badge.reevaluate.formula,
                 reevaluate: badge.reevaluate.event,
+                labels: badge.labels,
             });
             await this.update({ "system.badge": newBadge });
         }

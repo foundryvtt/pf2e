@@ -1,5 +1,6 @@
 import { EffectBadgeSource } from "@item/abstract-effect/index.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { ErrorPF2e } from "@util";
 import { htmlQuery, htmlQueryAll } from "@util/dom.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import { EffectSource } from "./data.ts";
@@ -14,7 +15,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
             hasSidebar: true,
             hasDetails: false,
             itemType: game.i18n.localize("PF2E.LevelLabel"),
-            badgeType: badge ? game.i18n.localize(`PF2E.Item.Effect.BadgeType.${badge.type}`) : "",
+            badgeType: badge ? game.i18n.localize(`PF2E.Item.Effect.Badge.Type.${badge.type}`) : "",
             timeUnits: CONFIG.PF2E.timeUnits,
         };
     }
@@ -31,11 +32,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
         htmlQuery(html, "[data-action=badge-add]")?.addEventListener("click", () => {
             const type = htmlQuery<HTMLSelectElement>(html, ".badge-type")?.value;
             const badge: EffectBadgeSource =
-                type === "formula"
-                    ? { type: "formula", value: "1d20", evaluate: true }
-                    : type === "labels"
-                    ? { type: "counter", value: 1, labels: [""] }
-                    : { type: "counter", value: 1 };
+                type === "formula" ? { type: "formula", value: "1d20", evaluate: true } : { type: "counter", value: 1 };
             this.item.update({ system: { badge } });
         });
 
@@ -44,21 +41,20 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
         });
 
         htmlQuery(html, "[data-action=badge-add-label")?.addEventListener("click", () => {
-            const labels = this.item.system.badge?.type === "counter" ? this.item.system.badge.labels : null;
-            if (labels) {
-                labels.push("");
-                this.item.update({ system: { badge: { labels } } });
-            }
+            if (!this.item.system.badge) throw ErrorPF2e("Unexpected error adding badge label");
+            const labels = this.item.system.badge.labels ?? [];
+            labels.push("");
+            this.item.update({ system: { badge: { labels } } });
         });
 
         for (const deleteIcon of htmlQueryAll(html, "[data-action=badge-delete-label]")) {
-            const idx = Number(deleteIcon.dataset.idx);
+            const index = Number(deleteIcon.dataset.idx);
             deleteIcon.addEventListener("click", () => {
-                const labels = this.item.system.badge?.type === "counter" ? this.item.system.badge.labels : null;
+                const labels = this.item.system.badge?.labels;
                 if (labels) {
-                    labels.splice(idx, 1);
+                    labels.splice(index, 1);
                     if (labels.length === 0) {
-                        this.item.update({ "system.-=badge": null });
+                        this.item.update({ "system.badge.-=labels": null });
                     } else {
                         this.item.update({ system: { badge: { labels } } });
                     }
