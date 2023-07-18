@@ -158,7 +158,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 }
 
 interface WeaponSystemData
-    extends Omit<WeaponSystemSource, "identification" | "price" | "temporary">,
+    extends Omit<WeaponSystemSource, "hp" | "identification" | "price" | "temporary">,
         Investable<PhysicalSystemData> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
