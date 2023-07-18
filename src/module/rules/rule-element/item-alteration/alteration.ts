@@ -77,6 +77,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     throw newValue.asError();
                 }
                 armor.system.acBonus = Math.max(newValue, 0);
+                this.#adjustCreatureShieldData(armor);
                 return;
             }
             case "badge-max": {
@@ -187,6 +188,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             const { heldShield } = item.actor;
             if (item === heldShield) {
                 const shieldData = item.actor.attributes.shield;
+                shieldData.ac = item.system.acBonus;
                 shieldData.hardness = item.system.hardness;
                 shieldData.hp.max = item.system.hp.max;
                 shieldData.brokenThreshold = Math.floor(item.system.hp.max / 2);
