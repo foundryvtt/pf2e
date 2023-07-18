@@ -91,7 +91,7 @@ export class EffectsPanel extends Application {
         const html = $html[0]!;
 
         // For inline roll links in descriptions
-        InlineRollLinks.listen(html, this.actor || undefined);
+        InlineRollLinks.listen(html, this.actor);
 
         for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
             const itemId = effectEl.dataset.itemId;

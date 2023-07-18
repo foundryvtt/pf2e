@@ -65,7 +65,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
                 const chatData = await item.getChatData({ secrets: actor.isOwner }, element.dataset);
                 await this.renderItemSummary(summary, item, chatData);
-                InlineRollLinks.listen(summary, actor);
+                InlineRollLinks.listen(summary, item);
                 return summary;
             }
 
