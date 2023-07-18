@@ -13,16 +13,22 @@ interface AbstractEffectSystemData extends ItemSystemData {
     fromSpell: boolean;
 }
 
-interface EffectBadgeCounterSource {
-    type: "counter";
-    max?: number;
-    value: number;
+interface EffectBadgeBaseSource {
     labels?: string[];
 }
 
-interface EffectBadgeCounter extends EffectBadgeCounterSource {
-    max: number;
+interface EffectBadgeBase extends EffectBadgeBaseSource {
     label: string | null;
+}
+
+interface EffectBadgeCounterSource extends EffectBadgeBaseSource {
+    type: "counter";
+    max?: number;
+    value: number;
+}
+
+interface EffectBadgeCounter extends EffectBadgeCounterSource, EffectBadgeBase {
+    max: number;
 }
 
 interface EffectTraits {
@@ -33,19 +39,25 @@ interface EffectTraits {
 
 type EffectTrait = ActionTrait | SpellTrait;
 
-// currently unused until specifices can be figured out
-interface EffectBadgeValue {
-    type?: "value";
-    value: number | string;
+/** A static value, including the result of a formula badge */
+interface EffectBadgeValueSource extends EffectBadgeBaseSource {
+    type: "value";
+    value: number;
     reevaluate?: { formula: string; event: "turn-start" } | null;
 }
 
-interface EffectBadgeFormula {
+interface EffectBadgeValue extends EffectBadgeValueSource, EffectBadgeBase {
+    max: number;
+}
+
+interface EffectBadgeFormulaSource extends EffectBadgeBaseSource {
     type: "formula";
     value: string;
     evaluate?: boolean;
     reevaluate?: "turn-start" | null;
 }
+
+interface EffectBadgeFormula extends EffectBadgeFormulaSource, EffectBadgeBase {}
 
 interface EffectContextData {
     origin: {
@@ -66,7 +78,7 @@ interface EffectAuraData {
     removeOnExit: boolean;
 }
 
-type EffectBadgeSource = EffectBadgeCounterSource | EffectBadgeValue | EffectBadgeFormula;
+type EffectBadgeSource = EffectBadgeCounterSource | EffectBadgeValueSource | EffectBadgeFormulaSource;
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
@@ -76,9 +88,9 @@ export {
     AbstractEffectSystemSource,
     EffectAuraData,
     EffectBadge,
-    EffectBadgeFormula,
+    EffectBadgeFormulaSource,
     EffectBadgeSource,
-    EffectBadgeValue,
+    EffectBadgeValueSource,
     EffectContextData,
     EffectTrait,
     EffectTraits,

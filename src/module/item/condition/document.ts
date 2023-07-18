@@ -21,7 +21,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     override get badge(): EffectBadge | null {
         if (this.system.persistent) {
-            return { type: "formula", value: this.system.persistent.formula };
+            return { type: "formula", value: this.system.persistent.formula, label: null };
         }
 
         return this.system.value.value

@@ -36,15 +36,59 @@
             </div>
         </div>
     {{/if}}
-    <hr/>
-    {{#if data.badge.labels}}
+    <hr />
+    {{#if data.badge}}
+        {{#if (eq data.badge.type "formula")~}}
+            <div class="form-group">
+                <label for="{{item.uuid}}-badge-type">{{badgeType}}</label>
+                <div class="form-fields">
+                    <input id="{{item.uuid}}-badge-type" type="text" name="system.badge.value" value="{{data.badge.value}}" />
+                    {{#if @root.options.editable}}
+                        <div class="item-controls">
+                            <a data-action="badge-delete"><i class="fa-solid fa-fw fa-times"></i></a>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{item.uuid}}-badge-reevaluate">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula"}}</label>
+                <div class="form-fields">
+                    <input id="{{item.uuid}}-badge-reevaluate" type="checkbox" name="system.badge.reevaluate" value="turn-start" {{checked data.badge.reevaluate}} />
+                </div>
+            </div>
+        {{else}}
+            <div class="form-group">
+                <label for="{{item.uuid}}-badge-type">{{badgeType}}</label>
+                <div class="form-fields">
+                    <input id="{{item.uuid}}-badge-type" type="number" {{#if data.badge.labels}}disabled{{else}}name="system.badge.value"{{/if}} value="{{data.badge.value}}" />
+                    {{#if @root.options.editable}}
+                        <div class="item-controls">
+                            <a data-action="badge-delete"><i class="fa-solid fa-fw fa-times"></i></a>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+
+        {{#if data.badge.labels}}
+            <h4>{{localize "PF2E.Item.Effect.Badge.Labels.Label" type=badgeType}}</h4>
+        {{/if}}
         {{#each data.badge.labels as |label idx|}}
             <div class="badge-label-row details-container-flex-row">
-                <label>
-                    <input type="radio" name="system.badge.value" {{checked (eq @root.data.badge.value (add idx 1))}} value="{{add idx 1}}" data-dtype="Number" tabindex="-1"/>
-                    <span class="badge-value">{{add idx 1}}</span>
-                </label>
-                <input type="text" name="system.badge.labels.{{idx}}" value="{{label}}" placeholder="{{localize "PF2E.Item.Effect.LabelPlaceholder"}}"/>
+                {{#unless (eq @root.data.badge.type "formula")}}
+                    <label>
+                        <input
+                            type="radio"
+                            name="system.badge.value"
+                            value="{{add idx 1}}"
+                            data-dtype="Number"
+                            tabindex="-1"
+                            {{checked (eq @root.data.badge.value (add idx 1))}}
+                        />
+                        <span class="badge-value">{{add idx 1}}</span>
+                    </label>
+                {{/unless}}
+                <input type="text" name="system.badge.labels.{{idx}}" value="{{label}}" placeholder="{{localize "PF2E.Item.Effect.Badge.Labels.Placeholder"}}" />
                 {{#if @root.options.editable}}
                     <div class="item-controls">
                         <a data-action="badge-delete-label" data-idx="{{idx}}"><i class="fa-solid fa-fw fa-times"></i></a>
@@ -54,38 +98,17 @@
         {{/each}}
         <div class="form-fields">
             <button type="button" data-action="badge-add-label">
-                <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.Item.Effect.AddLabel"}}
+                <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.Item.Effect.Badge.Labels.Add"}}
             </button>
         </div>
-    {{else if data.badge}}
-        <div class="form-group">
-            <label for="{{item.uuid}}-badge-type">{{badgeType}}</label>
-            <div class="form-fields">
-                <input id="{{item.uuid}}-badge-type" type={{#if (eq data.badge.type "formula")}}"text"{{else}}"number"{{/if}} name="system.badge.value" value="{{data.badge.value}}" />
-                {{#if @root.options.editable}}
-                    <div class="item-controls">
-                        <a data-action="badge-delete"><i class="fa-solid fa-fw fa-times"></i></a>
-                    </div>
-                {{/if}}
-            </div>
-        </div>
-        {{#if (eq data.badge.type "formula")~}}
-            <div class="form-group">
-                <label for="{{item.uuid}}-badge-reevaluate">{{localize "PF2E.Item.Effect.ReevaluateFormula"}}</label>
-                <div class="form-fields">
-                    <input id="{{item.uuid}}-badge-reevaluate" type="checkbox" name="system.badge.reevaluate" value="turn-start" {{checked data.badge.reevaluate}} />
-                </div>
-            </div>
-        {{~/if}}
     {{else}}
         <div class="add-badge">
             <select class="badge-type">
-                <option value="counter">{{localize "PF2E.Item.Effect.BadgeType.counter"}}</option>
-                <option value="labels">{{localize "PF2E.Item.Effect.ExtraSelections.Labels"}}</option>
-                <option value="formula">{{localize "PF2E.Item.Effect.BadgeType.formula"}}</option>
+                <option value="counter">{{localize "PF2E.Item.Effect.Badge.Type.counter"}}</option>
+                <option value="formula">{{localize "PF2E.Item.Effect.Badge.Type.formula"}}</option>
             </select>
             <button type="button" data-action="badge-add">
-                <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.Item.Effect.AddBadge"}}
+                <i class="fa-solid fa-fw fa-plus"></i> {{localize "PF2E.Item.Effect.Badge.Add"}}
             </button>
         </div>
     {{/if}}
