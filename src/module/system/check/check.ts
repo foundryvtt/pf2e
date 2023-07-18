@@ -163,7 +163,7 @@ class CheckPF2e {
         };
         if (strike) options.strike = strike;
 
-        const totalModifierPart = signedInteger(check.totalModifier);
+        const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
         const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be

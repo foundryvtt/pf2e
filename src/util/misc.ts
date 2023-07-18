@@ -149,7 +149,7 @@ let intlNumberFormat: Intl.NumberFormat;
  * @param value The number to convert to a string
  * @param [emptyStringZero] If the value is zero, return an empty string
  */
-function signedInteger(value: number, { emptyStringZero = true } = {}): string {
+function signedInteger(value: number, { emptyStringZero = false } = {}): string {
     if (value === 0 && emptyStringZero) return "";
 
     const nf = (intlNumberFormat ??= new Intl.NumberFormat(game.i18n.lang, {

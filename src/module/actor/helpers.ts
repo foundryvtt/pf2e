@@ -19,7 +19,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
-import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
+import { ErrorPF2e, getActionGlyph, getActionIcon, signedInteger, sluggify } from "@util";
 import { StrikeAttackTraits } from "./creature/helpers.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
@@ -259,90 +259,95 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
         .join(", ");
 
-    const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
     const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
-    const sign = strike.totalModifier < 0 ? "" : "+";
     const attackTrait = {
         name: "attack",
         label: CONFIG.PF2E.featTraits.attack,
         description: CONFIG.PF2E.traitsDescriptions.attack,
     };
 
+    const labels = [
+        `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`,
+        game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+            value: signedInteger(strike.totalModifier + multipleAttackPenalty.map1),
+            penalty: multipleAttackPenalty.map1,
+        }),
+        game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+            value: signedInteger(strike.totalModifier + multipleAttackPenalty.map2),
+            penalty: multipleAttackPenalty.map2,
+        }),
+    ];
+
     strike.variants = [
         null,
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, "untyped"),
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, "untyped"),
-    ].map((map, mapIncreases) => {
-        const label = map
-            ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
-            : `${strikeLabel} ${sign}${strike.totalModifier}`;
-        return {
-            label,
-            roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
-                const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
-                const rollNotes = notes.concat(attackEffects);
+    ].map((map, mapIncreases) => ({
+        label: labels[mapIncreases],
+        roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+            const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
+            const rollNotes = notes.concat(attackEffects);
 
-                params.options ??= [];
-                // Always add all weapon traits as options
-                const context = await actor.getCheckContext({
-                    item,
-                    viewOnly: params.getFormula ?? false,
-                    statistic: strike,
-                    target: { token: game.user.targets.first() ?? null },
-                    targetedDC: "armor",
+            params.options ??= [];
+            // Always add all weapon traits as options
+            const context = await actor.getCheckContext({
+                item,
+                viewOnly: params.getFormula ?? false,
+                statistic: strike,
+                target: { token: game.user.targets.first() ?? null },
+                targetedDC: "armor",
+                domains,
+                options: new Set([...baseOptions, ...params.options]),
+            });
+
+            // Check whether target is out of maximum range; abort early if so
+            if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+                const maxRange = item.maxRange ?? 10;
+                if (context.target.distance > maxRange) {
+                    ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
+                    return null;
+                }
+            }
+
+            const otherModifiers = [map ?? [], context.self.modifiers].flat();
+            const checkName = game.i18n.format(
+                item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
+                { weapon: item.name }
+            );
+
+            const roll = await CheckPF2e.roll(
+                new CheckModifier(checkName, context.self.statistic ?? strike, otherModifiers),
+                {
+                    type: "attack-roll",
+                    actor: context.self.actor,
+                    token: context.self.token,
+                    item: context.self.item,
+                    target: context.target,
                     domains,
-                    options: new Set([...baseOptions, ...params.options]),
+                    options: context.options,
+                    traits: [attackTrait],
+                    notes: rollNotes,
+                    dc: params.dc ?? context.dc,
+                    mapIncreases: mapIncreases as ZeroToTwo,
+                    rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
+                    substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
+                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+                },
+                params.event
+            );
+
+            for (const rule of actor.rules.filter((r) => !r.ignored)) {
+                await rule.afterRoll?.({
+                    roll,
+                    selectors: domains,
+                    domains,
+                    rollOptions: context.options,
                 });
+            }
 
-                // Check whether target is out of maximum range; abort early if so
-                if (context.self.item.isRanged && typeof context.target?.distance === "number") {
-                    const maxRange = item.maxRange ?? 10;
-                    if (context.target.distance > maxRange) {
-                        ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
-                        return null;
-                    }
-                }
-
-                const otherModifiers = [map ?? [], context.self.modifiers].flat();
-                const checkName = game.i18n.format(
-                    item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
-                    { weapon: item.name }
-                );
-
-                const roll = await CheckPF2e.roll(
-                    new CheckModifier(checkName, context.self.statistic ?? strike, otherModifiers),
-                    {
-                        type: "attack-roll",
-                        actor: context.self.actor,
-                        token: context.self.token,
-                        item: context.self.item,
-                        target: context.target,
-                        domains,
-                        options: context.options,
-                        traits: [attackTrait],
-                        notes: rollNotes,
-                        dc: params.dc ?? context.dc,
-                        mapIncreases: mapIncreases as ZeroToTwo,
-                        rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
-                        substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
-                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                    },
-                    params.event
-                );
-
-                for (const rule of actor.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({
-                        roll,
-                        selectors: domains,
-                        domains,
-                        rollOptions: context.options,
-                    });
-                }
-
-                return roll;
-            },
-        };
-    });
+            return roll;
+        },
+    }));
     strike.roll = strike.attack = strike.variants[0].roll;
 
     const damageRoll =

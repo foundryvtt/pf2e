@@ -74,7 +74,7 @@ import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
-import { ErrorPF2e, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
+import { ErrorPF2e, objectHasKey, signedInteger, sluggify, sortedStringify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
@@ -1495,16 +1495,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { weapon: weapon.name }
         );
 
-        const labels: [() => string, () => string, () => string] = [
-            () => {
-                const strike = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const value = action.totalModifier;
-                const sign = value < 0 ? "" : "+";
-                return `${strike} ${sign}${value}`;
-            },
-            () => game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map1 }),
-            () => game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
+        const labels = [
+            `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
+            game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                value: signedInteger(action.totalModifier + multipleAttackPenalty.map1),
+                penalty: multipleAttackPenalty.map1,
+            }),
+            game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                value: signedInteger(action.totalModifier + multipleAttackPenalty.map2),
+                penalty: multipleAttackPenalty.map2,
+            }),
         ];
+
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, otherModifiers),
@@ -1520,96 +1522,90 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 ]),
         ];
 
-        action.variants = [0, 1, 2]
-            .map((index): [() => string, (statistic: StrikeData, otherModifiers: ModifierPF2e[]) => CheckModifier] => [
-                labels[index],
-                checkModifiers[index],
-            ])
-            .map(([getLabel, constructModifier], mapIncreases) => ({
-                get label(): string {
-                    return getLabel();
-                },
-                roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
-                    params.options ??= [];
-                    params.consumeAmmo ??= weapon.requiresAmmo;
+        action.variants = [0, 1, 2].map((mapIncreases) => ({
+            label: labels[mapIncreases],
+            roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+                params.options ??= [];
+                params.consumeAmmo ??= weapon.requiresAmmo;
 
-                    if (weapon.requiresAmmo && params.consumeAmmo && !weapon.ammo) {
-                        ui.notifications.warn(
-                            game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
-                        );
+                if (weapon.requiresAmmo && params.consumeAmmo && !weapon.ammo) {
+                    ui.notifications.warn(
+                        game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
+                    );
+                    return null;
+                }
+
+                const context = await this.getCheckContext({
+                    item: weapon,
+                    domains: selectors,
+                    statistic: action,
+                    target: { token: game.user.targets.first() ?? null },
+                    targetedDC: "armor",
+                    options: new Set([...baseOptions, ...params.options, ...action.options]),
+                    viewOnly: params.getFormula,
+                });
+
+                // Check whether target is out of maximum range; abort early if so
+                if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+                    const maxRange = context.self.item.maxRange ?? 10;
+                    if (context.target.distance > maxRange) {
+                        ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
                         return null;
                     }
+                }
 
-                    const context = await this.getCheckContext({
-                        item: weapon,
-                        domains: selectors,
-                        statistic: action,
-                        target: { token: game.user.targets.first() ?? null },
-                        targetedDC: "armor",
-                        options: new Set([...baseOptions, ...params.options, ...action.options]),
-                        viewOnly: params.getFormula,
-                    });
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(selectors, context.options);
+                }
 
-                    // Check whether target is out of maximum range; abort early if so
-                    if (context.self.item.isRanged && typeof context.target?.distance === "number") {
-                        const maxRange = context.self.item.maxRange ?? 10;
-                        if (context.target.distance > maxRange) {
-                            ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
-                            return null;
-                        }
-                    }
+                const dc = params.dc ?? context.dc;
 
-                    // Get just-in-time roll options from rule elements
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        rule.beforeRoll?.(selectors, context.options);
-                    }
+                const rollTwice =
+                    params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, context.options);
+                const substitutions = extractRollSubstitutions(
+                    synthetics.rollSubstitutions,
+                    selectors,
+                    context.options
+                );
 
-                    const dc = params.dc ?? context.dc;
+                const checkContext: CheckRollContext = {
+                    type: "attack-roll",
+                    actor: context.self.actor,
+                    token: context.self.token,
+                    target: context.target,
+                    item: context.self.item,
+                    altUsage: params.altUsage ?? null,
+                    domains: selectors,
+                    options: context.options,
+                    notes: attackRollNotes,
+                    dc,
+                    traits: context.traits,
+                    rollTwice,
+                    substitutions,
+                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, selectors),
+                    mapIncreases: mapIncreases as ZeroToTwo,
+                };
 
-                    const rollTwice =
-                        params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, context.options);
-                    const substitutions = extractRollSubstitutions(
-                        synthetics.rollSubstitutions,
-                        selectors,
-                        context.options
-                    );
+                if (params.consumeAmmo && !this.consumeAmmo(context.self.item, params)) {
+                    return null;
+                }
 
-                    const checkContext: CheckRollContext = {
-                        type: "attack-roll",
-                        actor: context.self.actor,
-                        token: context.self.token,
-                        target: context.target,
-                        item: context.self.item,
-                        altUsage: params.altUsage ?? null,
-                        domains: selectors,
-                        options: context.options,
-                        notes: attackRollNotes,
-                        dc,
-                        traits: context.traits,
-                        rollTwice,
-                        substitutions,
-                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, selectors),
-                        mapIncreases: mapIncreases as ZeroToTwo,
-                    };
+                const constructModifier = checkModifiers[mapIncreases];
+                const roll = await CheckPF2e.roll(
+                    constructModifier(context.self.statistic ?? action, context.self.modifiers),
+                    checkContext,
+                    params.event,
+                    params.callback
+                );
 
-                    if (params.consumeAmmo && !this.consumeAmmo(context.self.item, params)) {
-                        return null;
-                    }
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: context.options });
+                }
 
-                    const roll = await CheckPF2e.roll(
-                        constructModifier(context.self.statistic ?? action, context.self.modifiers),
-                        checkContext,
-                        params.event,
-                        params.callback
-                    );
-
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: context.options });
-                    }
-
-                    return roll;
-                },
-            }));
+                return roll;
+            },
+        }));
         action.attack = action.roll = action.variants[0].roll;
 
         for (const method of ["damage", "critical"] as const) {
