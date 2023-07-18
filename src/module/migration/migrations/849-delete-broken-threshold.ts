@@ -5,6 +5,8 @@ import { MigrationBase } from "../base.ts";
 
 /**  Remove broken threshold from physical item source data */
 export class Migration849DeleteBrokenThreshold extends MigrationBase {
+    static override version = 0.849;
+
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const hitPoints: MaybeWithStoredBT | null =
             "hp" in source.system && isObject(source.system.hp) ? source.system.hp : null;
