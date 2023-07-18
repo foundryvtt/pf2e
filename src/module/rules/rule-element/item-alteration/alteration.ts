@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ArmorPF2e, type ItemPF2e, type PhysicalItemPF2e } from "@item";
+import { type ItemPF2e, type PhysicalItemPF2e } from "@item";
 import { PersistentSourceData } from "@item/condition/data.ts";
 import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -143,7 +143,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     if (newValue instanceof DataModelValidationFailure) {
                         throw newValue.asError();
                     }
-                    hp.max = Math.max(newValue, 1);
+                    hp.max = Math.max(Math.trunc(newValue), 1);
+                    this.#adjustCreatureShieldData(data.item);
                 }
                 return;
             }
@@ -184,7 +185,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
 
     /** Adjust creature shield data due it being set before item alterations occur */
     #adjustCreatureShieldData(item: PhysicalItemPF2e | PhysicalItemSource): void {
-        if (item instanceof ArmorPF2e && item.actor.isOfType("character", "npc") && item.isShield) {
+        if ("actor" in item && item.actor?.isOfType("character", "npc") && item.isOfType("armor") && item.isShield) {
             const { heldShield } = item.actor;
             if (item === heldShield) {
                 const shieldData = item.actor.attributes.shield;

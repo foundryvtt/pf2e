@@ -317,7 +317,7 @@ abstract class CreaturePF2e<
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
         // Set whether the actor's shield is raised
-        if (attributes.shield?.raised && !attributes.shield.broken) {
+        if (attributes.shield?.raised && !attributes.shield.broken && !attributes.shield.destroyed) {
             this.rollOptions.all["self:shield:raised"] = true;
         }
 
