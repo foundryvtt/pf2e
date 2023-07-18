@@ -9,7 +9,7 @@ declare global {
      * @param {RenderFlagObject} [config.object]  The object which owns this RenderFlags instance
      * @param {number} [config.priority]          The ticker priority at which these render flags are handled
      */
-    class RenderFlags extends Set<Record<string, boolean>> {
+    class RenderFlags extends Set<string> {
         constructor(flags?: Record<string, RenderFlag>, config?: { object?: PlaceableObject; priority?: number });
 
         /**

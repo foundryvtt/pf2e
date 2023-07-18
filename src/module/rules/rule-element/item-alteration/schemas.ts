@@ -5,10 +5,9 @@ import { RARITIES } from "@module/data.ts";
 import { ItemPF2e } from "@module/documents.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
-import type { DataField, DataFieldOptions, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import type { AELikeChangeMode } from "../ae-like.ts";
-import type { ItemAlterationProperty } from "./alteration.ts";
 
 const { fields, validation } = foundry.data;
 
@@ -173,25 +172,25 @@ const ITEM_ALTERATION_VALIDATORS = {
                 required: true,
                 choices: ["override"],
             }),
-            value: new fields.SchemaField(
+            value: new fields.SchemaField<PersistentDamageValueSchema>(
                 {
-                    formula: new fields.StringField<string, string, true>({
+                    formula: new fields.StringField({
                         required: true,
                         blank: false,
                         validate: (value: unknown) => DamageRoll.validate(String(value)),
-                    } as const),
-                    damageType: new fields.StringField<DamageType, DamageType, true>({
+                    }),
+                    damageType: new fields.StringField({
                         required: true,
                         choices: () => CONFIG.PF2E.damageTypes,
-                    } as const),
+                    }),
                     dc: new fields.NumberField({
                         required: true,
                         integer: true,
                         positive: true,
                         nullable: false,
                         initial: 15,
-                    } as const),
-                } as const,
+                    }),
+                },
                 { nullable: false } as const
             ),
         },
@@ -214,7 +213,7 @@ const ITEM_ALTERATION_VALIDATORS = {
             choices: RARITIES,
         } as const),
     }),
-} satisfies Record<ItemAlterationProperty, ItemAlterationValidator<AlterationSchema>>;
+};
 
 interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<AlterationSchema>>
     extends DataFieldOptions<TSourceProp, true, false, false> {
@@ -233,6 +232,12 @@ type AlterationSchema = {
     itemType: StringField<ItemType, ItemType, true, false, false>;
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     value: DataField<unknown, unknown, true, boolean, boolean>;
+};
+
+type PersistentDamageValueSchema = {
+    formula: StringField<string, string, true, false, false>;
+    damageType: StringField<DamageType, DamageType, true, false, false>;
+    dc: NumberField<number, number, true, false, true>;
 };
 
 export { ITEM_ALTERATION_VALIDATORS };
