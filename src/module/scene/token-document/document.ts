@@ -427,18 +427,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         options: DocumentModificationContext<null> = {}
     ): void {
         super._onRelatedUpdate(update, options);
-        if (!this.isLinked || !this.object?.visible) return;
 
-        if (Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"))) {
-            this.reset();
-            if (canvas.effects.visionSources.some((s) => s.object === this.object)) {
-                canvas.perception.update({ initializeVision: true }, true);
-            }
-            return;
-        }
-
-        // Only direct actor changes include the actual change data: what follows is for embedded item changes
-        if (Object.keys(update).length > 0) return;
+        const initializeVision =
+            this.sight.enabled && Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
+        if (initializeVision) canvas.perception.update({ initializeVision }, true);
 
         const preUpdate = this.toObject(false);
         const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
@@ -453,10 +445,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
             return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
         })();
-        if (aurasChanged) changes.effects = []; // Nudge upstream to redraw effects
 
         if (Object.keys(changes).length > 0) {
-            this._onUpdate(changes, {}, game.user.id);
+            this.object?._onUpdate(changes, {}, game.user.id);
         }
 
         if (aurasChanged || "width" in changes || "height" in changes) {
