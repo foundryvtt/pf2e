@@ -40,7 +40,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
                     const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"]), {
                         parent: this,
                     });
-                    return alteration.applyTo(item);
+                    alteration.applyTo(item);
                 }
             }
         } catch (error) {
