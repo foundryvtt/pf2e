@@ -243,7 +243,7 @@
             <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
-                {{#if (eq vi 0)}}<span class="activity-icon">{{../glyph}}</span>{{/if}}
+                <span class="activity-icon">{{../glyph}}</span>
                 {{variant.label}}
             </button>
         {{/each}}

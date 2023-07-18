@@ -218,8 +218,8 @@ class ModifierPF2e implements RawModifier {
 
     get signedValue(): string {
         return this.modifier === 0 && this.kind === "penalty"
-            ? signedInteger(-this.modifier, { emptyStringZero: false })
-            : signedInteger(this.modifier, { emptyStringZero: false });
+            ? signedInteger(-this.modifier)
+            : signedInteger(this.modifier);
     }
 
     /** Return a copy of this ModifierPF2e instance */
