@@ -116,6 +116,9 @@ class CombatantPF2e<
         if (Object.keys(actorUpdates).length > 0) {
             await actor.update(actorUpdates);
         }
+        for (const effect of actor.itemTypes.effect) {
+            await effect.onTurnStart();
+        }
 
         Hooks.callAll("pf2e.startTurn", this, encounter, game.user.id);
     }

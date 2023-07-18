@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import type { EffectPF2e } from "@item";
-import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import type { EncounterPF2e } from "@module/encounter/index.ts";
 
 export class EffectTracker {
     effects: EffectPF2e<ActorPF2e>[] = [];
@@ -80,18 +80,10 @@ export class EffectTracker {
 
     /**
      * Check for expired effects, removing or disabling as appropriate according to world settings
-     * @param [options.turnStart]     A combatant whose turn has just started: the actor's effects are notified of the
-     *                                event.
      * @param [options.resetItemData] Perform individual item data resets. This is only needed when the world time
      *                                changes.
      */
-    async refresh(options: { turnStart?: CombatantPF2e | null; resetItemData?: boolean } = {}): Promise<void> {
-        if (game.user === options.turnStart?.actor?.primaryUpdater) {
-            for (const effect of options.turnStart?.actor?.itemTypes.effect ?? []) {
-                effect.onTurnStart();
-            }
-        }
-
+    async refresh(options: { resetItemData?: boolean } = {}): Promise<void> {
         if (options.resetItemData) {
             const actors = new Set(this.effects.flatMap((e) => e.actor ?? []));
             for (const actor of actors) {
