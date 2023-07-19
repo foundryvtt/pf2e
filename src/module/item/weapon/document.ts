@@ -455,6 +455,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override prepareDerivedData(): void {
+        super.prepareDerivedData();
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;
         }
