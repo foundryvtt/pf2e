@@ -82,7 +82,8 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                         blank: false,
                         initial: undefined,
                     }),
-                    selected: new fields.BooleanField({ required: true, nullable: false, initial: false }),
+                    predicate: new PredicateField(),
+                    selected: new fields.BooleanField(),
                 }),
                 {
                     required: false,
@@ -92,11 +93,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     validationError: "must have zero or 2+ suboptions",
                 }
             ),
-            value: new ResolvableValueField({ required: false, nullable: false, initial: undefined }),
-            disabledIf: new PredicateField({ required: false, nullable: false, initial: undefined }),
-            disabledValue: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
-            count: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
-            removeAfterRoll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            value: new ResolvableValueField({ required: false, initial: undefined }),
+            disabledIf: new PredicateField({ required: false, initial: undefined }),
+            disabledValue: new fields.BooleanField({ required: false, initial: undefined }),
+            alwaysActive: new fields.BooleanField({ required: false, initial: undefined }),
+            count: new fields.BooleanField({ required: false, initial: undefined }),
+            removeAfterRoll: new fields.BooleanField({ required: false, initial: undefined }),
         };
     }
 
@@ -106,15 +108,15 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         const toggleable = "toggleable" in source ? !!source.toggleable : false;
 
         if (source.suboptions.length > 0 && !toggleable) {
-            throw Error("Only toggleable roll options can have suboptions");
+            throw Error("  suboptions: must be toggleable");
         }
 
         if (source.disabledIf && !toggleable) {
-            throw Error("Only toggleable roll options can have a disabledIf predicate");
+            throw Error("  disabledIf: must be false if not toggleable");
         }
 
         if (source.count && toggleable) {
-            throw Error("Only non-toggleable roll options can be configured to count");
+            throw Error("  count: must be false if toggleable");
         }
 
         if (typeof source.disabledValue === "boolean" && (!toggleable || !source.disabledIf)) {
@@ -122,6 +124,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 'The "disabledValue" property may only be included if "toggeable" is true and there is a ' +
                     '"disabledIf" predicate.'
             );
+        }
+
+        if (source.alwaysActive && (!toggleable || source.suboptions.length === 0)) {
+            throw Error("  alwaysActive: must be false unless toggleable and containing suboptions");
         }
     }
 
@@ -149,9 +155,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     override onApplyActiveEffects(): void {
-        if (!this.test(this.actor.getRollOptions([this.domain]))) {
-            return;
-        }
+        const optionSet = new Set(
+            [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat()
+        );
+        if (!this.test(optionSet)) return;
 
         const { rollOptions } = this.actor;
         const domainRecord = (rollOptions[this.domain] ??= {});
@@ -181,6 +188,15 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
+            const suboptions = this.suboptions.filter((s) => s.predicate.test(optionSet));
+            if (suboptions.length > 0 && !suboptions.some((s) => s.selected)) {
+                // If predicate testing eliminated the selected suboption, select the first.
+                suboptions[0].selected = true;
+            } else if (this.suboptions.length > 0 && suboptions.length === 0) {
+                // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle.
+                return;
+            }
+
             const value = this.resolveValue();
             if (value) {
                 domainRecord[option] = value;
@@ -195,14 +211,15 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     scope: this.scope,
                     domain: this.domain,
                     option: baseOption,
-                    suboptions: this.suboptions,
+                    suboptions,
+                    alwaysActive: !!this.alwaysActive,
                     checked: value,
                     enabled: true,
                 };
                 if (this.disabledIf) {
                     const rollOptions = this.actor.getRollOptions([this.domain]);
                     toggle.enabled = !this.disabledIf.test(rollOptions);
-                    if (!toggle.enabled && typeof this.disabledValue === "boolean") {
+                    if (!toggle.enabled && !this.alwaysActive && typeof this.disabledValue === "boolean") {
                         toggle.checked = this.disabledValue;
                         if (!this.disabledValue) delete domainRecord[option];
                     }
@@ -218,7 +235,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
             return false;
         }
-        return !!super.resolveValue(this.value);
+        return this.alwaysActive ? true : !!super.resolveValue(this.value);
     }
 
     /**
@@ -302,7 +319,14 @@ type RollOptionSchema = RuleElementSchema & {
     option: StringField<string, string, true, false, false>;
     /** Suboptions for a toggle, appended to the option string */
     suboptions: ArrayField<
-        SchemaField<SuboptionData, SourceFromSchema<SuboptionData>, SourceFromSchema<SuboptionData>, true, false, true>
+        SchemaField<
+            SuboptionData,
+            SourceFromSchema<SuboptionData>,
+            ModelPropsFromSchema<SuboptionData>,
+            true,
+            false,
+            true
+        >
     >;
     /**
      * The value of the roll option: either a boolean or a string resolves to a boolean If omitted, it defaults to
@@ -313,6 +337,11 @@ type RollOptionSchema = RuleElementSchema & {
     disabledIf: PredicateField<false, false, false>;
     /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */
     disabledValue: BooleanField<boolean, boolean, false, false, false>;
+    /**
+     * Whether this (toggleable and suboptions-containing) roll option always has a `value` of `true`, allowing only
+     * suboptions to be changed
+     */
+    alwaysActive: BooleanField<boolean, boolean, false, false, false>;
     /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
     count: BooleanField<boolean, boolean, false, false, false>;
     /** If the hosting item is an effect, remove or expire it after a matching roll is made */
@@ -322,6 +351,7 @@ type RollOptionSchema = RuleElementSchema & {
 type SuboptionData = {
     label: StringField<string, string, true, false, false>;
     value: StringField<string, string, true, false, false>;
+    predicate: PredicateField;
     selected: BooleanField<boolean, boolean, true, false, true>;
 };
 

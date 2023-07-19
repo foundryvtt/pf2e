@@ -102,6 +102,7 @@ interface RollOptionToggle {
     domain: string;
     option: string;
     suboptions: { label: string; selected: boolean }[];
+    alwaysActive: boolean;
     checked: boolean;
     enabled: boolean;
 }

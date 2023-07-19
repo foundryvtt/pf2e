@@ -52,29 +52,32 @@
         }
         &[type=number] {
             -moz-appearance: textfield;
+            appearance: textfield;
         }
     }
 
     select {
-        font-size: var(--font-size-14);
-        font-family: var(--serif);
-        font-weight: 500;
-        color: var(--text-light);
-        position: relative;
-        background-color: var(--alt);
-        border-radius: 2px;
-        line-height: 1;
-        cursor: pointer;
-        padding: 4px 18px 3px 5px;
-        -webkit-appearance: none;
         -moz-appearance: none;
-        text-overflow: ellipsis;
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: var(--alt);
         background-image: url("/assets/icons/chevron-down.svg");
-        background-repeat: no-repeat;
         background-position: right 0.25em top 50%;
+        background-repeat: no-repeat;
         background-size: 1em auto;
-        height: auto;
+        border-radius: 2px;
         border: 1px solid #53422a;
+        color: var(--text-light);
+        font: 500 var(--font-size-14) var(--serif);
+        height: auto;
+        line-height: 1;
+        padding: 0.25rem 1.1rem 0.25rem 0.25rem;
+        position: relative;
+        text-overflow: ellipsis;
+
+        &:not(:disabled) {
+            cursor: pointer;
+        }
 
         option {
             background-color: var(--alt);
