@@ -127,7 +127,7 @@ function fetchArmyGearData(gearType: String): Object {
         ],
     };
 
-    let gearData: object;
+    let gearData: Object;
 
     switch (gearType) {
         case "melee":
@@ -140,6 +140,8 @@ function fetchArmyGearData(gearType: String): Object {
             return (gearData = ARMY_GEAR_POTIONS);
         case "armor":
             return (gearData = ARMY_GEAR_ARMOR);
+        default:
+            return {};
     }
 
     /*
