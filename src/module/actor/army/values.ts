@@ -141,29 +141,6 @@ function fetchArmyGearData(gearType: String): Object {
         default:
             return {};
     }
-
-    /*
-    let gearData: object;
-
-    switch (gearType) {
-        case "melee":
-            ARMY_GEAR_WEAPONS.img = "icons/weapons/axes/axe-battle-black.webp";
-            gearData = ARMY_GEAR_WEAPONS;
-            break;
-        case "ranged":
-            ARMY_GEAR_WEAPONS.img = "icons/weapons/crossbows/crossbow-simple-brown.webp";
-            gearData = ARMY_GEAR_WEAPONS;
-            break;
-        case "potions":
-            gearData = ARMY_GEAR_POTIONS;
-            break;
-        case "armor":
-            gearData = ARMY_GEAR_ARMOR;
-            break;
-    }
-
-    return gearData;
-    */
 }
 
 export { ARMY_STATS, fetchArmyGearData };
