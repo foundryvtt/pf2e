@@ -292,6 +292,6 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
     }
 }
 
-interface ArmySheetDataPF2e<TActor extends ArmyPF2e> extends ActorSheetDataPF2e<TActor> {}
+type ArmySheetDataPF2e<TActor extends ArmyPF2e> = ActorSheetDataPF2e<TActor>;
 
 export { ArmySheetPF2e };
