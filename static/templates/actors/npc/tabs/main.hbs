@@ -1,25 +1,7 @@
 <section class="tab main" data-group="primary" data-tab="main">
     <!-- TOGGLES -->
     <div class="toggles section-container headerless">
-        {{#if toggles}}
-            <div class="section-body actions-options item-list">
-                {{#each toggles as |toggle idx|}}
-                    <div class="actions-option item" data-item-id="{{toggle.itemId}}" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}">
-                        <label>
-                            <input type="checkbox" data-action="toggle-roll-option" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
-                            <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
-                            {{#if toggle.suboptions}}
-                                <select data-action="set-suboption">
-                                    {{#each toggle.suboptions as |suboption|}}
-                                        <option value="{{suboption.value}}"{{#if suboption.selected}} selected{{/if}}>{{localize suboption.label}}</option>
-                                    {{/each}}
-                                </select>
-                            {{/if}}
-                        </label>
-                    </div>
-                {{/each}}
-            </div>
-        {{/if}}
+        {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
     </div>
     <div class="recall-knowledge section-container">
         <div class="section-header">
