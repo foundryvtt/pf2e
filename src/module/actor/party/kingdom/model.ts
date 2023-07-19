@@ -2,7 +2,7 @@ import { FeatGroup } from "@actor/character/feats.ts";
 import { ModifierPF2e, createProficiencyModifier } from "@actor/modifiers.ts";
 import { ItemType } from "@item/data/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, fontAwesomeIcon, objectHasKey } from "@util";
+import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, objectHasKey } from "@util";
 import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
@@ -28,7 +28,7 @@ import {
     KINGDOM_SKILL_LABELS,
     VACANCY_PENALTIES,
 } from "./values.ts";
-import { CampaignFeaturePF2e } from "@item";
+import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { KingdomSheetPF2e } from "./sheet.ts";
 import { ActorPF2e } from "@actor";
 
@@ -260,6 +260,52 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     getRollData(): Record<string, unknown> {
         return { kingdom: this };
+    }
+
+    async importActivities({ skipDialog = false }: { skipDialog?: boolean } = {}): Promise<void> {
+        const pack = game.packs.get("pf2e.kingmaker-features");
+        if (!pack) {
+            throw ErrorPF2e("Could not load kingdom features compendium");
+        }
+
+        const documents = (await pack.getDocuments({ type: "campaignFeature" }))
+            .filter((d): d is CampaignFeaturePF2e<null> => d instanceof ItemPF2e && d.isOfType("campaignFeature"))
+            .filter((d) => d.system.category === "kingdom-activity");
+
+        const actor = this.actor;
+        const newDocuments = documents.filter((d) => !actor.items.some((i) => i.sourceId === d.uuid));
+        const createData = newDocuments.map((d) => d.toObject());
+
+        const incomingDataByUUID = R.mapToObj(documents, (d) => [d.uuid, d.toObject(true)]);
+        const updateData = R.compact(
+            actor.itemTypes.campaignFeature.map((d) => {
+                const incoming = d.sourceId && incomingDataByUUID[d.sourceId];
+                if (!incoming) return null;
+
+                const data = R.pick(incoming, ["name", "img", "system"]);
+                const diff = diffObject(d.toObject(true), data);
+                return R.isEmpty(diff) ? null : { _id: d.id, ...diff };
+            })
+        );
+
+        // Exit out early if there's nothing to add or update
+        if (!updateData.length && !createData.length) {
+            return;
+        }
+
+        if (!skipDialog) {
+            const result = await Dialog.confirm({
+                title: game.i18n.localize("PF2E.Kingmaker.Kingdom.ImportDialog.Title"),
+                content: game.i18n.format("PF2E.Kingmaker.Kingdom.ImportDialog.Content", {
+                    added: createData.length,
+                    updated: updateData.length,
+                }),
+            });
+            if (!result) return;
+        }
+
+        await this.actor.updateEmbeddedDocuments("Item", updateData);
+        await this.actor.createEmbeddedDocuments("Item", createData);
     }
 
     getStatistic(slug: string): Statistic | null {

@@ -160,13 +160,14 @@ export const InlineRollLinks = {
                                 }
                                 return null;
                             })();
-                            // Retrieve the item if it is a spell and the check is a saving throw (for, e.g.,
-                            // incapacitation handling)
+
+                            // Retrieve the item if it is not a weapon and this is a saving throw
+                            // Exclude weapons so that roll notes on strikes from incapacitation abilities continue to work.
                             const item = (() => {
                                 if (!tupleHasValue(SAVE_TYPES, statistic.slug)) return null;
-                                return foundryDoc instanceof ItemPF2e && foundryDoc.isOfType("spell")
+                                return foundryDoc instanceof ItemPF2e && !foundryDoc.isOfType("weapon")
                                     ? foundryDoc
-                                    : foundryDoc instanceof ChatMessagePF2e && foundryDoc.item?.isOfType("spell")
+                                    : foundryDoc instanceof ChatMessagePF2e && !foundryDoc.item?.isOfType("weapon")
                                     ? foundryDoc.item
                                     : null;
                             })();

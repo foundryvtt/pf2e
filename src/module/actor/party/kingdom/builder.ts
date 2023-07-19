@@ -6,6 +6,7 @@ import { KingdomAbility, KingdomCHG } from "./types.ts";
 import { Kingdom } from "./model.ts";
 import { BoostFlawState } from "@actor/sheet/popups/ability-builder.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
+import { KingdomSheetPF2e } from "./sheet.ts";
 
 const KINGDOM_BUILD_CATEGORIES = ["charter", "heartland", "government"] as const;
 const KINGDOM_BOOST_LEVELS = [1, 5, 10, 15, 20] as const;
@@ -251,9 +252,11 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         }
 
         // When the complete button is pressed, the kingdom becomes activated, and the sheet accessible
-        htmlQuery(html, "[data-action=complete]")?.addEventListener("click", () => {
-            this.kingdom.update({ active: true });
+        htmlQuery(html, "[data-action=complete]")?.addEventListener("click", async () => {
             this.close();
+            await this.kingdom.update({ active: true });
+            await this.kingdom.importActivities();
+            new KingdomSheetPF2e(this.actor).render(true);
         });
     }
 

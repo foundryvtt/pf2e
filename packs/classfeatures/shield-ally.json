@@ -21,18 +21,26 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
+                "itemType": "armor",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "path": "system.attributes.shield.hardness",
                 "predicate": [
-                    "self:shield:equipped"
+                    "item:category:shield",
+                    "item:equipped"
                 ],
+                "property": "hardness",
                 "value": 2
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "divine-ally:shield"
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:category:shield",
+                    "item:equipped"
+                ],
+                "property": "hp-max",
+                "value": 1.5
             }
         ],
         "source": {
