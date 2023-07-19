@@ -762,6 +762,8 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     prepareSiblingData?(this: ItemPF2e<ActorPF2e>): void;
     prepareActorData?(this: ItemPF2e<ActorPF2e>): void;
+    /** Optional data-preparation callback executed after rule-element synthetics are prepared */
+    onPrepareSynthetics?(this: ItemPF2e<ActorPF2e>): void;
 
     /** Returns items that should also be added when this item is created */
     createGrantedItems(options?: object): Promise<ItemPF2e[]>;

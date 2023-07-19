@@ -4,6 +4,7 @@ import type { AncestrySource } from "@item/ancestry/data.ts";
 import type { ArmorSource } from "@item/armor/data.ts";
 import type { BackgroundSource } from "@item/background/data.ts";
 import type { BookSource } from "@item/book/data.ts";
+import type { CampaignFeatureSource } from "@item/campaign-feature/data.ts";
 import type { ClassSource } from "@item/class/data.ts";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { ConsumableSource } from "@item/consumable/data.ts";
@@ -13,7 +14,6 @@ import type { EffectSource } from "@item/effect/data.ts";
 import type { EquipmentSource } from "@item/equipment/data.ts";
 import type { FeatSource } from "@item/feat/data.ts";
 import type { HeritageSource } from "@item/heritage/data.ts";
-import { CampaignFeatureSource } from "@item/campaign-feature/data.ts";
 import type { KitSource } from "@item/kit/data.ts";
 import type { LoreSource } from "@item/lore/data.ts";
 import type { MeleeSource } from "@item/melee/data.ts";
@@ -63,13 +63,13 @@ type ItemSourcePF2e =
     | AfflictionSource
     | AncestrySource
     | BackgroundSource
+    | CampaignFeatureSource
     | ClassSource
     | ConditionSource
     | DeitySource
     | EffectSource
     | FeatSource
     | HeritageSource
-    | CampaignFeatureSource
     | KitSource
     | LoreSource
     | MeleeSource
