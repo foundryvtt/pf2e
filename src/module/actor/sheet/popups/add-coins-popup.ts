@@ -10,18 +10,22 @@ interface AddCoinsFormData extends Coins {
  */
 export class AddCoinsPopup extends FormApplication<ActorPF2e> {
     static override get defaultOptions(): FormApplicationOptions {
-        const options = super.defaultOptions;
-        options.id = "add-coins";
-        options.classes = [];
-        options.title = "Add Coins";
-        options.template = "systems/pf2e/templates/actors/add-coins.hbs";
-        options.width = "auto";
-        return options;
+        return {
+            ...super.defaultOptions,
+            id: "add-coins",
+            title: "PF2E.AddCoinsTitle",
+            template: "systems/pf2e/templates/actors/add-coins.hbs",
+        };
     }
 
     override async _updateObject(_event: Event, formData: Record<string, unknown> & AddCoinsFormData): Promise<void> {
-        const combineStacks = formData.combineStacks;
-        const coins = { pp: formData.pp, gp: formData.gp, sp: formData.sp, cp: formData.cp };
-        this.object.inventory.addCoins(coins, { combineStacks });
+        const combineStacks = !!formData.combineStacks;
+        const coins = {
+            pp: Number(formData.pp) || 0,
+            gp: Number(formData.gp) || 0,
+            sp: Number(formData.sp) || 0,
+            cp: Number(formData.cp) || 0,
+        };
+        return this.object.inventory.addCoins(coins, { combineStacks });
     }
 }
