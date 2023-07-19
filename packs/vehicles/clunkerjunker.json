@@ -57,7 +57,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "fall-apart",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fall-apart"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": -4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            "fall-apart"
+                        ],
+                        "value": 0
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
