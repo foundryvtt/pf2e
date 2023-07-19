@@ -346,6 +346,8 @@ const damageTraits = {
     nonlethal: "PF2E.TraitNonlethal",
     plant: "PF2E.TraitPlant",
     radiation: "PF2E.TraitRadiation",
+    vitality: "PF2E.TraitVitality",
+    void: "PF2E.TraitVoid",
 };
 
 const magicSchools: Record<MagicSchool, string> = {
