@@ -55,6 +55,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/partials/carry-type.hbs",
         "systems/pf2e/templates/actors/partials/effects.hbs",
         "systems/pf2e/templates/actors/partials/dying-pips.hbs",
+        "systems/pf2e/templates/actors/partials/toggles.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",
         "systems/pf2e/templates/actors/spellcasting-spell-list.hbs",
