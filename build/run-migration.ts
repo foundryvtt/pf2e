@@ -93,6 +93,7 @@ const itemTypes = [
     "armor",
     "background",
     "backpack",
+    "campaignFeature",
     "class",
     "condition",
     "consumable",
