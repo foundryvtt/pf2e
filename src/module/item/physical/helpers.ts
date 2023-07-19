@@ -4,17 +4,16 @@ import { DENOMINATIONS } from "./values.ts";
 
 /** Coins class that exposes methods to perform operations on coins without side effects */
 class CoinsPF2e implements Coins {
-    cp: number;
-    sp: number;
-    gp: number;
-    pp: number;
+    declare cp: number;
+    declare sp: number;
+    declare gp: number;
+    declare pp: number;
 
     constructor(data?: Coins | null) {
         data ??= {};
-        this.cp = data.cp ?? 0;
-        this.sp = data.sp ?? 0;
-        this.gp = data.gp ?? 0;
-        this.pp = data.pp ?? 0;
+        for (const denomination of DENOMINATIONS) {
+            this[denomination] = Math.max(Math.floor(Math.abs(data[denomination] ?? 0)), 0);
+        }
     }
 
     /** The total value of this coins in copper */
