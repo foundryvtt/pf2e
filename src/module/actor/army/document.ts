@@ -39,12 +39,13 @@ interface ArmySystemSource extends ActorSystemSource {
         };
 
         hp: {
+            negativeHealing: boolean;
+            unrecoverable: number;
             value: number;
             max: number;
             temp: number;
-            routThreshold: number;
             details: string;
-            negativeHealing: boolean;
+            routThreshold: number;
             potions: number;
         };
 
@@ -85,7 +86,7 @@ interface ArmySystemSource extends ActorSystemSource {
         alliance: ActorAlliance;
         strongSave: string;
         weakSave: string;
-        editLock : boolean;
+        editLock: boolean;
         level: { value: number };
         alignment: Alignment;
         description: string;

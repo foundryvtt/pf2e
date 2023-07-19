@@ -3,7 +3,7 @@ import { ArmyPF2e } from "./document.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { htmlQueryAll, localizer } from "@util";
 import { DicePF2e } from "@scripts/dice.ts";
-import { ARMY_STATS } from "./values.ts"; 
+import { fetchArmyGearData, ARMY_STATS } from "./values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
@@ -39,7 +39,9 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
         // Gear pips
         for (const button of htmlQueryAll(html, "button.pips")) {
-            const action = Array.from(button.classList).find((c) => ["melee", "ranged", "potion", "armor", "ammunition"].includes(c));
+            const action = Array.from(button.classList).find((c) =>
+                ["melee", "ranged", "potion", "armor", "ammunition"].includes(c)
+            );
             const piplistener = (event: MouseEvent) => {
                 // Identify the button
                 const [updatePath, pipCount, pipMax] = ((): [string, number, number] | [null, null, null] => {
@@ -53,7 +55,11 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                         case "potion":
                             return ["system.attributes.hp.potions", actor.system.attributes.hp.potions, 3];
                         case "ammunition":
-                            return ["system.weapons.ammunition.value", actor.system.weapons.ammunition.value, actor.system.weapons.ammunition.max];
+                            return [
+                                "system.weapons.ammunition.value",
+                                actor.system.weapons.ammunition.value,
+                                actor.system.weapons.ammunition.max,
+                            ];
                         default:
                             return [null, null, null];
                     }
@@ -146,8 +152,8 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
     // This is the function that handles all checks and rolls
     async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
+        const { actor, token } = this;
         const { attribute, weapon, attack } = link?.dataset ?? {};
-        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
         let title = "Title Not Found";
         let bonus = 0;
         let parts = ["@bonus"];
@@ -163,7 +169,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             title = this.actor.system.weapons[weapon].name || game.i18n.localize(`PF2E.Actor.Army.Strike${weapon}`);
         } else if (attribute === "scouting" || attribute === "morale" || attribute === "maneuver") {
             bonus = this.actor.system.attributes[attribute].bonus;
-            title = game.i18n.localize(`PF2E.Actor.Army.Attr${attribute}`);
+            title = game.i18n.localize(`PF2E.Warfare.Army.${attribute}`);
             data = { bonus };
         }
 
@@ -172,75 +178,21 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
             parts,
             data,
             title,
-            speaker,
+            speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         });
     }
 
-    // The "Info" buttons call a function that creates chat cards for the embedded gear data (not finished, at the very least all this data needs moving to the values.ts or en.json files)
+    // The "Info" buttons call a function that creates chat cards for the embedded gear data
     async #onClickInfo(link: HTMLElement): Promise<void> {
-        const localize = localizer("PF2E.Warfare.Gear");
+        const { actor, token } = this;
         const { info } = link?.dataset ?? {};
-        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-        let bonus = 0;
-        let traits = "";
-        let description = "";
-        let name = [""];
-        let level = [0];
-        let price = [0];
 
-        if (info === "melee" || info === "ranged") {
-            bonus = this.actor.system.weapons[info].potency;
-            name = [localize("Weapons.rank0"), localize("Weapons.rank1"), localize("Weapons.rank2"), localize("Weapons.rank3")];
-            traits = localize("Weapons.traits");
-            description = localize("Weapons.description");
-            level = [0, 2, 10, 16];
-            price = [0, 20, 40, 60];
-        } else if (info === "potions") {
-            bonus = 0;
-            name = [localize("Potions.name")];
-            traits = localize("Potions.traits");
-            description = localize("Potions.description");
-            price = [15];
-        } else if (info === "armor") {
-            bonus = this.actor.system.attributes.ac.potency;
-            name = [localize("Armor.rank0"), localize("Armor.rank1"), localize("Armor.rank2"), localize("Armor.rank3")];
-            traits = localize("Armor.traits");
-            description = localize("Armor.description");
-            level = [0, 5, 11, 18];
-            price = [0, 25, 50, 75];
-        }
-
-        const content = "<h3>" + name[bonus] + "</h3>" + traits + "<hr/>" + description + "<hr/><p>" + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.levelLabel") + level[bonus] + "</p><p>" + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.priceLabel") + price[bonus] + game.i18n.localize("PF2E.Warfare.ArmySheet.InfoButton.resourceLabel") + "</p>" ;
-
-        /* Failed attempt to streamline this (couldn't work out how to access the values by index after swapping it to an object)
-        const { info } = link?.dataset ?? {};
-        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-        let bonus = 0;
-        let details = {
-            name : [""],
-            traits : "",
-            description : "",
-            level : [0],
-            price : [0],
-        };
-
-        if (info === "melee" || info === "ranged") {
-            bonus = this.actor.system.weapons[info].potency;
-            details = ARMY_GEAR_WEAPONS;
-        } else if (info === "potions") {
-            bonus = 0;
-            details = ARMY_GEAR_POTIONS;
-        } else if (info === "armor") {
-            bonus = this.actor.system.attributes.ac.potency,
-            details = ARMY_GEAR_ARMOR;
-        }
-
-        const content = "<h3>" + details.name[bonus] + "</h3>" + details.traits + "<hr/>" + details.description + "<hr/>" + "<p>Level: " + details.level[bonus] + "</p><p>Price: " + details.price[bonus] + " RP</p>" ;
-        **/
+        const template = "./systems/pf2e/templates/actors/army/gear-card.hbs";
+        const data = fetchArmyGearData(String(info));
 
         await ChatMessagePF2e.create({
-            content,
-            speaker,
+            content: await renderTemplate(template, data),
+            speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         });
     }
 
@@ -250,9 +202,15 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
         const action = Array.from(button.classList).find((c) => ["level-up", "popup"].includes(c));
         const localize = localizer("PF2E.Warfare.ArmySheet.StatGenerator");
 
+        async function processForm(html: JQuery<HTMLElement>) {
+            // Record results of user selection
+            const newLevel = Number(html.find("#level").val());
+            const strongSave = String(html.find("#save").val());
+            replaceStats(newLevel, strongSave);
+        }
+
         // The full "build" popup which queries for the desired level and weak/strong save
         if (action === "popup") {
-
             // Create the input form
             const d = new Dialog({
                 title: localize("title"),
@@ -270,9 +228,9 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                         <p>${localize("desc")}</p>
                         <p><strong>${localize("warning")}</strong></p>
                         <fieldset><legend>${localize("parametersHeader")}</legend>
-                            <label for="level">${localize("levelLabel")}<input required="true" autofocus="true" type="number" id="level" name="level"/></label>
-                            <label for="save">${localize("saveLabel")}<select id="save">
-                                <option selected="true" value="maneuver">${game.i18n.localize("PF2E.Warfare.Army.maneuver")}</option>
+                            <label>${localize("levelLabel")}<input required="true" type="number"/></label>
+                            <label>${localize("saveLabel")}<select>
+                                <option value="maneuver">${game.i18n.localize("PF2E.Warfare.Army.maneuver")}</option>
                                 <option value="morale">${game.i18n.localize("PF2E.Warfare.Army.morale")}</option>
                             </select></label>
                         </fieldset>
@@ -285,16 +243,9 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                         callback: (html) => processForm(html),
                         icon: `<i class="fas fa-cog"></i>`,
                     },
-            },});
+                },
+            });
             d.render(true);
-            
-            async function processForm(html: JQuery<HTMLElement>) {
-                // Record results of user selection
-                const newLevel = Number(html.find("#level").val());
-                const strongSave = String(html.find("#save").val());
-                replaceStats(newLevel, strongSave);
-            }
-
         } else if (action === "level-up") {
             // We already know the values, the form is just a confirmation
             Dialog.confirm({
@@ -313,7 +264,7 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
                 yes: () => {
                     const newLevel = Number(actor.system.details.level.value + 1);
                     const strongSave = String(actor.system.details.strongSave || "morale");
-                    replaceStats(newLevel, strongSave);    
+                    replaceStats(newLevel, strongSave);
                 },
                 defaultYes: false,
             });
@@ -321,18 +272,20 @@ class ArmySheetPF2e<TActor extends ArmyPF2e> extends ActorSheetPF2e<TActor> {
 
         // Function that updates stats with default values
         async function replaceStats(newLevel: number, strongSave: string) {
-            const strongSaveMod = ((strongSave === "morale") ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus")
-            const weakSaveMod = ((strongSave === "morale") ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus")
+            const strongSaveMod =
+                strongSave === "morale" ? "system.attributes.morale.bonus" : "system.attributes.maneuver.bonus";
+            const weakSaveMod =
+                strongSave === "morale" ? "system.attributes.maneuver.bonus" : "system.attributes.morale.bonus";
             const newStatistics = {
-                "system.details.level.value" : newLevel,
-                "system.attributes.scouting.bonus" : ARMY_STATS.scouting[newLevel],
-                "system.attributes.standardDC" : ARMY_STATS.standardDC[newLevel],
-                "system.attributes.ac.value" : ARMY_STATS.ac[newLevel],
-                "system.details.strongSave" : strongSave,
-                [strongSaveMod] : ARMY_STATS.strongSave[newLevel],
-                [weakSaveMod] : ARMY_STATS.weakSave[newLevel],
-                "system.weapons.bonus" : ARMY_STATS.attack[newLevel],
-                "system.attributes.maxTactics" : ARMY_STATS.maxTactics[newLevel],
+                "system.details.level.value": newLevel,
+                "system.attributes.scouting.bonus": ARMY_STATS.scouting[newLevel],
+                "system.attributes.standardDC": ARMY_STATS.standardDC[newLevel],
+                "system.attributes.ac.value": ARMY_STATS.ac[newLevel],
+                "system.details.strongSave": strongSave,
+                [strongSaveMod]: ARMY_STATS.strongSave[newLevel],
+                [weakSaveMod]: ARMY_STATS.weakSave[newLevel],
+                "system.weapons.bonus": ARMY_STATS.attack[newLevel],
+                "system.attributes.maxTactics": ARMY_STATS.maxTactics[newLevel],
             };
             await actor.update(newStatistics);
         }

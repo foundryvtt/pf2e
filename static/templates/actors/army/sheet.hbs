@@ -25,7 +25,7 @@
                     {{/times}}
                 </button>
                 <button data-tooltip="Magic Armor Info" class="info" data-info="armor" type="button">
-                    <i class="far fa-question-circle"></i>
+                    <i class="far fa-comment-alt"></i>
                 </button>
             </div>
             <input type="text" data-dtype="String" data-property="system.attributes.ac.details" value="{{data.attributes.ac.details}}" class="armor-details" placeholder="{{localize "PF2E.NPC.ArmorExtraInfoLabelPlaceholder"}}" />
@@ -59,7 +59,7 @@
                     {{/times}}
                 </button>
                 <button data-tooltip="{{localize "PF2E.Warfare.ArmySheet.InfoButton.tooltipPotion"}}" class="info" data-info="potions" type="button">
-                    <i class="far fa-question-circle"></i>
+                    <i class="far fa-comment-alt"></i>
                 </button>
             </div>
             <input type="text" data-property="system.attributes.hp.details" value="{{data.attributes.hp.details}}" data-tooltip="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
@@ -154,10 +154,10 @@
                         {{/select}}
                     </select>
                 </div>
-                <div class="sheet-settings">                            
+                <div class="sheet-settings">
                     <button class="unlock editLock" type="button">
                         {{#if data.details.editLock}}
-                        <i data-tooltip="{{localize "PF2E.Warfare.ArmySheet.ToggleLock.unlockSheet"}}" class="far fa-lock"></i>                    
+                        <i data-tooltip="{{localize "PF2E.Warfare.ArmySheet.ToggleLock.unlockSheet"}}" class="far fa-lock"></i>
                         {{else}}
                         <i data-tooltip="{{localize "PF2E.Warfare.ArmySheet.ToggleLock.lockSheet"}}" class="far fa-lock-open"></i>
                         {{/if}}
@@ -188,7 +188,7 @@
                         <div class="strike {{#if data.weapons.melee.unlocked}}unlocked{{else}}locked{{/if}}">
                             <label class="roll"><a data-weapon="melee" data-attack="0" class="rollable melee"><i data-tooltip="{{localize "PF2E.Warfare.ArmySheet.Strikes.melee"}} ( +{{data.weapons.bonus}} {{localize "PF2E.Warfare.ArmySheet.Strikes.proficiency"}}, +{{data.weapons.melee.potency}} {{localize "PF2E.Warfare.ArmySheet.Strikes.potency"}} )" class="fas fa-dice-d20"></i> + {{add data.weapons.bonus data.weapons.melee.potency}}</a></label>
                             <label class="roll"><a data-weapon="melee" data-attack="1" class="rollable melee">-5</a></label>
-                            <label class="roll"><a data-weapon="melee" data-attack="2" class="rollable melee">-10</a></label>              
+                            <label class="roll"><a data-weapon="melee" data-attack="2" class="rollable melee">-10</a></label>
                             <input class="melee name" type="text" data-property="system.weapons.melee.name" value="{{data.weapons.melee.name}}" placeholder="{{localize "PF2E.Warfare.Strikes.melee"}}" />
                             {{#if data.weapons.melee.unlocked}}
                                 <button class="melee unlock" type="button"><i class="fas fa-lock-open empty" data-tooltip="{{localize "PF2E.Warfare.ArmySheet.ToggleLock.lockWeapon"}}"></i></button>
@@ -199,7 +199,7 @@
                         <div class="strike {{#if data.weapons.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
                             <label class="roll"><a data-weapon="ranged" data-attack="0" class="rollable ranged"><i data-tooltip="{{localize "PF2E.Warfare.ArmySheet.Strikes.ranged"}} ( +{{data.weapons.bonus}} {{localize "PF2E.Warfare.ArmySheet.Strikes.proficiency"}}, +{{data.weapons.ranged.potency}} {{localize "PF2E.Warfare.ArmySheet.Strikes.potency"}} )" class="fas fa-dice-d20"></i> + {{add data.weapons.bonus data.weapons.ranged.potency}}</a></label>
                             <label class="roll"><a data-weapon="ranged" data-attack="1" class="rollable ranged">-5</a></label>
-                            <label class="roll"><a data-weapon="ranged" data-attack="2" class="rollable ranged">-10</a></label>              
+                            <label class="roll"><a data-weapon="ranged" data-attack="2" class="rollable ranged">-10</a></label>
                             <input class="ranged name" type="text" data-property="system.weapons.ranged.name" value="{{data.weapons.ranged.name}}" placeholder="{{localize "PF2E.Actor.Army.Strikeranged"}}" />
                             <button data-tooltip="{{localize "PF2E.Warfare.ArmySheet.Strikes.ammunitionLabel"}} {{data.weapons.ammunition.value}}" class="ammunition pips" type="button">
                                 {{#times data.weapons.ammunition.max}}
@@ -224,7 +224,7 @@
                                 {{/times}}
                             </button>
                             <button data-tooltip="{{localize "PF2E.Warfare.ArmySheet.InfoButton.tooltipMelee"}}" class="info" data-info="melee" type="button">
-                                <i class="far fa-question-circle"></i>
+                                <i class="far fa-comment-alt"></i>
                             </button>
                         </div>
                         <div class="strike rank {{#if data.weapons.ranged.unlocked}}unlocked{{else}}locked{{/if}}">
@@ -234,7 +234,7 @@
                                 {{/times}}
                             </button>
                             <button data-tooltip="{{localize "PF2E.Warfare.ArmySheet.InfoButton.tooltipRanged"}}" class="info" data-info="ranged" type="button">
-                                <i class="far fa-question-circle"></i>
+                                <i class="far fa-comment-alt"></i>
                             </button>
                         </div>
                     </fieldset>
@@ -366,7 +366,7 @@
                 {{!-- ============== --}}
                 {{!--      Desc      --}}
                 {{!-- ============== --}}
-                
+
                 <fieldset>
                     <legend><i class="fa-light fa-pencil"></i>&nbsp;Description</legend>
                     {{editor data.details.description target="system.details.description" button=true owner=owner editable=editable placeholder="A description of this army!"}}

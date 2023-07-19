@@ -32,7 +32,7 @@ import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { PartySheetPF2e } from "@actor/party/sheet.ts";
 import { CampaignFeatureSheetPF2e } from "@item/campaign-feature/sheet.ts";
-import { ArmySheetPF2e } from "@actor/army/sheet";
+import { ArmySheetPF2e } from "@actor/army/sheet.ts";
 
 export function registerSheets(): void {
     const sheetLabel = game.i18n.localize("PF2E.SheetLabel");
