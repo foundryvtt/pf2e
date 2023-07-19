@@ -106,7 +106,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     return { ...data, type, label };
                 }),
             },
-            actionFilterChoices: createSheetTags(CONFIG.PF2E.actionTraits, KINGDOM_TRAITS),
+            actionFilterChoices: createSheetTags(CONFIG.PF2E.kingmakerTraits, KINGDOM_TRAITS),
         };
     }
 
@@ -162,7 +162,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         this.selectedFilter = trait;
 
         // Set and animate visibility of the different action types
-        for (const action of this.actor.itemTypes.action) {
+        for (const action of this.kingdom.activities) {
             const element = htmlQuery(html, `[data-item-id="${action.id}"]`);
             const visible = !trait || tupleHasValue(action.system.traits.value, trait);
             if (!element) continue;
