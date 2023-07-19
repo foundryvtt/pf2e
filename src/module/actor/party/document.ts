@@ -17,7 +17,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override armorClass = null;
 
     declare members: CreaturePF2e[];
-    campaign: PartyCampaign | null = null;
+    declare campaign: PartyCampaign | null;
 
     get baseAllowedItemTypes(): (ItemType | "physical")[] {
         return ["physical"];
@@ -90,6 +90,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     this.campaign = new InvalidCampaign(this, { campaignType, reason: "error" });
                 }
             }
+        } else {
+            this.campaign = null;
         }
     }
 
