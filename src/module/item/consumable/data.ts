@@ -35,7 +35,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
 }
 
 interface ConsumableSystemData
-    extends Omit<ConsumableSystemSource, "identification" | "price" | "temporary" | "usage">,
+    extends Omit<ConsumableSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "traits"> {}
 
 export { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };

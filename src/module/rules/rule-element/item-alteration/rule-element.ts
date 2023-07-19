@@ -5,6 +5,8 @@ import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
+import { ActorPF2e } from "@actor";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
     constructor(source: RuleElementSource, options: RuleElementOptions) {
@@ -40,12 +42,34 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
                     const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"]), {
                         parent: this,
                     });
-                    return alteration.applyTo(item);
+                    alteration.applyTo(item);
                 }
             }
         } catch (error) {
             if (error instanceof Error) this.failValidation(error.message);
         }
+    }
+
+    /** If this RE alters max HP, proportionally adjust current HP of items it would match against */
+    override async preCreate(): Promise<void> {
+        if (this.ignored || this.property !== "hp-max") return;
+
+        const itemsOfType: ItemPF2e<ActorPF2e>[] = this.actor.itemTypes[this.itemType];
+        const actorRollOptions = this.actor.getRollOptions();
+        const itemsToAlter = itemsOfType.filter((i): i is PhysicalItemPF2e<ActorPF2e> =>
+            this.test([...actorRollOptions, ...i.getRollOptions("item")])
+        );
+        const updates = itemsToAlter.flatMap((item): { _id: string; "system.hp.value": number } | never[] => {
+            const source = item.toObject();
+            const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"]), { parent: this });
+            alteration.applyTo(source);
+            alteration.applyTo(item);
+            const newHP = source.system.hp;
+            const oldHP = item._source.system.hp;
+            const newHPValue = Math.floor(oldHP.value * (newHP.max / oldHP.max));
+            return newHPValue === oldHP.value ? [] : { _id: item.id, "system.hp.value": newHPValue };
+        });
+        if (updates.length > 0) await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
     }
 }
 

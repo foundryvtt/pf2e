@@ -14,7 +14,7 @@ interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
 }
 
 interface EquipmentSystemData
-    extends Omit<EquipmentSystemSource, "identification" | "price" | "temporary" | "usage">,
+    extends Omit<EquipmentSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">,
         Omit<Investable<PhysicalSystemData>, "traits"> {}
 
 interface EquipmentTraits extends PhysicalItemTraits<EquipmentTrait> {

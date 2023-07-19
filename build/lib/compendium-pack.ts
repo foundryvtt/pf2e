@@ -1,4 +1,4 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e, MeleeSource, isPhysicalData } from "@item/data/index.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 import { SIZES } from "@module/data.ts";
@@ -219,6 +219,10 @@ class CompendiumPack {
         return new CompendiumPack(dbFilename, parsedData, folders);
     }
 
+    finalizeAll(): PackEntry[] {
+        return this.data.map((d) => JSON.parse(this.#finalize(d)));
+    }
+
     #finalize(docSource: PackEntry): string {
         // Replace all compendium documents linked by name to links by ID
         const stringified = JSON.stringify(docSource);
@@ -376,8 +380,7 @@ class CompendiumPack {
         }
 
         const db = new LevelDatabase(packDir, { packName: path.basename(packDir) });
-        const finalized: PackEntry[] = this.data.map((datum) => JSON.parse(this.#finalize(datum)));
-        await db.createPack(finalized, this.folders);
+        await db.createPack(this.finalizeAll(), this.folders);
         console.log(`Pack "${this.packId}" with ${this.data.length} entries built successfully.`);
 
         return this.data.length;
@@ -393,8 +396,7 @@ class CompendiumPack {
         if (fs.existsSync(outFile)) {
             fs.rmSync(outFile, { force: true });
         }
-        const finalized = this.data.map((datum) => this.#finalize(datum));
-        fs.writeFileSync(outFile, `[${finalized.join(",\n")}]`.concat("\n"));
+        fs.writeFileSync(outFile, JSON.stringify(this.finalizeAll()));
         console.log(`File "${this.packDir}.json" with ${this.data.length} entries created successfully.`);
 
         return this.data.length;

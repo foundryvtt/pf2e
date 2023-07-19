@@ -1,4 +1,5 @@
-import type { ConditionSource } from "@item/condition/data.ts";
+import { ConditionSource } from "@item/data/index.ts";
+import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
 import path from "path";
@@ -8,15 +9,10 @@ import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
 import packageJSON from "./package.json" assert { type: "json" };
-import { sluggify } from "./src/util/misc.ts";
 
 const CONDITION_SOURCES = ((): ConditionSource[] => {
-    const filenames = fs.readdirSync("packs/conditions");
-    return filenames.map((filename) => {
-        const source = fs.readJSONSync(path.join("packs", "conditions", filename));
-        source.system.slug = sluggify(source.name);
-        return source;
-    });
+    const output = execSync("npm run build:conditions", { encoding: "utf-8" });
+    return JSON.parse(output.slice(output.indexOf("[")));
 })();
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
@@ -52,7 +48,26 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     { src: "README.md", dest: "." },
                     { src: "CONTRIBUTING.md", dest: "." },
                 ],
-            })
+            }),
+            {
+                name: "hide-compendiums",
+                apply: "build",
+                writeBundle: {
+                    async handler() {
+                        const file = fs.openSync(path.resolve(outDir, "system.json"), "r+");
+                        const data = JSON.parse(fs.readFileSync(file, { encoding: "utf8" }));
+                        const pack = data.packs.find(
+                            (p: { name: string; ownership: object }) => p.name === "kingmaker-features"
+                        );
+                        if (pack) {
+                            pack.ownership = { GAMEMASTER: "NONE" };
+                            fs.ftruncateSync(file);
+                            fs.writeSync(file, JSON.stringify(data, null, 4), 0);
+                        }
+                        fs.closeSync(file);
+                    },
+                },
+            }
         );
     } else {
         plugins.push(

@@ -33,15 +33,10 @@ const checkAuras = foundry.utils.debounce(async function (this: ScenePF2e): Prom
     const auras = tokens.flatMap((t) => Array.from(t.auras.values()));
     for (const aura of auras) {
         const auradTokens = tokens.filter((t) => aura.containsToken(t));
-        await aura.notifyActors(auradTokens);
-        const nonAuradTokens = tokens.filter((t) => !auradTokens.includes(t));
-        const nonAuradActors = new Set(nonAuradTokens.flatMap((t) => t.actor ?? []));
-        for (const actor of nonAuradActors) {
-            actor.checkAreaEffects();
-        }
+        aura.notifyActors(auradTokens);
     }
 
-    const sceneActors = new Set(tokens.flatMap((t) => (t.actor?.canUserModify(game.user, "update") ? t.actor : [])));
+    const sceneActors = new Set(tokens.flatMap((t) => (t.actor?.primaryUpdater === game.user ? t.actor : [])));
     for (const actor of sceneActors) {
         actor.checkAreaEffects();
     }

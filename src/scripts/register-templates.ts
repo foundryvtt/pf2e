@@ -43,6 +43,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/hazard/partials/header.hbs",
         "systems/pf2e/templates/actors/hazard/partials/sidebar.hbs",
 
+        // Kingdom Sheet Partials
+        "systems/pf2e/templates/actors/party/kingdom/main.hbs",
+        "systems/pf2e/templates/actors/party/kingdom/activities.hbs",
+        "systems/pf2e/templates/actors/party/kingdom/advancement.hbs",
+
         // Shared Actor Sheet Partials
         "systems/pf2e/templates/actors/partials/coinage.hbs",
         "systems/pf2e/templates/actors/partials/inventory.hbs",
@@ -50,6 +55,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/partials/carry-type.hbs",
         "systems/pf2e/templates/actors/partials/effects.hbs",
         "systems/pf2e/templates/actors/partials/dying-pips.hbs",
+        "systems/pf2e/templates/actors/partials/toggles.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",
         "systems/pf2e/templates/actors/spellcasting-spell-list.hbs",

@@ -90,7 +90,7 @@ class ScenePF2e extends Scene {
 interface ScenePF2e extends Scene {
     flags: SceneFlagsPF2e;
 
-    /** Added as debounced method: check for auras containing newly-placed or moved tokens */
+    /** Check for auras containing newly-placed or moved tokens (added as a debounced method) */
     checkAuras(): void;
 
     _sheet: SceneConfigPF2e<this> | null;

@@ -9,27 +9,7 @@
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
                 <div class="actions-panel tab" data-tab="encounter" data-group="actions-tabs">
-                    {{#if toggles}}
-                        <div class="actions-options item-list">
-                            {{#each toggles as |toggle idx|}}
-                                {{#if (or (not toggle.scope) (eq toggle.scope "actions-tab"))}}
-                                    <div class="actions-option item" data-item-id="{{toggle.itemId}}" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" data-scope="{{toggle.scope}}">
-                                        <label>
-                                            <input type="checkbox" data-action="toggle-roll-option" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
-                                            <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
-                                            {{#if toggle.suboptions}}
-                                                <select data-action="set-suboption">
-                                                    {{#each toggle.suboptions as |suboption|}}
-                                                        <option value="{{suboption.value}}"{{#if suboption.selected}} selected{{/if}}>{{localize suboption.label}}</option>
-                                                    {{/each}}
-                                                </select>
-                                            {{/if}}
-                                        </label>
-                                    </div>
-                                {{/if}}
-                            {{/each}}
-                        </div>
-                    {{/if}}
+                    {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
 
                     <h3 class="header">
                         {{localize "PF2E.StrikesLabel"}}
@@ -243,7 +223,7 @@
             <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
-                {{#if (eq vi 0)}}<span class="activity-icon">{{../glyph}}</span>{{/if}}
+                <span class="activity-icon">{{../glyph}}</span>
                 {{variant.label}}
             </button>
         {{/each}}

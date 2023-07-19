@@ -151,7 +151,7 @@ interface CreatureAttributes extends ActorAttributes {
     };
 
     senses: { value: string } | CreatureSensePF2e[];
-
+    shield?: HeldShieldData;
     speed: CreatureSpeeds;
 
     /** The current dying level (and maximum) for this creature. */

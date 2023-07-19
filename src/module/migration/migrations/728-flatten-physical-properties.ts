@@ -101,7 +101,7 @@ type MaybeOldSystemSource = {
         carryType: string;
         invested?: boolean | null;
     };
-    hp: ValueAndMax & { brokenThreshold: number };
+    hp: ValueAndMax & { brokenThreshold?: number };
     quantity: number | { value: number };
     hardness: number | { value: number };
     stackGroup: string | null | { value: string | null };

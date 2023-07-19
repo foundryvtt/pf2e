@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ArmorPF2e, type ItemPF2e, type PhysicalItemPF2e } from "@item";
+import { type ItemPF2e, type PhysicalItemPF2e } from "@item";
 import { PersistentSourceData } from "@item/condition/data.ts";
 import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -65,12 +65,19 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 value: (this.value = this.parent.resolveValue(this.value)),
             },
         };
+        const { DataModelValidationFailure } = foundry.data.validation;
 
         switch (this.property) {
             case "ac-bonus": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
-                data.item.system.acBonus;
+                const armor = data.item;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, armor.system.acBonus, data.alteration.value);
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                armor.system.acBonus = Math.max(newValue, 0);
+                this.#adjustCreatureShieldData(armor);
                 return;
             }
             case "badge-max": {
@@ -81,7 +88,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (badge?.type !== "counter" || !badge.value || !badge.max) return;
 
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.max, data.alteration.value);
-                if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
 
@@ -99,7 +106,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     : effect.system.badge ?? { value: 0 };
                 if (typeof badge.value !== "number") return;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.value, data.alteration.value);
-                if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
                 const max = "max" in badge ? badge.max ?? Infinity : Infinity;
@@ -119,7 +126,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     const { system } = data.item;
                     const { value } = data.alteration;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, system.hardness, value);
-                    if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                    if (newValue instanceof DataModelValidationFailure) {
                         throw newValue.asError();
                     }
                     system.hardness = Math.max(newValue, 0);
@@ -133,10 +140,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     const { hp } = data.item.system;
                     const { value } = data.alteration;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, hp.max, value);
-                    if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                    if (newValue instanceof DataModelValidationFailure) {
                         throw newValue.asError();
                     }
-                    hp.max = Math.max(newValue, 1);
+                    hp.max = Math.max(Math.trunc(newValue), 1);
+                    this.#adjustCreatureShieldData(data.item);
                 }
                 return;
             }
@@ -165,7 +173,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (validator.isValid(data) && data.item.system.persistent) {
                     const { persistent } = data.item.system;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, persistent.dc, data.alteration.value);
-                    if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
+                    if (newValue instanceof DataModelValidationFailure) {
                         throw newValue.asError();
                     }
                     persistent.dc = Math.max(newValue, 0);
@@ -177,10 +185,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
 
     /** Adjust creature shield data due it being set before item alterations occur */
     #adjustCreatureShieldData(item: PhysicalItemPF2e | PhysicalItemSource): void {
-        if (item instanceof ArmorPF2e && item.actor.isOfType("character", "npc") && item.isShield) {
+        if ("actor" in item && item.actor?.isOfType("character", "npc") && item.isOfType("armor") && item.isShield) {
             const { heldShield } = item.actor;
             if (item === heldShield) {
                 const shieldData = item.actor.attributes.shield;
+                shieldData.ac = item.system.acBonus;
                 shieldData.hardness = item.system.hardness;
                 shieldData.hp.max = item.system.hp.max;
                 shieldData.brokenThreshold = Math.floor(item.system.hp.max / 2);

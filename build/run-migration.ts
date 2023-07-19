@@ -10,14 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls.ts";
-import { Migration822BladeAllyConsolidation } from "@module/migration/migrations/822-blade-ally-consolidation.ts";
-import { Migration824SneakAttackDamageSource } from "@module/migration/migrations/824-sneak-attack-damage-source.ts";
-import { Migration825KhakkharaFengHuoLun } from "@module/migration/migrations/825-khakkhara-feng-huo-lun.ts";
-import { Migration826GutConditionData } from "@module/migration/migrations/826-gut-condition-data.ts";
-import { Migration827FixTVShieldTraits } from "@module/migration/migrations/827-fix-tv-shield-traits.ts";
-import { Migration828PruneInvalidTraits } from "@module/migration/migrations/828-prune-invalid-traits.ts";
-import { Migration829RMRitualEntries } from "@module/migration/migrations/829-rm-ritual-entries.ts";
 import { Migration830BarbarianRework } from "@module/migration/migrations/830-condense-instincts.ts";
 import { Migration831ClericDoctrines } from "@module/migration/migrations/831-cleric-doctrines.ts";
 import { Migration832ChoiceSetFlags } from "@module/migration/migrations/832-choice-set-flags.ts";
@@ -33,6 +25,7 @@ import { Migration844DeityDomainUUIDs } from "@module/migration/migrations/844-d
 import { Migration846SpellSchoolOptional } from "@module/migration/migrations/846-spell-school-optional.ts";
 import { Migration847TempHPRuleEvents } from "@module/migration/migrations/847-temp-hp-rule-events.ts";
 import { Migration848NumericArmorProperties } from "@module/migration/migrations/848-numeric-armor-properties.ts";
+import { Migration849DeleteBrokenThreshold } from "@module/migration/migrations/849-delete-broken-threshold.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -43,14 +36,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration821InlineDamageRolls(),
-    new Migration822BladeAllyConsolidation(),
-    new Migration824SneakAttackDamageSource(),
-    new Migration825KhakkharaFengHuoLun(),
-    new Migration826GutConditionData(),
-    new Migration827FixTVShieldTraits(),
-    new Migration828PruneInvalidTraits(),
-    new Migration829RMRitualEntries(),
     new Migration830BarbarianRework(),
     new Migration831ClericDoctrines(),
     new Migration832ChoiceSetFlags(),
@@ -66,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration846SpellSchoolOptional(),
     new Migration847TempHPRuleEvents(),
     new Migration848NumericArmorProperties(),
+    new Migration849DeleteBrokenThreshold(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -107,6 +93,7 @@ const itemTypes = [
     "armor",
     "background",
     "backpack",
+    "campaignFeature",
     "class",
     "condition",
     "consumable",

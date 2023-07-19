@@ -28,7 +28,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
      * delegating the populating of the item summary to renderItemSummary().
      * Returns true if it the item is valid and it was toggled.
      */
-    async toggleSummary(element: HTMLElement, options: { instant?: boolean } = {}): Promise<void> {
+    async toggleSummary(element: HTMLElement, options: { visible?: boolean; instant?: boolean } = {}): Promise<void> {
         const actor = this.sheet.actor;
 
         const { itemId, itemType, actionIndex } = element.dataset;
@@ -43,15 +43,13 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             ? actor.conditions.get(itemId, { strict: true })
             : actionIndex
             ? actor.system.actions?.[Number(actionIndex)].item ?? null
-            : actor.items.get(itemId, { strict: true });
-
-        if (!(item instanceof ItemPF2e)) return;
+            : actor.items.get(itemId ?? "") ?? null;
 
         const summary = await (async () => {
             const existing = htmlQuery(element, ":scope > .item-summary");
-            if (existing) return existing;
+            if (existing || options.visible) return existing;
 
-            if (!item.isOfType("spellcastingEntry")) {
+            if (item instanceof ItemPF2e && !item.isOfType("spellcastingEntry")) {
                 const insertLocation = htmlQueryAll(
                     element,
                     ":scope > .item-name, :scope > .item-controls, :scope > .action-header"
@@ -65,7 +63,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
                 const chatData = await item.getChatData({ secrets: actor.isOwner }, element.dataset);
                 await this.renderItemSummary(summary, item, chatData);
-                InlineRollLinks.listen(summary, actor);
+                InlineRollLinks.listen(summary, item);
                 return summary;
             }
 
@@ -74,7 +72,11 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         if (!summary) return;
 
-        const showSummary = !element.classList.contains("expanded") || summary.hidden;
+        // Determine if we need to hide or show the summary. options overrides all checks
+        const showSummary =
+            typeof options.visible === "boolean"
+                ? options.visible
+                : !element.classList.contains("expanded") || summary.hidden;
 
         if (options.instant) {
             summary.hidden = !showSummary;

@@ -139,11 +139,9 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
+        if (!this.isEquipped) return;
 
-        const ownerIsPCOrNPC = actor.isOfType("character", "npc");
-        const shieldIsAssigned = ownerIsPCOrNPC && actor.attributes.shield.itemId !== null;
-
-        if (this.isArmor && this.isEquipped) {
+        if (this.isArmor) {
             // Set some roll options for this armor
             actor.rollOptions.all[`armor:id:${this.id}`] = true;
             actor.rollOptions.all[`armor:category:${this.category}`] = true;
@@ -183,27 +181,44 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
                     }
                 }
             }
-        } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && actor.heldShield === this) {
-            // Set actor-shield data from this shield item
-            const { hitPoints } = this;
-            actor.system.attributes.shield = {
-                itemId: this.id,
-                name: this.name,
-                ac: this.acBonus,
-                hp: hitPoints,
-                hardness: this.hardness,
-                brokenThreshold: hitPoints.brokenThreshold,
-                raised: false,
-                broken: this.isBroken,
-                destroyed: this.isDestroyed,
-                icon: this.img,
-            };
-            actor.rollOptions.all["self:shield:equipped"] = true;
-            if (this.isBroken) {
-                actor.rollOptions.all["self:shield:broken"] = true;
-            } else if (this.isDestroyed) {
-                actor.rollOptions.all["self:shield:destroyed"] = true;
-            }
+        }
+
+        this.setActorShieldData();
+    }
+
+    override onPrepareSynthetics(this: ArmorPF2e<ActorPF2e>): void {
+        super.onPrepareSynthetics();
+        this.setActorShieldData();
+    }
+
+    // Set actor-shield data from this item--if it is a held shield
+    private setActorShieldData(): void {
+        const { actor } = this;
+        const isEquippedShield = this.isShield && this.isEquipped && actor?.heldShield === this;
+        if (!isEquippedShield || !actor.isOfType("character", "npc")) {
+            return;
+        }
+        const { attributes } = actor;
+        if (attributes.shield.itemId !== null) return;
+
+        const { hitPoints } = this;
+        attributes.shield = {
+            itemId: this.id,
+            name: this.name,
+            ac: this.acBonus,
+            hp: hitPoints,
+            hardness: this.hardness,
+            brokenThreshold: hitPoints.brokenThreshold,
+            raised: false,
+            broken: this.isBroken,
+            destroyed: this.isDestroyed,
+            icon: this.img,
+        };
+        actor.rollOptions.all["self:shield:equipped"] = true;
+        if (this.isDestroyed) {
+            actor.rollOptions.all["self:shield:destroyed"] = true;
+        } else if (this.isBroken) {
+            actor.rollOptions.all["self:shield:broken"] = true;
         }
     }
 

@@ -17,7 +17,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override armorClass = null;
 
     declare members: CreaturePF2e[];
-    campaign: PartyCampaign | null = null;
+    declare campaign: PartyCampaign | null;
 
     get baseAllowedItemTypes(): (ItemType | "physical")[] {
         return ["physical"];
@@ -25,11 +25,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...this.baseAllowedItemTypes, ...(this.campaign?.extraItemTypes ?? [])];
-    }
-
-    /** Parties use the campaign's level as their own level, as they otherwise don't have a level */
-    override get level(): number {
-        return this.campaign?.level ?? super.level;
     }
 
     /** Friendship lives in our hearts */
@@ -95,6 +90,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     this.campaign = new InvalidCampaign(this, { campaignType, reason: "error" });
                 }
             }
+        } else {
+            this.campaign = null;
         }
     }
 

@@ -232,7 +232,7 @@ export abstract class DataField<
         value: unknown,
         model?: ConstructorOf<abstract.DataModel>,
         options?: object
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     /**
      * Export the current value of the field into a serializable object.
@@ -325,7 +325,7 @@ export class SchemaField<
     override initialize(
         value: unknown,
         model?: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     protected override _validateType(
         data: object,
@@ -483,7 +483,7 @@ export class ObjectField<
         value: unknown,
         model?: ConstructorOf<abstract.DataModel>,
         options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -561,7 +561,7 @@ export class ArrayField<
         value: TSourceProp,
         model: ConstructorOf<abstract.DataModel>,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -603,7 +603,7 @@ export class SetField<
     override initialize(
         value: TSourceProp,
         model: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(value: TModelProp): TSourceProp;
 }
@@ -644,7 +644,7 @@ export class EmbeddedDataField<
     override initialize(
         value: MaybeSchemaProp<TModelProp["schema"]["fields"], TRequired, TNullable, THasInitial>,
         model: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<SourceFromSchema<TModelProp["schema"]["fields"]>, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(
         value: TModelProp
@@ -699,7 +699,7 @@ export class EmbeddedCollectionField<
     override initialize(
         _value: unknown,
         model: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
 
     override toObject(
         value: EmbeddedCollection<TDocument>
@@ -783,7 +783,7 @@ export class ForeignDocumentField<
     override initialize(
         value: string,
         model: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     toObject(value: TModelProp): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
 }
@@ -827,7 +827,7 @@ export class TypeDataField<TSourceProp extends object = object, TModelProp = TSo
     override initialize(
         value: string,
         model?: ConstructorOf<abstract.DataModel>
-    ): MaybeSchemaProp<TSourceProp, true, false, true>;
+    ): MaybeSchemaProp<TModelProp, true, false, true>;
 
     toObject(value: TModelProp): TSourceProp;
 }
@@ -938,7 +938,7 @@ export class JSONField<
 
     protected override _validateType(value: unknown): boolean;
 
-    override initialize(value: string): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
+    override initialize(value: string): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     toObject(value: TModelProp): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
 }

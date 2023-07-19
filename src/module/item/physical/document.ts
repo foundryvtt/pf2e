@@ -196,6 +196,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         systemData.stackGroup ||= null;
         systemData.equippedBulk.value ||= null;
         systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
+        systemData.hp.brokenThreshold = Math.floor(systemData.hp.max / 2);
+
+        // An embedded item may have its maximum HP altered, but otherwise ensure current HP is no greater than max
+        if (!this.isEmbedded) {
+            systemData.hp.value = Math.min(systemData.hp.value, systemData.hp.max);
+        }
 
         // Temporary: prevent noise from items pre migration 746
         if (typeof systemData.price.value === "string") {
@@ -271,7 +277,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             this.system.price.value = this.system.price.value.scale(0.5);
             this.system.hp.max = Math.floor(this.system.hp.max / 2);
             this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
-            this.system.hp.brokenThreshold = Math.floor(this.system.hp.brokenThreshold / 2);
+            this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
         }
 
         this.system.price.value = this.adjustPriceForSize();
@@ -303,6 +309,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (this._container && !this.actor.items.has(this._container.id)) {
             this._container = this.system.containerId = null;
         }
+    }
+
+    /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
+    override onPrepareSynthetics(this: PhysicalItemPF2e<ActorPF2e>): void {
+        this.system.hp.value = Math.min(this.system.hp.value, this.system.hp.max);
     }
 
     /** Can the provided item stack with this item? */

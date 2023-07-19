@@ -744,6 +744,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
             }
         }
+
+        for (const item of this.items) {
+            item.onPrepareSynthetics?.();
+        }
     }
 
     /** Set traits as roll options */

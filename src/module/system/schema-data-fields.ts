@@ -251,18 +251,18 @@ class RecordField<
         values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
         options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>
-    ): MaybeSchemaProp<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<RecordFieldModelProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>;
     override initialize(
         values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
         options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>
-    ): RecordFieldSourceProp<TKeyField, TValueField> | null | undefined {
+    ): RecordFieldModelProp<TKeyField, TValueField> | null | undefined {
         if (!values) return values;
         const data: Record<string, unknown> = {};
         for (const [key, value] of Object.entries(values)) {
             data[key] = this.valueField.initialize(value, model, options);
         }
-        return data as RecordFieldSourceProp<TKeyField, TValueField>;
+        return data as RecordFieldModelProp<TKeyField, TValueField>;
     }
 }
 

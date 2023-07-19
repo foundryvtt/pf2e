@@ -22,7 +22,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     traits: PhysicalItemTraits;
     quantity: number;
     baseItem: string | null;
-    hp: PhysicalItemHitPoints;
+    hp: PhysicalItemHPSource;
     hardness: number;
     weight: {
         value: string;
@@ -57,6 +57,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
 }
 
 interface PhysicalSystemData extends PhysicalSystemSource, Omit<ItemSystemData, "level"> {
+    hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;
     traits: PhysicalItemTraits;
@@ -135,9 +136,12 @@ interface ItemActivation {
     traits: ValuesList<ActionTrait>;
 }
 
-interface PhysicalItemHitPoints {
+interface PhysicalItemHPSource {
     value: number;
     max: number;
+}
+
+interface PhysicalItemHitPoints extends PhysicalItemHPSource {
     brokenThreshold: number;
 }
 
@@ -170,6 +174,7 @@ export {
     ItemCarryType,
     MystifiedData,
     PartialPrice,
+    PhysicalItemHPSource,
     PhysicalItemHitPoints,
     PhysicalItemTrait,
     PhysicalItemTraits,
