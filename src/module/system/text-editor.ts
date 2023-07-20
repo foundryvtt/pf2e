@@ -18,12 +18,12 @@ const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(content: string | null, options?: EnrichHTMLOptionsPF2e & { async?: false }): string;
     static override enrichHTML(
         content: string | null,
-        options?: EnrichHTMLOptionsPF2e & { async: true }
+        options: EnrichHTMLOptionsPF2e & { async: true }
     ): Promise<string>;
-    static override enrichHTML(content: string | null, options?: EnrichHTMLOptionsPF2e): string;
+    static override enrichHTML(content: string | null, options: EnrichHTMLOptionsPF2e & { async: false }): string;
+    static override enrichHTML(content: string | null, options: EnrichHTMLOptionsPF2e): string | Promise<string>;
     static override enrichHTML(
         this: typeof TextEditor,
         content: string | null,
@@ -171,7 +171,7 @@ class TextEditorPF2e extends TextEditor {
         return span;
     }
 
-    static async #localize(paramString: string, options: EnrichHTMLOptionsPF2e = {}): Promise<HTMLElement | null> {
+    static async #localize(paramString: string, options: EnrichHTMLOptionsPF2e): Promise<HTMLElement | null> {
         const content = game.i18n.localize(paramString);
         if (content === paramString) {
             ui.notifications.error(`Failed to localize ${paramString}!`);
