@@ -65,7 +65,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     /** Whether this effect emits an aura */
     get isAura(): boolean {
-        return this.rules.some((r) => r.key === "Aura");
+        return this.rules.some((r) => r.key === "Aura" && !r.ignored);
     }
 
     override get isIdentified(): boolean {
