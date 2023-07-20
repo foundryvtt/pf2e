@@ -1012,8 +1012,8 @@
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1563,8 +1563,8 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1616,101 +1616,6 @@
                 }
             },
             "type": "consumable"
-        },
-        {
-            "_id": "oYpaoqJ46G8wo1oo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.f9ygr5Cjrmop8LWV"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
-            "name": "Sturdy Shield (Minor) (Shield Ally)",
-            "sort": 5000000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
-                "containerId": null,
-                "description": {
-                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 8, HP 64, and BT 32.</p>"
-                },
-                "dexCap": 0,
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "group": null,
-                "hardness": 8,
-                "hp": {
-                    "max": 96,
-                    "value": 96
-                },
-                "level": {
-                    "value": 4
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": null
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 100
-                    }
-                },
-                "propertyRune1": {
-                    "value": null
-                },
-                "propertyRune2": {
-                    "value": null
-                },
-                "propertyRune3": {
-                    "value": null
-                },
-                "propertyRune4": {
-                    "value": null
-                },
-                "quantity": 1,
-                "resiliencyRune": {
-                    "value": null
-                },
-                "rules": [],
-                "size": "med",
-                "slug": "sturdy-shield-minor",
-                "source": {
-                    "value": ""
-                },
-                "speedPenalty": null,
-                "stackGroup": null,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "abjuration",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
-                }
-            },
-            "type": "armor"
         },
         {
             "_id": "m3qMlm4nGbYKoMJA",
@@ -2083,8 +1988,9 @@
                     "value": "<p>This 5‑foot‑tall bow, usually made of a single piece of elm, hickory, or yew, has a powerful draw and is excellent at propelling arrows with great force and at an extreme distance. You must use two hands to fire a longbow, and it can't be used while mounted.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "-=inSlot": null,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -2144,7 +2050,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "rarity": "common",
@@ -2795,7 +2701,59 @@
             "type": "class"
         },
         {
-            "_id": "5jq7U4xHIy1arD45",
+            "_id": "ICcfTZNsYUubDD0e",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feat-effects.Item.s3Te8waFP3KEb2dN"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/champions-reaction.webp",
+            "name": "Effect: Shield Ally",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": "<p>The hardness of your equipped shield increases by 2.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 1
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.attributes.shield.hardness",
+                        "predicate": [
+                            "self:shield:equipped"
+                        ],
+                        "value": 2
+                    }
+                ],
+                "slug": "effect-shield-ally",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "X584tizswzWeowOA",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.ehL7mnkqxN5wIkgu"
@@ -2803,11 +2761,11 @@
                 "pf2e": {
                     "itemGrants": {
                         "iomedae": {
-                            "id": "msQnRipx50DfHqwy",
+                            "id": "P925fiyphXW0h4Dx",
                             "onDelete": "detach"
                         },
                         "paladin": {
-                            "id": "pjj2LRBTIGHRBSxW",
+                            "id": "oVvw2y1Vzmj5WFHe",
                             "onDelete": "detach"
                         }
                     }
@@ -2931,7 +2889,7 @@
             "type": "feat"
         },
         {
-            "_id": "03dZ9Mb7cMPQLKrj",
+            "_id": "0S9RjjWstHj96sTh",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.fykh5pE99O3I2sOI"
@@ -2939,7 +2897,7 @@
                 "pf2e": {
                     "itemGrants": {
                         "theTenetsOfGood": {
-                            "id": "clSxsvQQs00ohKv0",
+                            "id": "87Ncr0GOQ5OGaNhm",
                             "onDelete": "detach"
                         }
                     }
@@ -2947,7 +2905,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/champion-code.webp",
             "name": "Champion's Code",
-            "sort": 100,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3010,7 +2968,7 @@
             "type": "feat"
         },
         {
-            "_id": "0v16sgBZRB1C6ed1",
+            "_id": "LfjppgVe2OFmw7qg",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.sXVX4ARUuo8Egrz5"
@@ -3018,7 +2976,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/champions-reaction.webp",
             "name": "Champion's Reaction",
-            "sort": 200,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3052,7 +3010,7 @@
             "type": "feat"
         },
         {
-            "_id": "5mdRPb8sD2lPyYqV",
+            "_id": "5l7GB04DUDxZQora",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.FeBsYn2mHfMVDZvw"
@@ -3060,7 +3018,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/deific-weapon.webp",
             "name": "Deific Weapon",
-            "sort": 300,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3081,30 +3039,12 @@
                 },
                 "rules": [
                     {
-                        "baseType": "fist",
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "bludgeoning",
-                                "dice": 1,
-                                "die": "d4"
-                            }
-                        },
-                        "group": "brawling",
-                        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                        "fist": true,
                         "key": "Strike",
-                        "label": "PF2E.Weapon.Base.fist",
                         "predicate": [
                             "deity:primary:favored-weapon:fist"
                         ],
-                        "range": null,
-                        "slug": "fist",
-                        "traits": [
-                            "agile",
-                            "finesse",
-                            "nonlethal",
-                            "unarmed"
-                        ]
+                        "priority": 99
                     },
                     {
                         "key": "DamageDice",
@@ -3142,7 +3082,7 @@
             "type": "feat"
         },
         {
-            "_id": "kYcf0DucpWKqWxBt",
+            "_id": "UbtyvSyfk7TE2xWx",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.Q1VfQZp49hkhY0HY"
@@ -3150,7 +3090,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/devotion-spells.webp",
             "name": "Devotion Spells",
-            "sort": 400,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3192,7 +3132,7 @@
             "type": "feat"
         },
         {
-            "_id": "y7TQRhbHn9VsWthf",
+            "_id": "DKd1v3fyupD2EEsx",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
@@ -3200,7 +3140,7 @@
                 "pf2e": {
                     "itemGrants": {
                         "shieldBlock": {
-                            "id": "q9LEUaz4rDGOAdgh",
+                            "id": "J3JzGUu5M2k11KwQ",
                             "onDelete": "detach"
                         }
                     }
@@ -3208,7 +3148,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/shield-block.webp",
             "name": "Shield Block",
-            "sort": 500,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3250,7 +3190,89 @@
             "type": "feat"
         },
         {
-            "_id": "Gdv02j4pfFBgElw9",
+            "_id": "hbaw25rrzYe8Dkpx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.ERwuazupczhUSZ73"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "shieldAlly": {
+                            "id": "V5jVK1W2JtPccyle",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/divine-ally.webp",
+            "name": "Divine Ally",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your devotion attracts a spirit of your deity's alignment. Once you choose an ally, your choice can't be changed.</p>\n<p>The following are divine allies:</p>\n<p><strong>Blade Ally</strong> A spirit of battle dwells within your armaments. Select one weapon or @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} when you make your daily preparations. In your hands, the item gains the effect of a property rune. For a champion following the tenets of good, choose <em>disrupting</em>, <em>ghost touch</em>,<em>returning</em>, or <em>shifting</em>. You also gain the weapon's critical specialization effect.</p>\n<p>If you are a champion following the tenets of evil, you can choose the following property runes: <em>fearsome</em>, <em>returning</em>, or <em>shifting</em>.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Blade Ally]</p>\n<p><strong>Shield Ally</strong> A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Shield Ally]</p>\n<p><strong>Steed Ally</strong> You gain a young animal companion as a mount. Ordinarily, your animal companion is one that has the mount special ability, such as a horse. You can select a different animal companion (GM's discretion), but this ability doesn't grant it the mount special ability.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "xZIIt3g2QhdycMwb",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                            "predicate": [
+                                "item:type:feature",
+                                "item:trait:champion"
+                            ]
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Blade Ally"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Shield Ally"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Steed Ally"
+                            }
+                        ],
+                        "flag": "divineAlly",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.DivineAlly.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Shield Ally"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "shieldAlly",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
+                    }
+                ],
+                "slug": "divine-ally",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "bo5TEV7ZYYd9uwBR",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.9XLUh9iMepZesdmc"
@@ -3258,7 +3280,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
             "name": "Weapon Expertise",
-            "sort": 3500,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3318,14 +3340,14 @@
             "type": "feat"
         },
         {
-            "_id": "msQnRipx50DfHqwy",
+            "_id": "P925fiyphXW0h4Dx",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.deities.Item.eErEiVmBqltYXFJ6"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "5jq7U4xHIy1arD45",
+                        "id": "X584tizswzWeowOA",
                         "onDelete": "cascade"
                     }
                 }
@@ -3381,14 +3403,14 @@
             "type": "deity"
         },
         {
-            "_id": "rGxKgdocduXFSbLx",
+            "_id": "ieNQqsZf8So3qDIg",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.actionspf2e.Item.EAP98XaChJEbgKcK"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "pjj2LRBTIGHRBSxW",
+                        "id": "oVvw2y1Vzmj5WFHe",
                         "onDelete": "cascade"
                     }
                 }
@@ -3403,7 +3425,7 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
                     "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Resistance]</p>"
                 },
@@ -3431,19 +3453,19 @@
             "type": "action"
         },
         {
-            "_id": "pjj2LRBTIGHRBSxW",
+            "_id": "oVvw2y1Vzmj5WFHe",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.peEXunfbSD8WcMFk"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "5jq7U4xHIy1arD45",
+                        "id": "X584tizswzWeowOA",
                         "onDelete": "cascade"
                     },
                     "itemGrants": {
                         "retributiveStrike": {
-                            "id": "rGxKgdocduXFSbLx",
+                            "id": "ieNQqsZf8So3qDIg",
                             "onDelete": "detach"
                         }
                     }
@@ -3461,7 +3483,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You're honorable, forthright, and committed to pushing back the forces of cruelty. You gain the Retributive Strike champion's reaction and the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell. After the tenets of good, add these tenets:</p>\n<ul>\n<li>You must act with honor, never taking advantage of others, lying, or cheating.</li>\n<li>You must respect the lawful authority of legitimate leadership wherever you go, and follow its laws.</li>\n</ul>\n<h2 class=\"title\">Champion's Reaction</h2>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] <span class=\"pf2-icon\">R</span></p>\n<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<h2 class=\"title\">Divine Smite<span style=\"float:right\">Level 9</span></h2>\n<p>You surround evil targets in a punishing halo. If you hit with your Retributive Strike, the target takes @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Good Damage} equal to your Charisma modifier.</p>\n<h2 class=\"title\">Exalt<span style=\"float:right\">Level 11</span></h2>\n<p>When you use Retributive Strike, each ally within 15 feet of you with the target in their melee reach can spend a reaction to Strike the target with a -5 penalty.</p>"
+                    "value": "<p>You're honorable, forthright, and committed to pushing back the forces of cruelty. You gain the Retributive Strike champion's reaction and the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell. After the tenets of good, add these tenets:</p>\n<ul>\n<li>You must act with honor, never taking advantage of others, lying, or cheating.</li>\n<li>You must respect the lawful authority of legitimate leadership wherever you go, and follow its laws.</li>\n</ul>\n<h2 class=\"title\">Champion's Reaction</h2>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] <span class=\"pf2-icon\">R</span></p>\n<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<h2 class=\"title\">Divine Smite<span style=\"float:right\">Level 9</span></h2>\n<p>You surround evil targets in a punishing halo. If you hit with your Retributive Strike, the target takes [[/r @actor.abilities.cha.mod[persistent,good]]]{Persistent Good Damage} equal to your Charisma modifier.</p>\n<h2 class=\"title\">Exalt<span style=\"float:right\">Level 11</span></h2>\n<p>When you use Retributive Strike, each ally within 15 feet of you with the target in their melee reach can spend a reaction to Strike the target with a -5 penalty.</p>"
                 },
                 "level": {
                     "value": 1
@@ -3480,6 +3502,27 @@
                         "flag": "retributiveStrike",
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e.actionspf2e.Item.Retributive Strike"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
+                        "option": "divine-smite",
+                        "predicate": [
+                            "feature:divine-smite"
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "good",
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.Champion.DivineSmite.Label",
+                        "predicate": [
+                            "divine-smite"
+                        ],
+                        "selector": "strike-damage",
+                        "value": "@actor.system.abilities.cha.mod"
                     }
                 ],
                 "slug": "paladin",
@@ -3496,14 +3539,14 @@
             "type": "feat"
         },
         {
-            "_id": "clSxsvQQs00ohKv0",
+            "_id": "87Ncr0GOQ5OGaNhm",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.nxZYP3KGfTSkaW6J"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "03dZ9Mb7cMPQLKrj",
+                        "id": "0S9RjjWstHj96sTh",
                         "onDelete": "cascade"
                     }
                 }
@@ -3544,14 +3587,14 @@
             "type": "feat"
         },
         {
-            "_id": "q9LEUaz4rDGOAdgh",
+            "_id": "J3JzGUu5M2k11KwQ",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "y7TQRhbHn9VsWthf",
+                        "id": "DKd1v3fyupD2EEsx",
                         "onDelete": "cascade"
                     }
                 }
@@ -3592,148 +3635,14 @@
             "type": "feat"
         },
         {
-            "_id": "ICcfTZNsYUubDD0e",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feat-effects.Item.s3Te8waFP3KEb2dN"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/champions-reaction.webp",
-            "name": "Effect: Shield Ally",
-            "sort": 0,
-            "system": {
-                "description": {
-                    "value": "<p>The hardness of your equipped shield increases by 2.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "unlimited",
-                    "value": -1
-                },
-                "level": {
-                    "value": 1
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.attributes.shield.hardness",
-                        "predicate": [
-                            "self:shield:equipped"
-                        ],
-                        "value": 2
-                    }
-                ],
-                "slug": "effect-shield-ally",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "start": {
-                    "initiative": null,
-                    "value": 0
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
-            "_id": "P3UDsf2RkmcVgxVg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.ERwuazupczhUSZ73"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "shieldAlly": {
-                            "id": "i6fm9VLQYFnoy4Wq",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/divine-ally.webp",
-            "name": "Divine Ally",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your devotion attracts a spirit of your deity's alignment. Once you choose an ally, your choice can't be changed.</p>\n<p>The following are divine allies:</p>\n<p><strong>Blade Ally</strong> A spirit of battle dwells within your armaments. Select one weapon or @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} when you make your daily preparations. In your hands, the item gains the effect of a property rune. For a champion following the tenets of good, choose <em>disrupting</em>, <em>ghost touch</em>,<em>returning</em>, or <em>shifting</em>. You also gain the weapon's critical specialization effect.</p>\n<p>If you are a champion following the tenets of evil, you can choose the following property runes: <em>fearsome</em>, <em>returning</em>, or <em>shifting</em>.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Blade Ally]</p>\n<p><strong>Shield Ally</strong> A spirit of protection dwells within your shield. In your hands, the shield's Hardness increases by 2 and its HP and BT increase by half.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Shield Ally]</p>\n<p><strong>Steed Ally</strong> You gain a young animal companion as a mount. Ordinarily, your animal companion is one that has the mount special ability, such as a horse. You can select a different animal companion (GM's discretion), but this ability doesn't grant it the mount special ability.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "classfeature",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
-                            "predicate": [
-                                "item:type:feature",
-                                "item:trait:champion"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Blade Ally"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Shield Ally"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Steed Ally"
-                            }
-                        ],
-                        "flag": "divineAlly",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.DivineAlly.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Shield Ally"
-                    },
-                    {
-                        "allowDuplicate": false,
-                        "flag": "shieldAlly",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
-                    }
-                ],
-                "slug": "divine-ally",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "i6fm9VLQYFnoy4Wq",
+            "_id": "V5jVK1W2JtPccyle",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.QQP0mu0cyWIwNUh9"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "P3UDsf2RkmcVgxVg",
+                        "id": "hbaw25rrzYe8Dkpx",
                         "onDelete": "cascade"
                     }
                 }
@@ -3761,18 +3670,26 @@
                 },
                 "rules": [
                     {
-                        "key": "ActiveEffectLike",
+                        "itemType": "armor",
+                        "key": "ItemAlteration",
                         "mode": "add",
-                        "path": "system.attributes.shield.hardness",
                         "predicate": [
-                            "self:shield:equipped"
+                            "item:category:shield",
+                            "item:equipped"
                         ],
+                        "property": "hardness",
                         "value": 2
                     },
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "divine-ally:shield"
+                        "itemType": "armor",
+                        "key": "ItemAlteration",
+                        "mode": "multiply",
+                        "predicate": [
+                            "item:category:shield",
+                            "item:equipped"
+                        ],
+                        "property": "hp-max",
+                        "value": 1.5
                     }
                 ],
                 "slug": "shield-ally",
@@ -3787,6 +3704,101 @@
                 }
             },
             "type": "feat"
+        },
+        {
+            "_id": "YyD9bByDeRVEHwfZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.f9ygr5Cjrmop8LWV"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
+            "name": "Sturdy Shield (Minor)",
+            "sort": 4850000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": null,
+                "category": "shield",
+                "checkPenalty": null,
+                "containerId": null,
+                "description": {
+                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 8, HP 64, and BT 32.</p>"
+                },
+                "dexCap": 0,
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": null,
+                "hardness": 8,
+                "hp": {
+                    "max": 64,
+                    "value": 96
+                },
+                "level": {
+                    "value": 4
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 100
+                    }
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "sturdy-shield-minor",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speedPenalty": null,
+                "stackGroup": null,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "type": "armor"
         }
     ],
     "name": "Seelah (Level 5)",
@@ -3909,6 +3921,7 @@
                 "value": 0
             }
         },
+        "exploration": [],
         "martial": {},
         "pfs": {
             "characterNumber": null,
