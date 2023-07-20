@@ -3,6 +3,7 @@ import {
     DeferredValueParams,
     ModifierAdjustment,
     ModifierPF2e,
+    StatisticModifier,
     TestableDeferredValueParams,
 } from "@actor/modifiers.ts";
 import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
@@ -11,6 +12,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import { isObject, pick } from "@util";
+import * as R from "remeda";
 import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 
@@ -29,19 +31,6 @@ function extractModifiers(
     }
 
     return modifiers;
-}
-
-/** Extract modifiers for damage rolls, grouping them by immediate and persistent damage */
-function extractDamageModifiers(
-    synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "statisticsModifiers">,
-    selectors: string[],
-    options: TestableDeferredValueParams
-): { main: ModifierPF2e[]; persistent: ModifierPF2e[] } {
-    const modifiers = extractModifiers(synthetics, selectors, options);
-    return {
-        main: modifiers.filter((m) => m.category !== "persistent"),
-        persistent: modifiers.filter((m) => m.category === "persistent"),
-    };
 }
 
 function extractModifierAdjustments(
@@ -64,6 +53,26 @@ function extractDamageDice(
     options: TestableDeferredValueParams
 ): DamageDicePF2e[] {
     return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
+}
+
+function extractDamageSynthetics(
+    actor: ActorPF2e,
+    selectors: string[],
+    options: TestableDeferredValueParams & { extraModifiers?: ModifierPF2e[] }
+): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
+    const extractedModifiers = extractModifiers(actor.synthetics, selectors, options);
+    const dice = extractDamageDice(actor.synthetics.damageDice, selectors, options);
+
+    const groupedModifiers = R.groupBy([options.extraModifiers ?? [], extractedModifiers].flat(), (m) =>
+        m.category === "persistent" ? "persistent" : "main"
+    );
+
+    const modifiers = [
+        ...new StatisticModifier("damage", groupedModifiers.main ?? [], options.test).modifiers,
+        ...new StatisticModifier("persistent", groupedModifiers.persistent ?? [], options.test).modifiers,
+    ];
+
+    return { modifiers, dice };
 }
 
 async function extractEphemeralEffects({
@@ -170,7 +179,7 @@ async function processPreUpdateActorHooks(
 
 export {
     extractDamageDice,
-    extractDamageModifiers,
+    extractDamageSynthetics,
     extractDegreeOfSuccessAdjustments,
     extractEphemeralEffects,
     extractModifierAdjustments,

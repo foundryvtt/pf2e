@@ -1,12 +1,6 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
-import {
-    DamageDicePF2e,
-    DamageDiceOverride,
-    ModifierPF2e,
-    PROFICIENCY_RANK_OPTION,
-    StatisticModifier,
-} from "@actor/modifiers.ts";
+import { DamageDicePF2e, DamageDiceOverride, ModifierPF2e, PROFICIENCY_RANK_OPTION } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
@@ -14,8 +8,7 @@ import { getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/p
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
-    extractDamageDice,
-    extractDamageModifiers,
+    extractDamageSynthetics,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -481,17 +474,6 @@ class WeaponDamagePF2e {
 
         // Synthetics
 
-        // Separate damage modifiers into persistent and all others for stacking rules processing
-        const synthetics = extractDamageModifiers(actor.synthetics, selectors, {
-            resolvables,
-            injectables,
-            test: options,
-        });
-        const testedModifiers = [
-            ...new StatisticModifier("strike-damage", [...modifiers, ...synthetics.main], options).modifiers,
-            ...new StatisticModifier("strike-persistent", synthetics.persistent, options).modifiers,
-        ];
-
         const base: WeaponBaseDamageData = {
             diceNumber: baseDamage.die ? baseDamage.dice : 0,
             dieSize: baseDamage.die,
@@ -501,14 +483,16 @@ class WeaponDamagePF2e {
             materials: Array.from(materials),
         };
 
-        // Damage dice from synthetics
-        damageDice.push(
-            ...extractDamageDice(actor.synthetics.damageDice, selectors, {
-                test: options,
-                resolvables: { weapon },
-                injectables: { weapon },
-            })
-        );
+        // Extract damage modifiers and dice respecting stacking rules processing
+        const extracted = extractDamageSynthetics(actor, selectors, {
+            resolvables,
+            injectables,
+            test: options,
+            extraModifiers: modifiers,
+        });
+
+        const testedModifiers = extracted.modifiers;
+        damageDice.push(...extracted.dice);
 
         const damage: WeaponDamageFormulaData = {
             base: [base],
