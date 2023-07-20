@@ -27,14 +27,12 @@
             {
                 "key": "Weakness",
                 "predicate": [
-                    [
-                        {
-                            "gt": [
-                                "parent:badge:value",
-                                3
-                            ]
-                        }
-                    ]
+                    {
+                        "gte": [
+                            "parent:badge:value",
+                            3
+                        ]
+                    }
                 ],
                 "type": "fire",
                 "value": "floor(@item.origin.level/2)"
