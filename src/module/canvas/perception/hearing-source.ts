@@ -7,7 +7,7 @@ class HearingSource<TObject extends TokenPF2e> extends SoundSource<TObject> {
         this.data.x = this.object.center.x;
         this.data.y = this.object.center.y;
         this.data.elevation = this.object.document.elevation;
-        this.data.radius = 1000;
+        this.data.radius = canvas.dimensions?.maxR ?? 1000;
         this.data.walls = true;
     }
 }
