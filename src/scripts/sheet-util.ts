@@ -1,7 +1,5 @@
-import { BaseRollContext } from "@system/rolls.ts";
-
 /** Returns statistic dialog roll parameters based on held keys */
-type ParamsFromEvent = Pick<BaseRollContext, "rollMode" | "skipDialog">;
+type ParamsFromEvent = { skipDialog: boolean; rollMode?: RollMode | "roll" };
 
 function isRelevantEvent(
     event?: JQuery.TriggeredEvent | Event | null

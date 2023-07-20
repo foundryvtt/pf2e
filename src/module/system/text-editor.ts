@@ -5,12 +5,18 @@ import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, localizer, objectHasKey, sluggify } from "@util";
-import { damageDiceIcon, looksLikeDamageRoll } from "./damage/helpers.ts";
+import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { Statistic } from "./statistic/index.ts";
+import { createDamageFormula } from "./damage/formula.ts";
+import { CreateDamageFormulaParams, InlineDamageTemplate, DamageRollContext } from "./damage/types.ts";
+import * as R from "remeda";
+import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
+import { DamagePF2e } from "./damage/damage.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
@@ -82,7 +88,7 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Replace core static method to conditionally handle inline damage roll clicks */
-    static override async _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage> {
+    static override async _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage | void> {
         const anchor = event.currentTarget ?? null;
         if (!(anchor instanceof HTMLAnchorElement && anchor.dataset.formula && "damageRoll" in anchor.dataset)) {
             return superOnClickInlineRoll.apply(this, [event]);
@@ -95,7 +101,7 @@ class TextEditorPF2e extends TextEditor {
         const message = game.messages.get(messageElem?.dataset.messageId ?? "");
         const [actor, rollData]: [ActorPF2e | null, Record<string, unknown>] =
             app instanceof ActorSheetPF2e
-                ? [app.actor, app.actor.getRollData()]
+                ? [app.actor, app.actor.items.get(anchor.dataset.pf2ItemId)?.getRollData() ?? app.actor.getRollData()]
                 : app instanceof ItemSheetPF2e
                 ? [app.item.actor, app.item.getRollData()]
                 : message?.actor
@@ -106,6 +112,23 @@ class TextEditorPF2e extends TextEditor {
 
         const speaker = ChatMessagePF2e.getSpeaker({ actor });
         const rollMode = objectHasKey(CONFIG.Dice.rollModes, anchor.dataset.mode) ? anchor.dataset.mode : "roll";
+
+        const baseFormula = anchor.dataset.pf2BaseFormula;
+        if (baseFormula) {
+            const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
+            const traits = anchor.dataset.pf2Traits?.split(",") ?? [];
+            const result = await augmentInlineDamageRoll(baseFormula, {
+                ...eventToRollParams(event),
+                actor,
+                item,
+                traits,
+            });
+            if (result) {
+                await DamagePF2e.roll(result.template, result.context);
+            }
+
+            return;
+        }
 
         return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
     }
@@ -131,6 +154,8 @@ class TextEditorPF2e extends TextEditor {
                 const actor = options.rollData?.actor ?? item?.actor ?? null;
                 return this.#createCheck({ paramString, inlineLabel: buttonLabel, item, actor });
             }
+            case "Damage":
+                return this.#createDamageRoll({ paramString, rollData: options.rollData });
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
@@ -472,6 +497,37 @@ class TextEditorPF2e extends TextEditor {
 
         return anchor;
     }
+
+    static async #createDamageRoll(args: {
+        paramString: string;
+        rollData?: RollDataPF2e;
+    }): Promise<HTMLElement | null> {
+        const params = this.#parseInlineParams(args.paramString, { first: "formula" });
+        if (!params || !params.formula) {
+            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
+            return null;
+        }
+
+        const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
+        const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
+
+        const traits = params.traits?.split(",") ?? item?.system.traits?.value ?? [];
+        const result = await augmentInlineDamageRoll(params.formula, { skipDialog: true, actor, item, traits });
+
+        const roll = result?.template.damage.roll ?? new DamageRoll(params.formula);
+        const element = createHTMLElement("a", {
+            classes: ["inline-roll", "roll"],
+            children: [damageDiceIcon(roll), roll.formula],
+        });
+        element.dataset.formula = roll._formula;
+        element.dataset.tooltip = roll.formula;
+        element.dataset.damageRoll = "";
+        element.dataset.pf2BaseFormula = params.formula;
+        element.dataset.pf2Traits = traits.join(",");
+        if (item) element.dataset.pf2ItemId = item?.id;
+
+        return element;
+    }
 }
 
 function getCheckDC({
@@ -541,13 +597,93 @@ function getCheckDC({
     return "0";
 }
 
-interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
-    rollData?: {
+/** Given a damage formula, augments it with modifiers and damage dice for inline rolls */
+async function augmentInlineDamageRoll(
+    baseFormula: string,
+    args: {
+        skipDialog: boolean;
+        name?: string;
         actor?: ActorPF2e | null;
         item?: ItemPF2e | null;
-        mod?: number;
-        [key: string]: unknown;
-    };
+        traits?: string[];
+    }
+): Promise<{ template: InlineDamageTemplate; context: DamageRollContext } | null> {
+    const { name, actor, item, traits } = args;
+
+    try {
+        const rollData = item?.getRollData() ?? actor?.getRollData();
+        const base = extractBaseDamage(new DamageRoll(baseFormula, rollData));
+
+        const domains = R.compact([
+            "inline-damage",
+            item ? `${item.id}-inline-damage` : null,
+            item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
+        ]);
+
+        const options = new Set([
+            ...(actor?.getRollOptions(domains) ?? []),
+            ...(item?.getRollOptions("item") ?? []),
+            ...(traits ?? []),
+        ]);
+
+        const { modifiers, dice } = (() => {
+            if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
+            return extractDamageSynthetics(actor, domains, {
+                resolvables: rollData ?? {},
+                test: options,
+            });
+        })();
+
+        const damage: CreateDamageFormulaParams = {
+            base,
+            modifiers,
+            dice,
+            ignoredResistances: [],
+        };
+
+        const isAttack = !!traits?.includes("attack");
+        const context: DamageRollContext = {
+            type: "damage-roll",
+            sourceType: isAttack ? "attack" : "save",
+            outcome: isAttack ? "success" : null, // we'll need to support other outcomes later
+            domains,
+            options,
+        };
+
+        if (BUILD_MODE === "development" && !args.skipDialog) {
+            const rolled = await new DamageModifierDialog({ damage, context }).resolve();
+            if (!rolled) return null;
+        }
+
+        applyDamageDiceOverrides(base, dice);
+        const { formula, breakdown } = createDamageFormula(damage);
+
+        const roll = new DamageRoll(formula);
+        const template: InlineDamageTemplate = {
+            name: name ?? item?.name ?? actor?.name ?? "",
+            damage: { roll, breakdown },
+            modifiers: [...modifiers, ...dice],
+            traits: traits ?? [],
+            notes: [],
+            materials: [],
+        };
+
+        return { template, context };
+    } catch (ex) {
+        console.error(`Failed to parse inline @Damage ${baseFormula}:`, ex);
+        return null;
+    }
+}
+
+interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
+    rollData?: RollDataPF2e;
+}
+
+interface RollDataPF2e {
+    actor?: ActorPF2e | null;
+    item?: ItemPF2e | null;
+    mod?: number;
+    [key: string]: unknown;
 }
 
 interface ConvertXMLNodeOptions {

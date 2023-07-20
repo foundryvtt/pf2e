@@ -54,18 +54,14 @@ interface DamageRollContext extends BaseRollContext {
     mapIncreases?: ZeroToTwo;
 }
 
-interface DamageFormulaData {
+interface CreateDamageFormulaParams {
     base: BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
     ignoredResistances: { type: ResistanceType; max: number | null }[];
 }
 
-interface WeaponDamageFormulaData extends Omit<DamageFormulaData, "base"> {
-    base: [WeaponBaseDamageData];
-}
-
-interface ResolvedDamageFormulaData extends DamageFormulaData {
+interface ResolvedDamageFormulaData extends CreateDamageFormulaParams {
     formula: Record<DegreeOfSuccessString, string | null>;
     breakdown: Record<DegreeOfSuccessString, string[]>;
 }
@@ -112,27 +108,28 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
 }
 
 type AfflictionDamageTemplate = SpellDamageTemplate;
+type InlineDamageTemplate = SpellDamageTemplate;
 
-type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate;
+type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate | InlineDamageTemplate;
 
 export {
     AfflictionDamageTemplate,
     BaseDamageData,
+    CreateDamageFormulaParams,
     CriticalInclusion,
     DamageCategory,
     DamageCategoryRenderData,
     DamageCategoryUnique,
     DamageDieSize,
-    DamageFormulaData,
     DamagePartialTerm,
     DamageRollContext,
     DamageRollRenderData,
     DamageTemplate,
     DamageType,
     DamageTypeRenderData,
+    InlineDamageTemplate,
     MaterialDamageEffect,
     SpellDamageTemplate,
     WeaponBaseDamageData,
-    WeaponDamageFormulaData,
     WeaponDamageTemplate,
 };

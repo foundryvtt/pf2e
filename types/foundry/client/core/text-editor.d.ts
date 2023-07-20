@@ -140,7 +140,7 @@ declare global {
          * Handle left-mouse clicks on an inline roll, dispatching the formula or displaying the tooltip
          * @param event The initiating click event
          */
-        static _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage>;
+        static _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage | void>;
 
         /**
          * Toggle playing or stopping an embedded {@link PlaylistSound} link.
