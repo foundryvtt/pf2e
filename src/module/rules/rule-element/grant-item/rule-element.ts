@@ -37,9 +37,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         // In-memory-only conditions are always reevaluated on update
         if (this.inMemoryOnly) {
             this.reevaluateOnUpdate = true;
-        }
-
-        if (this.reevaluateOnUpdate) {
+            this.allowDuplicate = true;
+        } else if (this.reevaluateOnUpdate) {
             this.replaceSelf = false;
             this.allowDuplicate = false;
         }
