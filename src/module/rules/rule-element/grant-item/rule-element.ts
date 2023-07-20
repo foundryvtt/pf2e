@@ -354,8 +354,15 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         for (const alteration of this.alterations) {
             alteration.applyTo(conditionSource);
         }
+
+        const flags = { pf2e: { grantedBy: { id: this.item.id, onDelete: "cascade" } } };
+        conditionSource.flags.pf2e?.grantedBy;
         const condition = new ConditionPF2e(
-            mergeObject(conditionSource, { _id: randomID(), system: { references: { parent: { id: this.item.id } } } }),
+            mergeObject(conditionSource, {
+                _id: randomID(),
+                flags,
+                system: { references: { parent: { id: this.item.id } } },
+            }),
             { parent: this.actor }
         );
         condition.prepareSiblingData();
