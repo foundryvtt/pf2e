@@ -357,6 +357,10 @@ type CharacterDetails = Omit<CreatureDetails, "creature"> & {
     ancestry: {
         name: string;
         trait: string;
+        /** An "adopted" ancestry (typically gained through the Adopted Ancestry feat) */
+        adopted: string | null;
+        /** A versatile ancestry trait (such as "orc" for being a half-orc) */
+        versatile: string | null;
         /** All ancestries and versatile heritages the character "counts as" when selecting ancestry feats */
         countsAs: string[];
     } | null;

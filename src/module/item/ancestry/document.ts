@@ -138,6 +138,8 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         actor.system.details.ancestry = {
             name: this.name,
             trait: slug,
+            adopted: null,
+            versatile: null,
             countsAs: [slug],
         };
 
