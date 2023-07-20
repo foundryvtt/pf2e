@@ -95,7 +95,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return this.actor.members.map((actor) => {
             return {
                 actor,
-                hasBulk: actor.inventory.bulk.encumberedAt !== Infinity,
+                hasBulk: actor.inventory.bulk.encumberedAfter !== Infinity,
                 bestSkills: Object.values(actor.skills ?? {})
                     .filter((s): s is Statistic => !!s?.proficient)
                     .sort(sortBy((s) => s.mod ?? 0))
