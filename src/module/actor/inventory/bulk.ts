@@ -7,8 +7,8 @@ import { groupBy } from "@util";
 export class InventoryBulk {
     /** The current bulk carried by the actor */
     value: Bulk;
-    /** The number of Bulk units the actor is encumbered at */
-    encumberedAt: number;
+    /** The number of Bulk units the actor can carry before being encumbered */
+    encumberedAfter: number;
     /** The maximum bulk the actor can carry */
     max: number;
 
@@ -25,12 +25,12 @@ export class InventoryBulk {
             : [0, 0];
 
         this.max = Math.floor(strengthModifier + bonusBulkLimit + 10);
-        this.encumberedAt = Math.floor(strengthModifier + bonusEncumbranceBulk + 5);
+        this.encumberedAfter = Math.floor(strengthModifier + bonusEncumbranceBulk + 5);
     }
 
     get encumberedPercentage(): number {
         const totalTimes10 = this.value.toLightBulk();
-        const encumberedAtTimes10 = this.encumberedAt * 10 + 10;
+        const encumberedAtTimes10 = this.encumberedAfter * 10 + 10;
         return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
     }
 
@@ -48,7 +48,7 @@ export class InventoryBulk {
     }
 
     get isEncumbered(): boolean {
-        return this.value.normal > this.encumberedAt;
+        return this.value.normal > this.encumberedAfter;
     }
 
     get isOverMax(): boolean {
