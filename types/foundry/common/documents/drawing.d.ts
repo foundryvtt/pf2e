@@ -1,5 +1,6 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
 import type { BaseScene, BaseUser } from "./module.d.ts";
+import type { ShapeData } from "../data/data.d.ts";
 
 /** The Drawing embedded document model. */
 export default class BaseDrawing<TParent extends BaseScene | null> extends Document<TParent> {
@@ -10,6 +11,8 @@ export default class BaseDrawing<TParent extends BaseScene | null> extends Docum
 }
 
 export default interface BaseDrawing<TParent extends BaseScene | null> extends Document<TParent> {
+    author: BaseUser;
+    shape: ShapeData<this>;
     readonly _source: DrawingSource;
 }
 
@@ -45,6 +48,8 @@ export default interface BaseDrawing<TParent extends BaseScene | null> extends D
  * @property [locked=false]       Is the drawing currently locked?
  */
 export interface DrawingSource {
+    _id: string | null;
+    shape: ShapeData<null>["_source"];
     t: DrawingShapeType;
     x: number;
     y: number;

@@ -1,4 +1,6 @@
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
+import type { TextureData } from "../data/data.d.ts";
+import type * as fields from "../data/fields.d.ts";
 import type { AmbientLightSchema } from "./ambient-light.d.ts";
 import type { AmbientSoundSource } from "./ambient-sound.d.ts";
 import type { DrawingSource } from "./drawing.d.ts";
@@ -28,7 +30,7 @@ import type { WallSource } from "./wall.d.ts";
 export default class BaseScene extends Document<null> {
     name: string;
     active: boolean;
-    background: foundry.data.TextureData;
+    background: fields.SourcePropFromDataField<TextureData>;
     grid: GridData;
     darkness: number;
     tokenVision: boolean;

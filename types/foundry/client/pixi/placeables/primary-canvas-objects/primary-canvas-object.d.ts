@@ -1,3 +1,5 @@
+import type * as fields from "@common/data/fields.d.ts";
+
 export interface PrimaryCanvasObjectData {
     /** The x-coordinate of the PCO location */
     x: number;
@@ -20,7 +22,7 @@ export interface PrimaryCanvasObjectData {
     /** The sort key that resolves ties among the same elevation */
     sort: number;
     /** The data texture values */
-    texture: object;
+    texture: fields.SourcePropFromDataField<foundry.data.TextureData>;
 }
 
 /**

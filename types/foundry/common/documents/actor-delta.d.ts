@@ -1,6 +1,6 @@
+import { TombstoneData } from "@common/data/data.js";
 import type * as abstract from "../abstract/module.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import { ActiveEffectSchema } from "./active-effect.js";
 import type { BaseActiveEffect, BaseActor, BaseItem, BaseToken, ItemSource } from "./module.d.ts";
 
 /**
@@ -48,7 +48,7 @@ type ActorDeltaSchema = {
     type: fields.StringField<string, string, false, true, true>;
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
     system: fields.ObjectField<object, object, true, true, true>;
-    items: fields.EmbeddedCollectionDeltaField<BaseItem<BaseActor>, (ItemSource | fields.DeltaTombstone)[]>;
+    items: fields.EmbeddedCollectionDeltaField<BaseItem<BaseActor>, (ItemSource | TombstoneData<null>["_source"])[]>;
     effects: fields.EmbeddedCollectionDeltaField<BaseActiveEffect<BaseActor>>;
     ownership: fields.DocumentOwnershipField;
     flags: fields.ObjectField<DocumentFlags>;

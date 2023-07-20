@@ -1,6 +1,7 @@
-import type * as abstract from "../abstract/module.d.ts";
 import type { EmbeddedCollection } from "../abstract/embedded-collection.d.mts";
-import { DataModelValidationFailure } from "./validation-failure.js";
+import type * as abstract from "../abstract/module.d.ts";
+import type { TombstoneDataSchema } from "./data.d.ts";
+import type { DataModelValidationFailure } from "./validation-failure.d.ts";
 
 /* ---------------------------------------- */
 /*  Abstract Data Field                     */
@@ -718,20 +719,15 @@ export class EmbeddedCollectionField<
  * @todo: fill in
  */
 export class EmbeddedCollectionDeltaField<
-    TDocument extends abstract.Document,
-    TSource extends (SourceFromSchema<TDocument["schema"]["fields"]> | DeltaTombstone)[] = (
+    TDocument extends foundry.abstract.Document,
+    TSource extends (SourceFromSchema<TDocument["schema"]["fields"]> | TombstoneDataSchema)[] = (
         | SourceFromSchema<TDocument["schema"]["fields"]>
-        | DeltaTombstone
+        | TombstoneDataSchema
     )[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
 > extends EmbeddedCollectionField<TDocument, TSource, TRequired, TNullable, THasInitial> {}
-
-interface DeltaTombstone {
-    _id: string;
-    _tombstone: true;
-}
 
 /* -------------------------------------------- */
 /*  Special Field Types                         */

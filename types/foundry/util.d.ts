@@ -37,6 +37,8 @@ declare global {
     type DropFirst<T extends unknown[]> = T extends [unknown, ...infer U] ? U : never;
 
     type TypeParamOf<T> = T extends TypeWithGeneric<infer U> ? U : never;
+
+    type ValueOf<T extends object> = T[keyof T];
 }
 
 type TypeWithGeneric<T> = T[];
