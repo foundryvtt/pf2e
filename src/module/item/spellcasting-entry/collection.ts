@@ -293,7 +293,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     const existing = result.active.find((a) => a?.spell.id === spell.id);
                     if (existing) {
                         existing.signature = true;
-                    } else {
+                    } else if (result.uses?.max) {
                         const castLevel = result.level;
                         result.active.push({ spell, castLevel, signature: true, virtual: true });
                     }
