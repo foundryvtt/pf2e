@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data.ts";
@@ -10,7 +10,7 @@ import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers.ts";
+import { extractDamageSynthetics } from "@module/rules/helpers.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -300,23 +300,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
             // Separate damage modifiers into persistent and all others for stacking rules processing
             const resolvables = { spell: this };
-            const syntheticModifiers = extractDamageModifiers(actor.synthetics, domains, {
+
+            const extracted = extractDamageSynthetics(actor, domains, {
+                extraModifiers: abilityModifiers,
                 resolvables,
                 test: options,
             });
 
-            const mainModifiers = [...abilityModifiers, ...syntheticModifiers.main];
-            modifiers.push(
-                ...new StatisticModifier("spell-damage", mainModifiers, options).modifiers,
-                ...new StatisticModifier("spell-persistent", syntheticModifiers.persistent, options).modifiers
-            );
-
-            damageDice.push(
-                ...extractDamageDice(actor.synthetics.damageDice, domains, {
-                    test: options,
-                    resolvables: { spell: this },
-                })
-            );
+            modifiers.push(...extracted.modifiers);
+            damageDice.push(...extracted.dice);
         }
 
         const damage: DamageFormulaData = {
