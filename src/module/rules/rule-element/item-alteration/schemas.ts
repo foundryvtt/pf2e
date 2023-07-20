@@ -100,7 +100,10 @@ const ITEM_ALTERATION_VALIDATORS = {
     "badge-value": new ItemAlterationValidator(
         {
             itemType: new fields.StringField({ required: true, choices: ["condition", "effect"] }),
-            mode: new fields.StringField({ required: true, choices: ["override"] }),
+            mode: new fields.StringField({
+                required: true,
+                choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"],
+            }),
             value: new fields.NumberField({
                 required: true,
                 integer: true,

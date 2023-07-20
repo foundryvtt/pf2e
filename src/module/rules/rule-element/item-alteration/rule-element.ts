@@ -35,13 +35,13 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
         const actorRollOptions = this.predicate.length > 0 ? this.actor.getRollOptions() : [];
         try {
-            for (const item of this.actor.itemTypes[this.itemType]) {
+            const items = this.itemType === "condition" ? this.actor.conditions : this.actor.itemTypes[this.itemType];
+            for (const item of items) {
                 const itemRollOptions = this.predicate.length > 0 ? item.getRollOptions("item") : [];
                 const rollOptions = [...actorRollOptions, ...itemRollOptions];
                 if (this.test(rollOptions)) {
-                    const alteration = new ItemAlteration(R.pick(this, ["mode", "property", "value"]), {
-                        parent: this,
-                    });
+                    const data = R.pick(this, ["mode", "property", "value"]);
+                    const alteration = new ItemAlteration(data, { parent: this });
                     alteration.applyTo(item);
                 }
             }
