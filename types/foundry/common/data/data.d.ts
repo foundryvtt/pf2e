@@ -1,5 +1,5 @@
-import type { Document, DataModel } from "../abstract/module.d.ts";
-import type { BaseActor } from "../documents/module.d.ts";
+import type { DataModel, Document } from "../abstract/module.d.ts";
+import type { BaseActor, BaseActorDelta, BaseScene, BaseToken } from "../documents/module.d.ts";
 import type { TokenBarData, TokenSource } from "../documents/token.d.ts";
 import type * as fields from "./fields.d.ts";
 
@@ -28,21 +28,6 @@ export interface DarknessActivation {
 /**
  * A reusable document structure for the internal data used to render the appearance of a light source.
  * This is re-used by both the AmbientLightData and TokenData classes.
- *
- * @property alpha       An opacity for the emitted light, if any
- * @property animation   An animation configuration for the source
- * @property angle       The angle of emission for this point source
- * @property bright      The allowed radius of bright vision or illumination
- * @property color       A tint color for the emitted light, if any
- * @property coloration  The coloration technique applied in the shader
- * @property contrast    The amount of contrast this light applies to the background texture
- * @property darkness    A darkness range (min and max) for which the source should be active
- * @property dim         The allowed radius of dim vision or illumination
- * @property invertColor Does this source invert the color of the background texture?
- * @property gradual     Fade the difference between bright, dim, and dark gradually?
- * @property luminosity  The luminosity applied in the shader
- * @property saturation  The amount of color saturation this light applies to the background texture
- * @property shadows     The depth of shadows this light applies to the background texture
  */
 export class LightData extends DataModel<DataModel | null, LightDataSchema> {
     static override defineSchema(): LightDataSchema;
@@ -57,27 +42,109 @@ export interface LightData
 export type LightSource = SourceFromSchema<LightDataSchema>;
 
 type LightDataSchema = {
+    /** An opacity for the emitted light, if any */
     alpha: fields.AlphaField;
+    /** The angle of emission for this point source */
     angle: fields.AngleField;
+    /** The allowed radius of bright vision or illumination */
     bright: fields.NumberField<number, number, true, false, true>;
+    /** A tint color for the emitted light, if any */
     color: fields.ColorField;
+    /** The coloration technique applied in the shader */
     coloration: fields.NumberField<number, number, true>;
+    /** The allowed radius of dim vision or illumination */
     dim: fields.NumberField<number, number, true>;
+    /** Fade the difference between bright, dim, and dark gradually? */
     attenuation: fields.NumberField<number, number, true>;
+    /** The luminosity applied in the shader */
     luminosity: fields.NumberField<number, number, true, false, true>;
+    /** The amount of color saturation this light applies to the background texture */
     saturation: fields.NumberField<number, number, true, false, true>;
+    /** The amount of contrast this light applies to the background texture */
     contrast: fields.NumberField<number, number, true, false, true>;
+    /** The depth of shadows this light applies to the background texture */
     shadows: fields.NumberField<number, number, true, false, true>;
+    /** An animation configuration for the source */
     animation: fields.SchemaField<{
         type: fields.StringField<string, string, true, true, true>;
         speed: fields.NumberField<number, number, true>;
         intensity: fields.NumberField<number, number, true>;
         reverse: fields.BooleanField;
     }>;
+    /** A darkness range (min and max) for which the source should be active */
     darkness: fields.SchemaField<{
         min: fields.AlphaField;
         speed: fields.AlphaField;
     }>;
+};
+
+/** A data model intended to be used as an inner EmbeddedDataField which defines a geometric shape. */
+export class ShapeData<TParent extends DataModel | Document | null> extends DataModel<TParent, ShapeDataSchema> {
+    static override defineSchema(): ShapeDataSchema;
+
+    /** The primitive shape types which are supported */
+    static TYPES: {
+        RECTANGLE: "r";
+        CIRCLE: "c";
+        ELLIPSE: "e";
+        POLYGON: "p";
+    };
+}
+
+export interface ShapeData<TParent extends DataModel | Document | null>
+    extends DataModel<TParent, ShapeDataSchema>,
+        ModelPropsFromSchema<ShapeDataSchema> {}
+
+type ShapeDataSchema = {
+    /**
+     * The type of shape, a value in ShapeData.TYPES.
+     * For rectangles, the x/y coordinates are the top-left corner.
+     * For circles, the x/y coordinates are the center of the circle.
+     * For polygons, the x/y coordinates are the first point of the polygon.
+     */
+    type: fields.StringField<ValueOf<typeof ShapeData.TYPES>, ValueOf<typeof ShapeData.TYPES>, true, false, true>;
+    /** For rectangles, the pixel width of the shape. */
+    width: fields.NumberField;
+    /** For rectangles, the pixel height of the shape. */
+    height: fields.NumberField;
+    /** For circles, the pixel radius of the shape. */
+    radius: fields.NumberField;
+    /** For polygons, the array of polygon coordinates which comprise the shape. */
+    points: fields.ArrayField<fields.NumberField<number, number, true, false>>;
+};
+
+/** A {@link fields.SchemaField} subclass used to represent texture data. */
+export class TextureData extends fields.SchemaField<TextureDataSchema> {
+    /**
+     * @param {DataFieldOptions} options          Options which are forwarded to the SchemaField constructor
+     * @param {FilePathFieldOptions} srcOptions   Additional options for the src field
+     */
+    constructor(
+        options?: fields.DataFieldOptions<SourceFromSchema<TextureDataSchema>, true, false, true>,
+        srcOptions?: {
+            categories?: ("IMAGE" | "VIDEO")[];
+            initial?: "IMAGE" | "VIDEO" | null;
+            wildcard?: boolean;
+            label?: string;
+        }
+    );
+}
+
+type TextureDataSchema = {
+    /** The URL of the texture source. */
+    src: fields.FilePathField;
+    /** The scale of the texture in the X dimension. */
+    scaleX: fields.NumberField<number, number, false, false>;
+    /** The scale of the texture in the Y dimension. */
+    scaleY: fields.NumberField<number, number, false, false>;
+    /** The X offset of the texture with (0,0) in the top left. */
+    offsetX: fields.NumberField<number, number, false, false>;
+    /** The Y offset of the texture with (0,0) in the top left. */
+    offsetY: fields.NumberField<number, number, false, false>;
+    /** An angle of rotation by which this texture is rotated around its center. */
+    rotation: fields.AngleField;
+    /** An optional color string used to tint the texture. */
+    tint: fields.ColorField;
 };
 
 export interface PrototypeTokenSource
@@ -109,22 +176,32 @@ export interface PrototypeToken<TParent extends BaseActor | null>
     readonly _source: PrototypeTokenSource;
 }
 
-export interface TextureData {
-    /** The URL of the texture source. */
-    src: string | null;
-    /** The scale of the texture in the X dimension. */
-    scaleX: number;
-    /** The scale of the texture in the Y dimension. */
-    scaleY: number;
-    /** The X offset of the texture with (0,0) in the top left. */
-    offsetX: number;
-    /** The Y offset of the texture with (0,0) in the top left. */
-    offsetY: number;
-    /** An angle of rotation by which this texture is rotated around its center. */
-    rotation: number;
-    /** An optional color string used to tint the texture. */
-    tint: number | null;
+/**
+ * A minimal data model used to represent a tombstone entry inside an {@link EmbeddedCollectionDelta}.
+ * @see {EmbeddedCollectionDelta}
+ *
+ * @property _id        The _id of the base Document that this tombstone represents.
+ * @property _tombstone A property that identifies this entry as a tombstone.
+ * @property [_stats]   An object of creation and access information.
+ */
+export class TombstoneData<TParent extends BaseActorDelta<BaseToken<BaseScene | null> | null> | null> extends DataModel<
+    TParent,
+    TombstoneDataSchema
+> {
+    static override defineSchema(): TombstoneDataSchema;
 }
+
+export interface TombstoneData<TParent extends BaseActorDelta<BaseToken<BaseScene | null> | null> | null>
+    extends DataModel<TParent, TombstoneDataSchema>,
+        SourceFromSchema<TombstoneDataSchema> {}
+
+export type TombstoneSource = SourceFromSchema<TombstoneDataSchema>;
+
+export type TombstoneDataSchema = {
+    _id: fields.DocumentIdField;
+    _tombstone: fields.BooleanField<true, true>;
+    _stats: fields.DocumentStatsField;
+};
 
 /**
  * An embedded data object which defines the properties of a light source animation
