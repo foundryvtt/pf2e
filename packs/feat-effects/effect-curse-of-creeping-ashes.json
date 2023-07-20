@@ -43,6 +43,7 @@
                 ],
                 "key": "Aura",
                 "predicate": [
+                    "class:oracle",
                     {
                         "gt": [
                             "parent:badge:value",
@@ -62,13 +63,10 @@
                 "value": -10
             },
             {
-                "allowDuplicate": false,
                 "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
                 "predicate": [
+                    "class:oracle",
                     {
                         "gte": [
                             "parent:badge:value",
@@ -103,6 +101,11 @@
                 ],
                 "property": "badge-max",
                 "value": 3
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "oracular-curse:stage:{item|badge.value}"
             }
         ],
         "source": {

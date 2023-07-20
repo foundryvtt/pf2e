@@ -55,13 +55,10 @@
                 "value": 4
             },
             {
-                "allowDuplicate": false,
                 "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
                 "predicate": [
+                    "class:oracle",
                     {
                         "gte": [
                             "parent:badge:value",
@@ -69,7 +66,6 @@
                         ]
                     }
                 ],
-                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
             },
             {
@@ -97,6 +93,11 @@
                 ],
                 "property": "badge-max",
                 "value": 3
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "oracular-curse:stage:{item|badge.value}"
             }
         ],
         "source": {

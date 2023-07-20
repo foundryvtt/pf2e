@@ -44,6 +44,7 @@
                 "key": "AdjustModifier",
                 "mode": "override",
                 "predicate": [
+                    "class:oracle",
                     "parent:badge:value:2"
                 ],
                 "selector": "ac",
@@ -105,45 +106,32 @@
                 "value": -4
             },
             {
-                "allowDuplicate": false,
                 "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
-                "predicate": [
-                    "parent:badge:value:1"
-                ],
-                "reevaluateOnUpdate": true,
+                "priority": 39,
                 "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
             },
             {
-                "allowDuplicate": false,
-                "alterations": [
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:oracle",
+                    "item:slug:enfeebled",
                     {
-                        "mode": "override",
-                        "property": "badge-value",
-                        "value": 2
+                        "gte": [
+                            "parent:badge:value",
+                            2
+                        ]
                     }
                 ],
-                "inMemoryOnly": true,
-                "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
-                "predicate": [
-                    "parent:badge:value:2"
-                ],
-                "reevaluateOnUpdate": true,
-                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+                "property": "badge-value",
+                "value": "ternary(gt(@item.badge.value, 2), 3, 2)"
             },
             {
-                "allowDuplicate": false,
+                "allowDuplicate": true,
                 "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
                 "predicate": [
                     {
                         "gte": [
@@ -152,33 +140,7 @@
                         ]
                     }
                 ],
-                "reevaluateOnUpdate": true,
                 "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
-            },
-            {
-                "allowDuplicate": false,
-                "alterations": [
-                    {
-                        "mode": "override",
-                        "property": "badge-value",
-                        "value": 3
-                    }
-                ],
-                "inMemoryOnly": true,
-                "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
-                "predicate": [
-                    {
-                        "gte": [
-                            "parent:badge:value",
-                            3
-                        ]
-                    }
-                ],
-                "reevaluateOnUpdate": true,
-                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
             },
             {
                 "itemType": "effect",
@@ -205,6 +167,11 @@
                 ],
                 "property": "badge-max",
                 "value": 3
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "oracular-curse:stage:{item|badge.value}"
             }
         ],
         "source": {
