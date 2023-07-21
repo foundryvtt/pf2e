@@ -441,7 +441,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
         const aurasChanged = ((): boolean => {
-            if (!this.actorLink) return false;
             const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
             const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
             return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
