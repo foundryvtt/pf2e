@@ -149,11 +149,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
-    canCover() {
+    canCover(): boolean {
         return !!this.actor;
     }
 
-    getCreatureCover(fromToken: TokenPF2e, mode: "disabled" | "normal" | "small-margin" | "opposite-sides") {
+    getCreatureCover(
+        fromToken: TokenPF2e,
+        mode: "disabled" | "normal" | "small-margin" | "opposite-sides"
+    ): "lesser" | "standard" | undefined {
         if (mode === "disabled") return undefined;
 
         const origin = this.center;
@@ -203,7 +206,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             const sides = { top, right, bottom, left };
 
             if (intersectsWith(sides)) return extralarges ? "standard" : "lesser";
-            else if (isExtraLarge(token)) extralarges--;
+            else if (isExtraLarge(token)) extralarges -= 1;
         }
 
         return undefined;
@@ -213,7 +216,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         fromToken: TokenPF2e,
         mode: "disabled" | "center" | "spread",
         collisionType: WallRestrictionType = "move"
-    ) {
+    ): boolean {
         if (mode === "disabled") return false;
 
         if (mode === "center") {
