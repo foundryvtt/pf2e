@@ -145,7 +145,6 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
 
         // Collect temporary crafted items to remove
         const temporaryItems = actor.inventory.filter((i) => i.isTemporary).map((i) => i.id);
-
         const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
         const hasItemUpdates = itemUpdates.length > 0;
         const removeTempItems = temporaryItems.length > 0;

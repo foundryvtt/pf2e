@@ -99,7 +99,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.traits.has("cursed");
     }
 
-    override get isTemporary(): boolean {
+    get isTemporary(): boolean {
         return this.system.temporary;
     }
 
