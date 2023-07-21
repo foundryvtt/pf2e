@@ -126,7 +126,7 @@
         }
     }
 
-    .content header {
+    header.content-header {
         align-items: center;
         background-color: var(--sub);
         color: white;
@@ -144,10 +144,15 @@
 
         button {
             background-color: var(--tertiary);
-            border-color: 1px solid var(--alt-dark);
+            border: 1px solid var(--alt-dark);
+            border-radius: 0;
             color: var(--alt-dark);
             min-width: 1.875rem;
             height: 1.875rem;
+            margin: 0;
+            & + button {
+                margin-left: -1px;
+            }
         }
     }
 

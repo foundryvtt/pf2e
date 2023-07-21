@@ -10,7 +10,7 @@ import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
 
@@ -19,6 +19,8 @@ interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
 }
 
 class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
+    currentSummaryView = "languages";
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
@@ -58,6 +60,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...base,
             restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
             members: this.#prepareMembers(),
+            languages: this.#prepareLanguages(),
+            knowledge: this.#prepareKnowledge(),
             inventorySummary: {
                 totalCoins:
                     sum(members.map((actor) => actor.inventory.coins.goldValue ?? 0)) +
@@ -77,7 +81,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     )?.[1] ?? 0,
             },
             explorationMembers: this.#prepareExploration(),
-            languages: this.#prepareLanguages(),
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };
     }
@@ -142,6 +145,27 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 })
             )
             .sort(sortBy((l) => l.label));
+    }
+
+    #prepareKnowledge(): SkillData[] {
+        const members = this.actor.members;
+        const baseKnowledgeSkills = ["arcana", "nature", "occultism", "religion", "crafting"] as const;
+        const loreSkills = new Set(
+            members
+                .flatMap((m) => Object.values(m.skills))
+                .filter((s): s is Statistic => !!s?.lore)
+                .map((s) => s.slug)
+        );
+
+        function getBestSkill(slug: string) {
+            const bestMember = R.maxBy(members, (m) => m.skills[slug]?.mod ?? -Infinity);
+            const statistic = bestMember?.skills[slug];
+            return statistic ? R.pick(statistic, ["slug", "mod", "label", "rank"]) : null;
+        }
+
+        const bestBaseSkills = R.compact(baseKnowledgeSkills.map(getBestSkill));
+        const bestLoreSkills = R.sortBy(R.compact([...loreSkills].map(getBestSkill)), (s) => -s.mod);
+        return [...bestBaseSkills, ...bestLoreSkills];
     }
 
     #prepareExploration(): MemberExploration[] {
@@ -225,6 +249,13 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             }
         }
 
+        this.setSummaryView(this.currentSummaryView);
+        for (const button of htmlQueryAll(html, "[data-action=change-view]")) {
+            button.addEventListener("click", () => {
+                this.setSummaryView(button.dataset.view ?? "languages");
+            });
+        }
+
         // Mouseover tooltips to show actors that speak the language
         for (const languageTag of htmlQueryAll(html, "[data-language]")) {
             const slug = languageTag.dataset.language as Language;
@@ -236,6 +267,21 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             $(languageTag).tooltipster({ content });
         }
 
+        // Mouseover summary skill tooltips to show all actor modifiers
+        for (const skillTag of htmlQueryAll(html, ".summary .skills [data-slug]")) {
+            const slug = skillTag.dataset.slug ?? "";
+            const statistics = R.compact(this.actor.members.map((m) => m.skills[slug]));
+            const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
+                const label = `${statistic.actor.name} ${addSign(statistic.mod)}`;
+                const row = createHTMLElement("div", { children: [label] });
+                row.style.textAlign = "right";
+                return row;
+            });
+
+            const content = createHTMLElement("div", { children: labels });
+            $(skillTag).tooltipster({ content });
+        }
+
         htmlQuery(html, "[data-action=clear-exploration]")?.addEventListener("click", async () => {
             await Promise.all(this.actor.members.map((m) => m.update({ "system.exploration": [] })));
             ui.notifications.info("PF2E.Actor.Party.ClearActivities.Complete", { localize: true });
@@ -244,6 +290,23 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
             game.pf2e.actions.restForTheNight({ event, actors: this.actor.members });
         });
+    }
+
+    protected setSummaryView(view: string): void {
+        const summary = htmlQuery(this.element[0], "[data-tab=overview] .summary");
+        if (!summary) return;
+
+        const viewElements = htmlQueryAll(summary, "[data-view]:not([data-action=change-view])");
+        for (const element of viewElements) {
+            element.hidden = view !== element.dataset.view;
+        }
+
+        // Add active css classes to the buttons (for styling purposes only)
+        for (const button of htmlQueryAll(summary, "[data-action=change-view]")) {
+            button.classList.toggle("active", button.dataset.view === view);
+        }
+
+        this.currentSummaryView = view;
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
@@ -323,6 +386,7 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     restricted: boolean;
     members: MemberBreakdown[];
     languages: LanguageSheetData[];
+    knowledge: SkillData[];
     inventorySummary: {
         totalCoins: number;
         totalWealth: number;
