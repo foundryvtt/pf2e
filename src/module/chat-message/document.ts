@@ -180,7 +180,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Get the token of the speaker if possible */
     get token(): TokenDocumentPF2e<ScenePF2e> | null {
-        if (!game.scenes) return null;
+        if (!game.scenes) return null; // In case we're in the middle of game setup
         const sceneId = this.speaker.scene ?? "";
         const tokenId = this.speaker.token ?? "";
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
