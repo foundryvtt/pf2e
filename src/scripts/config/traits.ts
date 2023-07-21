@@ -1338,15 +1338,19 @@ const traitDescriptions = {
 
 const kingmakerTraits = {
     ...actionTraits,
-    army: "PF2E.TraitArmy",
-    cavalry: "PF2E.TraitCavalry",
-    civic: "PF2E.TraitCivic",
-    commerce: "PF2E.TraitCommerce",
-    infantry: "PF2E.TraitInfantry",
-    kingdom: "PF2E.TraitKingdom",
-    leadership: "PF2E.TraitLeadership",
-    region: "PF2E.TraitRegion",
-    upkeep: "PF2E.TraitUpkeep",
+    army: "PF2E.Kingmaker.Trait.army",
+    cavalry: "PF2E.Kingmaker.Trait.cavalry",
+    civic: "PF2E.Kingmaker.Trait.civic",
+    commerce: "PF2E.Kingmaker.Trait.commerce",
+    infantry: "PF2E.Kingmaker.Trait.infantry",
+    kingdom: "PF2E.Kingmaker.Trait.kingdom",
+    leadership: "PF2E.Kingmaker.Trait.leadership",
+    maneuver: "PF2E.Kingmaker.Trait.maneuver",
+    morale: "PF2E.Kingmaker.Trait.morale",
+    region: "PF2E.Kingmaker.Trait.region",
+    siege: "PF2E.Kingmaker.Trait.siege",
+    skirmisher: "PF2E.Kingmaker.Trait.skirmisher",
+    upkeep: "PF2E.Kingmaker.Trait.upkeep",
 };
 
 export {
