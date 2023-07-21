@@ -40,7 +40,7 @@ class TokenAura implements TokenAuraData {
         return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
     }
 
-    private get scene(): ScenePF2e {
+    get scene(): ScenePF2e {
         return this.token.scene!;
     }
 
