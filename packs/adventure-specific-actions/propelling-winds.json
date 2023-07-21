@@ -1,0 +1,80 @@
+{
+    "_id": "qL44lR8sZMWgY1r7",
+    "folder": "RqckmRvBLh5Rc41t",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Propelling Winds",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Aspect</strong> air</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The relic casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Fly]</em> targeting you.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "divine-retribution",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:evil",
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.RelicGift.DivineRetribution.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "target:trait:evil",
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.RelicGift.DivineRetribution.Success",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "traits": {
+            "value": [
+                "air",
+                "transmutation"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}
