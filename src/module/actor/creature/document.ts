@@ -33,7 +33,7 @@ import {
     VisionLevel,
     VisionLevels,
 } from "./data.ts";
-import { setImmunitiesFromTraits } from "./helpers.ts";
+import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureSensePF2e } from "./sense.ts";
 import { Alignment, AlignmentTrait, CreatureTrait, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
@@ -344,6 +344,8 @@ abstract class CreaturePF2e<
             }
             status.value = Math.min(condition?.value ?? 0, status.max);
         }
+
+        imposeEncumberedCondition(this);
     }
 
     protected override prepareSynthetics(): void {
