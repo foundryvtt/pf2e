@@ -316,7 +316,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Set listener toggles and their suboptions
         const togglesArea = htmlQuery(html, ".actions-options");
         togglesArea?.addEventListener("change", (event) => {
-            const toggleRow = htmlClosest(event.target, ".item[data-item-id]");
+            const toggleRow = htmlClosest(event.target, "[data-item-id][data-domain][data-option]");
             const checkbox = htmlQuery<HTMLInputElement>(toggleRow, "input[data-action=toggle-roll-option]");
             const suboptionsSelect = htmlQuery<HTMLSelectElement>(toggleRow, "select[data-action=set-suboption");
             const { domain, option, itemId } = toggleRow?.dataset ?? {};
