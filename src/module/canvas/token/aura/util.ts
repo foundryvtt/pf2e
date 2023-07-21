@@ -33,6 +33,21 @@ export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
             ? "sound"
             : "move";
 
+    const tokenBounds = aura.token.bounds;
+    const tokenCenter = aura.token.center;
+    const tokenCenters = [
+        tokenCenter,
+        ...[
+            { x: 0, y: 1 },
+            { x: 1, y: 0 },
+            { x: 0, y: -1 },
+            { x: -1, y: 0 },
+        ].map((c) => ({
+            x: tokenCenter.x + c.x * Math.round(tokenBounds.width / 8),
+            y: tokenCenter.y + c.y * Math.round(tokenBounds.height / 8),
+        })),
+    ];
+
     return emptyVector
         .reduce(
             (squares: EffectAreaSquare[][]) => {
@@ -46,12 +61,14 @@ export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
             [genColumn(topLeftSquare)]
         )
         .flat()
-        .filter((s) => measureDistanceCuboid(aura.token.bounds, s) <= aura.radius)
+        .filter((s) => measureDistanceCuboid(tokenBounds, s) <= aura.radius)
         .map((square) => {
-            square.active = !CONFIG.Canvas.polygonBackends[collisionType].testCollision(
-                aura.token.center,
-                square.center,
-                { type: collisionType, mode: "any" }
+            square.active = tokenCenters.some(
+                (c) =>
+                    !CONFIG.Canvas.polygonBackends[collisionType].testCollision(c, square.center, {
+                        type: collisionType,
+                        mode: "any",
+                    })
             );
             return square;
         });
