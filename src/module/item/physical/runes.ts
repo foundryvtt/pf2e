@@ -3,7 +3,13 @@ import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "@actor
 import { ResistanceType } from "@actor/types.ts";
 import { ArmorPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types.ts";
-import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types.ts";
+import type {
+    OtherWeaponTag,
+    StrikingRuneType,
+    WeaponPropertyRuneType,
+    WeaponRangeIncrement,
+    WeaponTrait,
+} from "@item/weapon/types.ts";
 import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
@@ -999,6 +1005,19 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "common",
         slug: "impossible",
         traits: ["conjuration", "magical"],
+        strikeAdjustments: [
+            {
+                // Double the base range increment
+                adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                    if (weapon.isOfType("weapon") && weapon.system.range && weapon._source.system.range) {
+                        const sourceRange = weapon._source.system.range;
+                        const preparedRange = weapon.system.range;
+                        weapon.system.range = (sourceRange * 2 +
+                            Math.abs(preparedRange - sourceRange)) as WeaponRangeIncrement;
+                    }
+                },
+            },
+        ],
     },
     keen: {
         attack: {
