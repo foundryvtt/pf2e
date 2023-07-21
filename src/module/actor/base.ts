@@ -13,7 +13,15 @@ import {
     SaveType,
     UnaffectedType,
 } from "@actor/types.ts";
-import { AbstractEffectPF2e, ArmorPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import {
+    AbstractEffectPF2e,
+    ArmorPF2e,
+    ContainerPF2e,
+    EffectPF2e,
+    ItemPF2e,
+    ItemProxyPF2e,
+    PhysicalItemPF2e,
+} from "@item";
 import { ActionTrait } from "@item/action/data.ts";
 import { AfflictionSource } from "@item/affliction/index.ts";
 import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
@@ -73,6 +81,8 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
+import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
+import { ChoiceSetRuleElement } from "@module/rules/rule-element/choice-set/rule-element.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -927,6 +937,46 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             domains: params.domains,
             options: [...params.options, ...itemOptions, ...targetRollOptions],
         });
+
+        // Add ephemeral effect for cover
+        if (selfToken && targetToken) {
+            const coverBonus = (() => {
+                if (!selfActor) return 0;
+
+                const coverEffect = selfActor.itemTypes.effect.find((e) => e.slug === "effect-cover");
+                const coverRule = coverEffect?.rules.find(
+                    (r): r is ChoiceSetRuleElement => r instanceof ChoiceSetRuleElement
+                );
+                const { bonus = 0, level } = (coverRule?.selection ?? {}) as { bonus?: number; level?: string };
+
+                if (level === "greater-prone" && !selfActor.hasCondition("prone")) return 0;
+                return bonus;
+            })();
+
+            if (coverBonus < 2) {
+                const addEphemeralCover = async (level: "standard" | "lesser") => {
+                    // we go for easy for now
+                    const cover = (await fromUuid("Compendium.pf2e.other-effects.I9lfZUiCwMiGogVi")) as EffectPF2e;
+                    const source = cover.toObject();
+
+                    const rule = source.system.rules.find((r): r is ChoiceSetSource => r.key === "ChoiceSet")!;
+                    rule.selection = { level, bonus: level === "standard" ? 2 : 1 };
+
+                    targetEphemeralEffects.push(source);
+                };
+
+                // we simulate world settings
+                const wallMode = "center" as "disabled" | "center" | "spread";
+                const creatureMode = "small-margin" as "disabled" | "normal" | "small-margin" | "opposite-sides";
+
+                if (wallMode !== "disabled" && targetToken.hasWallCover(selfToken, wallMode)) {
+                    await addEphemeralCover("standard");
+                } else if (creatureMode !== "disabled" && selfToken.distanceTo(targetToken) > 5) {
+                    const cover = targetToken.getCreatureCover(selfToken, creatureMode);
+                    if (cover) await addEphemeralCover(cover);
+                }
+            }
+        }
 
         const [reach, isMelee] = params.item?.isOfType("melee")
             ? [params.item.reach, params.item.isMelee]

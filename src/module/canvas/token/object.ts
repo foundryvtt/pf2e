@@ -6,6 +6,7 @@ import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { Renderer } from "pixi.js";
+import { SIZES } from "@module/data.ts";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
@@ -146,6 +147,105 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // Find a flanking buddy opposite this token
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
+    }
+
+    canCover() {
+        return !!this.actor;
+    }
+
+    getCreatureCover(fromToken: TokenPF2e, mode: "disabled" | "normal" | "small-margin" | "opposite-sides") {
+        if (mode === "disabled") return undefined;
+
+        const origin = this.center;
+        const target = fromToken.center;
+
+        const sizes = SIZES.reduce((a, v, i) => ((a[v] = i), a), {} as Record<(typeof SIZES)[number], number>);
+        const originSize = sizes[this.actor?.size ?? "med"];
+        const targetSize = sizes[fromToken.actor?.size ?? "med"];
+
+        const isExtraLarge = (token: TokenPF2e) => {
+            const size = sizes[token.actor?.size ?? "med"];
+            return size - originSize >= 2 && size - targetSize >= 2;
+        };
+
+        const { lineSegmentIntersects } = foundry.utils;
+        const intersectsSide = (side: Ray) => lineSegmentIntersects(origin, target, side.A, side.B);
+
+        const intersectsWith: (sides: { left: Ray; right: Ray; top: Ray; bottom: Ray }) => boolean =
+            mode === "opposite-sides"
+                ? (sides) =>
+                      (intersectsSide(sides.top) && intersectsSide(sides.bottom)) ||
+                      (intersectsSide(sides.left) && intersectsSide(sides.right))
+                : (sides) => Object.values(sides).some((side) => intersectsSide(side));
+
+        const tokens = canvas.tokens.placeables
+            .filter((t) => t !== this && t.canCover())
+            .sort((a, b) => sizes[b.actor!.size] - sizes[a.actor!.size]);
+
+        let extralarges =
+            (originSize < sizes.huge && targetSize < sizes.huge && tokens.filter(isExtraLarge).length) || 0;
+
+        const margin = mode === "small-margin" ? 0.1 : 0;
+
+        for (const token of tokens) {
+            if (token.document.hidden || token === this || token === fromToken) continue;
+
+            const { x, y, width, height } = token.bounds;
+
+            const top = new Ray(
+                { x: x + width * margin, y: y + height * margin },
+                { x: x + width * (1 - margin), y: y + height * margin }
+            );
+            const right = new Ray(top.B, { x: top.B.x, y: y + height * (1 - margin) });
+            const bottom = new Ray(right.B, { x: top.A.x, y: right.B.y });
+            const left = new Ray(bottom.B, top.A);
+
+            const sides = { top, right, bottom, left };
+
+            if (intersectsWith(sides)) return extralarges ? "standard" : "lesser";
+            else if (isExtraLarge(token)) extralarges--;
+        }
+
+        return undefined;
+    }
+
+    hasWallCover(
+        fromToken: TokenPF2e,
+        mode: "disabled" | "center" | "spread",
+        collisionType: WallRestrictionType = "move"
+    ) {
+        if (mode === "disabled") return false;
+
+        if (mode === "center") {
+            return CONFIG.Canvas.polygonBackends[collisionType].testCollision(this.center, fromToken.center, {
+                type: collisionType,
+                mode: "any",
+            });
+        } else if (mode === "spread") {
+            const { x, y, width, height } = this.bounds;
+
+            const points = [
+                { x: 0.25, y: 0.25 },
+                { x: 0.5, y: 0.25 },
+                { x: 0.75, y: 0.25 },
+                { x: 0.25, y: 0.5 },
+                { x: 0.5, y: 0.5 },
+                { x: 0.75, y: 0.5 },
+                { x: 0.25, y: 0.75 },
+                { x: 0.5, y: 0.75 },
+                { x: 0.75, y: 0.75 },
+            ].map((p) => ({ x: x + width * p.x, y: y + height * p.y }));
+
+            for (const point of points) {
+                const intersects = CONFIG.Canvas.polygonBackends[collisionType].testCollision(fromToken, point, {
+                    type: collisionType,
+                    mode: "any",
+                });
+                if (intersects) return true;
+            }
+        }
+
+        return false;
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
