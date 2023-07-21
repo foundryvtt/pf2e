@@ -11,6 +11,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
         "effectExpiration",
         "removeExpiredEffects",
         "flankingDetection",
+        "encumbrance",
         "lootableNPCs",
     ] as const;
 
@@ -54,6 +55,12 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 name: CONFIG.PF2E.SETTINGS.automation.flankingDetection.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.flankingDetection.hint,
                 default: true,
+                type: Boolean,
+            },
+            encumbrance: {
+                name: "PF2E.SETTINGS.Automation.Encumbrance.Name",
+                hint: "PF2E.SETTINGS.Automation.Encumbrance.Hint",
+                default: false,
                 type: Boolean,
             },
             lootableNPCs: {
