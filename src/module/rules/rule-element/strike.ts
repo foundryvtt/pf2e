@@ -124,7 +124,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     damageType: new fields.StringField({ required: true, blank: false, initial: "bludgeoning" }),
                     dice: new ResolvableValueField({ required: true, nullable: false, initial: 1 }),
                     die: new fields.StringField({ required: true, choices: CONFIG.PF2E.damageDie, initial: "d4" }),
-                    modifier: new fields.NumberField({ nullable: false, min: 0, initial: 0 }),
+                    modifier: new fields.NumberField({ nullable: false, integer: true, initial: 0 }),
                 }),
             }),
             img: new fields.FilePathField({
