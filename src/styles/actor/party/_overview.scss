@@ -1,16 +1,66 @@
+.content {
+    padding-bottom: 0.25rem;
+}
+
 .summary {
     @include frame-elegant;
-    padding: 0.5rem;
-    margin: 16px 16px 8px 16px;
-    label {
+    display: flex;
+    flex-direction: column;
+    padding: 0.375rem 0.5rem;
+    margin: 12px 1rem 0.25rem 12px;
+
+    nav {
         color: var(--alt-dark);
-        font-family: var(--serif);
-        font-weight: 500;
-        line-height: 1em;
+        display: flex;
+        gap: 0.25rem;
+        line-height: 1.25em;
+        margin-bottom: 0.375rem;
+
+        button {
+            border: none;
+            font-size: var(--font-size-14);
+            font-weight: 500;
+            padding: 0 0.5rem;
+            white-space: nowrap;
+            width: auto;
+            &.active {
+                background: var(--secondary);
+                color: white;
+            }
+        }
     }
 
-    .tags {
+    .tags, .skills {
         margin: 0;
+    }
+
+    [hidden] {
+        display: none;
+    }
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    .tag-light {
+        &[data-rank="1"] {
+            --tag-color: #{$rank-trained};
+        }
+        &[data-rank="2"] {
+            --tag-color: #{$rank-expert};
+        }
+        &[data-rank="3"] {
+            --tag-color: #{$rank-master};
+        }
+        &[data-rank="4"] {
+            --tag-color: #{$rank-legendary};
+        }
+    }
+
+    .perception {
+        color: white;
+        background-color: var(--tag-color);
     }
 }
 
@@ -247,31 +297,6 @@
         .master {
             flex: 1.15;
             font-size: var(--font-size-16);
-        }
-    }
-
-    .skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-        .tag-light {
-            &[data-rank="1"] {
-                --tag-color: #{$rank-trained};
-            }
-            &[data-rank="2"] {
-                --tag-color: #{$rank-expert};
-            }
-            &[data-rank="3"] {
-                --tag-color: #{$rank-master};
-            }
-            &[data-rank="4"] {
-                --tag-color: #{$rank-legendary};
-            }
-        }
-
-        .perception {
-            color: white;
-            background-color: var(--tag-color);
         }
     }
 }

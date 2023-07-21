@@ -6,16 +6,33 @@
     {{/unless}}
 
     {{#if members}}
-        <div class="summary">
-            <label>{{localize "PF2E.Actor.Party.Languages"}}</label>
-            <ul class="tags">
+        <section class="summary">
+            <nav>
+                <button type="button" data-action="change-view" data-view="languages">
+                    {{localize "PF2E.Actor.Party.Languages"}}
+                </button>
+                <button type="button" data-action="change-view" data-view="rk">
+                    {{localize "PF2E.RecallKnowledge.Label"}}
+                </button>
+            </nav>
+            <ul class="tags" data-view="languages">
+                {{#unless languages}}
+                    {{localize "PF2E.NoneOption"}}
+                {{/unless}}
                 {{#each languages as |language|}}
                     <li class="tag tag_alt" data-language="{{language.slug}}">
                         {{language.label}}{{#if (gt language.actors.length 1)}} ({{language.actors.length}}){{/if}}
                     </li>
                 {{/each}}
             </ul>
-        </div>
+            <div class="skills" data-view="rk">
+                {{#each knowledge as |skill|}}
+                    <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
+                        {{skill.label}} {{numberFormat skill.mod sign=true}}
+                    </span>
+                {{/each}}
+            </div>
+        </section>
     {{/if}}
 
     {{#each members as |member|}}
@@ -129,7 +146,7 @@
                         </button>
                     {{/with}}
                     {{#each member.bestSkills as |skill|}}
-                        <span class="tag-light" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
+                        <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
                             {{skill.label}} {{numberFormat skill.mod sign=true}}
                         </span>
                     {{/each}}
