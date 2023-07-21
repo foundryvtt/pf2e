@@ -46,7 +46,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     get appliedBy(): ItemPF2e<ActorPF2e> | null {
-        return this.actor?.items.get(this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "") ?? null;
+        const appliedById = this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "";
+        return this.actor?.items.get(appliedById) ?? this.actor?.conditions.get(appliedById) ?? null;
     }
 
     get value(): number | null {
@@ -57,7 +58,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     override get isLocked(): boolean {
         if (this.system.references.parent?.id || super.isLocked) return true;
 
-        const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
+        const granterId = this.flags.pf2e.grantedBy?.id ?? "";
+        const granter = this.actor?.items.get(granterId) ?? this.actor?.conditions.get(granterId);
         const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
         return grants.find((g) => g.id === this.id)?.onDelete === "restrict";
     }

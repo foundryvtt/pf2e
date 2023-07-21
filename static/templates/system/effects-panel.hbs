@@ -46,7 +46,7 @@
             </a>
         {{/if}}
         <div class="instructions">
-            {{#if (not effect.isLocked)}}
+            {{#if (nor effect.isLocked effect.inMemoryOnly)}}
                 {{#if (eq effect.badge.type "formula")}}
                     <p>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</p>
                 {{/if}}

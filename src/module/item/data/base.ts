@@ -47,7 +47,9 @@ interface ItemSourceFlagsPF2e extends DeepPartial<foundry.documents.ItemFlags> {
 type ItemGrantData = Required<ItemGrantSource>;
 
 interface ItemGrantSource {
+    /** The ID of a granting or granted item */
     id: string;
+    /** The action taken when the user attempts to delete the item referenced by `id` */
     onDelete?: ItemGrantDeleteAction;
 }
 
