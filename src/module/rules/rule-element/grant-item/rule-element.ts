@@ -350,6 +350,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             this.failValidation(validationFailure);
             return null;
         }
+        if (this.actor.isImmuneTo(conditionSource.system.slug)) return null;
 
         for (const alteration of this.alterations) {
             alteration.applyTo(conditionSource);
@@ -365,6 +366,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             }),
             { parent: this.actor }
         );
+
         condition.prepareSiblingData();
         condition.prepareActorData();
 
