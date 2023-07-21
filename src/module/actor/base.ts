@@ -1072,7 +1072,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         isDelta = false,
         isBar?: boolean
     ): Promise<this> {
-        const token = this.getActiveTokens(false, true).shift();
+        const token = this.getActiveTokens(true, true).shift();
         const { hitPoints } = this;
         const isDamage = !!(
             attribute === "attributes.hp" &&
@@ -1733,6 +1733,39 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /**
+     * Work around upstream issue in which drag previews are included in the return array
+     * https://github.com/foundryvtt/foundryvtt/issues/9817
+     */
+    override getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
+    override getActiveTokens(
+        linked?: boolean | undefined,
+        document?: undefined
+    ): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+    override getActiveTokens(
+        linked?: boolean,
+        document?: boolean
+    ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+    override getActiveTokens(
+        linked?: boolean,
+        document?: boolean | undefined
+    ): Token<TokenDocument<Scene>>[] | TokenDocument<Scene>[] {
+        if (!canvas.ready || game.release.build > 306) {
+            return super.getActiveTokens(linked, document);
+        }
+
+        const tokens = super.getActiveTokens(linked, document);
+        const sceneTokens: Set<TokenDocument<Scene>> = new Set(canvas.scene?.tokens.contents ?? []);
+        for (const token of [...tokens]) {
+            const document = "document" in token ? token.document : token;
+            if (!sceneTokens.has(document)) {
+                tokens.splice((tokens as unknown[]).indexOf(token), 1);
+            }
+        }
+
+        return tokens;
+    }
+
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
         const processed = await preImportJSON(this, json);
@@ -1890,13 +1923,6 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this> | ItemPF2e<this>>[],
         options?: DocumentUpdateContext<this>
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
-
-    getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
-    getActiveTokens(linked?: undefined, document?: undefined): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
-    getActiveTokens(
-        linked?: boolean,
-        document?: boolean
-    ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
 
     /** Added as debounced method */
     checkAreaEffects(): void;
