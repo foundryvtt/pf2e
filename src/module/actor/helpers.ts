@@ -84,7 +84,7 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
 async function checkAreaEffects(this: ActorPF2e): Promise<void> {
     if (!canvas.ready || game.user !== this.primaryUpdater) return;
 
-    const thisTokens = this.getActiveTokens(false, true);
+    const thisTokens = this.getActiveTokens(true, true);
     const toDelete: string[] = [];
     const toKeep: string[] = [];
 
@@ -97,7 +97,7 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
             if (document instanceof TokenDocumentPF2e) {
                 return document;
             } else if (document instanceof ActorPF2e) {
-                return document.getActiveTokens(false, true).shift() ?? null;
+                return document.getActiveTokens(true, true).shift() ?? null;
             }
             return null;
         })();
