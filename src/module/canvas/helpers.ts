@@ -223,8 +223,9 @@ function highlightGrid({
     })();
 
     // Point we are measuring distances from
-    const padding = Math.clamped(document.width, 1.5, 2);
-    const padded = (document.distance * padding) / dimensions.distance;
+    const padding = Math.clamped(document.width ?? 0, 1.5, 2);
+    const docDistance = document.distance ?? 0;
+    const padded = (docDistance * padding) / dimensions.distance;
     const rowCount = Math.ceil(padded / (dimensions.size / grid.h));
     const columnCount = Math.ceil(padded / (dimensions.size / grid.w));
 
@@ -275,7 +276,7 @@ function highlightGrid({
 
             // Determine grid-square point to which we're measuring the distance
             const distance = measureDistance(destination, origin);
-            if (distance > document.distance) continue;
+            if (distance > docDistance) continue;
 
             const hasCollision =
                 canvas.ready &&
@@ -317,10 +318,10 @@ interface HighlightGridParams {
     document: Readonly<{
         x: number;
         y: number;
-        distance: number;
+        distance: number | null;
         angle?: number;
         direction?: number;
-        width: number;
+        width: number | null;
     }>;
     collisionType?: WallRestrictionType;
     preview?: boolean;
