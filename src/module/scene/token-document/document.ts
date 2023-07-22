@@ -399,7 +399,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         userId: string
     ): void {
         super._onCreate(data, options, userId);
-        if (this.actor?.isOfType("loot")) this.actor.toggleTokenHiding();
+        if (game.user.id === userId && this.actor?.isOfType("loot")) {
+            this.actor.toggleTokenHiding();
+        }
     }
 
     protected override _onUpdate(
