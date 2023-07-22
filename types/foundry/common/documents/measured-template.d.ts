@@ -34,7 +34,9 @@ export default class BaseMeasuredTemplate<TParent extends BaseScene | null> exte
 
 export default interface BaseMeasuredTemplate<TParent extends BaseScene | null>
     extends Document<TParent, MeasuredTemplateSchema>,
-        ModelPropsFromSchema<MeasuredTemplateSchema> {}
+        ModelPropsFromSchema<MeasuredTemplateSchema> {
+    readonly _source: SourceFromSchema<MeasuredTemplateSchema>;
+}
 
 interface MeasuredTemplateMetadata extends DocumentMetadata {
     name: "MeasuredTemplate";
