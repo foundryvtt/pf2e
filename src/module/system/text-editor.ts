@@ -453,8 +453,8 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.pf2Dc = checkDC;
 
             // When using fixed DCs/adjustments, parse and add them to render the real DC
-            const dc = params.dc === "" ? NaN : Number(params.dc);
             if (checkDC !== "@self.level") {
+                const dc = params.dc === "" ? NaN : Number(checkDC);
                 const displayedDC = !isNaN(dc) ? `${dc + Number(params.adjustment)}` : checkDC;
                 const text = anchor.innerText;
                 anchor
