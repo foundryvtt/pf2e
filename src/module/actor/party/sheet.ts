@@ -28,7 +28,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...options,
             classes: [...options.classes, "party"],
             width: 720,
-            height: 600,
+            height: 660,
             template: "systems/pf2e/templates/actors/party/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
@@ -100,12 +100,19 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 actor,
                 hasBulk: actor.inventory.bulk.encumberedAfter !== Infinity,
                 bestSkills: Object.values(actor.skills ?? {})
-                    .filter((s): s is Statistic => !!s?.proficient)
+                    .filter((s): s is Statistic => !!s?.proficient && !s.lore)
                     .sort(sortBy((s) => s.mod ?? 0))
                     .reverse()
                     .slice(0, 5)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 heroPoints: actor.isOfType("character") ? actor.system.resources.heroPoints : null,
+                speeds: [
+                    { label: "PF2E.Speed", value: actor.attributes.speed.value },
+                    ...actor.attributes.speed.otherSpeeds.map((s) => ({
+                        label: s.label,
+                        value: s.value,
+                    })),
+                ],
                 senses: (() => {
                     const rawSenses = actor.system.traits.senses ?? [];
                     if (!Array.isArray(rawSenses)) {
@@ -115,7 +122,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         }));
                     }
 
-                    // An actor sometimes has only darkvision (fetchling), or darkvision and low-light vision (elf aasimar).
+                    // An actor sometimes has darkvision *and* low-light vision (elf aasimar) instead of just darkvision (fetchling).
                     // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
                     // We remove low-light vision from the result if the actor has darkvision.
                     const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
@@ -413,6 +420,7 @@ interface MemberBreakdown {
     heroPoints: ValueAndMax | null;
     hasBulk: boolean;
     bestSkills: SkillData[];
+    speeds: { label: string; value: number }[];
     senses: { label: string | null; labelFull: string; acuity?: string }[];
 
     /** If true, the current user is restricted from seeing meta details */
