@@ -286,6 +286,13 @@ const weaponReload: Record<WeaponReloadTime, string> = {
     10: "PF2E.Item.Weapon.Reload.OneMinute",
 };
 
+function notifyDeprecatedPath(configPath: string, locPath: string): void {
+    foundry.utils.logCompatibilityWarning(
+        `CONFIG.PF2E.${configPath} is deprecated. Use localization path ${locPath} directly instead.`,
+        { since: "5.2.0", until: "6.0.0" }
+    );
+}
+
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false,
 
@@ -319,6 +326,24 @@ export const PF2ECONFIG = {
     },
 
     abilities,
+
+    attributes: {
+        get perception(): string {
+            const locPath = "PF2E.PerceptionLabel";
+            notifyDeprecatedPath("attributes.perception", locPath);
+            return locPath;
+        },
+        get stealth(): string {
+            const locPath = "PF2E.StealthLabel";
+            notifyDeprecatedPath("attributes.stealth", locPath);
+            return locPath;
+        },
+        get initiative(): string {
+            const locPath = "PF2E.InitiativeLabel";
+            notifyDeprecatedPath("attributes.initiative", locPath);
+            return locPath;
+        },
+    },
 
     dcAdjustments: {
         "incredibly-easy": "PF2E.DCAdjustmentIncrediblyEasy",
