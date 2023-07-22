@@ -1,3 +1,104 @@
+## 5.2.0
+
+### New Features
+
+-   (stwlam) Add Item Alteration rule element
+-   (stwlam) Add encumbrance automation (disabled by default)
+
+### System Improvements
+
+-   (Cerapter) Add pack's source package after its name in brackets on the Compendium Browser's Settings tab
+-   (In3luki) Fix source of error occasionally thrown while placing measured templates
+-   (stwlam) Add support for always-active toggles and predicated suboptions
+-   (stwlam) Add support for in-memory-only grants of condition items
+-   (stwlam) Add support for targeted inline checks against specified defenses
+-   (stwlam) Test aura coverage from small cluster of origin points in addition to center
+-   (stwlam) Allow labels for all effect badge types
+-   (stwlam) Add `xor` predication operator
+-   (stwlam) Show notification when roll options are toggled from macros
+-   (stwlam) Add option to reevaluate formula effect badges every turn
+-   (stwlam) Fall back to prototype token for determining name visibility of speaker
+-   (stwlam) Include "parent:" (i.e., the parent item of the rule element) roll options in flat modifier testing
+-   (Supe) Enable incapacitation trait for physical non-weapon items
+-   (Supe) Convert spell schools to traits
+
+### Bugfixes
+
+-   (Idle) Add isDestroyed check to the raiseAShield action
+-   (Dire Weasel) Add roll-option toggles to vehicle sheet
+-   (Dire Weasel) Allow Strike RE dice property to be resolvable
+-   (In3luki) Show adjusted modifier on strike MAP buttons
+-   (stwlam) Fix creation of battle-form strikes from strike data with no traits
+-   (stwlam) Fix default radius of hearing
+-   (stwlam) Fix token Z-cycling in Foundry 11.304+
+-   (stwlam) Only copy signature spells to spell ranks with max slots of at least 1
+-   (Supe) Restore DC adjustments to inline checks in NPC item descriptions
+-   (Supe) Acquire roll options and fix roll inspector for flat checks
+-   (Supe) Fix refresh of death overlay icon on setting change
+-   (Supe) Add scrollbar to familiar sheet
+
+### Data Updates
+
+-   (Abaddon) Normalize language of spell durations, ranges, and cast times
+-   (ArthurTrumpet) Fix duration of Unleash Psyche effect
+-   (Dire Weasel) Add aura effect for Mist Stalker's Mist Cloud
+-   (Dire Weasel) Add automation for Arrow of Death
+-   (Dire Weasel) Add automation for Bloody Barber Goon's Thunk 'n' Slice
+-   (Dire Weasel) Add automation for Enchanting Arrow
+-   (Dire Weasel) Add automation for Garrote Master Assassin and Starwatch Commando abilities
+-   (Dire Weasel) Add effects for Deadweight Mutagens, Disrupting Strikes, Evangelist's Impaling Chain, Infernal Wound, Lerritan's Tenacious Flames, Moon Frenzy, Precious Arrow
+-   (Dire Weasel) Add missing Wight Spawn ability to Drazmorg
+-   (Dire Weasel) Add note to Wereant Poisoner's Vitriolic Strikes
+-   (Dire Weasel) Add skills to some NPCs that were missing them
+-   (Dire Weasel) Add some automation for persistent damage recovery DCs
+    . Add toggle for Clunkerjunker's Fall Apart.
+-   (Dire Weasel) Add traits and fix bulk for Drazmorg's Staff
+-   (Dire Weasel) Add traits and fix runes and materials for Spellcutter
+-   (Dire Weasel) Allow City Scavenger's subsist bonus to apply to Society
+-   (Dire Weasel) Automate Construct Armor hardness breaking
+-   (Dire Weasel) Brush up Corrupted Priest rule elements
+-   (Dire Weasel) Brush up Spirit Touch rule elements and fix uses of :trait:undead
+-   (Dire Weasel) Build/Extract: Convert EphemeralEffect UUIDs between name and ID references
+-   (Dire Weasel) Continue to work around upstream error thrown when encounters are created
+-   (Dire Weasel) Correct Eldritch Archer Dedication level in journal
+-   (Dire Weasel) Decrease persistent fire damage recovery DC on Charhide Goblin
+-   (Dire Weasel) Fix missing damage types in some inline links
+-   (Dire Weasel) Fix name in description of Disrupting (Greater) and Fortification (Greater)
+-   (Dire Weasel) Fill some missing NPC hardness values
+-   (Dire Weasel) Fix UUID in Holy Castigation's EphemeralEffect
+-   (Dire Weasel) Group ActorTraits REs
+-   (Dire Weasel) Make some NPC onset times blind rolls
+-   (Dire Weasel) Refresh copies of Shocking Grasp, Fumbus' Charhide Goblin heritage, several NPC items
+-   (Dire Weasel) Update Ahmoza Twins's Channel Element to use suboptions
+-   (Dire Weasel) Update description formatting of Hunter's Dawn, Kortos Diamond, Piereta
+-   (Dire Weasel) Update Effect: Ichthyosis Mutagen for persistent bleed recovery
+-   (Dire Weasel) Update Effect: Impaling Chain to cascade delete Grabbed
+-   (Dire Weasel) Update Ghost Charges for Quinn and Zhang Yong
+-   (Dire Weasel) Update Marut's Fists of Thunder and Lightning to be always active
+-   (Dire Weasel) Update Sapling Shield rule elements
+-   (Dire Weasel) Update werecreature's Moon Frenzy
+-   (Drental) Fix description and traits of fearless sash
+-   (stwlam) Add Assisting armor property rune
+-   (stwlam) Add rule element to Strong Arm feat
+-   (stwlam) Add Spell Effect for Healer's Blessing
+-   (stwlam) Allow thrown weapons to configured for use as ammunition
+-   (stwlam) Collect note and degree-of-success adjustment synthetics for recovery checks
+-   (stwlam) Fix Ancestral Paragon choice set
+-   (stwlam) Increase persistent fire damage recovery DC on tar zombies
+-   (stwlam) Refresh the Amiris and the Seelahs
+-   (stwlam) Reimplement Shield Ally with item alterations
+-   (stwlam) Have Quicksilver mutagen reduce hit points and mark the loss as unrecoverable
+-   (Tikael) Add ChoiceSet to Terrain Stalker
+-   (Tikael) Add content from Sky King's Tomb Player's Guide
+-   (Tikael) Add localized names for each animal form
+-   (Tikael) Add missing action grant to Stalwart Defender
+-   (Tikael) Brushup Quasit automation
+-   (Tikael) Change Order of the Gate to a class feature
+-   (Tikael) Fix rarity of Bolas
+-   (Tikael, stwlam) Convert Oracle curses to badged effects
+-   (UristMcClaws) Add charge to Brightshade
+-   (UristMcClaws) Fix traits for Lethargy Poison
+
 ## 5.1.2
 
 ### Bugfixes
