@@ -1,3 +1,18 @@
+## 5.2.1
+
+### System Improvements
+
+-   (stwlam) Prevent players from opening sheets of unidentified world items
+
+### Bugfixes
+
+-   (stwlam) Restore object in `CONFIG.PF2E` depended upon by some modules
+-   (stwlam) Fix resolution of bracketed numeric values
+
+### Data Updates
+
+-   (Dire Weasel) Refresh copies of Telekinetic Projectile
+
 ## 5.2.0
 
 ### New Features
