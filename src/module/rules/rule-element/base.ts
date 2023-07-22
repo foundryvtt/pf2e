@@ -258,6 +258,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const resolvedFromBracket = this.isBracketedValue(value)
             ? this.#resolveBracketedValue(value, defaultValue)
             : value;
+        if (typeof resolvedFromBracket === "number") return resolvedFromBracket;
 
         if (resolvedFromBracket instanceof Object) {
             return defaultValue instanceof Object
