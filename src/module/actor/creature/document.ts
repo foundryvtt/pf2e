@@ -222,6 +222,8 @@ abstract class CreaturePF2e<
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.flags.pf2e.rollOptions.all["self:creature"] = true;
+
         const attributes = this.system.attributes;
         attributes.hardness ??= { value: 0 };
         attributes.flanking.canFlank = true;
