@@ -72,6 +72,47 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         };
     }
 
+    /** If the item is unidentified, prevent players from opening this sheet. */
+    override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
+        if (!this.item.isIdentified && !game.user.isGM) {
+            ui.notifications.warn(this.item.description);
+            return this;
+        }
+
+        return super.render(force, options);
+    }
+
+    protected prepareMaterials(valuationData: MaterialValuationData): PreparedMaterials {
+        const { material } = this.item;
+        const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
+        const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
+            const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
+            if (validGrades.length) {
+                result[materialKey] = {
+                    label: game.i18n.localize(preciousMaterials[materialKey]),
+                    grades: Object.fromEntries(
+                        validGrades.map((grade) => [
+                            grade,
+                            {
+                                ...materialData[grade],
+                                label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
+                            },
+                        ])
+                    ),
+                };
+            }
+
+            return result;
+        }, {} as MaterialSheetData["materials"]);
+
+        const value = material.precious ? `${material.precious.type}|${material.precious.grade}` : "";
+        return { value, materials };
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
@@ -141,33 +182,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 content: game.i18n.localize(hintHoverZone.title),
             });
         }
-    }
-
-    protected prepareMaterials(valuationData: MaterialValuationData): PreparedMaterials {
-        const { material } = this.item;
-        const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
-        const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
-            const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
-            if (validGrades.length) {
-                result[materialKey] = {
-                    label: game.i18n.localize(preciousMaterials[materialKey]),
-                    grades: Object.fromEntries(
-                        validGrades.map((grade) => [
-                            grade,
-                            {
-                                ...materialData[grade],
-                                label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
-                            },
-                        ])
-                    ),
-                };
-            }
-
-            return result;
-        }, {} as MaterialSheetData["materials"]);
-
-        const value = material.precious ? `${material.precious.type}|${material.precious.grade}` : "";
-        return { value, materials };
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
