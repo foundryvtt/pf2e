@@ -333,6 +333,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Scenario #4-13: Within the Prairies © 2023, Paizo Inc.; Authors: Marlowe Miller
 	* Pathfinder Society Scenario #4-14: Shattering Golden Chains © 2023, Paizo Inc.; Authors: Matt Duval
 	* Pathfinder Society Scenario #4-15: In Glorious Battle © 2023, Paizo Inc.; Authors: Luis Loza
+    * Pathfinder Society Scenario #4-99: Blessings of the Forest © 2023, Paizo Inc.; Authors: Ivis K. Flanagan and Dennis Muldoon.
+
+    * Pathfinder Society Scenario #5-01: Intro: Year of Unfettered Exploration © 2023, Paizo Inc.; Author: Sen H.H.S.
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
