@@ -12,6 +12,8 @@ import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
 import { resetActors } from "@actor/helpers.ts";
+import { RuleElementPF2e } from "@module/rules/index.ts";
+import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -56,6 +58,15 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         return true;
+    }
+
+    /** Only prepare rule elements for non-physical items (in case campaigin items exist) */
+    protected override prepareRuleElements(): RuleElementPF2e<RuleElementSchema>[] {
+        return this.items.contents
+            .filter((item) => !item.isOfType("physical"))
+            .flatMap((item) => item.prepareRuleElements())
+            .filter((rule) => !rule.ignored)
+            .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
     override prepareBaseData(): void {
