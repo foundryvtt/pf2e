@@ -80,7 +80,7 @@ import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts"
  */
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     /** Has this actor completed construction? */
-    private constructed = true;
+    constructed = true;
 
     /** Handles rolling initiative for the current actor */
     declare initiative: ActorInitiative | null;

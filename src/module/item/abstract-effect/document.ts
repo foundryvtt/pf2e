@@ -19,6 +19,11 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
+        const requiresCanvasReady = !!this.system.context?.origin.actor.startsWith("Scene");
+        if (!this.actor?.constructed || (requiresCanvasReady && !canvas.ready)) {
+            return null;
+        }
+
         const actorOrToken: unknown = this.system.context?.origin.actor
             ? fromUuidSync(this.system.context.origin.actor)
             : this.actor;
