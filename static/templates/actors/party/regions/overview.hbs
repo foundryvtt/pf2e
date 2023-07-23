@@ -39,17 +39,36 @@
         <section class="member" data-actor-uuid="{{member.actor.uuid}}">
             <div class="portrait">
                 <a data-action="open-sheet"><img src="{{member.actor.img}}" /></a>
-                <span class="ac">
-                    <div class="shield"></div>
-                    <label>{{localize "PF2E.ArmorClassShortLabel"}}</label>
-                    <span class="value">{{member.actor.attributes.ac.value}}</span>
-                </span>
+                <div class="health-bar">
+                    {{#with member.actor.attributes.hp as |hp|}}
+                        {{#if hp.temp}}
+                            <div class="temp bar" style="width: {{percentage hp.temp hp.max}}%;"></div>
+                        {{/if}}
+                        <div class="bar" style="width: {{percentage hp.value hp.max}}%;"></div>
+                        <span><i class="fas fa-heart"></i> {{hp.value}} / {{hp.max}}</span>
+                    {{/with}}
+                </div>
             </div>
             <div class="data">
                 <div class="name">
                     <a data-action="open-sheet">{{member.actor.name}}</a>
                     {{#if @root.user.isGM}}
                         <a data-action="remove-member"><i class="fa-solid fa-fw fa-times"></i></a>
+                    {{/if}}
+                    {{#if (eq member.actor.type "familiar")}}
+                        <span class="abc">{{localize "PF2E.Familiar.Familiar"}}</span>
+                        {{#if member.actor.master}}
+                            <span class="abc">{{member.actor.master.name}}</span>
+                        {{/if}}
+                    {{else if member.actor.system.details.creatureType}}
+                        <span class="abc">{{member.actor.system.details.creatureType}}</span>
+                    {{else}}
+                        {{#if member.actor.ancestry}}
+                            <span class="abc">{{member.actor.ancestry.name}}</span>
+                        {{/if}}
+                        {{#if member.actor.class}}
+                            <span class="abc">{{member.actor.class.name}}</span>
+                        {{/if}}
                     {{/if}}
                     {{#if member.heroPoints}}
                         <a class="hero-points" data-action="adjust-hero-points">
@@ -65,32 +84,28 @@
                 </div>
 
                 <div class="main-stats">
-                    <div class="score health-section">
-                        <label>{{localize "PF2E.HitPointsHeader"}}</label>
-                        <div class="health">
-                            <i class="fas fa-heart"></i>
-                            <span class="value">{{member.actor.attributes.hp.value}}</span>
-                            / <span class="max">{{member.actor.attributes.hp.max}}</span>
-                        </div>
-                    </div>
+                    <section class="ac score">
+                        <label>{{localize "PF2E.ArmorClassShortLabel"}}</label>
+                        <span class="value">{{member.actor.attributes.ac.value}}</span>
+                    </section>
                     {{#if member.actor.saves}}
-                        <div class="saving-throws">
+                        <section class="saving-throws">
                             <span class="score">
                                 <label>{{localize "PF2E.SavesFortitudeShort"}}</label>
-                                {{member.actor.saves.fortitude.mod}}
+                                {{numberFormat member.actor.saves.fortitude.mod sign=true}}
                             </span>
                             <span class="score">
                                 <label>{{localize "PF2E.SavesReflexShort"}}</label>
-                                {{member.actor.saves.reflex.mod}}
+                                {{numberFormat member.actor.saves.reflex.mod sign=true}}
                             </span>
                            <span class="score">
                                 <label>{{localize "PF2E.SavesWillShort"}}</label>
-                                {{member.actor.saves.will.mod}}
+                                {{numberFormat member.actor.saves.will.mod sign=true}}
                             </span>
-                        </div>
+                        </section>
                     {{/if}}
 
-                    <div class="score senses">
+                    <section class="score senses">
                         <label>{{localize "PF2E.Senses"}}</label>
                         <div class="value">
                             {{#each member.senses as |sense|}}
@@ -100,43 +115,7 @@
                                 <span class="blank">{{localize "PF2E.Actor.Party.NoSpecialSenses"}}</span>
                             {{/unless}}
                         </div>
-                    </div>
-
-                    {{!-- {{#if member.actor.abilities}}
-                        <div class="ability-scores">
-                            <div class="ability-score-grid">
-                                <span class="score">
-                                    <label>STR</label>
-                                    {{numberFormat member.actor.abilities.str.mod sign=true}}
-                                </span>
-                                <span class="score">
-                                    <label>DEX</label>
-                                    {{numberFormat member.actor.abilities.dex.mod sign=true}}
-                                </span>
-                                <span class="score">
-                                    <label>CON</label>
-                                    {{numberFormat member.actor.abilities.con.mod sign=true}}
-                                </span>
-                                <span class="score">
-                                    <label>INT</label>
-                                    {{numberFormat member.actor.abilities.int.mod sign=true}}
-                                </span>
-                                <span class="score">
-                                    <label>WIS</label>
-                                    {{numberFormat member.actor.abilities.wis.mod sign=true}}
-                                </span>
-                                <span class="score">
-                                    <label>CHA</label>
-                                    {{numberFormat member.actor.abilities.cha.mod sign=true}}
-                                </span>
-                            </div>
-                        </div>
-                    {{else if member.actor.master}}
-                        <div class="score master">
-                            <label>{{localize "PF2E.Familiar.Master"}}</label>
-                            <div>{{member.actor.master.name}}</div>
-                        </div>
-                    {{/if}} --}}
+                    </section>
                 </div>
 
                 <div class="skills">
