@@ -117,24 +117,24 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         super.activateListeners($html);
         const html = $html[0];
 
-        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
-            const $input = $(event.target);
-            const propertyPath = $input.attr("data-property") ?? "";
-            const value = $input.val();
-            if (value !== undefined && !Array.isArray(value)) {
-                $input.attr("data-value", value);
-            }
-            const baseValue = $input.attr("data-value-base") ?? String(getProperty(this.item._source, propertyPath));
-            $input.val(baseValue).attr({ name: propertyPath });
-        });
+        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-property]")) {
+            const propertyPath = input.dataset.property ?? "";
+            const baseValue =
+                input.dataset.valueBase ?? String(getProperty(this.item._source, propertyPath) ?? "").trim();
 
-        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
-            const $input = $(event.target);
-            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
-            const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = $input.attr("data-value") ?? String(getProperty(this.item, propertyPath));
-            $input.val(preparedValue);
-        });
+            input.addEventListener("focus", () => {
+                input.dataset.value = input.value;
+                input.value = baseValue;
+                input.name = propertyPath;
+            });
+
+            input.addEventListener("blur", () => {
+                input.removeAttribute("name");
+                if (input.value === baseValue) {
+                    input.value = input.dataset.value ?? "";
+                }
+            });
+        }
 
         $html.find("[data-action=activation-add]").on("click", (event) => {
             event.preventDefault();
