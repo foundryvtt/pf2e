@@ -1,0 +1,92 @@
+{
+    "_id": "StWWI7Wi0WRgRmxS",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Nocturnal Navigator",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You have a great affinity for the night skies. You watch the stars, and you feel they speak secret messages specifically to you, which help you navigate your surroundings or perhaps determine your next course of action. Often, the stars have led you to places of great adventure, where you find new experiences and challenges. You might have come to make use of your talents as a guide for traveling groups, or maybe you preferred using your talents in pursuing a star-driven journey for personal enlightenment.</p>\n<p>Choose two ability boosts. One must be to Dexterity or Wisdom, and one is a free ability boost.</p>\n<p>You're trained in Survival. Whenever you can clearly identify the stars, if you roll a success on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or otherwise orienteer, you get a critical success instead; if you roll a critical failure at such a check, you get a failure instead.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "action:sense-direction",
+                    "can-clearly-identify-the-stars"
+                ],
+                "selector": "survival",
+                "text": "Whenever you can clearly identify the stars, if you roll a critical failure on a check to Sense Direction or otherwise orienteer, you get a failure instead.",
+                "title": "{item|name}"
+            },
+            {
+                "domain": "survival",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.CanClearlyIdentifyTheStars",
+                "option": "can-clearly-identify-the-stars",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:sense-direction",
+                    "can-clearly-identify-the-stars"
+                ],
+                "selector": "survival",
+                "text": "Whenever you can clearly identify the stars, if you roll a success on a check to Sense Direction or otherwise orienteer, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-direction",
+                    "can-clearly-identify-the-stars"
+                ],
+                "selector": "survival",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Travel Guide"
+        },
+        "trainedLore": "",
+        "trainedSkills": {
+            "custom": "",
+            "value": [
+                "sur"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

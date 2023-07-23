@@ -1,0 +1,60 @@
+{
+    "_id": "UzIamWcEJTOjwfoA",
+    "img": "systems/pf2e/icons/features/feats/spin-tale.webp",
+    "name": "Effect: Spin Tale",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to attack rolls and saving throws against the villain until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "rounds",
+            "value": 10
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spin-tale"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spin-tale"
+                ],
+                "selector": "saving-throw",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Target is villain of Folklorist's Spun Tale",
+                "option": "spin-tale",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #170: Spoken on the Song Wind"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

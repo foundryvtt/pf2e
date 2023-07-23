@@ -1,0 +1,104 @@
+{
+    "_id": "geyq1PRVsbVAFuCx",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "guvVys0isH3iJ6Bj",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Repel",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature damages or tampers with a keystone</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature is moved back 10 feet by a wave of force. A successful @Check[type:fortitude|dc:42] save reduces the distance moved to 5 feet. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "force",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Keystone Repulsion",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 51
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four magic keystones repel creatures when one is damaged or tampered with.</p>",
+            "disable": "<p>@Check[type:thievery|dc:48] (legendary) to remove each keystone or @Check[type:occultism|dc:48] (legendary) to manipulate the magic to isolate each keystone</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The trap loses 1 action each turn for each removed or isolated keystone. Each keystone spends 1 action to release a wave of force, dealing [[/r (4d10+22)[force]]] damage in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:42|basic:true]) and pushing each creature back 5 feet. On a failed save, the distance a creature is pushed increases to 10 feet.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

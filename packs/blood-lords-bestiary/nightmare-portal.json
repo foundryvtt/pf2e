@@ -1,0 +1,113 @@
+{
+    "_id": "ku6gSDVfrxBKwAC3",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Z7lMB4d209mIsUU1",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dreadful Vision",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> At the start of a round after a creature who can dream and isn't immune to sleep effects enters the room, the portal starts to glow with purple mist. At this point, the portal triggers as soon as such a creature looks into it. A character who just passes by and doesn't specifically avert their gaze must attempt a @Check[type:flat|dc:11] to not accidently glance into the portal, while a character who Searches this room automatically looks into it unless they specify otherwise.</p>\n<p><strong>Effect</strong> The nightmare portal casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Calamity]</em> (heightened to 8th level, @Check[type:will|dc:37|traits:mental]), making reality appear to crumble away to reveal a vast cavern filled with bones through which immense wormlike creatures burrow as they endlessly eat away at the world. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Nightmare Portal",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 26,
+            "hp": {
+                "details": "",
+                "max": 104,
+                "temp": 0,
+                "value": 104
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Horrific visions of a lumbering monstrosity whose face is nothing but a fanged mouth lurch out of the violet mist to attempt to eat the viewer alive.</p>",
+            "disable": "<p>@Check[type:thievery|dc:42|name:Focus the Portal's Energy|traits:action:disable-a-device] (master) to focus the portal's energies back in on itself to close it off, or @Check[type:occultism|dc:36|name:Invoke the Proper Chant] (master) to invoke the proper chant and make the proper hand gestures to untether the portal from the Dreamlands, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (8th level; counteract DC 34) to counteract the portal for 1 minute and prevent Orgesh's influence from reaching through during that time</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>The nightmare portal resets 1 minute after it no longer detects targets.</p>",
+            "routine": "<p>(2 actions) A vision of an immense lumbering figure with nothing but a circular mouth for a face lurches out of the portal. For each action, the nightmare portal casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer]</em> (heightened to 8th level, @Check[type:will|dc:38|traits:death,emotion,fear,mental]), targeting a different creature both times. It can select targets in area <strong>E11</strong>, the secret alcove to the northeast, or up to 10 feet east from the door (although a closed door blocks it), choosing the closest two targets each round. The nightmare portal loses 1 action if it's broken and can thus only cast <em>phantasmal killer</em> once per round.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #184: The Ghouls Hunger"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

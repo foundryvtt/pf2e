@@ -1,0 +1,52 @@
+{
+    "_id": "iOY6YfGBaOvMNAor",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Underwater Marauder",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You've learned to fight underwater. You are not flat-footed while in water, and you don't take the usual penalties for using a bludgeoning or slashing melee weapon in water.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "aquatic-combat:not-flat-footed"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "selector": "melee-attack-roll",
+                "slug": "aquatic-combat",
+                "suppress": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

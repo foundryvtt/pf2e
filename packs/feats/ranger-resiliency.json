@@ -1,0 +1,53 @@
+{
+    "_id": "JKvP4pFHzwWsHu2n",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ranger Resiliency",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain 3 additional Hit Points for each ranger archetype class feat you have. As you continue selecting ranger archetype class feats, you continue to gain additional Hit Points in this way.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ranger Dedication"
+                },
+                {
+                    "value": "class granting no more Hit Points per level than 8 + your Constitution modifier"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.ranger-dedication-count",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "3 * @actor.system.custom.modifiers.ranger-dedication-count"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

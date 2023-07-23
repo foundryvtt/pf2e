@@ -1,0 +1,60 @@
+{
+    "_id": "HWLD3zGFBIjCDATo",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Planar Sidestep",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature hits you with a melee Strike.</p>\n<hr />\n<p>You shift your body briefly between planes, reducing the damage from your foe's attack. You gain resistance 25 to all damage against the triggering attack. Observers simply see you shimmer with elemental energy for a moment, just as the attack lands.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "planar-sidestep",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "planar-sidestep"
+                ],
+                "type": "all-damage",
+                "value": 25
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "arcane",
+                "concentrate",
+                "conjuration",
+                "ifrit",
+                "oread",
+                "suli",
+                "sylph",
+                "undine"
+            ]
+        }
+    },
+    "type": "feat"
+}

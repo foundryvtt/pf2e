@@ -1,0 +1,134 @@
+{
+    "_id": "TmMK56lcxYBbhXqt",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "gNVDHfQOf9L54Zfr",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Death Blossom",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The lid of the barrel is removed;</p>\n<p><strong>Effect</strong> Removing the lid breaks a thin lever that initiates a chain reaction. The hoops snap, and the barrel's staves fall open like the petals of a flower. Four explosive rats are catapulted out in all directions, and the hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rmNWwFegibu6Etqd",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Ignition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The spark plug creates a fire that rapidly burns the oil-covered creatures and objects surrounding the barrel, dealing [[/r (1d6+4)[fire]]] damage and [[/r 1d4[persistent,fire]]] damage (@Check[type:reflex|dc:18|basic:true] save).</p>\n<p>After catching fire, areas and creatures are no longer covered in oil.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pernicious Powder Keg",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "hardness": 8,
+            "hp": {
+                "details": "",
+                "max": 34,
+                "temp": 0,
+                "value": 34
+            },
+            "stealth": {
+                "details": "<p>(Trained)</p>",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A menacing clockwork contraption emerges from this impressively large and heavy-duty oaken barrel. A spring-loaded launcher mechanism catapults explosive-laden rats, and nozzles spray flammable oil before igniting it.</p>",
+            "disable": "<p>@Check[type:crafting|dc:18] or @Check[type:thievery|dc:18] check to jam the mechanism of one of the spray nozzles. Every success disables one of the three oil nozzles, reducing the hazards number of actions by 1. After all three of the oil nozzles are disabled, there is no longer any oil surrounding the barrel for the ignition mechanism to burn, so the hazard can't deal damage. The ignition mechanism can be disabled with another @Check[type:crafting|dc:18] or @Check[type:thievery|dc:18] check. Each attempt to disable the hazard requires 2 actions.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "",
+            "routine": "<p>Routine (4 actions) Three nozzles located around the device spew oil, which coats objects and floats on water. As the nozzles fluctuate in pressure, they cover everything nearby in oil, then ignite the oil with built-in spark lighters. The hazard's first action spreads oil out to 5 feet, the second action spreads it out to 10 feet, and the third spreads it out to 20 feet. Creatures in the area can attempt a @Check[type:reflex|dc:22] save to avoid being covered in oil. Once the oil has spread, the spark plug activates.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Bounty #20: Burden in Bloodcove"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

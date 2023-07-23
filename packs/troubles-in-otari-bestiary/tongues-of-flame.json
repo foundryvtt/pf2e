@@ -1,0 +1,111 @@
+{
+    "_id": "aqDFxmLMx6cOnGlx",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Fk4R8F6Vr2Lr7mZZ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Seal the Doors",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>If a creature enters the corridor intersection, the four doors exiting this intersection close and lock, and the trap rolls Stealth (+13) for its initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Tongues of Flame",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "to destroy a single nozzle; <strong>Door</strong> Hardness 6,  <strong>HP</strong>  22 (BT 11) to break open a door and escape the hallway",
+                "max": 50,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 13
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>Nozzles hidden in the ceiling of the four corridors leading to the intersection spray jets of flame along their lengths when the trap is triggered.</p>",
+            "disable": "<p>@Check[type:thievery|dc:22|traits:action:disable-a-device] to disable a single nozzle, @Check[type:thievery|dc:21|traits:action:pick-a-lock] twice to unlock a door, or @Check[type:thievery|dc:25|traits:action:disable-a-device] to deactivate the trap from the control panel. A hero who isn't trained in Thievery automatically fails these checks.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The trap deactivates and resets after 10 minutes. After the trap is activated for the fourth time, it runs out of fuel and must be reset manually.</p>",
+            "routine": "<p>(4 actions) The trap loses 1 action each turn for each disabled nozzle. On each action, a different nozzle fires a jet of flame down a different corridor, dealing [[/r 3d6[fire]]] damage to each creature in the first 10 feet of the corridor past the intersection (@Check[type:reflex|dc:22|basic:true]).</p>\n<p>A creature standing in the corridor intersection can be hit by only one flame jet per round even if they're in the area of multiple flame jets. The creature attempts only one saving throw per round, but it takes a -2 circumstance penalty to its saving throw.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Troubles in Otari"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

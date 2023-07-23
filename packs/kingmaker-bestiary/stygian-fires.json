@@ -1,0 +1,107 @@
+{
+    "_id": "I8pvGB7SiXQ6SnGn",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HYAfgOkdktmrrKGf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Stygian Fire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The doors to area <strong>E3</strong> are opened without someone making blood offerings and lighting the lanterns.</p>\n<hr />\n<p><strong>Effect</strong> Every creature in area <strong>E2</strong> must attempt a @Check[type:reflex|dc:32|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r (3d10+13)[cold]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature takes [[/r (6d10+27)[cold]]] damage and is stupefied 1.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (6d10+27)[cold]]] damage, takes [[/r 1d10[persistent,cold]]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "conjuration",
+                        "divine"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stygian Fires",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 25
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Freezing black fire bursts from the two quartz altars, filling the room with numbing black flames that scour away memories and emotions as swiftly as they sear flesh and bone.</p>",
+            "disable": "<p>@Check[type:thievery|dc:30] (master) to sever the links between the door and the lanterns, @Check[type:religion|dc:35] (master) to use prayer to deactivate the divine magic, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (6th level; counteract DC 30) to counteract the trap</p>",
+            "isComplex": false,
+            "level": {
+                "value": 12
+            },
+            "reset": "<p>The trap resets one minute after the doors to area <strong>E3</strong> are closed.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cold",
+                "conjuration",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

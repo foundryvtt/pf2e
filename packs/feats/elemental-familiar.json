@@ -1,0 +1,48 @@
+{
+    "_id": "KZJJ0WxcRd4RZKJR",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Elemental Familiar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your familiar becomes an elemental spirit capable of taking on aspects of the four elements: air, earth, fire, or water. Other than taking the form of an elemental instead of an animal, this familiar continues to use all the same rules as other familiars.</p>\n<p>Your familiar gains one additional familiar ability each day, which must be one of the following elemental familiar abilities. While your familiar has an elemental familiar ability, your familiar is composed of the associated elemental matter and gains the matching elemental trait. You can't select more than one elemental familiar ability at a time.</p>\n<ul>\n<li><strong>Air</strong> If your familiar stays completely still for 1 round, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] until it next takes an action. Any motion, even being moved or carried by another creature, ends this effect.</li>\n<li><strong>Earth</strong> Your familiar gains resistance to physical damage (except adamantine) equal to half your level.</li>\n<li><strong>Fire</strong> Your familiar sheds bright light in a 20-foot radius (and dim light for the next 20 feet) and emits warmth. Creatures that remain within a @Template[type:emanation|distance:15] don't take damage from severe environmental cold.</li>\n<li><strong>Water</strong> Your familiar can move through a gap at least 2 inches wide without @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze]{Squeezing} and can Squeeze through a gap at least 1 inch wide.</li>\n</ul>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Elementalist Dedication"
+                },
+                {
+                    "value": "Familiar"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.familiarAbilities.value",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

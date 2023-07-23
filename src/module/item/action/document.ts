@@ -1,10 +1,12 @@
-import { ItemPF2e } from "@item/base";
-import { ActionItemData, ActionItemSource } from "./data";
-import { UserPF2e } from "@module/user";
-import { ActionCost, Frequency } from "@item/data/base";
-import { ItemSummaryData } from "@item/data";
+import { ItemPF2e } from "@item/base.ts";
+import { ActionItemSource, ActionSystemData } from "./data.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { ActionCost, Frequency } from "@item/data/base.ts";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { getActionTypeLabel } from "@util";
+import { ActorPF2e } from "@actor";
 
-class ActionItemPF2e extends ItemPF2e {
+class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get actionCost(): ActionCost | null {
         const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;
@@ -29,21 +31,21 @@ class ActionItemPF2e extends ItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<ActionItemPF2e>,
+        this: ActionItemPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
-        const actionType = this.actionCost?.type ?? "passive";
-        const properties = [CONFIG.PF2E.actionTypes[actionType]];
+        const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);
+        const properties = [actionTypeLabel ?? []].flat();
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...systemData, properties, traits });
     }
 
     protected override async _preCreate(
         data: PreDocumentId<ActionItemSource>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // In case this was copied from an actor, clear any active frequency value
         if (!this.parent) {
             if (this._source.system.frequency) {
@@ -56,9 +58,9 @@ class ActionItemPF2e extends ItemPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         // Normalize action data
         if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
             const actionType = changed.system?.actionType?.value ?? this.system.actionType.value;
@@ -69,12 +71,13 @@ class ActionItemPF2e extends ItemPF2e {
             });
         }
 
-        await super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 
-interface ActionItemPF2e extends ItemPF2e {
-    readonly data: ActionItemData;
+interface ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: ActionItemSource;
+    system: ActionSystemData;
 }
 
 export { ActionItemPF2e };

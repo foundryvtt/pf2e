@@ -1,0 +1,73 @@
+{
+    "_id": "DutW12WMFPHBoLTH",
+    "img": "systems/pf2e/icons/features/classes/deity.webp",
+    "name": "Deity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>As a cleric, you are a mortal servitor of a deity you revere above all others. Information on deities can be found in the deities compendium, along with their alignments, areas of concern, and the benefits you get for being a cleric of that deity. Your alignment must be one allowed by your deity, as listed in their entry. Your deity grants you the trained proficiency rank in one skill and with the deity's favored weapon. If the favored weapon is uncommon, you also get access to that weapon.</p>\n<p>Your deity also adds spells to your spell list. You can prepare these just like you can any spell on the divine spell list, once you can prepare spells of their level as a cleric. Some of these spells aren't normally on the divine list, but they're divine spells if you prepare them this way.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:category:deity",
+                                "item:category:pantheon"
+                            ]
+                        }
+                    ],
+                    "itemType": "deity"
+                },
+                "flag": "deity",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+            },
+            {
+                "fist": true,
+                "key": "Strike",
+                "predicate": [
+                    "deity:primary:favored-weapon:fist"
+                ],
+                "priority": 99
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.favoredWeaponRank",
+                "predicate": [
+                    "class:cleric"
+                ],
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

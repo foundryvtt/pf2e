@@ -1,0 +1,67 @@
+{
+    "_id": "X3TtVdNhrydeQ3SX",
+    "img": "systems/pf2e/icons/features/classes/subtle-dampeners.webp",
+    "name": "Subtle Dampeners",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've designed your armor to help you blend in and dampen noise slightly. When you send your armor into overdrive, the dampeners increase their effect, improving your Stealth. When under the effects of Overdrive, you gain a +1 circumstance bonus to Stealth checks. If you're a master in Crafting, this increases to a +2 circumstance bonus.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}",
+                    "armor-innovation:subterfuge-suit",
+                    {
+                        "or": [
+                            "self:effect:overdrive-success",
+                            "self:effect:overdrive-critical-success"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "slug": "subtle-dampeners",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:cra:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "slug": "subtle-dampeners",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

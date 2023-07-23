@@ -77,9 +77,14 @@ declare global {
     /** An internal data structure for polygon edges */
     class PolygonEdge {
         A: PolygonVertex;
+
         B: PolygonVertex;
-        type: WallSenseType;
-        wall: Wall;
+
+        type: WallSenseType | undefined;
+
+        wall: Wall<WallDocument<Scene | null>> | undefined;
+
+        constructor(a: PolygonVertex, b: PolygonVertex, type?: WallSenseType, wall?: Wall<WallDocument<Scene | null>>);
 
         /** An internal flag used to record whether an Edge represents a canvas boundary. */
         protected _isBoundary: boolean;
@@ -92,6 +97,6 @@ declare global {
          * @param wall The Wall from which to construct an edge
          * @param type The type of polygon being constructed
          */
-        static fromWall(wall: Wall, type: string): PolygonEdge;
+        static fromWall(wall: Wall<WallDocument<Scene | null>>, type: string): PolygonEdge;
     }
 }

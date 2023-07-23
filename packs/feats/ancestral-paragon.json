@@ -1,0 +1,63 @@
+{
+    "_id": "m7KjpkAAh9PptJsY",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ancestral Paragon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>Whether through instinct, study, or magic, you feel a deeper connection to your ancestry. You gain a 1st-level ancestry feat.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:ancestry",
+                        {
+                            "or": [
+                                "item:trait:{actor|system.details.ancestry.trait}",
+                                "item:trait:{actor|system.details.ancestry.adopted}",
+                                "item:trait:{actor|system.details.ancestry.versatile}",
+                                "item:trait:{actor|system.details.heritage.trait}"
+                            ]
+                        },
+                        {
+                            "not": "item:trait:lineage"
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "ancestralParagon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.ancestralParagon}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,56 @@
+{
+    "_id": "6b8DiNx4c1zPZ7RP",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Edgewatch Detective Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in Society or Thievery; if you are already trained in both of these skills, you instead become trained in a skill of your choice. You can use Perception instead of Survival to Track, and you gain the @UUID[Compendium.pf2e.feats-srd.Item.Experienced Tracker] skill feat.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.5RH1CkZQHYpsOium]{Edgewatch Detective} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thi.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Tracker"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #157: Devil at the Dreaming Palace"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "selected": {
+                "archetype": "Archetype",
+                "dedication": "Dedication"
+            },
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

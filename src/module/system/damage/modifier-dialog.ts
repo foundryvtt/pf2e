@@ -1,4 +1,4 @@
-import { ModifierPF2e, MODIFIER_TYPES, DamageDicePF2e, applyStackingRules } from "@actor/modifiers";
+import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import {
     ErrorPF2e,
     htmlQuery,
@@ -9,17 +9,27 @@ import {
     sortStringRecord,
     tupleHasValue,
 } from "@util";
-import { DamageCategoryUnique, DamageDieSize, DamageRollContext, DamageType } from "./types";
-import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values";
+import { createDamageFormula } from "./formula.ts";
+import { DamageRoll } from "./roll.ts";
+import {
+    BaseDamageData,
+    DamageCategoryUnique,
+    DamageDieSize,
+    DamageFormulaData,
+    DamageRollContext,
+    DamageType,
+} from "./types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
  * @category Other
  */
 class DamageModifierDialog extends Application {
+    base: BaseDamageData[];
     /** The modifiers which are being edited. */
     modifiers: ModifierPF2e[];
-    /** The damage dice which are being edited. */
+    /** The damage dice that are being edited. */
     dice: DamageDicePF2e[];
     /** The base damage type of this damage roll */
     baseDamageType: DamageType;
@@ -35,9 +45,10 @@ class DamageModifierDialog extends Application {
     constructor(params: DamageDialogParams) {
         super();
 
-        this.modifiers = params.modifiers ?? [];
-        this.dice = params.dice ?? [];
-        this.baseDamageType = params.baseDamageType;
+        this.base = params.damage.base ?? [];
+        this.modifiers = params.damage.modifiers ?? [];
+        this.dice = params.damage.dice ?? [];
+        this.baseDamageType = params.damage.base.at(0)?.damageType ?? "untyped";
         this.context = params.context ?? {};
         this.isCritical = this.context.outcome === "criticalSuccess";
     }
@@ -135,7 +146,7 @@ class DamageModifierDialog extends Application {
             } satisfies ModifierData;
         });
 
-        const dice: DamageDiceData[] = this.dice.map((d) => ({
+        const dice: DialogDiceData[] = this.dice.map((d) => ({
             label: d.label,
             category: d.category,
             damageType: d.damageType,
@@ -152,6 +163,15 @@ class DamageModifierDialog extends Application {
         const hasVisibleModifiers = modifiers.filter((m) => m.show).length > 0;
         const hasVisibleDice = dice.filter((d) => d.show).length > 0;
 
+        const result = createDamageFormula({
+            base: this.base,
+            modifiers: this.modifiers,
+            dice: this.dice,
+            ignoredResistances: [],
+        });
+        const roll = new DamageRoll(result.formula);
+        const formulaTemplate = (await Promise.all(roll.instances.map((i) => i.render()))).join(" + ");
+
         return {
             appId: this.id,
             modifiers,
@@ -163,6 +183,7 @@ class DamageModifierDialog extends Application {
             damageSubtypes: sortStringRecord(pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode,
+            formula: formulaTemplate,
         };
     }
 
@@ -313,9 +334,7 @@ class DamageModifierDialog extends Application {
 }
 
 interface DamageDialogParams {
-    modifiers: ModifierPF2e[];
-    dice: DamageDicePF2e[];
-    baseDamageType: DamageType;
+    damage: DamageFormulaData;
     context: Partial<DamageRollContext>;
 }
 
@@ -332,7 +351,7 @@ interface BaseData {
     icon: string | null;
 }
 
-interface DamageDiceData extends BaseData {
+interface DialogDiceData extends BaseData {
     diceLabel: string;
 }
 
@@ -345,7 +364,7 @@ interface ModifierData extends BaseData {
 interface DamageDialogData {
     appId: string;
     modifiers: ModifierData[];
-    dice: DamageDiceData[];
+    dice: DialogDiceData[];
     isCritical: boolean;
     hasVisibleDice: boolean;
     hasVisibleModifiers: boolean;
@@ -353,6 +372,7 @@ interface DamageDialogData {
     damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
+    formula: string;
 }
 
 export { DamageModifierDialog };

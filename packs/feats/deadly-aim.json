@@ -1,0 +1,82 @@
+{
+    "_id": "enPAJ1oSDutts7ic",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Deadly Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You aim for your prey's weak spots, making your shot more challenging but dealing more damage if you hit.</p>\n<p>Make a ranged Strike against your hunted prey at a -2 penalty. You gain a +4 circumstance bonus to damage on that Strike. This bonus increases to +6 at 11th level and +8 at 15th level.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "weapon specialization"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Use Deadly Aim",
+                "option": "deadly-aim",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deadly-aim"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deadly-aim"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "start": 8,
+                            "value": 4
+                        },
+                        {
+                            "end": 14,
+                            "start": 11,
+                            "value": 6
+                        },
+                        {
+                            "start": 15,
+                            "value": 8
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "open",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,69 @@
+{
+    "_id": "xtRcWpprFBiXeCOB",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Triangulate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your spotter's quick signals help you make even difficult shots seem simple. As long as both you and your spotter can see the target of your attacks, you don't take a penalty for attacking within your weapon's second range increment. The penalty you take for firing into further range increments is -3 for the third range increment, with an additional -2 penalty for each additional increment beyond the third (-5 for the fourth range increment, -7 for the fifth, and -9 for the sixth).</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sniping Duo Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ToggleProperty.Triangulate",
+                "option": "triangulate",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": [
+                    "triangulate"
+                ]
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "triangulate"
+                ],
+                "selectors": [
+                    "ranged-attack-roll"
+                ],
+                "slug": "range-penalty",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "auditory",
+                "visual"
+            ]
+        }
+    },
+    "type": "feat"
+}

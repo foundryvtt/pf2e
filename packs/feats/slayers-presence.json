@@ -1,0 +1,58 @@
+{
+    "_id": "qo6oKL8mE32hSjSC",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Slayer's Presence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your very presence strikes fear into the undead. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Slayer's Identification] and succeed at your check, you can @UUID[Compendium.pf2e.feats-srd.Item.Frighten Undead] as a free action, targeting the creature you identified. Any time you get a critical success to Frighten Undead, if the target's level is lower than yours, the target is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Frighten Undead"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:demoralize",
+                    "target:mode:undead",
+                    {
+                        "gt": [
+                            "self:level",
+                            "target:level"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.UndeadSlayer.SlayersPresence.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

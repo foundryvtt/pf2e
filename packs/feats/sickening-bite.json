@@ -1,0 +1,60 @@
+{
+    "_id": "Aww98EQXcigRhY3v",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Sickening Bite",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your saliva causes severe nausea and mild fever in the living, weakening them so that you can more easily finish them off. When you critically hit a creature with your jaws, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. This is a disease effect.</p>\n<p>If you are satiated, you can end your satiation to make the target @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} on a regular hit instead.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghoul Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "jaws-damage",
+                "text": "PF2E.SpecificRule.Ghoul.SickeningBite.criticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "ghoul-satiated"
+                ],
+                "selector": "jaws-damage",
+                "text": "PF2E.SpecificRule.Ghoul.SickeningBite.success",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

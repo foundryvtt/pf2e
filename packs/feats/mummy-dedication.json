@@ -1,0 +1,112 @@
+{
+    "_id": "IUmN2WC55LxPNSBB",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Mummy Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Whether through natural processes or foul rituals, your body was mummified, and you've risen as an undead mummy. You gain the mummy and undead traits, as well as basic undead benefits.</p>\n<p>Many effects that harm the living are far less effective against your desiccated form. Unfortunately, your dried-out body is also highly flammable. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Toughness] feat, but also fire weakness equal to half your level. Your fist draws moisture from the living by touch, making it more damaging and deadly. The damage die for your fist increases to 1d6 instead of 1d4, and your fist loses the nonlethal trait.</p>\n<p>Finally, you become supernaturally bound to the dominant terrain in which you were created, either because you formed naturally from the weather of that terrain or because of the local ingredients and methods used in an intentional mummification process. Choose arctic, desert, mountain, or swamp. This choice can't be changed and may alter the effects of some of your feats.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.ZewC2i5YdZPsWO8X]{Mummy} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "you are dead and were mummified (by natural or ritualistic means)"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "add": [
+                    "mummy",
+                    "undead"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Toughness"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Basic Undead Benefits"
+            },
+            {
+                "baseType": "fist",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "range": null,
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Arctic",
+                        "value": "arctic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Desert",
+                        "value": "desert"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Mountain",
+                        "value": "mountain"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Swamp",
+                        "value": "swamp"
+                    }
+                ],
+                "flag": "terrain",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Mummy.Terrain.Prompt",
+                "rollOption": "mummy:bound-terrain"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "feat:sealed-poppet"
+                    }
+                ],
+                "type": "fire",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

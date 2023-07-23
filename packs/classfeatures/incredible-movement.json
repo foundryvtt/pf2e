@@ -1,0 +1,74 @@
+{
+    "_id": "Cq6NjvcKZOMySBVj",
+    "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
+    "name": "Incredible Movement",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You move like the wind. You gain a +10-foot status bonus to your Speed whenever you're not wearing armor. The bonus increases by 5 feet for every 4 levels you have beyond 3rd.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "incredible-movement",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 3,
+                            "value": 10
+                        },
+                        {
+                            "end": 10,
+                            "start": 7,
+                            "value": 15
+                        },
+                        {
+                            "end": 14,
+                            "start": 11,
+                            "value": 20
+                        },
+                        {
+                            "end": 18,
+                            "start": 15,
+                            "value": 25
+                        },
+                        {
+                            "start": 19,
+                            "value": 30
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

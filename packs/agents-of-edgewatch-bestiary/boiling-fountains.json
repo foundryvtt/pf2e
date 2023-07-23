@@ -1,0 +1,117 @@
+{
+    "_id": "3LLHyUz0Nabuw46L",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "IVbYmIS1u62AEFZm",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Scalding Spray",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Weight is placed on one of the squares marked with \"T\" on the map, triggering a pressure plate</p>\n<hr />\n<p><strong>Effect</strong> The fountains spray boiling water across their own squares and the 10-foot-by-20-foot area between them (marked with dotted lines), dealing [[/r (4d6+4)[fire]]] damage to any creatures in the area (@Check[type:reflex|dc:22|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "water"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Boiling Fountains",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained) to spot the pressure plates</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four pressure plates beneath the floorboards activate dragon-headed fountains on either side of the room, which spray boiling water across the area between them.</p>",
+            "disable": "<p>@Check[type:thievery|dc:21|name:Disable Pressure Plate|traits:action:disable-a-device] (trained) to disable each pressure plate, @Check[type:thievery|dc:16|name:Jam Fountain|traits:action:disable-a-device] to jam each fountain, or @Check[type:thievery|dc:18|name:Deflect Fountain's Spray|traits:action:disable-a-device] to deflect a fountain's spray</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>Once a pressure plate has been activated, it must be reset manually.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #157: Devil at the Dreaming Palace"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

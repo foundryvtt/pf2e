@@ -1,0 +1,51 @@
+{
+    "_id": "Crcz9cW0To2pkfSy",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Murderous Thorns",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your thorns are many, vicious, and sharp. If you have the Hidden Thorn feat, your thorn attack gains the deadly d6 trait. If you have the thorned rose heritage, you can use the @UUID[Compendium.pf2e.actionspf2e.Item.Wicked Thorns] reaction once every hour.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hidden Thorn or thorned rose"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:thorns"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "feat:hidden-thorn"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d6"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ghoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

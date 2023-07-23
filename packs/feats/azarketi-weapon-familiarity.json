@@ -1,0 +1,88 @@
+{
+    "_id": "WUMnFrehmFbj2PIm",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Azarketi Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are familiar with weapons that excel underwater. You are trained with @UUID[Compendium.pf2e.equipment-srd.Item.Crossbow]{Crossbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Hand Crossbow]{Hand Crossbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Longspear]{Longspears}, @UUID[Compendium.pf2e.equipment-srd.Item.Spear]{Spears}, and @UUID[Compendium.pf2e.equipment-srd.Item.Trident]{Tridents}.</p>\n<p>In addition, you gain access to all uncommon azarketi weapons. For the purpose of determining your proficiency, martial azarketi weapons are simple weapons and advanced azarketi weapons are martial weapons</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-crossbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-hand-crossbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longspear.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-spear.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-trident.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:azarketi",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedAzarketiWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-azarketi-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:azarketi",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialAzarketiWeapons",
+                "sameAs": "simple",
+                "slug": "martial-azarketi-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "azarketi"
+            ]
+        }
+    },
+    "type": "feat"
+}

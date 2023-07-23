@@ -1,5 +1,5 @@
-import { Rarity } from "@module/data";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
+import { Rarity } from "@module/data.ts";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 
 interface MaterialGradeData {
     level: number;
@@ -98,6 +98,15 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: {
             level: 17,
             price: 13500,
+            rarity: "rare",
+        },
+    },
+    "keep-stone": {
+        low: null,
+        standard: null,
+        high: {
+            level: 18,
+            price: 22500,
             rarity: "rare",
         },
     },
@@ -348,6 +357,15 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: {
             level: 18,
             price: 18000,
+            rarity: "rare",
+        },
+    },
+    "keep-stone": {
+        low: null,
+        standard: null,
+        high: {
+            level: 20,
+            price: 56000,
             rarity: "rare",
         },
     },

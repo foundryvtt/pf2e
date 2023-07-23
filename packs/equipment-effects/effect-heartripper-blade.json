@@ -1,0 +1,46 @@
+{
+    "_id": "r6hDgfVLod0AmU7J",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/gloom-blade.webp",
+    "name": "Effect: Heartripper Blade",
+    "system": {
+        "description": {
+            "value": "<p>Strikes with the <em>heartripper blade</em> inflict an additional [[/r 1d6[negative]]] damage to living creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "damageType": "negative",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mode:living"
+                ],
+                "selector": "heartripper-blade-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: Crown of the Kobold King"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

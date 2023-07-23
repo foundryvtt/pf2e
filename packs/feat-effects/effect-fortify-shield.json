@@ -1,0 +1,45 @@
+{
+    "_id": "ghZFZWUh5Z20vOlR",
+    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
+    "name": "Effect: Fortify Shield",
+    "system": {
+        "description": {
+            "value": "<p>Add your level to your shield's Hardness.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "self:shield:equipped"
+                ],
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

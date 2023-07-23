@@ -1,4 +1,4 @@
-import { DamageCategory, DamageType } from "./types";
+import { DamageCategory, DamageType } from "./types.ts";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
 const LIFE_ENERGY_DAMAGE_TYPES = ["positive", "negative"] as const;
@@ -51,13 +51,12 @@ const DAMAGE_TYPES = new Set([
 ] as const);
 
 /** Maps damage types to their damage category; these are the immutable base mappings used if there is no override. */
-const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<string, DamageCategory> = {
-    // The three default physical damage types.
+const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<DamageType, DamageCategory | null> = {
     bludgeoning: "physical",
     piercing: "physical",
     slashing: "physical",
+    bleed: "physical",
 
-    // The default energy types.
     acid: "energy",
     cold: "energy",
     electricity: "energy",
@@ -67,11 +66,14 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<string, DamageCategory> = {
     negative: "energy",
     force: "energy",
 
-    // The default alignment types.
     chaotic: "alignment",
     evil: "alignment",
     good: "alignment",
     lawful: "alignment",
+
+    mental: null,
+    poison: null,
+    untyped: null,
 } as const;
 
 const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
@@ -101,9 +103,9 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
     bludgeoning: "systems/pf2e/icons/equipment/weapons/bola.webp",
     slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",
-    fire: "systems/pf2e/icons/spells/flaming-sphere.webp",
-    acid: "systems/pf2e/icons/spells/blister.webp",
-    cold: "systems/pf2e/icons/spells/chilling-spray.webp",
+    fire: "icons/magic/fire/flame-burning-creature-skeleton.webp",
+    acid: "icons/magic/acid/dissolve-arm-flesh.webp",
+    cold: "icons/magic/water/ice-snowman.webp",
     electricity: "systems/pf2e/icons/spells/chain-lightning.webp",
     sonic: "systems/pf2e/icons/spells/cry-of-destruction.webp",
     force: "systems/pf2e/icons/spells/magic-missile.webp",
@@ -112,7 +114,7 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
     chaotic: "systems/pf2e/icons/spells/dinosaur-form.webp",
     good: "systems/pf2e/icons/damage/persistent/good.webp",
-    evil: "systems/pf2e/icons/spells/daemonic-pact.webp",
+    evil: "icons/magic/unholy/strike-body-explode-disintegrate.webp",
     positive: "systems/pf2e/icons/spells/moment-of-renewal.webp",
     negative: "systems/pf2e/icons/spells/grim-tendrils.webp",
 };

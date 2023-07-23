@@ -1,18 +1,16 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function avoidNotice(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "stealth");
+function avoidNotice(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "stealth";
+    const rollOptions = ["action:avoid-notice"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.AvoidNotice.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:avoid-notice"],
-        extraOptions: ["action:avoid-notice"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["exploration"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -20,5 +18,23 @@ export function avoidNotice(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: "PF2E.Actions.AvoidNotice.Description",
+    name: "PF2E.Actions.AvoidNotice.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.AvoidNotice.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.AvoidNotice.Notes.success" },
+    ],
+    rollOptions: ["action:avoid-notice"],
+    slug: "avoid-notice",
+    statistic: "stealth",
+    traits: ["exploration"],
+});
+
+export { avoidNotice as legacy, action };

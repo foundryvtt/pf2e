@@ -1,0 +1,45 @@
+{
+    "_id": "Nd7C7X9LYyp0TaET",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Animal Swiftness (Swim)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You move like an animal. Your Speed increases by 5 feet.</p>\n<p>In addition, you gain one of the following Speeds available to your inherent animal: climb, fly, or swim. You gain this Speed only while in your hybrid shape.</p>\n<p>The new movement is as fast as your standard Speed; for example, if you have a 30-foot Speed, you can gain a 30-foot climb Speed.</p>\n<p>If your inherent animal doesn't typically have a specific type of Speed, you can't gain it with this feat. If your inherent animal doesn't typically have a climb, fly, or swim Speed, your Speed increases by 10 feet instead.</p>\n<hr />\n<p><em>Note: This feat grants a swim speed as a permanent ability, rather than one which is only active in your hybrid form. Please ignore it when in your non-hybrid forms.</em></p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "value": 5
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": "@actor.attributes.speed.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "beastkin"
+            ]
+        }
+    },
+    "type": "feat"
+}

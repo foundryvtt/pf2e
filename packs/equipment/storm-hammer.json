@@ -1,0 +1,138 @@
+{
+    "_id": "EuTZxxwdVeN6Xg3A",
+    "img": "systems/pf2e/icons/equipment/weapons/warhammer.webp",
+    "name": "Storm Hammer",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "warhammer",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>Sparks of crackling electricity arc from this +1 magic warhammer, and the head thrums with distant thunder. Any hit with this hammer deals [[/r 1[electricity]]] damage. You can use a special action while holding the hammer to transform the sparks into lightning bolts.</p>\n<p><strong>Electrify</strong> <span class=\"pf2-icon\">A</span> (concentrate) Until the end of your turn, the hammer deals [[/r 1d6[electricity]]] damage instead of just 1. After you use this action, you can't use it again for 10 minutes.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "hammer",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 1
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 60
+            }
+        },
+        "propertyRune1": {
+            "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "electrify"
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Electrify",
+                "option": "electrify",
+                "toggleable": true
+            },
+            {
+                "damageType": "electricity",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "electrify"
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Beginner Box"
+        },
+        "specific": {
+            "material": null,
+            "runes": {
+                "potency": 1,
+                "striking": ""
+            },
+            "value": true
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "electricity",
+                "evocation",
+                "magical",
+                "shove"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "weapon"
+}

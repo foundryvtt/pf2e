@@ -1,0 +1,94 @@
+{
+    "_id": "1xDMyQ8IHuhDHSXy",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Conrasu Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have taken it upon yourself to learn the ways of combat to aid with your tasks, perhaps in a role as a corrector. You are trained with the @UUID[Compendium.pf2e.equipment-srd.Item.Composite Shortbow], @UUID[Compendium.pf2e.equipment-srd.Item.Glaive], @UUID[Compendium.pf2e.equipment-srd.Item.Longspear], @UUID[Compendium.pf2e.equipment-srd.Item.Longsword], @UUID[Compendium.pf2e.equipment-srd.Item.Shortbow], and @UUID[Compendium.pf2e.equipment-srd.Item.Spear]. You also gain access to all uncommon conrasu weapons(@UUID[Compendium.pf2e.equipment-srd.Item.Buugeng]). For the purpose of determining your proficiency, martial conrasu weapons are simple weapons and advanced conrasu weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-composite-shortbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-glaive.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longspear.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longsword.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-shortbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-spear.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:conrasu",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedConrasuWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-conrasu-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:conrasu",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialConrasuWeapons",
+                "sameAs": "simple",
+                "slug": "martial-conrasu-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conrasu"
+            ]
+        }
+    },
+    "type": "feat"
+}

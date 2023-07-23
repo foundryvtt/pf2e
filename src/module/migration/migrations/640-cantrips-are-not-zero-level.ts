@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data";
-import { ZeroToTen } from "@module/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ZeroToTen } from "@module/data.ts";
+import { MigrationBase } from "../base.ts";
 
 type LevelOld = { value?: ZeroToTen };
 

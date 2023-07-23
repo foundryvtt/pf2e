@@ -1,18 +1,15 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function forceOpen(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
+export function forceOpen(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "athletics";
+    const rollOptions = ["action:force-open"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.ForceOpen.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:force-open"],
-        extraOptions: ["action:force-open"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["attack"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -21,5 +18,8 @@ export function forceOpen(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.ForceOpen", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ForceOpen", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { Size, SIZES, ValueAndMax } from "@module/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { isPhysicalData } from "@item/data/helpers.ts";
+import { Size, SIZES, ValueAndMax } from "@module/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Flatten several physical-item properties, remove others no longer in use */
 export class Migration728FlattenPhysicalProperties extends MigrationBase {
@@ -101,7 +101,7 @@ type MaybeOldSystemSource = {
         carryType: string;
         invested?: boolean | null;
     };
-    hp: ValueAndMax & { brokenThreshold: number };
+    hp: ValueAndMax & { brokenThreshold?: number };
     quantity: number | { value: number };
     hardness: number | { value: number };
     stackGroup: string | null | { value: string | null };

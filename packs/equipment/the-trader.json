@@ -1,0 +1,70 @@
+{
+    "_id": "QuGCW9Q4n56VORV6",
+    "img": "systems/pf2e/icons/equipment/cursed-items/euryale-curse-card.webp",
+    "name": "The Trader",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "gm": "<p><strong>Epitome</strong> A strange merchant sets up shop in the village surrounding Harrowheart. The merchant's shop contains a wealth of peculiar shelves and cabinets and nooks and crannies, such that any Common item of up to 15th level can be found here for purchase at regular prices. Items bought here are real items, and can exist outside of Harrow Court. At the GM's discretion, Uncommon or Rare items might be found for purchase here as well. If the PCs allied with the Trader harrowkin, then he becomes this merchant instead, and can offer trade through his shop or his Check the Stock ability</p>",
+            "value": "<p><strong>Suit</strong> Books (Int)</p>\n<p><strong>Alignment</strong> neutral</p>\n<hr />\n<p><em>The Trader</em> represents trades and exchanges of information. As long as you have <em>The Trader</em> invested, you gain a +2 item bonus to Diplomacy checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information]. This increases to a +3 item bonus if you are at least 17th level.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The Trader allows you to make an exchange with yourself. Press the card to your brow, and then select two skills. Your proficiency rank with those two skills swaps for 1 hour. For example, if you were a master in Athletics and untrained in Crafting, you would become untrained in Athletics and a master in Crafting. If making this swap would break prerequisites to feats, you lose access to those feats until your skill proficiencies change back in an hour.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {}
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:gather-information"
+                ],
+                "selector": "diplomacy",
+                "type": "item",
+                "value": "ternary(gte(@actor.level,17),3,2)"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "artifact",
+                "divination",
+                "harrow-court",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "carried"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

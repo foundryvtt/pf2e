@@ -1,6 +1,7 @@
-import { DamageCategoryUnique, DamageType, DAMAGE_TYPES } from "@system/damage";
+import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPES } from "@system/damage/values.ts";
 import { pick } from "@util";
-import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits";
+import { alignmentTraits, energyDamageTypes, preciousMaterials } from "./traits.ts";
 
 const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     persistent: "PF2E.ConditionTypePersistentShort",
@@ -12,9 +13,12 @@ const materialDamageEffects = pick(preciousMaterials, [
     "abysium",
     "adamantine",
     "cold-iron",
+    "darkwood",
     "djezet",
+    "keep-stone",
     "mithral",
     "noqual",
+    "orichalcum",
     "peachwood",
     "silver",
     "sisterstone-dusk",

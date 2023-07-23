@@ -1,0 +1,105 @@
+{
+    "_id": "n0Gq9VPAOReN4IJB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "5flQveIApZpVwbdw",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Shock",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of one of the time rifts</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature takes [[/r 1d6[electricity]]] damage (@Check[type:reflex|dc:20|basic:true] save). The overloading arch rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Overloading Arch (1-2)",
+    "prototypeToken": {
+        "name": "Overloading Arch"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The <em>Eternity Arch</em> sparks with electricity, releasing bolts of lightning at each of the four largest time rifts.</p>",
+            "disable": "<p>@Check[type:thievery|dc:20] (trained) or @Check[type:arcana|dc:18], @Check[type:nature|dc:18], @Check[type:occultism|dc:18], or @Check[type:religion|dc:18] (trained) to seal each of the four time rifts, @Check[type:crafting|dc:20] (trained) to divert the lightning to another source, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st level; counteract DC 17) to counteract each time rift. Each attempt requires 2 actions. Skill checks to disable a time rift must attempted from adjacent to the rift.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The trap loses 1 action each turn for each disabled time rift. On each of the trap's actions, the <em>Eternity Arch</em> releases a bolt of lightning that activates that rift, dealing [[/r 2d6[electricity]]] damage to all creatures in a @Template[type:emanation|distance:10] around the time rift (@Check[type:reflex|dc:20|basic:true] save). It can release a bolt at each active time rift no more than once each turn.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Special #3-99: Fate in the Future"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "electricity",
+                "evocation",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

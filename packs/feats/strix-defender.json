@@ -1,0 +1,72 @@
+{
+    "_id": "L7fhh2RTCq4FlVSN",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Strix Defender",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your ancestral feud with humans gives you experience dealing with vicious foes, and your vengeance knows no bounds. You gain a +1 circumstance bonus to Intimidation, Perception, and Survival checks against humans, as well as on damage rolls against humans with weapons and unarmed attacks. However, your hatred of humans is immediately obvious, giving you a -2 circumstance penalty to Diplomacy checks against them and usually starting their attitude one step worse towards you.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:human"
+                ],
+                "selector": [
+                    "intimidation",
+                    "perception",
+                    "survival"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:human"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:human",
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "selector": "damage",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "strix"
+            ]
+        }
+    },
+    "type": "feat"
+}

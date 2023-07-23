@@ -1,0 +1,42 @@
+{
+    "_id": "g8JS6wsw5sRWOJLg",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/day-goggles.webp",
+    "name": "Effect: Stalk Goggles",
+    "system": {
+        "description": {
+            "value": "<p>You gain all-around vision and can't be flanked.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

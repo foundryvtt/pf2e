@@ -1,0 +1,64 @@
+{
+    "_id": "ICLUKJc9P0LgwVyt",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Brightsoul",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The fire inside you asserts itself as beaming, radiant light. Your body is naturally luminescent, glowing with the effects of a primal <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em> cantrip. A cantrip is heightened to a spell level equal to half your level rounded up. The light is involuntary and constant; if counteracted, it returns in [[/br 1d4 #rounds]]{1d4 rounds}. You suffer a -2 circumstance penalty on Stealth checks to Hide or Sneak and gain a +1 circumstance bonus on saves against light effects and effects that inflict the @UUID[Compendium.pf2e.conditionitems.Item.Blinded] or @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] conditions.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "light"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ifrit",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

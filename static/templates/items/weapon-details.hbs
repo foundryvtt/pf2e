@@ -10,21 +10,14 @@
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
-    {{#if isComboWeapon}}
-        <select disabled="disabled">
-            <option value="firearm">{{localize "PF2E.WeaponGroupFirearm"}}</option>
-        </select>
-        <input type="hidden" name="system.group" value="firearm" />
-    {{else}}
-        <select name="system.group">
-            {{#select data.group}}
-                <option value=""></option>
-                {{#each groups as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    {{/if}}
+    <select name="system.group">
+        {{#select data.group}}
+            <option value=""></option>
+            {{#each groups as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.WeaponBaseLabel"}}</label>
@@ -45,7 +38,7 @@
         {{/if}}
     </label>
     <select name="system.range" data-dtype="Number" {{disabled mandatoryMelee}}>
-        {{#select data.range}}
+        {{#select item._source.system.range}}
             {{#unless mandatoryRanged}}<option value="">{{localize "PF2E.Item.Weapon.NoRangeMelee"}}</option>{{/unless}}
             {{#each weaponRanges as |label range|}}
                 <option value="{{range}}">{{localize label range=range}}</option>
@@ -372,11 +365,10 @@
         </div>
     </ol>
 {{/if}}
-
 <div class="form-group-stacked">
     <label>
         {{localize "PF2E.Item.Physical.OtherTags.Label"}}
-        <i class="fas fa-info-circle other-tags-hint" title="PF2E.Item.Physical.OtherTags.Hint"></i>
+        <i class="fa-solid fa-info-circle" data-action="hint-tooltip" title="PF2E.Item.Physical.OtherTags.Hint"></i>
         {{#if editable}}
             <a class="tag-selector" data-tag-selector="basic" data-config-types="otherWeaponTags" data-title="PF2E.Item.Physical.OtherTags.Label" data-property="system.traits.otherTags"><i class="fas fa-edit"></i></a>
         {{/if}}
@@ -387,3 +379,12 @@
         {{/each}}
     </ul>
 </div>
+{{#if item.isThrowable}}
+    <div class="form-group">
+        <label>
+            {{localize "PF2E.Item.Weapon.CanBeAmmo.Label"}}
+            <i class="fa-solid fa-info-circle" data-action="hint-tooltip" data-tooltip-width="300" title="PF2E.Item.Weapon.CanBeAmmo.Hint"></i>
+        </label>
+        <input type="checkbox" name="system.usage.canBeAmmo" {{checked item.system.usage.canBeAmmo}} />
+    </div>
+{{/if}}

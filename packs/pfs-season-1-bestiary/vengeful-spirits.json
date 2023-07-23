@@ -1,0 +1,218 @@
+{
+    "_id": "wPe1IWcxMinHkuJE",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vsdmqjwdh5ma0fxw",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Visions of Death",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Three or more creatures enter the haunt's area</p>\n<hr />\n<p><strong>Effect</strong> Spectral faces appear, and the haunt rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MeZlR6Fp42Inlzgt",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fiZOY3tZvIhEf7k8",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Debris",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "3vctvrl3fys3wax5twig": {
+                        "damage": "1d10+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Vengeful Spirits",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "negative healing",
+                "max": 52,
+                "temp": 0,
+                "value": 52
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "physical"
+                },
+                {
+                    "type": "sonic"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>A cadre of evil spirits assails people's minds throughout the stretch of forest. The spirits first afflict their hosts with visceral images of their own deaths, then try to recreate their deaths by forcing their hosts to inflict similar wounds upon themselves. Creatures frightened by the haunt appear to have ephemeral masks with horns, tusks, and yellow eyes over their faces.</p>",
+            "disable": "<p>Two @Check[type:occultism|dc:26|name:Exorcise the Haunt|traits:hazard,haunt,complex] or @Check[type:religion|dc:26|name:Exorcise the Haunt|traits:hazard,haunt,complex] (trained) to exorcise the spirits. A creature can either inflict 4 mental damage to the haunt or permanently lower the DC of checks to exorcise the spirits 1 by succeeding at a @Check[type:diplomacy|dc:22|name:Calm the Spirits|traits:hazard,haunt,complex] check to calm the spirits, a @Check[type:nature|dc:22|name:Ward Against the Spirits|traits:hazard,haunt,complex] check to use kami-specific warding incantations, a @Check[type:occultism|dc:20|name:Leverage Haunt Lore|traits:hazard,haunt,complex] check to leverage obscure haunt lore, or a @Check[type:religion|dc:22|name:Lesser Exorcism to Weaken the Haunt|traits:hazard,haunt,complex] check to use a lesser exorcism. Any creature currently frightened by the haunt is a potential target for inflicting damage to the haunt; mental and positive damage only affect such a host creature if they choose to be affected, while force or similar damage harms both the haunt and the host equally.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) On its initiative, the haunt uses its first two actions to attempt to terrify a random target in its area that is not already @UUID[Compendium.pf2e.conditionitems.Item.Frightened]. The target must attempt a @Check[type:will|dc:22|name:Resist Terror|traits:emotion,fear,mental,hazard,haunt] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to this haunt for 24 hours.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is frightened 1. The value of the frightened condition does not automatically decrease by 1 at the end of each of the target's turns. Instead, the target can attempt a @Check[type:will|dc:18|name:Reduce Frightened|traits:emotion,fear,mental,hazard,haunt] save at the end of each of their turns to lower their frightened value by 1.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. The value of the frightened condition does not automatically decrease by 1 at the end of each of the target's turns. Instead, the target can attempt a @Check[type:will|dc:18|name:Reduce Frightened|traits:emotion,fear,mental,hazard,haunt] save at the end of each of their turns to lower their frightened value by 1.</p>\n<hr />\n<p>The haunt then spends an action to compels one of the creatures that it has frightened to harm itself with surrounding forest debris, its strength fueled by spirit possession. The creature must succeed at a @Check[type:will|dc:22|name:Resist Attacking Yourself|traits:emotion,fear,mental,hazard,haunt] save or attempt to Strike itself during its turn as its first action, using the haunt's statistics below. Note that frightened applies equally to the creature's attack roll and AC, and therefore does not affect the accuracy of the attack.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #1-06: Lost on the Spirit Road"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

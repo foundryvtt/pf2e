@@ -1,0 +1,280 @@
+{
+    "_id": "Rn1aE4uvq30iiH0Y",
+    "img": "systems/pf2e/icons/spells/shrink.webp",
+    "name": "Effect: Regression",
+    "system": {
+        "description": {
+            "value": "<p>The creature shrinks one size and all of the target's proficiencies of expert and better are reduced to trained.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 11
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": -1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.acr.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:acr:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.arc.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:arc:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.ath.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:ath:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.cra.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:cra:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.dec.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:dec:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.dip.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:dip:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.itm.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:itm:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.med.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:med:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.nat.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:nat:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.occ.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:occ:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.prf.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:prf:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.rel.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:rel:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.soc.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:soc:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.ste.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:ste:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.sur.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:sur:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.thi.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:thi:rank",
+                            1
+                        ]
+                    }
+                ],
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

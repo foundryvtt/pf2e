@@ -1,0 +1,64 @@
+{
+    "_id": "5Wxjghw7lHuCxjZz",
+    "img": "systems/pf2e/icons/features/classes/nymph.webp",
+    "name": "Bloodline: Nymph",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>One of your ancestors was inspired by a nymph, or perhaps was a nymph themself, and now the beauty of nature lives in you.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Nature</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Tanglefoot]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Charm]</em>; 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm Emotions]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Vision]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Vital Beacon]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Crushing Despair]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Repulsion]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unfettered Pack]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Moment of Renewal]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Overwhelming Presence]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Nymph's Token]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Blinding Beauty]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Establish Ward]</em></p>\n<p><strong>Blood Magic</strong> Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic (Self)], @UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic (Target)]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "primal"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

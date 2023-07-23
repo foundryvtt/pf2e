@@ -1,0 +1,118 @@
+{
+    "_id": "PooDdJo4wmkBvETW",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "rxzKPSkZ4m2BBbQJ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Frigid Floor",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Hao Jin signals the beginning of the match.</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Freezing Floor Tiles",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 36
+            },
+            "hardness": 20,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
+            "stealth": {
+                "details": "<p>+23 (expert) or @Check[type:perception|dc:38|traits:action:seek] (master) to notice the four sensors</p>",
+                "value": 23
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four remote sensors at each corner of the arena cause bursts of freezing magic to erupt from random tiles on the arena and stop creatures in their tracks.</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Disable One Sensor|traits:action:disable-a-device] (legendary) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (6th level; counteract DC 38) to disable one of the sensors</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The trap loses 1 action per disabled sensor. On each action, the trap causes a random 10-foot-by-10-foot space in the arena to suddenly freeze. Each creature that begins its turn in a frozen space takes [[/r (2d6+2)[cold]]] damage (@Check[type:reflex|dc:40|basic:true] save). A creature that critically fails its save also becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round; if it was already slowed, the creature instead becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round. Any amount of fire damage dealt to a slowed or immobilized creature removes the condition. Frozen tiles become unfrozen at the beginning of the trap's next turn.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #167: Ready? Fight!"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cold",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

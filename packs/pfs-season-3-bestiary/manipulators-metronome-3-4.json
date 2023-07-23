@@ -1,0 +1,115 @@
+{
+    "_id": "PcKhzFKtzNvtBfdI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "8yf2azDgIFK4OjDT",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Enchanting Beat",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature starts the metronome</p>\n<hr />\n<p><strong>Effect</strong> During the next 10 minutes, any creature who approaches within 30 feet of the metronome, other than the one who activated it, must attempt a @Check[type:will|dc:18|traits:magical,trap] save, with the following effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the metronome and acts normally.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for as long as it can hear the metronome and remains within 30 feet of it.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and is fascinated for as long as it can hear the metronome and remains within 30 feet of it. While fascinated in this way, the creature can't willingly move more than 30 feet away from the metronome until it stops ticking. The creature is then @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] for 1 hour.</p>\n<p><strong>Critical Failure</strong> The creature is slowed 1 and is fascinated for as long as it can hear the metronome and remains within 30 feet of it. While fascinated in this way, the creature can't willingly move more than 30 feet away from the metronome until it stops ticking. The creature is then fatigued for 2 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Manipulator's Metronome (3-4)",
+    "prototypeToken": {
+        "name": "Manipulator's Metronome (1-2)"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "hardness": 7,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": -5
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The hypnotic ticking of this metronome captures the attention of all who approach it.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18|name:Interfere with the Metronome's Mechanisms|traits:magical,trap] or @Check[type:crafting|dc:18|name:Interfere with the Metronome's Mechanisms|traits:magical,trap] to interfere with the metronome's mechanisms, @Check[type:athletics|dc:22|name:Prevent the Hand from Moving|traits:magical,trap] to grip the hand and prevent it from moving, or @Check[type:arcana|dc:22|name:Interpret the Magic Runes|traits:magical,trap] or @Check[type:occultism|dc:22|name:Interpret the Magic Runes|traits:magical,trap] to interpret the magic runes on the metronome and counteract its effects. Three successful checks are required to fully disable the metronome, ending its ticking.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-05: Inheritor's Rite"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

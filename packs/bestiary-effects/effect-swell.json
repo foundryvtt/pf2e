@@ -1,0 +1,55 @@
+{
+    "_id": "JlaO7fgm53Om1DxB",
+    "img": "systems/pf2e/icons/spells/grisly-growths.webp",
+    "name": "Effect: Swell",
+    "system": {
+        "description": {
+            "value": "<p>The creature grows to Huge size, and its reach increases to 15 feet. It also gains 12 temporary Hit Points, resistance 5 to bludgeoning, and a +2 status bonus to damage rolls</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "value": "huge"
+            },
+            {
+                "key": "TempHP",
+                "value": 12
+            },
+            {
+                "key": "Resistance",
+                "type": "bludgeoning",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Monsters of Myth"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

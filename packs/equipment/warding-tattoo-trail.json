@@ -1,0 +1,101 @@
+{
+    "_id": "XFJD6eOX6H9sLcbC",
+    "img": "systems/pf2e/icons/equipment/tattoos/warding-tattoo.webp",
+    "name": "Warding Tattoo (Trail)",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>Many cultures of Golarion have a tattoo to turn away harm; as such, warding tattoos often resemble whichever dangers are most common to the culture, such as a wild beast or a whirlpool in the high seas of the Shackles.</p>\n<p>You gain resistance 2 to damage from hazardous terrain and environmental hazards at all times.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> An enemy, hazard, or the environment makes an attack against your AC, requires you to attempt a saving throw, or causes you to take damage automatically</p>\n<hr />\n<p><strong>Effect</strong> Until the end of the current turn, against the triggering effect, you gain a +1 status bonus to AC and saving throws and gain resistance 2 to damage. Your resistance to damage from hazardous terrain and environmental hazards becomes resistance 5.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 250
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "trailwarding-tattoo",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "trailwarding-tattoo"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "trailwarding-tattoo"
+                ],
+                "type": "all-damage",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "trailwarding-tattoo",
+                    {
+                        "or": [
+                            "origin:trait:environmental",
+                            "origin:trait:terrain"
+                        ]
+                    }
+                ],
+                "type": "all-damage",
+                "value": 5
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "abjuration",
+                "invested",
+                "magical",
+                "tattoo"
+            ]
+        },
+        "usage": {
+            "value": "tattooed-on-the-body"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

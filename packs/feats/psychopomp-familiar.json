@@ -1,0 +1,55 @@
+{
+    "_id": "GkPbsX5RZWyI0qFj",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Psychopomp Familiar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your familiar becomes a masked psychopomp-an extraplanar guardian of the cycle of souls. This familiar continues to use all the same rules as other familiars, but one of its abilities must always be speech and it has the monitor and psychopomp traits. As normal when a familiar must always have a certain ability, the speech ability counts against your familiar's abilities each day.</p>\n<p>You can select three familiar or master abilities each day, instead of two, but one must be one of the following psychopomp familiar abilities.</p>\n<ul>\n<li><strong>@UUID[Compendium.pf2e.familiar-abilities.Item.Soul Sight]</strong> Your familiar gains lifesense with a range of 30 feet.</li>\n<li><strong>@UUID[Compendium.pf2e.familiar-abilities.Item.Spirit Touch]</strong> Your familiar can touch incorporeal creatures. If you have the spell delivery master ability from your familiar, any spell the familiar delivers with it gains the benefits of the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune.</li>\n</ul>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soul Warden Dedication"
+                },
+                {
+                    "value": "familiar"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.soulWarden.featCount",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.familiarAbilities.value",
+                "priority": 9,
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

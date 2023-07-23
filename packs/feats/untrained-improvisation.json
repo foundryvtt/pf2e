@@ -1,0 +1,52 @@
+{
+    "_id": "9jGaBxLUtevZYcZO",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Untrained Improvisation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to half your level instead of +0. If you're 7th level or higher, the bonus increases to your full level instead. This doesn't allow you to use the skill's trained actions.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "skill-check",
+                "type": "proficiency",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": "floor(@actor.level / 2)"
+                        },
+                        {
+                            "start": 7,
+                            "value": "@actor.level"
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general"
+            ]
+        }
+    },
+    "type": "feat"
+}

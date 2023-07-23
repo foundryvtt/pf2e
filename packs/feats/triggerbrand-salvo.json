@@ -1,0 +1,53 @@
+{
+    "_id": "SD3RlgQMVL6aWjtW",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Triggerbrand Salvo",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Prerequisites</strong> way of the triggerbrand</p>\n<p><strong>Requirements</strong> You're wielding a combination weapon.</p>\n<hr />\n<p>You slice, stab, or batter your opponent with the melee portion of your combination weapon before pulling the trigger at point-blank range. Make a melee Strike with your combination weapon. If the Strike is successful, you can immediately make a ranged Strike against the same target with that combination weapon, and you get a +2 circumstance bonus to the attack roll. This counts as two attacks toward your multiple attack penalty, but you don't apply the multiple attack penalty until after making both attacks.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "triggerbrand-salvo",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "triggerbrand-salvo",
+                    "item:trait:combination",
+                    "item:ranged"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "flourish",
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

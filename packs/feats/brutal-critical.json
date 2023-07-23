@@ -1,0 +1,54 @@
+{
+    "_id": "oNHmfpe8ezZ3eKDD",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Brutal Critical",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your critical hits are particularly devastating. On a critical hit with a melee Strike, add one extra damage die. This is in addition to any extra dice you gain if the weapon is deadly or fatal. The target also takes persistent bleed damage equal to two damage dice.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "critical": true,
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "melee"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "key": "DamageDice",
+                "predicate": [
+                    "melee"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

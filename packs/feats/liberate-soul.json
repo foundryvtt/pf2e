@@ -1,0 +1,52 @@
+{
+    "_id": "8rKzUpDxAi8tMk7I",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Liberate Soul",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> Your spiral is glowing.</p>\n<hr />\n<p>The light flows from your sigil of Pharasma to shatter the bonds imprisoning a soul. You attempt to counteract a possession effect, or an effect, object, or spell that is imprisoning a soul (such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Soul]</em>, a <em>soul gem</em>, or a devourer's devoured souls).</p>\n<p>You must be within 60 feet of the possessed creature or object, or of the receptacle imprisoning the soul. Your counteract level is half your level rounded up, and your counteract modifier is your divine spell DC -10. If the attempt fails, you can't use Liberate Soul against that particular effect again unless circumstances have changed drastically, as determined by the GM.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soul Warden Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.soulWarden.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate",
+                "divine",
+                "necromancy"
+            ]
+        }
+    },
+    "type": "feat"
+}

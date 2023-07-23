@@ -1,6 +1,6 @@
 import { VehiclePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
-import { TokenDocumentPF2e } from ".";
+import { TokenDocumentPF2e } from "./index.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     override get template(): string {
@@ -161,7 +161,7 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
         return super._getSubmitData(changes);
     }
 
-    protected override async _updateObject(event: Event, formData: Record<string, unknown>) {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         if (formData["flags.pf2e.linkToActorSize"] === true) {
             if (this.actor instanceof VehiclePF2e) {
                 const { dimensions } = this.actor;

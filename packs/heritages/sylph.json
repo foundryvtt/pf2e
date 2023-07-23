@@ -1,0 +1,38 @@
+{
+    "_id": "G8jfMayPv4vZvAVr",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Sylph",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You are descended from air elementals or were born under the element's influence. You gain the sylph trait, in addition to the traits from your ancestry. You also gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision] or @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low-light vision. You can choose from sylph feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "rules": [
+            {
+                "add": [
+                    "sylph"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,136 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <!-- ITEM SHEET HEADER -->
+    <header class="sheet-header">
+        {{!-- Source image in case of change during data preparation --}}
+        <img src="{{item._source.img}}" data-edit="img" />
+        <div class="details">
+            {{!-- Likewise with source name --}}
+            <input name="name" type="text" value="{{item._source.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" spellcheck="false" />
+
+            {{#if (and item.actionCost (not (eq item.type "action")))}}
+                <span class="feat-action-cost">
+                    {{{actionGlyph item.actionCost}}}
+                </span>
+            {{/if}}
+
+            {{#if itemType}}
+                <span class="level">
+                    {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+                    <span>{{itemType}}</span>
+                    <input type="number"{{#if adjustedLevelHint}} class="adjusted"{{/if}}{{#if isPhysical}} data-property="system.level.value"{{else}} name="system.level.value"{{/if}} value="{{data.level.value}}" />
+                </span>
+            {{/if}}
+            <template class="traits-extra">
+                {{#if rarity}}
+                    <select class="tag" name="system.traits.rarity" value="{{rarity}}">
+                        {{#select rarity}}
+                            {{#each rarities as |label key|}}
+                                <option value="{{key}}">{{localize label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                {{/if}}
+            </template>
+            <!-- showTraits {{showTraits}} -->
+            {{#if showTraits}}
+                <input class="paizo-style tags" name="system.traits.value" value="{{json traitTagifyData}}" data-dtype="JSON"
+                    {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
+            {{else if rarity}}
+                <div class="paizo-style tags"></div>
+            {{/if}}
+        </div>
+    </header>
+
+    <nav class="sheet-navigation">
+        {{#if hasSidebar}}
+            <h4 class="sidebar-summary">{{sidebarTitle}}</h4>
+        {{/if}}
+
+        <h4 class="sheet-tabs tabs" data-tab-container="primary">
+            {{#if detailsActive}}
+                <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
+                <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+            {{else}}
+                <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
+                {{#if hasDetails}}
+                    <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                {{/if}}
+            {{/if}}
+            {{#developMode}}
+                {{#if isPhysical}}
+                    <a class="list-row" data-tab="activations">{{localize "PF2E.Item.Activation.Label"}}</a>
+                {{/if}}
+            {{/developMode}}
+            {{#if (and isPhysical user.isGM)}}
+                <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
+            {{/if}}
+            {{#if (and enabledRulesUI (not isVariant))}}
+                <a class="list-row" data-tab="rules">{{localize "PF2E.Item.Rules.Tab"}}</a>
+            {{/if}}
+        </h4>
+    </nav>
+
+    <!-- ITEM SHEET CONTENT -->
+    <article class="sheet-content">
+        <!-- ITEM SHEET SIDEBAR -->
+        {{#if hasSidebar}}
+            <section class="sheet-sidebar">
+                {{> (sidebarTemplate)}}
+            </section>
+        {{/if}}
+
+        <!-- ITEM SHEET BODY -->
+        <section class="sheet-body">
+            <!-- Item Description -->
+            <section class="tab item-description" data-tab="description">
+                <div class="descriptions">
+                    {{#if user.isGM}}
+                        <section class="gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
+                            {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
+                        </section>
+                    {{/if}}
+                    <section class="main">
+                        {{#if (not isVariant)}}
+                            {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
+                        {{else}}
+                            {{{enrichedContent.description}}}
+                        {{/if}}
+                    </section>
+                </div>
+            </section>
+
+            <!-- Item Details -->
+            {{#if hasDetails}}
+                <div class="tab item-details" data-tab="details">
+                    {{> (detailsTemplate)}}
+                    <div class="form-group">
+                        <label>{{localize "PF2E.Source.Label"}}</label>
+                        <input type="text" name="system.source.value" value="{{data.source.value}}" />
+                    </div>
+                </div>
+            {{/if}}
+
+            {{#developMode}}
+                {{#if isPhysical}}
+                    <div class="tab item-activations" data-tab="activations">
+                        {{> "systems/pf2e/templates/items/activation-panel.hbs"}}
+                    </div>
+                {{/if}}
+            {{/developMode}}
+
+            <!-- Mystification Details -->
+            {{#if (and isPhysical user.isGM)}}
+                {{> "systems/pf2e/templates/items/mystify-panel.hbs"}}
+            {{/if}}
+
+            <!-- Rules Elements -->
+            {{#if (not isVariant)}}
+                <div class="tab item-rules" data-tab="rules">
+                    {{!-- Use ~ so that text areas don't add further indentation --}}
+                    {{~> systems/pf2e/templates/items/rules-panel.hbs item=item}}
+                </div>
+            {{/if}}
+        </section>
+    </article>
+</form>

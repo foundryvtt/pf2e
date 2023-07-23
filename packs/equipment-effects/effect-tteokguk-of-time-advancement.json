@@ -1,0 +1,63 @@
+{
+    "_id": "M0hhLRC86sASVOk7",
+    "img": "systems/pf2e/icons/equipment/consumables/other-consumables/tteogkuk-of-time-advancement.webp",
+    "name": "Effect: Tteokguk of Time Advancement",
+    "system": {
+        "description": {
+            "value": "<p>The creatures gains a +4 status bonus to Deceptions checks to pass as their chosen age, and can add their level to this check as a proficiency bonus if untrained.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "label": "Disguise as chosen age",
+                "option": "act-old",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "act-old"
+                ],
+                "selector": "deception",
+                "slug": "tteokguk-status",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "act-old"
+                ],
+                "selector": "deception",
+                "slug": "tteokguk-proficiency",
+                "type": "proficiency",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Blog"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

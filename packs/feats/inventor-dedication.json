@@ -1,0 +1,66 @@
+{
+    "_id": "JIpjpZ8VneQomkZw",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Inventor Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in Crafting and inventor class DC. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Inventor] skill feat, even if you don't meet the skill feat's requirements. Choose an innovation. You gain that @UUID[Compendium.pf2e.classfeatures.Item.Innovation], though you don't gain any other abilities that modify or use that innovation, such as modifications or Explode.</p>\n<p><strong>Special</strong> You cannot select another dedication feat until you have first gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.aAm6jY2k5qBuWETd]{Inventor} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Intelligence 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Inventor"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Innovation"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.inventor",
+                "priority": 39,
+                "value": {
+                    "ability": "int",
+                    "label": "PF2E.TraitInventor",
+                    "rank": 1
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "ecJms2jtd6cZ5rQK",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Round Ears",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your elven lineage is subtle enough that you look barely different from other humans, and you've learned to use that to your advantage. You gain the trained proficiency rank in Deception (or another skill of your choice, if you were already trained in Deception). You gain a +4 circumstance bonus to Impersonate checks to pretend you aren't a half-elf. Observers are never granted circumstance bonuses to Perception checks due to you Impersonating a full-blooded human, and you never take circumstance penalties due to you Impersonating a full-blooded human.</p>\n<p><strong>Special</strong> You can take this feat only at 1st level, and you can't retrain out of this feat or into this feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:impersonate",
+                    "not-a-half-elf"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "half-elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

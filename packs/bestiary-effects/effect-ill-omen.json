@@ -1,0 +1,45 @@
+{
+    "_id": "zXzXDlh0HkyPJu8f",
+    "img": "systems/pf2e/icons/spells/moon-frenzy.webp",
+    "name": "Effect: Ill Omen",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -1 penalty to attack rolls, skill checks, and saving throws while within the ill omen aura and becomes immune to fortune effects for 1 day.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "saving-throw",
+                    "attack",
+                    "skill-check"
+                ],
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

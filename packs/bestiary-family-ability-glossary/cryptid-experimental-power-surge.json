@@ -1,0 +1,77 @@
+{
+    "_id": "uQ7cI0oerU7lDLhT",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "(Cryptid, Experimental) Power Surge",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>The experimental cryptid draws on its augmentations to empower its attacks. It attempts a @Check[type:flat|dc:5]. On a success, the experimental cryptid deals 1d6 additional damage with its Strikes until the end of its turn. On a failure, the experimental cryptid takes that much damage instead. The damage and traits for Power Surge are the same as those of Energy Wave. This additional damage increases to 2d6 if the experimental cryptid is 9th level or higher, 3d6 if the experimental cryptid is 15th level or higher, and 4d6 if the experimental cryptid is 18th level or higher.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "power-surge"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": "14",
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": "17",
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "power-surge",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,104 @@
+{
+    "_id": "2njOBjTJAhjda0gt",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "l2a3fc53qzY5t6Wq",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shadowshift",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A character enters the affected area</p>\n<hr />\n<p><strong>Effect</strong> The hazard rolls initiative as the field of planar warping surges, filling the forest clearing.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shadowshift Field",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained) to notice the air and plants wavering and shifting</p>",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Cross-planar seepage from the Oaksteward rebels' ritual causes shadowy warping effects to strain and damage living creatures in the forest clearing.</p>",
+            "disable": "<p>@Check[type:arcana|dc:17] (trained) to will the Material Plane's hold on the area back into firmness and disable the effect for 1 hour, or<em> <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em></em> (1st level; counteract DC 15) to end the effect permanently</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "<p>This effect continues for 1 day, after which it ends and cannot be triggered again without another ritual.</p>",
+            "routine": "<p>(1 action) Each creature in the clearing must attempt a @Check[type:fortitude|dc:17] save as the planar warping threatens to create microscopic tears inside their body. Fey, plant creatures, and druids are unaffected.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected and immune for 24 hours. The land is healed 1d6 points by the primal magic.</p>\n<p><strong>Success</strong> The creature is unaffected and immune to the effect for 24 hours.</p>\n<p><strong>Failure</strong> The creature takes [[/r (1d6+3)[force]]].</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (2d6+6)[force]]].</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #187: The Seventh Arch"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "conjuration",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

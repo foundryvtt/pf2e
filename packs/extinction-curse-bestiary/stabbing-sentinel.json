@@ -1,0 +1,198 @@
+{
+    "_id": "J3mRwgqkOlOi44Xv",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "VZsSOXRGbGwz6dqc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Animated Attack",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living or undead creature moves within 5 feet of the stabbing sentinel</p>\n<hr />\n<p><strong>Effect</strong> The stabbing sentinel animates, making one Strike against the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "necromancy",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OYivzyUv9rlanxFD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Blade",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "petrification-overcharge"
+                    ]
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "y6s2ku6swg3wbz0i0p4gg": {
+                        "damage": "6d12+40",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LI5f4Jm5rjlsXN34",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Petrification Overcharge",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Petrified] for 1 round. Additionally, if another stabbing sentinel has already been triggered, that sentinel immediately resets. If no other stabbing sentinels have been triggered, then another random statue in the room becomes infused with animating magic and becomes another stabbing sentinel hazard (to a maximum of four at a time).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "petrification-overcharge",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stabbing Sentinel",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 41
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>@Check[type:perception|dc:45|traits:action:seek] (master)</p>",
+                "value": 35
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A petrified creature momentarily animates to attack an adjacent creature.</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Remove Animating Magic|traits:action:disable-a-device] (master) to remove the animating magic without triggering the trap, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (8th level; counteract DC 38) to counteract the animating magic</p>",
+            "isComplex": false,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The magical energy that animates the statue builds up again over 24 hours and the trap resets.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #155: Lord of the Black Sands"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 36
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

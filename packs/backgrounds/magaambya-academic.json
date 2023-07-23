@@ -1,0 +1,73 @@
+{
+    "_id": "HsAZDAPpqynArFAp",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Magaambya Academic",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><strong>Prerequisite</strong> Region - Mwangi Expanse</p>\n<hr />\n<p>You studied magic at the prestigious Magaambya academy in Nantambu, learning magical traditions dating back to Old- Mage Jatembe and earning a pedigree respected by magical scholars almost everywhere.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of either the Arcana or Nature skill, as well as the Academia Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Recognize Spell] skill feat.</p>"
+        },
+        "items": {
+            "cq4ht": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Recognize Spell",
+                "uuid": "Compendium.pf2e.feats-srd.Item.MjQyTcV8Jiv1Jtln"
+            }
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nature"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "trainedLore": "Academia Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

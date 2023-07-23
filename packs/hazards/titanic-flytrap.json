@@ -1,0 +1,233 @@
+{
+    "_id": "6In2S3lDnxNgZ2np",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "f9aVsy30iGDJTtb4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Snap Shut",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Small or Medium creature moves into a square that is within reach of the flytrap's hidden jaws.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap's jaws snap shut, making a jaws Strike against the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Yw05wWhZB9fLdatc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "devour"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "jaws",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "eauYGISAGprcOwH4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Devour",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The target is trapped by the flytrap's jaws, gaining the grabbed condition until it Escapes (DC 21). Additionally, it is exposed to the titanic flytrap toxin from the hundreds of tiny hairs that line the inside of its leaves. If the flytrap's jaws Strike was a critical success, the target takes a -2 circumstance penalty to its saving throws against this poison. At the end of each of target's turns that it remains grabbed, the target takes 3d6 acid damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "devour",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qBQpsAk64L9c0sJ2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Titanic Flytrap Toxin",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>SavingThrow</strong> @Check[type:fortitude|dc:21]; <strong>MaximumDuration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> 2d6 poison damage and stunned 1 (1 round)</p>\n<p><strong>Stage 2</strong> 3d6 poison damage and stunned 2 (1 round)</p>\n<p><strong>Stage 3</strong> 4d6 poison damage and paralyzed (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "contact",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Titanic Flytrap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "type": "mental"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "type": "acid",
+                    "value": 20
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>On the surface, a titanic flytrap appears to be a patch of the more common flytrap plant, but beneath murky waters it hides a far larger set of jaws, reaching 10 feet across and reinforced with woody branches and lined with paralytic hairs.</p>",
+            "disable": "<p>@Check[type:survival|dc:22|name:Mislead the Flytrap's Senses] (trained) to mislead the flytrap's sense of weight and pressure</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>1 hour (or longer, after a large meal)</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Gamemastery Guide"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

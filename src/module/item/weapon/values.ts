@@ -21,45 +21,38 @@ const MANDATORY_RANGED_GROUPS = new Set(["bomb", "bow", "firearm", "sling"] as c
 
 const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...MANDATORY_RANGED_GROUPS] as const);
 
-/** Precious materials that provide effects to strike attack or damage rolls */
-const WEAPON_MATERIAL_EFFECTS = new Set([
-    "abysium",
-    "adamantine",
-    "cold-iron",
-    "djezet",
-    "silver",
-    "mithral",
-    "noqual",
-    "peachwood",
-    "silver",
-    "sisterstone-dusk",
-    "sisterstone-scarlet",
-    "sovereign-steel",
-] as const);
-
 const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "anarchic",
     "ancestralEchoing",
     "anchoring",
+    "ashen",
+    "authorized",
     "axiomatic",
     "bane",
     "bloodbane",
     "bloodthirsty",
     "brilliant",
+    "called",
+    "coating",
     "conducting",
     "corrosive",
     "crushing",
     "cunning",
     "dancing",
+    "deathdrinking",
+    "demolishing",
     "disrupting",
+    "earthbinding",
     "energizing",
     "extending",
     "fanged",
     "fearsome",
     "flaming",
+    "flurrying",
     "frost",
     "ghostTouch",
     "greaterAnchoring",
+    "greaterAshen",
     "greaterBloodbane",
     "greaterBrilliant",
     "greaterCorrosive",
@@ -79,9 +72,11 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "holy",
     "hopeful",
     "impactful",
+    "impossible",
     "keen",
     "kinWarding",
     "majorFanged",
+    "merciful",
     "pacifying",
     "returning",
     "serrating",
@@ -89,6 +84,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "shock",
     "speed",
     "spellStoring",
+    "swarming",
     "thundering",
     "unholy",
     "vorpal",
@@ -96,7 +92,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
 ] as const);
 
 const THROWN_RANGES = new Set([10, 15, 20, 30, 40, 60, 80, 100] as const);
-const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 90, 120, 140, 150, 180, 240, 300] as const);
+const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 90, 120, 140, 150, 180, 200, 240, 300] as const);
 
 // Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
 const CROSSBOW_WEAPONS = new Set([
@@ -117,7 +113,6 @@ export {
     THROWN_RANGES,
     WEAPON_CATEGORIES,
     WEAPON_GROUPS,
-    WEAPON_MATERIAL_EFFECTS,
     WEAPON_PROPERTY_RUNE_TYPES,
     WEAPON_RANGES,
 };

@@ -1,0 +1,39 @@
+{
+    "_id": "VvEAFoxuddYNBmNc",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Grave Orc",
+    "system": {
+        "ancestry": {
+            "name": "Orc",
+            "slug": "orc",
+            "uuid": "Compendium.pf2e.ancestries.Item.lSGWXjcbOa6O5fTx"
+        },
+        "description": {
+            "value": "<p>You were exposed to powerful necromantic energies that should have killed you—but you survived. Your skin is cold, clammy, and gray. You gain resistance to negative damage equal to half your level (minimum 1). You also gain a +1 circumstance bonus to saving throws against necromancy effects.</p>"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "negative",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "necromancy"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "MkLujXEplJUt6Arv",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Necromantic Resistance (Undead Slayer)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>As part of your training, you've inured yourself against necromancy through grueling, repeated exposure. You gain a +1 circumstance bonus to saves against necromancy effects and gain resistance to negative damage equal to half your level.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Undead Slayer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "negative",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "necromancy"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

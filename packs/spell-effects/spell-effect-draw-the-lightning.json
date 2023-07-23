@@ -1,0 +1,70 @@
+{
+    "_id": "fCIT9YgGUwIc3Z9G",
+    "img": "systems/pf2e/icons/spells/draw-the-lightning.webp",
+    "name": "Spell Effect: Draw the Lightning",
+    "system": {
+        "description": {
+            "value": "<p>Calling out to the skies, you summon a bolt of lightning to strike through a foe above you and down into your weapon or your body, charging it with electrical power. You must hold your weapon or an empty hand aloft as part of this spell's somatic component. When you do, a bolt of lightning descends from a storm cloud in the air above your and through the target, dealing 3d12 electricity damage with a basic Reflex save. For the rest of the spell's duration, your first Strike each round with the weapon you held aloft (or with your unarmed attacks if you held an empty hand aloft) deals an additional 1d12 electricity damage.</p>\n<p>The spell creates its own storm cloud if necessary, so you can cast <em>draw the lightning</em> anywhere, even underground. If <em>draw the lightning</em> is cast outside under a cloudy or stormy sky, increase the bolt's damage by 2d12.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The damage dealt to the initial target increases by 4d12, and the additional damage dealt on the first Strike each turn increases by 1d12.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "First strike of the round",
+                "option": "first-strike",
+                "toggleable": true
+            },
+            {
+                "damageType": "electricity",
+                "dieSize": "d12",
+                "key": "DamageDice",
+                "predicate": [
+                    "first-strike"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "start": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 8,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

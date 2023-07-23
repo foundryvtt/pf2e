@@ -2,8 +2,12 @@ export {};
 
 declare global {
     /** The Walls canvas layer which provides a container for Wall objects within the rendered Scen */
-    class WallsLayer<TWall extends Wall<WallDocument> = Wall<WallDocument>> extends PlaceablesLayer<TWall> {
+    class WallsLayer<
+        TObject extends Wall<WallDocument<Scene | null>> = Wall<WallDocument<Scene | null>>
+    > extends PlaceablesLayer<TObject> {
         constructor();
+
+        override quadtree: CanvasQuadtree<TObject>;
 
         /** A graphics layer used to display chained Wall selection */
         chain: PIXI.Graphics;
@@ -23,7 +27,7 @@ declare global {
         protected _forceSnap: boolean;
 
         /** Track the most recently created or updated wall data for use with the clone tool */
-        protected _cloneType: foundry.data.WallSource;
+        protected _cloneType: foundry.documents.WallSource;
 
         /** Reference the last interacted wall endpoint for the purposes of chaining */
         last: { id: string | null; point: PointArray };
@@ -37,7 +41,7 @@ declare global {
         static documentName: "Wall";
 
         /** An Array of Wall instances in the current Scene which act as Doors. */
-        get doors(): TWall[];
+        get doors(): TObject[];
 
         /** Gate the precision of wall snapping to become less precise for small scale maps. */
         get gridPrecision(): number;
@@ -65,7 +69,7 @@ declare global {
          * @param wall  The existing Wall object being chained to
          * @return The [x,y] coordinates of the starting endpoint
          */
-        static getClosestEndpoint(point: Point, wall: Wall): PointArray;
+        static getClosestEndpoint(point: Point, wall: Wall<WallDocument<Scene>>): PointArray;
 
         /**
          * Given an array of Wall instances, identify the unique endpoints across all walls.
@@ -76,26 +80,9 @@ declare global {
          * @return An array of endpoints
          */
         static getUniqueEndpoints(
-            walls: Wall[] | Set<Wall>,
+            walls: Iterable<Wall<WallDocument<Scene>>>,
             { bounds, type }?: { bounds?: PIXI.Rectangle; type?: WallType }
         ): PointArray[];
-
-        /**
-         * Test whether movement along a given Ray collides with a Wall.
-         * @param ray                             The attempted movement
-         * @param [options={}]                 Options which customize how collision is tested
-         * @param [options.type=movement]        Which collision type to check: movement, sight, sound
-         * @param [options.mode=any]             Which type of collisions are returned: any, closest, all
-         * @returns Does a collision occur along the tested Ray?
-         */
-        checkCollision(ray: Ray, { type, mode }: { type?: WallRestrictionType; mode: "closest" }): PolygonVertex;
-        checkCollision(ray: Ray, { type, mode }: { type?: WallRestrictionType; mode: "any" }): boolean;
-        checkCollision(ray: Ray, { type, mode }: { type?: WallRestrictionType; mode: "all" }): PolygonVertex[];
-        checkCollision(ray: Ray, { type, mode }?: { type?: WallRestrictionType; mode?: undefined }): PolygonVertex[];
-        checkCollision(
-            ray: Ray,
-            { type, mode }?: { type?: WallRestrictionType; mode?: WallMode }
-        ): boolean | PolygonVertex | PolygonVertex[];
 
         /**
          * Highlight the endpoints of Wall segments which are currently group-controlled on the Walls layer
@@ -107,7 +94,7 @@ declare global {
         pasteObjects(
             position: { x: number; y: number },
             { hidden }?: { hidden?: boolean }
-        ): Promise<TWall["document"][]>;
+        ): Promise<TObject["document"][]>;
 
         /**
          * Pan the canvas view when the cursor position gets close to the edge of the frame
@@ -131,21 +118,21 @@ declare global {
          * This method helps to translate each tool into a default wall data configuration for that type
          * @param tool The active canvas tool
          */
-        protected _getWallDataFromActiveTool(tool: string): Partial<foundry.data.WallSource>;
+        protected _getWallDataFromActiveTool(tool: string): Partial<foundry.documents.WallSource>;
 
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
 
-        protected override _onClickLeft(event: PIXI.InteractionEvent): void;
+        protected override _onClickLeft(event: PIXI.FederatedEvent): void;
 
-        protected override _onDragLeftStart(event: PIXI.InteractionEvent): Promise<void>;
+        protected override _onDragLeftStart(event: PIXI.FederatedEvent): Promise<void>;
 
-        protected override _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
+        protected override _onDragLeftMove(event: PIXI.FederatedEvent): Promise<void>;
 
-        protected override _onDragLeftCancel(event: PIXI.InteractionEvent): void;
+        protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 
-        protected override _onClickRight(event: PIXI.InteractionEvent): void;
+        protected override _onClickRight(event: PIXI.FederatedEvent): void;
 
         /* -------------------------------------------- */
         /*  Source Polygon Computation                  */
@@ -240,7 +227,7 @@ declare global {
          * @param wall The Wall against which to test
          * @return A RayIntersection if a collision occurred, or null
          */
-        static testWall(ray: Ray, wall: Wall): RayIntersection | null;
+        static testWall(ray: Ray, wall: Wall<WallDocument<Scene>>): RayIntersection | null;
 
         /**
          * Identify the closest collision point from an array of collisions

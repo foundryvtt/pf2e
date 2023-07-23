@@ -1,0 +1,149 @@
+{
+    "_id": "AZ6AaYdx2NwLWSwh",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "K2xZ73LiKk2uqR28",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Blackfinger's Prayer",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature opens the door without first whispering the name Blackfingers</p>\n<hr />\n<p><strong>Effect</strong> The metal trapdoor emits toxic vapors. Each creature within 30 feet must save against a potent strain of Blackfinger Blight.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A04N1HzBOQCcYnM2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blackfinger Blight",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Each round, at the beginning of their turn, a creature affected by blackfinger blight must succeed at a @Check[type:flat|dc:5] check or drop one random item they're holding</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<p><strong>Onset</strong> 1 round</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 6d6[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 8d6[poison]]] damage (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 10d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Confused] (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison",
+                        "inhaled",
+                        "virulent"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blackfinger's Prayer",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "hardness": 30,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The trapdoor's metal is infused with a deadly toxin that seeps out when the trap is triggered.</p>",
+            "disable": "<p>@Check[type:thievery|dc:50|name:Gum Up Trapdoor|traits:action:disable-a-device] (legendary) to gum up the trapdoor's porous metal surface, @Check[type:crafting|dc:45|name:Render Toxin Inert] (master) to render the toxin inert, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (9th level; counteract DC 45) to counteract the trap's magic</p>",
+            "isComplex": false,
+            "level": {
+                "value": 19
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #162: Ruins of the Radiant Siege"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 38
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

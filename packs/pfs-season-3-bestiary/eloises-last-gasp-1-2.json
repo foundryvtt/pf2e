@@ -1,0 +1,181 @@
+{
+    "_id": "ZSCBm3JFU6tFtqvL",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "7e98zwqpmlz4vp2a",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Gaseous Sludge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The area of the haunt is difficult terrain.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "myktiol2vlodh7y9",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spectral Stab",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the haunt's area</p>\n<hr />\n<p><strong>Effect</strong> A spectral figure manifests in the fog adjacent to the target and makes a spectral touch Strike against the creature. The haunt rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fear",
+                        "negative",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Td7JbrnkAZYC59dl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spectral touch",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "x2xzitw3cmrro3pp1m88": {
+                        "damage": "1d10+6",
+                        "damageType": "negative"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Eloise's Last Gasp (1-2)",
+    "prototypeToken": {
+        "name": "Eloise's Last Gasp"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>An obscuring fog covers the entirety of the hallway and northern room of the manor's second floor. Anyone moving through the area is subjected to an attack from a ghostly assailant.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:20|name:Maneuver Through Fog|traits:complex,haunt] to maneuver through the fog, @Check[type:religion|dc:18|name:Ward off Spirit|traits:complex,haunt] to ward off the spirit, or @Check[type:stealth|dc:20|name:Move Through Fog Without Attracting Attention|traits:complex,haunt] to move through the fog without attracting attention.</p>\n<p>Disabling the haunt requires two successful checks, and each attempt takes two actions.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The haunt lasts until disabled. It re-forms after 1 hour unless Eloise's ghost is put to permanent rest.</p>",
+            "routine": "<p>(2 actions) The haunt uses an action to manifest an illusory shadow beside a creature ending its move in the fog, then attempts a spectral touch Strike against that creature. The shadow disappears after the Strike.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-02: The East Hill Haunting"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

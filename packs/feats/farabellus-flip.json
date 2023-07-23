@@ -1,0 +1,56 @@
+{
+    "_id": "PH5b61x3iJSKP3Xi",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Farabellus Flip",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> An enemy targets you with a melee Strike.</p>\n<hr />\n<p>Surprisingly agile even in a breastplate and carrying a full rucksack, Marcos Farabellus developed this evasive maneuver during one of his many adventures.</p>\n<p>Flinging your body into a twisting somersault, you gain a +2 circumstance bonus to your AC against the triggering attack. If the attack still hits you, you can Step to an open space that's still within the triggering enemy's reach, turning the impact of the blow into momentum.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Acrobatics and medium armor"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "farabellus-flip"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "farabellus-flip",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "barbarian",
+                "fighter",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

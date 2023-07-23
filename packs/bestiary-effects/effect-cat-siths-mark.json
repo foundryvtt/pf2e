@@ -1,0 +1,52 @@
+{
+    "_id": "zTrZozbWDd1A5L5S",
+    "img": "systems/pf2e/icons/spells/fey-disapperance.webp",
+    "name": "Effect: Cat Sith's Mark",
+    "system": {
+        "description": {
+            "value": "<p>Whenever the cursed creature rolls a critical success on a skill check or saving throw, it gets a success instead. Each day, a cursed creature can attempt a @Check[type:flat|dc:10|trait:curse,misfortune|name:Break Cat Sith's Mark] check to break the curse.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "skill-check",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

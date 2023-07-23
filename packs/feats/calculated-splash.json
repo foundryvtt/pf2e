@@ -1,0 +1,48 @@
+{
+    "_id": "UjWLK86BgHxz3Itd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Calculated Splash",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have calculated all the angles to maximize a bomb's splash. When you throw an alchemical bomb with the splash trait, you can cause the bomb to deal splash damage equal to your Intelligence modifier (minimum 0) instead of the normal amount.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "not": "feat:expanded-splash"
+                    }
+                ],
+                "relabel": "{item|name}",
+                "selector": "alchemical-bomb-damage",
+                "slug": "splash",
+                "value": "@actor.abilities.int.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

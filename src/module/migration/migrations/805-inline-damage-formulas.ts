@@ -1,7 +1,7 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { recursiveReplaceString } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Update inline damage-roll links to be formatted to new standard */
 export class Migration805InlineDamageRolls extends MigrationBase {
@@ -78,7 +78,7 @@ export class Migration805InlineDamageRolls extends MigrationBase {
         source.system = recursiveReplaceString(source.system, (s) => this.#updateDamageFormula(s));
     }
 
-    override async updateJournalEntry(source: foundry.data.JournalEntrySource): Promise<void> {
+    override async updateJournalEntry(source: foundry.documents.JournalEntrySource): Promise<void> {
         source.pages = recursiveReplaceString(source.pages, (s) => this.#updateDamageFormula(s));
     }
 }

@@ -1,0 +1,48 @@
+{
+    "_id": "1XuytsxHDUMgyVH1",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Climbing Tail",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your tail makes it much easier for you to climb. You gain a +2 circumstance bonus to Athletics checks to Climb, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] skill feat, and you reduce the number of free hands required to Climb or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] by one.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Combat Climber"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "vanara"
+            ]
+        }
+    },
+    "type": "feat"
+}

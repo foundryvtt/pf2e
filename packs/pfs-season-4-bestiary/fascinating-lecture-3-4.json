@@ -1,0 +1,105 @@
+{
+    "_id": "Gf9RNXtFbMPA8yqa",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "4VaVhGycUqBPjKeb",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Take Your Seats",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to touch the research papers on the podium.</p>\n<hr />\n<p><strong>Effect</strong> The papers are protected by a powerful ward of enchantment magic that lasts until the hazard is completely disabled; no creature can muster the will to touch them. All creatures within the room must attempt a @Check[type:will|dc:22] save. The trap then rolls initiative.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature must spend an action approaching one of the empty desks in the classroom.</p>\n<p><strong>Failure</strong> The creature must spend two actions approaching one of the empty desks in the classroom and taking a seat. They are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>\n<p><strong>Critical Failure</strong> The creature spends its next turn approaching one of the empty desks in the classroom and taking a seat. It is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 hour and @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for one minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "enchantment",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fascinating Lecture (3-4)",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The semitransparent image of a small Garundi woman at the podium suddenly begins lecturing on the nature of enchantment magic.</p>",
+            "disable": "<p>@Check[type:intimidation|dc:20] to disrupt the lecture, @Check[type:thievery|dc:23] (trained) to scratch out of one of the glyphs on the podium, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd level; counteract DC 20) to counteract one of the runes; three total successes are required to disable the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(1 action) (arcane, compulsion, enchantment, mental, nonlethal) The image lectures on incredibly advanced topics without pause, overwhelming the minds of those listening while compelling them to continue to pay attention. Each creature in the room must succeed at a @Check[type:will|dc:22|traits:arcane,compulsion,enchantment,mental,nonlethal] save and take [[/r 2d6[mental]]]{2d6 nonlethal mental damage}, as well as the following effects.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and takes half damage as it shakes off most of the mental load.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and takes full damage as it can't help but try and process all the information.</p>\n<p><strong>Critical Failure</strong> The creature is stunned for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 minute, and takes double damage as all its mental faculties are focused on the lecture. Damage from this hazard does not end the fascinated condition. A creature who is reduced to 0 Hit Points by the fascinating lecture enters a catatonic stupor until they regain Hit Points. If a creature spends 1 hour in the stupor, they automatically regain 1 Hit Point and awaken.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #4-10: Arclord's Abode"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "aberration",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

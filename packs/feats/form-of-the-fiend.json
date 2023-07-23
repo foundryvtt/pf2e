@@ -1,0 +1,145 @@
+{
+    "_id": "eUyZBi8vV5QDxOXD",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Form Of The Fiend",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Part of your body has an obvious, fiendish appearance. Your hands end in razor-sharp claws, you have hooves instead of feet, sharp teeth fill your mouth, or a whipping tail extends from your spine.</p>\n<p>You gain your choice of one of the following unarmed attacks. The attack is in the brawling group and has the listed damage die and traits.</p>\n<ul>\n<li><strong>Claw</strong> [[/r 1d4[slashing]]] (agile, finesse, unarmed, versatile piercing)</li>\n<li><strong>Hoof</strong> [[/r 1d6[bludgeoning]]] (finesse, unarmed)</li>\n<li><strong>Jaws</strong> [[/r 1d6[piercing]]] (finesse, unarmed)</li>\n<li><strong>Tail</strong> [[/r 1d4[bludgeoning]]] (agile, finesse, unarmed)</li>\n</ul>\n<p><strong>Special</strong> You can select this feat only at 1st level, and you can't retrain into or out of this feat, nor can you change the type of attack you gained.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Hoof",
+                        "value": "hoof"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "value": "tail"
+                    }
+                ],
+                "flag": "formOfTheFiend",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "form-fiend"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "form-fiend:claw"
+                ],
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/foot.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Hoof",
+                "predicate": [
+                    "form-fiend:hoof"
+                ],
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "form-fiend:jaws"
+                ],
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    "form-fiend:tail"
+                ],
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tiefling"
+            ]
+        }
+    },
+    "type": "feat"
+}

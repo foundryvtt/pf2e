@@ -1,0 +1,42 @@
+{
+    "_id": "Nd9hdX8rdYyRozw8",
+    "img": "systems/pf2e/icons/features/ancestry/ancient-elf.webp",
+    "name": "Ancient Elf",
+    "system": {
+        "ancestry": {
+            "name": "Elf",
+            "slug": "elf",
+            "uuid": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
+        },
+        "description": {
+            "value": "<p>In your long life, you've dabbled in many paths and many styles. typical ancient elf is at least 100 years old, though you might be younger at the GM's discretion. Choose a class other than your own. You gain the multiclass dedication feat for that class, even though you don't meet its level prerequisite. You must still meet its other prerequisites to gain the feat.</p>"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:dedication",
+                        "item:trait:multiclass"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "ancientElf",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AncientElf.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.ancientElf}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

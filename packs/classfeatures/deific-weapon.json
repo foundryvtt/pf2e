@@ -1,0 +1,64 @@
+{
+    "_id": "FeBsYn2mHfMVDZvw",
+    "img": "systems/pf2e/icons/features/classes/deific-weapon.webp",
+    "name": "Deific Weapon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You zealously bear your deity's favored weapon. If it's uncommon, you gain access to it. If it's an unarmed attack with a d4 damage die or a simple weapon, increase the damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "fist": true,
+                "key": "Strike",
+                "predicate": [
+                    "deity:primary:favored-weapon:fist"
+                ],
+                "priority": 99
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "item:deity-favored",
+                    {
+                        "or": [
+                            "item:category:simple",
+                            {
+                                "and": [
+                                    "item:category:unarmed",
+                                    "item:damage:die:faces:4"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

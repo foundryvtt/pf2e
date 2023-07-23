@@ -1,18 +1,19 @@
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { ItemPF2e } from "@item/base";
-import { ItemSummaryData } from "@item/data";
-import { WeaponPF2e } from "@item/weapon";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
-import { combineTerms } from "@scripts/dice";
-import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage";
+import { ActorPF2e } from "@actor";
+import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { ItemPF2e, WeaponPF2e } from "@item";
+import { ItemSummaryData } from "@item/data/index.ts";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { simplifyFormula } from "@scripts/dice.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
+import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { tupleHasValue } from "@util";
-import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
+import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
 
-class MeleePF2e extends ItemPF2e {
+class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** Set during data preparation if a linked weapon is found */
-    category: WeaponCategory | null = null;
-    group: WeaponGroup | null = null;
-    baseType: BaseWeaponType | null = null;
+    declare category: WeaponCategory | null;
+    declare group: WeaponGroup | null;
+    declare baseType: BaseWeaponType | null;
 
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
@@ -87,7 +88,12 @@ class MeleePF2e extends ItemPF2e {
 
     get dealsDamage(): boolean {
         const { baseDamage } = this;
-        return baseDamage.dice > 0 || baseDamage.modifier > 0;
+        return (
+            baseDamage.dice > 0 ||
+            baseDamage.modifier > 0 ||
+            !!baseDamage.persistent?.number ||
+            Object.values(this.system.damageRolls).some((d) => d.category === "splash")
+        );
     }
 
     /** Additional effects that are part of this attack */
@@ -95,10 +101,21 @@ class MeleePF2e extends ItemPF2e {
         return this.system.attackEffects.value;
     }
 
+    get isMagical(): boolean {
+        const { traits } = this;
+        const magicTraits = ["magical", "arcane", "primal", "divine", "occult"] as const;
+        return magicTraits.some((t) => traits.has(t));
+    }
+
     /** The linked inventory weapon, if this melee item was spawned from one */
-    get linkedWeapon(): Embedded<WeaponPF2e> | null {
+    get linkedWeapon(): WeaponPF2e<ActorPF2e> | null {
         const item = this.actor?.items.get(this.flags.pf2e.linkedWeapon ?? "");
         return item?.isOfType("weapon") ? item : null;
+    }
+
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.category = this.group = this.baseType = null;
+        super._initialize(options);
     }
 
     override prepareBaseData(): void {
@@ -121,7 +138,9 @@ class MeleePF2e extends ItemPF2e {
         const isUnarmed = this.traits.has("unarmed");
         this.category = isUnarmed ? "unarmed" : linkedWeapon?.category ?? null;
         this.group = isUnarmed ? "brawling" : this.linkedWeapon?.group ?? null;
-        this.baseType = tupleHasValue(["claw", "fist", "jaws"] as const, this.slug) ? this.slug : null;
+        this.baseType = tupleHasValue(["claw", "fist", "jaws"] as const, this.slug)
+            ? this.slug
+            : this.linkedWeapon?.baseType ?? null;
     }
 
     override prepareActorData(): void {
@@ -138,43 +157,21 @@ class MeleePF2e extends ItemPF2e {
                 instance.damage = "1d4";
             }
 
-            const roll = new Roll(instance.damage);
-            const { terms } = roll;
             const { isElite, isWeak } = this.actor;
             if ((isElite || isWeak) && damageInstances.indexOf(instance) === 0) {
-                // Add weak or elite adjustment: Foundry's `Roll` class makes all negative `NumericTerms` positive with
-                // a preceding negative `OperatorTerm`: change operator if adjustment would change the value's sign
-                const modifier =
-                    [...terms].reverse().find((t): t is NumericTerm => t instanceof NumericTerm) ??
-                    new NumericTerm({ number: 0 });
-                const previousTerm = terms[terms.indexOf(modifier) - 1];
-                const signFlip = previousTerm instanceof OperatorTerm && previousTerm.operator === "-" ? -1 : 1;
-                const baseValue = modifier.number * signFlip;
-                const adjustedBase = baseValue + (isElite ? 2 : -2);
-                modifier.number = Math.abs(adjustedBase);
-
-                if (previousTerm instanceof OperatorTerm) {
-                    if (baseValue < 0 && adjustedBase >= 0 && previousTerm.operator === "-") {
-                        previousTerm.operator = "+";
-                    }
-                    if (baseValue >= 0 && adjustedBase < 0 && previousTerm.operator === "+") {
-                        previousTerm.operator = "-";
-                    }
-                }
-
-                if (!terms.includes(modifier)) {
-                    const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
-                    terms.push(operator, modifier);
-                }
-                instance.damage = combineTerms(Roll.fromTerms(terms)._formula);
+                const adjustment = isElite ? 2 : -2;
+                instance.damage = simplifyFormula(`${instance.damage} + ${adjustment}`);
             } else {
-                instance.damage = roll._formula;
+                instance.damage = new Roll(instance.damage)._formula;
             }
         }
     }
 
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
+
+        const { damageType } = this.baseDamage;
+        const damageCategory = DamageCategorization.fromDamageType(damageType);
 
         const otherOptions = Object.entries({
             equipped: true,
@@ -184,7 +181,10 @@ class MeleePF2e extends ItemPF2e {
             [`category:${this.category}`]: !!this.category,
             [`group:${this.group}`]: !!this.group,
             [`base:${this.baseType}`]: !!this.baseType,
+            magical: this.isMagical,
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
+            [`damage:type:${damageType}`]: true,
+            [`damage:category:${damageCategory}`]: !!damageCategory,
         })
             .filter(([, isTrue]) => isTrue)
             .map(([key]) => `${prefix}:${key}`);
@@ -193,7 +193,7 @@ class MeleePF2e extends ItemPF2e {
     }
 
     override async getChatData(
-        this: Embedded<MeleePF2e>,
+        this: MeleePF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData & { map2: string; map3: string } & Omit<MeleeSystemData, "traits">> {
         const systemData = this.system;
@@ -207,8 +207,10 @@ class MeleePF2e extends ItemPF2e {
     }
 }
 
-interface MeleePF2e extends ItemPF2e {
-    readonly data: MeleeData;
+interface MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    flags: MeleeFlags;
+    readonly _source: MeleeSource;
+    system: MeleeSystemData;
 }
 
 export { MeleePF2e };

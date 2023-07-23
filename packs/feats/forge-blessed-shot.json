@@ -1,0 +1,63 @@
+{
+    "_id": "9cq4j15EbVyrHKFX",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Forge-Blessed Shot",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You attempt a ranged Strike.</p>\n<hr />\n<p>You intone a prayer to the dwarven deities Torag or Angradd, willing a higher power to guide your aim in the heat of battle. On your next Strike with a ranged weapon before the end of your turn, you gain a +2 circumstance bonus to your attack roll and ignore your target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition, as well as your target's lesser, standard, and greater cover.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "forge-blessed-shot",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "forge-blessed-shot"
+                ],
+                "selector": "ranged-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "forge-blessed-shot"
+                ],
+                "selector": "ranged-attack-roll",
+                "text": "PF2E.SpecificRule.Dwarf.ForgeBlessedShot.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "hrITlxkBqHvaiiRS",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Right-Hand Blood",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>It's said that the flesh of the right side of a hyena can heal diseases, but that of the left side is poisonous. You can take [[/r {1}]]{1 damage} to feed someone blood from your right side and Administer First Aid or take [[/r {2d8}]]{2d8 damage} to Treat Disease or Treat Wounds; in either case, you don't need healer's tools, and gain a +1 item bonus. Blood from your left side causes the check to critically fail automatically.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "fromEquipment": false,
+                "key": "FlatModifier",
+                "predicate": [
+                    "right-hand-blood",
+                    {
+                        "or": [
+                            "action:treat-wounds",
+                            "action:treat-disease",
+                            "action:administer-first-aid"
+                        ]
+                    }
+                ],
+                "selector": "medicine",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnoll"
+            ]
+        }
+    },
+    "type": "feat"
+}

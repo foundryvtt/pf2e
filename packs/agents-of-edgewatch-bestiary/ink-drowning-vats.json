@@ -1,0 +1,151 @@
+{
+    "_id": "b7AnzEzoMGFpM33z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6cFodLsS9nMte5ts",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Fill Tank",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The switch outside the vats is pulled</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "09M4q5fVCuvOwcWk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Poison Ink",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:38]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> 3d6 poison damage and sickened 1 (1 round)</p>\n<p><strong>Stage 2</strong> 4d6 poison damage and sickened 2 (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ink Drowning Vats",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "hardness": 22,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 112,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 112
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 36
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Steel hatch doors automatically lock shut in each of the four vats labeled <strong>J2</strong>. Four ink spouts (one per vat) jut through a narrow aperture in the ceiling of each vat, 20 feet above.</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Seal an Ink Spout|traits:action:disable-a-device] (master) to seal an ink spout, @Check[type:thievery|dc:48|name:Unlock a Door|traits:action:pick-a-lock] (master) to unlock a steel hatch door, or @Check[type:athletics|dc:45|name:Force Open a Door|traits:action:force-open] (master) to Force Open a steel hatch door</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The trap can be reset by refilling the ink storage tanks above the vats.</p>",
+            "routine": "<p>(4 actions) The trap loses 1 action for each disabled ink spout. On each of the trap's actions, a spout pours ink, increasing the depth of the ink in that vat by 2 feet. Creatures standing in the ink are exposed to a dose of poison ink. Once the vat is full of ink, the trap stops using actions, but creatures in the vat might start drowning.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #161: Belly of the Black Whale"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

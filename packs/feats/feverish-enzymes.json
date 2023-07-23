@@ -1,0 +1,65 @@
+{
+    "_id": "c5SfaSn6OEHkHxII",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Feverish Enzymes",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your claws and fangs exude an infectious enzyme, related to the necrotic effects of ghoul fever, that causes a creature's wounds to heal slowly. Strike with your claw or jaws. This attack deals negative damage instead of its normal type; on a hit, the target halves any healing it receives until the start of your next turn. The target or an adjacent ally can spend two interact actions to squeeze the enzymes from the wound and remove the effect.</p>\n<p>If you are satiated, when you hit you can choose to end your satiation and boost your enzymes, increasing the duration to 1 minute.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghoul Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "negative"
+                },
+                "predicate": [
+                    "feverish-enzymes"
+                ],
+                "selector": "claw-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "negative"
+                },
+                "predicate": [
+                    "feverish-enzymes"
+                ],
+                "selector": "jaws-damage"
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "feverish-enzymes",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

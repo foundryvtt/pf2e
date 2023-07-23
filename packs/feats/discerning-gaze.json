@@ -1,0 +1,61 @@
+{
+    "_id": "lknYlp0ekVyBWQK9",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Discerning Gaze",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have a sense for when people are lying. You gain a +1 circumstance bonus on your secret Perception checks to Sense Motive.</p>\n<p>If you use Sense Motive on a creature you have currently condemned with Harsh Judgment, your GM rolls the Perception check twice and takes the higher result (this is a fortune effect).</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Vigilante Dedication"
+                },
+                {
+                    "value": "Member of the Grey Gardeners"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:sense-motive",
+                    "harsh-judgement"
+                ],
+                "selector": "perception",
+                "text": "you use Sense Motive on a creature you have currently condemned with Harsh Judgment, your GM rolls the Perception check twice and takes the higher result (this is a fortune effect).",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: Night of the Gray Death"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,98 @@
+{
+    "_id": "yWawboNWFoJMVl0g",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Soul Warden Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can take 10 minutes to emblazon @UUID[Compendium.pf2e.deities.Item.Pharasma]{Pharasma's} holy sigil-a spiraling comet that represents the winding path a soul takes through its existence-upon a shield, tabard, banner, or other prominent object that your wear or wield. The symbol doesn't fade until 1 year has passed, but if you emblazon the symbol again, any symbol you previously emblazoned and any symbol already emblazoned on that item instantly disappears. The item becomes a religious symbol of Pharasma and can be used as a divine focus while emblazoned.</p>\n<p>Whenever an undead creature or captive soul is within 100 feet of this object, the spiral glows, shedding dim blue light in a 10-foot radius. If the creature is hiding or the soul is hidden, it must succeed at a @Check[type:stealth|dc:resolve(10+@actor.attributes.perception.value)] check against your Perception DC to fool the sigil and prevent the spiral from glowing.</p>\n<p>In addition, you can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Disrupt Undead]</em> as a divine innate cantrip at will. As normal, a cantrip is automatically heightened to half your level rounded up. You gain access to the Cast a Spell activity if you didn't have it already. You're trained in divine spell attack rolls and spell DCs. Your key spellcasting ability for these spells is Wisdom.</p>\n<p>When you have at least two other feats from this archetype, the spiral glows with bright light in a 10-foot radius (and dim light for the next 10 feet). Feats that require a creature or object to be in the light of your spiral function whether it's in the bright or dim light.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.9g14DjBZNj27goTt]{Soul Warden} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Occultism or Religion"
+                },
+                {
+                    "value": "worships Pharasma or a psychopomp usher"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.divine.rank",
+                "value": 1
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "undead-nearby"
+                ],
+                "value": {
+                    "bright": {
+                        "brackets": [
+                            {
+                                "end": 2,
+                                "value": 0
+                            },
+                            {
+                                "start": 3,
+                                "value": 10
+                            }
+                        ],
+                        "field": "actor|system.custom.soulWarden.featCount"
+                    },
+                    "color": "#975947",
+                    "dim": {
+                        "brackets": [
+                            {
+                                "end": 2,
+                                "value": 10
+                            },
+                            {
+                                "start": 3,
+                                "value": 20
+                            }
+                        ],
+                        "field": "actor|system.custom.soulWarden.featCount"
+                    },
+                    "luminosity": 0.4
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SoulWarden.UndeadNearby",
+                "option": "undead-nearby",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.soulWarden.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

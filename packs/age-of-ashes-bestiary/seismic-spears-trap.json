@@ -1,0 +1,229 @@
+{
+    "_id": "teabm1YiRAKdUaEQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "o0njxNAMbjPeC9AS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Cataclysmic Rain",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the marked area</p>\n<hr />\n<p><strong>Effect</strong> Fiery spears make one Strike against each living creature within 5 feet of the marked area.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "earth",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kZ6DWvbDyy1GyJ6D",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Personal Quake",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A creature struck by a seismic spear is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} for 1 round as their body shakes uncontrollably. On a critical hit, a target must succeed at a @Check[type:fortitude|dc:39] save or be @UUID[Compendium.pf2e.conditionitems.Item.Petrified] for 1 minute, or permanently on a critical failure.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "personal-quake",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Yimb91yYaAqRGR3x",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Seismic Spear",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "no-map",
+                        "personal-quake"
+                    ]
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "6ch94mcppixkp10rj7rlra": {
+                        "damage": "3d10+10",
+                        "damageType": "fire"
+                    },
+                    "nul7n4wkfz2qkyxltkenx": {
+                        "damage": "3d10+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": "<p>No MAP applies to strikes made by seismic spear attacks</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uAtJgY4Z2GeiZYOi",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The Seismic Spear Strikes do not apply a MAP.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "no-map",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Seismic Spears Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 33
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Lines of searing lava lance through the area, causing targets to shake as if caught in an earthquake and potentially become petrified.</p>",
+            "disable": "<p>@Check[type:thievery|dc:43|name:Disable the Wards|traits:magical,trap] (master) to disable the wards or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (9th level; counteract DC 38) to counteract the ward.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 19
+            },
+            "reset": "<p>The trap resets after 1 minute.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #149: Against the Scarlet Triad"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

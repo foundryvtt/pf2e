@@ -1,13 +1,13 @@
 /**
- * The FilePicker application renders contents of the server-side public directory
- * This app allows for navigating and uploading files to the public path
+ * The FilePicker application renders contents of the server-side public directory.
+ * This app allows for navigating and uploading files to the public path.
  */
-declare class FilePicker extends Application {
+declare class FilePicker extends Application<FilePickerOptions> {
     /** The full requested path given by the user */
     request: string;
 
     /** The file sources which are available for browsing */
-    sources: any;
+    sources: object;
 
     /** Track the active source tab which is being browsed */
     activeSource: string;
@@ -24,7 +24,22 @@ declare class FilePicker extends Application {
     /** The current set of file extensions which are being filtered upon */
     extension: string[];
 
-    constructor(options: ApplicationOptions);
+    constructor(options: FilePickerOptions);
+
+    /** Record the last-browsed directory path so that re-opening a different FilePicker instance uses the same target */
+    static LAST_BROWSED_DIRECTORY: string;
+
+    /** Record the last-configured tile size which can automatically be applied to new FilePicker instances */
+    static LAST_TILE_SIZE: number | null;
+
+    /** Record the last-configured display mode so that re-opening a different FilePicker instance uses the same mode. */
+    static LAST_DISPLAY_MODE: FilePickerDisplayMode;
+
+    /** Enumerate the allowed FilePicker display modes */
+    static DISPLAY_MODES: ["list", "thumbs", "tiles", "images"];
+
+    /** Cache the names of S3 buckets which can be used */
+    static S3_BUCKETS: string[] | null;
 
     /**
      * Given a current file path, determine the directory it belongs to
@@ -45,7 +60,7 @@ declare class FilePicker extends Application {
     /**
      * Return the source object for the currently active source
      */
-    get source(): any;
+    get source(): object;
 
     /**
      * Return the target directory for the currently active source
@@ -66,7 +81,7 @@ declare class FilePicker extends Application {
      * @param target    The target within the currently active source location.
      * @param options   Browsing options
      */
-    browse(target: string, options?: object): Promise<any>;
+    browse(target: string, options?: object): Promise<object>;
 
     /**
      * Browse files for a certain directory location
@@ -84,7 +99,7 @@ declare class FilePicker extends Application {
         source: string,
         target: string,
         options?: { bucket?: string; extensions?: string[]; wildcard?: boolean }
-    ): Promise<any>;
+    ): Promise<object>;
 
     /**
      * Dispatch a POST request to the server containing a directory path and a file to upload
@@ -107,7 +122,7 @@ declare class FilePicker extends Application {
     /**
      * Handle a drop event to support dropping files onto the file picker and automatically uploading them
      */
-    protected _onDrop(event: Event): Promise<any>;
+    protected _onDrop(event: Event): Promise<void>;
 
     /**
      * Handle user submission of the address bar to request an explicit target
@@ -119,14 +134,14 @@ declare class FilePicker extends Application {
      * Handle file or folder selection within the file picker
      * @param event The originating click event
      */
-    protected _onPick(event: Event): any;
+    protected _onPick(event: Event): void;
 
     /**
      * Handle backwards navigation of the folder structure
      */
-    protected _onBack(event: Event): any;
+    protected _onBack(event: Event): void;
 
-    protected _onChangeBucket(event: Event): any;
+    protected _onChangeBucket(event: Event): void;
 
     /**
      * Handle a keyup event in the filter box to restrict the set of files shown in the FilePicker
@@ -136,12 +151,12 @@ declare class FilePicker extends Application {
     /**
      * Handle file picker form submission
      */
-    protected _onSubmit(ev: Event): any;
+    protected _onSubmit(ev: Event): Promise<void>;
 
     /**
      * Handle file upload
      */
-    protected _onUpload(ev: Event): Promise<any>;
+    protected _onUpload(ev: Event): Promise<void>;
 
     /* -------------------------------------------- */
     /*  Factory Methods
@@ -156,4 +171,26 @@ declare class FilePicker extends Application {
      * @param button    The button element
      */
     static fromButton(button: HTMLElement, options: object): FilePicker;
+}
+
+type FilePickerDisplayMode = (typeof FilePicker)["DISPLAY_MODES"][number];
+
+declare interface FilePickerOptions extends ApplicationOptions {
+    type?: "audio" | "image" | "video" | "imagevideo" | "folder" | "font" | "graphics" | "text" | "any";
+    /** The current file path being modified, if any */
+    current?: string;
+    /** A current file source in "data", "public", or "s3" */
+    activeSource?: "data" | "public" | "s3";
+    /** A callback function to trigger once a file has been selected */
+    callback?: Function;
+    /** A flag which permits explicitly disallowing upload, true by default */
+    allowUpdload?: boolean;
+    /** An HTML form field that the result of this selection is applied to */
+    field?: HTMLElement;
+    /** An HTML button element which triggers the display of this picker */
+    button?: HTMLButtonElement;
+    /** The picker display mode in FilePicker.DISPLAY_MODES */
+    displayMode?: FilePickerDisplayMode;
+    /** Display the tile size configuration. */
+    tileSize?: boolean;
 }

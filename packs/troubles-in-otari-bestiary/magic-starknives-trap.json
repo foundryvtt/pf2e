@@ -1,0 +1,158 @@
+{
+    "_id": "vg6fEjWSj4jilXRn",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dwvQyKJ9gUWC4S3f",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Starknife Attack",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>If a creature passes the middle pair of pillars, both doors leading out of the room slam shut and lock; while the trap is active, the doors must be battered open with a successful @Check[type:athletics|dc:23|name:Batter Open Door|traits:action:force-open] check or sufficient damage (Hardness 12; HP 48 [BT 24]). One of the starknife carvings glows with light, detaches from the pillar, and then flies outward, making a magical starknife Ranged Strike against a random creature within range. The trap then rolls initiative with its Stealth modifier of +12</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O9himtaJvrfCALhE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Magical Starknife",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "suquqxt663j73c6ijrk6t3": {
+                        "damage": "1d4+3",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "deadly-d6",
+                        "magical",
+                        "range-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Magic Starknives Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 14,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 14
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>to spot the magical energies reverberating in the pillars</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>Starknife symbols on the six pillars glow and shoot across the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:21|traits:action:disable-a-device] (expert) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> on any four of the six pillars disables the entire trap (the trap is a 2nd-level spell and the DC to dispel it is 21). Destroying any four of the six pillars also disables the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The trap deactivates 1 round after it has no target creatures and resets each day at sundown.</p>",
+            "routine": "<p>(3 actions) For each of its actions on its turn, a carving on a different pillar glows and makes a magical starknife Ranged Strike against a random creature within range. Creatures might have cover from this Strike, such as from one of the pillars in the room.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Troubles in Otari"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

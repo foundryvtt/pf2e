@@ -1,0 +1,100 @@
+{
+    "_id": "ytltNW8kF7VssFNJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "SoA92T03RUoUv9eD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Opening Move",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The shaitan sees a non-genie creature threatening an ally</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative and the shaitan takes control of the floor in <strong>A3</strong>, making it difficult terrain for hostile creatures while the trap is active.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shaitan Tactics (3-4)",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 9
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The shaitan observes the area from a distance, observing the battlefield as a game board. The ground trembles in response to the genie's enthusiasm.</p>",
+            "disable": "<p>@Check[type:arcana|dc:20] (trained) or @Check[type:nature|dc:20] (trained) to contest the shaitan's control (requires two successes).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "<p>The trap deactivates and resets once all hostile creatures leave <strong>A3</strong> or surrender.</p>",
+            "routine": "<p>(2 actions) On each of the trap's actions, the trap either moves a willing creature on the ground up to 30 feet without provoking reactions or makes a hostile creature on the ground @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] for 1 round on a failed @Check[type:acrobatics|dc:20] check or @Check[type:reflex|dc:20] save.</p>",
+            "source": {
+                "author": "",
+                "value": ""
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

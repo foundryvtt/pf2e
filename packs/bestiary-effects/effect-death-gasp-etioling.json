@@ -1,0 +1,69 @@
+{
+    "_id": "5x0XpNftvx9uGbXt",
+    "img": "systems/pf2e/icons/spells/claim-undead.webp",
+    "name": "Effect: Death Gasp (Etioling)",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains the undead and incorporeal traits, a fly Speed of 25 feet, resistance 10 to all damage (except force, ghost touch, or positive; double this resistance vs. non-magical) and becomes immune to bleed, death effects, disease, paralyzed, poison, and sleep.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 8
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "add": [
+                    "undead",
+                    "incorporeal"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Immunity",
+                "type": [
+                    "bleed",
+                    "death-effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "sleep"
+                ]
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 25
+            },
+            {
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "positive"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

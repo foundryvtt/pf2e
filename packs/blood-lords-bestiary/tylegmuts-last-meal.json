@@ -1,0 +1,102 @@
+{
+    "_id": "BHuDRFyr8FbNHjVk",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kkfXEqqrcMamJbPx",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Foul Temptation",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature looks over the contents of the desk</p>\n<hr />\n<p><strong>Effect</strong> The haunt tempts nearby creatures to eat from the plates and bowls arrayed on the desk by concealing it in an illusion of food the viewer finds delicious. Each creature in area <strong>D5</strong> must attempt a @Check[type:will|dc:21] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature sees through the illusion entirely and is temporarily immune to the haunt's routine for 1 minute.</p>\n<p><strong>Success</strong> The creature is not tempted by the food.</p>\n<p><strong>Failure</strong> The creature believes the food is appetizing and becomes driven to consume it. The creature takes [[/r (4d4+4)[slashing]]] damage as it chews the jagged bones and husks.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round as the haunt continues to tempt it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Tylegmut's Last Meal",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The former bank manager's ghostly presence tempts creatures to partake in a dubious meal.</p>",
+            "disable": "<p>@Check[type:religion|dc:18|name:Recite a Prayer to Urgathoa] (trained) to say a prayer to Urgathoa and put the haunt temporarily to rest until it resets, @Check[type:occultism|dc:22|name:Commune with the Manager's Spirit] (trained) to commune with the bank manager's spirit and convince her to permanently pass on, disabling the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>The haunt re-forms after 1 hour. The haunt becomes disabled and doesn't re-form if a creature eats a full meal at the desk-this can be any food, not just the \"food\" at hand.</p>",
+            "routine": "<p>(1 action) The haunt sends a cloud of dust and bone shards hurtling about the room. The dust and bones batter all creatures in the room, dealing [[/r 4d6[bludgeoning]]] damage (@Check[type:reflex|dc:21|basic:true]). Creatures who fail the save are @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round (or 1 minute on a critical failure).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #181: Zombie Feast"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

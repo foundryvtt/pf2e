@@ -1,15 +1,24 @@
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
-import { damageCategoriesUnique } from "@scripts/config/damage";
-import { DamageCategoryUnique } from "@system/damage";
+import { ItemSheetPF2e } from "@item/sheet/base.ts";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
+import { damageCategoriesUnique } from "@scripts/config/damage.ts";
+import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
-import { MeleePF2e } from ".";
+import { MeleePF2e } from "./index.ts";
 
 export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<MeleeSheetData> {
+        const data = await super.getData(options);
+
+        // In case of weak/elite adjustments, display source values for attack modifier and damage formulas
+        const itemSource = this.item._source;
+        data.data.attack.value = itemSource.system.attack.value;
+        for (const key of Object.keys(data.data.damageRolls)) {
+            data.data.damageRolls[key].damage = itemSource.system.damageRolls[key].damage;
+        }
+
         return {
-            ...(await super.getData(options)),
+            ...data,
             damageTypes: CONFIG.PF2E.damageTypes,
             damageCategories: damageCategoriesUnique,
             attackEffects: createSheetOptions(this.getAttackEffectOptions(), this.item.system.attackEffects),

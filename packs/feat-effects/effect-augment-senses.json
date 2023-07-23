@@ -1,0 +1,42 @@
+{
+    "_id": "JwDCoBIwyhOFnDGZ",
+    "img": "systems/pf2e/icons/spells/animal-feature.webp",
+    "name": "Effect: Augment Senses",
+    "system": {
+        "description": {
+            "value": "<p>Until the start of your next turn, you can't be flanked.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 13
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

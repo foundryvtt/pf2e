@@ -1,0 +1,70 @@
+{
+    "_id": "C3zKTQecexSbezhT",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Grievous Blow",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know how to deliver focused, powerful blows that bypass your enemies' resistances.</p>\n<p>Make an unarmed melee Strike. This counts as two attacks when calculating your multiple attack penalty. If this Strike hits, you deal two extra weapon damage dice. If you are at least 18th level, increase this to three extra weapon damage dice.</p>\n<p>This attack also ignores an amount of resistance to physical damage, or to a specific physical damage type, equal to your level.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Martial Artist Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "predicate": [
+                    "grievous-blow",
+                    "unarmed"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "grievous-blow",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,25 +1,19 @@
-import { SaveType } from "@actor/types";
-import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
-import { ConditionSlug } from "@item/condition";
+import { SaveType } from "@actor/types.ts";
 import {
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    ItemFlagsPF2e,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-} from "@item/data/base";
-import { DamageCategoryUnique, DamageType } from "@system/damage";
-import { AfflictionPF2e } from "./document";
+    AbstractEffectSystemData,
+    AbstractEffectSystemSource,
+    EffectAuraData,
+    EffectContextData,
+    EffectTraits,
+    TimeUnit,
+} from "@item/abstract-effect/index.ts";
+import { ConditionSlug } from "@item/condition/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
+import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: DeepPartial<AfflictionFlags>;
 };
-
-type AfflictionData = Omit<AfflictionSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSystemData, AfflictionSource> & {
-        flags: AfflictionFlags;
-    };
 
 type AfflictionFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -27,7 +21,8 @@ type AfflictionFlags = ItemFlagsPF2e & {
     };
 };
 
-interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
+interface AfflictionSystemSource extends AbstractEffectSystemSource {
+    level: { value: number };
     traits: EffectTraits;
     save: {
         type: SaveType;
@@ -45,7 +40,9 @@ interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
     context: EffectContextData | null;
 }
 
-interface AfflictionSystemData extends AfflictionSystemSource, Omit<ItemSystemData, "traits"> {}
+interface AfflictionSystemData
+    extends Omit<AfflictionSystemSource, "fromSpell">,
+        Omit<AbstractEffectSystemData, "level" | "traits"> {}
 
 interface AfflictionOnset {
     value: number;
@@ -53,30 +50,32 @@ interface AfflictionOnset {
 }
 
 interface AfflictionDamage {
-    value: string;
+    formula: string;
     type: DamageType;
-    category?: DamageCategoryUnique;
+    category?: DamageCategoryUnique | null;
 }
 
 interface AfflictionStageData {
     damage: Record<string, AfflictionDamage>;
     conditions: Record<string, AfflictionConditionData>;
-    effects: {
-        uuid: ItemUUID;
-    }[];
+    effects: AfflictionEffectData[];
 }
 
 interface AfflictionConditionData {
     slug: ConditionSlug;
     value?: number;
+    /** Whether the condition should disappear when the stage changes. Defaults to true */
+    linked?: boolean;
 }
 
-interface AfflictionSystemData extends Omit<AfflictionSystemSource, "items">, Omit<ItemSystemData, "traits"> {}
+interface AfflictionEffectData {
+    uuid: ItemUUID;
+}
 
 export {
     AfflictionConditionData,
     AfflictionDamage,
-    AfflictionData,
+    AfflictionFlags,
     AfflictionOnset,
     AfflictionSource,
     AfflictionStageData,

@@ -1,18 +1,18 @@
-import { RuleElementPF2e, RuleElementSource, RuleElementOptions, RuleElementSchema } from "../";
-import { ItemPF2e } from "@item";
-import { ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
-
-const { fields } = foundry.data;
+import { IWRSource, ImmunityData, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import type { ArrayField, BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { AELikeChangeMode } from "../ae-like.ts";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource, RuleValue } from "../index.ts";
 
 /** @category RuleElement */
 abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
-    constructor(data: IWRRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    abstract value: RuleValue;
+
+    constructor(data: IWRRuleElementSource, options: RuleElementOptions) {
         if (typeof data.type === "string") {
             data.type = [data.type];
         }
 
-        super(data, item, options);
+        super(data, options);
     }
 
     static get dictionary(): Record<string, string | undefined> {
@@ -20,8 +20,11 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
     }
 
     static override defineSchema(): IWRRuleSchema {
+        const { fields } = foundry.data;
+
         return {
             ...super.defineSchema(),
+            mode: new fields.StringField({ required: true, choices: ["add", "remove"], initial: "add" }),
             type: new fields.ArrayField(new fields.StringField({ required: true, blank: false, initial: undefined })),
             exceptions: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, initial: undefined })
@@ -30,15 +33,22 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
         };
     }
 
-    /** A reference to the pertinent property in actor system data */
-    abstract get property(): unknown[];
+    static override validateJoint(source: SourceFromSchema<IWRRuleSchema>): void {
+        super.validateJoint(source);
 
-    #isValid(value: unknown): boolean {
-        if (this.type.length === 0) {
-            this.failValidation("A type must be provided");
-            return false;
+        if (source.type.length === 0) {
+            throw Error("must have at least one type");
         }
 
+        if (source.mode === "remove" && source.exceptions.length > 0) {
+            throw Error('`exceptions` may not be included with a `mode` of "remove"');
+        }
+    }
+
+    /** A reference to the pertinent property in actor system data */
+    abstract get property(): IWRSource[];
+
+    #isValid(value: unknown): boolean {
         const { dictionary } = this.constructor;
 
         const unrecognizedTypes = this.type.filter((t) => !(t in dictionary));
@@ -49,7 +59,11 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
             return false;
         }
 
-        if (dictionary !== CONFIG.PF2E.immunityTypes && (typeof value !== "number" || value < 0)) {
+        if (
+            this.mode === "add" &&
+            dictionary !== CONFIG.PF2E.immunityTypes &&
+            (typeof value !== "number" || value < 0)
+        ) {
             this.failValidation("A `value` must be a positive number");
             return false;
         }
@@ -59,17 +73,21 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
 
     abstract getIWR(value?: number): ImmunityData[] | WeaknessData[] | ResistanceData[];
 
-    override beforePrepareData(): void {
+    override afterPrepareData(): void {
         if (!this.test()) return;
 
         this.type = this.resolveInjectedProperties(this.type);
 
-        const value = Math.floor(Number(this.resolveValue()));
-        if (!this.#isValid(value)) {
-            this.ignored = true;
-            return;
+        const value = Math.floor(Number(this.resolveValue(this.value)));
+        if (!this.#isValid(value)) return;
+
+        if (this.mode === "add") {
+            this.property.push(...this.getIWR(value));
+        } else {
+            for (const toRemove of this.type) {
+                this.property.findSplice((iwr) => iwr.type === toRemove);
+            }
         }
-        this.property.push(...this.getIWR(value));
     }
 }
 
@@ -78,20 +96,25 @@ interface IWRRuleElement<TSchema extends IWRRuleSchema>
         Omit<ModelPropsFromSchema<IWRRuleSchema>, "exceptions"> {
     constructor: typeof IWRRuleElement<TSchema>;
 
-    // Typescript 4.9 doesn't fully resolve conditional types, so omit from `ModelPropsFromSchema` and redefine
+    // Typescript 5 doesn't fully resolve conditional types, so omit from `ModelPropsFromSchema` and redefine
     exceptions: string[];
 }
 
 type IWRRuleSchema = RuleElementSchema & {
+    /** Whether to add or remove an immunity, weakness, or resistance (default is "add") */
+    mode: StringField<IWRChangeMode, IWRChangeMode, true, false, true>;
     type: ArrayField<StringField<string, string, true, false, false>>;
     exceptions: ArrayField<StringField<string, string, true, false, false>>;
     override: BooleanField;
 };
 
+type IWRChangeMode = Extract<AELikeChangeMode, "add" | "remove">;
+
 interface IWRRuleElementSource extends RuleElementSource {
+    mode?: unknown;
     type?: unknown;
     exceptions?: unknown;
     override?: unknown;
 }
 
-export { IWRRuleElement, IWRRuleSchema, IWRRuleElementSource };
+export { IWRRuleElement, IWRRuleElementSource, IWRRuleSchema };

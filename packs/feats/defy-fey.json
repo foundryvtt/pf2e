@@ -1,0 +1,54 @@
+{
+    "_id": "QUnN2wUfvOD6Tz69",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Defy Fey",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are keen to the wiles of the fey and can usually shake off their magic. Whenever you fail, but don't critically fail, a save against a spell with a duration of at least 1 round cast by a fey creature, you can attempt a second save against the original DC at the start of your next turn to end any lingering effects the spell might have. This can end persistent damage caused by a spell but can't reverse any effects that have been resolved already (such as damage dealt when the spell was cast).</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Greenwatch Initiate"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "origin:trait:fey",
+                    "item:type:spell"
+                ],
+                "selector": "saving-throw",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "gunslinger",
+                "investigator",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

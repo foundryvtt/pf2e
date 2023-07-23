@@ -1,0 +1,66 @@
+{
+    "_id": "H99PJXU5cvJ4Oycm",
+    "img": "systems/pf2e/icons/spells/elemental-form-fire.webp",
+    "name": "Effect: Fiery Form",
+    "system": {
+        "description": {
+            "value": "<p>The blood hag gains the fire trait and a fly Speed of 60 feet, becomes immune to fire, and emits light as a torch.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "type": "fire"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 60
+            },
+            {
+                "key": "TokenLight",
+                "type": "torch",
+                "value": {
+                    "animation": {
+                        "intensity": "4",
+                        "speed": "1",
+                        "type": "torch"
+                    },
+                    "bright": "20",
+                    "color": "#9b7337",
+                    "dim": "40",
+                    "shadows": "0.2"
+                }
+            },
+            {
+                "add": [
+                    "fire"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

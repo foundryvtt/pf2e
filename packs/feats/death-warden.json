@@ -1,0 +1,54 @@
+{
+    "_id": "hiABcPXvcYa9QccF",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Death Warden",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With your intimate familiarity with the duality of positive and negative energy, you're able to stand as a bulwark against death and undeath alike. You gain resistance to negative damage equal to half your level and a +1 status bonus to saving throws against effects with the negative trait.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hallowed Necromancer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "negative",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "negative"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "positive"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -15,7 +15,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
     static readonly namespace: string;
     cache: Record<string, unknown> = {};
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.classes.push("settings-menu", "sheet");
 

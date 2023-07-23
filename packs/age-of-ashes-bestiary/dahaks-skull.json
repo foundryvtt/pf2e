@@ -1,0 +1,203 @@
+{
+    "_id": "h7apR3QSxVZmy2nt",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "EYE5NG1a4JuddG5h",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Perception and Vision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Perception</strong> [[/r 1d20+16 #Perception]]{+16}; @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision], <em>@UUID[Compendium.pf2e.spells-srd.Item.See Invisibility]</em></p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K28NAtboAXcpvklg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dahak's Glance",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature that is not a member of the Cinderclaws enters area <strong>C9</strong></p>\n<hr />\n<p><strong>Effect</strong> One of the dragon skull's eye sockets shoots an eye beam at the triggering creature, then the hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "evocation",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vmOhdTHRiDnoF4LK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Eye Beam",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "7uc8gqbvn5wh8ng5jlm9xq": {
+                        "damage": "8d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "evocation",
+                        "fire",
+                        "range-150"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Dahak's Skull",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 14,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>but @Check[type:perception|dc:24|name:Notice Lights in Eyes|traits:complex,magical,fire,trap,hazard] to notice that the fiery lights within the skull's eye sockets seem to be looking around the room.</p>",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A pair of magical gems inside the dragon skull's eye sockets act as magical sensors with a 30-foot radius.</p>",
+            "disable": "<p>@Check[type:thievery|dc:27|name:Pry Out the Embedded Gems|traits:complex,magical,fire,trap,hazard] (expert) two times to pry the gems embedded deep in the skull's eye sockets without triggering the sensor, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level, counteract DC 22) twice to dispel both eyes.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) On its initiative, Dahak's skull fires up to two eye beams; it must target a different creature with each attack. The eye beams can't target creatures directly below the skull.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #146: Cult of Cinders"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "fire",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

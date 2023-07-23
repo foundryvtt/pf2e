@@ -1,0 +1,173 @@
+{
+    "_id": "RQH6vigvhmiYKKjg",
+    "img": "systems/pf2e/icons/features/classes/precise-strike.webp",
+    "name": "Precise Strike",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You Strike with flair. When you have panache and you Strike with an agile or finesse melee weapon or agile or finesse unarmed attack, you deal 2 additional precision damage. If the strike is part of a finisher, the additional damage is 2d6 precision damage instead.</p>\n<p>As your swashbuckler level increases, so does your additional damage for precise strike. Increase the amount of additional damage on a Strike and the number of additional dice on a finisher by one at 5th, 9th, 13th, and 17th levels.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PreciseStrike.Finisher",
+                "option": "finisher",
+                "toggleable": true
+            },
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "predicate": [
+                    "class:swashbuckler",
+                    "self:effect:panache",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "not": "finisher"
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "precise-strike",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 2
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": 3
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": 4
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": 5
+                        },
+                        {
+                            "start": 17,
+                            "value": 6
+                        }
+                    ]
+                }
+            },
+            {
+                "category": "precision",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "class:swashbuckler",
+                    "self:effect:panache",
+                    "finisher",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "finisher",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": {
+                                "diceNumber": 5
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 6
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

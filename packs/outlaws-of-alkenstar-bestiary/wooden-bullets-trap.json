@@ -1,0 +1,157 @@
+{
+    "_id": "64BpT3gs4q1n187w",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "klvdQszuOX36YOId",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Auto-Sling",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature or object weighing at least 50 pounds is placed on the porch (marked \"T\" on the map)</p>\n<hr />\n<p><strong>Effect</strong> A stream of wooden sling bullets flies from a launcher. The trap Strikes the two nearest creatures and then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uIH22aBxZefzX5nW",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Wooden Bullet",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "94w0ubv46z6vatmui1mg": {
+                        "damage": "1d6+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "nonlethal",
+                        "range-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Wooden Bullets Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 10,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A hopper full of wooden sling bullets is attached to several launching devices, which spew the bullets at high velocity through various holes in the boards covering the window. A distinctive \"click\" and whirring sound indicate the trap has been sprung.</p>",
+            "disable": "<p>@Check[type:thievery|dc:17|name:reinforce the porch sensor|traits:complex,hazard,trap,mechanical] (trained) to reinforce the porch pressure sensor or @Check[type:crafting|dc:15|name:Cover the holes|traits:complex,hazard,trap,mechanical] (trained) to cover the holes launching the bullets</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The trap stops after 10 rounds or when the weight on the porch is removed, whichever comes first. The trap can operate for a total of 10 rounds before its ammunition is exhausted.</p>",
+            "routine": "<p>(2 actions) The wooden bullets trap Strikes the two nearest creatures. It ignores @UUID[Compendium.pf2e.conditionitems.Item.Prone] creatures as the bullets fly overhead.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #178: Punks in a Powder Keg"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

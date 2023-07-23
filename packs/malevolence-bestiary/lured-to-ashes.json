@@ -1,0 +1,123 @@
+{
+    "_id": "fQClrtmAe3AER0w2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "tcBafn7uVyBovL1F",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Lure",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves more than 5 feet into the room</p>\n<hr />\n<p><strong>Effect</strong> All creatures in area B18 and all creatures within 10 feet of an open door or window adjacent to area B18 hear a compelling voice inviting them into the room to discuss a future move back to central Cheliax.</p>\n<p>Each creature must attempt a @Check[type:will|dc:22|name:Lure to Ashes] save (creatures outside of area B18 gain a +2 circumstance bonus to this save). On a failure, the creature is compelled to move into area B18 and be seated on one of the sofas.</p>\n<p>Creatures who succeed at the save aren't compelled and see the room as the burnt ruin that it is. The haunt then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "auditory",
+                        "enchantment",
+                        "linguistic",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lured to Ashes",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(Expert)</p>",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The illusory scene of a furnished study covers the room's actual appearance. It flickers and fades, revealing a scorched and burnt chamber. A moment later, the screams of burning victims fill the room, and blazing skeletal arms reach from the ashes and charred walls to scrape and claw.</p>",
+            "disable": "<p>@Check[type:intimidation|dc:26|name:Silence the Spirits|traits:action:coerce] to command the spirits haunting this room to be silent or @Check[type:religion|dc:23|name:Exorcise the Haunt] to exorcise the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>8 hours; destroying the tanglebones in area E3 destroys this haunt forever.</p>",
+            "routine": "<p>1 Action: If there are no targets within area B18 when the haunt takes its action, it can use its Lure reaction to try to get nearby victims back inside. The haunt manifests several burning skeletal arms that reach up from the ruined floors or out of the burnt walls to claw at every creature in area B18. These creatures must attempt a @Check[type:reflex|dc:22|name:Lured to Ashes Fire|traits:damaging-effect,fire,necromancy,occult] save (creatures seated on a sofa take a -2 circumstance penalty to this saving throw).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d8[fire]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d8[fire]]] damage and gains weakness 5 to fire. This weakness persists until the creature is fully healed.</p>\n<p><strong>Critical Failure</strong> As failure, but [[/r 4d8[fire]]] damage and weakness 10 to fire.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Malevolence"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

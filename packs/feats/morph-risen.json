@@ -1,0 +1,61 @@
+{
+    "_id": "znX4u20IFE7TPi9Y",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Morph-Risen",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were once a shapeshifter or spellcaster using polymorph magic, but something went wrong, and you became trapped in the form of the creature you were imitating. This accident might have drained your power, or you might have retained some of your skills, but either way, your form resists further forced transformation. You gain a +1 circumstance bonus to saving throws against transmutation effects, and if you roll a success on a saving throw against a hostile morph or polymorph effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "transmutation"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:polymorph",
+                            "item:trait:morph"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage",
+                "reflection"
+            ]
+        }
+    },
+    "type": "feat"
+}

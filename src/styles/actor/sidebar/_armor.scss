@@ -1,8 +1,8 @@
 .armor-class {
     display: grid;
     grid:
-        'ac shield-hp shield-footer' 74px
-        'shield-data shield-data shield-data' auto
+        "ac shield-hp shield-footer" 74px
+        "shield-data shield-data shield-data" auto
         / 66px 59px auto;
     grid-column-gap: 4px;
 
@@ -16,7 +16,7 @@
         padding: 14px 10px 0 10px;
         .data-value {
             h2,
-            input[type='number'] {
+            input[type=number] {
                 font-size: var(--font-size-32);
                 width: 55px;
             }
@@ -26,12 +26,12 @@
         }
         &.ac {
             grid-area: ac;
-            background: url('../assets/sheet/shield-blue.webp') no-repeat center
+            background: url("/assets/sheet/shield-blue.webp") no-repeat center
                 center;
         }
         &.hp {
             grid-area: shield-hp;
-            background: url('../assets/sheet/shield-red.webp') no-repeat top center;
+            background: url("/assets/sheet/shield-red.webp") no-repeat top center;
         }
     }
     .shield-stats {
@@ -72,19 +72,19 @@
                         line-height: 1.5;
                     }
                     &.ac:after {
-                        content: 'AC';
+                        content: "AC";
                         top: 3px;
                         left: 3px;
                     }
                     &.hardness:after {
                         left: 5px;
                         top: 3px;
-                        content: 'H';
+                        content: "H";
                     }
                     &.bt:after {
                         top: 3px;
                         left: 3.5px;
-                        content: 'BT';
+                        content: "BT";
                     }
                 }
                 .data-value {
@@ -93,7 +93,7 @@
                     padding-left: 4px;
                     margin-left: -8px;
                     height: 20px;
-                    input[type='number'] {
+                    input[type=number] {
                         font-size: var(--font-size-14);
                         font-weight: 400;
                         padding-top: 2px;
@@ -103,6 +103,7 @@
             }
         }
     }
+
     .armor_footer {
         grid-area: shield-footer;
         display: inline-flex;

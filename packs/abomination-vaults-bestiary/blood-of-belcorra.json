@@ -1,0 +1,131 @@
+{
+    "_id": "XLTPZ592Z9MXXBlA",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Q4ib52AxEVe6nHUx",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gauntlight Beam",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature ends its turn in area <strong>A11</strong> at night</p>\n<hr />\n<p><strong>Effect</strong> A ghastly image of Belcorra, seemingly composed of fresh blood, rises from the bloodstain on the floor and rotates in place like a lighthouse. Beams of cold blue light shine from Belcorra's eyes and open mouth, causing blisters and decay to spread across flesh. Living creatures within a @Template[type:burst|distance:30] from the center of area <strong>A11</strong> must attempt a @Check[type:fortitude|dc:20|traits:damaging-effect] save.</p>\n<p>The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d8[negative]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r (1d8+6)[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (2d8+6)[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round then dazzled for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "light",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blood of Belcorra",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "exceptions": [
+                        "ghost-touch"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A bloody image of Belcorra arises, emits a soul‑draining light, then inhales blood from living creatures in the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:22|name:Wipe Away Blood] (trained) to wipe away enough of the bloodstain to disrupt the haunt's necromantic energies, or @Check[type:religion|dc:20|name:Excorcise Haunt] (trained) to exorcise the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>If the haunt is disabled or destroyed through damage, the bloody phantom of Belcorra sprays upward in a spiral, dousing the trap door leading to area <strong>A25</strong> before draining upward through the keyhole, which reduces the Thievery DC to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick the Lock} to @Check[type:thievery|dc:20|name:Pick Trap Door|traits:action:pick-a-lock,skill,manipulate].</p>\n<p>At the next sunrise, the blood drains back down to this room and the haunt resets. The haunt is destroyed permanently once Lasda Venkervale is rescued from area <strong>D9</strong>.</p>",
+            "routine": "<p>(1 action) The bloody image opens its mouth and appears to inhale, drawing blood from the body of one creature in its line of sight within 90 feet from the center of area <strong>A11</strong>. The creature targeted must attempt a @Check[type:fortitude|dc:20|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d10[bleed]]].</p>\n<p><strong>Failure</strong> The creature takes [[/r (1d10+6)[bleed]]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (2d10+6)[bleed]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} as long as it's bleeding.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #163: Ruins of Gauntlight"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

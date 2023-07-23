@@ -1,0 +1,50 @@
+{
+    "_id": "pKnX7MGZayqZui0Z",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Aerobatics Mastery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You move with grace in flight and can perform amazing aerial stunts.</p>\n<p>You gain a +2 circumstance bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Maneuver in Flight] and can combine two maneuvers into a single action, such as reversing direction while making a steep ascent or descent or hovering in gale-force winds. The DC of the Acrobatics check is equal to the DC of the most difficult maneuver + 5.</p>\n<p>If you're legendary in Acrobatics, you can combine three such maneuvers into a single action; the DC of the Acrobatics check is equal to the DC of the most difficult maneuver + 10. Regardless of the combination, these maneuvers rarely allow you to move farther than your @UUID[Compendium.pf2e.actionspf2e.Item.Fly] Speed.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Acrobatics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Aerobatics Mastery (Maneuver in Flight)",
+                "predicate": [
+                    "action:maneuver-in-flight"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

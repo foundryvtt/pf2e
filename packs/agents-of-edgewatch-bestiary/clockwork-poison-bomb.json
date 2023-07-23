@@ -1,0 +1,118 @@
+{
+    "_id": "hzThZ50RRdfTYTKc",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "FH3nsGdSWs8rbUYr",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Poisonous Cloud",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The bomb is Activated, which requires 3 actions</p>\n<hr />\n<p><strong>Effect</strong> The bomb releases a smoky cloud of @UUID[Compendium.pf2e.equipment-srd.Item.Blackfinger Blight] in a 20-foot radius. Creatures within the smoke are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from other creatures.</p>\n<p>Any creature that starts its turn in the smoke must roll a @Check[type:fortitude|dc:32|name:Blackfinger Blight|traits:contact,virulent] saving throw to avoid being afflicted by blackfinger blight poison.</p>\n<p>The cloud remains for 1 minute or until dispersed by strong winds.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Clockwork Poison Bomb",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 32
+            },
+            "hardness": 5,
+            "hasHealth": true,
+            "hp": {
+                "details": "to ruin the nozzle (making it impossible to disable, in which case the only way to disarm the bomb is to destroy both its tanks); <strong>Tank Hardness</strong> 15; <strong>Tank HP</strong> 80 (BT 40) to destroy one of the tanks (both tanks must be destroyed to disarm the bomb",
+                "max": 20,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>The bomb uses Oggvurm's initiative roll as its Stealth roll</p>",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>A clockwork bomb releases gouts of poisonous smoke. The smoke issues forth from a single nozzle attached to two tanks of pressurized poison</p>",
+            "disable": "<p>Three @Check[type:thievery|dc:31|name:Disable a Latch|traits:action:disable-a-device] (expert) checks to @UUID[Compendium.pf2e.actionspf2e.Item.Disable Device]{Disable a Device} to disable the latches that lock the nozzle in place, then one @Check[type:thievery|dc:35|name:Turn Off Nozzle|traits:action:disable-a-device] (master) check to Disable a Device to turn off the nozzle; DCs decrease by 2 if Oggvurm is immobilized, paralyzed, unconscious, or dead</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>The trap issues smoke for 3 minutes before its tanks run dry. The tanks must be replaced before the bomb can be reactivated.</p>",
+            "routine": "<p>(1 action) On its turn, the bomb spews forth a smoky gout of airborne @UUID[Compendium.pf2e.equipment-srd.Item.Blackfinger Blight] poison. The cloud fills a 20-foot radius, or a 10-foot radius if only one tank remains intact. If the bomb is already in the center of a blackfinger blight cloud, the radius of that cloud increases by 20 feet (or 10 feet, if only one tank remains intact) instead.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #159: All or Nothing"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "alchemical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

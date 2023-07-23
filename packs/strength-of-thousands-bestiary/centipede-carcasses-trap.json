@@ -1,0 +1,112 @@
+{
+    "_id": "PHpFRuT0JuxL8xbj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "TGlYdzFkP9vjcuVJ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Volley of Legs",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A carcass is touched or jostled</p>\n<hr />\n<p><strong>Effect</strong> Each creature within 30 feet of any centipede carcass takes [[/r 4d4[piercing]]] damage (@Check[type:reflex|dc:22|basic:true|name:Avoid Carapace Strike|traits:mechanical,trap] save), and the area becomes difficult terrain due to the many sharpened legs on the ground. Each creature that Strides more than 10 feet through the area must succeed at a @Check[type:acrobatics|dc:20|name:Avoid Piercing Terrain|traits:mechanical,trap] check or take [[/r 1d4[piercing]]] damage.</p>\n<p>The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Centipede Carcasses Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Three giant centipede carcasses have wire springs that pull out and fling their sharpened legs around the room.</p>",
+            "disable": "<p>@Check[type:nature|dc:23|name:Bend Carapace|traits:mechanical,trap] (trained) to bend the centipede carapace so the wire can't pull out any more legs, or @Check[type:thievery|dc:21|name:Cut Wires|traits:mechanical,trap] (expert) to cut the springy wires. After all three carcasses are disabled (regardless of the check used), the trap is deactivated. The trap automatically deactivates after 10 rounds.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "",
+            "routine": "<p>(1 action) Each creature within 30 feet of a centipede carcass that hasn't been disabled takes [[/r 6d4[piercing]]] damage (@Check[type:reflex|dc:22|basic:true|name:Avoid Carapace Strike|traits:mechanical,trap] save).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #169: Kindled Magic"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

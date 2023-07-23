@@ -1,0 +1,46 @@
+{
+    "_id": "MizJPiKnopfpGmvw",
+    "img": "systems/pf2e/icons/spells/blinding-fury.webp",
+    "name": "Catharsis Emotion (Anger)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your destructive wrath allows you to harm your foes but causes you pain in the process.</p>\n<p><strong>Catharsis Trigger</strong> An enemy deals damage to you. You can't use this reaction if you're @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>\n<p><strong>Catharsis Activation</strong> If you're @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. If you succeed, the creature or hazard imposing the condition on you (if applicable) takes force damage equal to your level.</p>\n<p><strong>Emotional Fervor</strong> When you Cast a Spell from your spell slots, if the spell deals damage and doesn't have a duration, you gain a status bonus to that spell's damage equal to the spell's level. Spell: <em>@UUID[Compendium.pf2e.spells-srd.Item.Draw Ire]</em></p>\n<p><strong>Emotional Fallout</strong> You become fatigued until you Settle your Emotions.</p>\n<p><strong>Focus Spell</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Athletic Rush]</em></p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "phase": "afterDerived",
+                "predicate": [
+                    "item:spell-slot",
+                    "item:duration:0",
+                    "damaging-effect",
+                    "self:effect:emotional-fervor"
+                ],
+                "selector": "spell-damage",
+                "type": "status",
+                "value": "@spell.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

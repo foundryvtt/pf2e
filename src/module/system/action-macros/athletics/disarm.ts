@@ -1,30 +1,30 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActorPF2e } from "@actor";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { WeaponPF2e } from "@item";
-import { ModifierPF2e } from "@actor/modifiers";
 
-export function disarm(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
-    ActionMacroHelpers.simpleRollActionCheck<Embedded<WeaponPF2e>>({
+export function disarm(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "athletics";
+    const rollOptions = ["action:disarm"];
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Disarm.Title",
-        subtitle,
-        item: (actor) => (ActionMacroHelpers.getApplicableEquippedWeapons(actor, "disarm") ?? []).shift(),
-        modifiers: (args) => {
-            const modifiers: ModifierPF2e[] = [];
-            if (args.item && args.item.slug !== "basic-unarmed") {
-                const modifier = ActionMacroHelpers.getWeaponPotencyModifier(args.item, stat);
+        checkContext: (opts) => {
+            // weapon
+            const item = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "disarm") ?? []).shift();
+
+            // modifiers
+            const modifiers = options.modifiers?.length ? [...options.modifiers] : [];
+            if (item && item.slug !== "basic-unarmed") {
+                const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, slug);
                 if (modifier) {
                     modifiers.push(modifier);
                 }
             }
-            return modifiers.concat(options.modifiers ?? []);
+
+            return ActionMacroHelpers.defaultCheckContext(opts, { item, modifiers, rollOptions, slug });
         },
-        rollOptions: ["all", checkType, stat, "action:disarm"],
-        extraOptions: ["action:disarm"],
         traits: ["attack"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -34,5 +34,8 @@ export function disarm(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }

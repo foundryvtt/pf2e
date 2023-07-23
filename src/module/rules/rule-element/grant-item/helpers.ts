@@ -1,7 +1,8 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 
 /** Check an item prior to its deletion for GrantItem on-delete actions */
-async function processGrantDeletions(item: Embedded<ItemPF2e>, pendingItems: Embedded<ItemPF2e>[]): Promise<void> {
+async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: ItemPF2e<ActorPF2e>[]): Promise<void> {
     const { actor } = item;
 
     const granter = actor.items.get(item.flags.pf2e.grantedBy?.id ?? "");
@@ -48,18 +49,16 @@ async function processGrantDeletions(item: Embedded<ItemPF2e>, pendingItems: Emb
 
     // Finally, handle detachments, removing the grant data from granters `itemGrants` object
     const [key] = Object.entries(granter?.flags.pf2e.itemGrants ?? {}).find(([, g]) => g === parentGrant) ?? [null];
-    if (granter && key) {
+    if (granter && key && !pendingItems.includes(granter)) {
         await granter.update({ [`flags.pf2e.itemGrants.-=${key}`]: null }, { render: false });
     }
 
     for (const grant of grants) {
         const grantee = actor.items.get(grant.id);
-        if (grantee?.flags.pf2e.grantedBy?.id !== item.id || pendingItems.includes(grantee)) {
-            continue;
-        }
+        if (grantee?.flags.pf2e.grantedBy?.id !== item.id) continue;
 
         // Unset the grant flag and leave the granted item on the actor
-        if (grantee.flags.pf2e.grantedBy.onDelete === "detach") {
+        if (grantee.flags.pf2e.grantedBy.onDelete === "detach" && !pendingItems.includes(grantee)) {
             await grantee.update({ "flags.pf2e.-=grantedBy": null }, { render: false });
         }
     }

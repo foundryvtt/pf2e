@@ -1,0 +1,45 @@
+{
+    "_id": "s3Te8waFP3KEb2dN",
+    "img": "systems/pf2e/icons/features/classes/champions-reaction.webp",
+    "name": "Effect: Shield Ally",
+    "system": {
+        "description": {
+            "value": "<p>The hardness of your equipped shield increases by 2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "self:shield:equipped"
+                ],
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

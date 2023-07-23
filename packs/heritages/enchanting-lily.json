@@ -1,0 +1,41 @@
+{
+    "_id": "VqgrYMaAwnNjT9Mn",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Enchanting Lily",
+    "system": {
+        "ancestry": {
+            "name": "Ghoran",
+            "slug": "ghoran",
+            "uuid": "Compendium.pf2e.ancestries.Item.tSurOqRcfumadTfr"
+        },
+        "description": {
+            "value": "<p>You smell ever so sweet—a delicate, floral scent like the intoxicating fragrance of lilies and the soft scent of lilacs. You're trained in Diplomacy (or another skill if you were already trained in Diplomacy). You also gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] if the target can smell your fragrance.</p>"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    "enchanting-lily"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

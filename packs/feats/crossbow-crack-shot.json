@@ -1,0 +1,63 @@
+{
+    "_id": "s6h0xkdKf3gecLk6",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Crossbow Crack Shot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have a deep understanding of the crossbow. When you're wielding a crossbow and Interact to reload it, including Interact actions as part of your slinger's reload and similar effects, you gain a +2 circumstance bonus to the damage roll on your next Strike with that crossbow. As normal, this isn't cumulative with the +1 circumstance bonus from singular expertise. If the crossbow is a simple crossbow, also increase the damage die size for that attack by one step. You must make the attack before the end of your turn or these benefits are lost.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "crossbow-crack-shot",
+                "toggleable": true
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "crossbow-crack-shot",
+                    "item:category:simple",
+                    "item:tag:crossbow"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "crossbow-crack-shot",
+                    "item:tag:crossbow"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "u1Z7i2RyL6Sd9OVU",
+    "img": "systems/pf2e/icons/spells/distracting-chatter.webp",
+    "name": "Effect: Take Them Down!",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to attack rolls and damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

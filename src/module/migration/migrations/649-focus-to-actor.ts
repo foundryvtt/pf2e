@@ -1,11 +1,12 @@
-import { MigrationBase } from "../base";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
-import { SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
-import { CharacterSource } from "@actor/character/data";
-import { NPCSource } from "@actor/npc/data";
+import { CharacterSource } from "@actor/character/data.ts";
+import { CreatureResourcesSource } from "@actor/creature/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { NPCSource } from "@actor/npc/data.ts";
+import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data/index.ts";
+import { SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { MigrationBase } from "../base.ts";
 
-interface SpellcastingEntrySystemDataOld extends Omit<SpellcastingEntrySystemData, "focus"> {
+interface SpellcastingEntrySystemDataOld extends Omit<SpellcastingEntrySystemSource, "focus"> {
     focus?: {
         points: number;
         pool: number;
@@ -37,7 +38,8 @@ export class Migration649FocusToActor extends MigrationBase {
 
         if (spellLists.length === 0) return;
         const focusOld = spellLists[0].focus;
-        actorData.system.resources.focus = {
+        const resources: CreatureResourcesSource = actorData.system.resources;
+        resources.focus = {
             value: focusOld?.points ?? 0,
             max: focusOld?.pool ?? 1,
         };

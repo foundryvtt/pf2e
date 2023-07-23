@@ -1,0 +1,77 @@
+{
+    "_id": "Bni2NcuQn6Z546RE",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Twitchy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are naturally suspicious and wary of danger, especially when you suspect someone might be leading you into an ambush. You gain a +1 circumstance bonus to AC and saves against hazards, and to all of your initiative rolls.</p>\n<p>If at least one of your opponents is using Deception or Diplomacy to determine their initiative, your bonus to initiative from this feat increases to +4.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Saving or defending against hazards",
+                "option": "hazard",
+                "toggleable": "totm"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Opponent rolling Deception or Diplomacy for initiative",
+                "option": "twitchy-deception-diplomacy",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Twitchy (Opponent rolling Deception or Diplomacy)",
+                "predicate": [
+                    "twitchy-deception-diplomacy"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:type:hazard"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

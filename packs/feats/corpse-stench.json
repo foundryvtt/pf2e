@@ -1,0 +1,51 @@
+{
+    "_id": "U5hjS5qFrtGHWlVG",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Corpse Stench",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your body exudes an overwhelming scent of decay in a @Template[type:emanation|distance:10], so putrid that it nauseates creates within that range. Any creature that starts its turn in the aura must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classOrSpellDC.value)] save against your class DC or spell DC, whichever is higher, or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a critical failure). While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to Corpse Stench for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Stench]</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghoul Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Aura",
+                "radius": 10,
+                "slug": "corpse-stench",
+                "traits": [
+                    "archetype",
+                    "aura",
+                    "olfactory"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "aura",
+                "olfactory"
+            ]
+        }
+    },
+    "type": "feat"
+}

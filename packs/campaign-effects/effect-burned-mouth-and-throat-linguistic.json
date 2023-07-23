@@ -1,0 +1,45 @@
+{
+    "_id": "nwFhhgZRggDoDgdk",
+    "img": "systems/pf2e/icons/spells/bottomless-stomach.webp",
+    "name": "Effect: Burned Mouth and Throat (Linguistic)",
+    "system": {
+        "description": {
+            "value": "<p>Burns mouth and throat, giving a -1 item penalty to linguistic-based checks and DCs for 1 hour.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "linguistic"
+                ],
+                "selector": "all",
+                "type": "item",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

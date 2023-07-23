@@ -1,0 +1,114 @@
+{
+    "_id": "Rma6WvkTkRW1H0ro",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "xrgMIiBqzQXebseK",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Bloom",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-plant creature enters the garden</p>\n<hr />\n<p><strong>Effect</strong> The blooms open, spawning a single @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Wemmuth] that acts on the hazard's initiative, and the hazard rolls for initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Angry Vegetation",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 37
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "per flower",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "mental"
+                }
+            ],
+            "stealth": {
+                "details": "<p>@Check[type:perception|dc:42|traits:action:seek] (master) to notice massive buds beneath the other foliage before they open</p>",
+                "value": 32
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 20
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Five large flowers in the weed-choked field unfurl, each dusting pollen onto vines that animate into @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Wemmuth]{Wemmuths}.</p>",
+            "disable": "<p>@Check[type:nature|dc:48|name:Calm a Flower|traits:environmental] (master) or @Check[type:performance|dc:48|name:Calm a Flower|traits:environmental] (legendary) to calm a flower, closing it</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "<p>Wemmuths collapse into ordinary vines and the trap resets if the area is left alone for 1 minute.</p>",
+            "routine": "<p><span class=\"pf2-icon\">d</span> If there are fewer wemmuths than open flowers, the flowers create more wemmuths (so there as many wemmuths as open flowers) as their first action.</p>\n<p>For their second action, the flowers produce a mind-addling pollen. Each non-plant creature within 30 feet of a flower must succeed at a @Check[type:fortitude|dc:41|name:Mindaddling Pollen|traits:emotion,mental,olfactory] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round, on a critical failure). The pollen is an emotion, mental, and olfactory effect.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #156: The Apocalypse Prophet"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 30
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

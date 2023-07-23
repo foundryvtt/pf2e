@@ -1,0 +1,76 @@
+{
+    "_id": "S25iRw2X9hmGRMyO",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advanced Blood Potency",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain one sorcerer feat. For the purpose of prerequisites, your sorcerer level is half your character level.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you gain another sorcerer feat.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Basic Blood Potency"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "postFilter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "base-item:location:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "self:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"sorcerer\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Multiclass.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedBloodPotency}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

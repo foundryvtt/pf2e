@@ -1,0 +1,45 @@
+{
+    "_id": "YidYY7k2gvny9eSY",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Judgement of the Monolith",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can use the oaths bound in your ka stone to compel the truth from the living and the dead. You can activate your ka stone to target a single living creature, causing that creature to experience the effects of being in a <em>@UUID[Compendium.pf2e.spells-srd.Item.Zone of Truth]</em>. You can also activate it with a 10-minute activation (envision) to cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse]</em>.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ka Stone Ritual"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.livingMonolith.archetypeFeatCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

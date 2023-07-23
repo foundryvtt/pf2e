@@ -1,0 +1,65 @@
+{
+    "_id": "xTe8lNBp76jsrhYh",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Slag May",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your mother was an annis hag, known for physical prowess, and you have one violet or steel-gray eye. You have thick, sturdy claws made of cold iron that grow naturally from your body. You gain a claw unarmed attack that deals [[/r 1d6[slashing]]] damage. Your claws are in the brawling group, have the unarmed and grapple traits, and are cold iron.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "slug": "slag-may-claw",
+                "traits": [
+                    "grapple"
+                ]
+            },
+            {
+                "definition": [
+                    "item:slug:slag-may-claw"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "cold-iron"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "changeling",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "hDGosy2ZTwnyctEP",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Oddity Identification",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You have a sense for spells that twist minds or reveal secrets. You gain a +2 circumstance bonus to Occultism checks to Identify Magic with the mental, possession, prediction, or scrying traits.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Occultism"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Oddity Identification (identify magic with specific traits)",
+                "predicate": [
+                    "action:identify-magic",
+                    {
+                        "or": [
+                            "mental",
+                            "possession",
+                            "prediction",
+                            "scrying"
+                        ]
+                    }
+                ],
+                "selector": "occultism",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

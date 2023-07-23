@@ -1,0 +1,54 @@
+{
+    "_id": "VNmmHrMAVk3Tiw1d",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Kobold Weapon Innovator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned devious tactics with your kobold weapons. Whenever you critically hit with a crossbow, greatpick, light pick, pick, spear, or kobold weapon, you apply the weapon's critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Kobold Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:kobold",
+                            "item:base:crossbow",
+                            "item:base:greatpick",
+                            "item:base:light-pick",
+                            "item:base:pick",
+                            "item:base:spear"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

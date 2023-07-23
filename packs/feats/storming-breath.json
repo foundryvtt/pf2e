@@ -1,0 +1,47 @@
+{
+    "_id": "EBmZyzDWhFSLydlM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Storming Breath",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You spit out a freezing breath or sonic scream. You deal 4d6 damage, plus 1d6 damage for every level you have beyond 6th, to all creatures in a @Template[type:cone|distance:30], with a @Check[type:reflex|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true] save.</p>\n<p>[[/r (-2+@actor.level)d6]]{Leveled damage}</p>\n<hr />\n<p><strong>Awakening</strong> Your blast powerfully batters your foes. A creature that critically fails its save is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<hr />\n<p><strong>Awakening</strong> The kickback of your blast helps you make a speedy escape. When you use this ability, you Fly backward 15 feet in a straight line directly opposite your blast. This movement doesn't trigger reactions based on movement.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "flag": "dragonDeviantClassification",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:dragon-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Dragon Deviant Classification"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "deviant",
+                "evocation",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

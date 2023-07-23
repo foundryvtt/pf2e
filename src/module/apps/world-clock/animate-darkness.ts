@@ -1,5 +1,5 @@
-import { WorldClock } from "./app";
 import { DateTime, Duration, Interval } from "luxon";
+import { WorldClock } from "./app.ts";
 
 interface DarknessTransition {
     /** Target darkness level; between 0 and 1 */
@@ -32,7 +32,7 @@ function darknessLevelAtTime(time: DateTime) {
 /** Calculate animateDarkness parameters from a time interval */
 function intervalToTransition(interval: Interval, compactInterval: Interval): DarknessTransition {
     const currentDarkness = canvas.darknessLevel;
-    const targetDarkness = darknessLevelAtTime(interval.end);
+    const targetDarkness = darknessLevelAtTime(interval.end!);
     const darknessDiff = Math.abs((currentDarkness ?? targetDarkness) - targetDarkness);
 
     // Cap the darkness transition duration
@@ -84,10 +84,10 @@ export async function animateDarkness(this: WorldClock, timeDiff: number): Promi
 
     // Break up the interval into peaks and valleys of darkness
     const transitionTimes = [4.75, 18]
-        .map((hour) => compactInterval.start.set({ hour: hour, minute: 0, second: 0 }))
-        .concat([4.75, 18].map((hour) => compactInterval.end.set({ hour: hour, minute: 0, second: 0 })))
+        .map((hour) => compactInterval.start!.set({ hour: hour, minute: 0, second: 0 }))
+        .concat([4.75, 18].map((hour) => compactInterval.end!.set({ hour: hour, minute: 0, second: 0 })))
         .filter((dateTime) => compactInterval.contains(dateTime))
-        .concat([compactInterval.start, compactInterval.end])
+        .concat([compactInterval.start!, compactInterval.end!])
         .sort((dtA, dtB) => (dtA < dtB ? -1 : dtA > dtB ? 1 : 0));
 
     type DateTimePair = [DateTime, DateTime];

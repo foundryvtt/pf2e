@@ -1,0 +1,140 @@
+{
+    "_id": "pvFRMbIazwAO0fjH",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Echo of the Fallen",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With the utmost gratitude for your help in releasing them from their unearthly coil, a tiny sliver of a ghostly entity has remained attached to you. This manifests as an echo of their former self that follows you around and that you and anyone capable of casting divine or occult spells can see and speak with. When you take this feat, work with your GM to choose one martial weapon and one skill (or an advanced weapon if you're trained in all martial weapons) that are appropriate for the spirit; once you've chosen the weapon and skill, you can't change them. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Accept Echo] action.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You helped to lay a haunt, ghost, or spirit to rest"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "value": "stealth"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "value": "survival"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "value": "thievery"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "predicate": [
+                    "self:effect:accept-echo"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 1,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 4
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Accept Echo"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath"
+            ]
+        }
+    },
+    "type": "feat"
+}

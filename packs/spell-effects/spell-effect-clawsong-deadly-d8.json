@@ -1,0 +1,45 @@
+{
+    "_id": "zdpTPf157rXl3tEJ",
+    "img": "systems/pf2e/icons/spells/clawsong.webp",
+    "name": "Spell Effect: Clawsong (Deadly D8)",
+    "system": {
+        "description": {
+            "value": "<p>If its claw attack already had the versatile (piercing) trait, it gains the deadly 1d8 trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:base:claw"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #171: Hurricane's Howl"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

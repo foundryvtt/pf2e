@@ -1,0 +1,73 @@
+{
+    "_id": "7wDH2q0UcFdu2w58",
+    "img": "systems/pf2e/icons/spells/echoing-weapon.webp",
+    "name": "Effect: Focused Assault",
+    "system": {
+        "description": {
+            "value": "<p>The creature deals additional damage based on the amount of longswords it wields.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.MarilithFocusedAssault.One",
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.MarilithFocusedAssault.Two",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.MarilithFocusedAssault.Three",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.MarilithFocusedAssault.Four",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.MarilithFocusedAssault.Five",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.MarilithFocusedAssault.Six",
+                        "value": 5
+                    }
+                ],
+                "flag": "focusedAssault",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.MarilithFocusedAssault.Prompt"
+            },
+            {
+                "diceNumber": "{item|flags.pf2e.rulesSelections.focusedAssault}",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "selector": "cold-iron-silver-longsword-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

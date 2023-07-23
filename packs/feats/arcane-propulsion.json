@@ -1,0 +1,58 @@
+{
+    "_id": "YgytD4HGjWNFwiev",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Arcane Propulsion",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p>You redirect energy from your core to ports on your back or feet, allowing you to fly for a short time. You can maintain this redirected energy for 5 minutes. You gain a fly Speed equal to your Speed while redirecting the energy.</p>\n<p><strong>Enhancement</strong> You can maintain your flight for longer. You can redirect your energy at all times, allowing you to fly whenever you want, rather than just once per day for 5 minutes.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Arcane Propulsion]</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "enhancement:arcane-propulsion"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcanePropulsion",
+                    "value": "arcane-propulsion"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "arcane",
+                "automaton",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

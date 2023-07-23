@@ -1,0 +1,48 @@
+{
+    "_id": "81XYZZ3H0GL8thdQ",
+    "img": "systems/pf2e/icons/spells/water-walk.webp",
+    "name": "Effect: Countered by Water",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -1 circumstance penalty to attack rolls, and its jaws Strike doesn't deal fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "countered-by-water",
+                "value": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

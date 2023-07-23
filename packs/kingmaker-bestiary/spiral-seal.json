@@ -1,0 +1,146 @@
+{
+    "_id": "E70Drr6CmSaJQ01v",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "uox8BdqT7SHwPAXF",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Backlash",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature fails an attempt to disable the Spiral Seal or inflicts damage to it without successfully breaking it</p>\n<hr />\n<p><strong>Effect</strong> The magic stored within the Spiral Seal blasts outward in a concussive wave of power, surging in a spiraling vortex. All creatures within 60 feet of the Spiral Seal must attempt a @Check[type:fortitude|dc:41] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Failure</strong> The creature is knocked prone and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 24 hours.</p>\n<p><strong>Critical Failure</strong> The creature is knocked prone, is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} for 24 hours, and increases their @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "incapacitation",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZiobchoAZw8EGQAl",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Recovery",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> The Spiral Seal is damaged but is above its Broken Threshold</p>\n<hr />\n<p><strong>Effect</strong> The Spiral Seal repairs itself, regaining [[/r 30[healing]]]{30 Hit Points}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Spiral Seal",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 27,
+            "hp": {
+                "details": "recovery",
+                "max": 106,
+                "temp": 0,
+                "value": 106
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A spiral shape suggesting the curling religious symbol of Pharasma is carved into the stone floor.</p>",
+            "disable": "<p>@Check[type:occultism|dc:37] (master) or @Check[type:religion|dc:40] (master) to unmake the Spiral Seal through occult ritual or prayer performed as a 10 minute activity with the Concentrate trait, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (9th level, counteract DC 40) to counteract the Spiral Seal.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 16
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,14 +1,14 @@
-import { ResistanceType } from "@actor/types";
-import { DamageRollFlag } from "@module/chat-message";
-import { UserPF2e } from "@module/user";
-import { DegreeOfSuccessIndex } from "@system/degree-of-success";
-import { RollDataPF2e } from "@system/rolls";
-import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import Peggy from "peggy";
-import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers";
-import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
-import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types";
-import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
+import { ResistanceType } from "@actor/types.ts";
+import { DamageRollFlag } from "@module/chat-message/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
+import { RollDataPF2e } from "@system/rolls.ts";
+import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, tupleHasValue } from "@util";
+import type Peggy from "peggy";
+import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers.ts";
+import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
+import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
+import { DAMAGE_TYPE_ICONS } from "./values.ts";
 
 abstract class AbstractDamageRoll extends Roll {
     /** Ensure the presence and validity of the `critRule` option for this roll */
@@ -23,7 +23,7 @@ abstract class AbstractDamageRoll extends Roll {
         super(formula, data, options);
     }
 
-    static parser = Peggy.generate(ROLL_GRAMMAR);
+    declare static parser: Peggy.Parser;
 
     /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(
@@ -48,6 +48,11 @@ abstract class AbstractDamageRoll extends Roll {
         throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
     }
 }
+
+// Vite sets globals too late in dev server mode: push this to the end of the task queue so it'll wait
+Promise.resolve().then(() => {
+    AbstractDamageRoll.parser = ROLL_PARSER;
+});
 
 class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
@@ -102,7 +107,7 @@ class DamageRoll extends AbstractDamageRoll {
         formula = formula.trim();
         const wrapped = this.replaceFormulaData(formula.startsWith("{") ? formula : `{${formula}}`, {});
         try {
-            const result = this.parser.parse(wrapped);
+            const result = this.parser.parse(wrapped.replace(/@([a-z.0-9_-]+)/gi, "1"));
             return isObject(result) && "class" in result && ["PoolTerm", "InstancePool"].includes(String(result.class));
         } catch {
             return false;
@@ -112,7 +117,7 @@ class DamageRoll extends AbstractDamageRoll {
     /** Identify each "DiceTerm" raw object with a non-abstract subclass name */
     static classifyDice(data: RollTermData): void {
         // Find all dice terms and resolve their class
-        type PreProcessedDiceTerm = { class?: string; faces?: string | number | object };
+        type PreProcessedDiceTerm = { class: string; faces?: string | number | object };
         const isDiceTerm = (v: unknown): v is PreProcessedDiceTerm =>
             isObject<PreProcessedDiceTerm>(v) && v.class === "DiceTerm";
         const deepFindDice = (value: object): PreProcessedDiceTerm[] => {
@@ -318,7 +323,8 @@ class DamageInstance extends AbstractDamageRoll {
         super(formula.trim(), data, options);
 
         const flavorIdentifiers = options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
-        this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
+        this.type =
+            flavorIdentifiers.find((t): t is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
         this.materials = flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
             objectHasKey(CONFIG.PF2E.materialDamageEffects, i)
@@ -541,6 +547,24 @@ class DamageInstance extends AbstractDamageRoll {
             0
         );
     }
+
+    /**
+     * Set a "hidden" property for DsN! so that it doesn't simulate rolling deferred persistent damage.
+     * See https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/wikis/API/Roll#hiding-a-dice-from-a-roll-animation
+     */
+    protected override async _evaluate(params?: Omit<EvaluateRollParams, "async">): Promise<Rolled<this>> {
+        await super._evaluate(params);
+
+        if (this.persistent && !this.options.evaluatePersistent) {
+            type HiddenResult = DiceTermResult & { hidden?: boolean };
+            const results: HiddenResult[] = this.dice.flatMap((d) => d.results);
+            for (const result of results) {
+                result.hidden = true;
+            }
+        }
+
+        return this as Rolled<this>;
+    }
 }
 
 interface DamageInstance extends AbstractDamageRoll {
@@ -558,7 +582,7 @@ interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
     /** Data used to construct the damage formula and options */
     damage?: DamageTemplate;
     result?: DamageRollFlag;
-    degreeOfSuccess?: DegreeOfSuccessIndex;
+    degreeOfSuccess?: DegreeOfSuccessIndex | null;
     /** If the total was increased to 1, the original total */
     increasedFrom?: number;
     /** Whether this roll is the splash damage from another roll */

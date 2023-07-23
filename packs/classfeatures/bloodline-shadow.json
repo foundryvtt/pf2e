@@ -1,0 +1,64 @@
+{
+    "_id": "uoQOm41BVdSo6pAS",
+    "img": "systems/pf2e/icons/features/classes/shadow.webp",
+    "name": "Bloodline: Shadow",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether due to a velstrac's manipulations or a planar jaunt gone horribly wrong, your bloodline was infused with a vein of shadow.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Stealth</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Chill Touch]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]</em>; 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Darkness]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Chilling Darkness]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Collective Transposition]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Duplicate Foe]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disappearance]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Weird]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dim the Light]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Steal Shadow]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Consuming Darkness]</em></p>\n<p><strong>Blood Magic</strong> Shadows grow deeper around you or one target, either granting a +1 status bonus to Stealth or imposing a -1 status penalty to Perception for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Shadow Blood Magic (Perception)], @UUID[Compendium.pf2e.feat-effects.Item.Effect: Shadow Blood Magic (Stealth)]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ste.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "occult"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

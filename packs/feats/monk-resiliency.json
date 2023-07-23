@@ -1,0 +1,53 @@
+{
+    "_id": "nc5G99d20PI9JKCK",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Monk Resiliency",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain 3 additional Hit Points for each monk archetype class feat you have. As you continue selecting monk archetype class feats, you continue to gain additional Hit Points in this way.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Monk Dedication"
+                },
+                {
+                    "value": "class granting no more Hit Points per level than 8 + your Constitution modifier"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.monk-dedication-count",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "3*@actor.system.custom.modifiers.monk-dedication-count"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

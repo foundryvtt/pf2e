@@ -1,0 +1,64 @@
+{
+    "_id": "an8sq0RaJ8PW81EW",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Puncturing Horn",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>While many kashrishi never use their horns for more than cracking open hard-shelled fruits or amplifying their psychic powers, you've practiced using yours offensively. You gain a horn unarmed attack that deals 1d6 piercing damage. Your horn is in the brawling group and has the finesse and unarmed traits.</p>\n<p><strong>Special</strong> If you have the xyloshi heritage, your horn instead deals 1d8 piercing damage.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/horn.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "range": null,
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d8"
+                },
+                "predicate": [
+                    "self:heritage:xyloshi"
+                ],
+                "selector": "horn-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kashrishi"
+            ]
+        }
+    },
+    "type": "feat"
+}

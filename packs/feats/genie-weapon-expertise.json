@@ -1,0 +1,67 @@
+{
+    "_id": "i3wSkeU7CSyHEi4Y",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Genie Weapon Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency in @UUID[Compendium.pf2e.equipment-srd.Item.Falchion]{Falchions}, @UUID[Compendium.pf2e.equipment-srd.Item.Ranseur]{Ranseurs}, @UUID[Compendium.pf2e.equipment-srd.Item.Scimitar]{Scimitars}, @UUID[Compendium.pf2e.equipment-srd.Item.Trident]{Tridents}, and all geniekin weapons in which you are trained.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Genie Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-falchion.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-ranseur.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-scimitar.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-trident.rank",
+                "value": "@actor.system.martial.unarmed.rank"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ifrit",
+                "oread",
+                "suli",
+                "sylph",
+                "undine"
+            ]
+        }
+    },
+    "type": "feat"
+}

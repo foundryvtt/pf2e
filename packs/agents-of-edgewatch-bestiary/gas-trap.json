@@ -1,0 +1,113 @@
+{
+    "_id": "giVkjJeVZjhbR6eA",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "chuMKB6cHYONy4NC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Toxic Gas",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature opens one of the drawers</p>\n<hr />\n<p><strong>Effect</strong> The door to the room slams shut and locks and the trap rolls initiative. (The trap can also be triggered manually or disarmed from area <strong>E30</strong>.)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Gas Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 13,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 52,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 52
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained) to smell the poison gas or hear it hissing</p>",
+                "value": 14
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A spring slams and locks the room's door before four hidden gas vents begin pumping poison gas into the chamber.</p>",
+            "disable": "<p>Four @Check[type:thievery|dc:20|name:Block Gas Vents|traits:action:disable-a-device] checks to block the gas vents, or a @Check[type:thievery|dc:26|name:Unlock Door|traits:action:pick-a-lock] check to unlock the door and escape</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The trap must be manually rearmed by unblocking the vents or replacing the poison gas tank in area <strong>E30</strong>.</p>",
+            "routine": "<p>(1 action) Each round on its initiative count, the trap pumps more toxic gas into the room.</p>\n<p>Any breathing creature in the room takes [[/r 4d6[poison]]] damage (a successful @Check[type:fortitude|dc:22|traits:poison,damaging-effect] save halves the damage taken). If a creature acts before the trap on the first round, it has the option of holding its breath to postpone taking damage from the trap-holding one's breath after the trap's first action has no effect, since the air in the creature's lungs is already tainted. Locating and blocking one of the hidden gas vents reduces the poison damage by 1d6-if all four are blocked, the trap is disabled, though the door remains locked. Otherwise, the trap functions for 1 minute before all the gas is expended and characters in the room cease taking damage, after which the trap ventilates the room for 1 additional minute.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #157: Devil at the Dreaming Palace"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

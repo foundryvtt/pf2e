@@ -1,0 +1,120 @@
+{
+    "_id": "zRKw95WMezr6TgiT",
+    "img": "systems/pf2e/icons/spells/moon-frenzy.webp",
+    "name": "Spell Effect: Moon Frenzy",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Moon Frenzy]</em></p>\n<p>Targets gain temporary Hit Points, a +10-foot status bonus to their Speeds, and weakness to silver. They also grow vicious fangs and claws, which are unarmed attacks. If a target is in the light of a full moon, it also grows by one size if it were Medium or smaller. This increases the reach of a Medium or Tiny creature by 5 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 10, 5))"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "Weakness",
+                "type": "silver",
+                "value": "ternary(gte(@item.level, 10), 20, ternary(gte(@item.level, 6), 10, 5))"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": "ternary(gte(@item.level, 10), 4, ternary(gte(@item.level, 6), 3, 2))",
+                        "die": "d8"
+                    }
+                },
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "slug": "moon-frenzy-fangs",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": "ternary(gte(@item.level, 10), 4, ternary(gte(@item.level, 6), 3, 2))",
+                        "die": "d6"
+                    }
+                },
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "slug": "moon-frenzy-claws",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:moon-frenzy-claws",
+                            "item:slug:moon-frenzy-fangs"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.FullMoon",
+                "option": "terrain:full-moon",
+                "toggleable": true
+            },
+            {
+                "key": "CreatureSize",
+                "maximumSize": "lg",
+                "predicate": [
+                    "terrain:full-moon"
+                ],
+                "reach": {
+                    "add": 5
+                },
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

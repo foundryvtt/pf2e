@@ -1,0 +1,101 @@
+{
+    "_id": "lfQ4w6hWk4v2ewYR",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "82uSXqw6iZpwvIev",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Vomit",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The trap's sensors notice a creature on the stairs north of the entrance to area <strong>D4</strong></p>\n<hr />\n<p><strong>Effect</strong> The myriad mouths on the walls spew out a foul-smelling acidic slurry along the entire stairwell. The stairs in areas <strong>D3</strong> become difficult terrain, and all creatures in area <strong>D3</strong> must attempt a @Check[type:reflex|dc:34|traits:damaging-effect] saving throw. A creature that is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] by hunger takes a -2 circumstance penalty to this saving throw. The trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 4d6[acid]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 8d6[acid]]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 16d6[acid]]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}, is knocked prone, and then tumbles down the stairs. The fall ends once the creature reaches the next lowest landing (note that a creature falling at the lowest flight tumbles into the carrion pit at area <strong>D2</strong>, but can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] as detailed in that room). A creature that falls down the steps takes an additional [[/r 4d6[bludgeoning]]] damage (@Check[type:reflex|dc:32|basic:true]) from the tumble, regardless of the total distance traveled.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "The Putrid Rise",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 28
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The stink of bile suddenly grows as the myriad mouths carved into the walls begin to vomit forth a deluge of acidic slurry.</p>",
+            "disable": "<p>@Check[type:thievery|dc:33] (master) to disrupt the trap's magical network of sensors and effectively \"blind\" it to targets to react to, @Check[type:religion|dc:38] (master) to recognize the carvings and recall one of the mantras needed to pass safely, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th level; counteract DC 32) to counteract the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "reset": "<p>The trap deactivates 1 round after no targets can be sensed, but resets immediately.</p>",
+            "routine": "<p>On its turn, the trap Vomits as its action. As long as the Putrid Rise is active, the stairs in area <strong>D3</strong> are difficult terrain.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #184: The Ghouls Hunger"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

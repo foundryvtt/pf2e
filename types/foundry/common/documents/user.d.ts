@@ -1,72 +1,83 @@
-declare module foundry {
-    module documents {
-        /**
-         * The base User document, which is extended by both the server and client.
-         * This base User provides shared functionality which is consistent for both sides of the application.
-         * Each client who connects to a Foundry Virtual Tabletop session assumes the identity of one (and only one) User.
-         *
-         * @param data                 Initial data from which to construct the document.
-         * @property data The constructed data object for the document.
-         */
-        class BaseUser extends abstract.Document {
-            constructor(data: PreCreate<data.UserSource>, context?: DocumentConstructionContext);
+import type Document from "../abstract/document.d.ts";
+import type { DocumentMetadata } from "../abstract/document.d.ts";
+import type { BaseActor } from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
-            flags: Record<string, Record<string, unknown>>;
+/**
+ * The base User document, which is extended by both the server and client.
+ * This base User provides shared functionality which is consistent for both sides of the application.
+ * Each client who connects to a Foundry Virtual Tabletop session assumes the identity of one (and only one) User.
+ *
+ * @param data Initial data from which to construct the document.
+ * @property   data The constructed data object for the document.
+ */
+export default class BaseUser extends Document<null, UserSchema> {
+    static override get metadata(): UserMetadata;
 
-            readonly role: UserRole;
+    static override defineSchema(): UserSchema;
 
-            static override get schema(): typeof data.UserData;
+    /* ---------------------------------------- */
+    /*  Permissions                             */
+    /* ---------------------------------------- */
 
-            static override get metadata(): UserMetadata;
+    /** Test whether the User has a GAMEMASTER or ASSISTANT role in this World? */
+    get isGM(): boolean;
 
-            /* ---------------------------------------- */
-            /*  Permissions                             */
-            /* ---------------------------------------- */
+    /**
+     * Test whether the User is able to perform a certain permission action.
+     * The provided permission string may pertain to an explicit permission setting or a named user role.
+     * Alternatively, Gamemaster users are assumed to be allowed to take all actions.
+     *
+     * @param action The action to test
+     * @return Does the user have the ability to perform this action?
+     */
+    can(action: UserAction): boolean;
 
-            /** Test whether the User has a GAMEMASTER or ASSISTANT role in this World? */
-            get isGM(): boolean;
+    getUserLevel(user: this): DocumentOwnershipLevel;
 
-            /**
-             * Test whether the User is able to perform a certain permission action.
-             * The provided permission string may pertain to an explicit permission setting or a named user role.
-             * Alternatively, Gamemaster users are assumed to be allowed to take all actions.
-             *
-             * @param action The action to test
-             * @return Does the user have the ability to perform this action?
-             */
-            can(action: UserAction): boolean;
+    /**
+     * Test whether the User has at least a specific permission
+     * @param permission The permission name from USER_PERMISSIONS to test
+     * @return Does the user have at least this permission
+     */
+    hasPermission(permission: UserPermission): boolean;
 
-            getUserLevel(user: this): DocumentOwnershipLevel;
-
-            /**
-             * Test whether the User has at least a specific permission
-             * @param permission The permission name from USER_PERMISSIONS to test
-             * @return Does the user have at least this permission
-             */
-            hasPermission(permission: UserPermission): boolean;
-
-            /**
-             * Test whether the User has at least the permission level of a certain role
-             * @param role The role name from USER_ROLES to test
-             * @param [exact] Require the role match to be exact
-             * @return Does the user have at this role level (or greater)?
-             */
-            hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
-        }
-
-        interface BaseUser {
-            readonly data: data.UserData<this>;
-
-            readonly parent: null;
-
-            get documentName(): "User";
-        }
-
-        interface UserMetadata extends abstract.DocumentMetadata {
-            name: "User";
-            collection: "users";
-            label: "DOCUMENT.User";
-            isPrimary: true;
-        }
-    }
+    /**
+     * Test whether the User has at least the permission level of a certain role
+     * @param role The role name from USER_ROLES to test
+     * @param [exact] Require the role match to be exact
+     * @return Does the user have at this role level (or greater)?
+     */
+    hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
 }
+
+export default interface BaseUser extends Document<null, UserSchema>, ModelPropsFromSchema<UserSchema> {
+    readonly _source: UserSource;
+
+    get documentName(): "User";
+}
+
+interface UserMetadata extends DocumentMetadata {
+    name: "User";
+    collection: "users";
+    label: "DOCUMENT.User";
+    labelPlural: "DOCUMENT.Users";
+}
+
+type UserSchema = {
+    _id: fields.DocumentIdField;
+    name: fields.StringField<string, string, true, false, false>;
+    role: fields.NumberField<UserRole, UserRole, true, false, true>;
+    password: fields.StringField<string, string, true, false, true>;
+    passwordSalt: fields.StringField<string>;
+    avatar: fields.FilePathField<ImageFilePath>;
+    character: fields.ForeignDocumentField<BaseActor<null>>;
+    color: fields.ColorField<true, false, true>;
+    pronouns: fields.StringField<string, string, true, false, true>;
+    hotbar: fields.ObjectField<Record<number, string>>;
+    permissions: fields.ObjectField<Record<string, boolean>>;
+    flags: fields.ObjectField<DocumentFlags>;
+    _stats: fields.DocumentStatsField;
+};
+
+type UserSource = SourceFromSchema<UserSchema>;

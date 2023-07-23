@@ -1,14 +1,18 @@
-import { DexterityModifierCapData } from "@actor/character/types";
-import { MovementType, LabeledSpeed } from "@actor/creature/data";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
+import { ActorPF2e } from "@actor";
+import { DexterityModifierCapData } from "@actor/character/types.ts";
+import { LabeledSpeed } from "@actor/creature/data.ts";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
+import type { TokenEffect } from "@actor/token-effect.ts";
+import { MovementType } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/action/data";
-import { WeaponPropertyRuneType } from "@item/weapon/types";
-import { RollNotePF2e } from "@module/notes";
-import { MaterialDamageEffect } from "@system/damage";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { PredicatePF2e } from "@system/predication";
+import { ActionTrait } from "@item/action/index.ts";
+import { ConditionSource, EffectSource } from "@item/data/index.ts";
+import { WeaponPropertyRuneType } from "@item/weapon/types.ts";
+import { RollNotePF2e } from "@module/notes.ts";
+import { MaterialDamageEffect } from "@system/damage/types.ts";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
@@ -19,6 +23,12 @@ interface RuleElementSynthetics {
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
+    ephemeralEffects: {
+        [K in string]?: {
+            target: DeferredEphemeralEffect[];
+            origin: DeferredEphemeralEffect[];
+        };
+    };
     modifierAdjustments: ModifierAdjustmentSynthetics;
     movementTypes: { [K in MovementType]?: DeferredMovementType[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
@@ -28,11 +38,15 @@ interface RuleElementSynthetics {
     senses: SenseSynthetic[];
     statisticsModifiers: ModifierSynthetics;
     strikeAdjustments: StrikeAdjustment[];
-    strikes: Map<string, Embedded<WeaponPF2e>>;
+    strikes: Map<string, WeaponPF2e<ActorPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
     targetMarks: Map<TokenDocumentUUID, string>;
-    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name">> & {
-        texture?: { src: VideoFilePath } | { src: VideoFilePath; scaleX: number; scaleY: number };
+    toggles: RollOptionToggle[];
+    tokenEffectIcons: TokenEffect[];
+    tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name" | "alpha">> & {
+        texture?:
+            | { src: VideoFilePath; tint?: HexColorString }
+            | { src: VideoFilePath; tint?: HexColorString; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {
@@ -54,6 +68,7 @@ type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: Modifie
 type DeferredModifier = DeferredValue<ModifierPF2e>;
 type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
+type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
 
 interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label"> {
     type: MovementType;
@@ -77,6 +92,19 @@ interface RollSubstitution {
     value: number;
     ignored: boolean;
     effectType: "fortune" | "misfortune";
+}
+
+interface RollOptionToggle {
+    /** The ID of the item with a rule element for this toggle */
+    itemId: string;
+    label: string;
+    scope?: string;
+    domain: string;
+    option: string;
+    suboptions: { label: string; selected: boolean }[];
+    alwaysActive: boolean;
+    checked: boolean;
+    enabled: boolean;
 }
 
 interface RollTwiceSynthetic {
@@ -118,12 +146,14 @@ export {
     CritSpecEffect,
     DamageDiceSynthetics,
     DeferredDamageDice,
+    DeferredEphemeralEffect,
     DeferredModifier,
     DeferredMovementType,
     MAPSynthetic,
     ModifierAdjustmentSynthetics,
     ModifierSynthetics,
     PotencySynthetic,
+    RollOptionToggle,
     RollSubstitution,
     RollTwiceSynthetic,
     RuleElementSynthetics,

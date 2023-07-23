@@ -1,0 +1,46 @@
+{
+    "_id": "0i4zOM1p0rFxnc5m",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Harrower Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in Occultism; if you are already trained in this skill, you become trained in a different skill of your choice instead. You also become trained in Fortune-Telling Lore, and you learn the <em>@UUID[Compendium.pf2e.spells-srd.Item.Harrowing]</em> ritual.</p>\n<p>In addition, once a day when you perform your daily preparations, you can perform a harrow reading for yourself if you have access to a harrow deck. Draw a card from your harrow deck—that card's suit becomes your active harrow omen for the next 24 hours and modifies several other harrower feats as detailed on the following pages. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Avoid Dire Fate] reaction.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Harrow Omen]</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.OtBPlgtudM4PlTWD]{Harrower} archetype. If you retrain out of this feat, you lose the harrowing ritual you learned from it</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.spells-srd.Item.Harrowing"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Stolen Fate Player's Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

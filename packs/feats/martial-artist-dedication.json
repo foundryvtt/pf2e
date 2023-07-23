@@ -1,0 +1,64 @@
+{
+    "_id": "zn7arorE3VJLNYsb",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Martial Artist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have trained to use your fists as deadly weapons. The damage die for your fist unarmed attacks becomes [[/r 1d6]] instead of [[/r 1d4]]. You don't take the -2 circumstance penalty for making a lethal attack with your nonlethal unarmed attacks.</p>\n<p>Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency rank in all unarmed attacks.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.N01RLMQPaSeoHEuL]{Martial Artist} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "baseType": "fist",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "predicate": [
+                    {
+                        "not": "feature:powerful-fist"
+                    }
+                ],
+                "range": null,
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "nonlethal",
+                    "unarmed"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

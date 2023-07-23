@@ -1,0 +1,113 @@
+{
+    "_id": "ApEn56YEz9xavgug",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Dm6lDovIDGIcISuP",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Magnetize the Living",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches any of the iron bars in this area or touches a creature already affected by the trap</p>\n<hr />\n<p><strong>Effect</strong> The magical panel hidden in the far corner of the chamber (either the western or the eastern corner, depending on which side of the room the creature was closest to when it triggered the trap) \"magnetizes\" the triggering creature and violently pulls it toward the corner, automatically dealing [[/r (2d10+10)[bludgeoning]]] damage to the creature.</p>\n<p>The trap then rolls initiative if it hasn't already done so.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Life Magnet",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "hardness": 14,
+            "hasHealth": true,
+            "hp": {
+                "details": "<strong>Bar Hardness</strong> 15, <strong>Bar HP</strong> 40 (BT 20)",
+                "max": 50,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 17
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A magical magnet hidden behind a panel in the corner of the room pulls not metal but living creatures toward it, heedless of any obstacles in the way.</p>",
+            "disable": "<p>@Check[type:thievery|dc:29|name:Deactivate Panel|traits:action:disable-a-device] (expert) to deactivate the panel, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em>;(4th level; counteract DC 22) to counteract the panel's magic</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The trap deactivates and resets 1 minute after there are no creatures touching the iron bars.</p>",
+            "routine": "<p>(1 action) The trap pulls up to four creatures that have already triggered its Magnetize the Living ability toward one of the far corners of the room, possibly pressing them into the iron bars. If all the iron bars between an affected creature and the magnetic panel remain intact, the creature takes [[/r (2d10+10)[bludgeoning]]] damage with a @Check[type:fortitude|dc:25]{DC 25 basic Fortitude} save and is restrained on a failure (Escape DC 23).</p>\n<p>If an iron bar has been broken, the creature takes [[/r (1d10+5)[bludgeoning]]] damage instead, and if two consecutive bars have been broken the creature takes no damage (but might still be restrained on a failed save).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #158: Sixty Feet Under"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "tha0L3Z6608JrUwN",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shadow Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the ability to fuse and play with shadows by using focus spells specific to shadowdancers.</p>\n<p>You learn a shadowdancer focus spell of your choice: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dance of Darkness]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Shadow Jump]</em><em>.</em> If you don't already have one, you gain a focus pool of 1 Focus Point, which you can @UUID[Compendium.pf2e.actionspf2e.Item.Refocus] by meditating within an area of dim light or darkness.</p>\n<p>Shadowdancer focus spells are occult spells. You become trained in occult spell attack rolls and spell DCs, and your spellcasting ability for these spells is Charisma.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shadowdancer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

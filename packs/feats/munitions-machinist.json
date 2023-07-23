@@ -1,0 +1,52 @@
+{
+    "_id": "lh3STEvbGnP7jVMr",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Munitions Machinist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're particularly adept at crafting ammunition and bombs. Your advanced alchemy level for ammunition and bombs increases to your level - 3.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Munitions Crafter"
+                },
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.munitionsCrafter.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:munitions-crafter"
+                ],
+                "value": "@actor.level - 3"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

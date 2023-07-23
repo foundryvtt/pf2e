@@ -1,0 +1,111 @@
+{
+    "_id": "nJBpLZFgEuF7uZAZ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "OQX9XEhfUYIiPSNz",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hex of the Bloody Thief",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature opens a secret compartment</p>\n<hr />\n<p><strong>Effect</strong> The creature must succeed at a @Check[type:will|dc:38] save or be subjected to the witch-priests' curse. Whenever a cursed creature takes at least 10 piercing or slashing damage from a single attack, it also takes [[/r 3d6[bleed]]]. In addition, the cursed creature regains only half as many Hit Points as normal from all healing. The effect is permanent unless removed by magic.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Witch-Priests' Curse",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>@Check[type:perception|dc:42|traits:action:seek] (expert)</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Anyone who opens a secret compartment is subjected to a powerful curse.</p>",
+            "disable": "<p>@Check[type:thievery|dc:39|name:Remove Bone Fetish|traits:action:disable-a-device] (legendary) to carefully remove the bone fetish that holds the curse.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The trap resets if both secret compartments are shut.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #155: Lord of the Black Sands"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "curse",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

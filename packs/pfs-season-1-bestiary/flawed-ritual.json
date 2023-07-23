@@ -1,0 +1,103 @@
+{
+    "_id": "V0Lsna2i106JZYHY",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "qItNc16WZT4gqoaJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ritual Anchor",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>If Tavvar dies, the ritual immediately ends disastrously. With a loud pop, it explodes, filling the room with negative energy before dissipating. This deals [[/r 2d6[negative]]] damage to all creatures in area <strong>B5</strong> (@Check[type:fortitude|dc:18|basic:true|name:Flawed Ritual] save). The NPCs ritualists automatically critically fail their saving throws. The explosion ends the ritual but does not remove any @UUID[Compendium.pf2e.pfs-season-1-bestiary.Actor.Shadow Wisp]{Shadow Wisps} that are already in the room.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Flawed Ritual",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A flawed ritual emits surges of shadowy energy and opens tiny breaches into the Shadow Plane.</p>",
+            "disable": "<p>Seven flaws have appeared in the ritual circle, dancing like shadowy flames. Each of Tavvar's three aides keeps one flaw under control as long as they are alive, while Tavvar herself staves off the ritual's implosion as listed in the ritual anchor ability below.</p>\n<p>Each flaw can be repaired with a successful @Check[type:occultism|dc:22] or DC 18 (trained) check using a skill related to the flaw's original cause (see the table below). Regardless of success or failure, a PC who attempts an Occultism check to disable the hazard learns the cause of the flaws and the skills that can be used to overcome it.</p>\n<p>Each success on a check to repair a flaw using these other skills reduces the DC of the Occultism check to repair a flaw by 2. Instead of using skill checks, the PCs can use force to stabilize the ritual. A PC who defeats a shadow wisp automatically repairs one flaw.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>d4</th>\n<th>Cause of Flaw</th>\n<th>Skills to Overcome</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Harried (a \"publish or perish\" culture at the College of Mystery led to Tavvar cutting corners in the ritual's execution, so some runes aren't drawn quite right)</td>\n<td>@Check[type:arcana|dc:18] (trained) or @Check[type:thievery|dc:18] (trained)</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Misplaced Affection (Tavvar is from Nidal and subconsciously hopes the ritual will show that there is some good in her homeland; she included some Shadowtongue in the runes and it's enhancing the energy</td>\n<td>@Check[type:society|dc:18] (trained) or @Check[type:religion|dc:18] (trained)</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Cloistered (Tavvar hasn't done much field work and made a dangerous mistake in which mushrooms she used in the ink for the runes)</td>\n<td>@Check[type:crafting|dc:18] (trained) or @Check[type:nature|dc:18] (trained)</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Restrained (Tavvar's own hesitation and self-doubt has led to the ritual slipping out of her control)</td>\n<td>@Check[type:deception|dc:18] (trained) or @Check[type:diplomacy|dc:18] (trained)</td>\n</tr>\n</tbody>\n</table>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "",
+            "routine": "<p>(1 action) On each of its turns, the ritual lets out a surge of shadowy energy, dealing [[/r 2d6[negative]]] damage (@Check[type:fortitude|dc:18|basic:true] save) to each character who participated in ritual the past round (including Tavvar and her aides as well as any PC who attempted a skill check to disable the hazard). A non-participant can step in front of a participant as a reaction. This blocks the damage from the ritual caster, but the non-participant must then attempt the Fortitude save.</p>\n<p>In addition to dealing damage, the ritual's surge of energy brings a @UUID[Compendium.pf2e.pfs-season-1-bestiary.Actor.Shadow Wisp] into the room. Wisps act at the end of the ritual's turn. If there are already two shadow wisps in the room, instead of creating a new wisp, the ritual restores [[/r 10[healing]]]{10 Hit Points} to each wisp.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #1-01: The Absalom Initiation"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

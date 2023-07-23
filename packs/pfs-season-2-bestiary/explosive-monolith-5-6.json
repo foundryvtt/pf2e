@@ -1,0 +1,115 @@
+{
+    "_id": "bARneaE3aBOFH1ty",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "MmVshWo3qRUeXbet",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flares",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than the monolith's guardians approaches within 40 feet of the monolith</p>\n<hr />\n<p><strong>Effect</strong> the flames wreathing the monolith flare with incandescent light. The triggering creature must attempt a @Check[type:fortitude|dc:20] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for one round.</p>\n<p>On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for one round, then dazzled for one round.</p>\n<p>The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Explosive Monolith (5-6)",
+    "prototypeToken": {
+        "name": "Explosive Monolith"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 46,
+                "temp": 0,
+                "value": 46
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A burst of abyssal energy ignites the sap in a nearby bruorsivi, which explodes in a burst of fiery splinters.</p>",
+            "disable": "<p>@Check[type:arcana|dc:20], @Check[type:occultism|dc:20], or @Check[type:religion|dc:20] to magically alter the runes, or @Check[type:thievery|dc:23] to physically alter them. A PC that can read Abyssal or Cyclops is better able to identify key runes, gaining a +1 circumstance bonus to these check (+2 if they speak both).</p>\n<p>Each check requires two actions, and disabling the monolith requires three successful checks. A PC that critically succeeds earns two success. On a failed check, the attempting PC is exposed to the burning flames wreathing the monolith, taking [[/r 2d6[fire]]] damage (@Check[type:reflex|dc:20|basic:true|name:Explosive Monolith]).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(1 action) On the hazard's turn, randomly select a PC within 40 feet of the monolith. A tree near that PC explodes in a @Template[type:burst|distance:10], dealing [[/r {2d6[piercing],2d6[fire]}]]{2d6 piercing damage and 2d6 fire damage}. Each creature in the area must attempt a @Check[type:reflex|dc:20|name:Explosive Monolith|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-14: Lost in Flames"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "fire",
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

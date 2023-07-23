@@ -1,0 +1,170 @@
+{
+    "_id": "zi84Xt4dTsLeJ3uD",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Living Weapon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to use part of your form as a weapon. When you select this feat, you gain a claws unarmed attack that deals [[/r 1d4[slashing]]] damage and has the agile and finesse traits; a horn, jaws, or tusk unarmed attack that deals [[/r 1d6[piercing]]] damage and has the versatile S trait; or a tail unarmed attack that deals [[/r 1d6[bludgeoning]]] damage and has the backswing trait. Each of these unarmed attacks is in the brawling weapon group.</p>\n<p>Your features are mutable; you can select this feat at any level, and you can retrain into or out of this feat or change the type of attack you gain.</p>\n<hr />\n<p><strong>Special</strong> You can take this feat multiple times. Each time you do, select a new attack from the options above.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Horn",
+                        "value": "horn"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tusk",
+                        "value": "tusk"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "value": "tail"
+                    }
+                ],
+                "flag": "livingWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fleshwarp.LivingWeapon.Prompt",
+                "rollOption": "living-weapon"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "living-weapon:claw"
+                ],
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/horn.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "predicate": [
+                    "living-weapon:horn"
+                ],
+                "traits": [
+                    "versatile-s",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "living-weapon:jaws"
+                ],
+                "traits": [
+                    "versatile-s",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/antler.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tusk",
+                "predicate": [
+                    "living-weapon:tusk"
+                ],
+                "traits": [
+                    "versatile-s",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    "living-weapon:tail"
+                ],
+                "traits": [
+                    "backswing",
+                    "unarmed"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fleshwarp"
+            ]
+        }
+    },
+    "type": "feat"
+}

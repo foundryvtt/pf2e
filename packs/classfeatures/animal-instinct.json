@@ -1,0 +1,462 @@
+{
+    "_id": "0FtzFbUrN56KA67z",
+    "img": "systems/pf2e/icons/features/classes/animal-instinct.webp",
+    "name": "Animal Instinct",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The fury of a wild predator fills you when you Rage, granting you ferocious unarmed attacks. Cultures that revere vicious animals (such as apes or bears) give rise to barbarians with this instinct. You might also be at war with an uncontrollable, animalistic side of your personality, or you might be a descendant of a werewolf or another werecreature. Select an animal from Table 3-3: Animal Instincts that best matches your chosen animal.</p>\n<h2>Table 3-3: Animal Instincts</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Animal</th>\n<th>Attack</th>\n<th>Damage</th>\n<th>Traits</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Ape</td>\n<td>Fist</td>\n<td>1d10 B</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Bear</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Unarmed</td>\n</tr>\n<tr>\n<td>Bear (continued)</td>\n<td>Claw</td>\n<td>1d6 S</td>\n<td>Agile, unarmed</td>\n</tr>\n<tr>\n<td>Bull</td>\n<td>Horn</td>\n<td>1d10 P</td>\n<td>Shove, unarmed</td>\n</tr>\n<tr>\n<td>Cat</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Unarmed</td>\n</tr>\n<tr>\n<td>Cat (continued)</td>\n<td>Claw</td>\n<td>1d6 S</td>\n<td>Agile, unarmed</td>\n</tr>\n<tr>\n<td>Deer</td>\n<td>Antler</td>\n<td>1d10 P</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Frog</td>\n<td>Jaws</td>\n<td>1d10 B</td>\n<td>Unarmed</td>\n</tr>\n<tr>\n<td>Frog (continued)</td>\n<td>Tongue</td>\n<td>1d4 B</td>\n<td>Agile, unarmed</td>\n</tr>\n<tr>\n<td>Shark</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Snake</td>\n<td>Fangs</td>\n<td>1d10 P</td>\n<td>Grapple, unarmed</td>\n</tr>\n<tr>\n<td>Wolf</td>\n<td>Jaws</td>\n<td>1d10 P</td>\n<td>Trip, unarmed</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Flagrantly disrespecting an animal of your chosen kind is anathema to your instinct, as is using weapons while raging.</p>\n<h2 class=\"title\">Bestial Rage (Instinct Ability)</h2>\n<p>When you Rage, you gain your chosen animal's unarmed attack (or attacks). The specific attack gained, the damage it deals, and its traits are listed on Table 3-3: Animal Instincts. These attacks are in the brawling group. Your Rage action gains the morph, primal, and transmutation traits.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>Increase the damage die size for the unarmed attacks granted by your chosen animal by one step, and increase the additional damage from Rage from 2 to 5 for your chosen animal's unarmed attacks. The frog's tongue attack and deer's antler attack gain reach 10 feet. If you have greater weapon specialization, increase the damage from Rage from 5 to 12 for your chosen animal's unarmed attacks.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing and slashing damage.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Ape",
+                        "value": "ape"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Bear",
+                        "value": "bear"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Bull",
+                        "value": "bull"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Cat",
+                        "value": "cat"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Deer",
+                        "value": "deer"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Frog",
+                        "value": "frog"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Shark",
+                        "value": "shark"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Snake",
+                        "value": "snake"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Animal.Wolf",
+                        "value": "wolf"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Barbarian.Animal.Prompt",
+                "rollOption": "animal-instinct"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "slug": "rage",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selector": "{item|_id}-damage",
+                "slug": "rage",
+                "value": 12
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "slashing",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "piercing",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    },
+                    {
+                        "not": "feat:barbarian-dedication"
+                    }
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "predicate": [
+                    "animal-instinct:ape",
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "animal-instinct:bear",
+                            "animal-instinct:cat"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "self:effect:rage",
+                    "animal-instinct:frog",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "self:effect:rage",
+                    "animal-instinct:wolf",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "trip"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "animal-instinct:bear",
+                            "animal-instinct:cat"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/horn.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "predicate": [
+                    "self:effect:rage",
+                    "animal-instinct:bull",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "shove"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/antler.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Antler",
+                "predicate": [
+                    "self:effect:rage",
+                    "animal-instinct:deer",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "grapple"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/Tongue.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tongue",
+                "predicate": [
+                    "self:effect:rage",
+                    "animal-instinct:frog",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "self:effect:rage",
+                    "animal-instinct:shark",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "grapple"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "predicate": [
+                    "self:effect:rage",
+                    "animal-instinct:snake",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "grapple"
+                ]
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:slug:antler",
+                            "item:slug:tongue"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

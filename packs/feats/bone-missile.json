@@ -1,0 +1,66 @@
+{
+    "_id": "FGbrxFmNeOfPHFOG",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Bone Missile",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can remove your ribs to use them as arrows or bolts. When you draw a rib, you lose [[/r 2]]{2 HP}, and the projectile deals 2 extra negative damage if you Strike with it before the end of your next turn. The HP loss and extra damage both increase to [[/r 3]]{3} at 12th level and [[/r 4]]{4} at 19th level. Your rib cage magically replenishes, and any rib you draw crumbles to dust after being used for a Strike or at the end of your next turn, whichever comes first.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "bone-missile",
+                "toggleable": true
+            },
+            {
+                "damageType": "negative",
+                "key": "FlatModifier",
+                "predicate": [
+                    "bone-missile"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 11,
+                            "value": 2
+                        },
+                        {
+                            "end": 18,
+                            "start": 12,
+                            "value": 3
+                        },
+                        {
+                            "start": 19,
+                            "value": 4
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skeleton"
+            ]
+        }
+    },
+    "type": "feat"
+}

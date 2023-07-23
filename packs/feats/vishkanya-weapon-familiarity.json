@@ -1,0 +1,88 @@
+{
+    "_id": "sMZBH6ROL44EDpXB",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Vishkanya Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You favor weapons historically used in subtle work and in ceremony. You gain access to and are trained with the blowgun, fighting fan, kris, kukri, and shuriken. In addition, you gain access to all uncommon vishkanyan weapons. For the purpose of determining your proficiency, martial vishkanyan weapons are simple weapons and advanced vishkanyan weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-blowgun.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-fighting-fan.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-kris.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-kukri.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-shuriken.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:vishkanya",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedVishkanyaWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-vishkanya-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:vishkanya",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialVishkanyaWeapons",
+                "sameAs": "simple",
+                "slug": "martial-vishkanya-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "vishkanya"
+            ]
+        }
+    },
+    "type": "feat"
+}

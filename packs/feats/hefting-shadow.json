@@ -1,0 +1,52 @@
+{
+    "_id": "O80QCYMqz4VZsfxT",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hefting Shadow",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your shadow can contain objects. You can Interact with your shadow to store or retrieve objects, just like you would a mundane container (meaning you spend two Interact actions total to store and then retrieve the object, for example). Your shadow can contain 2 Bulk of objects, which don't count toward the Bulk you're carrying. The items remain solid but take on a shadowy patina while stored this way. Though the items are in your shadow and can be detected normally, you gain a +2 circumstance bonus to Stealth checks to Conceal the Objects unless someone knows to check your shadow for items.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Clever Shadow"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:conceal-an-object",
+                    "hefting-shadow-items"
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conjuration",
+                "fetchling",
+                "occult",
+                "shadow"
+            ]
+        }
+    },
+    "type": "feat"
+}

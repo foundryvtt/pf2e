@@ -1,0 +1,86 @@
+{
+    "_id": "ch3BWG3Z4kDEmuZW",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Alghollthu Bound",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Although you may not even be aware, the alghollthus your ancestors once served maintain a stranglehold on the deepest, tethered parts of your mind.</p>\n<p>You receive a +2 circumstance bonus to Will saves against mental effects that would make you controlled, and if you roll a success against such an effect, you get a critical success instead.</p>\n<p>However, you gain none of these benefits against effects originating from alghollthus and instead take a -2 circumstance penalty against mental effects from alghollthus.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Alghollthu Bound (vs. mental effects that control from non-alghollthu)",
+                "predicate": [
+                    "mental",
+                    "controlled",
+                    {
+                        "not": "alghollthu"
+                    }
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Alghollthu Bound (vs. mental effect from alghollthu)",
+                "predicate": [
+                    "mental",
+                    "alghollthu"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "will",
+                "text": "When you roll a success on a save against an mental effect that would control you, you get a critical success instead. This benefit does not apply against effects originating from alghollthus.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "mental",
+                    "controlled",
+                    {
+                        "not": "alghollthu"
+                    }
+                ],
+                "selector": "will"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "azarketi"
+            ]
+        }
+    },
+    "type": "feat"
+}

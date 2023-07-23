@@ -1,0 +1,80 @@
+{
+    "_id": "jr2LYiMvjnTNhfMM",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Slayer's Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've dedicated yourself to studying ancient techniques and memorized minor prayers against undead to swiftly dispatch them. Make a Strike against a creature you know is undead. This counts as two attacks when calculating your multiple attack penalty. If this Strike hits, you deal one extra die of positive damage, with the same die size as the weapon or unarmed attack you used. Any further Strikes you make against the same creature before the start of your next turn using the same weapon or unarmed attack deal extra positive damage equal to the number of weapon dice. As normal, the positive damage harms only undead and creatures with negative healing.</p>\n<p>If you're at least 10th level, increase this to two extra dice, and if you're at least 18th level, increase it to three extra dice.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Undead Slayer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "slayers-strike",
+                "toggleable": true
+            },
+            {
+                "damageType": "positive",
+                "key": "DamageDice",
+                "predicate": [
+                    "slayers-strike"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "flourish",
+                "necromancy",
+                "occult",
+                "positive"
+            ]
+        }
+    },
+    "type": "feat"
+}

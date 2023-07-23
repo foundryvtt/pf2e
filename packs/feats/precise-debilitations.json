@@ -1,0 +1,50 @@
+{
+    "_id": "wvJBIzgS298ZRp6w",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Precise Debilitations",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You carefully aim and gracefully deliver your debilitations. Add the following debilitations to the list you can choose from when you use @UUID[Compendium.pf2e.actionspf2e.Item.Debilitating Strike].</p>\n<ul>\n<li><strong>Debilitation</strong> The target takes an additional 2d6 precision damage from your attacks.</li>\n<li><strong>Debilitation</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed].</li>\n</ul>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "thief racket"
+                },
+                {
+                    "value": "Debilitating Strike"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "target:condition:flat-footed"
+                ],
+                "selector": "strike-damage",
+                "text": "<span data-visibility='owner'><span class='pf2-icon'>f</span> @UUID[Compendium.pf2e.feats-srd.Item.Precise Debilitations]</span>"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

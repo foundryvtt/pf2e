@@ -1,0 +1,150 @@
+{
+    "_id": "LACpbwnVT7m2ZqBi",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Wc0IrjjTSicQkUfW",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wind Up",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than the Rumormonger enters the room, or the Rumormonger commands the device to activate</p>\n<hr />\n<p><strong>Effect</strong> The Winder rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IlMxWLhPQQrxWb4s",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Wind",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The Winder winds a clockwork creature in the room. If the creature is currently inactive, this activates the creature, allowing it to act normally for [[/br 1d4 #rounds]]{1d4 rounds}. If already active, this instead increases the number of rounds the clockwork creature remains active by 1d4.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "The Winder",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 43
+            },
+            "hardness": 15,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 250,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 250
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 31
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A large metallic arm, 20 feet long, is set into the floor. It rotates around the room to wind up nearby clockwork creatures.</p>",
+            "disable": "<p>@Check[type:thievery|dc:50|name:Deactivate System|traits:action:disable-a-device] (master) to deactivate the system, or @Check[type:athletics|dc:40|name:Jam Gears] (legendary) to jam the gears for 1 round</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "reset": "<p>The Winder resets as soon as no creatures remain in the room.</p>",
+            "routine": "<p>(1, 2, or 4 actions, depending on the encounter's threat level) The Winder uses each of its actions to Wind clockwork assassins in the room, starting with inactive ones.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #161: Belly of the Black Whale"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

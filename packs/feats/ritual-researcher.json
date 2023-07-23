@@ -1,0 +1,58 @@
+{
+    "_id": "DUuCOQ9FiZf7vS5b",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ritual Researcher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Careful research into the art of rituals has made you better at performing them. You gain a +2 circumstance bonus to all primary and secondary checks you attempt as part of casting a ritual.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "enigma muse"
+                },
+                {
+                    "value": "expert in Occultism"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Ritual Researcher (ritual casting)",
+                "predicate": [
+                    "ritual",
+                    {
+                        "or": [
+                            "primary-check",
+                            "secondary-check"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "bard"
+            ]
+        }
+    },
+    "type": "feat"
+}

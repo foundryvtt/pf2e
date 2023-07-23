@@ -1,0 +1,73 @@
+{
+    "_id": "beW1OqibVQ3fBvRw",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Swashbuckler's Style",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>As a swashbuckler, you have your own distinctive style that enables you to gracefully handle everyday events and life-or-death situations alike. Choose a swashbuckler's style. This style determines the additional actions you use to gain panache and makes you trained in the skill related to that action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "1st-level Swashbuckler class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:swashbuckler",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Battledancer"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Braggart"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Fencer"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Gymnast"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Wit"
+                    }
+                ],
+                "flag": "swashbucklersStyle",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Swashbuckler.Style.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.swashbucklersStyle}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "swashbuckler": "Swashbuckler"
+            },
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

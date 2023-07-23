@@ -1,0 +1,228 @@
+{
+    "_id": "Uw2iVgbbeyn3mOjt",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "hEtVGo9EpKcXlhPI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spectral Impale",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 15 feet of the mirror, and the mirror is lit with dim or brighter light.</p>\n<hr />\n<p><strong>Effect</strong> Shadowy barbs impale the body of the reflected creature as the haunt makes a shadow barbs Strike.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wdA0nAhiSTY7znrs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Barbs",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "sap-vitality"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "vyild2eqx4ge0c61qqpd": {
+                        "damage": "4d8+9",
+                        "damageType": "negative"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "17gJOHIRtWXfYMKa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sap Vitality",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A creature hit by the reflection's shadow barbs must attempt a @Check[type:fortitude|dc:22] save as the haunt tries to draw a portion of its vital essence into the mirror. The target is drained 1 on a failed saving throw, or drained 2 on a critical failure.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "sap-vitality",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "V7tWWuB9NSEsMEae",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Special",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Spectral reflections often infuse entire buildings, manifesting in any sufficiently large mirror. The example Hit Points and Hardness given represent a typical mirror reinforced by the haunt; at your discretion, the haunt might appear in reflective surfaces that are harder to destroy. Defeating a manifestation through damage destroys the surface, preventing the haunt from using it again. If this haunt appears in an area with many mirrors, consider giving PCs double or even triple the XP for a typical simple hazard.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Spectral Reflection",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "hardness": 13,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The reflection in the mirror subtly twists and distorts, its expression taking on an unnerving sneer of malice.</p>",
+            "disable": "<p>@Check[type:religion|dc:23|name:Exorcise Spirit] (trained) to exorcise the spirit, or @Check[type:thievery|dc:23|name:Cover the Mirror|traits:action:disable-a-device] (trained) to quickly cover the mirror</p>",
+            "isComplex": false,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The haunt re-forms after 1 minute, manifesting in any mirror within its infused area (see Special below).</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Gamemastery Guide"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

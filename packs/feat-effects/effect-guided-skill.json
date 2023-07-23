@@ -1,0 +1,46 @@
+{
+    "_id": "iaZ6P59YVhdnFIN8",
+    "img": "systems/pf2e/icons/spells/phantom-steed.webp",
+    "name": "Effect: Guided Skill",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to checks made using Acrobatics, Occultism, Stealth, or Survival.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "acrobatics",
+                    "occultism",
+                    "stealth",
+                    "survival"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #188: They Watched the Stars"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

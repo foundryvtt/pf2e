@@ -1,0 +1,70 @@
+{
+    "_id": "On5CQjX4euWqToly",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Resist Elf Magic",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You attempt a saving throw against a magical effect but haven't rolled yet</p>\n<hr />\n<p>Your ancestral resistance to magic protects you. You gain a +1 circumstance bonus to the triggering saving throw. If the triggering effect is arcane, you gain a +2 circumstance bonus instead.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "resist-elf-magic",
+                    {
+                        "or": [
+                            "magical",
+                            "divine",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "resist-elf-magic",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "arcane"
+                ],
+                "selector": "saving-throw",
+                "slug": "resist-elf-magic",
+                "value": 1
+            },
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "resist-elf-magic",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        },
+        "weapon": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

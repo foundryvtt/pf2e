@@ -1,0 +1,97 @@
+{
+    "_id": "y6qnbUc8y0815QNE",
+    "img": "systems/pf2e/icons/features/classes/second-path-to-perfection.webp",
+    "name": "Second Path to Perfection",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've learned to find perfection in every success. Choose a different saving throw than the one you chose for your path to perfection. Your proficiency rank for the chosen saving throw increases to master. If you roll a success with the chosen saving throw, you instead critically succeed.</p>"
+        },
+        "level": {
+            "value": 11
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "predicate": [
+                            {
+                                "not": "self:path-to-perfection:fortitude"
+                            }
+                        ],
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SavesReflex",
+                        "predicate": [
+                            {
+                                "not": "self:path-to-perfection:reflex"
+                            }
+                        ],
+                        "value": "reflex"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "predicate": [
+                            {
+                                "not": "self:path-to-perfection:will"
+                            }
+                        ],
+                        "value": "will"
+                    }
+                ],
+                "flag": "pathToPerfection",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.PathToPerfection"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.{item|flags.pf2e.rulesSelections.pathToPerfection}.rank",
+                "value": 3
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}",
+                "text": "When you roll a success on a save, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:path-to-perfection:{item|flags.pf2e.rulesSelections.pathToPerfection}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

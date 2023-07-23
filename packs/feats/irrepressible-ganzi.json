@@ -1,0 +1,65 @@
+{
+    "_id": "WYEjiUZQJP3uMk4Z",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Irrepressible (Ganzi)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your contrary nature means you bounce back with prejudice. When you roll a success on a save against an emotion or fear effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Ganzi.Irrepressible.SaveNote",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ganzi"
+            ]
+        }
+    },
+    "type": "feat"
+}

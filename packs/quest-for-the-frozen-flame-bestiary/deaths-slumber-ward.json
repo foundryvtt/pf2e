@@ -1,0 +1,104 @@
+{
+    "_id": "HMpKt3b2LfrXa9yV",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "lqxXkqOVfZo2v6BE",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Breath of Pharasma",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living or undead creature opens the trunk</p>\n<hr />\n<p><strong>Effect</strong> The ephemeral winds rise, sapping energy. All living and undead creatures within @Template[type:emanation|distance:60]{60 feet} must succeed at a @Check[type:will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Death's Slumber Ward",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A whirlwind of four ephemeral, magical threads dispels the undead and shrouds the living in an endless slumber.</p>",
+            "disable": "<p>@Check[type:religion|dc:23|name:Dissipate One of the Threads|traits:hazard,magical,trap,complex] (expert) or @Check[type:performance|dc:21|name:Dissipate One of the Threads|traits:hazard,magical,trap,complex] (trained) to dissipate one of the four threads. Characters who failed or critically failed a Performance check to participate in Grandfather Eiwa's funeral in Chapter 1 have been able to reflect on the experience; these characters gain a +2 circumstance bonus to their Performance checks to disable this trap.</p>\n<p>The trap is destroyed when all four threads are dissipated.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The haunt deactivates 1 minute after no living or undead creatures are within 100 feet, then resets.</p>",
+            "routine": "<p>(4 actions) Each thread of energy passes through a random living or undead creature within 60 feet, dealing 4d6 damage (@Check[type:will|dc:22|basic:true|name:Death's Slumber Ward|traits:hazard,magical,trap,complex]) to the creature. A thread deals [[/r 4d6[negative]]] damage to living creatures and [[/r 4d6[positive]]] damage to undead creatures. Each thread passes through a different random creature, if possible. Each dissipated thread reduces the trap's number of actions by 1.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #175: Broken Tusk Moon"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

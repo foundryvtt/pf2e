@@ -1,0 +1,105 @@
+{
+    "_id": "TrZ0ixbWfscr0k93",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "a5aoj7j1ljuib3oq",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Appearance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the marked area of the haunt</p>\n<hr />\n<p><strong>Effect</strong> A ghostly figure manifests and conjures forth a telekinetic storm of debris from the area and then quickly disappears. The haunt rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Raging Debris Storm",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Magical sensors detect when a creature enters the chamber.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:21|name:Convince the Spirit|traits:complex,haunt] to convince the spirit to calm the winds, @Check[type:athletics|dc:19|name:Raise a Wooden Bench|traits:complex,haunt] to raise up a wooden bench to block the wind, or @Check[type:religion|dc:19|name:Speak an Appropriate Rite|traits:complex,haunt] to speak an appropriate rite to calm the spirit. Two successful checks are required to fully disable the haunt, and each attempt takes two actions. Each successful check removes one action from the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The storm continues raging for 1 minute unless disabled, and then dissipates, returning after 1 week.</p>",
+            "routine": "<p>(2 actions) The haunt uses its first action to stir up a storm of debris against all creatures in the quadrant clockwise from where it last attacked. Creatures in the quadrant take [[/r (2d4+4)[bludgeoning]]] damage (@Check[type:reflex|dc:18|basic:true]). For each additional action it has (at most 1 without adjustments from the scaling sidebar), the storm targets an additional quadrant, moving clockwise around the area. On the first round, it begins by attacking creatures in the northwestern quadrant.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-02: The East Hill Haunting"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

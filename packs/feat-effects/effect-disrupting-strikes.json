@@ -1,0 +1,55 @@
+{
+    "_id": "ewfHVi6NWBGM8B6f",
+    "img": "systems/pf2e/icons/spells/disrupting-weapons.webp",
+    "name": "Effect: Disrupting Strikes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Disrupting Strikes]</p>\n<p>Your weapon and unarmed Strikes gain the effects of a <em>disrupting</em> property rune until the start of your next turn.</p>\n<p>If you're 14th level or higher, your Strikes instead gain the effects of a <em>greater disrupting</em> property rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:type:weapon"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 13,
+                            "value": "disrupting"
+                        },
+                        {
+                            "start": 14,
+                            "value": "greater-disrupting"
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #166: Despair on Danger Island"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

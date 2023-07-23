@@ -1,0 +1,117 @@
+{
+    "_id": "QoS5lEJqji2h490F",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3ueUOMbC3RvbqrJs",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Slice Legs",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature with blood moves through a patch of lifeleech crystals.</p>\n<hr />\n<p><strong>Effect</strong> The crystals twist and slash, animating and cutting into the creature as it walks, dealing [[/r 5d8[slashing]]] damage. The creature must attempt a @Check[type:reflex|dc:28|traits:damaging-effect,environmental,magical] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature's blood causes fresh growth. A new 10-foot-square patch of lifeleech crystals grows in an adjacent space to the current patch of crystals.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lifeleech Crystal Patches",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 31
+            },
+            "hardness": 20,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em> to note the presence of necromantic energies suffusing the crystals.</p>",
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "sonic",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Sharp, bloodthirsty crystals make walking through this chamber treacherous.</p>",
+            "disable": "<p>@Check[type:religion|dc:30|name:Lifeleech Crystal Patch Disable|traits:environmental,magical] (expert) to utter prayers that quell the crystals' necromantic compulsion to drink blood</p>",
+            "isComplex": false,
+            "level": {
+                "value": 11
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #148: Fires of the Haunted City"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

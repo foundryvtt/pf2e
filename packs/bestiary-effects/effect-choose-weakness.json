@@ -1,0 +1,114 @@
+{
+    "_id": "PJxUFFeAvQJ4l52f",
+    "img": "systems/pf2e/icons/spells/elemental-zone.webp",
+    "name": "Effect: Choose Weakness",
+    "system": {
+        "description": {
+            "value": "<p>The Ghaele changes the elemental damage damage dealt by its greatsword and light ray to acid, cold, electricity, fire, or sonic.</p>\n<p>It can also change its energy resistance to any of these energy types (this can be a different type than for its attacks).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 13
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "damage",
+                "key": "ChoiceSet"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "holy-greatsword-damage"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "light-ray-damage"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                "key": "FlatModifier",
+                "selector": "light-ray-damage",
+                "value": 6
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "label": "PF2E.ResistancesLabel"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": 15
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

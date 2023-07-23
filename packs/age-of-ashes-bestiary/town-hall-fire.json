@@ -1,0 +1,67 @@
+{
+    "_id": "u9QIJIpkSgW5VRIG",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [],
+    "name": "Town Hall Fire",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>Initiative modifier is [[/r 1d20+5 #Initiative]]{+5}</p>",
+                "value": -10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A fire engulfs the western door and a @Template[type:line|distance:10|width:10]{10-foot-by-10-foot area} immediately east of it, then spreads on each of its turns.</p>",
+            "disable": "<p>Eliminating the hazard requires dousing the flames. Water typically clears a 5-foot square if the amount is small (such as that from <em>@UUID[Compendium.pf2e.spells-srd.Item.Create Water]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Push]</em>). Larger amounts of water, such as a full bucket, typically douse a @Template[type:line|distance:10|width:10]{10-foot-by-10-foot area} (or 4 squares in some other shape). Throwing a bucket of water on flames requires an Interact action. A waterskin doesn't contain enough water to put out even 1 square of fire. Cold can also put out fire, but only if the cold can affect an area; cold is usually less effective than water, so a @UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Lesser)]{Frost Vial} typically puts out 1 square of fire, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost]</em> is ineffective.</p>\n<p>Fountain Circle, located outside town hall, has several working water pumps. These are far enough away that it's impractical for a PC to bring water back and forth. However, a PC might instruct the more steely nerved spectators to create a bucket brigade. It takes 15 spectators (which can include those rescued by councilors as well as by PCs) to set this up, and 2 rounds for the townspeople to line up and begin pumping water from Fountain Circle. As of the 3rd round, there is a bucket of water available for the PCs to use at the chamber's southern entrance at the beginning of each PC's turn. Members of a bucket brigade are lined up outside the chamber, and don't take damage from smoke inhalation.</p>\n<p>If a PC does want to carry the water, it's 150 feet from the chamber's southern door to a pump, so it 6 actions are usually needed to reach the pumps or return. Filling a bucket requires an Interact action.</p>\n<p>Other methods might also help control the fire, as you determine. For example, the PCs might be able to find something to barricade the fire with to control its path, or use a cloak to beat out some of the fire.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "<p>On its turn, the fire spreads into a number of additional squares equal to half the number of squares the fire currently occupies, with a minimum of 1 square. You determine the squares the fire spreads into-typically those with the most flammable materials. Any creature that ends its turn next to the flames takes [[/r 1d6[fire]]] damage, and any creature within the flames takes [[/r 4d6[fire]]] damage. Both of these have a @Check[type:reflex|dc:17|basic:true|traits:complex,environmental,fire,hazard] save. A creature can take damage from flames only once per round. (For simplicity, track damage only for the NPCs and their allies, not for the spectators; Turn 5 and Turn 7 have instructions regarding the spectators' health).</p>\n<p>The fire has an additional effect on each of its turns after the first.</p>\n<p><strong>Turn 2</strong> The chamber's northern door flies open and flames burst through, igniting the @Template[type:line|distance:10|width:10]{10-foot-by-10-foot area} in front of the door. All fires spread on subsequent turns, at the same rate listed above. Any fires that join together become one fire for this purpose.</p>\n<p><strong>Turn 4+</strong> Creatures in the room take [[/r 1d6 #Smoke Inhalation Damage]]{1d6 damage} from smoke inhalation at the ends of their turns. Anyone who uses an Interact action to tie a wet rag around their nose and mouth (or uses another creative solution) halves the damage.</p>\n<p><strong>Turn 5</strong> Spectators still inside the room fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] from burns and smoke inhalation.</p>\n<p><strong>Turn 7</strong> Spectators still in the room die.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #145: Hellknight Hill"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fire"
+            ]
+        }
+    },
+    "type": "hazard"
+}

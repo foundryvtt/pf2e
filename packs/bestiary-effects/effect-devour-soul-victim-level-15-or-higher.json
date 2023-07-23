@@ -1,0 +1,49 @@
+{
+    "_id": "S38CM3hyr7DnsmRR",
+    "img": "systems/pf2e/icons/spells/eject-soul.webp",
+    "name": "Effect: Devour Soul (Victim Level 15 or Higher)",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains 10 temporary Hit Points and a +2 status bonus to attack and damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

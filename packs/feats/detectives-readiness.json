@@ -1,0 +1,56 @@
+{
+    "_id": "5cYFHKQK6OZCwavI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Detective's Readiness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you're on a case, you stay watchful and resolute to avoid tricks your suspect might pull.</p>\n<p>You gain your circumstance bonus from @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] on saving throws (and their DCs, as normal) against the subject of a lead, and you can use @UUID[Compendium.pf2e.actionspf2e.Item.Clue In] to assist an ally's saving throw against that subject.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Clue In (Detective's Readiness)]</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Pursue a Lead (Detective's Readiness)",
+                "predicate": [
+                    "pursue-a-lead"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "start": 9,
+                            "value": 2
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

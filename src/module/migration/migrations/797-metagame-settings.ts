@@ -1,4 +1,4 @@
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Migrate all metagame settings from . to _ prefixes, and the visibility ones to booleans */
 export class Migration797MetagameSetting extends MigrationBase {
@@ -13,7 +13,7 @@ export class Migration797MetagameSetting extends MigrationBase {
         "partyVision",
     ];
 
-    override async migrate() {
+    override async migrate(): Promise<void> {
         for (const setting of this.settings) {
             const storage = game.settings.storage.get("world");
             const newKey = `metagame_${setting}`;

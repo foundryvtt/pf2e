@@ -8,7 +8,13 @@
                 </span>
             {{/if}}
             {{#if (or @root.inventory.showValueAlways (eq section.type "treasure"))}}
-                <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
+                <span class="item-sell-value">
+                    {{#if (eq @root.actor.type "loot")}}
+                        {{localize "PF2E.UnitPriceLabel"}}
+                    {{else}}
+                        {{localize "PF2E.ValueLabel"}}
+                    {{/if}}
+                </span>
             {{/if}}
             <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
             {{#if (ne @root.actor.type "npc")}}

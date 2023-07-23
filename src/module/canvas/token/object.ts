@@ -1,29 +1,43 @@
-import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
+import { ANIMAL_COMPANION_SOURCE_IDS } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
-import { TokenDocumentPF2e } from "@module/scene";
-import { pick } from "@util";
-import { CanvasPF2e, measureDistanceCuboid, TokenLayerPF2e } from "..";
-import { HearingSource } from "../perception/hearing-source";
-import { AuraRenderers } from "./aura";
+import { TokenDocumentPF2e } from "@scene/index.ts";
+import { htmlClosest, pick } from "@util";
+import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import { HearingSource } from "../perception/hearing-source.ts";
+import { AuraRenderers } from "./aura/index.ts";
+import { Renderer } from "pixi.js";
 
-class TokenPF2e extends Token<TokenDocumentPF2e> {
+class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
     /** The token's line hearing source */
     hearing: HearingSource<this>;
 
-    constructor(document: TokenDocumentPF2e) {
+    constructor(document: TDocument) {
         super(document);
 
-        this.hearing = new HearingSource(this);
+        this.hearing = new HearingSource({ object: this });
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** Guarantee boolean return */
+    /** Increase center-to-center point tolerance to be more compliant with 2e rules */
     override get isVisible(): boolean {
-        return super.isVisible ?? false;
+        // Clear the detection filter
+        this.detectionFilter = null;
+
+        // Only GM users can see hidden tokens
+        if (this.document.hidden && !game.user.isGM) return false;
+
+        // Some tokens are always visible
+        if (!canvas.effects.visibility.tokenVision) return true;
+        if (this.controlled) return true;
+
+        // Otherwise, test visibility against current sight polygons
+        if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
+        const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
+        return canvas.effects.visibility.testVisibility(this.center, { tolerance, object: this });
     }
 
     /** Is this token currently animating? */
@@ -54,6 +68,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** The ID of the highlight layer for this token */
     get highlightId(): string {
         return `Token.${this.id}`;
+    }
+
+    /** Short-circuit calculation for long sight ranges */
+    override get sightRange(): number {
+        return this.document.sight.range >= canvas.dimensions!.maxR ? canvas.dimensions!.maxR : super.sightRange;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -120,7 +139,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             flankingBuddies.some(
                 (b) =>
                     b.actor?.isOfType("character") &&
-                    b.actor.class?.sourceId === ANIMAL_COMPANION_SOURCE_ID &&
+                    ANIMAL_COMPANION_SOURCE_IDS.includes(b.actor.class?.sourceId ?? "") &&
                     b.isAdjacentTo(flankee)
             );
         if (sideBySide) return true;
@@ -134,20 +153,19 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!canvas.dimensions) return;
 
         const actor = this.document.actor;
-        const isHealth = data.attribute === "attributes.hp" && actor?.attributes.hp;
 
-        if (!isHealth) {
+        if (!(data.attribute === "attributes.hp" && actor?.attributes.hp)) {
             return super._drawBar(number, bar, data);
         }
 
-        const { value, max, temp } = actor.attributes.hp;
+        const { value, max, temp } = actor.attributes.hp ?? {};
         const healthPercent = Math.clamped(value, 0, max) / max;
 
-        // Compute the color based on health percentage, this formula is the one core foundry uses
+        // Compute the color based on health percentage, this formula is the one core Foundry uses
         const black = 0x000000;
         const color = number
-            ? PIXI.utils.rgb2hex([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2])
-            : PIXI.utils.rgb2hex([1 - healthPercent / 2, healthPercent, 0]);
+            ? Number(Color.fromRGB([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2]))
+            : Number(Color.fromRGB([1 - healthPercent / 2, healthPercent, 0]));
 
         // Bar size logic stolen from core
         let h = Math.max(canvas.dimensions.size / 12, 8);
@@ -191,12 +209,20 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.auras.draw();
     }
 
-    emitHoverIn() {
-        this.emit("mouseover", { data: { object: this } });
+    /** Emulate a pointer hover ("pointerover") event */
+    emitHoverIn(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerover";
+        event.nativeEvent = nativeEvent;
+        this._onHoverIn(event, { hoverOutOthers: true });
     }
 
-    emitHoverOut() {
-        this.emit("mouseout", { data: { object: this } });
+    /** Emulate a pointer hover ("pointerout") event */
+    emitHoverOut(nativeEvent: MouseEvent | PointerEvent): void {
+        const event = new PIXI.FederatedPointerEvent(new PIXI.EventBoundary(this));
+        event.type = "pointerout";
+        event.nativeEvent = nativeEvent;
+        this._onHoverOut(event);
     }
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
@@ -260,7 +286,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const [change, details] = Object.entries(params)[0];
                 const isAdded = change === "create";
                 const sign = isAdded ? "+ " : "- ";
-                const appendedNumber = details.value ? ` ${details.value}` : "";
+                const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
                 const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
@@ -313,7 +339,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Add a callback for when a movement animation finishes */
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
         await super.animate(updateData, options);
-        if (!this._animation) this.onFinishAnimation();
+        if (!this._animation) this.#onFinishAnimation();
     }
 
     /** Hearing should be updated whenever vision is */
@@ -321,6 +347,19 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         super.updateVisionSource({ defer, deleted });
         if (this._isVisionSource() && !deleted) {
             this.hearing.initialize();
+        }
+    }
+
+    /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
+    override render(renderer: Renderer): void {
+        super.render(renderer);
+        if (!this.mesh) return;
+
+        const configuredTint = this.document.texture.tint ?? "#FFFFFF";
+        if (this.mesh.tint !== 0 && this.detectionFilter instanceof OutlineOverlayFilter) {
+            this.mesh.tint = 0;
+        } else if (this.mesh.tint === 0 && configuredTint !== "#000000" && !this.detectionFilter) {
+            this.mesh.tint = Number(Color.fromString(configuredTint));
         }
     }
 
@@ -349,27 +388,12 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.auras.refresh();
     }
 
-    protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {
+    protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
         super._onDragLeftStart(event);
         this.auras.clearHighlights();
     }
 
-    /** If a single token (this one) was dropped, re-establish the hover status */
-    protected override async _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<this["document"][]> {
-        const clones = event.data.clones ?? [];
-        const dropped = await super._onDragLeftDrop(event);
-
-        if (clones.length === 1) {
-            this.emitHoverOut();
-            this.emitHoverIn();
-        }
-
-        this.auras.refresh();
-
-        return dropped;
-    }
-
-    protected override _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean {
+    protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
         this.auras.refresh();
@@ -377,7 +401,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return true;
     }
 
-    protected override _onHoverOut(event: PIXI.InteractionEvent): boolean {
+    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean {
+        // Ignore hover events coming from `Application` windows
+        if (htmlClosest(event.nativeEvent?.target, ".app.sheet")) {
+            return false;
+        }
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
         this.auras.refresh();
@@ -386,13 +414,13 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Destroy auras before removing this token from the canvas */
-    override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
+    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
         super._onDelete(options, userId);
         this.auras.clear();
     }
 
     /** A callback for when a movement animation for this token finishes */
-    private async onFinishAnimation(): Promise<void> {
+    async #onFinishAnimation(): Promise<void> {
         await this._animation;
         this.auras.refresh();
     }
@@ -408,14 +436,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 }
 
-interface TokenPF2e extends Token<TokenDocumentPF2e> {
+interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
-
-    icon?: TokenImage;
-}
-
-interface TokenImage extends PIXI.Sprite {
-    src?: VideoFilePath;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };
@@ -425,4 +447,4 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { TokenPF2e };
+export { ShowFloatyEffectParams, TokenPF2e };

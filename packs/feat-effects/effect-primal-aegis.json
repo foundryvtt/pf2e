@@ -1,0 +1,47 @@
+{
+    "_id": "5PIaLkys5ZqP2BUv",
+    "img": "systems/pf2e/icons/spells/electrified-crystal-ward.webp",
+    "name": "Effect: Primal Aegis",
+    "system": {
+        "description": {
+            "value": "<p>You and allies within 30 feet of you gain resistance equal to your Wisdom modifier to acid, cold, electricity, fire, negative, and positive damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "negative",
+                    "positive"
+                ],
+                "value": "@item.origin.abilities.wis.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

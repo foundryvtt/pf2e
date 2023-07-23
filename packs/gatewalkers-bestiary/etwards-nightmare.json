@@ -1,0 +1,105 @@
+{
+    "_id": "xSKsWdRWd69OA92K",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "iDA1cN7DxxiIyHwi",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Light Incense Burners",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature lies down on the bed, or a living creature spends more than 3 rounds inside this room</p>\n<hr />\n<p><strong>Effect</strong> Incense swiftly fills the room (even if the incense burners have been removed or were destroyed). All creatures in area <strong>A12</strong> must attempt a @Check[type:fortitude|dc:32] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the incense's scent.</p>\n<p><strong>Failure</strong> The creature falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If it's still unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> As failure, but if it's still unconscious after 1 hour, it wakes up automatically.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "enchantment",
+                        "incapacitation",
+                        "mental",
+                        "occult",
+                        "sleep"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Etward's Nightmare",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The incense burners begin to smoke, filling the air with strangely nostalgic scents.</p>",
+            "disable": "<p>@Check[type:occultism|dc:26] (expert) to enter a state akin to lucid dreaming so as to unweave the nightmare from within, or @Check[type:intimidation|dc:30] (master) to stand resolute against the nightmares and turn the fear back upon itself</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The hazard resets when Etward dreams in this room.</p>",
+            "routine": "<p>(2 actions; cold, enchantment, mental, occult) The haunt uses its first action to light incense burners again, forcing any creature that isn't already @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] to save against that effect once more. Its second action is to cause any unconscious creatures in the room to experience horrific, vivid dreams about being lost in the arctic during a blizzard, while enormous furred figures&mdash; saumen kar&mdash;lunge at them through the snow to attack repeatedly. Each unconscious creature must attempt a @Check[type:fortitude|dc:28|traits:cold,enchantment,mental,occult] saving throw. If at the end of the round there are no unconscious creatures in the room, Etward's nightmare ends and the trap deactivates.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected and wakes up.</p>\n<p><strong>Success</strong> The creature remains unconscious and takes [[/r 1d10[cold]]] and [[/r 1d10[mental]]]. This damage does not wake the creature, and those who are awake can see the unconscious creature thrash as if in the throes of a nightmare while their body rimes over with layers of frost. The creature can fight against the bitter cold and monstrous shapes by attempting a @Check[type:will|dc:28|traits:cold,enchantment,mental,occult] save as a three-action activity on its turn&mdash; on a success, the creature wakes up.</p>\n<p><strong>Failure</strong> As success, but 1d10+6 cold and [[/r (1d10+6)[mental]]], and with a @Check[type:will|dc:32|traits:cold,enchantment,mental,occult] save to wake up.</p>\n<p><strong>Critical Failure</strong> The creature remains unconscious and takes [[/r (2d10+12)[cold]]] and [[/r (2d10+12)[mental]]].</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #189: Dreamers of the Nameless Spires"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

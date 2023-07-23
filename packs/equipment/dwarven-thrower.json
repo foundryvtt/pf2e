@@ -1,0 +1,127 @@
+{
+    "_id": "XK4DM8wOtcuOsji6",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/dwarven-thrower.webp",
+    "name": "Dwarven Thrower",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "warhammer",
+        "bonus": {
+            "value": 2
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>This +2 striking warhammer is inlaid with precious metals and decorated with geometric patterns in a dwarven style. If you're a dwarf, a dwarven thrower functions for you as a +2 greater striking returning warhammer with the thrown 30 feet trait, and your attacks with the hammer deal 1d8 additional damage against giants.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "hammer",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 2
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 2750
+            }
+        },
+        "propertyRune1": {
+            "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "Striking",
+                "predicate": [
+                    "self:ancestry:dwarf"
+                ],
+                "selector": "{item|_id}-damage",
+                "value": 2
+            },
+            {
+                "diceNumber": 1,
+                "diceSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:giant",
+                    "self:ancestry:dwarf"
+                ],
+                "selector": "{item|_id}-damage"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "specific": {
+            "material": null,
+            "runes": {
+                "potency": 2,
+                "striking": "striking"
+            },
+            "value": true
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "striking"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "evocation",
+                "magical",
+                "shove"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "weapon"
+}

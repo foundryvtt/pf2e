@@ -1,0 +1,112 @@
+{
+    "_id": "ehL7mnkqxN5wIkgu",
+    "img": "systems/pf2e/icons/features/classes/deity.webp",
+    "name": "Deity and Cause",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Champions are divine servants of a deity. Choose a deity to follow; your alignment must be one allowed for followers of your deity. Actions fundamentally opposed to your deity's ideals or alignment are anathema to your faith. A few examples of acts that would be considered anathema appear in each deity's entry. You and your GM determine whether other acts are anathema. You have one of the following causes. Your cause must match your alignment exactly. Your cause determines your champion's reaction, grants you a devotion spell, and defines part of your champion's code.</p>\n<ul>\n<li>LG @UUID[Compendium.pf2e.classfeatures.Item.Paladin]</li>\n<li>NG @UUID[Compendium.pf2e.classfeatures.Item.Redeemer]</li>\n<li>CG @UUID[Compendium.pf2e.classfeatures.Item.Liberator]</li>\n<li>LE @UUID[Compendium.pf2e.classfeatures.Item.Tyrant]</li>\n<li>NE @UUID[Compendium.pf2e.classfeatures.Item.Desecrator]</li>\n<li>CE @UUID[Compendium.pf2e.classfeatures.Item.Antipaladin]</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:category:deity",
+                                "item:category:pantheon"
+                            ]
+                        }
+                    ],
+                    "itemType": "deity"
+                },
+                "flag": "deity",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:champion",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "predicate": [
+                            "deity:primary:alignment:follower:lg"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Paladin"
+                    },
+                    {
+                        "predicate": [
+                            "deity:primary:alignment:follower:ng"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Redeemer"
+                    },
+                    {
+                        "predicate": [
+                            "deity:primary:alignment:follower:cg"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Liberator"
+                    },
+                    {
+                        "predicate": [
+                            "deity:primary:alignment:follower:le"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Tyrant"
+                    },
+                    {
+                        "predicate": [
+                            "deity:primary:alignment:follower:ne"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Desecrator"
+                    },
+                    {
+                        "predicate": [
+                            "deity:primary:alignment:follower:ce"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Antipaladin"
+                    }
+                ],
+                "flag": "cause",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.cause}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

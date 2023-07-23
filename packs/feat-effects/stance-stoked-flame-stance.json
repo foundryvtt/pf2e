@@ -1,0 +1,79 @@
+{
+    "_id": "rp1YauUSULuqW8rs",
+    "img": "systems/pf2e/icons/spells/fire-ray.webp",
+    "name": "Stance: Stoked Flame Stance",
+    "system": {
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're unarmored.</p>\n<hr />\n<p>You enter a stance of fast, fiery movements. You can make flashing spark attacks that deal 1d8 slashing damage. They are in the brawling group and have the forceful, nonlethal, sweep, and unarmed traits. If you have access to the flashing sparks' critical specialization effect, you can take an alternate effect instead: if your critical Strike dealt damage, the target takes 1d6 persistent fire damage.</p>\n<p>While in Stoked Flame Stance, you gain a +5-foot status bonus to your Speed. If you have incredible movement, increase the benefit from incredible movement to a +15-foot status bonus plus 5 feet for every 4 levels beyond 3rd.</p>\n<hr />\n<p><strong>Special</strong> This feat gains your choice of either the divine or occult trait, matching your ki spell tradition if possible.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "flashing-spark-damage",
+                "text": "If you have access to the flashing sparks' critical specialization effect, you can take an alternate effect instead: if your critical Strike dealt damage, the target takes [[/r 1d6[persistent,fire]]] damage.",
+                "title": "PF2E.SpecificRule.Stance.Attack.FlashingSpark"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/spells/fire-ray.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.FlashingSpark",
+                "range": null,
+                "traits": [
+                    "forceful",
+                    "nonlethal",
+                    "sweep",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "land-speed",
+                "slug": "incredible-movement",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

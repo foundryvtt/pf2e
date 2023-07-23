@@ -1,0 +1,53 @@
+{
+    "_id": "HpT1GlcnkCBnDnVF",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Barbarian Resiliency",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain 3 additional Hit Points for each barbarian archetype class feat you have. As you continue selecting barbarian archetype class feats, you continue to gain additional Hit Points in this way.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Barbarian Dedication"
+                },
+                {
+                    "value": "class granting no more Hit Points per level than 10 + your Constitution modifier"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.barbarian.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "3 * @actor.flags.pf2e.barbarian.archetypeFeatCount"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

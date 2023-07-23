@@ -1,0 +1,191 @@
+{
+    "_id": "82wJQmzPlKttl0sc",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XCR8NvW2d1UwWElX",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Arm Activation",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Rumormonger or the Inkmaster enters the room</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WxDAGBp5686PFyEA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d10+15",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "J6CumHMGaEuUCyrp",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Open Hatch",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The metal hatch opens and the arms deposit a grabbed Medium or smaller creature into the hole. The creature becomes caught in the gears (see Caught in Gears) for 1 round before emerging in area <strong>K5</strong>. <strong>Reset</strong> Rewinding the gears for [[/br 1d4 #minutes]]{1d4 minutes} resets the trap.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Clockwork Arms",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 37
+            },
+            "hardness": 15,
+            "hasHealth": true,
+            "hp": {
+                "details": "to destroy one arm",
+                "max": 50,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four claw-tipped clockwork arms suspended from the ceiling pick up and deposit creatures into a nearby hatch.</p>",
+            "disable": "<p>@Check[type:thievery|dc:43|name:Deactivate One Arm|traits:action:disable-a-device] (master) to jam and deactivate one of the arms or @Check[type:athletics|dc:46|name:Tear Arm Off Machine] (legendary) to tear an arm off the machine.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The trap loses 1 action per arm destroyed or disabled. On its turn, the trap makes claw Strikes against creatures other than the Rumormonger or the Inkmaster. If an arm already has a creature grabbed, the trap spends 2 actions to use its Open Hatch ability.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #161: Belly of the Black Whale"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

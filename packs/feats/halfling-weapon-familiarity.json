@@ -1,0 +1,82 @@
+{
+    "_id": "2ebcYbg68pCZfAFQ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Halfling Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You favor traditional halfling weapons, so you've learned how to use them more effectively. You have the trained proficiency with the @UUID[Compendium.pf2e.equipment-srd.Item.Sling], @UUID[Compendium.pf2e.equipment-srd.Item.Halfling Sling Staff], and @UUID[Compendium.pf2e.equipment-srd.Item.Shortsword].</p>\n<p>You gain access to all uncommon halfling weapons. For the purpose of determining your proficiency, martial halfling weapons are simple weapons and advanced halfling weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-sling.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-halfling-sling-staff.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-shortsword.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-frying-pan.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:halfling",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedHalflingWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-halfling-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:halfling",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialHalflingWeapons",
+                "sameAs": "simple",
+                "slug": "martial-halfling-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "halfling"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,100 @@
+{
+    "_id": "nv41Nzzaavh1tv3w",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "4fe312SpJQZW5oxm",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shriek of Despair",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more creatures enter area <strong>F9</strong></p>\n<hr />\n<p><strong>Effect</strong> A terrifying shriek of pain and suffering deals [[/r (3d12+40)[mental]]] damage to each creature within area <strong>F9</strong>, and each creature must attempt a @Check[type:will|dc:42] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Success</strong> The creature takes half damage and is frightened 1.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is frightened 2, and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ashes of Despair",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 39
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Swirling ashes fill the room and form into the semblance of a massive predatory bird that swoops upon those in the chamber, draining their life force away.</p>",
+            "disable": "<p>@Check[type:occultism|dc:44] (master) to disrupt and counteract the shadow magic animating the ashes, or @Check[type:religion|dc:42] (master) to exorcise the animating spirit. Disabling the trap requires three successful checks, in any combination of Occultism and Religion checks.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The haunt resets immediately when there are no creatures in area <strong>F9</strong>. Any previous successes from attempts to Disable the haunt persist when it's later triggered. After three successes, the haunt doesn't reset.</p>",
+            "routine": "<p>(1 action) The shadowy shape sends streams of scouring ash toward the mouth, eyes, and nose of each creature in the room, dealing [[/r (3d12+20)[slashing]]] damage and requiring a @Check[type:fortitude|dc:42] save. Creatures that don't need breathe can't be sickened by the haunt and creatures that don't see can't be @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by it.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature takes no damage and is blinded for 1 round.</p>\n<p><strong>Success</strong> The creature takes half damage, is blinded for 1 round, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage, is blinded for 1 minute, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage, is blinded for 1 minute, is sickened 2, and is unable to use any spells or abilities with the verbal trait while it is sickened.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #185: A Taste of Ashes"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

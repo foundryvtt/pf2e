@@ -1,0 +1,46 @@
+{
+    "_id": "16QrxIYal7PJFL2W",
+    "img": "systems/pf2e/icons/spells/euphoric-revival.webp",
+    "name": "Spell Effect: Euphoric Renewal",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to saves and gain 8 temporary Hit Points.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of temporary HP increases by 2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "2*@item.level"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

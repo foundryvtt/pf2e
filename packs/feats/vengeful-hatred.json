@@ -1,0 +1,68 @@
+{
+    "_id": "ngEd8PgsyAARuTQ9",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Vengeful Hatred",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You heart aches for vengeance against those who have wronged your people. Choose one of the following dwarven ancestral foes when you gain Vengeful Hatred: drow, duergar, giant, or orc.</p>\n<p>You gain a +1 circumstance bonus to damage with weapons and unarmed attacks against creatures with that trait. If your attack would deal more than one weapon die of damage (as is common at higher levels than 1st), the bonus is equal to the number of weapon dice or unarmed attack dice.</p>\n<p>In addition, if a creature critically succeeds at an attack against you and deals damage to you, you gain your bonus to damage against that creature for 1 minute regardless of whether it has the chosen trait.</p>\n<p><strong>Special</strong> Your GM can add appropriate creature traits to the ancestral foes list if your character is from a community that commonly fights other types of enemies.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitDrow",
+                        "value": "drow"
+                    },
+                    {
+                        "label": "PF2E.TraitDuergar",
+                        "value": "duergar"
+                    },
+                    {
+                        "label": "PF2E.TraitGiant",
+                        "value": "giant"
+                    },
+                    {
+                        "label": "PF2E.TraitOrc",
+                        "value": "orc"
+                    }
+                ],
+                "flag": "featVengefulHatred",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Dwarf.VengefulHatred.Prompt",
+                "rollOption": "vengeful-hatred"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:{item|flags.pf2e.rulesSelections.featVengefulHatred}"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

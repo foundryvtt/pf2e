@@ -1,0 +1,54 @@
+{
+    "_id": "8Mo0fKRAz1TVbrr1",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Catfolk Weapon Rake",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You know how to efficiently use weapons that rake across your enemies. Whenever you critically hit using a catfolk weapon or one of the weapons listed in @UUID[Compendium.pf2e.feats-srd.Item.Catfolk Weapon Familiarity], you apply the weapon's critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Catfolk Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:catfolk",
+                            "item:base:hatchet",
+                            "item:base:kama",
+                            "item:base:kukri",
+                            "item:base:scimitar",
+                            "item:base:sickle"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "catfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

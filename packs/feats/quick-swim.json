@@ -1,0 +1,63 @@
+{
+    "_id": "bFoh3267kNLk68cU",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Quick Swim",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You Swim 5 feet farther on a success and 10 feet farther on a critical success, to a maximum of your Speed. If you're legendary in Athletics, you gain a swim Speed equal to your Speed.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Athletics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": "@actor.attributes.speed.total"
+                        }
+                    ],
+                    "field": "actor|system.skills.ath.rank"
+                }
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "text": "You swim 5 more feet on a success, and 10 more feet on a critical success.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

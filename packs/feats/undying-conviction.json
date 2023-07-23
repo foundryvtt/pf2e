@@ -1,0 +1,71 @@
+{
+    "_id": "xSYkYRKlSyLzPrH1",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Undying Conviction",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your presence has a bolstering effect on your undead minions. Undead creatures under your control and within a @Template[type:emanation|distance:30] around you gain a +2 status bonus to saving throws to resist positive damage and to Will saving throws to resist effects that would make them controlled.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Under Control]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Undying Conviction]</p>\n<p><strong>Special</strong> This feat has the trait matching your spellcasting tradition.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "able to create or control undead"
+                },
+                {
+                    "value": "cleric with a negative font, oracle of bones, or necromancer wizard"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "includesSelf": false,
+                        "predicate": [
+                            "target:effect:under-control",
+                            "target:mode:undead"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Undying Conviction"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 30,
+                "slug": "undying-conviction",
+                "traits": [
+                    "cleric",
+                    "necromancy",
+                    "oracle",
+                    "wizard"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "aura",
+                "cleric",
+                "necromancy",
+                "oracle",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

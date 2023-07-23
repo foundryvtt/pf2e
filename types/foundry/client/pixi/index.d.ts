@@ -1,37 +1,44 @@
 import * as smooth from "@pixi/graphics-smooth";
 import * as particles from "@pixi/particle-emitter";
 import {
+    ALPHA_MODES,
     AccessibilityManager,
+    AlphaFilter,
     Application,
-    Circle,
+    BLEND_MODES,
+    BlurFilter,
     CLEAR_MODES,
+    Circle,
     Container,
     DisplayObject,
     Ellipse,
+    EventBoundary,
     Extract,
+    FORMATS,
+    FederatedEvent,
+    FederatedPointerEvent,
     Filter,
-    filters,
     FilterState,
     FilterSystem,
     Geometry,
     Graphics,
-    Graphics as LegacyGraphics,
     IDestroyOptions,
-    InteractionData,
-    InteractionEvent,
-    InteractionManager,
-    InteractivePointerEvent,
     ITextStyle,
+    Graphics as LegacyGraphics,
+    MIPMAP_MODES,
+    MSAA_QUALITY,
     Mesh,
+    ParticleContainer,
     ParticleRenderer,
     Point,
     Polygon,
     Prepare,
     Program,
     Rectangle,
-    Renderer,
     RenderTexture,
+    Renderer,
     RoundedRectangle,
+    SCALE_MODES,
     Shader,
     Sprite,
     Text,
@@ -42,37 +49,48 @@ import {
     UniformGroup,
     utils,
 } from "pixi.js";
-import "./core";
-import "./groups";
-import "./layers/effects/visibility";
-import "./perception";
-import "./webgl";
-import "./layers/controls/ruler";
+import "./canvas.d.ts";
+import "./core/index.d.ts";
+import "./groups/index.d.ts";
+import "./layers/controls/ruler.d.ts";
+import "./layers/effects/visibility.d.ts";
+import "./perception/index.d.ts";
+import "./placeable.d.ts";
+import "./placeables/index.d.ts";
+import "./sources/index.d.ts";
+import "./webgl/index.d.ts";
 
 declare global {
     module PIXI {
         export {
             AccessibilityManager,
+            AlphaFilter,
             Application,
+            ALPHA_MODES,
+            BLEND_MODES,
+            BlurFilter,
             CLEAR_MODES,
             Circle,
             Container,
             DisplayObject,
             Ellipse,
+            EventBoundary,
             Extract,
+            FederatedEvent,
+            FederatedPointerEvent,
             Filter,
             FilterState,
             FilterSystem,
+            FORMATS,
             Geometry,
             Graphics,
             IDestroyOptions,
             ITextStyle,
-            InteractionData,
-            InteractionEvent,
-            InteractionManager,
-            InteractivePointerEvent,
             LegacyGraphics,
             Mesh,
+            MIPMAP_MODES,
+            MSAA_QUALITY,
+            ParticleContainer,
             ParticleRenderer,
             Point,
             Polygon,
@@ -82,6 +100,7 @@ declare global {
             RenderTexture,
             Renderer,
             RoundedRectangle,
+            SCALE_MODES,
             Shader,
             Sprite,
             Text,
@@ -90,7 +109,6 @@ declare global {
             TilingSpriteRenderer,
             Transform,
             UniformGroup,
-            filters,
             particles,
             smooth,
             utils,

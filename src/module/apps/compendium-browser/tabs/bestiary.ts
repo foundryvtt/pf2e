@@ -1,9 +1,14 @@
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { BestiaryFilters, CompendiumBrowserIndexData } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { BestiaryFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
+    tabName: ContentTabName = "bestiary";
+    filterData: BestiaryFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.hbs";
+
     protected index = [
         "img",
         "system.details.level.value",
@@ -12,8 +17,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         "system.traits",
     ];
 
-    override filterData!: BestiaryFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -30,13 +33,13 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     ];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "bestiary");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading Bestiary actors");
 
         const bestiaryActors: CompendiumBrowserIndexData[] = [];
@@ -59,9 +62,9 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     }
                     // Prepare source
                     const source = actorData.system.details.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        actorData.system.details.source.value = sluggify(source);
                     }
 
                     bestiaryActors.push({
@@ -74,7 +77,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                         actorSize: actorData.system.traits.size.value,
                         traits: actorData.system.traits.value,
                         rarity: actorData.system.traits.rarity,
-                        source: actorData.system.details.source.value,
+                        source: sourceSlug,
                     });
                 }
             }
@@ -108,10 +111,8 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
             if (!checkboxes.alignments.selected.includes(entry.alignment)) return false;
         }
         // Traits
-        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
-        }
         // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
@@ -123,8 +124,8 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): BestiaryFilters {
+        return {
             checkboxes: {
                 sizes: {
                     isExpanded: true,
@@ -153,6 +154,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
             },
             multiselects: {
                 traits: {
+                    conjunction: "and",
                     label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],

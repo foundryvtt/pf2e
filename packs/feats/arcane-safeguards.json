@@ -1,0 +1,67 @@
+{
+    "_id": "bJzANqEGTkho1bv6",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Arcane Safeguards",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The magic powering you makes it difficult for outside magic to affect you. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Resist Magic] reaction.</p>\n<p><strong>Enhancement</strong> Your safeguards improve. When you Resist Magic, you gain a number of temporary Hit Points equal to the spell level of the triggering effect.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Resist Magic"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneSafeguards",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-safeguards"
+                        }
+                    ],
+                    "value": "arcane-safeguards"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneSafeguards",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-safeguards"
+                        }
+                    ],
+                    "value": "arcane-safeguards"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

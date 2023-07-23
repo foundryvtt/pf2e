@@ -1,0 +1,105 @@
+{
+    "_id": "mSdVK522CUn4U99f",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "mPAzQkbngGpRu3L1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sickening Performance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more characters enter area <strong>E3</strong> and make any sound at all</p>\n<hr />\n<p><strong>Effect</strong> Sounds or speech are amplified and garbled into a terrible, shrieking cry. All creatures in the area take [[/r (2d10+11)[mental]]] damage (@Check[type:will|dc:28|basic:true] save). The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Corrupted Draft",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em></p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Discordant music, dance, and poetry combine to build a deep suspicion and distrust of strangers.</p>",
+            "disable": "<p>@Check[type:performance|dc:28] to counteract the performance or @Check[type:religion|dc:28] or @Check[type:occult|dc:28] to disrupt the spiritual energy. Two total successes are needed to disable the trap. The mechanical head can automatically disable the trap with two uses of Inspired Recitation.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>The hazard stops when there are no conscious creatures in area <strong>E3</strong> and resets after 1 minute.</p>",
+            "routine": "<p>(1 action; emotion, fear, mental, occult) The echoes continue to reverberate, tearing at those in the area and filling them with distrust of others. All creatures in the area take [[/r (2d10+11)[mental]]] damage and must attempt a @Check[type:will|dc:28|traits:emotion,fear,mental,occult,damaging-effect] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The target is unaffected and is immune to the effects for 1 minute.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by feelings of distrust and anxiety.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Enmity Cycle"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "curse",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

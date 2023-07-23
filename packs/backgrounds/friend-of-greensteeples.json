@@ -1,0 +1,80 @@
+{
+    "_id": "FlXu29r5C4CborZv",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Friend of Greensteeples",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You're a good friend of Benedet, the majordomo of Greensteeples Manor in Egorian, Cheliax. You've learned a thing or two about surviving against all odds thanks to your close association with House Jeggare and the clandestine Pathfinder Society operations based out of Greensteeples.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Deception or Society skills, and gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat with your chosen skill. You're also trained in a Lore skill about a narrow category of creatures.</p>\n<p>Additionally, when you receive a mission briefing at Greensteeples Manor (or a briefing from Benedet or Varian Jeggare at another location), you receive a warm welcome. You gain a +2 circumstance bonus to your checks to Gather Information or Recall Knowledge during the Getting Started segment of such adventures. Be sure to remind your GM that you have a relevant background.</p>"
+        },
+        "items": {
+            "sfesw": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Assurance",
+                "uuid": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+            }
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "{item|flags.pf2e.rulesSelections.skill}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Blog: Pathfinder Society Year 4 Rule Updates"
+        },
+        "trainedLore": "<Lore about a narrow category of creatures>",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

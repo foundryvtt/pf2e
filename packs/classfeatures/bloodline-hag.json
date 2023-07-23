@@ -1,0 +1,64 @@
+{
+    "_id": "O0uXZRWMNliDbkxU",
+    "img": "systems/pf2e/icons/features/classes/hag.webp",
+    "name": "Bloodline: Hag",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>A hag long ago cursed your family, or you are a descendant of a hag or changeling, and their accursed corruption infests your blood and soul.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Deception, Occultism</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Daze]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Touch of Idiocy]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Blindness]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Baleful Polymorph]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Warp Mind]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spiritual Epidemic]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Nature's Enmity]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Jealous Hex]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Horrific Visage]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.You're Mine]</em></p>\n<p><strong>Blood Magic</strong> Spiteful curses punish your foes. You deal 2 mental damage per spell level (basic Will save) to the first creature that deals damage to you before the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hag Blood Magic]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "occult"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

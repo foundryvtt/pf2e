@@ -1,0 +1,24 @@
+<ol class="party-list">
+{{#each parties}}
+    <li class="party flexcol {{#unless (lookup @root.extraFolders this.id)}}collapsed{{/unless}}" data-document-id="{{this.id}}">
+        <header class="directory-item party-header flexrow" data-entry-id="{{this.id}}" data-document-id="{{this.id}}">
+            <!-- Drag Preview only -->
+            <img src="{{this.img}}" class="hidden">
+            <i class="fas fa-fw fa-users" data-action="open-sheet"></i>
+            <h3 class="noborder">{{this.name}}</h3>
+            <div class="controls">
+                <a class="create-button" data-action="create-member">
+                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-solid fa-plus"></i>
+                </a>
+            </div>
+        </header>
+
+        <ol class="subdirectory">
+            {{#each this.members}}
+            {{> (lookup @root "entryPartial")}}
+            {{/each~}}
+        </ol>
+    </li>
+{{/each}}
+</ol>

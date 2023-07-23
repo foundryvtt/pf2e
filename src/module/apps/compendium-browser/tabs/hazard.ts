@@ -1,11 +1,14 @@
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, HazardFilters } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, HazardFilters } from "./data.ts";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
-    override filterData!: HazardFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.hbs";
+    tabName: ContentTabName = "hazard";
+    filterData: HazardFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "complexity", "traits", "rarity", "source"];
@@ -13,13 +16,13 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     protected index = ["img", "system.details.level.value", "system.details.isComplex", "system.traits"];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "hazard");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading Hazard actors");
 
         const hazardActors: CompendiumBrowserIndexData[] = [];
@@ -42,9 +45,9 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     }
                     // Prepare source
                     const source = actorData.system.details.source?.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        actorData.system.details.source.value = sluggify(source);
                     } else {
                         actorData.system.details.source = { value: "" };
                     }
@@ -58,7 +61,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                         complexity: actorData.system.details.isComplex ? "complex" : "simple",
                         traits: actorData.system.traits.value,
                         rarity: actorData.system.traits.rarity,
-                        source: actorData.system.details.source.value,
+                        source: sourceSlug,
                     });
                 }
             }
@@ -93,10 +96,8 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
             if (!checkboxes.complexity.selected.includes(entry.complexity)) return false;
         }
         // Traits
-        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
-        }
         // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
@@ -108,8 +109,8 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): HazardFilters {
+        return {
             checkboxes: {
                 complexity: {
                     isExpanded: true,
@@ -132,6 +133,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
             },
             multiselects: {
                 traits: {
+                    conjunction: "and",
                     label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],

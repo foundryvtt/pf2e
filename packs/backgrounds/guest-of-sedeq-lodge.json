@@ -1,0 +1,73 @@
+{
+    "_id": "5RhHdnzWWKfh5faz",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Guest of Sedeq Lodge",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Either as a guest, event staff, or part of the construction crew, you spent a significant stretch of time at the Pathfinder Society's new lodge in Sedeq. The lodge serves as a new home for those fleeing from oppression or otherwise seeking a fresh start in Qadira. The magic and marvels you witnessed at the lodge inspired you to find more excitement as a member of the Pathfinder Society.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Arcana or Religion skills, as well as your choice of the Genie Lore or Sarenrae Lore skills. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Recognize Spell] skill feat.</p>\n<p>Additionally, when you receive a mission briefing at Sedeq Lodge, your familiarity with the site and the nearby area comes in handy. You gain a +2 circumstance bonus to your checks to Gather Information or Recall Knowledge during the Getting Started segment of such adventures. Be sure to remind your GM that you have a relevant background.</p>"
+        },
+        "items": {
+            "jdle4": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Recognize Spell",
+                "uuid": "Compendium.pf2e.feats-srd.Item.MjQyTcV8Jiv1Jtln"
+            }
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "rel"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Blog: Pathfinder Society Year 4 Rule Updates"
+        },
+        "trainedLore": "<Choice of Genie Lore or Sarenrae Lore>",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

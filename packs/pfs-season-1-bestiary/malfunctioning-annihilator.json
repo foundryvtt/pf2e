@@ -1,0 +1,151 @@
+{
+    "_id": "IsNHPVT7c6K42rIR",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "XVTOwpEj7eB2OADm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Integrated Chain Gun",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "1zzkgesgrynvmnqk8k10": {
+                        "damage": "4d6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fatal-d8",
+                        "range-200"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "O8OpwwVx3fUlVke4",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Plasma Lance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The scorpion-like tail of the annihilator projects a @Template[type:line|distance:80] of burning plasma.</p>\n<p>Creatures in the area take [[/r 6d6[fire]]] damage (@Check[type:reflex|dc:26|basic:true]). The annihilator can't use the plasma lance again for [[/br 1d4 #Plasma Lance Recharge]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Malfunctioning Annihilator",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "hardness": 10,
+            "hasHealth": true,
+            "hp": {
+                "details": "per integrated chain gun; Plasma Lance Hardness 10, Plasma Lance HP 26 (BT 13)",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "stealth": {
+                "details": "(trained) to notice it's still functional; noticing the annihilator is automatic",
+                "value": 13
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>A gargantuan scorpion-like robot, covered in signs of damage, has been bolted into the canyon's rock walls.</p>\n<hr />\n<p><strong>Integrated Chain Gun</strong> Hardness 10, HP 50 (BT 25) per integrated chain gun</p>\n<p><strong>Plasma Lance</strong> Hardness 10, Plasma Lance HP 26 (BT 13)</p>",
+            "disable": "<p>@Check[type:thievery|dc:26] (expert) to successfully disable the annihilator at the control box on the northwest ledge, @Check[type:thievery|dc:23] (trained) or @Check[type:engineering-lore|dc:18] to jam the mechanics of either of the two chain guns, or the \"tail\" mechanism where the plasma lance is mounted, preventing it from firing. Jamming the guns or tail require first getting on top of the immobilized annihilator, which counts as difficult terrain. All attempts take 2 actions.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) When the plasma lance is ready, the annihilator uses it to attack as many PCs as it can, otherwise it attacks with its two integrated chain guns while the plasma lance recharges, spending one action for each chain gun that is still functional. This trap doesn't take a multiple attack penalty. If Synthetic Khismar is destroyed, the annihilator attacks as many creatures as possible.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "technological",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

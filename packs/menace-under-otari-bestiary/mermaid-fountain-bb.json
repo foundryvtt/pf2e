@@ -1,0 +1,108 @@
+{
+    "_id": "v51J7K27abdDyLgJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "YfiKyZzHH0XtfjFx",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spray",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "7n1pghx8dk3do3sl6jn6": {
+                        "damage": "2d6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Mermaid Fountain (BB)",
+    "prototypeToken": {
+        "name": "Mermaid Fountain"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "hardness": 8,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 15,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 15
+            },
+            "stealth": {
+                "details": "<p><strong>Notice</strong> @Check[type:perception|dc:20|traits:complex,hazard] check</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "",
+            "disable": "<p>@Check[type:thievery|dc:20|traits:complex,hazard|name:Disable Mechanism] on each corner mechanism (must disable all three working corners to disable the trap)</p>\n<p>Each corner mechanism has hardness 8 and 15 HP</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>Each turn, the fountain uses 1 action. Roll a [[/r 1d10]]{1d10} and look up the result on the following list to determine which action it uses that round.</p>\n<ul>\n<li><strong>1-4 Single Target</strong> The statue spins about and sprays water at a single random target in the room. Roll a [[/r 1d4]]{1d4} and count to the number you rolled, starting with the player on your left, to determine which hero gets attacked. The spray is a ranged Strike.</li>\n<li><strong>5-7 Corner Spray</strong> The statue spins about, firing a spray of water at each corner of the room that still has a functioning corner mechanism. This hits any creature adjacent to the corner mechanism, dealing [[/r 2d6[bludgeoning]]] damage. Each hero must attempt a @Check[type:reflex|dc:15|basic:true|traits:hazard], taking no damage on a critical success, half damage on a success, full damage on a failure, and double damage on a critical failure.</li>\n<li><strong>8-9 Half Room</strong> The statue spins about, spraying half of the room with water. Roll any die. If the result is even, it sprays the west half; otherwise, it sprays the east half. This deals [[/r 2d6[bludgeoning]]] damage to each creature in that half of the room, and each hero must attempt a @Check[type:reflex|dc:15|basic:true|traits:hazard] save.</li>\n<li><strong>10 Full Room</strong> This works just like the half-room attack, but it targets everyone in the room.</li>\n</ul>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Beginner Box"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

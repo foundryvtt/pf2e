@@ -1,0 +1,115 @@
+{
+    "_id": "UNdSfmCEICYna9ki",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "9IJ8tkod9DJIHiAj",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spite",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-evil creature enters the room.</p>\n<hr />\n<p><strong>Effect</strong> The trap casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain]</em> on the creature, and then rolls initiative.</p>\n<p>@Check[type:will|dc:17|name:Phantom Pain|traits:mental,nonlethal] save</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Foretold Ruin (1-2)",
+    "prototypeToken": {
+        "name": "Foretold Ruin"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "hardness": 5,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Daemonic curses slither and crawl through malevolent runes carved in four stone pillars. HP is per-pillar.</p>",
+            "disable": "<p>@Check[type:thievery|dc:17|name:Disable Thievery] (trained) to scratch out a pillar's runes, <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st level; counteract DC 15) to counteract a pillar's magic, or @Check[type:athletics|dc:18|name:Disable Athletics|traits:action:force-open]{Athletics (Force Open)} to push a pillar over. Disabling a pillar requires two actions. Disabling all four pillars or slaying Sezruth disables the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "<p><strong>Routine (4 actions)</strong> The trap loses 1 action each turn for each disabled pillar. On its initiative, the trap uses each action to afflict a different non-evil creature in the room with thirst. The creature must attempt a @Check[type:fortitude|dc:17|name:Foretold Ruin|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to additional negative effects from the <em>foretold ruin</em> hazard's reaction for 24 hours. The hazard has no awareness of this immunity and continues to target this creature.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] until they drink water. If the creature was already fatigued, they take [[/r 1d6 #nonlethal mental]]{1d6 nonlethal mental damage}.</p>\n<p><strong>Critical Failure</strong> The creature is fatigued until they drink water and takes [[/r 1d6 #nonlethal mental]]{1d6 nonlethal mental damage}. If the creature was already fatigued, they instead take [[/r 2d6 #nonlethal mental]]{2d6 nonlethal mental damage}.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-21: In Pursuit of Water"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

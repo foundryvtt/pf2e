@@ -1,0 +1,204 @@
+{
+    "_id": "2uBSQl6CHkbAdzWo",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "NaMWeG8lLqlu1nCn",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "The Cottage Hungers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Iron Taviah is defeated in the cottage basement</p>\n<hr />\n<p><strong>Effect</strong> The basement floor absorbs Iron Taviah, and the cottage transforms into a hungry, semi-animate creature. The cottage rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R5C9yPhddZNDULzM",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Acidic Assault",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The walls and floor of the stomach steam with digestive juices; all creatures in contact with these surfaces take [[/r (2d8+4)[acid]]] damage (@Check[type:fortitude|dc:24|basic:true]).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "X5IplGzcFbK7w3tp",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Gnashing Portal",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Creatures on the cottage's main floor are ground down as massive teeth appear from the floor and ceiling, gnash, and recede into the architecture, dealing [[/r (2d8+4)[bludgeoning]]] damage. Creatures in this area must attempt a @Check[type:reflex|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and, if within 10 feet of an exit on the ground floor, can choose to exit the cottage.</p>\n<p><strong>Success</strong> The creature takes half damage and, if within 10 feet of an exit on the ground floor, can attempt to escape the cottage as the teeth retract by attempting a @Check[type:reflex|dc:24] save. On a success, the creature exits the cottage; on a critical failure, the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Failure</strong> The creature takes full damage and is knocked prone.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is knocked prone, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uvbnu7OYbYNCYUJw",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallowing Staircase",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Muscular swallowing contractions force creatures down the stairs and into the stomach. Creatures on the stairs must attempt a @Check[type:reflex|dc:24] save or be pushed 15 feet down the stairs (and across the basement floor with any excess forced movement if they're pushed to the bottom of the stairs). Creatures who critically fail this Reflex save fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] at the end of this forced movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hungry Cottage",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>Iron Taviah's cottage comes to life and tries to eat everyone in it. The hazard is divided into three areas: the basement becomes the cottage's stomach; the stairs act as the cottage's throat, becoming a steep, slippery incline that is greater difficult terrain; and the ground floor is the inside of the cottage's mouth. Creatures within the cottage can move around within it but can't exit without pulling the mouth open or slipping out while its teeth gnash. Characters who successfully escape the cottage are safe from the hazard.</p>",
+            "disable": "<p>The hungry cottage can't be damaged or disabled, but the danger in each area can be temporarily mitigated. In the stomach: @Check[type:athletics|dc:17|traits:action:climb] (trained) to @UUID[Compendium.pf2e.actionspf2e.Item.Climb] atop the hoarded belongings and avoid contact with the acidic walls or floor for 1 round, or @Check[type:crafting|dc:25] (expert) as a 2-action activity to concoct an alchemical antacid that neutralizes acid damage dealt by the stomach for [[/br 1d4 #Rounds]]{1d4 rounds}. In the throat: @Check[type:athletics|dc:23] (trained) to hold the throat open for one round, allowing all characters in the stairs to use a Reflex save result one degree of success greater than their roll to avoid being pushed into the stomach, or @Check[type:nature|dc:23] or Survival as a 2-action activity to ease the throat's contractions and provide the same effect for [[/br 1d4 #Rounds]]{1d4 rounds}. In the mouth: @Check[type:athletics|dc:22|traits:action:force-open] to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] a window or a door and forcibly expel one creature that's within 10 feet of an exit from the cottage, or @Check[type:athletics|dc:25] (expert) as a 2-action activity to jam furniture in place that prevents the teeth from gnashing for [[/br 1d4 #Rounds]]{1d4 rounds} and allows anyone in the cottage to move from it during that time.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>Once no creatures remain in the cottage, the hazard resets and returns to a normal cottage. The stairs and the basement are gone, however, as is Iron Taviah's body.</p>",
+            "routine": "<p>The cursed cottage uses 3 actions: Acidic Assault in the stomach, Swallowing Staircase in the throat, and Gnashing Portal in the mouth (in that order). Checks to disable the areas might prevent these actions for a brief time.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #182: Graveclaw"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

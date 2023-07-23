@@ -1,0 +1,89 @@
+{
+    "_id": "fT37dtsByEIc3glC",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Scales Of The Dragon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Scales grow across your body, protecting you against physical and magical threats. When you're unarmored, the scales give you a +2 item bonus to AC with a Dexterity cap of +3. The item bonus to AC from Scales of the Dragon is cumulative with armor potency runes on your explorer's clothing, mage armor, and bracers of armor. Your resistance from Dragon Disciple Dedication increases to 3 + half your level.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dragon Disciple Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DexterityModifierCap",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "relabel": "PF2E.SpecificRule.DragonDisciple.ScalesOfTheDragon.BracersOfArmor",
+                "selector": "ac",
+                "slug": "bracers-of-armor",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "relabel": "PF2E.SpecificRule.DragonDisciple.ScalesOfTheDragon.ExplorersClothing",
+                "selector": "ac",
+                "slug": "explorers-clothing",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "relabel": "PF2E.SpecificRule.DragonDisciple.ScalesOfTheDragon.MageArmor",
+                "selector": "ac",
+                "slug": "mage-armor",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|system.custom.dragonDisciple.energyType}",
+                "value": "3+floor(@actor.level/2)"
+            },
+            {
+                "fromEquipment": false,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "selector": "ac",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

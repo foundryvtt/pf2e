@@ -1,0 +1,103 @@
+{
+    "_id": "JezNf3xbCi8h2qKe",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Vessel's Form",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p>You symbiotically combine your form with that of the entity within you, taking a powerful hybrid form to temporarily boost your abilities in combat while maintaining control. For 1 minute, you gain the following effects.</p>\n<ul>\n<li>If you were Medium or smaller, you become Large, and your reach increases to 10 feet.</li>\n<li>You gain a +2 status bonus to attack and damage rolls and a +1 status bonus on saving throws against spells. If you use @UUID[Compendium.pf2e.actionspf2e.Item.Entity's Resurgence], the status bonuses to attack and damage rolls increase to +3 during the time that the two effects overlap.</li>\n<li>If you have the @UUID[Compendium.pf2e.feats-srd.Item.Entity's Strike] feat, the unarmed attack you gained from that feat increases its damage die from 1d6 to 1d8.</li>\n<li>You gain 40 temporary Hit Points.</li>\n<li>You gain a fly Speed equal to your Speed.</li>\n</ul>\n<hr />\n<p><strong>Special</strong> This action has the tradition trait appropriate to your entity, typically divine for a demon, occult for an aberration or outer entity, or primal for a fey.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Living Vessel Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "vessels-form",
+                "toggleable": true
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "vessels-form",
+                    {
+                        "or": [
+                            "origin:size:medium",
+                            "origin:size:small",
+                            "origin:size:tiny"
+                        ]
+                    }
+                ],
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "vessels-form"
+                ],
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "vessels-form",
+                    "item:type:spell"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "vessels-form"
+                ],
+                "selector": "fly-speed",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "vessels-form"
+                ],
+                "value": 40
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "concentrate",
+                "polymorph",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

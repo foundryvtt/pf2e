@@ -1,0 +1,45 @@
+{
+    "_id": "T2tfacwoOozQfsIz",
+    "img": "systems/pf2e/icons/spells/remove-disease.webp",
+    "name": "Effect: Infectious Aura",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 status penalty to saves against disease effects.</p>\n<p>If a creature within range contracts or progresses a disease, all adjacent creatures are exposed to the same disease, at the same DC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "disease"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

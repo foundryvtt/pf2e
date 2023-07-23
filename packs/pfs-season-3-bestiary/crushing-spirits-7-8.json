@@ -1,0 +1,107 @@
+{
+    "_id": "WRVcJ6z2q2oDxTO7",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nAHsiLtqITmWOYJJ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Weight of Death",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature remains within the area occupied by the buried souls for 1 round or longer</p>\n<hr />\n<p><strong>Effect</strong> The haunt rolls initiative (if it hasn't already) as the spirits surge forth, swirling up sand in their wake.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Crushing Spirits (7-8)",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": null,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": null,
+                "temp": 0,
+                "value": null
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Spirits bound to sand-covered remains cascade down upon the living, imposing the weighty, helpless press of their final moments.</p>",
+            "disable": "<p>@Check[type:religion|dc:21|name:Exorcise the Spirits|traits:complex,haunt,hazard] or @Check[type:occultism|dc:21|name:Exorcise the Spirits|traits:complex,haunt,hazard] (trained) to exorcise the spirits, or @Check[type:diplomacy|dc:25|name:Provide the Spirits with Comfort|traits:complex,haunt,hazard] to provide them with comfort. Each check requires 2 actions, which have the verbal trait, and three successful checks are required to address all ofthe spirits.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the area but resets immediately thereafter.</p>",
+            "routine": "<p>(1 action) The haunt imposes the sensation of becoming buried beneath millions of grains of sand on all living creatures within the area. Each living creature must attempt a @Check[type:will|dc:24|traits:complex,haunt,hazard,damaging-effect] save as the sensation threatens to overcome them. The creatures take [[/r (2d8+7)[bludgeoning]]] damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and takes a -10-foot circumstance penalty to all its Speeds for 1 round.</p>\n<p><strong>Failure</strong> The creature takes full damage and takes a -10-foot circumstance penalty to all its Speeds for 1 round. It also begins suffocating. The creature can begin breathing normally again if it leaves the area of the haunt or the haunt is disabled.</p>\n<p><strong>Critical Failure</strong> As failure, but the target takes double damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Crushing Spirits]</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-09: The Secluded Siege"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

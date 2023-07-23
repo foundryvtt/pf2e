@@ -1,0 +1,73 @@
+{
+    "_id": "dU7xRpg4kFd01hwZ",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Instinct",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You channel your rage through an instinct. You decide what your instinct means to you. It could be a creature or symbol beloved by your clan, or a purely internal source or filter of your rage, such as a belief, curse, heritage, or state of mind. Each instinct grants an instinct ability, plus more abilities you can gain via feats that list that instinct as a prerequisite. It also determines what damage you resist with raging resistance and, at higher levels, increases the additional damage you deal when you @UUID[Compendium.pf2e.classfeatures.Item.Rage].</p>\n<p>Each instinct lists acts that are anathema to it. Whenever you perform such acts, you lose the instinct's abilities and any feats that list your instinct as a prerequisite until you spend 1 day of downtime re-centering yourself, though you keep all of your other barbarian abilities.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Barbarian.Instinct.Drops",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:barbarian",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Dragon Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Fury Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Giant Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Spirit Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Superstition Instinct"
+                    }
+                ],
+                "flag": "instinct",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Barbarian.Instinct.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.instinct}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,47 @@
+{
+    "_id": "CoPPOCyfADvybcxV",
+    "img": "systems/pf2e/icons/spells/mage-armor.webp",
+    "name": "Effect: Gleaming Armor",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +2 status bonus to AC and resistance to energy damage based on the specific creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "energy",
+                "value": "@actor.system.custom.modifiers.gleaming-armor-mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

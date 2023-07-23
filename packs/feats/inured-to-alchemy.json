@@ -1,0 +1,141 @@
+{
+    "_id": "gL7QZsSMldjwE6te",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Inured to Alchemy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You're from Alkenstar or the Mana Wastes.</p>\n<hr />\n<p>You've developed control over how your body processes alchemical poisons and drugs. Each of your successful saving throws against an alchemical poison, a drug, or an addiction reduces the stage by 2, or by 1 for a virulent alchemical poison, drug, or addiction. Each critical success reduces the stage by 3, or by 2 for a virulent alchemical poison, drug, or addiction.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Fortitude saves"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "drug",
+                            "addiction",
+                            {
+                                "and": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "not": "virulent"
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Barbarian.InuredToAlchemy.Success",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "virulent",
+                    {
+                        "or": [
+                            "drug",
+                            "addiction",
+                            {
+                                "and": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Barbarian.InuredToAlchemy.SuccessVirulent",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "drug",
+                            "addiction",
+                            {
+                                "and": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "not": "virulent"
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Barbarian.InuredToAlchemy.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "virulent",
+                    {
+                        "or": [
+                            "drug",
+                            "addiction",
+                            {
+                                "and": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Barbarian.InuredToAlchemy.CriticalSuccessVirulent",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "alchemist",
+                "barbarian",
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

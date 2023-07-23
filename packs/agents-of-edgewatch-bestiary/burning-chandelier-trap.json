@@ -1,0 +1,208 @@
+{
+    "_id": "FmiOJ9HEdCBDB89z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "wGuVhWBsG7ERdKlr",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Extending Chandeliers",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the cage door, the closet door, or any wooden stand</p>\n<hr />\n<p><strong>Effect</strong> Both double doors leading out of the room shut and lock; while the trap is active, the key doesn't work to open these doors (although their locks can be picked normally). The chandeliers drop several feet on elongated chains, allowing them to swing around the room. The closest chandelier to the triggering creature makes a swinging chandelier Strike against it. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5aBlY3dBYmIMAZwP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Swinging Chandelier",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d12+25",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "4d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "BrOfryWmR4ITLzIV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flame Dart",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d8+20",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "4d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Burning Chandelier Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 36
+            },
+            "hardness": 30,
+            "hasHealth": true,
+            "hp": {
+                "details": "<strong>Panel Hardness</strong> 18; <strong>Panel HP</strong> 88 (BT 44); <strong>Resistances</strong> cold 15",
+                "max": 120,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) or @Check[type:perception|dc:38|traits:action:seek] (master) to spot the trap's control panel</p>",
+                "value": 26
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four large flaming chandeliers swing wildly around the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:36|name:Disable a Chandelier|traits:action:disable-a-device] (master) to disable a chandelier or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (8th level; counteract DC 33) to permanently drain the magic from a chandelier. Any amount of cold damage that overcomes a chandelier's cold resistance extinguishes its flames and removes its persistent fire damage and flame dart attack. @Check[type:thievery|dc:41|name:Disable Trap (Control Panel)|traits:action:disable-a-device] (legendary) to disable the entire trap from the hidden control panel in the southeast corner of the room.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "reset": "<p>The trap deactivates and resets 1 minute after there are no living creatures remaining in the room.</p>",
+            "routine": "<p>(4 actions) For every chandelier disabled, the trap's actions are reduced by 1. For each of the trap's actions, a different chandelier attacks a random creature in the room. A chandelier uses its swinging chandelier attack if it can, but it can't make melee attacks against creatures in the cage, the closet, or the gap between the two double doors leading into the vault. Against a creature it can't reach with a melee attack, it uses a flame dart attack instead. The trap doesn't take multiple attack penalties.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #160: Assault on Hunting Lodge Seven"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

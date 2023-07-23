@@ -1,0 +1,81 @@
+{
+    "_id": "K35I1WCbzT5xnJ6N",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Animal Wrangler",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "str",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You have a long history of working with large circus animals for the Celestial Menagerie, such as performing in an animal act, jostling animals back into their cages, or even sweeping dung out of squalid pens. Mistress Dusklight's ongoing mistreatment of her animals compelled you to quit, and you now strive to ensure animals aren't abused.</p>\n<p>Choose two ability boosts. One must be to <strong>Strength</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Athletics or Nature skills. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Titan Wrestler] if you chose Athletics, or @UUID[Compendium.pf2e.feats-srd.Item.Train Animal] if you chose Nature. You are also trained in a Lore skill related to a particular kind of common animal (such as Equine Lore, Feline Lore, or Pachyderm Lore).</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nature"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "animal-wrangler"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "animal-wrangler:athletics"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Titan Wrestler"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "animal-wrangler:nature"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Train Animal"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Extinction Curse Player's Guide"
+        },
+        "trainedLore": "<Common Animal> Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,0 +1,64 @@
+{
+    "_id": "f6k9lIrIS4SfnCnG",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Master Alchemy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your advanced alchemy level increases to 7. For every level you gain beyond 12th, your advanced alchemy level increases by 1.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Expert Alchemy"
+                },
+                {
+                    "value": "master in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.alchemist.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:alchemist"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "start": 12,
+                            "value": 7
+                        },
+                        {
+                            "start": 13,
+                            "value": "@actor.level - 5"
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

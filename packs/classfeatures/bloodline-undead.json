@@ -1,0 +1,64 @@
+{
+    "_id": "7WBZ2kkhZ7JorWu2",
+    "img": "systems/pf2e/icons/features/classes/undead.webp",
+    "name": "Bloodline: Undead",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The touch of undeath runs through your blood. Your family tree might contain powerful undead, like a vampire, or perhaps you died and returned a bit different.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Chill Touch]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.False Life]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Undead]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Cloudkill]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Exsanguination]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Finger of Death]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Horrid Wilting]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wail of the Banshee]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Undeath's Blessing]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Drain Life]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Grasping Grave]</em></p>\n<p><strong>Blood Magic</strong> Necromantic energy flows through you or one target. Either you gain temporary Hit Points equal to the spell's level for 1 round, or a target takes 1 negative damage per spell level (if the spell already deals initial negative damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.rel.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "divine"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

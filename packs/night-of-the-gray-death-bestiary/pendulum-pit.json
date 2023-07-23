@@ -1,0 +1,216 @@
+{
+    "_id": "mgcQVqHyxDzNWT3e",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "u88o2ifaxgilrm3b",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Locking Room",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature disturbs any of the platforms, or anything falls into the pit</p><hr /><p><strong>Effect</strong> The room rotates 45 degrees, closing off the room by shifting its exits to face bare walls. A pendulum of force swings across the platform with the armor on it, knocking the armor into the pit and making a pendulum blade Strike against a creature on that platform (if any). The trap then rolls for initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b85yl00yvz9yloj9",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Pendulum Blade",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "no-map"
+                    ]
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "uZOOngQUA0good2G": {
+                        "damage": "4d10+22",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": "<p>No MAP applies to strikes made by pendulum blade attacks</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fatal-d12",
+                        "force",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dsys01koviayuuf4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pendulum Shove",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A creature hit by a pendulum blade must succeed at a @Check[type:reflex|dc:44] save or be moved 5 feet along the line of the pendulum's swing. This is forced movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tfCSRvXxmrtunFjE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The Pendulum Blade is unaffected by Multiple Attack Penalty</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pendulum Pit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(legendary) to realize the chamber is a complex rotating trap before it triggers. No check is necessary to notice the platforms and the pit.</p>",
+                "value": 36
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Several swinging pendulums of force cleave through the room across the platforms, knocking people into the pit.</p>",
+            "disable": "<p>@Check[type:arcana|dc:48|name:Deactivate a Pendulum Blade|traits:complex,magical,mechanical,trap] (legendary), @Check[type:thievery|dc:44|name:Deactivate a Pendulum Blade|traits:complex,magical,mechanical,trap] (master), or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (9th level; counteract DC 44) on a platform to deactivate its pendulum blade; once all five platforms have been deactivated, the trap is disabled and the room rotates back into position along the exits. @Check[type:thievery|dc:48|name:Rotate the Room Open|traits:complex,magical,mechanical,trap] (legendary) from any blocked exit to activate the rotating mechanism and rotate the room back into position before the trap has been disabled.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "<p>The trap resets after 1 hour. If the <em>@UUID[Compendium.pf2e.spells-srd.Item.Darkness]</em> throughout the room has been dispelled, the <em>darkness</em> in the room returns when the trap resets.</p>",
+            "routine": "<p>(5 actions) For each active platform, the trap uses an action to create a pendulum of force to swing down along a straight line between the platform and one other creature in the room that isn't on the platform (if any). The trap makes a pendulum blade attack against any creature in that line. For each platform deactivated, reduce the number of actions the trap takes in its routine by 1.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Night of the Gray Death"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

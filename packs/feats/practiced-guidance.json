@@ -1,0 +1,50 @@
+{
+    "_id": "0Bu48kn3Deq9gHQE",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Practiced Guidance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Making one's way to safety can be harrowing, but you have extensive practice at helping others along that path. When you roll a success to Aid a member of your crop, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Bellflower Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": "skill-check",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #147: Tomorrow Must Burn"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

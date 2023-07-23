@@ -1,0 +1,50 @@
+{
+    "_id": "ohMdE8BmQHuLs40b",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tapas/impossible-cake.webp",
+    "name": "Effect: Impossible Cake (Major)",
+    "system": {
+        "description": {
+            "value": "<p>For 1 hour after the meal, you gain a +4 item bonus to your Deception checks to Impersonate, as well as to Lie to convince others that you possess knowledge about the type of item that the cake resembles.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:impersonate",
+                            "action:lie"
+                        ]
+                    }
+                ],
+                "selector": "deception",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,123 @@
+{
+    "_id": "chOtDyemBuw2yNN2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "V5Ok21wotF3DQNBZ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Someone is Watching",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature remains in area <strong>C4</strong> for at least 1 round</p>\n<hr />\n<p><strong>Effect</strong> An overwhelming wave of paranoia fills area <strong>C4</strong>. Each creature in the room must attempt a @Check[type:will|dc:25] save, with the following results. An eerie red eye then opens in the center of the western wall, looking about the room, and the haunt rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and feels like someone or something is watching them for as long as they remain frightened.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and treats no one as an ally as long as they remain frightened.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and is @UUID[Compendium.pf2e.conditionitems.Item.Confused] as long as they remain frightened.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Watching Wall",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 12
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An overwhelming feeling of being watched wells up in the minds of those in the room, an instant before an eerie red eye opens in the western wall.</p>",
+            "disable": "<p>@Check[type:deception|dc:22|name:Appear Uninteresting|traits:haunt] (trained) to appear uninteresting to the watching eye (and thus be ignored by it) or @Check[type:religion|dc:22|name:Ward Against Being Seen|traits:haunt] (trained) to ward against being seen by or affected by the eye.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>The haunt becomes inert at the end of any round in which there are no @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures it can see. It stays dormant for 1 hour, after which point it resets.</p>",
+            "routine": "<p>(1 action) The eye glances about, and those it can see (whether in area <strong>C4</strong> or outside of it) take [[/r 4d6[mental]]] damage (@Check[type:will|dc:21|basic:true|traits:haunt] save) as fears of being watched impart ripples of pain.</p>\n<p>A creature that takes mental damage from this effect doesn't reduce their @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value at the end of their next turn.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #163: Ruins of Gauntlight"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

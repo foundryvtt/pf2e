@@ -1,0 +1,72 @@
+{
+    "_id": "lCR8gyEZbwqh3RWi",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Harbor Guard Moonlighter",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>The Harbor Guard isn't known for being the most honorable precinct in town. A few years after you joined the force, you became disillusioned by the rampant corruption within the precinct and the district at large. One night, you stumbled on an ad for a local monster hunter's guild. You joined on a whim, but fell in love with the swashbuckling lifestyle of an independent bounty hunter. You've since earned quite a reputation for your nocturnal adventures; everyone still knows that you're a Harbor Guard, but stories of your dungeon-delving adventures have long overshadowed that facet of your life. Unfortunately, long nights of monster-hunting have negatively impacted your performance at your day job, so maybe it wasn't a surprise when your supervising officer put in a transfer request for you, spelling the end of your plucky nighttime antics with that particular guild.</p>\n<p>Despite the decline in your performance, Lieutenant Lavarsus of Edgewatch sees potential (and even, maybe, a bit of himself) in you. You're eager to be on a new unit and for the chance to bring your monster-hunting skills to a district that has been plagued by such supernatural beasts for far too long.</p>\n<p>Choose two ability boosts. One must be to <strong>Strength</strong> or <strong>Constitution</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Athletics skill and your choice of Sailing Lore or Hunting Lore. You gain a +1 circumstance bonus to Deception, Diplomacy, and Intimidation checks to @UUID[Compendium.pf2e.actionspf2e.Item.Interact] with Harbor Guards, ship captains, and freelance adventurers. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Quick Jump] skill feat.</p>"
+        },
+        "items": {
+            "q0xhg": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Quick Jump",
+                "uuid": "Compendium.pf2e.feats-srd.Item.ZBhvJ9O8MvBFAlhq"
+            }
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Interacting with Harbor Guards, ship captains, and freelance adventurers (Harbor Guard Moonlighter)",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:harbor-guard",
+                            "target:ship-captain",
+                            "target:freelance-adventurer"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Agents of Edgewatch Player's Guide"
+        },
+        "trainedLore": "Sailing Lore or Hunting Lore",
+        "trainedSkills": {
+            "value": [
+                "ath"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

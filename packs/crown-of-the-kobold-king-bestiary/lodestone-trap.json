@@ -1,0 +1,109 @@
+{
+    "_id": "GXJ3EeN5MH9muvCh",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HOnVHGqqMyHncYZN",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Magneto-Electric Pulse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A single Medium or two or more Small creatures end their turn inside the room.</p>\n<p><strong>Effect</strong> A pulse of electricity discharges from the lodestone to strike all four doors, with smaller arcs of electricity lancing out to strike all creatures in the room. The south and east doors slam shut, while the north and west doors fly open, releasing two vargouilles into the room. All creatures in the room take [[/r 2d6[electricity]]] damage (@Check[type:reflex|dc:18|basic:true]). The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lodestone Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hp": {
+                "details": "BT 15",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": -2
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The magical lodestone discharges bolts of electricity that also magnetize metal in the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18] to unhook the pressure plates from the trap, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (2nd level, counteract DC 18) to counteract the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>At the end of a round in which there are no creatures standing on the floor or stuck to the lodestone, the trap deactivates. The vargouilles return to their alcoves, and the doors close. The trap resets automatically after 1 minute.</p>",
+            "routine": "<p>(1 action) On its initiative, the trap exerts a strong magnetic pull on the doors, causing the north and west doors to open if they're closed, or causing the south and east doors to close if they're open. A character can open or close a door against this pull with a successful @Check[type:athletics|dc:18] check to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] the door. At the same time, any character in the room who wears primarily metal armor must attempt a @Check[type:reflex|dc:18] save (characters in medium metal armor suffer a -1 circumstance penalty to this save, and characters in heavy metal armor suffer a -2 circumstance penalty).</p>\n<hr>\n<p><strong>Critical Success</strong> The PC is unaffected.</p>\n<p><strong>Success</strong> The PC resists the pull but treats the room as difficult terrain.</p>\n<p><strong>Failure</strong> The PC treats the room as difficult terrain and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. A PC who's already prone suffers a critical failure instead.</p>\n<p><strong>Critical Failure</strong> As failure, but the PC is also pulled 5 feet toward the lodestone. A PC who is adjacent to the lodestone instead becomes stuck to it and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] as long as the trap continues its routine (escape DC 18).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Crown of the Kobold King"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

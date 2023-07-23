@@ -1,0 +1,203 @@
+{
+    "_id": "KorFY6YT3UBrzXOL",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "clr3wgfiqjcndjuu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Jagged Branches",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into a square adjacent to a bush</p>\n<hr />\n<p><strong>Effect</strong> The bush rakes its sharp branches across the creature, making a single branch Strike.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y807gu8cboli8guq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Branch",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "NAAQzrZzyqJkjmdX": {
+                        "damage": "2d6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cy4bdl01n9oy7yet",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spit",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "UL1DkMipC5odCol2": {
+                        "damage": "2d6+6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Spitting Acid 'Bushes' (5-6)",
+    "prototypeToken": {
+        "name": "Spitting Acid 'Bushes'"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "hardness": 10,
+            "hasHealth": true,
+            "hp": {
+                "details": "per bush",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four techno-organic \"bush\" structures featuring mini-acid pumps activate. The first lashes out with sharp \"branches\" as it activates, and then all of the bushes spit acid at movement nearby.</p>\n<p>HP is 10 per bush with a BT of 5</p>",
+            "disable": "<p>@Check[type:thievery|dc:20|trait:disable-a-device] or @Check[type:engineering-lore|dc:20|trait:disable-a-device] (trained) on each bush to collapse its acid pump into component parts (2 actions per bush).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap loses 1 action each turn for each bush disabled. On each of the hazard's actions, one of the functional pumps spits acid at a creature within range. The bushes sense movement, only targeting creatures that moved from their space on their most recent turn. This trap does not attack any single creature more than once per round. It does not take a multiple attack penalty.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

@@ -1,6 +1,6 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/data";
-import { ZeroToFour } from "@module/data";
-import { MigrationBase } from "../base";
+import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Set a speed penalty of -5 on all tower shields, plus some basic tidying */
 export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
@@ -12,16 +12,20 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
         "tower-shield",
     ];
 
-    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (itemSource.type === "armor") {
-            const systemData: ArmorSystemSourceWithResilient = itemSource.system;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type === "armor") {
+            const systemData: ArmorSystemSourceWithResilient = source.system;
 
-            if (this.towerShieldSlugs.includes(systemData.slug ?? "")) {
-                itemSource.system.speed.value = -5;
+            if (systemData.speed && this.towerShieldSlugs.includes(systemData.slug ?? "")) {
+                systemData.speed.value = -5;
             }
 
-            systemData.armor.value = Number(systemData.armor.value) || 0;
-            systemData.speed.value = Number(systemData.speed.value) || 0;
+            if (systemData.armor) {
+                systemData.armor.value = Number(systemData.armor.value) || 0;
+            }
+            if (systemData.speed) {
+                systemData.speed.value = Number(systemData.speed.value) || 0;
+            }
             const potencyRune: { value: ZeroToFour | null } = systemData.potencyRune;
             potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToFour;
             if ("resilient" in systemData) {
@@ -34,5 +38,7 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
 
 type ArmorSystemSourceWithResilient = ArmorSource["system"] & {
     resilient?: unknown;
+    speed?: { value: number };
+    armor?: { value: number };
     "-=resilient"?: null;
 };

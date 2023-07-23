@@ -1,4 +1,5 @@
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { TokenDocumentPF2e } from "@scene";
 import { htmlQueryAll, objectHasKey } from "@util";
 
 class UserVisibilityPF2e {
@@ -70,9 +71,10 @@ class UserVisibilityPF2e {
 
     static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void {
         // Hide the sender name from the card if it can't be seen from the canvas
-        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
-        const token = message?.token;
-        if (token && tokenSetsNameVisibility) {
+        if (!game.settings.get("pf2e", "metagame_tokenSetsNameVisibility")) return;
+        const token =
+            message.token ?? (message.actor ? new TokenDocumentPF2e(message.actor.prototypeToken.toObject()) : null);
+        if (token) {
             const sender = html.querySelector<HTMLElement>("h4.message-sender");
             const nameToHide = token.name.trim();
             const shouldHideName = !token.playersCanSeeName && sender?.innerText.trim() === nameToHide;
@@ -94,4 +96,4 @@ interface ProcessOptions {
     message?: ChatMessagePF2e;
 }
 
-export { UserVisibilityPF2e, UserVisibility };
+export { UserVisibility, UserVisibilityPF2e };

@@ -1,0 +1,136 @@
+<div class="content">
+    {{#unless members}}
+        <div class="summary">
+            {{localize "PF2E.Actor.Party.BlankSlate"}}
+        </div>
+    {{/unless}}
+
+    {{#if members}}
+        <section class="summary">
+            <nav>
+                <button type="button" data-action="change-view" data-view="languages">
+                    {{localize "PF2E.Actor.Party.Languages"}}
+                </button>
+                <button type="button" data-action="change-view" data-view="rk">
+                    {{localize "PF2E.RecallKnowledge.Label"}}
+                </button>
+            </nav>
+            <ul class="tags" data-view="languages">
+                {{#unless languages}}
+                    {{localize "PF2E.NoneOption"}}
+                {{/unless}}
+                {{#each languages as |language|}}
+                    <li class="tag tag_alt" data-language="{{language.slug}}">
+                        {{language.label}}{{#if (gt language.actors.length 1)}} ({{language.actors.length}}){{/if}}
+                    </li>
+                {{/each}}
+            </ul>
+            <div class="skills" data-view="rk">
+                {{#each knowledge as |skill|}}
+                    <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
+                        {{skill.label}} {{numberFormat skill.mod sign=true}}
+                    </span>
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
+
+    {{#each members as |member|}}
+        <section class="member" data-actor-uuid="{{member.actor.uuid}}">
+            <div class="portrait">
+                <a data-action="open-sheet"><img src="{{member.actor.img}}" /></a>
+                <div class="health-bar">
+                    {{#with member.actor.attributes.hp as |hp|}}
+                        {{#if hp.temp}}
+                            <div class="temp bar" style="width: {{percentage hp.temp hp.max}}%;"></div>
+                        {{/if}}
+                        <div class="bar" style="width: {{percentage hp.value hp.max}}%;"></div>
+                        <span><i class="fas fa-heart"></i> {{hp.value}} / {{hp.max}}</span>
+                    {{/with}}
+                </div>
+            </div>
+            <div class="data">
+                <div class="name">
+                    <a data-action="open-sheet">{{member.actor.name}}</a>
+                    {{#if @root.user.isGM}}
+                        <a data-action="remove-member"><i class="fa-solid fa-fw fa-times"></i></a>
+                    {{/if}}
+                    {{#if (eq member.actor.type "familiar")}}
+                        <span class="abc">{{localize "PF2E.Familiar.Familiar"}}</span>
+                        {{#if member.actor.master}}
+                            <span class="abc">{{member.actor.master.name}}</span>
+                        {{/if}}
+                    {{else if member.actor.system.details.creatureType}}
+                        <span class="abc">{{member.actor.system.details.creatureType}}</span>
+                    {{else}}
+                        {{#if member.actor.ancestry}}
+                            <span class="abc">{{member.actor.ancestry.name}}</span>
+                        {{/if}}
+                        {{#if member.actor.class}}
+                            <span class="abc">{{member.actor.class.name}}</span>
+                        {{/if}}
+                    {{/if}}
+                    {{#if member.heroPoints}}
+                        <a class="hero-points" data-action="adjust-hero-points">
+                            {{#times member.heroPoints.max}}
+                                {{#if (gt member.heroPoints.value this)}}
+                                    <img src="/systems/pf2e/dice/basic/heads.webp" />
+                                {{else}}
+                                    <span class="empty"></span>
+                                {{/if}}
+                            {{/times}}
+                        </a>
+                    {{/if}}
+                </div>
+
+                <div class="main-stats">
+                    <section class="ac score">
+                        <label>{{localize "PF2E.ArmorClassShortLabel"}}</label>
+                        <span class="value">{{member.actor.attributes.ac.value}}</span>
+                    </section>
+                    {{#if member.actor.saves}}
+                        <section class="saving-throws">
+                            <span class="score">
+                                <label>{{localize "PF2E.SavesFortitudeShort"}}</label>
+                                {{numberFormat member.actor.saves.fortitude.mod sign=true}}
+                            </span>
+                            <span class="score">
+                                <label>{{localize "PF2E.SavesReflexShort"}}</label>
+                                {{numberFormat member.actor.saves.reflex.mod sign=true}}
+                            </span>
+                           <span class="score">
+                                <label>{{localize "PF2E.SavesWillShort"}}</label>
+                                {{numberFormat member.actor.saves.will.mod sign=true}}
+                            </span>
+                        </section>
+                    {{/if}}
+
+                    <section class="score senses">
+                        <label>{{localize "PF2E.Senses"}}</label>
+                        <div class="value">
+                            {{#each member.senses as |sense|}}
+                                <span class="tag-light" data-acuity="{{sense.acuity}}" data-tooltip="{{sense.labelFull}}">{{localize sense.label}}</span>
+                            {{/each}}
+                            {{#unless member.senses}}
+                                <span class="blank">{{localize "PF2E.Actor.Party.NoSpecialSenses"}}</span>
+                            {{/unless}}
+                        </div>
+                    </section>
+                </div>
+
+                <div class="skills">
+                    {{#with member.actor.perception as |perception|}}
+                        <button type="button" class="perception tag-light rollable" {{#if perception.rank}}data-rank="{{perception.rank}}"{{/if}} {{#if @root.user.isGM}}data-action="roll" data-statistic="perception" data-secret="true"{{/if}}>
+                            {{perception.label}} {{numberFormat perception.mod sign=true}}
+                        </button>
+                    {{/with}}
+                    {{#each member.bestSkills as |skill|}}
+                        <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
+                            {{skill.label}} {{numberFormat skill.mod sign=true}}
+                        </span>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+    {{/each}}
+</div>

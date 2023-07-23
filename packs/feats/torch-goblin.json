@@ -1,0 +1,50 @@
+{
+    "_id": "U5FcfRvveTKtgebq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Torch Goblin",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've spent enough time on fire that you know how to use it to your advantage. You can light yourself thoroughly on fire with a held torch, a bottle of alchemist's fire, or a similar incendiary, dealing yourself [[/r 1d6[persistent,fire]]] damage.</p>\n<p>As long as you are suffering persistent fire damage, all your melee attacks against adjacent creatures deal an additional 1 fire damage per weapon damage die. Any creature that successfully Grapples, Shoves, or Trips you takes [[/r 1d6[fire]]] damage; if it uses a weapon for that action, the weapon takes the damage instead.</p>\n<p>You must still attempt the flat check to remove the Persistent Fire Damage each round, as normal.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "charhide goblin heritage"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee",
+                    "self:condition:persistent-damage:fire",
+                    "target:distance:5"
+                ],
+                "selector": "strike-damage",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,50 @@
+{
+    "_id": "NN9sKez7Z9R8q1i9",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Vanara Battle Clarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your focus in combat is practically unshakable. While you can act, you aren't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], undetected, or flanking creatures of your level or lower, or to creatures of your level or lower using surprise attack.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flatFootable",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:condition:stunned",
+                            "self:condition:unconscious",
+                            "self:condition:paralyzed"
+                        ]
+                    }
+                ],
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "vanara"
+            ]
+        }
+    },
+    "type": "feat"
+}

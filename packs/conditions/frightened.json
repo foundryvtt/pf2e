@@ -1,0 +1,38 @@
+{
+    "_id": "TBSHQspnbcqxsmjL",
+    "img": "systems/pf2e/icons/conditions/frightened.webp",
+    "name": "Frightened",
+    "system": {
+        "description": {
+            "value": "<p>You're gripped by fear and struggle to control your nerves. The frightened condition always includes a value. You take a status penalty equal to this value to all your checks and DCs. Unless specified otherwise, at the end of each of your turns, the value of your frightened condition decreases by 1.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": null,
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all",
+                "slug": "frightened",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": true,
+            "value": 1
+        }
+    },
+    "type": "condition"
+}

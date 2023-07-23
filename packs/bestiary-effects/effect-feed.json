@@ -1,0 +1,67 @@
+{
+    "_id": "i4S6h5c1KK4FLq6w",
+    "img": "systems/pf2e/icons/spells/ravening-maw.webp",
+    "name": "Effect: Feed",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a status bonus to its checks and DCs depending on how often it used the Feed ability.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "1",
+                        "value": 1
+                    },
+                    {
+                        "label": "2",
+                        "value": 2
+                    },
+                    {
+                        "label": "3",
+                        "value": 3
+                    }
+                ],
+                "flag": "feedCount",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.BarghestFeed"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "saving-throw",
+                    "skill-check",
+                    "spell-attack",
+                    "spell-dc"
+                ],
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.feedCount}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

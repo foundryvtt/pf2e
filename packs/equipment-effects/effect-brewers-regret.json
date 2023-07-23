@@ -1,0 +1,50 @@
+{
+    "_id": "9e6iVkPpGqJYwMyb",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tapas/brewers-regret.webp",
+    "name": "Effect: Brewer's Regret",
+    "system": {
+        "description": {
+            "value": "<p>For 1 hour after consumption, you gain a +2 item bonus to saves against death and negative effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "negative"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

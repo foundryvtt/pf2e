@@ -1,0 +1,144 @@
+{
+    "_id": "64x0nZk3QlENAgUU",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kkd7rt71dwi8fo32",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Surge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The storm of wind and fire suddenly surges over everyone in the area. When this hazard activates, roll [[/r 1d10]] to determine the effect and type of damage.</p>\n<ul>\n<li><strong>1-2 Firestorm</strong> Embers and burning debris gets whipped around as the wind suddenly shifts direction, dealing [[/r {1d10[bludgeoning],(1d10+13)[fire]}]]{1d10 bludgeoning damage and 1d10+13 fire damage} (@Check[type:reflex|dc:25|basic:true|name:Avoid Firestorm] save).</li>\n<li><strong>3-4 Battering Debris</strong> Wreckage rains down throughout the area, dealing [[/r (2d10+13)[bludgeoning]]] damage (@Check[type:fortitude|dc:25|basic:true|name:Avoid Battering Debris] save).</li>\n<li><strong>5-6 Abyssal Energy</strong> The storm blows about debris that has absorbed Abyssal energies. Creatures who come into contact with this debris are exposed to Abyssal plague.</li>\n<li><strong>7-8 Sharp Rain</strong> The storm picks up various objects, some of which are particularly sharp. The storm deals [[/r {1d10[bludgeoning],(1d10+13)[piercing]}]]{1d10 bludgeoning damage and 1d10+13 piercing damage} (@Check[type:reflex|dc:25|basic:true|name:Avoid Sharp Rain] save).</li>\n<li><strong>9-10 Soot Storm</strong> Large amounts of soot blow in on the wind. The soot moves with supernatural malice, seeking out the lungs of any creatures caught nearby. Any creature that needs to breathe must succeed at a @Check[type:fortitude|dc:25|name:Avoid Soot Storm|traits:inhaled] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (sickened 2 on a critical failure). The sickened condition can't end or be reduced until a creature has spent 10 minutes breathing clean air.</li>\n</ul>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GuZkQ33QXAHRpoEM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Abyssal Plague",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Level 7</strong></p>\n<p>A creeping malaise overcomes the afflicted, whose skin develops a sickly pallor.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25|name:Resist Abyssal Plague]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 day)</p>\n<p>The target can't recover from the drained condition from Abyssal plague until the disease is cured.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Abyssal Firestorm Surge (7-8)",
+    "prototypeToken": {
+        "name": "Abyssal Firestorm Surge"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>High winds and forest fires intensified by Abyssal energy batters everything in the surge's path.</p>",
+            "disable": "<p>@Check[type:arcana|dc:27|name:Redirect the Storm Surge|traits:rare,fire,environmental,hazard,magical], @Check[type:nature|dc:27|name:Redirect the Storm Surge|traits:rare,fire,environmental,hazard,magical], @Check[type:occultism|dc:27|name:Redirect the Storm Surge|traits:rare,fire,environmental,hazard,magical], or @Check[type:religion|dc:27|name:Redirect the Storm Surge|traits:rare,fire,environmental,hazard,magical] (trained) to redirect the storm surge or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level, counteract DC 23) to nullify it.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 7
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-24: Breaking The Storm: Parting Clouds"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fire",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

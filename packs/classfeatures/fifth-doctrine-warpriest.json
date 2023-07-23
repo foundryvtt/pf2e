@@ -1,0 +1,58 @@
+{
+    "_id": "kmimy4VOaoEOgOiQ",
+    "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+    "name": "Fifth Doctrine (Warpriest)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your proficiency rank for Fortitude saves increases to master.</p>\n<p>When you roll a success at a Fortitude save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "fortitude",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Fortitude",
+                "title": "{item|name}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.fortitude.rank",
+                "value": 3
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "fortitude",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

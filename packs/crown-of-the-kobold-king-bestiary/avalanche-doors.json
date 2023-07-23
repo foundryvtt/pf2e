@@ -1,0 +1,109 @@
+{
+    "_id": "Zuf3jq9ETA6COLH0",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "cLYUymLiixahfseg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Topple Forward",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Someone attempts to open the doors, or the doors take enough damage to become broken;</p>\n<p><strong>Effect</strong> The heavy metal doors are spring-loaded to slam downward, dropping like a drawbridge to smash all creatures in a 10-foot-square before the doors. All creatures in this area must attempt a @Check[type:reflex|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature lurches to the side and takes no damage-move the creature to a square of the creature's choice adjacent to the trap's area of effect.</p>\n<p><strong>Success</strong> The creature takes [[/r 3d8[bludgeoning]]] damage and is pushed into an adjacent square just outside the trap's area.</p>\n<p><strong>Failure</strong> The creature takes [[/r 6d8[bludgeoning]]] damage, is pushed into an adjacent square just outside the trap's area, and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] in that square.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 12d8[bludgeoning]]] damage and is knocked prone. The heavy doors pin the creature to the ground, Immobilizing it (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 22). A non-@UUID[Compendium.pf2e.conditionitems.Item.Immobilized] character can lift the doors by Forcing them open with a successful @Check[type:athletics|dc:22] check so that an immobilized character can crawl to safety.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Avalanche Doors",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 11,
+            "hp": {
+                "details": "BT 25",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The double door is a false door; when triggered, the door slams downward like a drawbridge to crush anyone standing before it.</p>",
+            "disable": "<p>@Check[type:thievery|dc:22] (trained) to detach the trigger from the doors and lock them in place</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Crown of the Kobold King"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

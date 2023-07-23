@@ -1,0 +1,40 @@
+{
+    "_id": "0pq3MPLH0C9z4tj3",
+    "img": "systems/pf2e/icons/spells/avatar.webp",
+    "name": "Effect: Victorious Vigor",
+    "system": {
+        "description": {
+            "value": "<p>You gain temporary Hit Points equal to your Constitution modifier until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.abilities.con.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

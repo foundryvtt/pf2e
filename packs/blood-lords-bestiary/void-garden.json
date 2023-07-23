@@ -1,0 +1,158 @@
+{
+    "_id": "VWGpfLFiu9HKv9hJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "2ASbUwJOy0sUxmDZ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Negative Energy Pulse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature enters the circular portion of area <strong>D4</strong>, or a crystal takes damage from any source</p>\n<hr />\n<p><strong>Effect</strong> The void garden creates a pulse of negative energy that fills the entire room and, if the doors to area <strong>D3</strong> are open, extends 30 feet into the hallway beyond. All living creatures in this area must attempt a @Check[type:fortitude|dc:34|traits:damaging-effect] save. The trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected</p>\n<p><strong>Success</strong> The creature takes [[/r 5d6[negative]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 8d6[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 16d6[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pGfrMv2oB57a9HWH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Void Ray",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "1KUxpz7cZNLMOKPD": {
+                        "damage": "3d10",
+                        "damageType": "negative"
+                    }
+                },
+                "description": {
+                    "value": "<p>Plus @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (this drained value stacks with that caused by other void rays or the hazard's Negative Energy Pulse, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 5}).</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "negative",
+                        "range-120"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Void Garden",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 36
+            },
+            "emitsSound": "encounter",
+            "hardness": 22,
+            "hp": {
+                "details": "Per crystal",
+                "max": 92,
+                "temp": 0,
+                "value": 92
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 28
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Six eerie purple crystals react to the presence of life, pulsing with flashes of violet light that seem to match the heartbeats of living creatures in the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:33] (master) or @Check[type:nature|dc:35] (master) to discern a hairline fracture that, when struck, shatters a crystal to dust</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "reset": "<p>The void garden deactivates 1 round after all living targets leave the area but resets immediately thereafter.</p>",
+            "routine": "<p>(6 actions) The void garden's crystals each use an action to fire a void ray, a beam of destructive dark purple energy, at a random living creature in the room or in visible reach through the open doorway (the crystals don't fire at living targets on the balcony in area <strong>D6c</strong>). A single creature can be targeted only once per round by a void ray. The void garden loses one action for each crystal that is disarmed or destroyed.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #184: The Ghouls Hunger"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

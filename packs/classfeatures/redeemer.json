@@ -1,0 +1,44 @@
+{
+    "_id": "UyuwFp0jQqYL2AdF",
+    "img": "systems/pf2e/icons/features/classes/redeemer-neutral-good.webp",
+    "name": "Redeemer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're full of kindness and forgiveness. You gain the Glimpse of Redemption champion's reaction and the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell. After the tenets of good, add these:</p>\n<ul>\n<li>You must first try to redeem those who commit evil acts, rather than killing them or meting out punishment. If they then continue on a wicked path, you might need to take more extreme measures.</li>\n<li>You must show compassion for others, regardless of their authority or station.</li>\n</ul>\n<h2 class=\"title\">Champion's Reaction</h2>\n<h3 class=\"title\">@UUID[Compendium.pf2e.actionspf2e.Item.Glimpse of Redemption] <span class=\"pf2-icon\">R</span></h3>\n<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you.</p>\n<hr />\n<p>Your foe hesitates under the weight of sin as visions of redemption play in their mind's eye. The foe must choose one of the following options:</p>\n<ul>\n<li>The ally is unharmed by the triggering damage.</li>\n<li>The ally gains resistance to all damage against the triggering damage equal to 2 + your level. After the damaging effect is applied, the enemy becomes enfeebled 2 until the end of its next turn.</li>\n</ul>\n<h2 class=\"title\">Divine Smite<span style=\"float:right\">Level 9</span></h2>\n<p>A guilty conscience assails foes who spurn your Glimpse of Redemption. A foe that responds to your Glimpse of Redemption by dealing damage takes [[/r @actor.abilities.cha.mod[persistent,good]]]{Persistent Good Damage} equal to your Charisma modifier.</p>\n<h2 class=\"title\">Exalt<span style=\"float:right\">Level 11</span></h2>\n<p>You protect multiple allies. You can apply the resistance granted by Glimpse of Redemption to yourself and all allies within 15 feet of you, including the triggering ally, except the resistance is reduced by 2 for all.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "class:champion:alignment:ng"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Glimpse of Redemption"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

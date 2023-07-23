@@ -1,0 +1,66 @@
+{
+    "_id": "AL7E03DYahfDhbcR",
+    "img": "systems/pf2e/icons/spells/spell-immunity.webp",
+    "name": "Effect: Guardian's Aegis",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to saves against magical effects. The bonus increases to +2 if the effect originated from a demon or other chaotic evil fiend.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "guardians-aegis",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "origin:trait:fiend",
+                    "origin:trait:chaotic",
+                    "origin:trait:evil"
+                ],
+                "selector": "saving-throw",
+                "slug": "guardians-aegis",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

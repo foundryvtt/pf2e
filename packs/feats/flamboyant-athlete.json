@@ -1,0 +1,55 @@
+{
+    "_id": "tmGsnUkPv8SIhBgn",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Flamboyant Athlete",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your Panache allows you to perform incredible feats: climbing, swimming, and leaping far beyond your normal capacity. While you have panache, you gain the following benefits.</p>\n<ul>\n<li>You gain climb and swim Speeds equal to half your land Speed.</li>\n<li>The DCs of your @UUID[Compendium.pf2e.actionspf2e.Item.High Jump]{High Jumps} and @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump]{Long Jumps} decrease by 10. This doesn't combine with other abilities that reduce those DCs.</li>\n<li>The distance you can move with a vertical @UUID[Compendium.pf2e.actionspf2e.Item.Leap] increases to 5 feet. Your distance for a horizontal Leap increases to 15 feet if your Speed is at least 15 feet, or to 20 feet if your Speed is at least 30 feet.</li>\n</ul>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Athletics"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "climb",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "swim",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

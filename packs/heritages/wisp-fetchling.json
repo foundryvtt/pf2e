@@ -1,0 +1,48 @@
+{
+    "_id": "kHHcvJBJNiPJTuna",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Wisp Fetchling",
+    "system": {
+        "ancestry": {
+            "name": "Fetchling",
+            "slug": "fetchling",
+            "uuid": "Compendium.pf2e.ancestries.Item.hIA3qiUsxvLZXrFP"
+        },
+        "description": {
+            "value": "<p>Your ancestors' exposure to the Shadow Plane wrought great physical changes. Your hair or skin sometimes appears insubstantial, and you're slighter and more agile than other fetchlings. You're <strong>Small</strong> instead of <strong>Medium</strong>. You gain the trained proficiency rank in Acrobatics, the @UUID[Compendium.pf2e.feats-srd.Item.Quick Squeeze] skill feat, and a +1 circumstance bonus to Acrobatics checks to Tumble Through. If you would automatically become trained in Acrobatics (from your background or class, for example), you instead become trained in a skill of your choice.</p>"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "sm"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acr.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Squeeze"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

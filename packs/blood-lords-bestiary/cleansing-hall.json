@@ -1,0 +1,106 @@
+{
+    "_id": "O4revJ2qwWVmSTwN",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "JSLbN4VSOWuOMNel",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Force Barrier",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature reaches the hall's midpoint</p>\n<hr />\n<p><strong>Effect</strong> Force barriers seal the hall's entrance and exit for 1 minute. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "force"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cleansing Hall",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 29
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The hall's entry and exit seal with a force barrier, then waves of force surge through the hall.</p>",
+            "disable": "<p>@Check[type:thievery|dc:48] (master) to deface the script without triggering, @Check[type:arcana|dc:47] (master) to redirect the magical energy, or @Check[type:religion|dc:46] (master) to quote Pharasmin prayers</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) A wave of force flows down the hall from north to south, dealing [[/r (3d10+20)[force]]] damage to each creature in the corridor. Each creature must attempt a @Check[type:reflex|dc:40|basic:true]. On a failure, a creature is pushed back 5 feet (10 feet on a critical failure). If this movement would cause a creature to hit another creature, both creatures take [[/r 1d6[bludgeoning]]] damage. If this movement would cause a creature to hit a force barrier, the creature takes [[/r 2d6[bludgeoning]]] damage. Animals, plants, and worshippers of Pharasma are immune to this force damage.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "force",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

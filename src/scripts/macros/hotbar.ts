@@ -1,35 +1,9 @@
-import { ItemPF2e } from "@item/base";
-import { ItemSourcePF2e } from "@item/data";
-import { EffectPF2e } from "@item/effect";
-import { MacroPF2e } from "@module/macro";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { SKILL_DICTIONARY } from "@actor/values";
-import { SkillAbbreviation } from "@actor/creature/data";
-import { LocalizePF2e } from "@system/localize";
-import { StrikeData } from "@actor/data/base";
-
-/**
- * Create a Macro from an Item drop.
- * Get an existing item macro if one exists, otherwise create a new one.
- * @param item     The item data
- * @param slot     The hotbar slot to use
- */
-export async function createItemMacro(item: ItemSourcePF2e, slot: number): Promise<void> {
-    const command = `game.pf2e.rollItemMacro("${item._id}");`;
-    const macro =
-        game.macros.find((macro) => macro.name === item.name && macro.command === command) ??
-        (await MacroPF2e.create(
-            {
-                command,
-                name: item.name,
-                type: "script",
-                img: item.img,
-                flags: { pf2e: { itemMacro: true } },
-            },
-            { renderSheet: false }
-        ));
-    game.user.assignHotbarMacro(macro ?? null, slot);
-}
+import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { StrikeData } from "@actor/data/base.ts";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
+import { ItemPF2e, EffectPF2e } from "@item";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { MacroPF2e } from "@module/macro.ts";
 
 /**
  * Create a Macro from an Item drop.
@@ -94,7 +68,7 @@ export async function rollActionMacro(itemId: string, _actionIndex: number, acti
 
     const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
-    const chatData: Partial<foundry.data.ChatMessageSource> = {
+    const chatData: Partial<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
@@ -111,7 +85,12 @@ export async function rollActionMacro(itemId: string, _actionIndex: number, acti
     ChatMessagePF2e.create(chatData);
 }
 
-export async function createSkillMacro(skill: SkillAbbreviation, skillName: string, actorId: string, slot: number) {
+export async function createSkillMacro(
+    skill: SkillAbbreviation,
+    skillName: string,
+    actorId: string,
+    slot: number
+): Promise<void> {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
 const a = game.actors.get("${actorId}");
@@ -137,11 +116,10 @@ if (a) {
     game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
 
-export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) {
+export async function createToggleEffectMacro(effect: EffectPF2e, slot: number): Promise<void> {
     const uuid = effect.uuid.startsWith("Actor") ? effect.sourceId : effect.uuid;
     if (!uuid) {
-        const message = LocalizePF2e.translations.PF2E.ErrorMessage.CantCreateEffectMacro;
-        ui.notifications.error(game.i18n.localize(message));
+        ui.notifications.error("PF2E.ErrorMessage.CantCreateEffectMacro", { localize: true });
         return;
     }
 
@@ -149,8 +127,7 @@ export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) 
 const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (actors.length === 0 && game.user.character) actors.push(game.user.character);
 if (actors.length === 0) {
-    const message = game.i18n.localize("PF2E.ErrorMessage.NoTokenSelected");
-    return ui.notifications.error(message);
+    return ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
 }
 
 const ITEM_UUID = "${uuid}"; // ${effect.name}

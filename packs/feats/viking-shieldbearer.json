@@ -1,0 +1,60 @@
+{
+    "_id": "BoqMvGy1jXpsaBbo",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Viking Shieldbearer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> Ulfen ethnicity</p>\n<hr />\n<p>You trained with shields and weapons as soon as you were old enough to hold them, eager to win honor and glory for yourself. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction and are trained in your choice of the battle axe or longsword.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Weapon.Base.longsword",
+                        "value": "longsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.battle-axe",
+                        "value": "battle-axe"
+                    }
+                ],
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Human.VikingShieldbearer.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-{item|flags.pf2e.rulesSelections.weapon}.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

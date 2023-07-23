@@ -1,0 +1,77 @@
+{
+    "_id": "6GApXnJDAMAchNl7",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "(Harrowkin) Defensive Suit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>When the harrowkin attempts a saving throw connected to its suit—that is, Fortitude (Hammers or Shields), Reflex (Keys or Books), or Will (Stars or Crowns)—if they roll a success, they get a critical success instead.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "harrow-suit:hammers",
+                            "harrow-suit:shields"
+                        ]
+                    }
+                ],
+                "selector": "fortitude"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "harrow-suit:keys",
+                            "harrow-suit:books"
+                        ]
+                    }
+                ],
+                "selector": "reflex"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "harrow-suit:stars",
+                            "harrow-suit:crowns"
+                        ]
+                    }
+                ],
+                "selector": "will"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "traits": {
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "jrfuplUEq3PIo6j1",
+    "img": "systems/pf2e/icons/spells/demon-form.webp",
+    "name": "Effect: Blasphemous Utterances",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 circumstance penalty to saves against mental effects.</p>\n<p>It can't take actions that have the concentrate trait unless it succeeds at a @Check[type:flat|dc:10] check. Failing this check wastes the action.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

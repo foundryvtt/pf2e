@@ -1,0 +1,48 @@
+{
+    "_id": "xfbPSP9tl1N95xDF",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Arcane Slam",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You have a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p>\n<hr />\n<p>You channel magical power from your core into your arm, empowering your attack as you attempt to slam your foe into the ground. Attempt an <span data-pf2-action=\"arcaneSlam\" data-pf2-glyph=\"D\">Athletics</span> check against the foe's Fortitude DC. You take a -2 circumstance penalty to your check if the target is one size larger than you and a -4 circumstance penalty if it's larger than that. You gain a +2 circumstance bonus to your check if the target is one size smaller than you and a +4 circumstance bonus if it's smaller than that.</p>\n<hr />\n<p><strong>Critical Success</strong> You slam the foe down and the magical energy overwhelms it. The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone], becomes @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round, and takes damage equal to [[/r (2d6+@actor.system.abilities.str.mod)]]{2d6 plus your Strength modifier}. The foe is no longer grabbed or restrained by you.</p>\n<p><strong>Success</strong> You slam the foe down. The creature is knocked prone and takes damage equal to your Strength modifier. The foe is no longer grabbed or restrained by you.</p>\n<p><strong>Failure</strong> You are unable to slam the creature, but your hold on the creature remains.</p>\n<p><strong>Critical Failure</strong> The creature breaks free and is no longer grabbed or restrained by you.</p>\n<hr />\n<p><strong>Enhancement</strong> Your arms better channel your core's power. You no longer take penalties for attempting to slam larger foes. Your foe takes damage equal to 2d6 plus your Strength modifier on a success (or double that on a critical success).</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Warrior automaton"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneSlam",
+                    "value": "arcane-slam"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

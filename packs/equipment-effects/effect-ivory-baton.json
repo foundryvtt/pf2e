@@ -1,0 +1,46 @@
+{
+    "_id": "WXsWkFosSGBrptwF",
+    "img": "systems/pf2e/icons/equipment/held-items/ivory-baton.webp",
+    "name": "Effect: Ivory Baton",
+    "system": {
+        "description": {
+            "value": "<p>The construct gains a +1 status bonus to attack rolls, damage rolls, and saving throws (except saving throws against the ivory baton).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "saving-throw",
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Monsters of Myth"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

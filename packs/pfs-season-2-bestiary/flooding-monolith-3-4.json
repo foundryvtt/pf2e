@@ -1,0 +1,115 @@
+{
+    "_id": "5qyOQeszMplJXw8s",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "X2ev5CVRF0E843MK",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flare",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than the monolith's guardians approaches within 40 feet of the monolith</p>\n<hr />\n<p><strong>Effect</strong> the flames wreathing the monolith flare with incandescent light. The triggering creature must attempt a @Check[type:fortitude|dc:18] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for one round.</p>\n<p>On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for one round, then @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for one round.</p>\n<p>The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Flooding Monolith (3-4)",
+    "prototypeToken": {
+        "name": "Flooding Monolith"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "hardness": 8,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 34,
+                "temp": 0,
+                "value": 34
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 5
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A surge of abyssal energy creates a powerful wave pushing away from the monolith.</p>",
+            "disable": "<p>@Check[type:arcana|dc:18], @Check[type:occultism|dc:18], or @Check[type:religion|dc:18] to magically alter the runes, or @Check[type:thievery|dc:21] to physically alter them. A PC that can read Abyssal or Cyclops is better able to identify key runes, gaining a +1 circumstance bonus to these check (+2 if they speak both).</p>\n<p>Each check requires two actions, and disabling the monolith requires three successful checks. A PC that critically succeeds earns two success. On a failed check, the attempting PC is exposed to the burning flames wreathing the monolith, taking [[/r 2d6[fire]]] damage (@Check[type:reflex|dc:18|basic:true|name:Flooding Monolith] save).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "",
+            "routine": "<p>(1 action) On the hazard's turn it sends a wave of water along the fork of the river (North, South, or East) that contains the nearest PC. Any creature along that fork in or on the surface of the water must attempt a @Check[type:fortitude|dc:18|name:Flooding Monolith] save.</p>\n<p>The monolith's guardians are accustomed to these surges and are immune to this effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes advantage of the undertow after the surge to reposition themselves. The creature can Step, ignoring difficult terrain caused by the water.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is pushed 10 feet away from the monolith.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 15 feet away from the monolith and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-14: Lost in Flames"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "water"
+            ]
+        }
+    },
+    "type": "hazard"
+}

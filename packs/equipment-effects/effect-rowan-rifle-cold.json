@@ -1,0 +1,43 @@
+{
+    "_id": "1tweTwYQuQUV45wJ",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/rowan-rifle-cold.webp",
+    "name": "Effect: Rowan Rifle (Cold)",
+    "system": {
+        "description": {
+            "value": "<p>The <em>Rowan Rifle</em>'s damage type changes from its current damage type to cold. On the next sunrise, the <em>Rowan Rifle</em> returns to dealing fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "cold"
+                },
+                "selector": "rowan-rifle-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

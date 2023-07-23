@@ -1,10 +1,10 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e, WeaponSource } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data";
-import { PredicateStatement } from "@system/predication";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { ChoiceSetSchema } from "@module/rules/rule-element/choice-set/data.ts";
+import { PredicateStatement } from "@system/predication.ts";
 import { isObject, sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Convert EffectTarget REs into ChoiceSets */
 export class Migration745EffectTargetToChoiceSet extends MigrationBase {
@@ -18,7 +18,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
         rule: EffectTargetSource,
         itemSource: ItemSourcePF2e,
         actorSource: ActorSourcePF2e | null
-    ): ChoiceSetSource {
+    ): OwnedWeaponChoiceSetSource {
         const newRE: OwnedWeaponChoiceSetSource = {
             key: "ChoiceSet",
             choices: { ownedItems: true, types: ["weapon"] },
@@ -74,13 +74,16 @@ interface EffectTargetSource extends RuleElementSource {
     targetId?: string;
 }
 
-interface OwnedWeaponChoiceSetSource extends ChoiceSetSource {
+interface OwnedWeaponChoiceSetSource extends Pick<SourceFromSchema<ChoiceSetSchema>, "key" | "prompt"> {
+    selection?: string;
     choices: {
         ownedItems: true;
         types: ["weapon"];
         includeHandwraps?: true;
         predicate?: OldRawPredicate;
     };
+    adjustName?: boolean;
+    predicate?: OldRawPredicate;
 }
 
 interface OldRawPredicate {

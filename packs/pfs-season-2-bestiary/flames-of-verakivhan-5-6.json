@@ -1,0 +1,107 @@
+{
+    "_id": "gKAUuRJoKEoYo3Ub",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "OatQgbwqaBAuLTyo",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ignite",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that is not a demon or elemental enters the planar overlay</p>\n<hr />\n<p><strong>Effect</strong> Flames ignite throughout the area. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Flames of Verakivhan (5-6)",
+    "prototypeToken": {
+        "name": "Flames of Verakivhan"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The demon lord Urxehl manifests upon Golarion a small region of his Abyssal realm, filled with constantly burning forests lashed by fierce storms and unholy rain that only further feeds the flames. This is a mystical fire, fueled by the presence of Urxehl's minions. Any flames on the map emit concealing smoke in a 10-foot radius around the fire.</p>",
+            "disable": "<p>@Check[type:nature|dc:20] or @Check[type:performance|dc:20] (trained) to remind the Finadar forest of its true self; or @Check[type:religion|dc:20], @Check[type:occultism|dc:20], or @Check[type:demon-lore|dc:20]{Demon Lore}(trained) to disrupt the connection to the imposed realm and extinguish one of the five sections of flames on the map. These checks can only be attempted by creatures adjacent to the section, and each attempt takes 2 actions. An extinguished fire still emits concealing smoke for 1 additional round but is no longer hot enough to deal damage. A <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> spell or a spell with the water trait (2nd level; counteract DC 17) extinguishes a section of flames. If the PCs disable three of the five sections of the flames of Verakivhan, the hazard is too weakened to sustain itself, and the remaining flames disappear. If there are no demons or elementals remaining in the area, the hazard is automatically disabled.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) Any creature within the flames takes [[/r (1d10+6)[fire]]] damage, and any creature adjacent to the flames takes [[/r 1d10[fire]]] damage (@Check[type:reflex|dc:20|basic:true|name:Flames of Verakivhan|traits:fire]). Additionally, the flames call down a fiery rain that deals [[/r (1d10+6)[fire]]] damage to a random PC within the planar overlay (@Check[type:reflex|dc:20|basic:true|name:Flames of Verakivhan|traits:fire] save). If any PCs attempted to disable the hazard that turn, the fiery rain chooses one of them as its target.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-18: The Fanciful March of Urwal"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

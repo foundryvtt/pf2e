@@ -1,0 +1,55 @@
+{
+    "_id": "uqjx1bwYduHwwC7d",
+    "img": "systems/pf2e/icons/spells/agitate.webp",
+    "name": "Effect: Guiding Words",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Attacking designated target",
+                "option": "guiding-words-target",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "guiding-words-target"
+                ],
+                "selector": [
+                    "attack",
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

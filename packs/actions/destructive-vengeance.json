@@ -1,0 +1,81 @@
+{
+    "_id": "r5Uth6yvCoE4tr9z",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Destructive Vengeance",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages you</p>\n<hr />\n<p>Bloodshed begets bloodshed as you drag your enemy toward oblivion.</p>\n<p>You increase the amount of damage you take by [[/r {1d6}]]{1d6 damage}, and you deal [[/r {1d6}]]{1d6 damage} to the triggering enemy, choosing evil or negative damage to deal to the enemy each time you use this reaction. In addition, until the end of your next turn, your Strikes against the triggering creature deal 2 extra damage of the type you chose.</p>\n<p>The damage you take and deal when you use this reaction increases to [[/r {2d6}]]{2d6 damage} at 5th level, [[/r {3d6}]]{3d6 damage} at 9th level, [[/r {4d6}]]{4d6 damage} at 12th level, [[/r {5d6}]]{5d6 damage} at 16th level, and [[/r {6d6}]]{6d6 damage} at 19th level.</p>\n<p>The extra damage on your Strikes increases to 4 at 9th level and 6 at 16th level.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Champion.TargetReaction",
+                "option": "destructive-vengeance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Champion.NegativeDamage",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Champion.EvilDamage",
+                        "value": "evil"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.destructiveVengeance}",
+                "key": "FlatModifier",
+                "predicate": [
+                    "destructive-vengeance"
+                ],
+                "selector": "strike-damage",
+                "slug": "destructive-vengeance-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 2
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 4
+                        },
+                        {
+                            "start": 16,
+                            "value": 6
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        },
+        "weapon": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

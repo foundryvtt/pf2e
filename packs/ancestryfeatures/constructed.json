@@ -1,0 +1,51 @@
+{
+    "_id": "mnhmhOKWLiOD0lev",
+    "img": "systems/pf2e/icons/features/feats/effect-repair-module.webp",
+    "name": "Constructed",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Your synthetic body resists ailments better than those of purely biological organisms. You gain a +1 circumstance bonus to saving throws against diseases, poisons, and radiation.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Constructed (vs. diseases, poisons, and radiation)",
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "radiation"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "android"
+            ]
+        }
+    },
+    "type": "feat"
+}

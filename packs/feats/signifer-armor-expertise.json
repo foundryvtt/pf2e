@@ -1,0 +1,89 @@
+{
+    "_id": "wDo5dsSmyJqfmPgj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Signifer Armor Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've spent enough time helping your comrades equip medium and heavy armor that you spread your own expertise to those armors as well. If you have expert proficiency in any armor or unarmored defense, you also gain expert proficiency in medium and heavy armor.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hellknight Signifer Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "defense:light:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "defense:unarmored:rank",
+                                    2
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.heavy.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "defense:light:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "defense:unarmored:rank",
+                                    2
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

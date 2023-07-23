@@ -1,0 +1,321 @@
+{
+    "_id": "bAaVfrdNLfFh7iHv",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "GYPODdG0fWWAPk5y",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Frond",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "basidirond-spores"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MiX1rLReSocMJdta",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cold Lethargy",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Although a basidirond is immune to cold damage, any effect that deals cold damage causes it to become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/br 1d4 #rounds]]{1d4 rounds}. During this time, it cannot use its Hallucinogenic Cloud or basidirond spores.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2OIZKsg9vZrNrBBw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Basidirond Spores",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d12[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "basidirond-spores",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3GOGRqIhDzmef7he",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Hallucinogenic Cloud",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The basidirond releases a cloud of invisible spores in a @Template[type:emanation|distance:20]. Each creature in the area must succeed at a @Check[type:fortitude|dc:22] save or experience powerful hallucinations as long as it remains in the cloud, plus an additional [[/br 1d4 #rounds]]{1d4 rounds} after leaving the area. A creature must attempt a new save each round it remains within the area. The cloud persists for 5 rounds unless dispersed before then by a strong wind. Each hallucinating creature rolls [[/r 1d6]] each round to determine what it hallucinates that round.</p>\n<ol>\n<li>The target is sinking in quicksand. It falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and spends 1 action on its next turn flailing its limbs as if attempting to swim.</li>\n<li>The target is attacked by a swarm of spiders. It spends 2 actions on its next turn attacking the floor with a melee weapon (drawing a weapon if needed). It is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against all attacks.</li>\n<li>An item the target is holding turns into a viper. The target @UUID[Compendium.pf2e.actionspf2e.Item.Release] the item and spends its next turn fleeing from it.</li>\n<li>The target is suffocating. It holds its breath and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</li>\n<li>The target shrinks to 1/10 its normal size. For 1 round it is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}, and takes a -10-foot status penalty to its Speed.</li>\n<li>The target is melting. It drops everything it's holding and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4} for 1 round.</li>\n</ol>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YuQIr9mj4GEfu8SF",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "PEfs4Ol5SVjXe74g",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Basidirond",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 22
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 8
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Fungus",
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The basidirond, also called a mindfrond, is a fungal creature that crawls about on woody tendrils. The large, bowl-shaped pod atop its body collects mineral-rich moisture--whether runoff from cave walls or fresh blood--for sustenance. It uses hallucinogenic spores to incapacitate prey long enough for it to beat its prey to a bloody pulp, then deposits the deliciously tenderized remains into this pod for consumption. A basidirond is over 6 feet tall and 3 to 4 feet wide, and weighs nearly 300 pounds when saturated.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary 2"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "low-light vision, tremorsense (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "fungus",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

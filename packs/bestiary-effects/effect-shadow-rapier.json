@@ -1,0 +1,53 @@
+{
+    "_id": "TSdrv1FmLHJnk9AD",
+    "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
+    "name": "Effect: Shadow Rapier",
+    "system": {
+        "description": {
+            "value": "<p>The rake shrouds their sword in negative energy, changing the damage type to negative.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "selector": "damage",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "negative"
+                },
+                "selector": "damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

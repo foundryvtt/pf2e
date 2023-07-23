@@ -1,0 +1,82 @@
+{
+    "_id": "LZsTt6zPZfNyjIZl",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragonslayer Oath (Paladin)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sworn to slay evil dragons. Add the following tenet to your code after the others: \"You must slay evil dragons you encounter as long as you have a reasonable chance of success.</p>\n<p>Your @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] gains a +4 circumstance bonus to damage against an evil dragon, or +6 if you have master proficiency with the weapon you used.</p>\n<p>You don't consider evil dragons to be legitimate authorities, even in nations they rule.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tenets of good"
+                },
+                {
+                    "value": "paladin cause"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Retributive Strike against an evil dragon",
+                "option": "dragonslayer-oath",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Dragonslayer Oath",
+                "predicate": [
+                    "dragonslayer-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "dragonslayer-not-master",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Dragonslayer Oath",
+                "predicate": [
+                    "dragonslayer-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "dragonslayer-master",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "type": "feat"
+}

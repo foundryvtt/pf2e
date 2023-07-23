@@ -1,17 +1,13 @@
-import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data";
-import { BasePhysicalItemData, BasePhysicalItemSource } from "@item/physical/data";
-import type { BookPF2e } from "./document";
+import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data.ts";
+import { BasePhysicalItemSource } from "@item/physical/data.ts";
 
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
-
-type BookData = Omit<BookSource, "system" | "effects" | "flags"> &
-    BasePhysicalItemData<BookPF2e, "book", BookSystemData, BookSource>;
 
 type BookSystemSource = EquipmentSystemSource & {
     capacity: number;
 } & (FormulaBookData | SpellBookData);
 
-type BookSystemData = Omit<BookSystemSource, "price"> & EquipmentSystemData;
+type BookSystemData = Omit<BookSystemSource, "hp" | "price"> & EquipmentSystemData;
 
 interface FormulaBookData {
     subtype: "formula";
@@ -23,4 +19,4 @@ interface SpellBookData {
     item: object[];
 }
 
-export { BookData, BookSource };
+export { BookSource, BookSystemData };

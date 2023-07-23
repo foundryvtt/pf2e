@@ -1,0 +1,154 @@
+{
+    "_id": "hHUbjTLoYfd1XvV1",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "EqnX9EshvcCBB6MQ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Glare",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than Kemnebi enters the chamber</p>\n<hr />\n<p><strong>Effect</strong> The trap shoots a concentrated beam of fire at the triggering creature. The trap makes an eye beam Strike. If one of Urgathoa's eyes has been disabled, this Strike deals half damage. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "evocation",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zSHK91gMB7zk1mWG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Eye Beam",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 41
+                },
+                "damageRolls": {
+                    "qm8AVojldkvAJu6D": {
+                        "damage": "8d10+44",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-200"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Urgathoa's Ire",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 48
+            },
+            "emitsSound": "encounter",
+            "hardness": 35,
+            "hp": {
+                "details": "Per Eye",
+                "max": 135,
+                "temp": 0,
+                "value": 135
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 38
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A statue of Urgathoa fires eye beams at intruders.</p>",
+            "disable": "<p>@Check[type:religion|dc:48] (legendary) to disenchant each eye through prayer or @Check[type:thievery|dc:48] (legendary) to disable each eye</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The trap shoots a concentrated beam of fire at a random intruder. The trap makes an eye beam Strike. If one of Urgathoa's eyes has been disabled, this Strike deals half damage.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 36
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

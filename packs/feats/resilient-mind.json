@@ -1,0 +1,56 @@
+{
+    "_id": "0Bm4WMi9u0EOHbkp",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Resilient Mind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're firm in your convictions and have girded your mind against outside influence. You gain a +1 circumstance bonus to saves against mental effects. This bonus increases to +2 against mental effects originating from undead.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "saving-throw",
+                "slug": "resilient-mind",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "origin:mode:undead"
+                ],
+                "selector": "saving-throw",
+                "slug": "resilient-mind",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "champion",
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

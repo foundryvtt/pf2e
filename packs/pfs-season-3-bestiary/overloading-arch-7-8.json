@@ -1,0 +1,105 @@
+{
+    "_id": "XhxucXUyWWLyty9H",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "5flQveIApZpVwbdw",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Shock",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of one of the time rifts</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature takes [[/r 1d12[electricity]]] damage (@Check[type:reflex|dc:28|basic:true] save). The overloading arch rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Overloading Arch (7-8)",
+    "prototypeToken": {
+        "name": "Overloading Arch"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "",
+                "value": -10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The <em>Eternity Arch</em> sparks with electricity, releasing bolts of lightning at each of the four largest time rifts.</p>",
+            "disable": "<p>@Check[type:thievery|dc:30] (expert) or @Check[type:arcana|dc:28], @Check[type:nature|dc:28], @Check[type:occultism|dc:28], or @Check[type:religion|dc:28] (expert) to seal each of the four time rifts, @Check[type:crafting|dc:30] (trained) to divert the lightning to another source, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 26) to counteract each time rift.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The trap loses 1 action each turn for each disabled time rift. On each of the trap's actions, the <em>Eternity Arch</em> releases a bolt of lightning that activates that rift, dealing [[/r 2d12[electricity]]] damage to all creatures in a @Template[type:emanation|distance:10] around the time rift (@Check[type:reflex|dc:28|basic:true] save). It can release a bolt at each active time rift no more than once each turn.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Special #3-99: Fate in the Future"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "electricity",
+                "evocation",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

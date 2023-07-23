@@ -1,0 +1,52 @@
+{
+    "_id": "fO1vRDEfl9pysfLU",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Guarded Movement",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your guard is up, even while moving. You gain a +4 circumstance bonus to AC against reactions triggered by your movement.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Guarded Movement (against reactions triggered by movement)",
+                "predicate": [
+                    "guarded-movement"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Guarded Movement (your movement triggers a reaction)",
+                "option": "guarded-movement",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,64 @@
+{
+    "_id": "soHLtpMM9h3AE7PD",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Expert Alchemy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your advanced alchemy level increases to 3. At 10th level, it increases to 5.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Alchemist Dedication"
+                },
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.alchemist.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:alchemist"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": 3
+                        },
+                        {
+                            "start": 10,
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,146 @@
+{
+    "_id": "gfi71qgcpDMpXK6G",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3pC1tMa7UTYrsGHc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spore Burst",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The moldy books are moved or the mold takes any damage;</p>\n<p><strong>Effect</strong> All creatures within 10 feet of the mold patch are exposed to phantom mold spores.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GbqxC8zzsV5bYbbQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Phantom Mold Spores",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Any penalties to Perception from this poison persist for 1 hour after the poison's duration ends (this effect can be removed before then by any effect that neutralizes poison);</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18];</p>\n<p><strong>Maximum Duration</strong> 4 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage;</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]] damage, and the victim takes a -1 status penalty on visual Perception checks as strange shadows and flittering movement appear in their peripheral vision;</p>\n<p><strong>Stage 3</strong> as stage 2, but a -2 status penalty.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "inhaled",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Phantom Mold",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A burst of pale gray spores sprays into the air.</p>",
+            "disable": "<p>@Check[type:survival|dc:18] to remove the mold without triggering the spores</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Crown of the Kobold King"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}

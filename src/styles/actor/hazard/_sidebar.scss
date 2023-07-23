@@ -47,23 +47,31 @@
 
     .health-line {
         display: flex;
-        justify-content: space-between;
-        font-size: var(--font-size-18);
+        flex-direction: row;
+        font-size: var(--font-size-16);
+        gap: 3px;
+        justify-content: center;
     }
 
     .hp-details {
         width: 100%;
-        text-align: right;
     }
 
     .initiative {
         display: flex;
         font-size: var(--font-size-18);
-        .roll-init {
-            cursor: pointer;
+
+        h2 {
+            font-size: inherit;
         }
-        .attribute-name {
-            margin-left: auto;
+
+        .roll-init {
+            display: flex;
+            align-items: center;
+
+            i {
+                margin-right: 4px;
+            }
         }
     }
 

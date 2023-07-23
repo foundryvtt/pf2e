@@ -1,0 +1,110 @@
+{
+    "_id": "1CjTIaMYUvQUkQI2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6jthkAwvS3DHh7jF",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Monster",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the circle without uttering the passphrase, \"Praise to the Water Lizard\"</p>\n<hr />\n<p><strong>Effect</strong> The trap summons a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Mukradi]. The mukradi rolls initiative and remains for 1 minute, after which the spell ends and the mukradi disappears. The mukradi also disappears if someone disables the trap before the duration expires. The mukradi can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mukradi Summoning Runes",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(master) to notice runes marked on the floor.</p>",
+                "value": 25
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Barely visible runes are etched into the stone floor in a 20-foot diameter circle.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:36|name:Approach Rune] to approach without triggering the trap followed by @Check[type:occultism|dc:34|name:Erase the Rune] (expert) or @Check[type:thievery|dc:38|name:Erase the Rune|traits:action:disable-a-device] (master) to erase the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (8th level; counteract DC 34) to counteract the rune.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "reset": "<p>The trap resets at the first high tide of each day.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #154: Siege of the Dinosaurs"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

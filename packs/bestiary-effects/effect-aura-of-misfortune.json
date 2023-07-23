@@ -1,0 +1,42 @@
+{
+    "_id": "QoneHsjZKtGHWlam",
+    "img": "systems/pf2e/icons/spells/drop-dead.webp",
+    "name": "Effect: Aura of Misfortune",
+    "system": {
+        "description": {
+            "value": "<p>Living creatures must roll twice on all d20 rolls and use the lower result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "all"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

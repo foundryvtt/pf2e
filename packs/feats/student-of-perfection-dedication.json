@@ -1,0 +1,81 @@
+{
+    "_id": "eHjqNXgylSuvA887",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Student of Perfection Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Jalmeray.</p>\n<hr />\n<p>You have learned the martial arts techniques of your House of Perfection. You become trained in your choice of Acrobatics or Athletics and Warfare Lore; if you were already trained, you become an expert instead. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Ki Strike] monk class feat, which grants you the ki strike ki spell and a focus pool of 1 Focus Point that you can recover using the Refocus activity as a monk does. Your ki spells from Student of Perfection are occult spells.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.EwlYs1OzaMj9BB5I]{Student of Perfection} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "powerful fist or expert in unarmed attacks"
+                },
+                {
+                    "value": "member of a House of Perfection"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Ki Strike"
+            },
+            {
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/spells/unblinking-flame-revalation.webp",
+                        "label": "PF2E.SpecificRule.HouseOfPerfection.UnblinkingFlame",
+                        "value": "fire"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/unbreaking-wave-advance.webp",
+                        "label": "PF2E.SpecificRule.HouseOfPerfection.UnbreakingWaves",
+                        "value": "water"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/unfolding-wind-rush.webp",
+                        "label": "PF2E.SpecificRule.HouseOfPerfection.UnfoldingWind",
+                        "value": "air"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/untwisting-iron-buffer.webp",
+                        "label": "PF2E.SpecificRule.HouseOfPerfection.UntwistingIron",
+                        "value": "earth"
+                    }
+                ],
+                "flag": "houseOfPerfectionElement",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.HouseOfPerfection.Label",
+                "prompt": "PF2E.SpecificRule.HouseOfPerfection.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.houseOfPerfection.element",
+                "value": "{item|flags.pf2e.rulesSelections.houseOfPerfectionElement}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

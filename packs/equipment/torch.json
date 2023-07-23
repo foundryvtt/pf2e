@@ -1,0 +1,110 @@
+{
+    "_id": "8Jdw4yAzWYylGePS",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
+    "name": "Torch",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "cp": 1
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-torch"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "Strike",
+                "otherTags": [
+                    "improvised"
+                ]
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "lit-torch"
+                ],
+                "selector": "{item|_id}-damage",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitTorch",
+                "option": "lit-torch",
+                "toggleable": true
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-torch"
+                ],
+                "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

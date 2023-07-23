@@ -1,0 +1,58 @@
+{
+    "_id": "wUHnauB3atxO1RIo",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Rubbery Skin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your skin develops a malleable, rubbery quality. You gain resistance to bludgeoning damage equal to 2 + your number of class feats from the oozemorph archetype. You also gain resistance equal to twice that amount to extra damage from critical hits; if the resistance is greater than the extra damage, it reduces the extra damage to 0 but doesn't reduce the attack's normal damage.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Disturbing Defense"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.oozemorphDedicationCount",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "bludgeoning",
+                "value": "2+@actor.system.custom.modifiers.oozemorphDedicationCount"
+            },
+            {
+                "key": "Resistance",
+                "type": "critical-hits",
+                "value": "2*(2+@actor.system.custom.modifiers.oozemorphDedicationCount)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: The Slithering"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "archetype": "Archetype"
+            },
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

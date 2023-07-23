@@ -1,15 +1,15 @@
-import { ActorPF2e } from "@actor";
-import { resetAndRerenderActors } from "@actor/helpers";
-import type { EffectPF2e } from "@item/index";
-import { EncounterPF2e } from "@module/encounter";
+import type { ActorPF2e } from "@actor";
+import { resetActors } from "@actor/helpers.ts";
+import type { EffectPF2e } from "@item";
+import type { EncounterPF2e } from "@module/encounter/index.ts";
 
 export class EffectTracker {
-    effects: Embedded<EffectPF2e>[] = [];
+    effects: EffectPF2e<ActorPF2e>[] = [];
 
     /** A separate collection of aura effects, including ones with unlimited duration */
-    auraEffects: Collection<Embedded<EffectPF2e>> = new Collection();
+    auraEffects: Collection<EffectPF2e<ActorPF2e>> = new Collection();
 
-    private insert(effect: Embedded<EffectPF2e>, duration: { expired: boolean; remaining: number }): void {
+    private insert(effect: EffectPF2e<ActorPF2e>, duration: { expired: boolean; remaining: number }): void {
         if (this.effects.length === 0) {
             this.effects.push(effect);
         } else {
@@ -39,7 +39,7 @@ export class EffectTracker {
         }
     }
 
-    register(effect: Embedded<EffectPF2e>): void {
+    register(effect: EffectPF2e<ActorPF2e>): void {
         if (effect.fromAura && (canvas.ready || !effect.actor.isToken) && effect.id) {
             this.auraEffects.set(effect.uuid, effect);
         }
@@ -73,19 +73,21 @@ export class EffectTracker {
         }
     }
 
-    unregister(toRemove: Embedded<EffectPF2e>): void {
+    unregister(toRemove: EffectPF2e<ActorPF2e>): void {
         this.effects = this.effects.filter((e) => e !== toRemove);
         this.auraEffects.delete(toRemove.uuid);
     }
 
     /**
      * Check for expired effects, removing or disabling as appropriate according to world settings
-     * @param resetItemData Perform individual item data resets. This is only needed when the world time changes.
+     * @param [options.resetItemData] Perform individual item data resets. This is only needed when the world time
+     *                                changes.
      */
-    async refresh({ resetItemData = false } = {}): Promise<void> {
-        if (resetItemData) {
-            for (const effect of this.effects) {
-                effect.reset();
+    async refresh(options: { resetItemData?: boolean } = {}): Promise<void> {
+        if (options.resetItemData) {
+            const actors = new Set(this.effects.flatMap((e) => e.actor ?? []));
+            for (const actor of actors) {
+                actor.reset();
             }
             game.pf2e.effectPanel.refresh();
         }
@@ -97,7 +99,7 @@ export class EffectTracker {
                 await this.#removeExpired(actor);
             }
         } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            resetAndRerenderActors(actorsToUpdate);
+            resetActors(actorsToUpdate);
         }
     }
 

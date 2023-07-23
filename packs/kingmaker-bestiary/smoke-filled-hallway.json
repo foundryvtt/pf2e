@@ -1,0 +1,100 @@
+{
+    "_id": "RN3Fiz9AZzUuqb9z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3AidCm7XJT968Swi",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Choke",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that isn't holding their breath walks into the hallway or starts their turn in the hallway</p>\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[type:fortitude|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the smoke.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the smoke.</p>\n<p><strong>Failure</strong> The creature is sickened 1 and takes [[/r 1d6[nonlethal]]] damage from choking on the smoke. A creature that falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] from the nonlethal damage begins to suffocate in [[/r {1d4+1} #rounds]]{1d4+1 rounds} if not dragged to safety.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and [[/r 1d6[persistent,nonlethal]]] damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Smoke-Filled Hallway",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(noticing the smoke is automatic)</p>",
+                "value": -10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Thick smoke fills this hallway, making it difficult to see and breathe.</p>",
+            "disable": "<p>While a spell like <em>@UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind]</em> can temporarily clear a path through the smoke, the hazard returns at the start of the next round as long as the fires in area A17 continue to burn; @Check[type:survival|dc:18] to know how best to cover your nose and mouth with a wet cloth to help alleviate the choking effects of the smoke.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>The smoke continues to affect anyone who enters area A16 until the fires in area A17 are extinguished.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

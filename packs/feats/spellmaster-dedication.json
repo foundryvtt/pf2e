@@ -1,0 +1,60 @@
+{
+    "_id": "vuApM8xHOZs4o6oS",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Spellmaster Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>As a Spellmaster, you are adept at identifying magic. You gain a +2 circumstance bonus when you @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic] with a skill in which you are trained or better. If you have the @UUID[Compendium.pf2e.feats-srd.Item.Wayfinder Resonance Tinkerer] feat, you can change the cantrip you chose for that feat each day during your daily preparations.</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.O7fKfFxCx3e1YasX]{Spellmaster} archetype.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Intelligence, Wisdom or Charisma 14"
+                },
+                {
+                    "value": "ability to cast focus spells"
+                },
+                {
+                    "value": "member of the Pathfinder Society affiliated with the School of Spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:identify-magic"
+                ],
+                "selector": [
+                    "arcana",
+                    "nature",
+                    "occultism",
+                    "religion"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

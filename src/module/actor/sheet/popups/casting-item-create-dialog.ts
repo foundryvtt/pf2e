@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor/index";
+import { ActorPF2e } from "@actor";
 import { SpellPF2e } from "@item";
-import { SpellConsumableItemType } from "@item/consumable/spell-consumables";
-import { OneToTen } from "@module/data";
+import { SpellConsumableItemType } from "@item/consumable/spell-consumables.ts";
+import { OneToTen } from "@module/data.ts";
 import { ErrorPF2e } from "@util";
 
 interface FormInputData extends FormApplicationData<ActorPF2e> {
@@ -40,12 +40,12 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         this.spell = spell;
         this.formDataCache = {
             itemType: this.spell.isCantrip ? "cantripDeck5" : "scroll",
-            level: spell.baseLevel,
+            level: spell.baseRank,
         };
         this.onSubmitCallback = callback;
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
 
         options.classes = [];
@@ -64,18 +64,18 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         }
 
         const { cantripDeck5: cantripDeck5, ...nonCantripOptions } = itemTypeOptions;
-        const minimumLevel = this.spell.baseLevel;
-        const levels = Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
+        const minimumRank = this.spell.baseRank;
+        const ranks = Array.from(Array(11 - minimumRank).keys()).map((index) => minimumRank + index);
         return {
             ...(await super.getData()),
-            validLevels: levels,
+            validLevels: ranks,
             itemTypeOptions: this.spell.isCantrip ? { cantripDeck5: cantripDeck5 } : nonCantripOptions,
             itemType: this.formDataCache.itemType,
             level: this.formDataCache.level,
         };
     }
 
-    override async _updateObject(event: Event, formData: FormOutputData) {
+    override async _updateObject(event: Event, formData: FormOutputData): Promise<void> {
         Object.assign(this.formDataCache, formData);
 
         if (event.type !== "submit") {

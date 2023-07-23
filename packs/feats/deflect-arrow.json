@@ -1,0 +1,61 @@
+{
+    "_id": "sgaqlDFTVC7Ryurt",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Deflect Arrow",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You are the target of a physical ranged attack.</p>\n<p><strong>Requirements</strong> You're aware of the attack, are not flat-footed against it, and have a hand free.</p>\n<hr />\n<p>You gain a +4 circumstance bonus to AC against the triggering attack. If the attack misses, you have deflected it. You cannot use this feat to deflect unusually massive ranged projectiles (such as boulders or ballista bolts).</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "deflect-arrow",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deflect-arrow",
+                    "item:damage:category:physical",
+                    "item:ranged",
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    },
+                    {
+                        "not": "self:condition:flat-footed"
+                    }
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

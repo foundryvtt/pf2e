@@ -1,0 +1,140 @@
+{
+    "_id": "pcSXAn8KbvPDWCWU",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "EpF24dzgEnlvqpNU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Begin to Spin",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Safa commands the fountain to start spinning at the beginning of <strong>Event 1: Safa's Arrival</strong></p>\n<hr />\n<p><strong>Effect</strong> The fountain sprays juice in all directions, making every square adjacent to it difficult terrain. The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R0QLRhYZzkHZOJix",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Centrifugal Slam",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] one of the fountain's tiers. Each tier of the fountain has one reaction per round</p>\n<hr />\n<p><strong>Effect</strong> The heavy, spinning marble has enough sheer force to crush the hands of those trying to stop it. The triggering creature must attempt a @Check[type:fortitude|dc:18|traits:hazard,complex,magical,trap] save before it rolls its check to Grapple the fountain.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and gains a +2 circumstance bonus to its next check to Grapple the fountain.</p>\n<p><strong>Success</strong> The creature takes no damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r (1d10+6)[bludgeoning]]] damage and takes a -2 circumstance penalty to its next check to Grapple the fountain.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (2d10+6)[bludgeoning]]] damage and is flung 10 feet away from the fountain in a random direction, preventing its attempt to Grapple the fountain.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fast-Spinning Juice Fountain",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "hardness": 12,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 42,
+                "temp": 0,
+                "value": 42
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The enchanted fountain spews large quantities of grape juice as its marble tiers spin with increasing speed, flinging juice in all directions.</p>",
+            "disable": "<p>@Check[type:athletics|dc:20|name:Grapple a Tier|traits:hazard,complex,magical,trap,action:grapple] to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a tier and halt its momentum, followed by @Check[type:crafting|dc:18|name:Disable the Pump Mechanism|traits:hazard,complex,magical,trap,action:disable-a-device] or @Check[type:thievery|dc:18|name:Disable the Pump Mechanism|traits:hazard,complex,magical,trap,action:disable-a-device] (while the tier is grabbed) to disable the pump mechanism through the gap that the previous checks left open. Grappling a tier requires 1 action. Each Crafting or Thievery check to disable a tier is a 2-action activity.</p>\n<p>The fountain has three tiers, and fully disabling the fountain requires each tier to be disabled. For each disabled tier, the DC's to Grapple or disable another tier decrease by 2. If the creature critically succeeds at a check to disable a tier, it's immediately disabled, regardless of the number of checks that would otherwise be required due to Challenge Point adjustments.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The fountain accelerates its spinning, spraying juice 10 feet in all directions on its first turn, 15 feet in all directions on its second turn, and 20 feet in all directions on its third turn. Every square where it sprays juice becomes difficult terrain. At the start of its fourth turn, the fountain breaks, disabling the hazard and flinging juice 25 feet in all directions.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-12: Fury's Toll"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,78 @@
+{
+    "_id": "matJDIUDvgaJqyiF",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Hand of the Lich",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Negative energy intensifies your undead form and makes your very touch the antithesis of life. You gain the @UUID[Compendium.pf2e.ancestryfeatures.Item.Advanced Undead Benefits] The damage die for your fist increases to 1d6 instead of 1d4, it deals negative damage instead of bludgeoning damage, and it loses the nonlethal trait. Your fist becomes magical.</p>\n<p>When you critically hit a living creature with your fist Strike, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] save against your spell DC. This is a critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Lich Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "baseType": "fist",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "negative",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "range": null,
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "magical",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:mode:living"
+                ],
+                "selector": "fist-damage",
+                "text": "PF2E.SpecificRule.Lich.HandOfTheLich.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Advanced Undead Benefits"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

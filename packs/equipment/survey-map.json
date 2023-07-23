@@ -1,0 +1,77 @@
+{
+    "_id": "UhcRWtnjU2WLSClx",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/survey-map.webp",
+    "name": "Survey Map",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>Maps are uncommon. Most maps you can find are simple and functional. A survey map details a single location in excellent detail.</p>\n<p>One of these maps gives you a +1 item bonus to Survival checks and any skill checks to Recall Knowledge, provided the checks are related to the location detailed on the map.</p>\n<p>The GM determines what maps are available in any location.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "negateBulk": {
+            "value": ""
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 10
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Survey Map (mapped area)",
+                "predicate": [
+                    "mapped-area"
+                ],
+                "selector": "survival",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Survey Map (Recall knowledge on mapped area)",
+                "predicate": [
+                    "mapped-area",
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

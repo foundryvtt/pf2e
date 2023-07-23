@@ -1,0 +1,116 @@
+{
+    "_id": "qXaXfqQfW3cp8kbI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "wz43EsdDh8PtPAEO",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Weak Monster",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the cloud of magical sensors</p>\n<hr />\n<p><strong>Effect</strong> The trap summons one of the creatures previously encountered in area B with the weak adjustment. The creature rolls initiative and remains for 7 rounds, after which the spell ends and the creature disappears. The summoned creature also disappears if a creature disables the trap before the duration expires. The summoned creature can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "conjuration",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ancient Summoning Rune",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "hardness": 7,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A cloud of invisible magical sensors in a 10-foot radius surrounds the central column of the room.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:15|name:Approach the Rune|traits:magical,trap] to approach without triggering the trap followed by @Check[type:thievery|dc:17|name:Erase the Rune|traits:action:disable-a-device,magical,trap] (trained) to erase the rune, or @Check[type:athletics|dc:19|name:Remove Stones|traits:magical,trap] to remove enough stones from the pillar to disrupt the magic, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st level; counteract DC 15) to counteract the rune.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "<p>The trap resets each day at dawn.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Intro #1: The Second Confirmation"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 2
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

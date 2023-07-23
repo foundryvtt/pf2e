@@ -1,0 +1,93 @@
+{
+    "_id": "4tTkRyOQ0VuRBac3",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Terrain Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your experience in navigating a certain type of terrain makes you supremely confident while doing so. You gain a +1 circumstance bonus to Survival checks in one of the following types of terrain, chosen when you select this feat: aquatic, arctic, desert, forest, mountain, plains, sky, swamp, or underground.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once, choosing a different type of terrain each time.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Survival"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Terrain.Aquatic",
+                        "value": "aquatic"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Arctic",
+                        "value": "arctic"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Desert",
+                        "value": "desert"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Forest",
+                        "value": "forest"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Mountain",
+                        "value": "mountain"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Plains",
+                        "value": "plain"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Sky",
+                        "value": "sky"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Swamp",
+                        "value": "swamp"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Underground",
+                        "value": "underground"
+                    }
+                ],
+                "flag": "terrain",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.TerrainExpertise.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:{item|flags.pf2e.rulesSelections.terrain}"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

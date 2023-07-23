@@ -1,0 +1,359 @@
+{
+    "_id": "2D2sECCnlFT8X8OQ",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "HEzfExyxDp75t4pZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+8",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HQvuiZypU955kqul",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Molten Wax",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>All persistent fire damage caused by a tallow guardian comes from globs of molten hot tallow that cling to its foes. This tallow cools automatically after 4 rounds, or immediately if the creature takes any cold damage; once the tallow cools, the persistent fire damage ends.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder Adventure: Crown of the Kobold King"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tP6C0ChpaLwBIPMQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Melt",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a tallow guardian takes any fire damage, its body melts somewhat and becomes even more difficult to damage. Until the end of its next turn, its resistance to slashing and piercing damage increases to 10, and its resistance to bludgeoning damage increases to 5.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "melt",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "melt"
+                        ],
+                        "type": [
+                            "piercing",
+                            "slashing"
+                        ],
+                        "value": 10
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "melt"
+                        ],
+                        "type": "bludgeoning",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder Adventure: Crown of the Kobold King"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SdUKvvpfqBBKLWCz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slowed by Cold",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a tallow guardian takes any cold damage, it loses the benefits granted by melt and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder Adventure: Crown of the Kobold King"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0bb1r6n5xzUxDSz9",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Encase",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tallow guardian attempts to pull a Medium or smaller creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] into its body. The tallow guardian attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it encases the creature with its body. An encased creature is grabbed, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and must hold its breath or start suffocating. It takes [[/r 2d6[fire]]] damage from the tallow guardian's molten hot wax when it's first encased, and at the end of each of its turns while it's encased.</p>\n<p>A tallow guardian can only have one encased creature at a time; if a tallow guardian encases a new creature, a previously encased creature is forced out of its body into an adjacent square of the creature's choice.</p>\n<p>An encased creature can break free with a successful DC 22 check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. An encased creature can attack the tallow guardian, but only with unarmed attacks or with weapons of light Bulk or less. The tallow guardian is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the attack. If the tallow guardian takes 7 or more bludgeoning or slashing damage from an encased creature, the creature wrenches itself free. A creature that gets free by either method can immediately breathe and exits the tallow guardian's space, but it continues to take [[/r 1d6[persistent,fire]]] damage from the molten wax that clings to its body.</p>\n<p>If a tallow guardian is destroyed, any creature it has encased is automatically released as the guardian's body collapses into a shapeless mound of tallow.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UU2r5kv8DGMRPd5O",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Tallow Guardian",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 145,
+                "temp": 0,
+                "value": 145
+            },
+            "immunities": [],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 13
+            },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A tallow guardian typically appears as a vaguely humanoid-shaped mass of tallow or wax, its surface constantly melting, running down its body, and then hardening only to be reabsorbed into the central mass. The tallow guardian's face seems constantly on the verge of melting into a shapeless blob, yet the unsettling construct can still sense the world around it with ease.</p>",
+            "source": {
+                "value": "Pathfinder Adventure: Crown of the Kobold King"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "rare",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

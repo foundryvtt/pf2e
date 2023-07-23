@@ -1,0 +1,107 @@
+{
+    "_id": "mfvNh0UBzR1vXHRW",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "PkLITinx6YSh892W",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Crawling Hands",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 30 feet of the remains</p>\n<hr />\n<p><strong>Effect</strong> The haunt summons three @UUID[Compendium.pf2e.pathfinder-bestiary-2.Actor.Crawling Hand]{Crawling Hands}, which emerge from the pile of dust to attack nearby creatures. The hands roll initiative and remain for 7 rounds, after which the summoning spell ends and the hands disappear. The hands also disappear if someone disables the trap before the duration expires.</p>\n<p>The summoned hands can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hands of Slow Death",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 8,
+                "temp": 0,
+                "value": 8
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A pile of dust and bone meal, several inches deep and 10 feet across on each side, blocks the tunnel to the surface. It is suffused with the despair of the slowly dying, and summons vengeful skeletal hands to hunt down anyone who dares attempt to leave the area.</p>",
+            "disable": "<p>@Check[type:religion|dc:15|name:Administer Burial Rites|traits:haunt] (trained) to speak the proper burial rites, @Check[type:occultism|dc:15|name:Exorcise Spirits|traits:haunt] (trained) to exorcise the lingering souls, or @Check[type:intimidation|dc:17|name:Scare Away Spirits|traits:haunt] to scare the fearful souls away.</p>\n<p>These actions have the verbal trait. Each check to disable the hazard requires 2 actions, and two total successes are required to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "<p>The haunt deactivates if no creatures remain within 30 feet but resets immediately thereafter unless disabled. If tthe haunt is disabled, it resets after 24 hours.</p>",
+            "routine": "<p>(1 action) Spectral hands grasp at creatures in the area. Each creature within 30 feet of the dust pile takes [[/r 1d4[negative]]] damage (@Check[type:will|dc:17|basic:true|name:Grasping Hands] save; creatures that critically fail this saving throw are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Bounty #12: Somewhere Below"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

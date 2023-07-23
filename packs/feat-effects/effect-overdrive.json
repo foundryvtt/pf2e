@@ -1,0 +1,93 @@
+{
+    "_id": "1XlJ9xLzL19GHoOL",
+    "img": "systems/pf2e/icons/features/feats/overdrive-critical-success.webp",
+    "name": "Effect: Overdrive",
+    "system": {
+        "description": {
+            "value": "<p>Your gizmos go into a state of incredible efficiency called critical overdrive, adding great power to your attacks. Your Strikes deal additional damage equal to your Intelligence modifier for 1 minute. After the Overdrive ends, your gizmos become unusable as they cool down or reset, and you can't use Overdrive for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "flag": "baseDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "overdrive"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.overdriveBaseDamage",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "overdrive:success"
+                ],
+                "value": "floor(@item.origin.system.abilities.int.mod/2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.overdriveBaseDamage",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "overdrive:critical-success"
+                ],
+                "value": "@item.origin.system.abilities.int.mod"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": "@actor.flags.pf2e.overdriveBaseDamage+ternary(gte(@item.origin.level,15), 3, ternary(gte(@item.origin.level,7), 2, ternary(gte(@item.origin.level,3),1,0)))"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:effect:overdrive-success",
+                "predicate": [
+                    "overdrive:success"
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:effect:overdrive-critical-success",
+                "predicate": [
+                    "overdrive:critical-success"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

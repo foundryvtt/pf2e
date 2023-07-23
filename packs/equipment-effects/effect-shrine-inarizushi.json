@@ -1,0 +1,52 @@
+{
+    "_id": "ORdhj3IAvYACNGkJ",
+    "img": "systems/pf2e/icons/equipment/consumables/other-consumables/shrine-inarizushi.webp",
+    "name": "Effect: Shrine Inarizushi",
+    "system": {
+        "description": {
+            "value": "<p>Whenever you are in exploration mode, roll a separate Search activity check with a +1 status bonus; this does not affect your Speed. If the check succeeds, a fox appears to inform you of this discovery as best as it can, although it cannot speak.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "perception-check",
+                "key": "RollOption",
+                "label": "Separate Search check during exploration",
+                "option": "separate-check",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "separate-check"
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Blog"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

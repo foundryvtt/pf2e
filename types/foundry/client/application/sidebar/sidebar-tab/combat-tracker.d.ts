@@ -105,7 +105,7 @@ declare class CombatTracker<
      * @param combatant The combatant data being modified
      * @return A Promise that resolves after all operations are complete
      */
-    protected _onToggleDefeatedStatus(combatant: Combatant): Promise<void>;
+    protected _onToggleDefeatedStatus(combatant: Combatant<TCombat>): Promise<void>;
 
     /**
      * Handle mouse-down event on a combatant name in the tracker

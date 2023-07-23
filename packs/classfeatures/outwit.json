@@ -1,0 +1,70 @@
+{
+    "_id": "NBHyoTrI8q62uDsU",
+    "img": "systems/pf2e/icons/features/classes/outwit.webp",
+    "name": "Outwit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You are talented at outwitting and evading your prey. You gain a +2 circumstance bonus to Deception checks, Intimidation checks, Stealth checks, and any checks to Recall Knowledge about the prey, and a +1 circumstance bonus to AC against your prey's attacks.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Vs. hunted prey",
+                "predicate": [
+                    "hunted-prey"
+                ],
+                "selector": [
+                    "deception",
+                    "intimidation",
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Recall knowledge on hunted prey",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "hunted-prey"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Vs. attacks from hunted prey",
+                "predicate": [
+                    "hunted-prey"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

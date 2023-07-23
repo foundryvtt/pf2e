@@ -1,0 +1,79 @@
+{
+    "_id": "AKrxQ2JuDObM8coY",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Animal Senses",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You gain one of the following senses available to your inherent animal: @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision], @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or scent (imprecise) 30 feet. You must have low-light vision before you can gain darkvision with this feat. If your inherent animal doesn't typically have a specific type of sense, you can't gain that sense with this feat.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times, choosing a different sense each time.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "predicate": [
+                    "beastkin-senses:darkvision"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "beastkin-senses:lowLightVision"
+                ],
+                "selector": "lowLightVision"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "beastkin-senses:scent"
+                ],
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.LowLightVision",
+                        "value": "lowLightVision"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.Scent",
+                        "value": "scent"
+                    }
+                ],
+                "flag": "animalSenses",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Beastkin.AnimalSenses.Prompt",
+                "rollOption": "beastkin-senses"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "beastkin"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,116 @@
+{
+    "_id": "PphyArSCoxkaI6IS",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "yCvj5N1H04hmAYuS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gas Release",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Both secret doors are closed and at least one creature is in the room</p>\n<hr />\n<p><strong>Effect</strong> Gas fills the chamber. Creatures within the chamber must succeed on a @Check[type:fortitude|dc:30] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "inhaled",
+                        "mental",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Befuddling Gas Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 31
+            },
+            "hardness": 20,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>+21 (expert) or @Check[type:perception|dc:31|traits:action:seek] (expert) to notice the hidden override mechanism in the north wall</p>",
+                "value": 21
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Seven nozzles hidden within holes in the 15‑foot-high ceiling release a poison gas.</p>",
+            "disable": "<p>@Check[type:thievery|dc:33|name:Disable Hidden Mechanism|traits:action:disable-a-device] (master) to disable the hidden mechanism on the north wall, immediately sucking the gas from the room, or @Check[type:thievery|dc:29|name:Plug One Nozzle|traits:action:disable-a-device] (expert) to adequately plug one of the seven nozzles. When all seven nozzles are plugged or destroyed, the trap is deactivated.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>After an hour, the trap deactivates; the gas disperses slowly, and the doors can be opened again. After 24 hours, the gas builds up and the trap can be triggered again.</p>",
+            "routine": "<p>(1 action) The gas intensifies. Each creature in the room must make a @Check[type:fortitude|dc:30].</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and becomes temporarily immune to the gas for 1 hour, though if the creature has already been stupefied by the trap, that condition remains for its normal duration.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 24 hours. If the target is already stupefied, the condition value increases by 1 (to a maximum of stupefied 4) and the target takes [[/r 8d6[mental]]] damage.</p>\n<p><strong>Critical Effect</strong> As failure, except the target takes double the mental damage.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #165: Eyes of Empty Death"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

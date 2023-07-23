@@ -1,0 +1,67 @@
+{
+    "_id": "cU2ofQLj7pg6wTSi",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Research Field",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your inquiries into the alchemical nature of the universe have led you to focus on a particular field of research. You might have a degree from a scientific institute, correspond with other researchers in your field, or work as a genius loner. Choose a field of research.</p>\n<p>Your research field adds a number of formulas to your formula book; these are your signature items. When using a batch of infused reagents to create your signature items using advanced alchemy, you create three items instead of two. Each time you gain a level, you can swap one of your signature items with another formula in your formula book. This new signature item must be on your research field's list of possible signature items.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 Alchemist class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:alchemist",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Bomber"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Chirurgeon"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Mutagenist"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Toxicologist"
+                    }
+                ],
+                "flag": "researchField",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Alchemist.ResearchField.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.researchField}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,118 @@
+{
+    "_id": "BEqXsP6UqARzpEFD",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Megaton Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You activate gears, explosives, and other hidden mechanisms in your innovation to make a powerful attack. You make a Strike, dealing an extra die of weapon damage. If you're at least 10th level, increase this to two extra dice, and if you're at least 18th level, increase it to three extra dice. The type of Strike you can make depends on your innovation.</p>\n<ul>\n<li><strong>Armor</strong> You Strike with a melee unarmed attack or a melee weapon. To use a melee weapon for this, you must have prepared it in advance with special contraptions when you make your daily preparations.</li>\n<li><strong>Construct</strong> Your minion innovation Strikes.</li>\n<li><strong>Weapon</strong> You Strike with your weapon innovation.</li>\n</ul>\n<p><strong>Unstable Function</strong> You put even more force into the Strike, though you risk stress fractures to your innovation. Add the unstable trait to Megaton Strike. The Strike deals another extra damage die, for a total of two extra dice at 4th level, three at 10th level, and four at 18th level.</p>\n<p>@Check[type:flat|dc:17|name:Unstable Flat Check]{Unstable Check}</p>\n<p><strong>Special</strong> If your innovation is a minion, it can take this action rather than you.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "armor, construct, or weapon innovation"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "predicate": [
+                    "megaton",
+                    {
+                        "not": "unstable-megaton"
+                    }
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "start": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "DamageDice",
+                "label": "Unstable Megaton Strike",
+                "predicate": [
+                    "unstable-megaton"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "start": 4,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "megaton",
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Unstable Megaton Strike",
+                "option": "unstable-megaton",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "94PGauGdzrVARMLc",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Grit and Tenacity",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You fail a Fortitude or Will save.</p>\n<hr />\n<p>You call upon deep reserves of toughness and mental fortitude to power through an otherwise debilitating effect. Reroll the triggering save with a +2 circumstance bonus; you must use the second result.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "grit-and-tenacity",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "grit-and-tenacity"
+                ],
+                "selector": [
+                    "fortitude",
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune",
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

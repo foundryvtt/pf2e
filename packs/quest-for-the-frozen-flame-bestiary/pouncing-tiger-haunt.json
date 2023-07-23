@@ -1,0 +1,114 @@
+{
+    "_id": "pYjPHCoDHqFL994f",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nYZ0bBUL99y0pOOt",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tiger Slash",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 5 feet of the cave painting</p>\n<hr />\n<p><strong>Effect</strong> The haunt deals [[/r 4d8[slashing]]] damage with semisolid claws (@Check[type:will|dc:18|basic:true]). On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and fleeing for 1 minute on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pouncing Tiger Haunt",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "hardness": 8,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 11
+            },
+            "weaknesses": [
+                {
+                    "type": "acid",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A cave painting of a great cat roars to life and leaps off the wall to attack.</p>",
+            "disable": "<p>@Check[type:nature|dc:18|name:Quell the Spirit|traits:hazard,haunt] (trained) or @Check[type:religion|dc:18|name:Quell the Spirit|traits:hazard,haunt] (trained) to quell the spirit</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>If the cave painting isn't destroyed, the haunt resets after 1 day.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #175: Broken Tusk Moon"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,101 @@
+{
+    "_id": "hFHdGOMRuhXIuAJo",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6xM67gan9MlmS1dN",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tilt and Roll",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature or object of at least 3 bulk moves onto the floor; the trap can use this reaction multiple times in a round, but only once per triggering creature or object</p>\n<p><strong>Effect</strong> The floor pitches and rolls. The triggering creature must attempt a @Check[type:reflex|dc:33] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The character can move across the room normally this turn, without having to attempt Acrobatics checks, but treats the unstable floor as difficult terrain.</p>\n<p><strong>Success</strong> The character treats the ground in this room as difficult terrain, but each time they move they must succeed at a @Check[type:acrobatics|dc:30] check or they fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] at the start of their turn. A character who falls prone must succeed at a @Check[type:reflex|dc:33] save or fall into one of the two spiked pits to the north or south of the room (see Failure).</p>\n<p><strong>Failure</strong> As success but the character automatically falls prone and must succeed at a @Check[type:reflex|dc:33] save to avoid being pitched into one of the two spiked pits to the north or south of the room. A character who is pitched into a pit can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] to avoid falling. The DC to Grab an Edge or @UUID[Compendium.pf2e.actionspf2e.Item.Climb] a pit's walls is 33. A character who falls into one of the pits plunges 50 feet onto a bed of spikes, taking [[/r {25[bludgeoning],2d6[piercing]}]]{25 points of bludgeoning damage and 2d6 piercing damage} (@Check[type:reflex|dc:33|basic:true]).</p>\n<p><strong>Critical Failure</strong> As failure, but the character automatically rolls into one of the two pits.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Test of Agility",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 27
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The floor of this circular room pivots and shifts awkwardly when weight is placed upon its surface, pitching those who attempt to walk on it off their feet and potentially into one of two deep spiked pits.</p>",
+            "disable": "<p>@Check[type:thievery|dc:37] (expert) to wedge scraps of material into the edges of the room to hamper the floor's tilt (requires 4 successes).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "reset": "<p>This trap resets instantly.</p>",
+            "routine": "<p>(1 action) On its initiative each turn, the floor tilts randomly, forcing all characters standing on the floor of the room to attempt a @Check[type:reflex|dc:33] save to avoid being pitched into one of the two pits.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

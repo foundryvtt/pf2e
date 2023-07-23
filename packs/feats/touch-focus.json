@@ -1,0 +1,56 @@
+{
+    "_id": "w1GFspPIQ9f5MbFL",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Touch Focus",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You begin to Cast a Spell that requires a spell attack roll.</p>\n<hr />\n<p>You can redirect a spell's power through you to deliver it within striking distance. If your next action is to Cast a Spell with 1 or more targets and a range farther than touch, you change the range to touch. You gain a +2 circumstance bonus to the attack. This only allows you to touch a single target with the spell, even if the spell originally affected more than 1 target. As long as your spell attack is successful, the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] in addition to the spell's normal effects.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sixth Pillar Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "touch-focus"
+                ],
+                "selector": "spell-attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "touch-focus",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Fists of the Ruby Phoenix Hardcover Compilation"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "manipulate",
+                "metamagic"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "WWCZef1PBliiot9Q",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Enlarged Chassis",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've empowered your core to support a larger body, granting you size and additional reach. You gain the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em> constantly.</p>\n<p><strong>Enhancement</strong> Your core's empowerment has stabilized, allowing for greater support. You are no longer @UUID[Compendium.pf2e.conditionitems.Item.Clumsy] due to the effects of enlarge.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Medium or Small size"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.EnlargedChassis",
+                    "value": "enlarged-chassis"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

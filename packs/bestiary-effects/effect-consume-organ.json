@@ -1,0 +1,49 @@
+{
+    "_id": "Qa0HP5uCuqh4vxBh",
+    "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+    "name": "Effect: Consume Organ",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains 15 temporary Hit Points and a +1 status bonus to attack and damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 15
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

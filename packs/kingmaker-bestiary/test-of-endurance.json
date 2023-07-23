@@ -1,0 +1,106 @@
+{
+    "_id": "FkSxn7QSbVqA3dMy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "zWVvmrN2Kq0dZWsu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Freezing Wind",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature critically fails at an attempt to Rotate the Wheel or releases their grip on the wheel once they've started to rotate it</p>\n<p><strong>Effect</strong> A vortex of freezing wind howls through the room-all creatures in the room must attempt a @Check[type:fortitude|dc:33] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6[cold]]] damage for each revolution the wheel has been rotated (max 7d6).</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6[cold]]] damage for each revolution the wheel has been rotated (max 14d6) and becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 3d6[cold]]] damage for each revolution the wheel has been rotated (max 21d6), becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and becomes fatigued.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Test of Endurance",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": false,
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The room fills with swirling vortexes of freezing wind that swiftly freeze flesh and chill the bones.</p>",
+            "disable": "<p>@Check[type:thievery|dc:33] (master) to adjust the wheel's mechanisms so that it won't trigger the Test of Endurance, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th level, counteract DC 31) to counteract the trap's magic.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 13
+            },
+            "reset": "<p>The trap resets automatically.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cold",
+                "evocation",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,15 +1,13 @@
 import { ActorPF2e } from "@actor";
-import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
-import { SAVE_TYPES } from "@actor/values";
+import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
-import { LocalizePF2e } from "@system/localize";
+import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import { ChatMessagePF2e } from "..";
-import { UUIDUtils } from "@util/uuid-utils";
+import { ChatMessagePF2e } from "../index.ts";
 
 export const ChatCards = {
     listen: ($html: JQuery): void => {
@@ -39,7 +37,8 @@ export const ChatCards = {
                 const mapIncreases = context && "mapIncreases" in context ? context.mapIncreases : null;
                 const altUsage = context && "altUsage" in context ? context.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
-                const rollArgs = { event, altUsage, mapIncreases, options };
+                const target = message.target?.token?.object ?? null;
+                const rollArgs = { event, altUsage, mapIncreases, options, target };
 
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":
@@ -108,15 +107,16 @@ export const ChatCards = {
                         const consumable = actor.items.get($button.attr("data-item") ?? "");
                         if (consumable?.isOfType("consumable")) {
                             const oldQuant = consumable.quantity;
-                            const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
+                            const consumableString = game.i18n.localize("TYPES.Item.consumable");
+                            const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
                             let flavor = message.flavor.replace(
                                 toReplace,
-                                `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
+                                `${consumable.name} - ${consumableString} (${currentQuant})`
                             );
                             if (currentQuant === 0) {
-                                const buttonStr = `>${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                                const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
                                 flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
                             }
                             await message.update({ flavor });
@@ -131,7 +131,7 @@ export const ChatCards = {
                     await onRepairChatCardEvent(event, message, $card);
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await UUIDUtils.fromUuid(itemUuid);
+                    const item = await fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
@@ -177,7 +177,7 @@ export const ChatCards = {
                     });
                 } else if (action === "lose-materials") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await UUIDUtils.fromUuid(itemUuid);
+                    const item = await fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
@@ -197,7 +197,7 @@ export const ChatCards = {
                     }
                 } else if (action === "receieve-crafting-item") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await UUIDUtils.fromUuid(itemUuid);
+                    const item = await fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
 
@@ -221,7 +221,7 @@ export const ChatCards = {
     }: {
         event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>;
         actor: ActorPF2e;
-        item: Embedded<ItemPF2e>;
+        item: ItemPF2e<ActorPF2e>;
     }): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
             const saveType = event.currentTarget.dataset.save;
@@ -230,27 +230,15 @@ export const ChatCards = {
             }
 
             const dc = Number(event.currentTarget.dataset.dc ?? "NaN");
-            const itemTraits = item.system.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const save = t.actor?.saves?.[saveType];
                 if (!save) return;
-
-                const rollOptions: string[] = [];
-                if (item.isOfType("spell")) {
-                    rollOptions.push("magical", "spell");
-                    if (Object.keys(item.system.damage.value).length > 0) {
-                        rollOptions.push("damaging-effect");
-                    }
-                }
-
-                rollOptions.push(...itemTraits);
 
                 save.check.roll({
                     ...eventToRollParams(event),
                     dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
                     item,
                     origin: actor,
-                    extraRollOptions: rollOptions,
                 });
             }
         } else {

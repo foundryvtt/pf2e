@@ -1,0 +1,114 @@
+{
+    "_id": "4Abc5gg8ac5ixGx1",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Stv3Oe7QU577Gke1",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wheel Spin",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature pulls the lever or enters the sensor's detection area</p>\n<hr />\n<p><strong>Effect</strong> The wheel begins to spin and rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hallowed Wheel",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "hardness": 16,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to detect the magical sensor; noticing the wheel has a DC of 0</p>",
+                "value": 19
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An ornate wheel, divided into eight segments with a rune painted on each, is mounted on a pole and controlled by a lever that can be triggered manually or a sensor that detects creatures within 30 feet in front of it.</p>",
+            "disable": "<p>@Check[type:thievery|dc:31|name:Flip the switch|traits:hazard,complex,magical,mechanical,trap] (master) on the wheel to flip the switch returning it to a harmless carnival game, @Check[type:thievery|dc:26|name:Erase each rune|traits:hazard,complex,magical,mechanical,trap] (expert) to erase each rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (5th level; counteract DC 28) to counteract each rune.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "reset": "<p>The trap deactivates and resets if 1 minute passes without any creature moving within range of its sensor.</p>",
+            "routine": "<p>(2 actions) On its initiative, the trap uses its first action to spin, then stops. Roll [[/r 1d8]]{1d8} to determine which segment is topmost when the wheel stops spinning. The wheel uses its second action to replicate the spell listed for that segment (5th level, DC 27, spell attack roll +17). This spell's target is centered on or otherwise includes the nearest creature in the spell's area. This increases the spell's range to 30 feet if necessary. Any spell cast by this trap is occult.</p>\n<p><em>1 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Black Tentacles]</em></em> @Template[type:burst|distance:20|name:Black Tentacles|traits:hazard,complex,magical,mechanical,trap,conjuration,occult]{20-foot burst} [[/r 1d20+17]]{Spell Attack vs. Target's Fortitude DC}</p>\n<p><em>2 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Blindness]</em></em> @Check[type:fortitude|dc:27|name:Blindness|traits:hazard,complex,magical,mechanical,trap,incapacitation,necromancy,occult]</p>\n<p><em>3 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Confusion]</em></em> @Check[type:will|dc:27|name:Confusion|traits:hazard,complex,magical,mechanical,trap,emotion,enchantment,mental,occult]</p>\n<p><em>4 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em></em> Range 30 feet</p>\n<p><em>5 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse]</em></em> @Check[type:will|dc:27|name:Outcast's Curse|traits:hazard,complex,magical,mechanical,trap,curse,enchantment,mental,misfortune,occult] Range 30 feet</p>\n<p><em>6 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Shadow Blast]</em></em> @Template[type:line|distance:30|traits:hazard,complex,magical,mechanical,trap,evocation,occult,shadow|width:5]{30-foot line} @Check[type:reflex|dc:27|basic:true|name:Shadow Blast|traits:hazard,complex,magical,mechanical,trap,evocation,occult,shadow] or @Check[type:will|dc:27|basic:true|name:Shadow Blast|traits:hazard,complex,magical,mechanical,trap,evocation,occult,shadow] [[/r 5d8[force]]] damage</p>\n<p><em>7 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Sound Burst]</em></em> @Template[type:burst|distance:10|traits:hazard,complex,magical,mechanical,trap,evocation,occult,sonic]{10-foot burst} @Check[type:fortitude|dc:27|name:Sound Burst|traits:hazard,complex,magical,mechanical,trap,evocation,occult,sonic] [[/r 2d10[sonic]]] damage</p>\n<p><em>8 - <em>@UUID[Compendium.pf2e.spells-srd.Item.Spider Climb]</em></em> Range 30 feet</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #152: Legacy of the Lost God"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

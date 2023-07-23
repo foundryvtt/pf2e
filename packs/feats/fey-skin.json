@@ -1,0 +1,45 @@
+{
+    "_id": "hSHteYr1g1gKHcwM",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fey Skin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>While you are more susceptible to cold iron than most of the Wingless, you also have an incredible resilience and a deeper connection to the healing energies of the First World. Increase your maximum Hit Points by an amount equal to your level.</p>\n<p>If you rest for 10 minutes, brilliant light from the First World seeps into your form from your wings (or the spot where your wings would be), causing you to regain a number of [[/r @actor.level]]{Hit Points equal to your level}; this is cumulative with any Hit Points you regain from Treat Wounds.</p>\n<p>However, you gain weakness 5 to cold iron.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Weakness",
+                "type": "cold-iron",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sprite"
+            ]
+        }
+    },
+    "type": "feat"
+}

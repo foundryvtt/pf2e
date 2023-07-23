@@ -1,5 +1,5 @@
-import { BaseWeaponType } from "@item";
-import { MenuTemplateData, SettingsTemplateData } from "../menu";
+import { BaseWeaponType } from "@item/weapon/types.ts";
+import { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
 
 const HOMEBREW_TRAIT_KEYS = [
     "creatureTraits",
@@ -20,6 +20,7 @@ const SECONDARY_TRAIT_RECORDS = {
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],
     weaponTraits: ["npcAttackTraits"],
+    magicSchools: ["spellTraits"],
 } as const;
 
 type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];

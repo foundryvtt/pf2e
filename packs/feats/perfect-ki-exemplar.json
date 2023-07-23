@@ -1,0 +1,51 @@
+{
+    "_id": "ST6AhCbEDSMxXf20",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Perfect Ki Exemplar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain an appropriate ki spell for your School of Perfection: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unblinking Flame Emblem] </em>for Unblinking Flame, <em>@UUID[Compendium.pf2e.spells-srd.Item.Unbreaking Wave Barrier]</em> for Unbreaking Waves, <em>@UUID[Compendium.pf2e.spells-srd.Item.Unfolding Wind Blitz]</em> for Unfolding Wind, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Untwisting Iron Augmentation]</em> for Untwisting Iron. Increase the number of Focus Points in your focus pool by 1. You become an expert in occult spell DCs and occult spell attack rolls.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Student of Perfection Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.occult.rank",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,65 @@
+{
+    "_id": "lt2t24E4hiByHhi3",
+    "img": "systems/pf2e/icons/equipment/consumables/other-consumables/ablative-shield-plating.webp",
+    "name": "Effect: Lost Plates",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a status penalty to AC equal to the number of lost plates.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "1",
+                        "value": -1
+                    },
+                    {
+                        "label": "2",
+                        "value": -2
+                    },
+                    {
+                        "label": "3",
+                        "value": -3
+                    },
+                    {
+                        "label": "4",
+                        "value": -4
+                    }
+                ],
+                "flag": "plates",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.ClockworkLostPlates"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.plates}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

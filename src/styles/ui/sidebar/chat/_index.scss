@@ -1,24 +1,7 @@
-#chat-log {
-    display: flex;
-    flex-direction: column;
-
-    > .message {
-        &:first-child {
-            margin-top: auto;
-        }
-    }
-}
-
 @import "chat-roll-details";
 
 .chat-message {
-    @import "../../../reset";
     @import "action", "check", "damage", "reroll";
-
-    > .message-header {
-        align-items: center;
-        margin-bottom: 0.33em;
-    }
 
     > .message-content {
         @import "conditions";

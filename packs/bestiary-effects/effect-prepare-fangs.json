@@ -1,0 +1,46 @@
+{
+    "_id": "HF2kOaqrjCkaZnK9",
+    "img": "systems/pf2e/icons/spells/death-knell.webp",
+    "name": "Effect: Prepare Fangs",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Daggers deals additional poison damage equal to the counter value.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "damageType": "poison",
+                "key": "FlatModifier",
+                "selector": "dagger-damage",
+                "value": "@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Society Special #3-98: Expedition Into Pallid Peril"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

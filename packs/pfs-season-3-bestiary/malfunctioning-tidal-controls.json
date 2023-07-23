@@ -1,0 +1,100 @@
+{
+    "_id": "w295JTcaHaTQuplt",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "h6iAPWi1k6xRVwu8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tidal Surge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the altar that contains the tidal control orb</p>\n<hr />\n<p><strong>Effect</strong> The hazard rolls initiative as water rushes down the hallway. Area B4 becomes flooded with 15 feet of water.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Malfunctioning Tidal Controls",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 42,
+                "temp": 0,
+                "value": 42
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Sigils carved into the turquoise sphere atop the altar illuminate. Moments later, a rush of water flows into the hallway.</p>",
+            "disable": "<p>@Check[type:nature|dc:20] (trained) to neutralize the tidal magic, or @Check[type:survival|dc:23] to predict the changing tides, or @Check[type:thievery|dc:23] (trained) to scratch away the sigils; two total successes are required to disable the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The magic controlling the tides malfunctions, causing the tides to change every few seconds. Water flows rapidly between areas B2 and B4. Each creature in area B2, area B4, or the hallway connecting them must attempt a @Check[type:fortitude|dc:20|traits:damaging-effect] save as the shifting tides buffet them, dealing [[/r 2d8[bludgeoning]]] damage.</p>\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is moved 10 feet along with the water.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is moved 20 feet along with the water.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Special #3-98: Expedition Into Pallid Peril"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

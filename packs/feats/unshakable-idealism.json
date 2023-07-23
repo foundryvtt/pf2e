@@ -1,0 +1,57 @@
+{
+    "_id": "VqzXfdbQQ2e8Hndr",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Unshakable Idealism",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your faith and hope can't be shaken, and you won't flee when lives are at stake. You gain a +1 circumstance bonus on saves against fear effects and emotion effects that inflict despair. When you would gain the fleeing condition, you can choose to stand your ground and be stunned for the effect's duration as well, preventing you from running and allowing you to re-enter the fight more quickly when the effect ends.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Knight Vigilant"
+                },
+                {
+                    "value": "expert in Will saves"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "vs. fear or despair (Unshakable Idealism)",
+                "predicate": [
+                    {
+                        "or": [
+                            "fear",
+                            "emotion-despair"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

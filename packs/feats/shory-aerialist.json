@@ -1,0 +1,57 @@
+{
+    "_id": "plhQDES7yb6xDAXL",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shory Aerialist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Unique in Golarion's history, the Shory people developed fighting styles dedicated to combat in the air. You gain a +2 circumstance bonus to Acrobatics checks to Maneuver in Flight and a +5-foot status bonus to your fly Speed whenever you are flying via magic.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Garundi, Mauxi, or Tian-Yae ethnicity"
+                },
+                {
+                    "value": "Shory Aeromancer or ability to cast fly"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:maneuver-in-flight"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "fly-speed",
+                "type": "status",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

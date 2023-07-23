@@ -1,0 +1,47 @@
+{
+    "_id": "VYilg64xX9XpHeJr",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Far Throw",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you Strike with a thrown weapon, you take only a -1 penalty for each additional range increment between you and the target, rather than a -2 penalty.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:thrown"
+                ],
+                "selectors": [
+                    "ranged-attack-roll"
+                ],
+                "slug": "range-penalty",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

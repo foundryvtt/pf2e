@@ -1,0 +1,81 @@
+{
+    "_id": "2jeonnY3GZTdEMsm",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Harrow-Led",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You were the subject of a harrow reading at a pivotal point in your life, such as on an important birthday, or upon reaching adulthood. The reading was eerily accurate and has been relevant, for good or ill, at more points in your life than you could call mere coincidence.</p>\n<p>Randomly determine two harrow suits tied to your character, each reflecting a specific ability score. You can do so by drawing cards from a harrow deck or by rolling a [[/r 1d6]]{d6}:</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>d6</th>\n<th>Result</th>\n<th>Ability</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Hammers</td>\n<td>Strength</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Keys</td>\n<td>Dexterity</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Shields</td>\n<td>Constitution</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Books</td>\n<td>Intelligence</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Stars</td>\n<td>Wisdom</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Crowns</td>\n<td>Charisma</td>\n</tr>\n</tbody>\n</table>\n<p>The first suit is your aligned score, and the second suit is your misaligned score.</p>\n<p>Choose two ability boosts. One must be to your <strong>aligned or misaligned</strong> score, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Occultism, Performance, or Society skill and the Harrow Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Dubious Knowledge] skill feat.</p>"
+        },
+        "items": {
+            "38k5r": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Dubious Knowledge",
+                "uuid": "Compendium.pf2e.feats-srd.Item.1Bt7uCW2WI4sM84P"
+            }
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #160: Assault on Hunting Lodge Seven"
+        },
+        "trainedLore": "Harrow Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

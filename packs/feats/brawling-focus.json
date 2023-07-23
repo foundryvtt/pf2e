@@ -1,0 +1,60 @@
+{
+    "_id": "VeVHWTrzE3aDm3rx",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Brawling Focus",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know how to make the most of your attacks when fighting hand-to-hand. You gain access to the critical specialization effects of unarmed strikes in the brawling group and weapons in the brawling group. If you have Monastic Weaponry, you also gain the critical specialization effects of all monk weapons in which you are trained.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:group:brawling",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk",
+                                    {
+                                        "not": "item:category:unarmed"
+                                    },
+                                    {
+                                        "gte": [
+                                            "item:proficiency:rank",
+                                            1
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

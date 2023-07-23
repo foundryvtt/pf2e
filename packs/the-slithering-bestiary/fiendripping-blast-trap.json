@@ -1,0 +1,109 @@
+{
+    "_id": "nVa7a7fBFa3gEEN9",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "qnGVlOvfyHP5LeK0",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Forceful Blast",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The door is touched without first pressing the correct sequence of buttons</p>\n<hr />\n<p><strong>Effect</strong> A blast of energy ripples outward from the door, dealing [[/r 4d10[force]]] damage to all creatures within @Template[type:emanation|distance:20]{20 feet} and forcing them to make a @Check[type:fortitude|dc:25] save.</p>\n<p>Fiends treat the result of their saving throw as one degree worse.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}; while it is sickened, it's also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fiendripping Blast Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A blast of energy damages all creatures within 20 feet, with particularly severe damage to fiends.</p>",
+            "disable": "<p>@Check[type:thievery|dc:27|name:Identify Button Sequence|traits:action:disable-a-device] (expert) to identify the proper sequence of buttons in the divots, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 25) to suppress the magical effect for 1 hour</p>",
+            "isComplex": false,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The trap resets after 1 hour.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Slithering"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

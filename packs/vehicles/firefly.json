@@ -1,0 +1,201 @@
+{
+    "_id": "2dLy1sfqVbNS2inJ",
+    "img": "systems/pf2e/icons/default-icons/vehicle.svg",
+    "items": [
+        {
+            "_id": "XLttadhtgYoOq6f1",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Flash",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The pilot overcharges the vehicle, causing it to create a brilliant flash of light. All creatures in the bright light from its glow aura must succeed at a @Check[type:fortitude|dc:19|name:Avoid flash] or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute. The firefly's light dims for 10 minutes, reducing its glow to 10 feet of dim light, during which time it can't use flash. Flash stops working if the firefly is broken.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ChjOaa11CkBJeVJ8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Glow",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Powered by magical lightning, this vehicle sheds bright light within 20 feet, and dim light for a further 20 feet.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "evocation",
+                        "light",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fG2IE4D8GEe8e98D",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hover",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>This vehicle is held aloft by rapidly spinning propellers that enable it to hover 1 foot in the air. It is incapable of flying any higher, and when the pilot stops the magic or the vehicle breaks, it descends 1 foot to the ground.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Firefly",
+    "system": {
+        "attributes": {
+            "ac": {
+                "check": 0,
+                "details": "",
+                "value": 16
+            },
+            "collisionDC": {
+                "value": 20
+            },
+            "collisionDamage": {
+                "value": "3d8"
+            },
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "AC": 0,
+            "crew": "1 pilot",
+            "description": "<p>A firefly blends magic and technology, using electricity magic and magnetism to hover just above the ground. While a firefly is more box-like than insect-shaped, it gets its name from the constant glow of the light and electricity magic that power it, as well as from the stabilizing magnets that protrude from its sides in roughly the same position as wings would be.</p>",
+            "level": {
+                "value": 5
+            },
+            "passengers": "3",
+            "pilotingCheck": "Piloting Lore (DC 20), Arcana (DC 22), or Crafting (DC 22)",
+            "price": 450,
+            "space": {
+                "high": 10,
+                "long": 10,
+                "wide": 10
+            },
+            "speed": "hover 20 feet (electrical, magical)"
+        },
+        "saves": {
+            "fortitude": {
+                "item": 0,
+                "rank": 0,
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": []
+        }
+    },
+    "type": "vehicle"
+}

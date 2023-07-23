@@ -1,0 +1,53 @@
+{
+    "_id": "v0EjtiwdeMj8ykI0",
+    "img": "systems/pf2e/icons/features/classes/wild.webp",
+    "name": "Wild Order",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The savage, uncontrollable call of the natural world infuses you, granting you the ability to change your shape and take on the ferocious form of a wild creature.</p>\n<p>You are trained in Intimidation. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Wild Shape] druid feat. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Wild Morph]</em> order spell. Becoming fully domesticated by the temptations of civilization is anathema to your order. (This doesn't prevent you from buying and using processed goods or staying in a city for an adventure, but you can never come to rely on these conveniences or truly call such a place your permanent home.)</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "predicate": [
+                    {
+                        "not": "feat:order-explorer:wild-order"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:druid"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Wild Shape"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

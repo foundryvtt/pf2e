@@ -1,0 +1,44 @@
+{
+    "_id": "CWC2fPmlgixoIKy5",
+    "img": "systems/pf2e/icons/spells/clawsong.webp",
+    "name": "Spell Effect: Clawsong (Damage Increase D6)",
+    "system": {
+        "description": {
+            "value": "<p>The target's claw attack deals 1d6 slashing damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "damageType": "slashing",
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
+                },
+                "selector": "claw-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #171: Hurricane's Howl"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "sv4LeEbkOJyLen10",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Debilitating Bomb",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You use @UUID[Compendium.pf2e.classfeatures.Item.Quick Alchemy] to craft an alchemical bomb that is at least 2 levels lower than your advanced alchemy level.</p>\n<hr />\n<p>Your bombs impose additional effects on your enemies. You mix a substance into the bomb that causes one of the following: @UUID[Compendium.pf2e.conditionitems.Item.Dazzled], @UUID[Compendium.pf2e.conditionitems.Item.Deafened], @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed], or a -5-foot status penalty to Speeds.</p>\n<p>If the attack with that bomb hits, the target must succeed at a Fortitude saving throw or suffer that effect until the start of your next turn. Use your class DC for this saving throw (even if someone else throws the bomb).</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "debilitating-bomb",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "alchemical",
+                    "bomb",
+                    "debilitating-bomb"
+                ],
+                "selector": "attack-roll",
+                "text": "If your bomb hits, the target must succed at a Fortitude save against your Class DC, or suffer one of the following @UUID[Compendium.pf2e.feats-srd.Item.Debilitating Bomb]{effects}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "additive2",
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

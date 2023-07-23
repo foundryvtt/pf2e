@@ -1,0 +1,194 @@
+{
+    "_id": "0fe7PVMIq92fkUJK",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ead7pwbvr3oideQg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Pollen Burst",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The wagon door is opened or the pods are disturbed</p>\n<hr />\n<p><strong>Effect</strong> A pod makes a pollen spray Strike against an adjacent creature or the creature that opened the door, the door falls off the wagon, and the trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uy0V4RLpmPZUTFQ9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pollen Spray",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "hallucinogenic-pollen"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "r5qp9dx4h1gmq2ewymla8k": {
+                        "damage": "1d8",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "oxKLVBMpW1qrYgZH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hallucinogenic Pollen",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A creature hit by the trap's pollen spray must succeed at a @Check[type:will|dc:20] save or it is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round and takes a -2 status penalty to Perception checks and saves against mental effects for [[/br 1d4 #hours]] hours. On a critical failure, the penalty is instead -4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hallucinogenic Pollen (Failure)]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hallucinogenic Pollen (Critical Failure)]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "hallucinogenic-pollen",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Dream Pollen Pod",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "hardness": 1,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four magical plants inside the wagon release hallucinogenic pollen when disturbed.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18|name:Remove Pollen Pod] (trained) to carefully remove a pollen pod or @Check[type:nature|dc:18|name:Prevent Pod Burst] (trained) to prevent a pod from bursting.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The trap resets after 1 hour, when the pods have regrown additional pollen. If all the pods are removed or disabled, the trap doesn't reset.</p>",
+            "routine": "<p>(4 actions) The trap loses 1 action each turn for each removed or disabled pollen pod. The trap doesn't take a multiple attack penalty.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #151: The Show Must Go On"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 3
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,74 @@
+{
+    "_id": "ApMC9PSOnj7cPAGL",
+    "img": "systems/pf2e/icons/equipment/weapons/bomb-launcher.webp",
+    "name": "Bomb Launcher",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>This long, hollow tube is held in two hands and braced over the shoulder. Inside, it contains a small metal basket sized to hold alchemical bombs. A chute in the top delivers an alchemical bomb into the internal basket, while a lever on the underside pulls the basket back and locks it in place. Loading an alchemical bomb into a bomb launcher requires a single Interact action. With a pull of a trigger, the basket speeds forward, allowing you to Strike with the loaded alchemical bomb over long distances. Bombs fired with a bomb launcher have a range increment of 60 feet.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 20
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "definition": [
+                    "item:base:alchemical-bomb"
+                ],
+                "key": "AdjustStrike",
+                "mode": "upgrade",
+                "predicate": [
+                    "bomb-launcher"
+                ],
+                "property": "range-increment",
+                "value": 60
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "bomb-launcher",
+                "toggleable": true
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}

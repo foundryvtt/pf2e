@@ -1,0 +1,66 @@
+{
+    "_id": "QSy3KaLI1AYTR7rP",
+    "img": "systems/pf2e/icons/spells/tempt-fate.webp",
+    "name": "Effect: Wrath of Fate",
+    "system": {
+        "description": {
+            "value": "<p>An affected creature can choose to roll twice when it attempts an attack, saving throw, or skill check and take the lower result. After this the effect ends.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "wrath-of-fate",
+                "toggleable": true
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "wrath-of-fate"
+                ],
+                "selector": "attack-roll"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "wrath-of-fate"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "wrath-of-fate"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 2"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

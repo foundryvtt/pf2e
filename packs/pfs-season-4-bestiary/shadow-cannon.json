@@ -1,0 +1,141 @@
+{
+    "_id": "9zNW4VwBHjhMnEqe",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "AMtiulRhqRUiziHz",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Load the Cannons",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The ship flies within 30 feet of Star</p>\n<p><strong>Effect</strong> The cannon rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ICRVUZzxSiIPifMN",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Cannon Blast",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "eZtApt9vf4mq7wLh": {
+                        "damage": "2d8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>to creatures in a @Template[type:burst|distance:5] (@Check[type:reflex|dc:18|basic:true])</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Shadow Cannon",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "stealth": {
+                "details": "<p>(untrained) or @Check[type:perception|dc:10] to notice the cannon</p>",
+                "value": 5
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A cannon built of cast iron and infused with shadow magic, mounted on the side of Aslynn's flying ship.</p>",
+            "disable": "<p>@Check[type:arcana|dc:20] or @Check[type:thievery|dc:20] on the cannon's body to deactivate</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The cannon fires a blast that contains as many PCs as possible, choosing randomly in the event of a tie.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #4-08: Battle for Star's Fate"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

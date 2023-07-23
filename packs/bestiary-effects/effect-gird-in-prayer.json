@@ -1,0 +1,51 @@
+{
+    "_id": "VLOvyQiZKeXppS2L",
+    "img": "systems/pf2e/icons/spells/miracle.webp",
+    "name": "Effect: Gird in Prayer",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +2 status bonus to saving throws against death, mental, and possession effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "mental",
+                            "possession"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #186: Ghost King's Rage"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

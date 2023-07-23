@@ -1,0 +1,48 @@
+{
+    "_id": "UtRW3hYBTFG8HQLh",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Mental Buffer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your mind deflects some amount of harm from attacks that induce pain or manipulate your mind directly. You gain resistance to mental damage equal to half your level (minimum 1). This resistance increases to equal to your level while your Psyche is Unleashed.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "unleashed-psyche"
+                ],
+                "type": "mental",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "psychic"
+            ]
+        }
+    },
+    "type": "feat"
+}

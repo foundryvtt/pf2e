@@ -1,0 +1,116 @@
+{
+    "_id": "3gVDqDPSz4fB5T9G",
+    "img": "systems/pf2e/icons/features/classes/laughing-shadow.webp",
+    "name": "Laughing Shadow",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Magic is freeing, a means to your ends, and you can use it to go where you want, do as you please, and avoid the consequences. You are a laughing shadow of spell and blade, always one step ahead of your foes, always with a trick up your sleeve.</p>\n<p>While in Arcane Cascade stance, you gain a +5-foot status bonus to your Speeds, or a +10-foot bonus if you're unarmored. If you have a free hand while in the stance and are attacking a @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creature, you increase the extra damage to 3, to 5 if you have weapon specialization, or to 7 if you have greater weapon specialization. You must have your other hand completely free; the extra damage doesn't apply if you have a free-hand weapon or other item in that hand, even if you would normally be able to use the hand for other things.</p>\n<p><strong>Conflux Spell</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Dimensional Assault]</em></p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:armored",
+                    "self:effect:arcane-cascade"
+                ],
+                "selector": "speed",
+                "slug": "laughing-shadow-armored-movement",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:arcane-cascade",
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "selector": "speed",
+                "slug": "laughing-shadow-unarmored-movement",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:weapon-specialization",
+                    "target:condition:flat-footed",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:greater-weapon-specialization",
+                    "target:condition:flat-footed",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 7
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                "option": "target:condition:flat-footed",
+                "toggleable": "totm"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

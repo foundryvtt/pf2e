@@ -1,0 +1,56 @@
+{
+    "_id": "7w8O3g3KM1HCDBSL",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Ambush Awareness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You gain a +2 circumstance bonus to Perception checks attempted as initiative rolls. Additionally, if your initiative roll result is tied with that of an opponent, you go first, regardless of whether you rolled Perception or not.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "perception"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "If your initiative roll result is tied with that of an opponent, you go first.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.initiative.tiebreakPriority",
+                "value": 0
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goloma"
+            ]
+        }
+    },
+    "type": "feat"
+}

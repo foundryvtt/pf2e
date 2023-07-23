@@ -1,8 +1,8 @@
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
-import { PredicateStatement } from "@system/predication";
+import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { PredicateStatement } from "@system/predication.ts";
 import { isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Update features that require agile, finesse or ranged weapons to reflect current melee/ranged classification */
 export class Migration775AgileFinesseRanged extends MigrationBase {
@@ -10,6 +10,15 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
 
     #findDamageDiceRE(source: ItemSourcePF2e): RuleElementSource | null {
         return source.system.rules.find((r) => r.key === "DamageDice") ?? null;
+    }
+
+    #isClassFeature(source: ItemSourcePF2e): source is FeatSource & { system: { featType: "classfeature" } } {
+        return (
+            source.type === "feat" &&
+            "featType" in source.system &&
+            isObject<{ value: string }>(source.system.featType) &&
+            source.system.featType.value === "classfeature"
+        );
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
@@ -59,7 +68,7 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
                         const damageDiceRE = this.#findDamageDiceRE(source);
                         if (damageDiceRE) {
                             const predicate = this.#sneakAttackPredicate;
-                            if (source.system.featType.value === "classfeature") {
+                            if (this.#isClassFeature(source)) {
                                 predicate.all?.unshift("class:rogue");
                             }
                             damageDiceRE.predicate = predicate;

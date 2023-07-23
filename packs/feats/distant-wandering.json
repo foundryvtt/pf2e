@@ -1,0 +1,46 @@
+{
+    "_id": "YFPmD8BHv0XaF55G",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Distant Wandering",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your body falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and your spirit projects out of it. While in spirit form, you can't consciously move your body, and you are @UUID[Compendium.pf2e.conditionitems.Item.Invisible] and inaudible, though a creature still might notice the signs of your presence and passing, just like for an invisible creature affected by <em>@UUID[Compendium.pf2e.spells-srd.Item.Silence]</em>, or a <em>@UUID[Compendium.pf2e.spells-srd.Item.Prying Eye]</em>. You can freely move about, though you can't touch or move anything, cast spells, attack, or otherwise affect anything around you. Despite your ghostly form, you are not incorporeal and can't pass through barriers you couldn't in your body. Most effects can't harm your spirit form, though some spells, like <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast]</em> and <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Song]</em>, explicitly damage a creature's spirit. You can return to your body as a free action. If you are in spirit form at the beginning of your turn, you must attempt another backlash check for your deviation, returning to your body if you fail.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Distant Wandering]</p>\n<hr />\n<p><strong>Awakening</strong> Your spirit moves at the speed of thought. You gain a fly Speed and a +20-foot status bonus to your Speed while in spirit form.</p>\n<p><em>Note: No specific fly speed was given by Paizo for this ability. A fly speed equal to your land speed has been used in the effect.</em></p>\n<hr />\n<p><strong>Awakening</strong> Time seems to pass more slowly while you are projecting your spirit, letting you notice things around you. When you enter spirit form, you can Recall Knowledge or Seek. You are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] while in spirit form and can use the extra action only to Recall Knowledge or @UUID[Compendium.pf2e.actionspf2e.Item.Seek].</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:wraith-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Wraith Deviant Classification"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "deviant",
+                "evocation",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

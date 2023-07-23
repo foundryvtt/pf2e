@@ -1,0 +1,62 @@
+{
+    "_id": "lDjKVZ48zbqQf3CU",
+    "img": "systems/pf2e/icons/spells/breath-of-life.webp",
+    "name": "Catharsis Emotion (Love)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're joined by the bonds of love and nothing can break that, but love can distract you from other things in your life. Your emotional focus is someone you're in love with; they aren't required to love you back.</p>\n<p><strong>Catharsis Trigger</strong> Your emotional focus takes damage from an enemy while within 30 feet of you.</p>\n<p><strong>Catharsis Activation</strong> If either you or your emotional focus is @UUID[Compendium.pf2e.conditionitems.Item.Confused] or @UUID[Compendium.pf2e.conditionitems.Item.Controlled], one of you can attempt a new saving throw against one confusing or controlling effect (if it allowed a save), ending the condition if the new save is a success. If both of you are eligible, your emotional focus gets the new save.</p>\n<p><strong>Emotional Fervor</strong> You gain a +1 status bonus to Will saves. If you cast a spell to benefit your emotional focus, this bonus increases to +3 until the start of your next turn. Spell: <em>@UUID[Compendium.pf2e.spells-srd.Item.Soothe]</em></p>\n<p><strong>Emotional Fallout</strong> You're @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with your emotional focus for 1 minute.</p>\n<p><strong>Focus Spell</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Soothing Words]</em></p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:emotional-fervor"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.CatharticMage.Love.Toggle",
+                "option": "benefit-love-focus",
+                "predicate": [
+                    "self:effect:emotional-fervor"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "benefit-love-focus"
+                ],
+                "selector": "will",
+                "slug": "catharsis-emotion-love",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

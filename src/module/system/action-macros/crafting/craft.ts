@@ -1,27 +1,25 @@
-import { renderCraftingInline } from "@actor/character/crafting/helpers";
+import { renderCraftingInline } from "@actor/character/crafting/helpers.ts";
 import { PhysicalItemPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { calculateDC } from "@module/dc";
-import { CheckDC } from "@system/degree-of-success";
-import { ActionMacroHelpers } from "../helpers";
-import { SkillActionOptions } from "../types";
-import { SelectItemDialog } from "./select-item";
-import { UUIDUtils } from "@util/uuid-utils";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { calculateDC } from "@module/dc.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { ActionMacroHelpers } from "../helpers.ts";
+import { SkillActionOptions } from "../types.ts";
+import { SelectItemDialog } from "./select-item.ts";
 
-export async function craft(options: CraftActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
-
+export async function craft(options: CraftActionOptions): Promise<void> {
     // resolve item
     const item =
-        options.item ??
-        (options.uuid ? await UUIDUtils.fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
+        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
 
     // ensure item is a valid crafting target
     if (!item) {
         console.warn("PF2e System | No item selected to craft: aborting");
         return;
     } else if (!(item instanceof PhysicalItemPF2e)) {
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name }));
+        ui.notifications.warn(
+            game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name ?? "" })
+        );
         return;
     }
 
@@ -40,17 +38,15 @@ export async function craft(options: CraftActionOptions) {
     // whether the player needs to pay crafting costs
     const free = !!options.free;
 
+    const slug = options?.skill ?? "crafting";
+    const rollOptions = ["action:craft"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph,
         title: "PF2E.Actions.Craft.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:craft"],
-        extraOptions: ["action:craft"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["downtime", "manipulate"],
-        checkType,
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [
@@ -79,6 +75,9 @@ export async function craft(options: CraftActionOptions) {
             }
             options.callback?.(result);
         },
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
 

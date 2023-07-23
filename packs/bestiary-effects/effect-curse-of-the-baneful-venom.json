@@ -1,0 +1,45 @@
+{
+    "_id": "Tkf33YglEZcZ6gOT",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/wyvern-poison.webp",
+    "name": "Effect: Curse of the Baneful Venom",
+    "system": {
+        "description": {
+            "value": "<p>The creature immediately attempts its next saving throw against a poison with a -2 status penalty.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "poison"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #170: Spoken on the Song Wind"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

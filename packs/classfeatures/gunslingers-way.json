@@ -1,0 +1,77 @@
+{
+    "_id": "LDqVxLKrwEqSegiu",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Gunslinger's Way",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>All gunslingers have a particular way they follow, a combination of philosophy and combat style that defines both how they fight and the weapons they excel with. At 1st level, your way grants you an initial deed, a unique reload action called a slinger's reload, and proficiency with a particular skill. You also gain advanced and greater deeds at later levels, as well as access to way-specific feats.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Drifter]</strong> You wander across the battlefield, equally at home in and out of the fray.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Pistolero]</strong> You carefully maintain your distance at a duelist's 10 paces with pistol in hand.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Sniper]</strong> You practice a methodical style of shooting, striking from far cover.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Vanguard]</strong> You rely on a brutal combat style that uses heavy weapons and explosive attacks.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Way of the Triggerbrand]</strong> You prefer firearms that work well as weapons in both melee and ranged combat</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 gunslinger class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:gunslinger",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Way of the Drifter"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Way of the Pistolero"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Way of the Sniper"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Way of the Vanguard"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Way of the Triggerbrand"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Gunslinger.Way.Spellshot",
+                        "predicate": [
+                            "class:gunslinger"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Way of the Spellshot"
+                    }
+                ],
+                "flag": "way",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Gunslinger.Way.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.way}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

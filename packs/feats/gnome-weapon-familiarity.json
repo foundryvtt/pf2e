@@ -1,0 +1,70 @@
+{
+    "_id": "3zr5Gt5LgHsMNpSO",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Gnome Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You favor unusual weapons tied to your people, such as blades with curved and peculiar shapes. You are trained with the @UUID[Compendium.pf2e.equipment-srd.Item.Glaive] and @UUID[Compendium.pf2e.equipment-srd.Item.Kukri].</p>\n<p>In addition, you gain access to kukris and all uncommon gnome weapons. For the purpose of determining your proficiency, martial gnome weapons are simple weapons and advanced gnome weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-glaive.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-kukri.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:gnome",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGnomeWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-gnome-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:gnome",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialGnomeWeapons",
+                "sameAs": "simple",
+                "slug": "martial-gnome-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnome"
+            ]
+        }
+    },
+    "type": "feat"
+}

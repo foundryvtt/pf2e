@@ -1,0 +1,75 @@
+{
+    "_id": "DQN7YC7s7T0pL6Aa",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Gadget Specialist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Rather than just using your gadgets for various boosts and tweaks, you also craft a few specific temporary consumable gadgets each day. You gain the formulas for three common or uncommon gadgets. Each day during your daily preparations, you can create two temporary gadgets from your formula book. Gadgets prepared in this way don't cost you any resources to Craft and don't have any sale value. They are temporary items and fall apart the next time you make your daily preparations if you haven't already used them.</p>\n<p>If you're a master in Crafting, you can create three gadgets per day, and you gain three additional common or uncommon gadget formulas. If you're legendary in Crafting, you can create four gadgets per day, and you gain another additional three common or uncommon gadget formulas, for a total of nine.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:gadget"
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "maxItemLevel": "@actor.level",
+                "name": "Gadget Specialist",
+                "selector": "gadgetSpecialist"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.crafting.entries.gadgetSpecialist.maxSlots",
+                "phase": "beforeDerived",
+                "priority": 41,
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": 2
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": 3
+                        },
+                        {
+                            "start": 4,
+                            "value": 4
+                        }
+                    ],
+                    "field": "actor|system.skills.cra.rank"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

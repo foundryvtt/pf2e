@@ -1,0 +1,44 @@
+{
+    "_id": "MrBHGo9nmzcVii3k",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Desiccating Inhalation",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p>You draw in the moisture from nearby creatures, draining them dry to heal your wounds. Creatures in a @Template[type:cone|distance:30] take [[/r 6d8[negative]]] negative damage, with a @Check[type:reflex|dc:resolve(@actor.attributes.classDC.value)|basic:true] save against your class DC. A creature that critically fails this saving throw is also @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. As long as at least one creature was damaged by your Desiccating Inhalation, you regain HP equal to your level.</p>\n<p>At 14th level and every 2 levels thereafter, the damage increases by 1d8. [[/r floor(@actor.level/2)d8[negative]]]{level based damage}</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mummy Dedication"
+                }
+            ]
+        },
+        "rules": [],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "divine",
+                "evocation"
+            ]
+        }
+    },
+    "type": "feat"
+}

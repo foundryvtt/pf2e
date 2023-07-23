@@ -1,0 +1,107 @@
+{
+    "_id": "8YJiyhWSWxMdGJV6",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "inAbFfjyYxWyFk2e",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Prostrate",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves more than 10 feet into the room.</p>\n<hr />\n<p><strong>Effect</strong> A great weight settles on all creatures in area <strong>A4</strong>, and they must attempt a @Check[type:will|dc:25] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the haunt and is temporarily immune to it for 24 hours.</p>\n<p><strong>Success</strong> The creature feels pressed down by the weight-it takes a 10-foot penalty to all its speeds for as long as it remains in the room.</p>\n<p><strong>Failure</strong> The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature is knocked prone and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "incapacitation",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "The Power of Faith",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert) to hear whispered prayers in Dwarven to Torag</p>",
+                "value": 17
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The lingering essence of the dwarven worshippers who established this shrine demand deference to Torag and punish those who don't offer it.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:27] (trained) to calm the lingering essence, @Check[type:religion|dc:23] (expert) to perform the required obeisance, or @Check[type:thievery|dc:30] (expert) to disrupt and redirect the essence harmlessly.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The haunt deactivates as soon as no living creatures are in area <strong>A4</strong>, then resets after 1 hour has passed. It can be permanently destroyed by clearing the fortress of all creatures that don't follow Torag and rededicating it to the god with a <em>@UUID[Compendium.pf2e.spells-srd.Item.Consecrate]</em> ritual.</p>",
+            "routine": "<p>(3 actions; divine, enchantment, mental) Ghostly images of chanting dwarves float through the room, drifting between the creatures in the chamber. As they float, they use their 3 actions to target up to three different creatures in the room, touching their brows and filling that person's head with overwhelming but entirely mental choirs exalting the glory of Torag. The haunt targets @UUID[Compendium.pf2e.conditionitems.Item.Prone] creatures before other creatures, and a single creature cannot be targeted more than once per round. A targeted creature must attempt a @Check[type:will|dc:25|traits:divine,enchantment,mental] save; prone creatures take a -2 penalty on this saving throw.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d10[mental]]] damage from the cacophonous choir in their head.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d10+9)[mental]]] damage from the cacophonous choir in their head.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (3d10+18)[mental]]] damage from the cacophonous choir in their head and is knocked prone.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

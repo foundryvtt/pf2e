@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { ScenePF2e } from "@module/scene";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ScenePF2e } from "@scene/index.ts";
 
 /**
  * This is the base class for a migration.
@@ -56,26 +56,26 @@ interface MigrationBase {
      * Update the macro to the latest schema version.
      * @param source Macro data to update. This should be a `MacroData` from the previous version.
      */
-    updateJournalEntry?(source: foundry.data.JournalEntrySource): Promise<void>;
+    updateJournalEntry?(source: foundry.documents.JournalEntrySource): Promise<void>;
 
     /**
      * Update the macro to the latest schema version.
      * @param source Macro data to update. This should be a `MacroData` from the previous version.
      */
-    updateMacro?(source: foundry.data.MacroSource): Promise<void>;
+    updateMacro?(source: foundry.documents.MacroSource): Promise<void>;
 
     /**
      * Update the rollable table to the latest schema version.
      * @param source Rolltable data to update. This should be a `RollTableData` from the previous version.
      */
-    updateTable?(source: foundry.data.RollTableSource): Promise<void>;
+    updateTable?(source: foundry.documents.RollTableSource): Promise<void>;
 
     /**
      * Update the token to the latest schema version.
      * @param tokenData Token data to update. This should be a `TokenData` from the previous version.
      */
     updateToken?(
-        tokenData: foundry.data.TokenSource,
+        tokenData: foundry.documents.TokenSource,
         actor: Readonly<ActorPF2e | null>,
         scene: Readonly<ScenePF2e | null>
     ): Promise<void>;
@@ -84,7 +84,7 @@ interface MigrationBase {
      * Update the user to the latest schema version.
      * @param userData User's data to update. This should be a `UserData` from the previous version.
      */
-    updateUser?(userData: foundry.data.UserSource): Promise<void>;
+    updateUser?(userData: foundry.documents.UserSource): Promise<void>;
 
     /**
      * Run migrations for this schema version.

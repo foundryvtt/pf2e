@@ -1,0 +1,59 @@
+{
+    "_id": "RlKGaxQWWLa7xJSc",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Pirouette",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're in Masquerade of Seasons Stance.</p>\n<p><strong>Trigger</strong> An enemy targets you with a Strike.</p>\n<hr />\n<p>You twirl gracefully, spinning on one foot to evade your opponent's attack. You gain a +2 circumstance bonus to AC against the triggering attack. If the attack misses you, you can immediately Step. If the attack hits you anyway, reduce the damage it deals by an amount equal to half your level; this reduction in damage is applied after calculating immunities, resistances, and weakness.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Masquerade of Seasons Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "pirouette",
+                "predicate": [
+                    "self:effect:masquerade-of-seasons-stance"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "pirouette"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "bard",
+                "rogue",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "RxIPBjodIRm7Pd6W",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "Lucky Break",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You attempt a skill check during Exploration or Downtime</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Draw a harrow card, then reroll the skill check. If you draw a card from the suit of Keys, add a +4 status bonus to the original roll and your reroll, then take the result you prefer as your actual result. If you drew any other card, you gain no bonus and must take the result of the rerolled skill check.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "lucky-break",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "lucky-break"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Stolen Fate Player's Guide"
+        },
+        "traits": {
+            "value": [
+                "fortune"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

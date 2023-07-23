@@ -1,0 +1,49 @@
+{
+    "_id": "MJg24e9fJd7OASvF",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Medic Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become an expert in Medicine.</p>\n<p>When you succeed with @UUID[Compendium.pf2e.feats-srd.Item.Battle Medicine] or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], the target regains 5 additional HP at DC 20, 10 HP at DC 30, or 15 HP at DC 40.</p>\n<p>Once per day, you can use Battle Medicine on a creature that's temporarily immune. If you're a master in Medicine, you can do so once per hour.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you gain two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.XWkyCVISmVtJ0ZY3]{Medic} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Medicine"
+                },
+                {
+                    "value": "Battle Medicine"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.med.rank",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

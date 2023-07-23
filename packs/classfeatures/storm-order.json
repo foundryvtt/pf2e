@@ -1,0 +1,65 @@
+{
+    "_id": "acqqlYmti8D9QJi0",
+    "img": "systems/pf2e/icons/features/classes/storm.webp",
+    "name": "Storm Order",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You carry the fury of the storm within you, channeling it to terrifying effect and riding the winds through the sky.</p>\n<p>You are trained in Acrobatics. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Storm Born] druid feat. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Tempest Surge]</em> order spell, and you increase the number of Focus Points in your focus pool by 1. Polluting the air or allowing those who cause major air pollution or climate shifts to go unpunished is anathema to your order. (This doesn't force you to take action against merely potential harm to the environment or to sacrifice yourself against an obviously superior foe.)</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acr.rank",
+                "predicate": [
+                    {
+                        "not": "feat:order-explorer:storm-order"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:druid",
+                    {
+                        "not": "feat:order-explorer:storm-order"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:druid"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Storm Born"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

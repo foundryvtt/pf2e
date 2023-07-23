@@ -1,0 +1,46 @@
+{
+    "_id": "5FyvwI24mnROzh61",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Combat Assessment",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You make a telegraphed attack to learn about your foe.</p>\n<p>Make a melee Strike. On a hit, you can immediately attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about the target. On a critical hit, you gain a +2 circumstance bonus to the check to Recall Knowledge.</p>\n<p>The target is temporarily immune to Combat Assessment for 1 day.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Combat Assessment (critical hit)",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "critical-assessment"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

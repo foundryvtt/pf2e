@@ -1,0 +1,56 @@
+{
+    "_id": "JkQjKyzfhMWLr9Gs",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Perfect Clarity",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You fail or critically fail an attack roll or Will save</p>\n<hr />\n<p>You burn out all of your rage to ensure that your attack lands and your mind remains free. Reroll the triggering attack roll or Will save with a +2 circumstance bonus, use the better result, and resolve the effect. You then immediately stop raging.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "perfect-clarity",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "perfect-clarity"
+                ],
+                "selector": [
+                    "attack",
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "concentrate",
+                "fortune",
+                "rage"
+            ]
+        }
+    },
+    "type": "feat"
+}

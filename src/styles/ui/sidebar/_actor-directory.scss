@@ -1,13 +1,83 @@
-.directory-item.actor {
-    h4 {
-        line-height: normal;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+.actors-sidebar {
+    .directory-item.actor {
+        h4 {
+            line-height: normal;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .actor-level {
+            font-size: x-small;
+            color: var(--color-text-light-primary);
+        }
     }
 
-    .actor-level {
-        font-size: x-small;
-        color: var(--color-text-light-primary);
+    .party-list {
+        flex: 0 1 auto;
+        margin: 0;
+        padding: 0;
     }
+
+    .party {
+        .party-header {
+            background: rgba(255, 255, 255, 0.2);
+            border-top: 1px solid var(--color-border-dark);
+            border-bottom: 1px solid var(--color-border-dark);
+            line-height: 1.5rem;
+            padding: 6px;
+
+            display: flex;
+            align-items: center;
+
+            .fa-fw {
+                cursor: pointer;
+                flex: 0 0 auto;
+                margin-right: 10px;
+                font-size: var(--font-size-16);
+            }
+
+            h3 {
+                flex: 1;
+                margin: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: var(--font-size-16);
+            }
+
+            .controls {
+                flex: 0;
+                display: flex;
+                font-size: var(--font-size-14);
+            }
+
+            .create-button {
+                position: relative;
+                text-align: center;
+                width: 20px;
+                .fa-plus {
+                    position: absolute;
+                    top: -2px;
+                    right: -2px;
+                    font-size: 0.5rem;
+                    background: black;
+                    color: var(--color-text-light-highlight);
+                    padding: 1px;
+                    border-radius: 4px;
+                }
+            }
+        }
+
+        &.collapsed {
+            .party-header {
+                background: rgba(0, 0, 0, 0.5);
+            }
+
+            .subdirectory {
+                display: none;
+            }
+        }
+    }
+
+
 }

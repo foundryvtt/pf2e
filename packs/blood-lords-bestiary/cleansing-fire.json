@@ -1,0 +1,104 @@
+{
+    "_id": "8k2a2J7gSqV877sZ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vaZ4wD8dkZrsFDkV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Holy Flame Burst",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature tries to open the door to area <strong>C6</strong></p>\n<hr />\n<p><strong>Effect</strong> Magical fire and positive energy flood the room with a harmonious roar. All creatures in the room take [[/r {3d12[fire],3d12[positive]}]]{3d12 fire damage and 3d12 positive damage} and must attempt a @Check[type:reflex|dc:39] save with the results below. The trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and [[/r 1d12[persistent,fire]]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, [[/r 1d12[persistent,fire]]] damage, and [[/r 1d12[persistent,positive]]] damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fire",
+                        "positive"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cleansing Fire",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 43
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Sheets of fire and positive energy blast through the room in waves that obliterate the undead and scorch the living.</p>",
+            "disable": "<p>@Check[type:thievery|dc:41] (master) to bleed away the trap's energy, or @Check[type:religion|dc:39] (expert) to recite the appropriate prayers to Urgathoa to stop the trap (Pesabnet knows these prayers and automatically succeeds at checks to recite them). Disabling the trap requires three successful checks, in any combination of Thievery and Religion checks.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "reset": "<p>The sacred fire disappears 1 minute after no creatures are in the room, and the trap immediately resets</p>",
+            "routine": "<p>(1 action) A wall of sacred fire washes back and forth throughout the room, bathing every inch of the space in holy power and dealing [[/r {3d12[fire],3d12[positive]}]]{3d12 fire damage 3d12 positive damage}. Each creature in the trap's area must attempt a @Check[type:reflex|dc:39] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes double damage.</p>\n<p><strong>Critical Failure</strong> If the creature has negative healing, it is instantly destroyed. Otherwise, it takes double damage and [[/r 1d12[persistent,fire]]] damage.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #185: A Taste of Ashes"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,59 @@
+{
+    "_id": "N4wCUZH2KG6FoGqh",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shared Stratagem",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The plans you make include your allies as well as yourself. When you hit a creature with an attack on which you substituted your attack roll due to @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devise a Strategem}, designate one ally.</p>\n<p>The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to that ally on the next attack the designated ally makes against that creature before the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "devise-a-stratagem",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "item:base:sap"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to a designated ally on the next attack the ally makes against the creature before the start of your next turn.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

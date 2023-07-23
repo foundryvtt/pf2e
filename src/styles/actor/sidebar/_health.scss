@@ -1,48 +1,57 @@
 .hitpoints {
     .hp-big {
         display: grid;
-        justify-content: space-evenly;
         grid-template-columns: repeat(3, 1fr);
+        justify-content: space-evenly;
+
         .container {
             text-align: center;
-            &.temp-hp {
-                text-align: center;
-                margin-right: 8px;
-            }
-            &.max-hp {
-                text-align: center;
-                margin-left: 8px;
-            }
-            &.max-hp,
-            &.temp-hp {
-                margin-top: 12px;
-            }
+
             &.current-hp {
-                display: flex;
-                flex-direction: column;
-                padding: 10px 4px 0;
-                position: relative;
-                z-index: 0;
-                border-radius: 0 0 4px 4px;
-                width: min-content;
-                background-color: var(--primary);
                 background-image: linear-gradient(
                     90deg,
                     darken($primary-color, 5) 0%,
                     lighten($primary-color, 8) 50%,
                     darken($primary-color, 5) 100%
                 );
+                background-color: var(--primary);
+                border-radius: 0 0 4px 4px;
                 border: 1px solid var(--sidebar-title);
+                display: flex;
+                flex-direction: column;
+                padding: 10px 4px 0;
+                position: relative;
+                width: min-content;
+                z-index: 0;
 
                 .data-value {
                     margin-top: 3px;
-                    input[type='number'] {
+                    input[type="number"] {
                         font-size: var(--font-size-32);
                         letter-spacing: -1px;
                         height: 32px;
                     }
                 }
             }
+
+            &.max-hp, &.temp-hp {
+                margin-top: 0.75rem;
+            }
+
+            &.temp-hp {
+                margin-right: 0.5rem;
+                text-align: center;
+            }
+
+            &.max-hp {
+                margin-left: 0.5rem;
+                text-align: center;
+
+                .unrecoverable {
+                    color: orangered;
+                }
+            }
+
         }
     }
     .hp-small {

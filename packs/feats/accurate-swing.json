@@ -1,0 +1,68 @@
+{
+    "_id": "OeUP3ASaS5deBsWw",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Accurate Swing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You strike cleanly with wide, sweeping attacks to inflict maximum damage, taking advantage of your judged foe's fear to land a felling blow. If you Strike a creature you condemned with Harsh Judgment that has the frightened condition with a sweep melee weapon or a sweep unarmed attack, you gain a circumstance bonus to the Strike's damage equal to the number of weapon damage dice your weapon deals.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Vigilante Dedication"
+                },
+                {
+                    "value": "Member of the Grey Gardeners"
+                },
+                {
+                    "value": "Harsh Judgement"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harsh-judgement",
+                    "item:trait:sweep",
+                    "target:condition:frightened",
+                    {
+                        "or": [
+                            "item:category:unarmed",
+                            {
+                                "and": [
+                                    "item:type:weapon",
+                                    "item:melee"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: Night of the Gray Death"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "vigilante"
+            ]
+        }
+    },
+    "type": "feat"
+}

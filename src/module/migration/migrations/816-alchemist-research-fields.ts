@@ -1,7 +1,7 @@
-import { ItemSourcePF2e } from "@item/data";
-import { AELikeSource } from "@module/rules/rule-element/ae-like";
-import { RuleElementSource } from "@module/rules";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import { RuleElementSource } from "@module/rules/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /**
  * Update rule elements on Bomber, Chirurgeon, Mutagenist, Toxicologist, Research Field, Field Discovery,

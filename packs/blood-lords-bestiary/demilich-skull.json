@@ -1,0 +1,101 @@
+{
+    "_id": "614jXwpPEVRulHYD",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "AXYnozEuP0CCywE8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Broken Gems",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 10 feet of the skull</p>\n<hr />\n<p><strong>Effect</strong> The spirits haunting the skull activate one of the skull's ruined gemstones, casting one of the following four spells determined randomly:</p>\n<ul>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Cast into Time]</em>, @Check[type:fortitude|dc:26|traits:divination]</li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Chain Lightning]</em>, @Check[type:reflex|dc:26|traits:electricity,evocation|basic:true] ([[/r 8d12[electricity]]] damage)</li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Fireball]</em> (6th), @Check[type:reflex|dc:26|traits:fire,evocation|basic:true] ([[/r 12d6[fire]]] damage)</li>\n<li><em>@UUID[Compendium.pf2e.spells-srd.Item.Spellwrack]</em>, @Check[type:will|dc:26|traits:abjuration,curse,force] ([[/r 2d12[persistent,force]]] or [[/r (2*2d12)[persistent,force]]] damage)</li>\n</ul>\n<p>The saving throw DC for any spell is 26.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Demilich Skull",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The skull of a defeated demilich is haunted by souls of the demilich's victims.</p>",
+            "disable": "<p>@Check[type:arcana|dc:26], @Check[type:occultism|dc:26], @Check[type:nature|dc:26], or @Check[type:religion|dc:26] to counteract the skull's Broken Gems</p>",
+            "isComplex": false,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>1 day</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #182: Graveclaw"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

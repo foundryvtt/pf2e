@@ -1,0 +1,70 @@
+{
+    "_id": "Hw6Ji7Fgx0XkVkac",
+    "img": "systems/pf2e/icons/features/classes/fortress-of-will.webp",
+    "name": "Fortress of Will",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your trained mind is as a fortress that none can breach. Your proficiency rank for Will saves increases to legendary. When you critically fail a Will save, you get a failure instead. When you fail a Will save against a damaging effect, you take half damage.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "selector": "will",
+                "text": "When you roll a critical failure at a Will save, you get a failure instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.will.rank",
+                "value": 4
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "damaging-effect"
+                ],
+                "selector": "will",
+                "text": "When you fail a Will save against a damaging effect, you take half damage.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "psychic"
+            ]
+        }
+    },
+    "type": "feat"
+}

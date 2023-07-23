@@ -1,0 +1,115 @@
+{
+    "_id": "0NtGFCLjz0lPPp4o",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "gWgxoSsAB6FROhDD",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Night's Breath",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Small or larger creature in area <strong>A2</strong> moves within 15 feet of the secret door to the north or the double door to area <strong>A5</strong></p>\n<hr />\n<p><strong>Effect</strong> The mummy exhales a blast of gray mist into the room that imparts an overwhelming sense that night itself is consuming all thought. The trap deals [[/r 12d6[mental]]] damage to all creatures in area <strong>A2</strong>, who each must attempt a @Check[type:will|dc:36] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage, is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}, and is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as they remain frightened.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}, and is fleeing for as long as they remain frightened.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Night's Breath Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 33
+            },
+            "emitsSound": "encounter",
+            "hardness": 22,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 28
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The night giant mummy unfolds its arms and leans forward to exhale a blast of gray mist and shrieking spirits into the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:33] to \"blind\" the statue so that it cannot notice any who approach, @Check[type:occultism|dc:35] to redirect and expend the trap's occult energies harmlessly, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th level, counteract DC 32) to counteract the trap.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 14
+            },
+            "reset": "<p>The trap resets during the following round, after which it can be triggered again.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #184: The Ghouls Hunger"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

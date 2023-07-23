@@ -1,0 +1,52 @@
+{
+    "_id": "4HqPkJeSDpqYeGNn",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Enhanced Psychopomp Familiar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your psychopomp's continued service in Pharasma's name brings it favor from the goddess. It might change appearance to look like a different, more powerful kind of psychopomp. You can select four familiar or master abilities each day, instead of two, but two must be from the Psychopomp Familiar feat or the following ability.</p>\n<ul>\n<li><strong>@UUID[Compendium.pf2e.familiar-abilities.Item.Augury]</strong> Your familiar can glimpse the strands of fate to give you a cryptic clue regarding your future. Your familiar can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Augury]</em>once per day using your magical tradition and spell DC. You must be at least 8th level to select this ability.</li>\n</ul>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Psychopomp Familiar"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.familiarAbilities.value",
+                "priority": 9,
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.soulWarden.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

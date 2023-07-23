@@ -1,0 +1,42 @@
+{
+    "_id": "8eMGYNilWV3dFAUI",
+    "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
+    "name": "Resonant Reflection: Reflection of Life",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p>You regain double the normal number of Hit Points when resting (meaning you regain double your Constitution modifier multiplied by your level). The healing you gain from long-term rest is similarly doubled. In addition, you can focus this healing energy to accelerate your body's natural healing processes even further.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You gain fast healing 3 for 1 minute. This amount of fast healing increases by 1 for every 2 levels you have beyond 5th level.</p>\n<p>@UUID[Compendium.pf2e.campaign-effects.Item.Effect: Reflection of Life (Fast Healing)]</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.hp.recoveryMultiplier",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #151: The Show Must Go On"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "healing",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

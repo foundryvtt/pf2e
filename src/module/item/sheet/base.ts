@@ -1,43 +1,43 @@
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { RuleElements, RuleElementSource } from "@module/rules";
+import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,
     createTagifyTraits,
-    maintainTagifyFocusInRender,
+    maintainFocusInRender,
     processTagifyInSubmitData,
-} from "@module/sheet/helpers";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { LocalizePF2e } from "@system/localize";
+} from "@module/sheet/helpers.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
-    SelectableTagField,
     SELECTABLE_TAG_FIELDS,
+    SelectableTagField,
     TagSelectorBasic,
-} from "@system/tag-selector";
+} from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
+    fontAwesomeIcon,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
     sluggify,
     sortStringRecord,
-    tupleHasValue,
-    objectHasKey,
     tagify,
-    htmlQueryAll,
-    htmlQuery,
+    tupleHasValue,
 } from "@util";
 import type * as TinyMCE from "tinymce";
-import { CodeMirror } from "./codemirror";
-import { ItemSheetDataPF2e } from "./data-types";
-import { RuleElementForm, RULE_ELEMENT_FORMS } from "./rule-elements";
+import { CodeMirror } from "./codemirror.ts";
+import { ItemSheetDataPF2e } from "./data-types.ts";
+import { RULE_ELEMENT_FORMS, RuleElementForm } from "./rule-elements/index.ts";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
         const options = super.defaultOptions;
-        options.width = 650;
+        options.width = 695;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
-        options.template = "systems/pf2e/templates/items/item-sheet.hbs";
-        options.scrollY = [".tab.active"];
+        options.template = "systems/pf2e/templates/items/sheet.hbs";
+        options.scrollY = [".tab.active", ".inventory-details"];
         options.tabs = [
             {
                 navSelector: ".tabs",
@@ -80,22 +80,27 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
-        const item = this.item.clone({}, { keepId: true });
-        const itemData = item.toObject(false) as unknown as TItem["data"];
-        const rules = this.item.toObject().system.rules;
+        const { item } = this;
+        const rules = item.toObject().system.rules;
 
         // Enrich content
         const enrichedContent: Record<string, string> = {};
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
-        enrichedContent.description = await TextEditor.enrichHTML(itemData.system.description.value, {
+
+        // Get the source description in case this is an unidentified physical item
+        enrichedContent.description = await TextEditor.enrichHTML(item._source.system.description.value, {
+            rollData,
+            async: true,
+        });
+        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), {
             rollData,
             async: true,
         });
 
         const validTraits = this.validTraits;
-        const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
-        const itemTraits = this.item.system.traits?.value ?? [];
-        const sourceTraits = this.item._source.system.traits?.value ?? [];
+        const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
+        const itemTraits = item.system.traits?.value ?? [];
+        const sourceTraits = item._source.system.traits?.value ?? [];
         const traits = validTraits ? createSheetTags(validTraits, itemTraits) : null;
         const traitTagifyData = validTraits
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
@@ -119,12 +124,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasSidebar: this.item.isOfType("condition", "lore"),
             hasDetails: true,
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
-                type: game.i18n.localize(`ITEM.Type${this.item.type.capitalize()}`),
+                type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
             }),
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
-            document: this.item,
-            item: itemData,
+            document: item,
+            item,
             isPhysical: false,
             data: item.system,
             enrichedContent,
@@ -137,14 +142,16 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
-            enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
+            enabledRulesUI: game.user.isGM || game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
-                    const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+                    const localization = CONFIG.PF2E.ruleElement;
                     const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
-                    const label = translations[key] ?? translations.Unrecognized;
-                    const recognized = label !== translations.Unrecognized;
+                    const label = game.i18n.localize(
+                        localization[key as keyof typeof localization] ?? localization.Unrecognized
+                    );
+                    const recognized = label !== game.i18n.localize(localization.Unrecognized);
                     return { label, recognized };
                 }),
                 selection: {
@@ -165,8 +172,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }))
                 ),
             },
-            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.hbs`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.hbs`,
+            sidebarTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-sidebar.hbs`,
+            detailsTemplate: () => `systems/pf2e/templates/items/${sluggify(item.type)}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }
@@ -203,15 +210,30 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Get NPC attack effect options */
     protected getAttackEffectOptions(): Record<string, string> {
         // Melee attack effects can be chosen from the NPC's actions and consumable items
-        const attackEffectOptions: Record<string, string> =
-            this.actor?.items
-                .filter((i) => i.type === "action" || i.type === "consumable")
-                .reduce((options, item) => {
-                    const key = item.slug ?? sluggify(item.name);
-                    return mergeObject(options, { [key]: item.name }, { inplace: false });
-                }, CONFIG.PF2E.attackEffects) ?? {};
+        const items = this.actor?.items.contents ?? [];
+        return items
+            .filter((i) => i.isOfType("action", "consumable"))
+            .reduce((options, item) => {
+                const key = item.slug ?? sluggify(item.name);
+                return { ...options, [key]: item.name };
+            }, deepClone(CONFIG.PF2E.attackEffects));
+    }
 
-        return attackEffectOptions;
+    override async activateEditor(
+        name: string,
+        options: Partial<TinyMCE.EditorOptions> = {},
+        initialContent?: string
+    ): Promise<TinyMCE.Editor> {
+        // Ensure the source description is edited rather than a prepared one
+        const sourceContent =
+            name === "system.description.value" ? this.item._source.system.description.value : initialContent;
+
+        // Remove toolbar options that are unsuitable for a smaller notes field
+        if (name === "system.description.gm") {
+            options.toolbar = "styles bullist numlist image hr link removeformat code save";
+        }
+
+        return super.activateEditor(name, options, sourceContent);
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
@@ -410,6 +432,28 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 });
             }
         }
+
+        // Add a link to add GM notes
+        if (
+            this.isEditable &&
+            game.user.isGM &&
+            !this.item.system.description.gm &&
+            !(this.item.isOfType("spell") && this.item.isVariant)
+        ) {
+            const descriptionEditors = htmlQuery(html, ".descriptions");
+            const mainEditor = htmlQuery(descriptionEditors, ".main .editor");
+            if (!mainEditor) throw ErrorPF2e("Unexpected error retrieving description editor");
+
+            const addGMNotesLink = document.createElement("a");
+            addGMNotesLink.className = addGMNotesLink.dataset.action = "add-gm-notes";
+            addGMNotesLink.innerHTML = fontAwesomeIcon("fa-note-medical", { style: "regular" }).outerHTML;
+            addGMNotesLink.dataset.tooltip = "PF2E.Item.GMNotes.Add";
+            mainEditor.prepend(addGMNotesLink);
+            addGMNotesLink.addEventListener("click", () => {
+                htmlQuery(descriptionEditors, ".gm-notes")?.classList.add("has-content");
+                this.activateEditor("system.description.gm");
+            });
+        }
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */
@@ -426,19 +470,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sidebarHeader.style.visibility = activeTab === "rules" ? "hidden" : "";
             sidebar.style.display = activeTab === "rules" ? "none" : "";
         }
-    }
-
-    /** Ensure the source description is edited rather than a prepared one */
-    override activateEditor(
-        name: string,
-        options?: Partial<TinyMCE.EditorOptions>,
-        initialContent?: string
-    ): Promise<TinyMCE.Editor> {
-        return super.activateEditor(
-            name,
-            options,
-            name === "system.description.value" ? this.item._source.system.description.value : initialContent
-        );
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
@@ -462,7 +493,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         // Convenenience utility for data entry; may make available to general users in the future
-        if (BUILD_MODE === "development" && this.item.isOwned && this.item.sourceId?.startsWith("Compendium.")) {
+        if (
+            game.settings.get("pf2e", "dataTools") &&
+            this.item.isOwned &&
+            this.item.sourceId?.startsWith("Compendium.")
+        ) {
             buttons.unshift({
                 label: "Refresh",
                 class: "refresh-from-compendium",
@@ -525,19 +560,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 this.ruleElementForms[idx]?._updateObject(rules[idx]);
 
                 // predicate is special cased as always json. Later on extend such parsing to more things
-                const predicateValue = value.predicate as unknown;
-                if (typeof predicateValue === "string" && predicateValue.trim() === "") {
-                    delete rules[idx].predicate;
-                } else {
-                    try {
-                        rules[idx].predicate = JSON.parse(predicateValue as string);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                            );
-                            console.warn("Syntax error in rule element definition.", error.message, predicateValue);
-                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                const predicateValue = value.predicate;
+                if (typeof predicateValue === "string") {
+                    if (predicateValue.trim() === "") {
+                        delete rules[idx].predicate;
+                    } else {
+                        try {
+                            rules[idx].predicate = JSON.parse(predicateValue);
+                        } catch (error) {
+                            if (error instanceof Error) {
+                                ui.notifications.error(
+                                    game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                                );
+                                throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                            }
                         }
                     }
                 }
@@ -551,6 +587,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
-        await maintainTagifyFocusInRender(this, () => super._render(force, options));
+        await maintainFocusInRender(this, () => super._render(force, options));
     }
 }

@@ -1,0 +1,110 @@
+{
+    "_id": "E0FMRiGNCv5n7AVH",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "wyQSk60Np0UavJiY",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Stasis Field",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-devil creature moves into the light</p>\n<hr />\n<p><strong>Effect</strong> The light expands to fill the room, and each nondevil creature within the room must attempt a @Check[type:will|dc:26] save. A high-pitched chime sounds in the barracks (area <strong>D15</strong>), audible in this room as well. The trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for [[/br 1d4 #Duration Stupefied]]{1d4 rounds} and paralyzed for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "enchantment",
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Paralyzing Light Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>When any creature other than a devil enters the light, the magic interwoven in the light holds the creature in place and rings an alarm.</p>",
+            "disable": "<p>@Check[type:thievery|dc:26|name:Distort or Diffuse the Light|traits:magical,trap] (master) to distort or diffuse the light, keeping the light cone intact but preventing the trap from triggering, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 26) to dispel the light, leaving the room in darkness</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>The stasis magic in the light builds up over the course of an hour, after which the trap can trigger again.</p>",
+            "routine": "<p>(1 action) All @UUID[Compendium.pf2e.conditionitems.Item.Stunned] and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] creatures in the room take [[/r 1d10[mental]]] damage (@Check[type:will|dc:26|basic:true|traits:magical,trap] save). Creatures who fail also become paralyzed for 1 round but can use a reaction to mentally fight off this stasis; creatures who do so take [[/r 5d10[mental]]] damage mental damage but are no longer paralyzed.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #164: Hands of the Devil"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

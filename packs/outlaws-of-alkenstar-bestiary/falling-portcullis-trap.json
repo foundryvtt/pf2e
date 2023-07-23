@@ -1,0 +1,109 @@
+{
+    "_id": "TWicuDambQ2g5Zn3",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "yWMsFObtDKffQ0LV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Slam Shut",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The pressure plate is depressed</p>\n<hr />\n<p><strong>Effect</strong> The portcullis falls, closing off the hallway. Any creature under the portcullis when it drops takes [[/r (4d10+18)[piercing]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. A creature that succeeds at a @Check[type:reflex|dc:26] save takes no damage and rolls away in a random direction; on a critical success, they can choose the direction.</p>\n<p>If the trap was triggered by a creature moving north with a Speed of at least 10 feet, they're considered to be under the portcullis when it triggers. Creatures moving south when triggering the portcullis aren't considered to be under the portcullis when it triggers.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Falling Portcullis Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "hardness": 18,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "value": 72
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to spot the sockets in the floor where the portcullis drops; @Check[type:perception|dc:28|traits:action:seek] (expert) to spot the floor trigger</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An iron portcullis drops from the ceiling when a pressure plate is triggered.</p>",
+            "disable": "<p>@Check[type:thievery|dc:27|traits:action:disable-a-device] (expert) to disable the floor trigger, or @Check[type:athletics|dc:27] or @Check[type:engineering-lore|dc:27] to jam the portcullis in the ceiling</p>",
+            "isComplex": false,
+            "level": {
+                "value": 7
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #179: Cradle of Quartz"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

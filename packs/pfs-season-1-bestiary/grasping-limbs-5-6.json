@@ -1,0 +1,112 @@
+{
+    "_id": "YtkTx8318EKs43yn",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "sFXPrl6HPYHEscXg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Grasp",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature falls into the water</p>\n<hr />\n<p><strong>Effect</strong> The smashed constructs at the bottom of the water try to Grapple the triggering creature (Athletics [[/r 1d20+12 #Athletics]]{+12}). The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Grasping Limbs (5-6)",
+    "prototypeToken": {
+        "name": "Grasping Limbs"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "hardness": 10,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained); @Check[type:perception|dc:23|traits:action:seek] (expert) to notice the construct limbs at the bottom of the pit.</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The limbs of smashed constructs line the bottom of the fissure, beneath the water. They desperately grab anything that gets too close.</p>",
+            "disable": "<p>@Check[type:thievery|dc:21|name:Immobilize Limbs] (trained) or @Check[type:engineering-lore|dc:19|name:Immobilize Limbs]{Engineering Lore} or @Check[type:azlant-lore|dc:19|name:Immobilize Limbs]{Azlant Lore} twice to immobilize the limbs, or @Check[type:deception|dc:18|name:Trick Limbs]{ Deception} twice to trick the limbs into grasping each other.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) The grasping limbs try to Grapple all creatures in the water (Athletics [[/r 1d20 +12 #Athletics]]{+12}). They then tighten around all creatures they have grabbed or restrained, dealing [[/r 2d8[bludgeoning]]] damage (@Check[type:fortitude|dc:20|basic:true|name:Grasping Limbs]).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Quest #9: Wayfinder Origins"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

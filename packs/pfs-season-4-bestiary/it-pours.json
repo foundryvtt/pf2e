@@ -1,0 +1,123 @@
+{
+    "_id": "xYzi5lnTSwcsKi8S",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XzBGUN3m081V3yLq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bubble",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches anything in the room without Fasiel's permission</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative. A wall of water blocks the exits while the trap is active, making a shove attack ([[/r 1d20+22]]) toward the interior against any creature that moves into a doorway space.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "water"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "It Pours",
+    "prototypeToken": {
+        "name": "It Rains"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 26
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "cold"
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "piercing"
+                },
+                {
+                    "exceptions": [],
+                    "type": "slashing"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 17
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Water splashes within an ornate 5-foot-tall amphora. The glossy exterior depicts images of a marid trapped in a cage of flames, the frightened creature waving their hands in warning.</p>",
+            "disable": "<p>@Check[type:thievery|dc:26] (trained) to scrape the flames away from the marid's image (requires two successes); <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd level; counteract DC 25) to disrupt the magical prison, disabling the trap for 10 minutes; or touch the amphora with Rayyan's seal to free the marid</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The trap deactivates and resets if 2 minutes pass without a creature inside the room.</p>",
+            "routine": "<p>(1 action) The trap has one action per round by default, though it may gain more actions based on the encounter's scaling as listed in the sidebar. On each of the trap's actions, the amphora pours out water, increasing the depth of the water by 5 feet. Once the room is full of water, creatures in the room begin drowning, and the trap deals [[/r (2d10+9)[bludgeoning]]] damage with a @Check[type:fortitude|dc:25|basic:true] save to each creature in the room on its action as the water pressure increases.</p>",
+            "source": {
+                "author": "",
+                "value": ""
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

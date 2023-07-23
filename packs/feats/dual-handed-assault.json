@@ -1,0 +1,127 @@
+{
+    "_id": "HHAGiBYVv8nyUEsd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dual-Handed Assault",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wielding a one-handed melee weapon and have a free hand.</p>\n<hr />\n<p>You snap your free hand over to grip your weapon just long enough to add momentum and deliver a more powerful blow to your opponent.</p>\n<p>Make a Strike with the required weapon. You quickly switch your grip during the Strike in order to make the attack with two hands.</p>\n<p>If the weapon doesn't normally have the two-hand trait, increase its weapon damage die by one step for this attack. If the weapon has the two-hand trait, you gain the benefit of that trait and a circumstance bonus to damage equal to the weapon's number of damage dice.</p>\n<p>When the Strike is complete, you resume gripping the weapon with only one hand. This action doesn't end any stance or fighter feat effect that requires you to have one hand free.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "dual-handed-assault",
+                "toggleable": true
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "item:hands-held:1",
+                    {
+                        "nor": [
+                            "two-hand-d6",
+                            "two-hand-d8",
+                            "two-hand-d10",
+                            "two-hand-d12"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "dual-handed-assault",
+                    "item:hands-held:1",
+                    {
+                        "or": [
+                            "two-hand-d6",
+                            "two-hand-d8",
+                            "two-hand-d10",
+                            "two-hand-d12"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
+                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "item:hands-held:1",
+                    "item:trait:two-hand-d6"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d8"
+                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "item:hands-held:1",
+                    "item:trait:two-hand-d8"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "item:hands-held:1",
+                    "item:trait:two-hand-d10"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d12"
+                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "item:hands-held:1",
+                    "item:trait:two-hand-d12"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

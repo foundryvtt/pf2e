@@ -1,0 +1,45 @@
+{
+    "_id": "APJJCYdq4gNe0PF4",
+    "img": "systems/pf2e/icons/spells/blinding-fury.webp",
+    "name": "Effect: Susceptible to Mockery (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to Strikes and damage rolls against foes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "strike-damage",
+                    "strike-attack-roll"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #184: The Ghouls Hunger"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

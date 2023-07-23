@@ -1,0 +1,58 @@
+{
+    "_id": "fL7FhTBcKxMzLBAs",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Empty Vessel",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would take mental damage or be affected by a mental effect</p>\n<hr />\n<p><strong>Effect</strong> You gain a +2 circumstance bonus to Will saves and resistance to mental damage equal to your level against the triggering effect. This applies only to the initial effect, not successive saves, persistent mental damage, or other repeated effects.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "empty-vessel",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "empty-vessel"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "empty-vessel"
+                ],
+                "type": "mental",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

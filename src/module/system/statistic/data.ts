@@ -1,14 +1,14 @@
-import { ModifierPF2e, RawModifier } from "@actor/modifiers";
-import { AbilityString } from "@actor/types";
-import { ZeroToFour } from "@module/data";
-import { CheckType } from "@system/check";
+import { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
+import { AbilityString } from "@actor/types.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { CheckType } from "@system/check/index.ts";
 
 export interface StatisticCheckData {
     type: CheckType;
     label?: string;
     /** Additional domains for fetching actor roll options */
     domains?: string[];
-    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    /** Modifiers not retrieved from the actor's synthetics record */
     modifiers?: ModifierPF2e[];
 }
 
@@ -16,7 +16,8 @@ export interface StatisticDifficultyClassData {
     base?: number;
     /** Additional domains for fetching actor roll options */
     domains?: string[];
-    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    label?: string;
+    /** Modifiers not retrieved from the actor's synthetics record */
     modifiers?: ModifierPF2e[];
 }
 
@@ -26,7 +27,7 @@ export interface StatisticDifficultyClassData {
 export interface StatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
-    ability?: AbilityString;
+    ability?: AbilityString | null;
     rank?: ZeroToFour | "untrained-level";
     label: string;
     /** If the actor is proficient with this statistic (rather than deriving from rank) */
@@ -36,8 +37,10 @@ export interface StatisticData {
     dc?: StatisticDifficultyClassData;
     /** Base domains for fetching actor roll options */
     domains?: string[];
-    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    /** Modifiers not retrieved from the actor's synthetics record */
     modifiers?: ModifierPF2e[];
+    /** If given, filters all automatically acquired modifiers */
+    filter?: (m: ModifierPF2e) => boolean;
     /**
      * Any static roll options that should be added to the list of roll options.
      * This does not include actor, rank, or basic item roll options.
@@ -72,5 +75,5 @@ export interface StatisticTraceData {
     totalModifier: number;
     dc: number;
     breakdown: string;
-    _modifiers: Required<RawModifier>[];
+    modifiers: Required<RawModifier>[];
 }

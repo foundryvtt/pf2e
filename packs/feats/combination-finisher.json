@@ -1,0 +1,55 @@
+{
+    "_id": "7KT4huf0iPaBGD7R",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Combination Finisher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You combine a series of attacks with a powerful finishing blow. Your finishers' Strikes have a lower multiple attack penalty: -4 (or -3 with an agile weapon) if it's the second attack on your turn, or -8 (or -6 with an agile weapon) if it's the third or subsequent attack on your turn, instead of -5 and -10, respectively.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "agile",
+                    "finisher"
+                ],
+                "selector": "attack",
+                "value": -3
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    {
+                        "not": "agile"
+                    },
+                    "finisher"
+                ],
+                "selector": "attack",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

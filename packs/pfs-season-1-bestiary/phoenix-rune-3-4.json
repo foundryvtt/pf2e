@@ -1,0 +1,110 @@
+{
+    "_id": "Dhs9OY0qqZQAkbAp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kRDWzPAyQraavehX",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Screeching Talon",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the sensor area or fails any check to disable the phoenix rune.</p>\n<hr />\n<p><strong>Effect</strong> A white-hot talon of flame bursts upward from the phoenix rune, dealing [[/r 3d6[fire]]] damage to a creature within the sensor area. This gout of fire is accompanied by the screech of a phoenix audible up to 500 feet away. Creatures within a 20-foot radius of the sensor area (including the triggering creature) must succeed at a @Check[type:fortitude|dc:16|name:Screeching Talon Deafened|traits:auditory] save or be @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Phoenix Rune (3-4)",
+    "prototypeToken": {
+        "name": "Phoenix Rune"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 14
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A cloud of invisible magical sensors in a 5-foot square surrounds an invisible rune on the wall or floor.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:18|name:Approach the Rune] to approach without triggering the trap followed by @Check[type:thievery|dc:18|name:Erase the Rune|traits:action:disable-a-device] (trained) to erase the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st level, counteract DC 18) to counteract the rune.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>Like its namesake creature, a phoenix rune is difficult to destroy. After it is triggered, a phoenix rune can immediately reset on a wall or floor within 120 feet, as long as it has not been disabled. When this happens, a PC who succeeds at a @Check[type:perception|dc:16|name:Spot the Phoenix Rune] check spots the shadowy form of a tiny phoenix \"flying\" along the wall or floor from the rune's old location to its new location.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Quest #2: Unforgiving Fire"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "auditory",
+                "evocation",
+                "fire",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

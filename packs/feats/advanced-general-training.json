@@ -1,0 +1,58 @@
+{
+    "_id": "Ht6b8H9DpA9lWzAg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advanced General Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Over the course of adventuring, your adaptability has let you pick up numerous useful abilities. You gain a general feat of 7th level or lower. You must meet the feat's prerequisites.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times, choosing a different feat each time.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                7
+                            ]
+                        },
+                        "item:trait:general"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "advancedGeneralTraining",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AdvancedGeneralTraining.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedGeneralTraining}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,180 @@
+{
+    "_id": "QLeMH5mQgh28sa5o",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Specialty Crafting",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your training focused on Crafting one particular kind of item. Select one of the specialties listed below; you gain a +1 circumstance bonus to Crafting checks to Craft items of that type. If you are a master in Crafting, this bonus increases to +2. If it's unclear whether the specialty applies, the GM decides. Some specialties might apply only partially. For example, if you were making a morningstar and had specialty in woodworking, the GM might give you half your bonus because the item requires both blacksmithing and woodworking.</p>\n<table class=\"pf2-table\" style=\"white-space: nowrap;\">\n<thead>\n<tr>\n<th>Specialty</th>\n<th>Applicable Items</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Alchemy*</td>\n<td>Alchemical items such as elixirs</td>\n</tr>\n<tr>\n<td>Artistry</td>\n<td>Fine art, including jewelry</td>\n</tr>\n<tr>\n<td>Blacksmithing</td>\n<td>Durable metal goods, including metal armor</td>\n</tr>\n<tr>\n<td>Bookmaking</td>\n<td>Books and paper</td>\n</tr>\n<tr>\n<td>Glassmaking</td>\n<td>Glass, including glassware and windows</td>\n</tr>\n<tr>\n<td>Leatherworking</td>\n<td>Leather goods, including leather armor</td>\n</tr>\n<tr>\n<td>Pottery</td>\n<td>Ceramic goods</td>\n</tr>\n<tr>\n<td>Shipbuilding</td>\n<td>Ships and boats</td>\n</tr>\n<tr>\n<td>Stonemasonry</td>\n<td>Stone goods and structures</td>\n</tr>\n<tr>\n<td>Tailoring</td>\n<td>Clothing</td>\n</tr>\n<tr>\n<td>Weaving</td>\n<td>Textiles, baskets, and rugs</td>\n</tr>\n<tr>\n<td>Woodworking</td>\n<td>Wooden goods and structures</td>\n</tr>\n</tbody>\n</table>\n<p>* You must have the Alchemical Crafting skill feat to Craft alchemical items.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Alchemy",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:alchemy"
+                            }
+                        ],
+                        "value": "alchemy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Artistry",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:artistry"
+                            }
+                        ],
+                        "value": "artistry"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Blacksmithing",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:blacksmithing"
+                            }
+                        ],
+                        "value": "blacksmithing"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Bookmaking",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:bookmaking"
+                            }
+                        ],
+                        "value": "bookmaking"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Glassmaking",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:glassmaking"
+                            }
+                        ],
+                        "value": "glassmaking"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Leatherworking",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:leatherworking"
+                            }
+                        ],
+                        "value": "leatherworking"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Pottery",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:pottery"
+                            }
+                        ],
+                        "value": "pottery"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Shipbuilding",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:shipbuilding"
+                            }
+                        ],
+                        "value": "shipbuilding"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Stonemasonry",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:stonemasonry"
+                            }
+                        ],
+                        "value": "stonemasonry"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Tailoring",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:tailoring"
+                            }
+                        ],
+                        "value": "tailoring"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Weaving",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:weaving"
+                            }
+                        ],
+                        "value": "weaving"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Woodworking",
+                        "predicate": [
+                            {
+                                "not": "feat:specialty-crafting:woodworking"
+                            }
+                        ],
+                        "value": "woodworking"
+                    }
+                ],
+                "flag": "specialtyCrafting",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpecialtyCrafting.Prompt",
+                "rollOption": "feat:specialty-crafting"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:craft",
+                    "{item|flags.pf2e.rulesSelections.specialtyCrafting}"
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 1
+                        }
+                    ],
+                    "field": "actor|system.skills.cra.rank"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "T3t9776ataHzrmTs",
+    "img": "systems/pf2e/icons/spells/inside-ropes.webp",
+    "name": "Spell Effect: Inside Ropes (3rd level)",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 item bonus to Athletics checks to Climb while using the guts.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #181: Zombie Feast"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

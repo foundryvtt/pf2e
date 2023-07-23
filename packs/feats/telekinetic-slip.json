@@ -1,0 +1,61 @@
+{
+    "_id": "Ht21JJ95wiHOgZoT",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Telekinetic Slip",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Your turn begins, and you're @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p>\n<hr />\n<p>A thin shell of telekinetic energy pushes from your skin, widening your enemy's grasp enough for you to slip free. You gain a +2 status bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from whatever has you grabbed or restrained. This bonus lasts until either you're no longer grabbed or restrained, or you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "telekinetic-slip",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape",
+                    "telekinetic-slip"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "attack"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "evocation",
+                "kashrishi",
+                "occult"
+            ]
+        }
+    },
+    "type": "feat"
+}

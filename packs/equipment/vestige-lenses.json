@@ -1,0 +1,78 @@
+{
+    "_id": "PCQtpTKiGfSSRwNV",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/vestige-lenses.webp",
+    "name": "Vestige Lenses",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>These simple lenses are alchemically treated to detect the faint smoke trail from a piece of specially formulated sandalwood incense.</p>\n<p>This incense has an odor undetectable by most people and a long burn time, making it perfect for discreetly tracking individuals. A stick of this incense costs 1 sp and can safely burn for up to 8 hours.</p>\n<p>While wearing the lenses, you see alchemical fumes in a distinct green tint, granting you a +1 item bonus to Survival checks to Track a creature marked with the incense and to Perception checks to Seek any alchemical vapors.</p>\n<p>If the smoke is fresh, Tracking via the incense's fumes might use a lower DC than normal for tracking a creature walking on firm surfaces.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 40
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:track",
+                    "target:marked-creature"
+                ],
+                "selector": "survival",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "alchemical-vapors"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Lost Omens: Legends"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "alchemical"
+            ]
+        },
+        "usage": {
+            "value": "worneyepiece"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "6qHoUiEudUgUB1Uq",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Divine Healing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Although you aren't a proper champion of your faith, your deity still recognizes your efforts and provides you with a small divine ability to help others. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> devotion spell.</p>\n<p>You gain a focus pool of 1 Focus Point or increase the number of Focus Points in your focus pool by 1. You refill your focus pool during your daily preparations, and you regain 1 Focus Point by spending 10 minutes using the Refocus activity to pray to your deity or perform service toward their causes. You are trained in divine spell attack rolls and spell DCs. Your spellcasting ability is Charisma.</p>\n<p>You must refrain from performing your deity's anathema or lose the ability to cast this spell until you atone.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Knight Vigilant Dedication"
+                },
+                {
+                    "value": "expert in religion"
+                },
+                {
+                    "value": "worship a deity with a divine font that grants heal"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.traditions.divine.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

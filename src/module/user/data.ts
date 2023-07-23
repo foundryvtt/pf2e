@@ -1,18 +1,13 @@
-import { UserPF2e, UserSettingsPF2e } from "./document";
+import { UserSettingsPF2e } from "./document.ts";
 
-interface UserDataPF2e<T extends UserPF2e> extends foundry.data.UserData<T> {
-    _source: UserSourcePF2e;
+interface UserSourcePF2e extends foundry.documents.UserSource {
+    flags: DeepPartial<UserFlagsPF2e>;
 }
 
-interface UserSourcePF2e extends foundry.data.UserSource {
-    flags: UserFlagsPF2e;
-}
-
-type UserFlagsPF2e = {
-    [key: string]: Record<string, unknown>;
+type UserFlagsPF2e = DocumentFlags & {
     pf2e: {
         settings: UserSettingsPF2e;
     };
 };
 
-export { UserDataPF2e, UserFlagsPF2e };
+export { UserFlagsPF2e, UserSourcePF2e };

@@ -1,5 +1,4 @@
-export * from "./data";
-export { ArmorPF2e } from "./document";
-export * from "./sheet";
-export * from "./types";
-export * from "./values";
+export * from "./data.ts";
+export { ArmorPF2e } from "./document.ts";
+export * from "./sheet.ts";
+export * from "./types.ts";

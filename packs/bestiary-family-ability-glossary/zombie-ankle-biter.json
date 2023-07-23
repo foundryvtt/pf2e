@@ -1,0 +1,43 @@
+{
+    "_id": "CdjqkgAexKk8khbB",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Zombie) Ankle Biter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>This zombie fights just as well on the ground as it does standing. While @UUID[Compendium.pf2e.conditionitems.Item.Prone], the zombie isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed], it ignores the status penalty to its attack rolls, and it gains a +2 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Trip]. The zombie can also move up to half its Speed when it Crawls.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trip",
+                    "self:condition:prone"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "DGO6kyjw2bQG7dbY",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Incredible Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>By spending a moment to focus, you can ensure your attack strikes true.</p>\n<p>Make a ranged weapon Strike. On this Strike, you gain a +2 circumstance bonus to the attack roll and ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "incredible-aim",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ranged",
+                    "incredible-aim"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "incredible-aim"
+                ],
+                "selector": "attack",
+                "text": "You ignore the target's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -104,12 +104,6 @@ table.pf2-table {
     }
 }
 
-
-a.inline-roll, a.content-link {
-    font-weight: 500;
-    line-height: 1.6em;
-}
-
 a.foundry-href {
     color: var(--primary);
     font-weight: 500;
@@ -121,10 +115,10 @@ a.foundry-href {
     border-radius: 2px;
     border: 1px solid var(--color-border-dark-tertiary);
     box-sizing: border-box;
-    cursor: pointer;
+    color: var(--color-text-dark-primary);
     font-weight: 500;
-    line-height: 1.5em;
-    padding: 1px 0.2em 0;
+    line-height: 1.6em;
+    padding: 1px 0 1px 4px;
     white-space: nowrap;
     word-break: break-all;
 }
@@ -133,89 +127,83 @@ a.foundry-href {
 /* PF2E Action Custom Element                */
 /* ----------------------------------------- */
 
-[data-pf2-action] {
+span[data-pf2-action] {
     @include inline-link;
-}
+    cursor: pointer;
 
-[data-pf2-action][data-pf2-glyph]::before {
-    font-family: "Pathfinder2eActions";
-    font-size: 1.5em;
-    margin-right: 2px;
-    color: var(--color-text-dark-inactive);
-}
+    &[data-pf2-glyph]::before {
+        font-family: "Pathfinder2eActions";
+        font-size: 1.5em;
+        margin-right: 2px;
+        color: var(--color-text-dark-inactive);
+    }
 
-[data-pf2-action]:not([data-pf2-glyph])::before,
-[data-pf2-action][data-pf2-glyph=""]::before {
-    display: inline-block;
-    height: 15px;
-    width: 15px;
-    background-image: url("../icons/actions/Passive.webp");
-    background-repeat: no-repeat;
-    background-size: 15px 15px;
-    opacity: 0.4;
-    margin-bottom: -3px;
-    margin-right: 2px;
-    content: "";
-}
+    &:not([data-pf2-glyph])::before, &[data-pf2-glyph=""]::before {
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+        background-image: url("/icons/actions/Passive.webp");
+        background-repeat: no-repeat;
+        background-size: 15px 15px;
+        opacity: 0.4;
+        margin-bottom: -3px;
+        margin-right: 2px;
+        content: "";
+    }
 
-[data-pf2-action][data-pf2-glyph="A"]::before,
-[data-pf2-action][data-pf2-glyph="a"]::before,
-[data-pf2-action][data-pf2-glyph="1"]::before {
-    content: "A";
-}
-[data-pf2-action][data-pf2-glyph="D"]::before,
-[data-pf2-action][data-pf2-glyph="d"]::before,
-[data-pf2-action][data-pf2-glyph="2"]::before {
-    content: "D";
-}
-[data-pf2-action][data-pf2-glyph="T"]::before,
-[data-pf2-action][data-pf2-glyph="t"]::before,
-[data-pf2-action][data-pf2-glyph="3"]::before {
-    content: "T";
-}
-[data-pf2-action][data-pf2-glyph="F"]::before,
-[data-pf2-action][data-pf2-glyph="f"]::before {
-    content: "F";
-}
-[data-pf2-action][data-pf2-glyph="R"]::before,
-[data-pf2-action][data-pf2-glyph="r"]::before {
-    content: "R";
+    &[data-pf2-glyph="A"]::before,
+    &[data-pf2-glyph="a"]::before,
+    &[data-pf2-glyph="1"]::before {
+        content: "A";
+    }
+    &[data-pf2-glyph="D"]::before,
+    &[data-pf2-glyph="d"]::before,
+    &[data-pf2-glyph="2"]::before {
+        content: "D";
+    }
+    &[data-pf2-glyph="T"]::before,
+    &[data-pf2-glyph="t"]::before,
+    &[data-pf2-glyph="3"]::before {
+        content: "T";
+    }
+    &[data-pf2-glyph="F"]::before,
+    &[data-pf2-glyph="f"]::before {
+        content: "F";
+    }
+    &[data-pf2-glyph="R"]::before,
+    &[data-pf2-glyph="r"]::before {
+        content: "R";
+    }
 }
 
 /* ----------------------------------------- */
 /* PF2E Check Custom Element                 */
 /* ----------------------------------------- */
 
-span[data-pf2-check] {
+a.inline-check, span[data-pf2-check] {
     @include inline-link;
 
-    &::before {
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        margin-right: 0.25em;
+    &:hover {
+        text-shadow: none;
+    }
+
+    &:has(.label:hover, i.fa-dice-d20:hover) {
+        text-shadow: 0 0 8px var(--color-shadow-primary);
+    }
+
+    > i.icon {
         color: var(--color-text-dark-inactive);
-        content: "\f6cf";
-    }
-
-    &[data-pf2-check="reflex"]::before {
-        content: "\f70c";
-    }
-
-    &[data-pf2-check="will"]::before {
-        content: "\f5dc";
-    }
-
-    &[data-pf2-check="fortitude"]::before {
-        content: "\f21e";
-    }
-
-    &[data-pf2-check="perception"]::before {
-        content: "\f06e";
+        margin-right: 0.25em;
     }
 
     &[data-pf2-traits*="secret"] {
         background: var(--blind-roll);
         border-color: #720073;
+    }
+
+    &[data-invalid] {
+        background: rgba(255, 0, 0, 0.05);
+        border: 1px dashed red;
     }
 }
 
@@ -265,7 +253,6 @@ i[data-pf2-repost] {
     border-left: 1px solid var(--color-border-dark-tertiary);
     background: #FFF9;
     padding: 2px;
-    margin-right: -3px;
     margin-left: 2px;
     text-shadow: none;
 
@@ -319,4 +306,8 @@ i[data-pf2-repost] {
 
 a[href]:hover {
     text-shadow: 0 0 8px var(--color-text-hyperlink);
+}
+
+#loading-bar {
+    white-space: nowrap;
 }

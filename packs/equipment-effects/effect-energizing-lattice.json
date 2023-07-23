@@ -1,0 +1,62 @@
+{
+    "_id": "cOcHWeogJFIkEI0d",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Energizing Lattice",
+    "system": {
+        "description": {
+            "value": "<p>The latticework glows for 1 minute, shedding bright light in a 20-foot radius (and dim light for the next 20 feet). You can Dismiss this light.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision (force)</p>\n<p><strong>Requirements</strong> The <em>energizing lattice</em> is glowing because it negated an enemy's critical hit</p>\n<hr />\n<p><strong>Effect</strong> You release the lattice's energy and make a weapon or unarmed attack Strike that deals 6d6 additional force damage. If your Strike fails, but doesn't critically fail, the target still takes half the force damage. The latticework ceases glowing after the Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Unleash Energy in Lattice",
+                "option": "unleash-energy",
+                "toggleable": true
+            },
+            {
+                "damageType": "force",
+                "diceNumber": 6,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "unleash-energy"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

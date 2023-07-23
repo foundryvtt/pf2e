@@ -1,0 +1,54 @@
+<h2>{{localize "PF2E.SETTINGS.CompendiumBrowserPacks.Name"}}</h2>
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabAction"}}</h3>
+    <dl>
+        {{#each settings.action as |conf pack|}}
+            <label><dt><input type="checkbox" name="action-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabBestiary"}}</h3>
+    <dl>
+        {{#each settings.bestiary as |conf pack|}}
+            <label><dt><input type="checkbox" name="bestiary-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabEquipment"}}</h3>
+    <dl>
+        {{#each settings.equipment as |conf pack|}}
+            <label><dt><input type="checkbox" name="equipment-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabFeat"}}</h3>
+    <dl>
+        {{#each settings.feat as |conf pack|}}
+            <label><dt><input type="checkbox" name="feat-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabHazard"}}</h3>
+    <dl>
+        {{#each settings.hazard as |conf pack|}}
+            <label><dt><input type="checkbox" name="hazard-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabSpell"}}</h3>
+    <dl>
+        {{#each settings.spell as |conf pack|}}
+            <label><dt><input type="checkbox" name="spell-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>

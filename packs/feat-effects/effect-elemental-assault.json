@@ -1,0 +1,105 @@
+{
+    "_id": "XaZdQHF9GvaJINqH",
+    "img": "systems/pf2e/icons/spells/elemental-zone.webp",
+    "name": "Effect: Elemental Assault",
+    "system": {
+        "description": {
+            "value": "<p>You shroud your arms and held weapons in elemental magic. Choose one element. Until the end of your next turn, your Strikes deal an additional [[/r 1d6]] damage of the indicated type and have the trait corresponding to the element: electricity for air, bludgeoning for earth, fire for fire, or cold for water.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:air"
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:earth"
+                                ]
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:fire"
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:water"
+                                ]
+                            }
+                        ],
+                        "value": "cold"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.element}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

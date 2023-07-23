@@ -1,0 +1,158 @@
+{
+    "_id": "5FHLom2tpC0X3nbf",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Greater Augmentation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've greatly improved your abilities and your core can support further augmentations. You gain the enhancement benefits of one of your 1st-, 5th-, 9th-, or 13th-level automaton ancestry feats. You are also capable of reconfiguring your augmentations to meet your needs. You can spend one week of downtime to change the enhancement you gain with this feat.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.automaton.enhancements.greater",
+                "flag": "greaterAugmentation",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.AugmentationPrompt",
+                "rollOption": "enhancement"
+            },
+            {
+                "choices": "flags.pf2e.automaton.enhancements.lesser",
+                "flag": "greaterAugmentation",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:lesser-augmentation"
+                ],
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.AugmentationPrompt",
+                "rollOption": "enhancement"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:1"
+                        ],
+                        "value": "arc-expert"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:1"
+                        ],
+                        "value": "cra-expert"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:2"
+                        ],
+                        "value": "arc-master"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:2"
+                        ],
+                        "value": "cra-master"
+                    }
+                ],
+                "flag": "automatonLoreSkill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:automaton-lore",
+                    {
+                        "nor": [
+                            "enhancement:automaton-lore:arc-expert",
+                            "enhancement:automaton-lore:cra-expert",
+                            "enhancement:automaton-lore:arc-master",
+                            "enhancement:automaton-lore:cra-master"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "enhancement:automaton-lore"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceAll",
+                        "value": "all"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceIncrease",
+                        "value": "increase"
+                    }
+                ],
+                "flag": "greaterAugmentation",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:magical-resistance",
+                    {
+                        "nor": [
+                            "enhancement:magical-resistance:all",
+                            "enhancement:magical-resistance:increase"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.EnhancementPrompt",
+                "rollOption": "enhancement:magical-resistance"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.ArcaneLocomotionClimbSpeed",
+                        "predicate": [
+                            {
+                                "not": "locomotion:climb"
+                            }
+                        ],
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.ArcaneLocomotionSwimSpeed",
+                        "predicate": [
+                            {
+                                "not": "locomotion:swim"
+                            }
+                        ],
+                        "value": "swim"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.ArcaneLocomotionIncreaseSpeed",
+                        "value": "increase"
+                    }
+                ],
+                "flag": "greaterAugmentation",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:arcane-locomotion"
+                ],
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.EnhancementPrompt",
+                "rollOption": "enhancement:arcane-locomotion"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

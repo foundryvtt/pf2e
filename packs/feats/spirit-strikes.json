@@ -1,0 +1,61 @@
+{
+    "_id": "S7z1LbnSRlBep8rO",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Spirit Strikes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your connection to the Boneyard empowers you to bring death to all forms of life and unlife, exploiting their weaknesses.</p>\n<p>All your weapon and unarmed Strikes are magical and deal 1 additional negative damage to living creatures and 1 additional positive damage to undead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "damageType": "positive",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mode:undead"
+                ],
+                "selector": "strike-damage",
+                "slug": "spirit-strikes-undead",
+                "value": 1
+            },
+            {
+                "damageType": "negative",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mode:living"
+                ],
+                "selector": "strike-damage",
+                "slug": "spirit-strikes-living",
+                "value": 1
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "duskwalker"
+            ]
+        }
+    },
+    "type": "feat"
+}

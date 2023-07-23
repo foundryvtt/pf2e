@@ -1,0 +1,148 @@
+{
+    "_id": "cm09iVg6JGpCu3Rh",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "2O2MPPNHmPEoqChK",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flaming Circuit",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Skyreach's defenses are active, and a creature who is not carrying a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Wayfinder]</em> enters the room.</p>\n<hr />\n<p><strong>Effect</strong> A pillar of magical fire surges forth. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1GdWjUP7TWz03AEK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Speed 20 feet",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fire Sentry",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "hardness": 5,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained) or @Check[type:perception|dc:15|name:Notice Control Panel|traits:hazard,complex,fire,magical,trap] check to notice the control panel</p>",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>A @Template[type:burst|distance:5] pillar of magical fire travels along a track throughout the room. The pillar emits bright light out to 20 feet.</p>",
+            "disable": "<p>@Check[type:arcana|dc:20|name:Deactivate Control Panel|traits:complex,fire,magical,trap,hazard] (trained) or @Check[type:thievery|dc:20|name:Deactivate Control Panel|traits:complex,fire,magical,trap,hazard] (trained) once on the control panel deactivates the whole trap, or @Check[type:thievery|dc:17|name:Deactivate Tracks|traits:complex,fire,magical,trap,hazard] (trained) twice on the track prevents the pillar from moving. Each check requires two actions.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "<p>The trap deactivates once it no longer detects the presence of creatures in the room.</p>",
+            "routine": "<p>(2 actions) The pillar Strides, following the track in the room. If the trap's track is broken, the pillar can still Stride, but its Speed is only 10 feet. The pillar cannot move at all if the track is destroyed. When the pillar moves, it deals [[/r (1d6+3)[fire]]] damage to any creatures whose space it moves through.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-06: Struck by Shadows"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "fire",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

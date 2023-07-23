@@ -1,0 +1,107 @@
+{
+    "_id": "d1zIcvHE3z7k0Rzs",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "twb5bp7csgs3vy15",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Electrocution",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature passes over the invisible underwater rune between the north and south doors</p>\n<hr />\n<p><strong>Effect</strong> The trap deals [[/r 4d10[electricity]]] damage (@Check[type:reflex|dc:26|basic:true|name:Avoid Electrical Shock|traits:complex,magical,trap] save) to creatures touching the water, and then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "electricity",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Electrified Water Ward",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Passing over an invisible rune on the floor between the north and south doors triggers a dancing burst of electricity.</p>",
+            "disable": "<p>@Check[type:thievery|dc:26|name:Bleed away trap energy|traits:complex,magical,trap] (expert), @Check[type:arcana|dc:28|name:Bleed away trap energy|traits:complex,magical,trap] (expert), or @Check[type:occultism|dc:28|name:Bleed away trap energy|traits:complex,magical,trap] (expert) to harmlessly bleed away the electrical energy from the rune. Once the trap has been activated, the electrical energy is stronger, so three successful checks (of any combination of the relevant skills) are necessary to deactivate it, but these checks can be attempted from anywhere in the room.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>The pulses stop as soon as no creatures are in the hallway, and then reset after 1 hour.</p>",
+            "routine": "<p>(1 action) The trap deals [[/r 4d10[electricity]]] damage (@Check[type:reflex|dc:26|basic:true|name:Avoid Electrical Shock|traits:complex,magical,trap,arcane,electricity,evocation] save) to all creatures in the room. A creature that fails the save is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). A creature that isn't touching the water treats the result of its saving throw as one degree of success better.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #170: Spoken on the Song Wind"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

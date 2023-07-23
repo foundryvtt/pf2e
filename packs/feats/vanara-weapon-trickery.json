@@ -1,0 +1,54 @@
+{
+    "_id": "v0ovKn4ZKmtXfXnu",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Vanara Weapon Trickery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned how to trick your foes using vanara weapons. Whenever you critically hit using a bo staff, chakram, katar, panabas, urumi, or vanara weapon, you apply the weapon's critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Vanara Weapon Familiarity"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:vanara",
+                            "item:base:bo-staff",
+                            "item:base:chakram",
+                            "item:base:katar",
+                            "item:base:panabas",
+                            "item:base:urumi"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "vanara"
+            ]
+        }
+    },
+    "type": "feat"
+}

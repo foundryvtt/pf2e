@@ -1,0 +1,51 @@
+{
+    "_id": "0B39GdScyZMPWalX",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Power Attack",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.PowerAttack]</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "power-attack",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "melee",
+                    "power-attack"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        },
+        "weapon": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

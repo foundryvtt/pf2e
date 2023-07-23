@@ -1,0 +1,96 @@
+{
+    "_id": "mPta1oQq0IWp5uE3",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/meteor-shot.webp",
+    "name": "Meteor Shot (Major)",
+    "system": {
+        "autoDestroy": {
+            "value": true
+        },
+        "baseItem": null,
+        "charges": {
+            "max": 0,
+            "value": 0
+        },
+        "consumableType": {
+            "value": "ammo"
+        },
+        "consume": {
+            "value": ""
+        },
+        "containerId": "null",
+        "description": {
+            "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> Interact</p>\n<p>This craggy stone ammunition is warm to the touch. When you fire an activated meteor shot, it explodes into a small swarm of meteors as it reaches its target, scorching nearby creatures and littering the ground with rubble. In addition to the weapon's normal damage, the meteor shot deals fire damage and the ground in the area becomes difficult terrain.</p>\n<p>The ammunition deals [[/r 9d6[fire]]] damage in a @Template[type:emanation|distance:20] around the target (@Check[type:reflex|dc:37|basic:true|name:Meteor Shot] save).</p>\n<p>In addition, the Strike gains the following critical failure effect.</p>\n<hr />\n<p><strong>Critical Failure</strong> The weapon misfires.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 3000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "failure",
+                    "success"
+                ],
+                "selector": "{item|_id}-attack",
+                "text": "PF2E.AmmunitionNotes.MeteorShot.Major.Text",
+                "title": "PF2E.AmmunitionNotes.MeteorShot.Major.Title"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "selector": "{item|_id}-attack",
+                "text": "PF2E.AmmunitionNotes.MeteorShot.CriticalFailureText",
+                "title": "PF2E.AmmunitionNotes.MeteorShot.Major.Title"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "stackGroup": "rounds10",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "alchemical",
+                "consumable",
+                "evocation",
+                "fire",
+                "magical",
+                "splash"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "consumable"
+}

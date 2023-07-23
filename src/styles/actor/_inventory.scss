@@ -1,5 +1,7 @@
 // Base inventory stylings
 .inventory {
+    --border-color: var(--alt);
+
     ol:not(.currency) {
         @include p-reset;
         list-style: none;
@@ -12,6 +14,8 @@
         align-items: center;
         font-weight: 500;
         flex: 2;
+        gap: 4px;
+        padding-right: 4px;
 
         h3,
         h4 {
@@ -26,22 +30,10 @@
             }
         }
 
-        span {
-            margin: 0 4px;
-        }
-
         .item-image {
-            height: 24px;
-            width: 24px;
             box-shadow: inset 0 0 0 1px var(--tertiary);
-            background-size: cover;
-            background-repeat: no-repeat;
-            padding: 12px;
-            cursor: pointer;
-            margin-right: 4px;
-
-            .item-icon {
-                border: none;
+            img {
+                border-radius: 0;
             }
         }
 
@@ -57,23 +49,15 @@
     }
 
     .inventory-list, .inventory-items {
-        list-style-type: none;
         flex-direction: column;
-        width: 100%;
-        position: relative;
+        list-style-type: none;
         margin: 0;
         padding: 0;
+        position: relative;
+        width: 100%;
 
         & > li:nth-of-type(even) {
             background-color: rgba($alt-color, 0.1);
-        }
-
-        .item {
-            display: flex;
-            flex-wrap: wrap;
-            font-size: var(--font-size-12);
-            justify-content: flex-start;
-            width: 100%;
         }
 
         .list-row {
@@ -100,7 +84,7 @@
     .item-controls,
     .item-sell-value {
         @include flex-center;
-        flex: 0 0 64px;
+        flex: 0 0 68px;
     }
 
     .item-sell-value {
@@ -185,7 +169,21 @@
         }
     }
 
+    .inventory-items {
+        border: 1px solid var(--border-color);
+        border-top: none;
+        border-bottom: none;
+
+        &:last-child {
+            border-bottom: 1px solid var(--border-color);
+        }
+    }
+
     .item {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: var(--font-size-12);
+        justify-content: flex-start;
         width: 100%;
         .item-quantity,
         .item-weight,
@@ -228,6 +226,15 @@
                 }
             }
         }
+
+        &.drag-preview {
+            box-shadow: 0 0 6px inset var(--color-shadow-highlight);
+        }
+
+        // The gap left by an item being dragged to a new position
+        &.drag-gap {
+            visibility: hidden;
+        }
     }
 
     .container-metadata {
@@ -244,7 +251,7 @@
                 border-radius: 0 2px 2px 0;
                 box-shadow: inset 0 0 0 1px rgba(black, 0.5),
                     inset 0 0 0 2px rgba(white, 0.1);
-                padding: 6px 0;
+                padding: 8px 0;
             }
             .container-capacity-label {
                 position: absolute;
@@ -260,6 +267,8 @@
 
         .container-held-items {
             padding-left: 10px;
+            border-left: none;
+            border-right: none;
 
             li:nth-of-type(even) {
                 background-color: rgba($alt-color, 0.1);
@@ -268,10 +277,6 @@
             li:first-of-type .item::before {
                 height: 50%;
                 top: 0;
-            }
-
-            li:last-of-type .item::after {
-                border: none;
             }
 
             .item {
@@ -299,6 +304,27 @@
 
                 .item-summary {
                     border-left: 1px solid var(--alt);
+                }
+            }
+
+            // Add a connection line for nested containers
+            .container-metadata {
+                position: relative;
+                &::before {
+                    position: absolute;
+                    border-left: 1px solid var(--alt);
+                    top: 0;
+                    height: 100%;
+                    left: -5px;
+                    width: 0px;
+                    content: '';
+                }
+            }
+
+            // Ensure the final item's bracket ends in an L shape
+            li:last-of-type {
+                .item::after, .container-metadata::before {
+                    border: none;
                 }
             }
         }

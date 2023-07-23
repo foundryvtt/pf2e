@@ -1,0 +1,41 @@
+{
+    "_id": "f2U0pvTwqrLYyOlC",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Azarim",
+    "system": {
+        "description": {
+            "value": "<p><em>Azarim</em> gains the effects of an anarchic weapon rune for 1 minute. When wielded by a character who's at least 11th level, <em>Azarim</em> becomes a +2 striking anarchic shifting rapier, and instead this activation can be applied to another weapon that's in physical contact with <em>Azarim</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "WeaponPotency",
+                "selector": "azarim-attack",
+                "value": "ternary(gte(@actor.level, 11), 2, 1)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: Crown of the Kobold King"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

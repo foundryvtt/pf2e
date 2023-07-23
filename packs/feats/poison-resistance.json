@@ -1,0 +1,50 @@
+{
+    "_id": "0lieFKdwgNVXep7u",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Poison Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>(Alchemist) Repeated exposure to toxic reagents has fortified your body against poisons of all kinds.</p>\n<p>(Druid) Your affinity for the natural world grants you protection against some of its dangers.</p>\n<hr />\n<p>You gain poison resistance equal to half your level, and you gain a +1 status bonus to saving throws against poisons.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "poison"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist",
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

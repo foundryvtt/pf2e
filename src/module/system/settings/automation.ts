@@ -1,4 +1,4 @@
-import { PartialSettingsData, SettingsMenuPF2e } from "./menu";
+import { PartialSettingsData, SettingsMenuPF2e } from "./menu.ts";
 
 type ConfigPF2eListName = (typeof AutomationSettings.SETTINGS)[number];
 
@@ -11,6 +11,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
         "effectExpiration",
         "removeExpiredEffects",
         "flankingDetection",
+        "encumbrance",
         "lootableNPCs",
     ] as const;
 
@@ -56,10 +57,16 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 default: true,
                 type: Boolean,
             },
+            encumbrance: {
+                name: "PF2E.SETTINGS.Automation.Encumbrance.Name",
+                hint: "PF2E.SETTINGS.Automation.Encumbrance.Hint",
+                default: false,
+                type: Boolean,
+            },
             lootableNPCs: {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.hint,
-                default: false,
+                default: true,
                 type: Boolean,
             },
         };

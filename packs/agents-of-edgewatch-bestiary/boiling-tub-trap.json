@@ -1,0 +1,105 @@
+{
+    "_id": "ukL9sApDCIWsVL64",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "P2D3nIr4b8QtzEFx",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Overflowing Boiling Water",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The trip wire is pulled or severed</p>\n<hr />\n<p><strong>Effect</strong> An acid flask detonates, spraying acid at nearby creatures and causing the tub of boiling water to burst in the same direction.</p>\n<p>All creatures in a @Template[type:cone|distance:5] east of the triggered boiling tub trap take [[/r 3d6[persistent,acid]]] damage, [[/r (3[splash])[acid]]]{3 acid splash damage}, and [[/r (8d6+20)[fire]]] damage (@Check[type:reflex|dc:31|basic:true|traits:acid,fire] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Boiling Tub Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 27
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A snapped trip wire causes an alchemical bomb to detonate and blow up part of the tin tub, spilling boiling water all over the trap's victim.</p>",
+            "disable": "<p>@Check[type:thievery|dc:32|name:Remove Trip Wire|traits:action:disable-a-device] (master) to safely remove the trip wire from the bomb</p>",
+            "isComplex": false,
+            "level": {
+                "value": 13
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #159: All or Nothing"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

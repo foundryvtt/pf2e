@@ -1,0 +1,35 @@
+{
+    "_id": "d7NC4C19AgkspQQg",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Battle-Trained Human (BB)",
+    "system": {
+        "ancestry": {
+            "name": "Human",
+            "slug": "human",
+            "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        },
+        "description": {
+            "value": "<p>Your family has trained in battle for generations, granting you advantages in a fight. You are trained in all martial weapons..</p>\n<p>In addition, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Diehard] feat.</p>\n<p><em>Note: This heritage is from the Beginner Box and features non-standard heritage features</em></p>"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.martial.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Beginner Box"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

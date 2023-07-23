@@ -1,0 +1,100 @@
+{
+    "_id": "l2sF9i8Gx4O1rKCI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "MkabEUHjU0jF7sU7",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Invite Toil",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature enters the pit</p>\n<hr />\n<p><strong>Effect</strong> The surrounding dwarven shapes begin to chant in Dwarven, encouraging newcomers to join them as they grasp for them with their cold, incorporeal hands. The pit of toil rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pit of Toil",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "",
+                "value": -10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>As ghostly, ectoplasm-dripping figures of dwarves work all around, the body of a living creature within the pit begins to ache with the pains of countless hours of back-breaking toil.</p>",
+            "disable": "<p>@Check[type:crafting|dc:21] (expert) to shame the pit by miming skilled artistry, or @Check[type:religion|dc:18] (trained) to exorcise the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "",
+            "routine": "<p>(1 action; divine, necromancy) As the dwarves continue to chant and grasp at the living, the pit infuses all living creatures inside it with the ache and pain a body endures after hours of constant toil. Each living creature in the pit must attempt a @Check[type:fortitude|dc:18|traits:divine,necromancy,damaging-effect] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature suffers no ill effect and is thereafter immune to the pit of toil's routine.</p>\n<p><strong>Success</strong> The creature suffers no ill effect.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6[negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d6[negative]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Crown of the Kobold King"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "4nFsGmPdWvFrwjgF",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Advanced Hallowed Spell",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You dig deeper into the magical tools found in wizard schools and divine domains. You gain an advanced focus spell, either the necromancer advanced school spell <em>@UUID[Compendium.pf2e.spells-srd.Item.Life Siphon]</em> or the advanced domain spell of the death domain, <em>@UUID[Compendium.pf2e.spells-srd.Item.Eradicate Undeath]</em>. Increase the number of Focus Points in your focus pool by 1. If you choose <em>life siphon</em>, it triggers when you expend spell slots from your class even if they aren't wizard spell slots.</p>\n<p><strong>Special</strong> You can select this feat a second time, choosing the other advanced focus spell.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hallowed Necromancer Dedication"
+                },
+                {
+                    "value": "necromancer initial school spell or death initial domain spell"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

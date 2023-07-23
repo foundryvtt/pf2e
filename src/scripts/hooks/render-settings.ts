@@ -1,4 +1,4 @@
-import { MigrationSummary } from "@module/apps/migration-summary";
+import { MigrationSummary } from "@module/apps/migration-summary.ts";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 
 /** Attach system buttons and other knickknacks to the settings sidebar */
@@ -14,7 +14,7 @@ export const RenderSettings = {
             }
 
             systemInfo.classList.remove("system");
-            systemInfo.classList.add("system-info");
+            systemInfo.classList.add("system-links");
             const links = [
                 {
                     url: "https://github.com/foundryvtt/pf2e/blob/release/CHANGELOG.md",

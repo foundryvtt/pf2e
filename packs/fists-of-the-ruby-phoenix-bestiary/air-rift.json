@@ -1,0 +1,178 @@
+{
+    "_id": "EDeiF3PNtXUeBU6P",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kk1MskNbJzxZTiUb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "AC 40 vs. Reactions and Ranged Weapon Attacks",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3vRlGmy1BbFY0bJW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Earth Vulnerability",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The Elemental Plane of Air is opposed by the Plane of Earth. Any spell or magical effect with the earth trait that targets a creature or area within 50 feet of the rift deals 10 damage to the rift per spell levels (or per 2 levels for magic items, feats, and so forth). For example, a 3rd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Earthbind]</em> spell cast on a creature near the air rift deals 30 points of damage to the rift</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3Z7QykHo25ouKv1W",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Weightlessness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 50 feet of the rift</p>\n<hr />\n<p><strong>Effect</strong> The air rift creates a shroud of subjective gravity around the creature for 1 minute. The creature can use a free action, which has the concentrate trait, to choose any direction they wish for gravity to pull them. This allows a creature to Stride along any surface or Fly in a straight line by choosing a direction into midair. For unattended objects and mindless creatures, this is microgravity: they float in place unless pushed off a surface.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Air Rift",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 35
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 220,
+                "temp": 0,
+                "value": 220
+            },
+            "stealth": {
+                "details": "<p>(master) to notice the sudden breeze in the theater</p>",
+                "value": 22
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A portal to the Plane of Air rips open onstage, causing roaring winds to tear through the opera house</p>",
+            "disable": "<p>@Check[type:arcana|dc:38|name:Air Rift Arcana|traits:hazard,environmental,magical,air] (master) to sew the magical threads of the rift shut, @Check[type:nature|dc:40|name:Air Rift Nature|traits:hazard,environmental,magical,air] or @Check[type:survival|dc:40|name:Air Rift Survival|traits:hazard,environmental,magical,air] (legendary) to open enough windows and doors to reduce its intensity, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th level; counteract DC 34) to counteract the air rift</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "reset": "",
+            "routine": "<p>(1 action) Winds blow through the area in a random direction, causing creatures and objects within 50 feet of the air rift to float up, down, north, south, east, or west (roll a d6 to determine which direction). Creatures and objects in the area must attempt a @Check[type:fortitude|dc:37|traits:damaging-effect,air,environmental,magical,hazard] save. If a creature is pushed into a solid object or another creature by this effect, both take [[/r (3d8+15)[bludgeoning]]] damage on impact.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pushed 10 feet, but takes only half damage from impact.</p>\n<p><strong>Failure</strong> The creature is pushed 20 feet, falls prone, and takes full damage from impact.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 40 feet, falls prone, and takes double damage from impact.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #167: Ready? Fight!"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,49 @@
+{
+    "_id": "2FBZ0apnmZ7b61ct",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Efficient Alchemy (Paragon)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your daily preparations are particularly efficient and plentiful. When using your infused reagents to create alchemical items during your daily preparations, you make a batch of three of a given item instead of a batch of two, or a batch of four if your field normally lets you create three of that item.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "updgrade",
+                "path": "system.crafting.entries.alchemist.batchSize",
+                "phase": "beforeDerived",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "updgrade",
+                "path": "system.crafting.entries.alchemist.fieldDiscoveryBatchSize",
+                "phase": "beforeDerived",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #150: Broken Promises"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

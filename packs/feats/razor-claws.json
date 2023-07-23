@@ -1,0 +1,51 @@
+{
+    "_id": "VatkAzfBYjA6z6OP",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Razor Claws",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your have honed your claws to be deadly. Your claw attack deals [[/r 1d6[slashing]]] damage instead of 1d4 and gains the versatile (piercing) trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
+                },
+                "selector": "claw-damage"
+            },
+            {
+                "definition": [
+                    "item:claw"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-p"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

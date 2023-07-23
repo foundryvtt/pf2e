@@ -1,0 +1,111 @@
+{
+    "_id": "AQvtqj2h2n5n8YYg",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Lesser Augmentation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've focused on enhancing yourself and have received an improvement to one of your existing abilities. You gain the enhancement benefits of one of your 1st- or 5th-level automaton ancestry feats.</p>\n<p>You are also capable of reconfiguring your augmentations to meet your needs. You can spend one week of downtime to change the enhancement you gain with this feat.</p>\n<p><strong>Enhancement</strong> You gain the enhancement benefits of another 1st- or 5th-level automaton ancestry feat. Also, your reconfigurations take less time. You only need to spend 1 day of downtime to change any of your enhancements. If you have multiple enhancements, changing each one requires a separate day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.automaton.enhancements.lesser",
+                "flag": "lesserAugmentation",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.AugmentationPrompt",
+                "rollOption": "enhancement"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.LesserAugmentation",
+                    "value": "lesser-augmentation"
+                }
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:1"
+                        ],
+                        "value": "arc-expert"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:1"
+                        ],
+                        "value": "cra-expert"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:2"
+                        ],
+                        "value": "arc-master"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:2"
+                        ],
+                        "value": "cra-master"
+                    }
+                ],
+                "flag": "automatonLoreSkill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:automaton-lore"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "enhancement:automaton-lore"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceAll",
+                        "value": "all"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceIncrease",
+                        "value": "increase"
+                    }
+                ],
+                "flag": "lesserAugmentation",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:magical-resistance"
+                ],
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.EnhancementPrompt",
+                "rollOption": "enhancement:magical-resistance"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

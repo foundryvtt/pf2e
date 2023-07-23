@@ -1,0 +1,62 @@
+{
+    "_id": "5TPKikTyN7lrCvzY",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Mighty Bulwark",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Thanks to your incredible connection to your armor, you can use it to shrug off an incredible array of dangers. Your bonus from the bulwark armor trait increases from +3 to +4, and it applies on all Reflex saves, not just damaging Reflex saves.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sentinel Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:armor:trait:bulwark"
+                ],
+                "selector": "reflex",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "self:armor:trait:bulwark"
+                ],
+                "selector": "reflex",
+                "slug": "dex",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "selector": "reflex",
+                "slug": "bulwark",
+                "suppress": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

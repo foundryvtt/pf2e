@@ -1,0 +1,101 @@
+{
+    "_id": "FI4MnH0KQfIKJRNT",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Arcane Locomotion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've modified your body to allow you to augment your movement. You gain either a climb Speed of 20 feet or a swim Speed of 20 feet, your choice.</p>\n<p><strong>Enhancement</strong> Your body allows for even further forms of movement. You can either select the option from this feat you haven't chosen yet (climb Speed or swim Speed), or you can increase your land Speed by 5 feet and increase the Speed you chose from this feat increase to be equal to your adjusted land Speed.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "locomotion:climb",
+                            "enhancement:arcane-locomotion:climb"
+                        ]
+                    }
+                ],
+                "selector": "climb",
+                "value": 20
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpeedTypesClimb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.SpeedTypesSwim",
+                        "value": "swim"
+                    }
+                ],
+                "flag": "speed",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Automaton.ArcaneLocomotion.Prompt",
+                "rollOption": "locomotion"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "locomotion:swim",
+                            "enhancement:arcane-locomotion:swim"
+                        ]
+                    }
+                ],
+                "selector": "swim",
+                "value": 20
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneLocomotion",
+                    "value": "arcane-locomotion"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "land-speed"
+                ],
+                "value": 5
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "enhancement:arcane-locomotion:increase"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.speed}",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

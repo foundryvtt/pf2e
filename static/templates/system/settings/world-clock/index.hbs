@@ -5,7 +5,7 @@
           <label for="{{setting.key}}">{{localize setting.name}}</label>
           <div class="form-fields">
               {{#if setting.isSelect}}
-                  <select name="{{setting.key}}">
+                  <select name="{{setting.key}}"{{#if (eq setting.type.name "Number")}} data-dtype="Number"{{/if}}>
                       {{#select setting.value}}
                           {{#each setting.choices as |label value|}}
                               <option value="{{value}}">{{localize label}}</option>

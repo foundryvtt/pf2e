@@ -1,0 +1,61 @@
+{
+    "_id": "RATDyLyxXN3qmOas",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Daydream Trance",
+    "system": {
+        "description": {
+            "value": "<p>You take a -1 penalty to Perception checks and initiative rolls and gain a +1 status bonus to Will saves. This bonus increases to +2 against mental effects. If you're legendary in Occultism, the bonus against mental effects increases to +3 .</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "will",
+                "slug": "daydream-trance-mental",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "slug": "daydream-trance-will",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "skill:rank:occ:4"
+                ],
+                "selector": "will",
+                "slug": "daydream-trance-mental",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "8YZX34sJOIH32VwI",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Illuminated Folio",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "fire",
+                    "water"
+                ],
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

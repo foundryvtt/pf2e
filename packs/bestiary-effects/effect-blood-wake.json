@@ -1,0 +1,45 @@
+{
+    "_id": "oORIapm28xioxPDp",
+    "img": "systems/pf2e/icons/spells/blood-ward.webp",
+    "name": "Effect: Blood Wake",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -4 status penalty to Athletics checks to Swim.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

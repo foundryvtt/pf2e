@@ -1,0 +1,106 @@
+{
+    "_id": "ptVkyQSFmsX5PACJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "VFw56rLyCfCxIkB4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Agonizing Pulse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The unfinished portalrender takes any damage or is moved (the portalrender is Bulk 5)</p>\n<hr />\n<p><strong>Effect</strong> The central sphere of concentrated agony flashes bright violet, filling the mind's of the room's inhabitants with overwhelming mental sensations of pain and hallucinations that the world around them is being torn away and replaced by a demon-haunted apocalypse. All creatures in area <strong>B4</strong> must attempt a @Check[type:will|dc:33] save, then the trap rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 4d6[mental]]] damage from the pain.</p>\n<p><strong>Failure</strong> The creature takes [[/r 8d6[mental]]] damage from the pain and is @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 16d6[mental]]] damage from the pain, is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, and is confused for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Unfinished Portalrender",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "emitsSound": "encounter",
+            "hardness": 22,
+            "hp": {
+                "details": "",
+                "max": 88,
+                "temp": 0,
+                "value": 88
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 27
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A sphere of concentrated agony harvested from a qlippoth begins pulsing with violet light as it blasts the room with otherworldly agony.</p>",
+            "disable": "<p>@Check[type:thievery|dc:37] (master) to dismantle the housing and refocus the agony inward so it consumes itself harmlessly, @Check[type:arcana|dc:33] or @Check[type:occultism|dc:33] (master) to vent the agony in a controlled way that causes the portalrender to become inert after 1 minute (during which it can still be triggered normally), or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th level; counteract DC 31)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "reset": "",
+            "routine": "<p>The unfinished portalrender continues to flood area <strong>B4</strong> with agony, and everyone in the room must attempt a @Check[type:will|dc:33] save against its Agonizing Pulse. At the end of its turn, the unfinished portalrender attempts a @Check[type:flat|dc:6]. On a failure, its stores of agony deplete and it deactivates, causing the central orb of agony to fade away permanently.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #184: The Ghouls Hunger"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

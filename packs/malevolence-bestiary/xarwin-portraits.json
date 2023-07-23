@@ -1,0 +1,120 @@
+{
+    "_id": "ecdfItOKsZVc4v0L",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "b68UvpyZkS1b4VZG",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Inflict Agony",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> At least four characters are in area B22, or someone touches or attempts to damage a painting</p>\n<hr />\n<p><strong>Effect</strong> All characters in area B22 must attempt a @Check[type:will|dc:27] save to resist sudden, agonizing pain (the PC with the highest Intelligence feels this pain in the left wrist, while the others feel it in their heads). On a failure, a PC becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the agony (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Xarwin Portraits",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(Expert)</p>",
+                "value": 18
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The paintings suddenly start to bleed-Ioseff Xarwin from the left wrist and the other three Xarwins in a line cutting across their brows-as the viewers receive glimpses of the traumas the family endured.</p>",
+            "disable": "<p>@Check[type:religion|dc:25|name:Exorcise Painting] to exorcise one of the paintings (a critical success exorcises all of the paintings at once) or @Check[type:thievery|dc:21|name:Cover a Painting|traits:action:disable-a-device] to quickly cover a painting with a cloak or remove it and turn it to face the wall</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>1 hour; putting Xarwin's ghost to rest destroys this haunt forever.</p>",
+            "routine": "<p>(4 actions) The haunt uses up to 4 actions to afflict bleeding wounds on different creatures in area B22. These bloody wounds manifest where the target would have felt pain from Inflict Agony, regardless of whether they succeeded in resisting that effect or not. A creature can't be targeted more than once by this routine. Each creature affected must attempt a @Check[type:fortitude|dc:24|traits:emotion,fear,mental,necromancy,occult] save.</p>\n<p>The haunt loses 1 action for each painting that's disabled or destroyed.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r (1d8+3)[slashing]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} by the conviction that these wounds were caused by a loved one.</p>\n<p><strong>Failure</strong> As success, but [[/r (2d8+6)[slashing]]] damage, [[/r 1d6[bleed]]], and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but [[/r (4d8+12)[slashing]]] damage, [[/r 2d6[bleed]]], and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}. Increase the value of the character's malevolence condition by 1.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Malevolence"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

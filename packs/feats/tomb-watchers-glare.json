@@ -1,0 +1,52 @@
+{
+    "_id": "oL6f86dy4yyx5N54",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Tomb-Watcher's Glare",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you critically hit an undead creature, or an undead creature critically fails a saving throw against one of your abilities, you drive your divine wrath home in your enemy's heart. The undead is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "death warden dwarf heritage"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:mode:undead"
+                ],
+                "selector": "attack",
+                "text": "PF2E.SpecificRule.Dwarf.TombWatchersGlare.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "divine",
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

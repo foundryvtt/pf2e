@@ -1,0 +1,89 @@
+{
+    "_id": "k7M9jedvt31AJ5ZR",
+    "img": "systems/pf2e/icons/features/classes/fury-instinct.webp",
+    "name": "Fury Instinct",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your rage comes from a deep and purely personal well within you. You use your rage as you choose.</p>\n<h2 class=\"title\">Anathema and Instinct Ability</h2>\n<p>You don't have an anathema or an instinct ability. Instead, you gain an additional 1st-level barbarian feat.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float: right;\">Level 7</span></h2>\n<p>Increase the additional damage from Rage from 2 to 6. If you have greater weapon specialization, instead increase the additional damage from Rage to 12.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float: right;\">Level 9</span></h2>\n<p>You resist physical weapon damage, but not physical damage from other sources (such as unarmed attacks).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:class",
+                        "item:trait:barbarian",
+                        {
+                            "not": "item:draconic-arrogance"
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "furyInstinct",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:barbarian"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:barbarian"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.furyInstinct}"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 12
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

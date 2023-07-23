@@ -1,0 +1,107 @@
+{
+    "_id": "Uhhhh06jUhNkRHKS",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "lJHpE7lDy3oQrp0E",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Acidic Spray",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the strongbox directly or with a held tool</p>\n<hr />\n<p><strong>Effect</strong> The trap deals [[/r (4d8+10)[acid]]] damage in a @Template[type:cone|distance:15] in the direction of the triggering creature (@Check[type:reflex|dc:21|basic:true]).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "arcane",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Acid Strongbox Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An invisible magic field around the strongbox releases a spray of acid when disturbed.</p>",
+            "disable": "<p>@Check[type:thievery|dc:22|name:Bleed Away the Magical Field|traits:acid,evocation,magical,trap,hazard] (expert) to harmlessly bleed away the magical field or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (2nd level; counteract DC 20) to dispel it.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #175: Broken Tusk Moon"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "acid",
+                "evocation",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

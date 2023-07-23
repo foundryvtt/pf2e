@@ -1,0 +1,131 @@
+{
+    "_id": "NSQOijKqomyotXkj",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/antler-arrow.webp",
+    "name": "Antler Arrow",
+    "system": {
+        "autoDestroy": {
+            "value": true
+        },
+        "baseItem": null,
+        "charges": {
+            "max": 0,
+            "value": 0
+        },
+        "consumableType": {
+            "value": "ammo"
+        },
+        "consume": {
+            "value": ""
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Creation of these arrows was inspired by an encounter with a horned archon scout who sought to peacefully restrain their foes. When an activated antler arrow hits a target, bone antlers extend to pin it down. The target must succeed at a @Check[type:reflex|dc:16] save or become stuck to the surface, taking the critical specialization effects of a bow.</p>\n<p>If the hit with the <em>antler arrow</em> is a critical hit and you have access to the bow critical specialization effect, the DC of the Athletics check increases to 15.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 7
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.AmmunitionNotes.AntlerArrow.Text",
+                "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
+                "title": "PF2E.Actor.Creature.CriticalSpecialization"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "not": "critical-specialization"
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.AmmunitionNotes.AntlerArrow.Text",
+                "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "not": "critical-specialization"
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
+                "title": "PF2E.Actor.Creature.CriticalSpecialization"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "critical-specialization"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.AmmunitionNotes.AntlerArrow.CriticalText",
+                "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "stackGroup": "arrows",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conjuration",
+                "consumable",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "consumable"
+}

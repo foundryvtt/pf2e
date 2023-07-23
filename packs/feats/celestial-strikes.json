@@ -1,0 +1,69 @@
+{
+    "_id": "Ot1jI91ccnB2ayfk",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Celestial Strikes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your connection to good arms all your attacks against forces of evil. All your weapon and unarmed Strikes deal [[/r 1[good]]] damage and have the good and magical traits.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "damageType": "good",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": 1
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "good"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aasimar"
+            ]
+        }
+    },
+    "type": "feat"
+}

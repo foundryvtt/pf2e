@@ -1,6 +1,6 @@
 <div class="sidebar_title">
     <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
-    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-ac-modifiers">
+    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-armor-modifiers">
         <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
     </button>
 </div>
@@ -84,5 +84,5 @@
     </div>
 </div>
 {{#with data.attributes.ac}}
-{{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs title="PF2E.ArmorClassLabel" }}
+    {{> "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs" title="PF2E.ArmorClassLabel"}}
 {{/with}}

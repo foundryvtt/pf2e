@@ -1,0 +1,54 @@
+{
+    "_id": "5q8a36QyYAslgnsk",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Eldritch Calm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your fey heritage has altered your mindset to more resemble the uncanny perspective of the fey. While you are not emotionless, and indeed might be prone to fits of odd moods and tempers, many perceive you as having an aura of unshakable tranquility. When you roll a critical failure against an emotion or fear effect, you get a failure instead. Once per day in place of attempting a saving throw against an emotion or fear effect, you can automatically treat your result as though you had rolled a 20; this is a fortune effect. However, your extraordinary emotional detachment makes it difficult to encourage you. You reduce any bonus you gain from an emotion effect by 1.</p>\n<hr />\n<p><strong>Special</strong> This feat gains the trait appropriate for your ancestry (human for human, goblin for goblin, etc.).</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "SubstituteRoll",
+                "selector": "saving-throw",
+                "value": 20
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

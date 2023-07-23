@@ -1,0 +1,46 @@
+{
+    "_id": "ny0nfGTDUE4p8TtO",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Ubiquitous Gadgets",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>They thought you had used up all your devices, but they thought wrong! You have a few more gadgets up your sleeve than others expect. Increase the number of temporary gadgets you can create each day by 2.</p>\n<p><strong>Special</strong> You can select this feat a second time if you are 14th level or higher.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Gadget Specialist"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.crafting.entries.gadgetSpecialist.maxSlots",
+                "phase": "beforeDerived",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

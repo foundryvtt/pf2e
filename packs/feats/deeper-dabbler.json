@@ -1,0 +1,46 @@
+{
+    "_id": "PTXZ2C3AV8tZf0iX",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Deeper Dabbler",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With some streamlining to your process and a deeper collection of talisman materials, you make a greater number of talismans every day. You can create two additional talismans during your daily preparations.</p>\n<p><strong>Special</strong> You can select this feat a second time if you are 14th level or higher.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Talisman Dabbler Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.crafting.entries.talismanDabbler.maxSlots",
+                "phase": "beforeDerived",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

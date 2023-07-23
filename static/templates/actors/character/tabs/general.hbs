@@ -1,8 +1,8 @@
 <div class="tab character" data-group="primary" data-tab="character">
     <section class="character-details">
         <div class="frame-container">
-            <div class="frame image-container"">
-                <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+            <div class="frame image-container">
+                <img class="actor-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
                 <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
             </div>
         </div>
@@ -17,19 +17,12 @@
                 </select>
             </span>
         </div>
-        <div class="pc pc_deity" data-item-id="{{deity.id}}">
+        <div class="pc pc_deity item">
             <div class="input">
-                <label class="details-label">{{localize "ITEM.TypeDeity"}}</label>
-                <h3>
-                    <span class="value">{{deity.name}}</span>
-                    {{#if @root.options.editable}}
-                        {{#if deity}}
-                            <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                        {{else}}
-                            <a class="open-compendium" data-compendium="pf2e.deities"><i class="fas fa-fw fa-plus-circle"></i></a>
-                        {{/if}}
-                    {{/if}}
-                </h3>
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=deity type="deity" compendium="pf2e.deities"
+                }}
             </div>
             {{#if deity}}
                 <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
@@ -38,67 +31,29 @@
             {{/if}}
         </div>
         <div class="detail-sheet">
-            <div class="pc pc_ancestry item" data-item-id="{{ancestry.id}}">
-                <span class="details-label">{{localize "ITEM.TypeAncestry"}}</span>
-                <span title="{{localize "PF2E.AncestryTitle"}}">
-                    <h3>
-                        <span class="value">{{ancestry.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if ancestry}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_ancestry item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=ancestry type="ancestry" compendium="pf2e.ancestries"
+                }}
             </div>
-            <div class="pc pc_heritage item" data-item-id="{{heritage.id}}">
-                <span class="details-label">{{localize "PF2E.Heritage"}}</span>
-                <span title="{{localize "PF2E.HeritageTitle"}}">
-                    <h3>
-                        <span class="value">{{heritage.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if heritage}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.heritages"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_heritage item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=heritage type="heritage" compendium="pf2e.heritages"
+                }}
             </div>
-            <div class="pc pc_class item" data-item-id="{{class.id}}">
-                <span class="details-label">{{localize "PF2E.Class"}}</span>
-                <span title="{{localize "PF2E.ClassTitle"}}">
-                    <h3>
-                        <span class="value">{{class.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if class}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_class item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=class type="class" compendium="pf2e.classes"
+                }}
             </div>
-            <div class="pc pc_background item" data-item-id="{{background.id}}">
-                <span class="details-label">
-                    {{localize "PF2E.Background"}}
-                </span>
-                <span title="{{localize "PF2E.BackgroundTitle"}}">
-                    <h3>
-                        <span class="value">{{background.name}}</span>
-                        {{#if @root.options.editable}}
-                            {{#if background}}
-                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
-                            {{else}}
-                                <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-fw fa-plus-circle"></i></a>
-                            {{/if}}
-                        {{/if}}
-                    </h3>
-                </span>
+            <div class="pc pc_background item">
+                {{>
+                    "systems/pf2e/templates/actors/character/partials/detail-item.hbs"
+                    item=background type="background" compendium="pf2e.backgrounds"
+                }}
             </div>
         </div>
     </section>

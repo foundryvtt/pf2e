@@ -1,0 +1,219 @@
+{
+    "_id": "hnYckrT72oIKAuHJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "pozH1aOlixvNcvU6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Burn Knowledge",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The target of the haunt's initial Ghostly Assault, as well as any creature later hit by a burning lash Strike, loses random memories, as if these thoughts were incinerated like pages in a burning book.</p>\n<p>The creature must attempt a @Check[type:will|dc:23] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute while they forget random memories, as if these thoughts were incinerated like pages in a burning book.</p>\n<p><strong>Failure</strong> As success, but the stupefied 1 condition persists for 24 hours.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "burn-knowledge",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "enchantment",
+                        "fire",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9i3UjVYq4lp3MqZJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Burning Lash",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "burn-knowledge"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "s2blktozj5cqsr98af68bc": {
+                        "damage": "2d6",
+                        "damageType": "fire"
+                    },
+                    "661efb7d51dmoi17le0e8": {
+                        "damage": "2d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "mental",
+                        "range-increment-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zzmMQYbPGJRgOH7E",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ghostly Assault",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature with an Intelligence score of 15 or higher enters the room, or any creature touches the furnace</p>\n<hr />\n<p><strong>Effect</strong> Burning ghosts burst from the furnace, exposing the triggering creature to the haunt's burn knowledge effect. The haunt rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "enchantment",
+                        "fire",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Vengeful Furnace",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "hardness": 13,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 8
+                },
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The hatch atop the haunted furnace flips open and disgorges a pair of shrieking, burning ghosts.</p>",
+            "disable": "<p>@Check[type:intimidation|dc:22|name:Cow a Spirit] (trained) to cow one of the vengeful spirits or @Check[type:religion|dc:25|name:Exorcise the Spirit] (trained) to exorcise the spirit. The haunt remains active until both spirits are cowed or exorcised, or until the furnace is destroyed.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>The haunt resets 1 hour after there are no creatures in the room.</p>",
+            "routine": "<p>(3 actions) The burning ghosts lash at a random @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] creature in the room (or any random creature, if no creatures in the room are stupefied).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #163: Ruins of Gauntlight"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

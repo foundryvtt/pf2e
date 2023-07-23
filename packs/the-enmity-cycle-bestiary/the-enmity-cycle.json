@@ -1,0 +1,105 @@
+{
+    "_id": "MKHyUnxqEaufV3rx",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Sx078ND9MugfxEIm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Discordant Performance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Zridi spends an action to activate <em>The Enmity Cycle</em> while in area <strong>F2</strong></p>\n<hr />\n<p><strong>Effect</strong> All creatures other than Zridi in <strong>F2</strong> take [[/r (2d8+9)[mental]]] damage (@Check[type:will|dc:25|basic:true] save). The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "The Enmity Cycle",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em></p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Discordant music, dance, and poetry combine to build a deep suspicion and distrust of strangers.</p>",
+            "disable": "<p>@Check[type:performance|dc:26] to counteract the performance or @Check[type:religion|dc:27] or @Check[type:occult|dc:27] to disrupt the spiritual energy. Three total successes are needed to disable the trap.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>A new production of <em>The Enmity Cycle</em> must be arranged; this process usually takes at least 1 week.</p>",
+            "routine": "<p>(1 action) The performance continues to sow seeds of enmity, discord, and distrust on those in its area. All creatures in attendance other than Zridi must attempt a @Check[type:will|dc:25] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The target is unaffected and is immune to the effects for 1 day.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} for 2 rounds.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} for 1 minute and is certain the source of this fear is their fellow citizens, especially those from places other than their hometown. For 1 week the target suffers a &ndash;2 penalty to all Diplomacy skill checks against people from other Thuvian cities and regains the frightened 2 condition whenever they are in one of those cities.</p>\n<p><strong>Critical Failure</strong> As failure, but the target becomes a carrier for <em>The Enmity Cycle</em> for the next week. The target is compelled to travel to a city other than where they were exposed and recite as many lines from the anbarit as they can recall. Those who hear or witness the performance are treated as if they had attended a performance of <em>The Enmity Cycle</em>, but with a @Check[type:will|dc:23] save</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: The Enmity Cycle"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "curse",
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

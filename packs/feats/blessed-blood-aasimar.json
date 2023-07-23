@@ -1,0 +1,47 @@
+{
+    "_id": "BuaOQzmRNgIhGsfN",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Blessed Blood (Aasimar)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your freshly spilled blood is sanctified, and ingesting it causes effects similar to those of @UUID[Compendium.pf2e.equipment-srd.Item.Holy Water].</p>\n<p>Whenever a fiend, undead, or creature with a weakness to good damage drinks your blood or deals piercing or slashing damage to you with jaws, fangs, or a similar attack, that creature takes [[/r 1d6[good]]] damage.</p>\n<p>You gain a +4 circumstance bonus to Crafting checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] @UUID[Compendium.pf2e.equipment-srd.Item.Holy Water] using your own blood as one of the ingredients.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Blessed Blood (craft Holy Water with own blood)",
+                "predicate": [
+                    "action:craft",
+                    "item:holy-water",
+                    "own-blood"
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aasimar"
+            ]
+        }
+    },
+    "type": "feat"
+}

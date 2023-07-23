@@ -7,6 +7,15 @@ declare global {
      * This algorithm was created with valuable contributions from https://github.com/caewok
      */
     class ClockwiseSweepPolygon extends PointSourcePolygon {
+        /** A mapping of vertices which define potential collision points */
+        vertices: Map<number, PolygonVertex>;
+
+        /** The set of edges which define potential boundaries of the polygon */
+        edges: Set<PolygonEdge>;
+
+        /** A collection of rays which are fired at vertices */
+        rays: Ray[];
+
         protected _compute(): void;
 
         protected _testCollision(ray: Ray, mode: string): boolean | PolygonVertex | PolygonVertex[] | null;

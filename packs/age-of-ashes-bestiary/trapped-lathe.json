@@ -1,0 +1,195 @@
+{
+    "_id": "zdJHl3xMY7n2Lwlf",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Da7jV5DGeFRpV5qb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Unleash Fragments",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The lathe is jostled or damaged, or its trigger is remotely pulled.</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a sharpened fragment Strike against a random target in area <strong>A1</strong>, then rolls for initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zVCalXk0BtUnOMfM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sharpened Fragment",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "persistent-bleed-critical"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "1etp12wxjv4icdxijeeq6": {
+                        "damage": "2d8+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "USQ16Z86qZYqJDkV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Persistent Bleed Critical",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The sharpened fragments deal [[/r 1d8[bleed]]] on a critical hit.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "persistent-bleed-critical",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Trapped Lathe",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "hardness": 18,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 72
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert); @Check[type:perception|dc:29|name:Notice the Line of Cord|traits:complex,mechanical,trap,hazard] to notice the line of cord running from the lathe's trigger toward the door to area <strong>A2</strong>.</p>",
+                "value": 19
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The powered lathe's springs have been critically overwound so that when jostled or triggered, the lathe unwinds violently, hurling blades, gears, and sharp shards of metal around the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:31|name:Release the Spring Tension|traits:complex,mechanical,trap,hazard] (expert) on the lathe releases the tension on its springs without unleashing its blades and gears.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) The lathe attempts four sharpened fragment attacks against creatures in the room, selecting a target randomly from all available targets in area A1. The trap does not take multiple attack penalties for any of its attacks. The trap loses 1 action each turn as its springs wind down, and becomes disabled when it has 0 actions.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #147: Tomorrow Must Burn"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

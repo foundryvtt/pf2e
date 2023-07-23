@@ -1,0 +1,98 @@
+{
+    "_id": "IZupJre7o5We2VrK",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Vicious Fangs",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You aim for your victim's prominent arteries. Your fangs Strike deals an additional [[/r 1d6[bleed]]] on a critical hit. At 14th level, the persistent bleed damage increases to [[/r 2d6[bleed]]], and at 20th level, the persistent bleed damage increases to [[/r 3d6[bleed]]].</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Vampire Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "selector": "fangs-damage",
+                "text": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.Base",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            14
+                        ]
+                    },
+                    {
+                        "not": {
+                            "gte": [
+                                "self:level",
+                                20
+                            ]
+                        }
+                    }
+                ],
+                "selector": "fangs-damage",
+                "text": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.FourteenthLevel",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            20
+                        ]
+                    }
+                ],
+                "selector": "fangs-damage",
+                "text": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.TwentiethLevel",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

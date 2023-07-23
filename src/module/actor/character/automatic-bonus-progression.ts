@@ -1,22 +1,20 @@
 import { ActorPF2e } from "@actor";
-import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ArmorPF2e, WeaponPF2e } from "@item";
-import { ZeroToThree } from "@module/data";
-import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
-import { PotencySynthetic } from "@module/rules/synthetics";
-import { PredicatePF2e } from "@system/predication";
-import { CharacterPF2e } from "./document";
+import { ZeroToThree } from "@module/data.ts";
+import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier.ts";
+import { PotencySynthetic } from "@module/rules/synthetics.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { CharacterPF2e } from "./document.ts";
 
 class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
     static isEnabled(actor: ActorPF2e | null): boolean {
-        // Synthetic actors begin data preparation before their data model is initialized
-        if (!actor?.flags) return false;
-
+        if (actor && !actor.flags?.pf2e) return false;
         const settingEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
-        const actorIsPC = actor.isOfType("character") && !actor.flags.pf2e.disableABP;
+        const abpDisabledForActor = !!actor?.flags.pf2e.disableABP;
 
-        return settingEnabled && actorIsPC;
+        return settingEnabled && !abpDisabledForActor;
     }
 
     /** Get striking damage dice according to character level */
@@ -46,7 +44,7 @@ class AutomaticBonusProgression {
                         slug: "save-potency",
                         label: "PF2E.AutomaticBonusProgression.savePotency",
                         modifier: save,
-                        type: MODIFIER_TYPE.POTENCY,
+                        type: "potency",
                     })
             );
         }
@@ -59,7 +57,7 @@ class AutomaticBonusProgression {
                         slug: "defense-potency",
                         label: "PF2E.AutomaticBonusProgression.defensePotency",
                         modifier: ac,
-                        type: MODIFIER_TYPE.POTENCY,
+                        type: "potency",
                     })
             );
         }
@@ -72,7 +70,7 @@ class AutomaticBonusProgression {
                         slug: "perception-potency",
                         label: "PF2E.AutomaticBonusProgression.perceptionPotency",
                         modifier: perception,
-                        type: MODIFIER_TYPE.POTENCY,
+                        type: "potency",
                     })
             );
         }

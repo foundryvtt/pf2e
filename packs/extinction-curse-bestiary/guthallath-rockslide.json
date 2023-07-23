@@ -1,0 +1,182 @@
+{
+    "_id": "M3pYUyhrmylFqS0B",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "N1mvyhPLJjZvHzqX",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rumbling Rocks",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The guthallath rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The rocks of the area begin to crumble. The hazard rolls for initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "af6LBcRSbi6EeWEW",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Falling Rocks",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "m39l11ztrqgz1agznrec": {
+                        "damage": "4d10+20",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Xck3GduL0mgbVURO",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Early Collapse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The hazard takes 30 or more damage</p>\n<hr />\n<p><strong>Effect</strong> Move the hazard's initiative to immediately follow the creature that damaged the hazard.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Guthallath Rockslide",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 42
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hasHealth": true,
+            "hp": {
+                "details": "Hardness 10 in the guthallath's erosion aura",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) to notice the odd aging of the stones, seemingly far older and more weathered than the surrounding rocks</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The rock walls nearby begin to crumble and collapse.</p>",
+            "disable": "<p>@Check[type:crafting|dc:48|name:Buttress the Rocks|traits:environmental] (legendary) to buttress the collapsing rocks in three different locations. Using large and durable materials (or applicable spells) to support the rocks reduces the check to @Check[type:crafting|dc:45|name:Buttress the Rocks|traits:environmental] (master).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "reset": "<p>The guthallath can reset the hazard with a few days of work stacking the fallen rocks.</p>",
+            "routine": "<p>(2 actions) On the hazard's first action, any areas of crumbling rocks from a previous round collapse, making a falling rocks Strike against each creature in the area.</p>\n<p>On its second action, the hazard crumbles rocks in a 20-foot radius around the previous collapse. A character can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] (DC 40) to determine where the rocks will fall on the following round, but on a critical failure, they incorrectly identify where the rocks will fall.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #156: The Apocalypse Prophet"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

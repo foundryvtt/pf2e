@@ -1,0 +1,150 @@
+{
+    "_id": "WIWR8jURAdSAzxIh",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Magical Experiment",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": []
+            }
+        },
+        "description": {
+            "value": "<p>At some point in your life, powerful people performed magical experiments on you that changed you permanently. You may have signed up for this voluntarily, but it may have been against your will. You still bear the marks, as well as the abilities.</p>\n<p>You gain one ability boost. It must be to <strong>Constitution</strong>.</p>\n<p>You're trained in Occultism and the Academia Lore skill. You gain one special ability as a result of the magical experimentation. Work with the GM to select an appropriate ability from the following list or to come up with another special ability.</p>\n<hr />\n<ul>\n<li><strong>Enhanced Senses</strong> You gain low-light vision (or darkvision if you already had low-light vision) and an imprecise sense with a range of 30 feet, such as scent, thoughtsense, tremorsense, or wavesense.</li>\n<li><strong>Resistant Skin</strong> The experiments rendered your skin tougher and resilient to a particular type of damage. You gain resistance equal to half your level (minimum resistance 1) against two of the following types of energy damage, one chosen by you and the other chosen by the GM: acid, cold, electricity, fire, or sonic.</li>\n<li><strong>Touch Telepathy</strong> The experiments to your body allowed you to link minds via touch. You gain telepathy with creatures as long as you are in physical contact. This allows you to communicate mentally with any creatures you're in physical contact with, as long as you both share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</li>\n</ul>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.MagicalExperiment.EnhancedSenses",
+                        "value": "enhanced-senses"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.MagicalExperiment.ResistantSkin",
+                        "value": "resistant-skin"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.MagicalExperiment.TouchTelepathy",
+                        "value": "touch-telepathy"
+                    }
+                ],
+                "flag": "magicalExperiment",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "background:magical-experiment"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry",
+                    "background:magical-experiment:enhanced-senses"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "background:magical-experiment:enhanced-senses"
+                ],
+                "selector": "lowLightVision"
+            },
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energy1",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ]
+            },
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "energy2",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.energy1}",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.energy2}",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "trainedLore": "Academia Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": [
+                "occ"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

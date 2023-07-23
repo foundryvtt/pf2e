@@ -1,0 +1,71 @@
+{
+    "_id": "s16XQpDz2HNzR9BB",
+    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
+    "name": "Effect: Aura of Protection (Solar)",
+    "system": {
+        "description": {
+            "value": "<p>Allies in the solar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to saves against effects from evil creatures. The bonus increases to +4 against control by evil creatures and attacks by evil summoned creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:evil"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:evil",
+                    {
+                        "or": [
+                            "inflicts:controlled",
+                            {
+                                "and": [
+                                    "attack",
+                                    "origin:trait:summoned"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "slug": "more-protection",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 2"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

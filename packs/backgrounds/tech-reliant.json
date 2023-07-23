@@ -1,0 +1,71 @@
+{
+    "_id": "2FUdcPsXwoWT1bms",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Tech Reliant",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Some event, be it an accident, attack, or disaster, has left you horribly scarred by magic. Your body no longer tolerates magical healing, and you can't use magic, forcing you to rely on gadgets and ingenuity where others trust in spells and magical items. You might have been well-versed in magic before, or barely familiar with its use. This event may have injured your body in visible ways, but no matter the extent of your injuries, your body no longer interacts with healing magic in any capacity.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Crafting skill and the Medicine skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Battle Medicine] skill feat, and a +1 circumstance bonus to saving throws against spells. Healing spells, healing magic items, and magical effects with the healing trait have no effect on you.</p>"
+        },
+        "items": {
+            "5002m": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Battle Medicine",
+                "uuid": "Compendium.pf2e.feats-srd.Item.wYerMk6F1RZb0Fwt"
+            }
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult",
+                            "item:type:spell"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "trainedLore": "",
+        "trainedSkills": {
+            "custom": "",
+            "value": [
+                "cra",
+                "med"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

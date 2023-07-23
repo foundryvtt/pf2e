@@ -1,0 +1,109 @@
+{
+    "_id": "1HYH5BgFGtFxVMpc",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "zBa9WIu0MHIhcZTg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Monster",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non‑xulgath, non‑demon creature that isn't carrying a religious symbol of Zevgavizeb crosses from the north part of the hall to the south part of the hall</p>\n<hr />\n<p><strong>Effect</strong> The trap summons a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Krooth]. The krooth rolls initiative and remains for [[/br 2d6 #rounds]]{2d6 rounds}, after which the spell ends and the krooth disappears. The krooth also disappears if someone disables the trap before the duration expires. Unlike most summoned creatures, the krooth can use 3 actions each round and can use reactions.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "conjuration",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Krooth Summoning Rune",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 14
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The haze conceals a rune that summons a krooth in front of the door to area B10.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:24|name:Approach without triggering the trap|traits:hazard,complex,magical,trap] to approach without triggering the trap followed by @Check[type:thievery|dc:26|name:Erase the rune|traits:hazard,complex,magical,trap] (expert) to erase the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 24) to counteract the rune.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "<p>The trap resets after 24 hours.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #152: Legacy of the Lost God"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

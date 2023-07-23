@@ -1,0 +1,45 @@
+{
+    "_id": "nUCRd8tmz3C6LM0T",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Wajaghand Vanara",
+    "system": {
+        "ancestry": {
+            "name": "Vanara",
+            "slug": "vanara",
+            "uuid": "Compendium.pf2e.ancestries.Item.cLtOGIkuSSa4UDHY"
+        },
+        "description": {
+            "value": "<p>Your ancestors were forced into labor by the rakshasa immortal Ravana, the First and the Last. Although their cleverness while in captivity saved countless lives, and they're bound no longer, the time marked your family with scars upon the mind that will never truly heal, even across the generations. You gain a +1 circumstance bonus to saving throws against emotion effects, and whenever you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "saves"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,13 +1,13 @@
-import { StrikeData } from "@actor/data/base";
-import { ActorSheetPF2e } from "@actor/sheet/base";
-import { SAVE_TYPES } from "@actor/values";
+import { StrikeData } from "@actor/data/base.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { tagify, traitSlugToObject } from "@util";
-import { HazardPF2e } from ".";
-import { HazardSystemData } from "./data";
-import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
+import { HazardPF2e } from "./document.ts";
+import { HazardSystemData } from "./data.ts";
+import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: [...options.classes, "hazard"],
@@ -22,7 +22,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return "systems/pf2e/templates/actors/hazard/sheet.hbs";
     }
 
-    override get title() {
+    override get title(): string {
         if (this.editing) {
             return game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title });
         }
@@ -30,18 +30,18 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return super.title;
     }
 
-    get editing() {
+    get editing(): boolean {
         return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
     }
 
-    override async getData(): Promise<HazardSheetData> {
-        const sheetData = await super.getData();
+    override async getData(options?: ActorSheetOptions): Promise<HazardSheetData> {
+        const sheetData = await super.getData(options);
 
         sheetData.actor.flags.editHazard ??= { value: false };
         const systemData: HazardSystemData = sheetData.data;
         const actor = this.actor;
 
-        const hasDefenses = !!actor.hitPoints?.max || !!actor.attributes.ac.value;
+        const { hasDefenses } = actor;
         const hasImmunities = systemData.attributes.immunities.length > 0;
         const hasResistances = systemData.attributes.resistances.length > 0;
         const hasWeaknesses = systemData.attributes.weaknesses.length > 0;
@@ -64,28 +64,29 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             reset: await enrich(systemData.details.reset),
         });
 
-        const strikesWithDescriptions: StrikeData[] = sheetData.data.actions.filter(
-            (s: StrikeData) => s.description.length > 0
-        );
+        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = systemData.actions;
         const actorRollData = actor.getRollData();
         for (const attack of strikesWithDescriptions) {
             const itemRollData = attack.item.getRollData();
-            attack.description = await TextEditor.enrichHTML(attack.description, {
-                rollData: { ...actorRollData, ...itemRollData },
-                async: true,
-            });
+            if (attack.description.length > 0) {
+                attack.description = await TextEditor.enrichHTML(attack.description, {
+                    rollData: { ...actorRollData, ...itemRollData },
+                    async: true,
+                });
+            }
+            attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
         }
 
         return {
             ...sheetData,
-            actions: this.prepareActions(),
+            actions: this.#prepareActions(),
             editing: this.editing,
             actorTraits: systemData.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             brokenThreshold: systemData.attributes.hp.brokenThreshold,
             stealthDC,
-            saves: this.prepareSaves(),
+            saves: this.#prepareSaves(),
 
             // Hazard visibility, in order of appearance on the sheet
             hasDefenses,
@@ -101,7 +102,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
     }
 
-    private prepareActions(): HazardActionSheetData {
+    #prepareActions(): HazardActionSheetData {
         const actions = this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort);
         return {
             reaction: actions.filter((a) => a.actionCost?.type === "reaction"),
@@ -109,7 +110,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
     }
 
-    private prepareSaves(): HazardSaveSheetData[] {
+    #prepareSaves(): HazardSaveSheetData[] {
         if (!this.actor.saves) return [];
 
         const results: HazardSaveSheetData[] = [];
@@ -193,10 +194,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             this.actor.setFlag("pf2e", "editHazard", { value: event.target.checked });
         });
     }
-
-    /* -------------------------------------------- */
-    /*  Event Handlers                              */
-    /* -------------------------------------------- */
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Change emitsSound values of "true" and "false" to booleans

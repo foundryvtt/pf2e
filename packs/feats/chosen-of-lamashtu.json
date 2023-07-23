@@ -1,0 +1,55 @@
+{
+    "_id": "eVn6hBjNjTB4liKw",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Chosen of Lamashtu",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You bear the favor and blessings of @UUID[Compendium.pf2e.deities.Item.Lamashtu], the Mother of Monsters. She has bestowed a mutation upon you, granting you the benefits of another heritage. Choose one goblin heritage that you do not already have; you gain that heritage and its benefits.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "worshipper of Lamashtu"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        "item:ancestry:goblin"
+                    ],
+                    "itemType": "heritage"
+                },
+                "flag": "heritage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Goblin.ChosenOfLamashtu.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.heritage}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

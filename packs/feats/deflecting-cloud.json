@@ -1,0 +1,58 @@
+{
+    "_id": "VYdZmTifZRkRF7ey",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Deflecting Cloud",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once every 10 minutes</p>\n<p><strong>Trigger</strong> You are the target of a ranged attack.</p>\n<p><strong>Requirements</strong> You are aware of the attack and currently have dragon wings active.</p>\n<hr />\n<p>You've mastered a defensive technique unique to the ancient dragons of Bloodsalt: beating your wings to create a billowing cloud of mist. You become momentarily @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from the triggering attack if vision is the attacker's only precise sense. Normally this means the attacker must succeed at a @Check[type:flat|dc:11|name:Hidden Flat Check|traits:hidden|showDC:owner] check to target you. You also gain a +4 circumstance bonus to AC against the triggering attack.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dragon Disciple Dedication"
+                },
+                {
+                    "value": "dragon wings sorcerer bloodline spell"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Use Deflecting Cloud",
+                "option": "deflecting-cloud",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deflecting-cloud"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #171: Hurricane's Howl"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

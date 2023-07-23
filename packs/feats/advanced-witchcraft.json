@@ -1,0 +1,76 @@
+{
+    "_id": "pIG5hWjZtzZJ3VOZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advanced Witchcraft",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain one witch feat. For the purpose of meeting its prerequisites, your witch level is equal to half your character level.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you select it, you gain another witch feat.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Basic Witchcraft"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "postFilter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "base-item:location:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "self:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"witch\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Multiclass.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedWitchcraft}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,111 @@
+{
+    "_id": "KXY9CRct0VKhiNob",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "qs4zOgvQbmRifUez",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Raving Diatribe",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature remains in area <strong>B3</strong> for longer than 1 round</p>\n<hr />\n<p><strong>Effect</strong> Each creature in the sealed room is targeted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Nightmare]</em> (@Check[type:will|dc:30] save). The haunt counts as having met the targets. It then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Raving Spirit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(expert) or @Check[type:perception|dc:30|traits:action:seek] (master) to detect the spiritual nexus</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The restless spirit of Currew raves against his tormentors when someone enters his room.</p>",
+            "disable": "<p>@Check[type:intimidation|dc:30|name:Quiet the spirit|traits:hazard,haunt,complex] (expert) to quiet the spirit for 1 round, or @Check[type:religion|dc:32|name:Exorcise spirit|traits:hazard,haunt,complex] (master) to exorcise it</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>The haunt grows quiet and resets 1 minute after no creatures are in area <strong>B3</strong>.</p>",
+            "routine": "<p>(2 actions) The haunts casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer]</em> (@Check[type:will|dc:30|name:Phantasmal Killer|traits:hazard,haunt,complex,death,emotion,fear,mental] save and @Check[type:fortitude|dc:30|name:Phantasmal Killer|traits:hazard,haunt,complex,death,emotion,fear,mental,incapacitation] save for critical failure) on a random creature who can see Currew's bed (it can even target creatures outside of area <strong>B3</strong>, so long as the target can see the bed). Everyone affected by the <em>phantasmal killer</em> sees the same image: a sickly old man lies in the bed, screaming and ranting about his guilt, shame, and eventual death.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #153: Life's Long Shadows"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,40 +1,49 @@
-import { IdentifyCreatureData } from "@module/recall-knowledge";
-import { padArray } from "@util";
+import { CreatureIdentificationData } from "@module/recall-knowledge.ts";
+import { localizeList, padArray } from "@util";
 
 export class RecallKnowledgePopup extends Application {
-    static override get defaultOptions() {
-        const options = super.defaultOptions;
-        options.id = "recall-knowledge-breakdown";
-        options.classes = [];
-        options.title = game.i18n.localize("PF2E.RecallKnowledge.BreakdownTitle");
-        options.template = "systems/pf2e/templates/actors/recall-knowledge.hbs";
-        options.width = 630;
-        return options;
-    }
+    #identificationData: CreatureIdentificationData;
 
-    constructor(options: Partial<ApplicationOptions>, private data: IdentifyCreatureData) {
+    constructor(options: Partial<ApplicationOptions>, data: CreatureIdentificationData) {
         super(options);
+        this.#identificationData = data;
     }
 
-    override async getData() {
-        const data = this.data;
+    static override get defaultOptions(): ApplicationOptions {
         return {
-            specificLoreAttempts: this.padAttempts(data.specificLoreDC.progression),
-            unspecificLoreAttempts: this.padAttempts(data.unspecificLoreDC.progression),
-            skills: Array.from(data.skills)
-                .sort()
-                .map((skill) => ({
-                    name: CONFIG.PF2E.skillList[skill],
-                    attempts: this.padAttempts(data.skill.progression),
-                })),
+            ...super.defaultOptions,
+            id: "recall-knowledge-breakdown",
+            classes: [],
+            title: game.i18n.localize("PF2E.RecallKnowledge.BreakdownTitle"),
+            template: "systems/pf2e/templates/actors/recall-knowledge.hbs",
+            width: 630,
         };
     }
 
-    private padAttempts(attempts: number[]): string[] {
+    override async getData(): Promise<PopupData> {
+        const identificationData = this.#identificationData;
+
+        return {
+            standard: {
+                label: localizeList(identificationData.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skillList[s]))),
+                attempts: this.#padAttempts(identificationData.standard.progression),
+            },
+            loreEasy: this.#padAttempts(identificationData.lore[0].progression),
+            loreVeryEasy: this.#padAttempts(identificationData.lore[1].progression),
+        };
+    }
+
+    #padAttempts(attempts: number[]): string[] {
         return padArray(
             attempts.map((attempt) => attempt.toString()),
             6,
             "-"
         );
     }
+}
+
+interface PopupData {
+    standard: { label: string; attempts: string[] };
+    loreEasy: string[];
+    loreVeryEasy: string[];
 }

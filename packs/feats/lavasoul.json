@@ -1,0 +1,72 @@
+{
+    "_id": "JoeepCWheQChcQ9s",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Lavasoul",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your elemental lineage manifests as magma and molten rock, and you can focus the magma into your hand to attack your foes. You gain a magma spike unarmed attack, which requires a free hand to use. This is an agile, finesse, unarmed attack in the brawling weapon group that deals [[/r 1d4[piercing]]] damage, as well as [[/r 1[fire]]] damage. Instead of the normal critical specialization effect, the target takes [[/r 1d6[persistent,fire]]] damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/spells/fire-ray.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpike",
+                "range": null,
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpike",
+                "selector": "{item|_id}-damage",
+                "value": 1
+            },
+            {
+                "alternate": true,
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|_id}"
+                ],
+                "text": "PF2E.SpecificRule.Ifrit.Lavasoul.MagmaSpikeCriticalSpecialization"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ifrit",
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

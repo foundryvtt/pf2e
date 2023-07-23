@@ -1,0 +1,13 @@
+{
+    "_id": "aS6F7PSUlS9JM5jr",
+    "actorIds": [],
+    "author": "gE95JAZb6BOLkaNX",
+    "command": "let toChat = (content) => {\r\n    let chatData = {\r\n        user: game.user.id,\r\n        content,\r\n        speaker: ChatMessage.getSpeaker(),\r\n    }\r\n    ChatMessage.create(chatData, {})\r\n}\r\n\r\nlet applyChanges = false;\r\nnew Dialog({\r\n  title: `Take a Breather`,\r\n  content: `\r\n    <div>Rest for 10 minutes, spend a resolve point, and regain stamina?</div>\r\n    `,\r\n  buttons: {\r\n    yes: {\r\n      icon: \"<i class='fas fa-check'></i>\",\r\n      label: `Take a Breather`,\r\n      callback: () => applyChanges = true\r\n    },\r\n    no: {\r\n      icon: \"<i class='fas fa-times'></i>\",\r\n      label: `Cancel`\r\n    },\r\n  },\r\n  default: \"yes\",\r\n  close: html => {\r\n    if (applyChanges) {\r\n        for ( let token of canvas.tokens.controlled ) {\r\n            const {name} = token;\r\n            console.log(token);\r\n            const {resolve, sp} = token.actor.system.attributes;\r\n            console.log(resolve, sp);\r\n            if (resolve.value > 0) {\r\n                let oldSP = sp.value;\r\n                toChat(`${name} has ${sp.value}/${sp.max} SP and spends a resolve point, taking a 10 minute breather. Stamina Refreshed.`);\r\n                token.actor.update({\r\n                    'system.attributes.sp.value': sp.max,\r\n                    'system.attributes.resolve.value': resolve.value-1\r\n                });\r\n            } else {\r\n                toChat(`${name} is tired and needs to go to bed! No resolve points remaining.`);\r\n            }\r\n        }\r\n      }\r\n    }\r\n}).render(true);",
+    "img": "icons/svg/unconscious.svg",
+    "name": "Take a Breather",
+    "ownership": {
+        "default": 1
+    },
+    "scope": "global",
+    "type": "script"
+}

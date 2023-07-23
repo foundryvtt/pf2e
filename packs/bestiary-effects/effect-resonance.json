@@ -1,0 +1,88 @@
+{
+    "_id": "1dwMVgBHfT4qO4OS",
+    "img": "systems/pf2e/icons/spells/elemental-zone.webp",
+    "name": "Effect: Resonance",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to attack and damage rolls for effects with the selected trait; a creature with the elemental and selected traits gains this bonus to all attack and damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.element}"
+                ],
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "slug": "resonance-attack-1",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:{item|flags.pf2e.rulesSelections.element}",
+                    "self:trait:elemental",
+                    {
+                        "not": "{item|flags.pf2e.rulesSelections.element}"
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "slug": "resonance-attack-2",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

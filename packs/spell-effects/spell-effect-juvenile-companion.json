@@ -1,0 +1,50 @@
+{
+    "_id": "0bfqYkNaWsdTmtrc",
+    "img": "systems/pf2e/icons/spells/juvenile-companion.webp",
+    "name": "Spell Effect: Juvenile Companion",
+    "system": {
+        "description": {
+            "value": "<p>The creature becomes Tiny (if it was larger), and its reach is reduced to 0 feet. All of its Speeds are halved (to a minimum Speed of 5 feet), and it gains weakness 5 to physical damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "tiny"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "land-speed",
+                "value": "max(5*floor(floor(@actor.attributes.speed.value/2)/5),5)"
+            },
+            {
+                "key": "Weakness",
+                "type": "physical",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

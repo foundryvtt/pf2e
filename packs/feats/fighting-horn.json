@@ -1,0 +1,148 @@
+{
+    "_id": "g0hHetVM9UmmIDKU",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Fighting Horn",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can modify the size and shape of your horn over time using your mental powers. Choose two of the following weapon traits: disarm, grapple, shove, and trip. Your horn gains the chosen traits.</p>\n<p><strong>Special</strong> You can take this feat a second time, adding the traits you didn't choose when you first took it.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Puncturing Horn or xyloshi"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitDisarm",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:disarm"
+                            }
+                        ],
+                        "value": "disarm"
+                    },
+                    {
+                        "label": "PF2E.TraitGrapple",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:grapple"
+                            }
+                        ],
+                        "value": "grapple"
+                    },
+                    {
+                        "label": "PF2E.TraitShove",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:shove"
+                            }
+                        ],
+                        "value": "shove"
+                    },
+                    {
+                        "label": "PF2E.TraitTrip",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:trip"
+                            }
+                        ],
+                        "value": "trip"
+                    }
+                ],
+                "flag": "traitOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "fighting-horn"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitDisarm",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:disarm"
+                            }
+                        ],
+                        "value": "disarm"
+                    },
+                    {
+                        "label": "PF2E.TraitGrapple",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:grapple"
+                            }
+                        ],
+                        "value": "grapple"
+                    },
+                    {
+                        "label": "PF2E.TraitShove",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:shove"
+                            }
+                        ],
+                        "value": "shove"
+                    },
+                    {
+                        "label": "PF2E.TraitTrip",
+                        "predicate": [
+                            {
+                                "not": "fighting-horn:trip"
+                            }
+                        ],
+                        "value": "trip"
+                    }
+                ],
+                "flag": "traitTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "fighting-horn"
+            },
+            {
+                "definition": [
+                    "item:slug:horn"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "{item|flags.pf2e.rulesSelections.traitOne}"
+            },
+            {
+                "definition": [
+                    "item:slug:horn"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "{item|flags.pf2e.rulesSelections.traitTwo}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kashrishi"
+            ]
+        }
+    },
+    "type": "feat"
+}

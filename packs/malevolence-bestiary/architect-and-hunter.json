@@ -1,0 +1,203 @@
+{
+    "_id": "Gywa8GSJtDCPSjbt",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "oK4LvqyDL68kzmhe",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Brain Pain",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> One round passes after a living creature opens the door to either of the children's rooms</p>\n<hr />\n<p><strong>Effect</strong> Both doors to the rooms open violently as the PCs experience visions of the twins having the tops of their heads cut away by unseen blades, followed by the ghastly sight of brains being placed into the empty skulls within. All creatures in either C14a, C14b, or in the hallway outside the rooms must attempt a @Check[type:will|dc:24] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the pain.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d8+9)[mental]]] damage and increases their malevolence value by 1.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (4d8+9)[mental]]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} by the pain, and increases their malevolence value by 2.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "32fQ0dIndWnIstKW",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shackled Memories",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The target believes a miniature version of their childhood home has built up around them, locking them in place. The target must attempt a @Check[type:will|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Shackled Memories for 24 hours.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the end of their next turn.</p>\n<p><strong>Failure</strong> The target is flat-footed and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] for 1 minute or until they Escape.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oxpej8ulU4Gn399c",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hunting Shot",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d8",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": "<p>The target imagines they're bleeding to death.</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Architect and Hunter",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(Expert)</p>",
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 9
+                }
+            ]
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>A ghostly pair of teenagers-the Xarwin twins-cry out in pain as their brains are replaced into their heads. As if their trauma reverses, the initial pain fades and they express the desire to play.</p>",
+            "disable": "<p>@Check[type:performance|dc:21|name:Distract the Haunt] (trained) to distract the haunt and entertain it until it becomes soothed or @Check[type:religion|dc:25|name:Exorcise Haunt] (trained) to exorcise the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The haunt resets automatically 1 hour after it's defeated or after no living creatures remain in the area to play with. Removing Marney's and Mira's brains from the brain collector statue in area E9 destroys the haunt.</p>",
+            "routine": "<p>(2 actions) The architect (Mira Xarwin) uses Shackled Memories to cause a strange, house-like cage of solid ectoplasm to spring up around a randomly determined target. This house bears an uncanny resemblance to the home the target grew up in. The hunter (Marney Xarwin) then attempts a hunting shot Strike at that target.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Malevolence"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

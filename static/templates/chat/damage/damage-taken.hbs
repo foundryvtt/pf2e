@@ -3,6 +3,9 @@
     {{#if iwr.applications}}
         <span class="iwr" data-visibility="{{iwr.visibility}}" data-applications="{{json iwr.applications}}"><i class="fas fa-info-circle small"></i></span>
     {{/if}}
+    {{#if canUndoDamage}}
+        <button type="button" class="revert-damage" data-action="revert-damage" data-tooltip="PF2E.RevertDamage.ButtonTooltip" data-tooltip-direction="UP"><i class="fa-solid fa-rotate-left"></i></button>
+    {{/if}}
 
     {{#if persistent}}
         <section class="persistent">

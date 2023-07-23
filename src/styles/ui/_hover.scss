@@ -38,24 +38,25 @@
                 }
 
                 .sidebar_title {
-                    display: flex;
-                    justify-content: space-between;
                     align-items: baseline;
                     border-bottom: 1px solid var(--sidebar-title);
-                    margin: 0.25em 0 0.5em;
+                    display: flex;
                     flex: 1 auto;
-                    h2,
-                    a {
+                    justify-content: space-between;
+                    margin: 0.25em 0 0.5em;
+
+                    h2, a {
                         @include micro;
                         border: none;
-                        margin: 0;
-                        line-height: 1.5;
                         color: var(--sidebar-title);
+                        line-height: 1.5;
+                        margin: 0;
 
                         & + h2 {
                             font-size: var(--font-size-11);
                         }
                     }
+
                     a {
                         color: white;
                         text-decoration: none;
@@ -79,13 +80,19 @@
 
                 a.item-location-option {
                     color: rgba(white, 0.5);
-                    i.fas {
+
+                    i {
                         margin: 1px 4px 1px 0;
                     }
-                }
 
-                a.item-location-option.selected {
-                    color: white;
+                    &.selected {
+                        color: white;
+
+                        &:hover {
+                            cursor: default;
+                            text-shadow: none;
+                        }
+                    }
                 }
 
                 ul {
@@ -116,7 +123,8 @@
                             appearance: none;
                             margin: 0;
                         }
-                        &[type='number'] {
+                        &[type=number] {
+                            appearance: textfield;
                             -moz-appearance: textfield;
                         }
                     }

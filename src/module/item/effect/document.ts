@@ -1,12 +1,14 @@
-import { AbstractEffectPF2e } from "@item/abstract-effect";
-import { EffectBadge } from "@item/abstract-effect/data";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
-import { UserPF2e } from "@module/user";
-import { isObject, objectHasKey, sluggify } from "@util";
-import { EffectData } from "./data";
+import { ActorPF2e } from "@actor";
+import { EffectBadge } from "@item/abstract-effect/data.ts";
+import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
+import { reduceItemName } from "@item/helpers.ts";
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
+import { ErrorPF2e, sluggify } from "@util";
+import { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
 
-class EffectPF2e extends AbstractEffectPF2e {
+class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     static DURATION_UNITS: Readonly<Record<string, number>> = {
         rounds: 6,
         minutes: 60,
@@ -43,29 +45,31 @@ class EffectPF2e extends AbstractEffectPF2e {
         } else if (duration === Infinity) {
             return { expired: false, remaining: Infinity };
         } else {
-            const start = this.system.start?.value ?? 0;
+            const start = this.system.start.value;
             const remaining = start + duration - game.time.worldTime;
             const result = { remaining, expired: remaining <= 0 };
-            if (
-                result.remaining === 0 &&
-                ui.combat !== undefined &&
-                game.combat?.active &&
-                game.combat.combatant &&
-                game.combat.turns.length > game.combat.turn
-            ) {
-                const initiative = game.combat.combatant.initiative ?? 0;
-                if (initiative === this.system.start.initiative) {
-                    result.expired = this.system.duration.expiry !== "turn-end";
-                } else {
-                    result.expired = initiative < (this.system.start.initiative ?? 0);
-                }
+            const { combatant } = game.combat ?? {};
+            if (remaining === 0 && combatant) {
+                const startInitiative = this.system.start.initiative ?? 0;
+                const currentInitiative = combatant.initiative ?? 0;
+                const isEffectTurnStart =
+                    startInitiative === currentInitiative && combatant.actor === (this.origin ?? this.actor);
+                result.expired = isEffectTurnStart
+                    ? this.system.duration.expiry === "turn-start"
+                    : currentInitiative < startInitiative;
             }
+
             return result;
         }
     }
 
-    override get unidentified(): boolean {
-        return this.system.unidentified ?? false;
+    /** Whether this effect emits an aura */
+    get isAura(): boolean {
+        return this.rules.some((r) => r.key === "Aura" && !r.ignored);
+    }
+
+    override get isIdentified(): boolean {
+        return !this.system.unidentified;
     }
 
     /** Does this effect originate from an aura? */
@@ -84,12 +88,14 @@ class EffectPF2e extends AbstractEffectPF2e {
         }
         system.expired = this.remainingDuration.expired;
 
-        const badge = this.system.badge;
-        if (badge?.type === "counter") {
-            const max = badge.labels?.length ?? Infinity;
-            badge.value = Math.clamped(badge.value, 1, max);
-            if (badge.labels) {
-                badge.label = badge.labels.at(badge.value - 1);
+        const { badge } = this.system;
+        if (badge) {
+            if (badge.type === "formula") {
+                badge.label = null;
+            } else {
+                badge.max = badge.labels?.length ?? badge.max ?? Infinity;
+                badge.value = Math.clamped(badge.value, 1, badge.max);
+                badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
             }
         }
     }
@@ -110,9 +116,6 @@ class EffectPF2e extends AbstractEffectPF2e {
     async increase(): Promise<void> {
         const badge = this.system.badge;
         if (badge?.type === "counter" && !this.isExpired) {
-            const max = badge.labels?.length ?? Infinity;
-            if (badge.value >= max) return;
-
             const value = badge.value + 1;
             await this.update({ system: { badge: { value } } });
         }
@@ -120,7 +123,7 @@ class EffectPF2e extends AbstractEffectPF2e {
 
     /** Decreases if this is a counter effect, otherwise deletes entirely */
     async decrease(): Promise<void> {
-        if (this.system.badge?.type !== "counter" || this.system.badge.value === 1 || this.isExpired) {
+        if (this.system.badge?.type !== "counter" || this.isExpired) {
             await this.delete();
             return;
         }
@@ -140,6 +143,23 @@ class EffectPF2e extends AbstractEffectPF2e {
         return options;
     }
 
+    /**
+     * Evaluate a formula badge, sending its result to chat.
+     * @returns The resulting value badge
+     */
+    private async evaluateFormulaBadge(badge: EffectBadgeFormulaSource): Promise<EffectBadgeValueSource> {
+        const { actor } = this;
+        if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
+
+        const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
+        const reevaluate = badge.reevaluate ? ({ formula: badge.value, event: "turn-start" } as const) : null;
+        const token = actor.getActiveTokens(false, true).shift();
+        const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
+        roll.toMessage({ flavor: reduceItemName(this.name), speaker });
+
+        return { type: "value", value: roll.total, labels: badge.labels, reevaluate };
+    }
+
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -147,29 +167,18 @@ class EffectPF2e extends AbstractEffectPF2e {
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         if (this.isOwned) {
-            const initiative =
-                game.combat && game.combat.turns.length > game.combat.turn
-                    ? game.combat?.turns[game.combat.turn]?.initiative ?? null
-                    : null;
-            this.updateSource({
-                "system.start": {
-                    value: game.time.worldTime,
-                    initiative,
-                },
-            });
+            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+            this._source.system.start = { value: game.time.worldTime, initiative };
         }
 
         // If this is an immediate evaluation formula effect, pre-roll and change the badge type on creation
         const badge = data.system.badge;
         if (this.actor && badge?.type === "formula" && badge.evaluate) {
-            const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
-            this._source.system.badge = { type: "value", value: roll.total };
-            const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.actor.token });
-            roll.toMessage({ flavor: this.name, speaker });
+            this._source.system.badge = await this.evaluateFormulaBadge(badge);
         }
 
         return super._preCreate(data, options, user);
@@ -177,9 +186,9 @@ class EffectPF2e extends AbstractEffectPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         user: UserPF2e
-    ): Promise<void> {
+    ): Promise<boolean | void> {
         const duration = changed.system?.duration;
         if (duration?.unit === "unlimited") {
             duration.expiry = null;
@@ -188,43 +197,58 @@ class EffectPF2e extends AbstractEffectPF2e {
             if (duration.value === -1) duration.value = 1;
         }
 
-        // If the badge type changes, reset the value
-        const badge = changed.system?.badge;
-        if (isObject<EffectBadge>(badge) && badge?.type && !objectHasKey(badge, "value")) {
-            badge.value = 1;
+        const currentBadge = this.system.badge;
+        const badgeChange = changed.system?.badge;
+        if (badgeChange?.type && badgeChange.type !== currentBadge?.type) {
+            // If the badge type changes, reset the value
+            badgeChange.value = 1;
+        } else if (currentBadge?.type === "counter" && typeof badgeChange?.value === "number") {
+            const maxValue = ((): number => {
+                if ("labels" in badgeChange && Array.isArray(badgeChange.labels)) {
+                    return badgeChange.labels.length;
+                }
+                if ("max" in badgeChange && typeof badgeChange.max === "number") {
+                    return badgeChange.max;
+                }
+                return currentBadge.max;
+            })();
+            const newValue = (badgeChange.value = Math.min(badgeChange.value, maxValue));
+            if (newValue <= 0) {
+                // Only delete the item if it is embedded
+                await this.actor?.deleteEmbeddedDocuments("Item", [this.id]);
+                return false;
+            }
         }
 
         return super._preUpdate(changed, options, user);
     }
 
-    /** Show floaty text when this effect is created on an actor */
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<this>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        if (!this.flags.pf2e.aura || game.combat?.started) {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
-        }
-    }
-
-    /** Show floaty text when this effect is deleted from an actor */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         if (this.actor) {
-            game.pf2e.effectTracker.unregister(this as Embedded<EffectPF2e>);
+            game.pf2e.effectTracker.unregister(this as EffectPF2e<ActorPF2e>);
         }
         super._onDelete(options, userId);
+    }
 
-        if (!this.flags.pf2e.aura || game.combat?.started) {
-            this.actor?.getActiveTokens().shift()?.showFloatyText({ delete: this });
+    /** If applicable, reevaluate this effect's badge */
+    async onTurnStart(): Promise<void> {
+        const { badge } = this;
+        if (badge?.type === "value" && badge.reevaluate) {
+            const newBadge = await this.evaluateFormulaBadge({
+                type: "formula",
+                value: badge.reevaluate.formula,
+                reevaluate: badge.reevaluate.event,
+                labels: badge.labels,
+            });
+            await this.update({ "system.badge": newBadge });
         }
     }
 }
 
-interface EffectPF2e extends AbstractEffectPF2e {
-    readonly data: EffectData;
+interface EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+    flags: EffectFlags;
+    readonly _source: EffectSource;
+    system: EffectSystemData;
 }
 
 export { EffectPF2e };

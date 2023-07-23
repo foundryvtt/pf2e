@@ -1,0 +1,102 @@
+{
+    "_id": "zPXXUNE3m9VdrF9z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vGPRZAcP9sO1oSWb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Explosion",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature crosses a rune</p>\n<hr />\n<p><strong>Effect</strong> The runes unleash a gout of fire roaring up the chute. Anyone in the chute and within 5 feet of its openings is dealt [[/r (8d10+44)[fire]]] damage (@Check[type:reflex|dc:42|basic:true] save).</p>\n<p>Immediately thereafter, the runes emanate a 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Silence]</em> effect for 1 minute, so anyone injured in the chute can't call out for help.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Thief's Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master) to notice that the hairline cracks on the passage walls actually form runes.</p>",
+                "value": 40
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Nearly imperceptible runes set off an explosion at the point a thief is most unable to receive aid.</p>",
+            "disable": "<p>@Check[type:thievery|dc:45|name:Counteract the Runes|traits:magical,trap] (master) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (10th level, counteract DC 50) to counteract the runes</p>",
+            "isComplex": false,
+            "level": {
+                "value": 20
+            },
+            "reset": "<p>The trap resets in 1 minute.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #156: The Apocalypse Prophet"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,135 @@
+{
+    "_id": "K5PVPhK5EVM2Fxgg",
+    "img": "systems/pf2e/icons/equipment/weapons/flintlock-musket.webp",
+    "name": "Duchy Defender",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "flintlock-musket",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "simple",
+        "containerId": "null",
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p><strong>Perception</strong> +26; precise vision 60 feet, imprecise hearing 30 feet</p>\n<p><strong>Communication</strong> speech (Common, Dwarven, Kelish, Osiriani)</p>\n<p><strong>Skills</strong> Diplomacy +23, Intimidation +23, Alkenstar Lore +25, Firearm Lore +25, Society +21</p>\n<p><strong>Int</strong> +2, <strong>Wis</strong> +5, <strong>Cha</strong> +4</p>\n<p><strong>Will</strong> +26</p>\n<p>Patriotic to the extreme, this <em>+2 flaming greater striking flintlock musket</em> was among the first firearms forged in the Gunworks and was wielded by Ancil Alkenstar, founder of the Grand Duchy of Alkenstar. In Alkenstar's hands, the musket was used to defend the burgeoning Grand Duchy from outside threats, including mutants of the Mana Wastes, Nexian constructs, and undead from Geb. After Ancil's death, the weapon was passed down, per his own decree, not to his heirs but to the greatest defender of Alkenstar, as determined by the weapon's previous owner. Over time, the devotion and heroism of each successive wielder left a psychic imprint on the weapon, until it developed an intellect and drive of its own.</p>\n<p>A <em>duchy defender</em> is a powerful weapon with a rigid personality. It follows the laws of Alkenstar to the letter, and fights in defense of its nation. If these two priorities ever clash, a <em>duchy defender</em> prioritizes the protection of Alkenstar and its citizens over following the laws themselves, since laws can change, but the people will always need protecting.</p>\n<p>If you break the laws of Alkenstar, a <em>duchy defender</em> goes out of its way to call attention to you at inopportune times, such as when you're engaged in an illegal activity, and attempts to see you pay for your crimes, up to and including outing you to law enforcement and providing testimony against you in court. If a <em>duchy defender</em> is used unjustly against a citizen of Alkenstar, the weapon automatically misfires.</p>\n<p>If the weapon is removed from the Grand Duchy of Alkenstar without a reason that directly benefits the duchy, the <em>duchy defender</em> transports itself away, reappearing in the hands of a previous worthy owner, or elsewhere in Alkenstar if no such previous owner lives. In the hands of a worthy owner, a <em>duchy defender</em> is nearly impossible to steal, since it transports itself back to you at the first opportunity after someone takes it, and it grants you a +2 circumstance bonus to their Reflex DC to resist being disarmed of it.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The <em>duchy defender</em> focuses its will on a single target it can see and who it knows is guilty of committing a crime within Alkenstar's borders. The next time the <em>duchy defender</em> damages this target, it deals an additional 2d8 precision damage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">3</span> command (conjuration, magical, teleportation)</p>\n<hr />\n<p><strong>Effect</strong> The <em>duchy defender</em> travels through the air at a speed faster than light, returning to the hands of a previous owner who has been deemed worthy. If the owner's hands are full, the <em>duchy defender</em> instead appears on the ground in their space. If there is no previous owner the <em>duchy defender</em> deems worthy that lives, it instead travels to a random public location within Alkenstar. Traveling to an unknown location is draining; after doing so, the <em>duchy defender</em> can't transport itself anywhere for [[/r 1d4 #days]]{1d4 days}.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "firearm",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 2
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 2500
+            }
+        },
+        "propertyRune1": {
+            "value": "flaming"
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": 70,
+        "reload": {
+            "value": "1"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Focused on an Alkenstar Criminal",
+                "option": "alkenstar-criminal",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "alkenstar-criminal"
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "specific": {
+            "material": null,
+            "price": "2500 gp",
+            "runes": {
+                "potency": 2,
+                "striking": "greaterStriking"
+            },
+            "value": true
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "greaterStriking"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "concussive",
+                "fatal-d10"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "weapon"
+}

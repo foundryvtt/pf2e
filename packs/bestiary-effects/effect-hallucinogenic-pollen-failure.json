@@ -1,0 +1,51 @@
+{
+    "_id": "GstmxSP75eKmHtCQ",
+    "img": "systems/pf2e/icons/spells/cloudkill.webp",
+    "name": "Effect: Hallucinogenic Pollen (Failure)",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 status penalty to Perception checks and saves against mental effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 4
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #151: The Show Must Go On"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

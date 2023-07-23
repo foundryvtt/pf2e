@@ -1,0 +1,114 @@
+{
+    "_id": "a898miJnjgD93ZsX",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Multifarious Muse",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your muse doesn't fall into a single label. Choose a type of muse other than that of your own. You gain a 1st-level feat that requires that muse, and your muse is now also a muse of that type, allowing you to take feats with the other muse as a prerequisite. You don't gain any of the other effects of the muse you chose.</p>\n<p><strong>Special</strong> You can take this feat multiple times. Each time you do, you must choose a different type of muse other than that of your own.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "maxTakable": 3,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "allowedDrops": {
+                    "label": "1st-level Bard class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:bard",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "img": "systems/pf2e/icons/features/classes/enigma.webp",
+                        "label": "PF2E.SpecificRule.Bard.Muse.Enigma",
+                        "predicate": [
+                            {
+                                "not": "feature:enigma"
+                            }
+                        ],
+                        "value": "enigma"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/features/classes/maestro.webp",
+                        "label": "PF2E.SpecificRule.Bard.Muse.Maestro",
+                        "predicate": [
+                            {
+                                "not": "feature:maestro"
+                            }
+                        ],
+                        "value": "maestro"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/features/classes/polymath.webp",
+                        "label": "PF2E.SpecificRule.Bard.Muse.Polymath",
+                        "predicate": [
+                            {
+                                "not": "feature:polymath"
+                            }
+                        ],
+                        "value": "polymath"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/features/classes/warrior.webp",
+                        "label": "PF2E.SpecificRule.Bard.Muse.Warrior",
+                        "predicate": [
+                            {
+                                "not": "feature:warrior"
+                            }
+                        ],
+                        "value": "warrior"
+                    }
+                ],
+                "flag": "muse",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Bard.Muse.Prompt"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:class",
+                        "item:trait:bard"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:{item|flags.pf2e.rulesSelections.muse}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bard"
+            ]
+        }
+    },
+    "type": "feat"
+}

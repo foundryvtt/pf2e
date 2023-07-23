@@ -1,0 +1,60 @@
+{
+    "_id": "LgZx5xotO08JzhVc",
+    "img": "systems/pf2e/icons/spells/biting-words.webp",
+    "name": "Effect: Mutilating Bite",
+    "system": {
+        "description": {
+            "value": "<p>The creature then takes a -1 status penalty to Charisma-based checks. This penalty is cumulative up to -3.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "-1",
+                        "value": -1
+                    },
+                    {
+                        "label": "-2",
+                        "value": -2
+                    },
+                    {
+                        "label": "-3",
+                        "value": -3
+                    }
+                ],
+                "flag": "penaltyValue",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "cha-based",
+                "type": "status",
+                "value": "@item.flags.pf2e.rulesSelections.penaltyValue"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

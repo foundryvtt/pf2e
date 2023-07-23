@@ -1,0 +1,83 @@
+{
+    "_id": "9LvJo3K2AjKcVvTc",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Exude Abyssal Corruption",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Most of the changes from the demon within you have harmed you so far, but you've found a way to expel some of the corruption within you to poison others. Until the beginning of your next turn, you and your weapons are covered in toxic sludge or another similar manifestation of the demonic corruption; your melee Strikes deal an additional [[/r 1d6[poison]]] damage, and each time a creature hits you with a melee unarmed attack or otherwise touches you, it takes [[/r 1d6[poison]]] damage.</p>\n<p>At 14th level, the poison damage increases to 2d6, and at 20th level, the poison damage increases to 3d6.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Living Vessel Dedication"
+                },
+                {
+                    "value": "your entity is a demon"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "abyssal-corruption",
+                "toggleable": true
+            },
+            {
+                "damageType": "poison",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "abyssal-corruption"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 13,
+                            "start": 8,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 19,
+                            "start": 14,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 20,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "manipulate",
+                "poison"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "Yqq4AkZ9lrm4CcID",
+    "img": "systems/pf2e/icons/spells/agitate.webp",
+    "name": "Effect: Battle Cry",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to attack and damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

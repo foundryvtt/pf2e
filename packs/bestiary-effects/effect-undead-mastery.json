@@ -1,0 +1,48 @@
+{
+    "_id": "4M2K16mH4gndHAKa",
+    "img": "systems/pf2e/icons/spells/create-undead.webp",
+    "name": "Effect: Undead Mastery",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 circumstance bonus to attack rolls, damage rolls, AC, saves, and skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "attack",
+                    "saving-throw",
+                    "skill-check",
+                    "strike-damage"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

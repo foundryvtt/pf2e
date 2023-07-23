@@ -1,0 +1,49 @@
+{
+    "_id": "Z7M3ImHWqUyGu6cN",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Fleeing Diversion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You are quick to capitalize on your distractions. If you critically succeed at your check to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] against the majority of the creatures (at least half of the creatures) whose attention you're trying to divert, you can use your reaction to immediately @UUID[Compendium.pf2e.actionspf2e.Item.Hide], @UUID[Compendium.pf2e.actionspf2e.Item.Sneak], or Step. As normal, you are only @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to creatures against which you succeed on your check to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion], even if you manage to Hide or Sneak away.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Deception"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:create-a-diversion"
+                ],
+                "selector": "deception",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Firebrands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

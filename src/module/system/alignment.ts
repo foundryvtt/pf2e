@@ -1,4 +1,4 @@
-import { Alignment } from "@actor/creature/types";
+import { Alignment } from "@actor/creature/types.ts";
 
 export function isEvil(alignment: Alignment): boolean {
     return alignment === "LE" || alignment === "CE" || alignment === "NE";

@@ -1,0 +1,50 @@
+{
+    "_id": "PdQAAKtCW5dS9IYj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Inner Fire (Monk)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>While you're in Stoked Flame Stance, you have cold and fire resistance equal to half your level, and any creature that hits you with an unarmed attack, tries to Grab or Grapple you, or otherwise touches you takes [[/r @actor.abilities.wis.mod[fire]]]{fire damage} equal to your Wisdom modifier (minimum 1). A creature can take this damage no more than once per turn.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Stoked Flame Stance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:stoked-flame-stance"
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

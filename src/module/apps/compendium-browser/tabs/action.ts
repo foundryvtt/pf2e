@@ -1,29 +1,38 @@
+import * as R from "remeda";
 import { getActionIcon, sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { ActionFilters, CompendiumBrowserIndexData } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { ActionFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
-    override filterData!: ActionFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
+    tabName: ContentTabName = "action";
+    filterData: ActionFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "traits", "source"];
 
-    protected index = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
-
     constructor(browser: CompendiumBrowser) {
-        super(browser, "action");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: CompendiumBrowserIndexData[] = [];
-        const indexFields = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
+        const indexFields = [
+            "img",
+            "system.actionType.value",
+            "system.category",
+            "system.traits.value",
+            "system.actionType.value",
+            "system.source.value",
+        ];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -45,9 +54,9 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
                     // Prepare source
                     const source = actionData.system.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        actionData.system.source.value = sluggify(source);
                     }
                     actions.push({
                         type: actionData.type,
@@ -55,7 +64,9 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         img: actionData.img,
                         uuid: `Compendium.${pack.collection}.${actionData._id}`,
                         traits: actionData.system.traits.value,
-                        source: actionData.system.source.value,
+                        actionType: actionData.system.actionType.value,
+                        category: actionData.system.category,
+                        source: sourceSlug,
                     });
                 }
             }
@@ -66,6 +77,10 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
         // Set Filters
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
+        this.filterData.checkboxes.types.options = this.generateCheckboxOptions(CONFIG.PF2E.actionTypes);
+        this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
+            R.pick(CONFIG.PF2E.actionCategories, ["familiar"])
+        );
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
@@ -74,11 +89,18 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
-        // Traits
-        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
-            return false;
+        // Types
+        if (checkboxes.types.selected.length) {
+            if (!checkboxes.types.selected.includes(entry.actionType)) return false;
         }
+        // Categories
+        if (checkboxes.category.selected.length) {
+            const selected = checkboxes.category.selected;
+            if (!selected.includes(entry.category)) return false;
+        }
+        // Traits
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
+            return false;
         // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
@@ -86,9 +108,21 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): ActionFilters {
+        return {
             checkboxes: {
+                types: {
+                    isExpanded: true,
+                    label: "PF2E.ActionActionTypeLabel",
+                    options: {},
+                    selected: [],
+                },
+                category: {
+                    isExpanded: true,
+                    label: "PF2E.ActionActionTypeLabel",
+                    options: {},
+                    selected: [],
+                },
                 source: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",
@@ -98,6 +132,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
             },
             multiselects: {
                 traits: {
+                    conjunction: "and",
                     label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],

@@ -1,0 +1,54 @@
+{
+    "_id": "WO23FvCo8IYVB5RF",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Blade of the Crimson Oath",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You call upon the Crimson Oath to smite undead and then make a weapon or unarmed Strike against an undead foe. The Strike deals two extra weapon damage dice, and you can convert all the physical damage from the attack into positive damage.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Knight Reclaimant Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "blade-crimson-oath",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 2,
+                "key": "DamageDice",
+                "predicate": [
+                    "blade-crimson-oath",
+                    "target:mode:undead"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

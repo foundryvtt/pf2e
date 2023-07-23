@@ -1,0 +1,46 @@
+{
+    "_id": "jPWF8Xe0UqVvbeyv",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Eerie Flicker",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> An enemy's Strike would hit you and you weren't already @UUID[Compendium.pf2e.conditionitems.Item.Concealed], @UUID[Compendium.pf2e.conditionitems.Item.Hidden], or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] by that enemy.</p>\n<hr />\n<p>Your body flickers momentarily into the Ethereal Plane. You become concealed for 1 round, and the flat check for concealment applies to the Strike that would have hit you. If the flat check fails, the Strike misses you.</p>\n<hr />\n<p><strong>Awakening</strong> When your body flickers, you momentarily assume a terrifying form. If a creature fails the flat check against concealment from your Eerie Flicker, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, and it doesn't reduce the frightened condition from this effect at the end of the same turn it gained the condition.</p>\n<hr />\n<p><strong>Awakening</strong> You can choose to compress your flickering movement into a single moment, increasing your chance to avoid the triggering attack in exchange for a shorter-lived effect. If you choose to do so, the flat check for concealment against the triggering attack increases to @Check[type:flat|dc:9], but the concealment affects only the triggering Strike.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:wraith-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Wraith Deviant Classification"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "conjuration",
+                "deviant",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

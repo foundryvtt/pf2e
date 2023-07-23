@@ -1,0 +1,53 @@
+{
+    "_id": "VKdiRnhrsgQTFSCM",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Whispering Staff (Ally)",
+    "system": {
+        "description": {
+            "value": "<p>Whenever you and your affected allies attempt to Recall Knowledge or attempt a saving throw against a mental effect, you roll twice and take the better result. This is a fortune effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 20
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "mental"
+                ],
+                "removeAfterRoll": false,
+                "selector": "saving-throw"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "removeAfterRoll": false,
+                "selector": "skill-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

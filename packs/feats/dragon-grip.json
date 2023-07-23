@@ -1,0 +1,60 @@
+{
+    "_id": "WSxHCapuTn8uRdLI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragon Grip",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your hold has a unique draconic connection. You gain a +2 circumstance bonus when you attempt to Make an Impression on a creature with the dragon trait. You gain access to the Riding Drake animal companion.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Beast Trainer"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Attempting to Make an Impression on a Dragon",
+                "option": "target:trait:dragon",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    {
+                        "or": [
+                            "target:trait:dragon"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

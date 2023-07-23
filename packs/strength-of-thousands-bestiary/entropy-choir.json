@@ -1,0 +1,118 @@
+{
+    "_id": "LUqXkF5DEEuATH5L",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "v8s1ho33y9kx5jtl",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Call to Nothingness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature moves more than 10 feet into area <strong>A3</strong></p>\n<hr />\n<p><strong>Effect</strong> The eerie call of the entropy choir saps the will of living creatures. A living creature who fails a @Check[type:will|dc:36] save becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as they remain in area <strong>A3</strong>. The entropy choir then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "enchantment",
+                        "mental",
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Entropy Choir",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 36
+            },
+            "hardness": 24,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "negative"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p><strong>Performance</strong> +33 (master); creatures in the area automatically notice the eerily swaying shadows</p>",
+                "value": 33
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>A choir of ghostly shadows fill the benches in this room, chanting a haunting and unearthly melody.</p>",
+            "disable": "<p>@Check[type:religion|dc:40|name:Exorcise the Spirits|traits:haunt,hazard] (master) to exorcise the spirits and break the power binding them into a single entity, or @Check[type:performance|dc:35|name:Counter the Choir|traits:haunt,hazard] (expert) to counter the choir and nullify the destructive elements of its song</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "reset": "<p>The entropy choir resets automatically after 24 hours, even if it has been disabled or destroyed. It fades away forever once Dwandek and other members of the cult to which it sings its praises are destroyed.</p>",
+            "routine": "<p>(3 actions; auditory, divine, evocation, sonic) The choir continues to sing its grim dirge every round until it is disabled or destroyed. If there are any non‑slowed living creatures in area <strong>A3</strong> when its turn starts, it first uses Call to Nothingness as a single action.</p>\n<p>It uses its remaining actions (or all three actions if there are slowed living creatures in the room already) to focus soul‑shattering choruses onto individual targets.</p>\n<p>The choir can target any living creature in area <strong>A3</strong> with an action, but never more than once per round per creature. It prefers to attack slowed creatures over all others, but it targets non‑slowed creatures if they're the only viable targets. A targeted creature must attempt a @Check[type:fortitude|dc:36|traits:auditory,divine,evocation,sonic] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes [[/r 5d6[sonic]]] damage.</p>\n<p><strong>Failure</strong> The target takes [[/r 10d6[sonic]]] damage.</p>\n<p><strong>Critical Failure</strong> The target takes [[/r 15d6[sonic]]] damage and increases their @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition by 1, to a maximum of drained 4.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #173: Doorway to the Red Star"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 29
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

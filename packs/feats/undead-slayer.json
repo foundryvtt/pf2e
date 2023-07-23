@@ -1,0 +1,72 @@
+{
+    "_id": "ZOJsLNziWQ7Ri3x9",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Undead Slayer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your knowledge of your own not-quite-living anatomy, combined with your experience in combat, helps you take down undead foes with ease. Against undead creatures, you gain a circumstance bonus to damage with weapons and unarmed attacks equal to the number of weapon damage dice for the Strike. This bonus increases to double the number of weapon damage dice if your target has the vampire trait.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mode:undead",
+                    {
+                        "not": "target:trait:vampire"
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "undead-slayer",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:vampire"
+                ],
+                "selector": "strike-damage",
+                "slug": "undead-slayer-vampire",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice*2"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.Undead",
+                "option": "target:mode:undead",
+                "toggleable": "totm"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.Vampire",
+                "option": "target:trait:vampire",
+                "toggleable": "totm"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dhampir"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,114 @@
+{
+    "_id": "aLhAofozzdTuqfcg",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "iG9uOtBJolj3P4CM",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spew Cloud",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Twelve seconds have passed since the door to the apartment was opened</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Acidic Poison Cloud Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "hardness": 15,
+            "hasHealth": true,
+            "hp": {
+                "details": "to destroy a nozzle; <strong>Tank Hardness</strong> 20; <strong>TankHP</strong> 100 (BT 50) to damage the tank enough to stop it from spewing gas",
+                "max": 40,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Five nozzles hidden across the apartment's ceiling spew thick clouds of acidic poison from a reinforced tank behind the wall.</p>",
+            "disable": "<p>@Check[type:thievery|dc:35|name:Block One Nozzle|traits:action:disable-a-device] (expert) to block one of the nozzles or @Check[type:thievery|dc:40|name:Shut Off the Tank|traits:action:disable-a-device] (master) to shut off the tank. The trap deactivates after 5 rounds, once the tank is empty.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "reset": "",
+            "routine": "<p>(1 action) When it's triggered, the trap has five active nozzles, but at the end of its turn each round, one random nozzle deactivates. On the trap's turn, the active nozzles emit a cloud of acidic poison gas that expands to fill the apartment. The cloud deals [[/r 1d6[acid]]] damage and [[/r 1d6[poison]]] damage per active nozzle to each creature and object in the room (@Check[type:fortitude|dc:33|basic:true|name:Spew Cloud|traits:poison] save). Unattended objects automatically fail saves to avoid the damage.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #159: All or Nothing"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "alchemical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

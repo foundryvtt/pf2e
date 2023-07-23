@@ -1,0 +1,54 @@
+{
+    "_id": "tjnL4wsriZugnHLn",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Ilverani Purist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>All twilight speakers are trained to resist the alluring customs of younger peoples, but you have made it your mandate to keep the Ilverani way unchanged. Such dedication has given you a trained eye for subtlety and deception. When you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive]{Sense the Motive} of a non-elf humanoid creature and you roll a critical failure, you fail instead.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Twilight Speaker Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-motive",
+                    "target:trait:humanoid",
+                    {
+                        "not": "target:trait:elf"
+                    }
+                ],
+                "selector": "perception"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #189: Dreamers of the Nameless Spires"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

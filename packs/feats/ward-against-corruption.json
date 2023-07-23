@@ -1,0 +1,73 @@
+{
+    "_id": "NFsQOa3ynthYLVj6",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ward Against Corruption",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your soul is warded against the power of undeath and plague, as well as that of the evil former psychopomps known as sahkils. You gain a +1 circumstance bonus to saving throws against death effects, disease, and all effects from undead or sahkils. This bonus increases to +2 against an undead or sahkil's death effect or disease.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "disease",
+                            "origin:mode:undead",
+                            "origin:trait:sakhil"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "ward-plus-one",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "death"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "origin:mode:undead",
+                            "origin:trait:sakhil"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "ward-plus-two",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "duskwalker"
+            ]
+        }
+    },
+    "type": "feat"
+}

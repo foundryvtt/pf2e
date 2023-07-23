@@ -1,0 +1,53 @@
+{
+    "_id": "gjec0ts3wkFbjvHN",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "You're Next",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You reduce an enemy to 0 Hit Points</p>\n<hr />\n<p>After downing a foe, you menacingly remind another foe that you're coming after them next.</p>\n<p>Attempt an Intimidation check with a +2 circumstance bonus to Demoralize a single creature that you can see and that can see you.</p>\n<p>If you have legendary proficiency in Intimidation, you can use this as a free action with the same trigger.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Intimidation"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    "youre-next"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "emotion",
+                "fear",
+                "mental",
+                "rogue",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

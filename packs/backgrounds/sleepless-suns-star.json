@@ -1,0 +1,71 @@
+{
+    "_id": "AfBCrHsw1xbRFejN",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Sleepless Suns Star",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Among your fellow guards who patrol the Foreign Quarter, you're something of a big deal. Your good work and big personality have made a big enough splash that word has gotten out about your status as a rising star among the watchdogs of Absalom. Your popularity has also earned you the trust of many citizens of the Foreign Quarter.</p>\n<p>Your laudable performance has earned you a transfer to the newly formed Edgewatch in the Precipice Quarter, where you'll put your formidable reputation to good use by patrolling the Radiant Festival and ensuring the safety of Absalom's most vulnerable visitors.</p>\n<p>Choose two ability boosts. One must be to <strong>Wisdom</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Society, plus either Gladiatorial Lore or Genealogy Lore. You gain a +1 circumstance bonus to Deception, Diplomacy, and Intimidation checks to @UUID[Compendium.pf2e.actionspf2e.Item.Interact] with members of the Sleepless Suns and residents of the Foreign Quarter. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Multilingual] skill feat.</p>"
+        },
+        "items": {
+            "j7rys": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Multilingual",
+                "uuid": "Compendium.pf2e.feats-srd.Item.P9HCz0uR6xPHuw72"
+            }
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Interacting with members of the Sleepless Suns and residents of the Foreign Quarter (Sleepless Suns Star)",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:sleepless-suns",
+                            "target:foreign-quarter"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Agents of Edgewatch Player's Guide"
+        },
+        "trainedLore": "Gladatorial Lore or Genealogy Lore",
+        "trainedSkills": {
+            "value": [
+                "soc"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "M41PGiFlLE2tByUL",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Jungle Strider",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are adept at dodging roots, foliage, and other jungle obstacles. You ignore difficult terrain in forests and jungles. In addition, when you use the Acrobatics skill to Balance on narrow surfaces or uneven ground made of plant material, you aren't flat-footed, and when you roll a success at one of these Acrobatics checks, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    "terrain:plant"
+                ],
+                "selector": "acrobatics"
+            },
+            {
+                "key": "Note",
+                "selector": "acrobatics",
+                "text": "When you roll a success at an Acrobatics check to Balance on narrow surfaces or uneven ground made of plant material,  get a critical success instead.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "grippli"
+            ]
+        }
+    },
+    "type": "feat"
+}

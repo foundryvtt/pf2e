@@ -1,0 +1,40 @@
+{
+    "_id": "YKJhjkerCW0Jl6HP",
+    "img": "systems/pf2e/icons/spells/field-of-life.webp",
+    "name": "Effect: Life-Giving Magic",
+    "system": {
+        "description": {
+            "value": "<p>You gain a number of temporary Hit Points equal to half your level (minimum 1) that last until the end of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

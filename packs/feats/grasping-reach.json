@@ -1,0 +1,78 @@
+{
+    "_id": "weYZzyMmlCIC2TZt",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Grasping Reach",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can extend a tangle of vines or tendrils to support your arms and extend your reach. When you wield a melee weapon that requires two hands, doesn't have reach, and deals at least 1d6 damage, you can change between a typical two-handed grip and an extended two-handed grasp using an Interact action. Weapons wielded in your extended grasp gain reach of 10 feet. This grasp is less stable and powerful than a typical grip, reducing the weapon's damage die by 1 step.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "grasping-reach",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:melee",
+                    "item:usage:hands:2",
+                    {
+                        "nor": [
+                            "item:damage:die:faces:4",
+                            "item:trait:reach"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "grasping-reach"
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "downgrade": true
+                },
+                "predicate": [
+                    "item:melee",
+                    "item:usage:hands:2",
+                    "grasping-reach",
+                    {
+                        "nor": [
+                            "item:traits:reach",
+                            "item:damage:die:faces:4"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

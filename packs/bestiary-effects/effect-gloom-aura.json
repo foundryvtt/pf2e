@@ -1,0 +1,45 @@
+{
+    "_id": "Me16QQGxpivWE2WW",
+    "img": "systems/pf2e/icons/spells/calm-emotions.webp",
+    "name": "Effect: Gloom Aura",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -1 circumstance penalty to saving throws made to resist emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

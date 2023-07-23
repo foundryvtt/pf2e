@@ -1,0 +1,75 @@
+{
+    "_id": "8hsMIh3lVGfZwjG5",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Pillar",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Not every Knight of Lastwall contributes to the crusade through combat. Pillars provide essential upkeep and service at camps, enjoying the same rank of knight as the crusaders and strategists for which the knights are known. You spent time as an assistant among the pillars, learning how noncombatants provide for the physical and mental wellbeing of an army.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in one of your choice of the Medicine, Society, or Survival skills, as well as the Labor Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] skill feat.</p>"
+        },
+        "items": {
+            "oywf4": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Additional Lore",
+                "uuid": "Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x"
+            }
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillMed",
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "value": "sur"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "trainedLore": "Labor",
+        "trainedSkills": {
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "inLBsuLRE5xmVHdn",
+    "img": "systems/pf2e/icons/spells/horrifying-blood-loss.webp",
+    "name": "Effect: Infernal Wound",
+    "system": {
+        "description": {
+            "value": "<p>The flat check to stop the bleeding starts at DC 20. The DC is reduced to 15 only if the bleeding creature or an ally successfully assists with the recovery.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 20
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

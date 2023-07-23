@@ -1,0 +1,46 @@
+{
+    "_id": "YZEG7LsiIIhwRB91",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Necromantic Deflection",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You imbue your shield with life-giving energy to deflect harmful necromantic magic. When you have your shield raised, you gain the shield's circumstance bonus to your AC and saving throws against necromancy spells. If you have the Shield Block reaction, damage you take as a result of a necromancy spell can trigger that reaction, even if it isn't physical damage.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:raise-a-shield",
+                    "necromancy"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "@actor.attributes.shield.ac"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "champion",
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

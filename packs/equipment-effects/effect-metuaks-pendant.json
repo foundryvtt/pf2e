@@ -1,0 +1,53 @@
+{
+    "_id": "tGeMT4iHJcsjVbl3",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/blightburn-ward.webp",
+    "name": "Effect: Metuak's Pendant",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to saving throws against mental effects that would make them confused, controlled, frightened, or stupefied.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #176: Lost Mammoth Valley"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

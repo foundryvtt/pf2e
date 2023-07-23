@@ -1,11 +1,14 @@
 import { getActionIcon, sluggify } from "@util";
-import { CompendiumBrowser } from "..";
-import { CompendiumBrowserTab } from "./base";
-import { CompendiumBrowserIndexData, SpellFilters } from "./data";
+import { CompendiumBrowser } from "../index.ts";
+import { ContentTabName } from "../data.ts";
+import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
-    override filterData!: SpellFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.hbs";
+    tabName: ContentTabName = "spell";
+    filterData: SpellFilters;
+    templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.hbs";
+
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -16,7 +19,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         "level",
         "time",
         "category",
-        "school",
         "traditions",
         "traits",
         "rarity",
@@ -24,13 +26,13 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     ];
 
     constructor(browser: CompendiumBrowser) {
-        super(browser, "spell");
+        super(browser);
 
         // Set the filterData object of this tab
-        this.prepareFilterData();
+        this.filterData = this.prepareFilterData();
     }
 
-    protected override async loadData() {
+    protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading spells");
 
         const spells: CompendiumBrowserIndexData[] = [];
@@ -42,7 +44,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             "system.category.value",
             "system.traditions.value",
             "system.time",
-            "system.school.value",
             "system.traits",
             "system.source.value",
         ];
@@ -88,9 +89,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
                     // Prepare source
                     const source = spellData.system.source.value;
+                    const sourceSlug = sluggify(source);
                     if (source) {
                         sources.add(source);
-                        spellData.system.source.value = sluggify(source);
                     }
 
                     spells.push({
@@ -101,11 +102,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         level: spellData.system.level.value,
                         time: spellData.system.time,
                         category: spellData.system.category.value,
-                        school: spellData.system.school.value,
                         traditions: spellData.system.traditions.value,
                         traits: spellData.system.traits.value,
                         rarity: spellData.system.traits.rarity,
-                        source: spellData.system.source.value,
+                        source: sourceSlug,
                     });
                 }
             }
@@ -127,7 +127,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 selected: false,
             };
         }
-        this.filterData.checkboxes.school.options = this.generateCheckboxOptions(CONFIG.PF2E.magicSchools);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
@@ -164,14 +163,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             if (!this.arrayIncludes(checkboxes.traditions.selected, entry.traditions)) return false;
         }
         // Traits
-        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
-        }
-        // School
-        if (checkboxes.school.selected.length) {
-            if (!checkboxes.school.selected.includes(entry.school)) return false;
-        }
         // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
@@ -183,8 +176,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         return true;
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
+    protected override prepareFilterData(): SpellFilters {
+        return {
             checkboxes: {
                 category: {
                     isExpanded: true,
@@ -204,12 +197,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                school: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSchools",
-                    options: {},
-                    selected: [],
-                },
                 rarity: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterRarities",
@@ -225,6 +212,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             },
             multiselects: {
                 traits: {
+                    conjunction: "and",
                     label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],

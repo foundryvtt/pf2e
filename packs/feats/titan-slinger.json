@@ -1,0 +1,51 @@
+{
+    "_id": "50CRpoP5XS1MVbu8",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Titan Slinger",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have learned how to use your sling to fell enormous creatures. When you hit on an attack with a sling against a Large or larger creature, increase the size of the weapon damage die by one step.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:size:large",
+                            "target:size:huge",
+                            "target:size:gargantuan"
+                        ]
+                    }
+                ],
+                "selector": "sling-weapon-group-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "halfling"
+            ]
+        }
+    },
+    "type": "feat"
+}

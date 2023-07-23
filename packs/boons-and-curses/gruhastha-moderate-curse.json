@@ -1,0 +1,48 @@
+{
+    "_id": "sL6WZ4EIHcIuEwVW",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Gruhastha - Moderate Curse",
+    "system": {
+        "description": {
+            "value": "<p><strong>Moderate Curse:</strong> Enlightenment begins to elude you, leaving you at a loss for knowledge. Whenever you attempt a check to Recall Knowledge, you use a result one degree of success worse than the result you rolled.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse",
+                    "failure": "one-degree-worse",
+                    "success": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

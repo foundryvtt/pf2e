@@ -1,0 +1,48 @@
+{
+    "_id": "Tr2SnOE2WqFIIWIK",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Enlarge Companion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You make your companion enormous. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge Companion]</em> warden spell. Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "an animal companion"
+                },
+                {
+                    "value": "warden spells"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

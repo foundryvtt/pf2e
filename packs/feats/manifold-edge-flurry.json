@@ -1,0 +1,62 @@
+{
+    "_id": "QWPFf6NOObxaZJwW",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Manifold Edge (Flurry)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned every possible edge to use against your foes.</p>\n<p>When you use @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey] you can gain a different hunter's edge benefit instead of the one you selected at 1st level.</p>\n<p>This feat grants @UUID[Compendium.pf2e.classfeatures.Item.Flurry].</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "hunter's edge"
+                },
+                {
+                    "value": "masterful hunter"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "agile",
+                    "hunted-prey"
+                ],
+                "selector": "attack",
+                "value": -2
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "not": "agile"
+                    }
+                ],
+                "selector": "attack",
+                "value": -3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

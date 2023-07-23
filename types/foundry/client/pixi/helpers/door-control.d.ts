@@ -1,6 +1,6 @@
 /** An icon representing a Door Control */
 declare class DoorControl extends PIXI.Container {
-    constructor(wall: Wall);
+    constructor(wall: Wall<WallDocument<Scene | null>>);
 
     /** Draw the DoorControl icon, displaying it's icon texture and border */
     draw(): Promise<this>;
@@ -25,25 +25,25 @@ declare class DoorControl extends PIXI.Container {
      * Handle mouse over events on a door control icon.
      * @param event The originating interaction event
      */
-    protected _onMouseOver(event: PIXI.InteractionEvent): void;
+    protected _onMouseOver(event: PIXI.FederatedEvent): void;
 
     /**
      * Handle mouse out events on a door control icon.
      * @param event The originating interaction event
      */
-    protected _onMouseOut(event: PIXI.InteractionEvent): void;
+    protected _onMouseOut(event: PIXI.FederatedEvent): void;
 
     /**
      * Handle left mouse down events on a door control icon.
      * This should only toggle between the OPEN and CLOSED states.
      * @param event The originating interaction event
      */
-    protected _onMouseDown(event: PIXI.InteractionEvent): Promise<WallDocument | undefined>;
+    protected _onMouseDown(event: PIXI.FederatedEvent): Promise<WallDocument<Scene> | undefined>;
 
     /**
      * Handle right mouse down events on a door control icon.
      * This should toggle whether the door is LOCKED or CLOSED.
      * @param event The originating interaction event
      */
-    protected _onRightDown(event: PIXI.InteractionEvent): Promise<WallDocument | undefined>;
+    protected _onRightDown(event: PIXI.FederatedEvent): Promise<WallDocument<Scene> | undefined>;
 }

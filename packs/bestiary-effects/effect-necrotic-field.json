@@ -1,0 +1,46 @@
+{
+    "_id": "kjP0J97hhoIhbF3M",
+    "img": "systems/pf2e/icons/spells/necromancers-generocity.webp",
+    "name": "Effect: Necrotic Field",
+    "system": {
+        "description": {
+            "value": "<p>Undead within the aura deal an additional [[/r 1d6[negative]]] damage with their natural attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "damageType": "negative",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #148: Fires of the Haunted City"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

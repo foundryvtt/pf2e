@@ -1,0 +1,92 @@
+{
+    "_id": "5HoEwzLDJGTCZtFa",
+    "img": "systems/pf2e/icons/features/classes/battledancer-style.webp",
+    "name": "Battledancer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>To you, a fight is a kind of performance art, and you command your foes' attention with mesmerizing motions.</p>\n<p>You are trained in Performance and gain the @UUID[Compendium.pf2e.feats-srd.Item.Fascinating Performance] skill feat. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter when the result of your Performance check to @UUID[Compendium.pf2e.actionspf2e.Item.Perform] exceeds the Will DC of an observing foe, even if the foe isn't fascinated.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:panache",
+                    {
+                        "or": [
+                            "action:perform"
+                        ]
+                    }
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.prf.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Fascinating Performance"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:perform",
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "performance",
+                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:exemplary-finisher"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Battledancer",
+                "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

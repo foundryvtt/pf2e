@@ -1,0 +1,72 @@
+<form class="{{cssClass}}{{#if editing}} editing{{/if}}" autocomplete="off">
+    <header>
+        <div class="frame-container">
+            <div class="frame">
+                <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+            </div>
+        </div>
+        <div class="details">
+            <div class="title">
+                <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
+                <label>{{localize "TYPES.Actor.party"}}</label>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sub-nav">
+        {{#unless restricted}}
+            <a data-tab="overview">{{localize "PF2E.Actor.Party.Tabs.Overview"}}</a>
+        {{/unless}}
+        <a data-tab="inventory">{{localize "PF2E.Actor.Party.Tabs.Inventory"}}</a>
+        <a data-tab="exploration">{{localize "PF2E.Actor.Party.Tabs.Exploration"}}</a>
+        {{#if orphaned}}
+            <a data-tab="orphaned">{{localize "PF2E.Actor.Party.Tabs.Orphaned"}}</a>
+        {{/if}}
+    </nav>
+
+    <section class="container">
+        {{#unless restricted}}
+            <div class="tab" data-tab="overview" data-region="overview"></div>
+        {{/unless}}
+
+        <div class="tab" data-tab="inventory">
+            <aside class="sidebar">
+                <section data-region="inventoryMembers">
+                </section>
+            </aside>
+            <section class="inventory">
+                {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
+                {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
+            </section>
+        </div>
+
+        <div class="tab" data-tab="exploration" data-region="exploration">
+        </div>
+
+        {{#if orphaned}}
+            <div class="tab" data-tab="orphaned">
+                <ol class="item-list directory-list">
+                    {{#each orphaned as |item|}}
+                        {{#if (or item.isIdentified @root.user.isGM)}}
+                            <li class="item" data-item-type="{{item.type}}" data-item-id="{{item.id}}">
+                                <div class="item-name">
+                                    <div class="item-image" style="background-image: url({{item.img}})">
+                                        <i class="fas fa-comment-alt"></i>
+                                    </div>
+                                    <h4 class="action-name">
+                                        {{item.name}}
+                                    </h4>
+                                </div>
+                                <div class="item-controls">
+                                    {{#if (and @root.options.editable (not item.temporary))}}
+                                        <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                    {{/if}}
+                                </div>
+                            </li>
+                        {{/if}}
+                    {{/each}}
+                </ol>
+            </div>
+        {{/if}}
+    </section>
+</form>

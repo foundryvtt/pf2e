@@ -1,0 +1,46 @@
+{
+    "_id": "tJduF6N83l5khRow",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Divine Grace",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You attempt a save against a spell, before you roll.</p>\n<hr />\n<p>You call upon your deity's grace, gaining a +2 circumstance bonus to the save.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Divine Grace (vs. spell)",
+                "predicate": [
+                    "spell",
+                    "divine-grace"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

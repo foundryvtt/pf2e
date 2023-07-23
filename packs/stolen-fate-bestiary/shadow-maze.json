@@ -1,0 +1,104 @@
+{
+    "_id": "KqZXzqkMnftu8tGb",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "GfSCDJawfBCWL5DS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disorient",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the 20-foot-wide interior of the shadow maze, either from area <strong>C2</strong> or <strong>C4</strong>, or through a hole smashed in the dome</p>\n<hr />\n<p><strong>Effect</strong> Reality appears to shift around the creature, who perceives a sudden transformation in the surrounding terrain into a vast maze of underwater alleys and crumbling ruins. The creature must attempt a @Check[type:will|dc:37] save, and the shadow maze then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature sees through the illusions and can move freely through squares within the shadow maze's effect. It's temporarily immune to the effects of the trap's routine for 1 minute.</p>\n<p><strong>Success</strong> The creature understands that what it's experiencing is an illusion, but it isn't immune to the effects of the trap's routine.</p>\n<p><strong>Failure</strong> The creature believes it has stepped into a vast maze. To those observing the creature outside of the shadow maze, the creature remains motionless. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round, during which time all of its speeds are reduced to 5 feet.</p>\n<p><strong>Critical Failure</strong> The creature not only believes it has entered a vast maze, but is overwhelmed with the sensation of being hopelessly lost. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until the end of its next turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "incapacitation",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shadow Maze",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master) to realize the water within the dome poses a supernatural threat</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Shifting illusions disorient, entrap, and agonize those who attempt to pass through the shadowy maze.</p>",
+            "disable": "<p>@Check[type:thievery|dc:42] (master) to decouple faint strands of shadow essence from the magical matrix that holds the maze together, @Check[type:arcana|dc:45] or @Check[type:occultism|dc:45] to shunt the shadowy energy back into the Shadow Plane and render the maze inert, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (8th level; counteract DC 35) to counteract the shadow maze</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>If disarmed, the trap resets in 1 hour as long as the two crystals in area <strong>C5</strong> still function.</p>",
+            "routine": "<p>(1 action; illusion, incapacitation, mental) The shadow maze shifts and adjusts its appearance, affecting all creatures currently located within its area. Any creatures in the area at this time must attempt a @Check[type:will|dc:37] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature sees through the illusions and can act normally.</p>\n<p><strong>Success</strong> The creature treats all squares within the trap's area as difficult terrain, and the trap fills the creature's mind with sensations and false memories that it has been wandering these alleys for nearly an hour. The creature takes [[/r 5d6[mental]]] damage from the perceived strain of navigating the alien flooded alleys.</p>\n<p><strong>Failure</strong> As success, but the creature believes it has been wandering the alleys for several hours. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round and takes [[/r 10d6[mental]]] damage from the perceived strain.</p>\n<p><strong>Critical Failure</strong> The creature believes it has been hopelessly lost in the alleys of the shadow maze for days, and it is incapacitated for 1 round and takes [[/r 20d6[mental]]] damage from the perceived strain.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #191: The Destiny War"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

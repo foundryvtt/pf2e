@@ -1,0 +1,54 @@
+{
+    "_id": "Y96a1OedsU8PVf7z",
+    "img": "systems/pf2e/icons/spells/guiding-star.webp",
+    "name": "Effect: Starlight Armor",
+    "system": {
+        "description": {
+            "value": "<p>The armor grants you resistance 7 to piercing, bludgeoning, and slashing damage. The armor also sheds bright light for 20 feet (and dim light for the next 20 feet).</p>\n<p>When you reach 17th level, the resistance increases to 10.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "piercing",
+                    "slashing",
+                    "bludgeoning"
+                ],
+                "value": "ternary(gte(@actor.level,17),10,7)"
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

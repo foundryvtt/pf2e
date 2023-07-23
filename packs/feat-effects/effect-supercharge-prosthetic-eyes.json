@@ -1,0 +1,49 @@
+{
+    "_id": "qSKVcw6brzrvfhUM",
+    "img": "systems/pf2e/icons/spells/detect-alignment.webp",
+    "name": "Effect: Supercharge Prosthetic Eyes",
+    "system": {
+        "description": {
+            "value": "<p>You gain darkvision and low-light vision, and you gain a +1 status bonus to visual Perception checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "visual"
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

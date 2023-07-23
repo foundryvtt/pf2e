@@ -1,0 +1,62 @@
+{
+    "_id": "5KXJkEs39y1gaPEm",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Stargazer's Eyes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Long hours in darkened observatories have sharpened your senses. If you don't have low-light vision or darkvision, you gain low-light vision, or if you already have low-light vision, you gain darkvision.</p>\n<p><strong>Special</strong> You can take this feat a second time, upgrading your low-light vision to darkvision.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Oatia Skysage Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "feat:stargazers-eyes:2"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.feats.stargazersEyes.count",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feat:stargazers-eyes:{actor|flags.pf2e.feats.stargazersEyes.count}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #187: The Seventh Arch"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

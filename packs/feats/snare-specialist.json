@@ -1,0 +1,80 @@
+{
+    "_id": "0haS0qXR9xTYKoTG",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Snare Specialist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You specialize in creating quick traps to obstruct your enemies on the battlefield. If your proficiency rank in Crafting is expert, you gain the formulas for three common or uncommon snares. If your rank is master, you gain 6. If your rank is legendary, you gain 9.</p>\n<p>Each day during your daily preparations, you can prepare four snares from your formula book for quick deployment; if they normally take 1 minute to @UUID[Compendium.pf2e.actionspf2e.Item.Craft], you can Craft them with 3 Interact actions. The number of snares increases to six if you have master proficiency in Crafting and eight if you have legendary proficiency in Crafting. Snares prepared in this way don't cost you any resources to Craft.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Crafting"
+                },
+                {
+                    "value": "Snare Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:snare"
+                ],
+                "isDailyPrep": false,
+                "isPrepared": true,
+                "key": "CraftingEntry",
+                "name": "Snare Crafting",
+                "selector": "snareCrafting"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.crafting.entries.snareCrafting.maxSlots",
+                "phase": "beforeDerived",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 4
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": 6
+                        },
+                        {
+                            "start": 4,
+                            "value": 8
+                        }
+                    ],
+                    "field": "actor|system.skills.cra.rank"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "ranger": "Ranger"
+            },
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

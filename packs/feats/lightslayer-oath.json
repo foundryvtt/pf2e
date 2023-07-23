@@ -1,0 +1,113 @@
+{
+    "_id": "9WzZc110jCNnjjRz",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Lightslayer Oath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sworn to rid the world of the self - righteousness of celestial beings. Add the following tenet to your code, after the other tenets. \"You must banish or slay celestials you encounter as long as you have a reasonable chance of success; in the incredibly unlikely event you find an evil celestial, you don't have to banish or kill it.\"</p>\n<p>When you use your champion's reaction against a celestial, the extra damage you deal with @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes} increases by 1 (or by 2 at 9th level and by 3 at 16th level).</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tenets of evil"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Used champion's reaction against a celestial",
+                "option": "lightslayer-oath",
+                "toggleable": true
+            },
+            {
+                "damageType": "negative",
+                "key": "FlatModifier",
+                "predicate": [
+                    "lightslayer-oath",
+                    {
+                        "or": [
+                            "iron-command:negative",
+                            "selfish-shield:negative",
+                            "destructive-vengeance:negative"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lightslayer-neg",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "evil",
+                "key": "FlatModifier",
+                "predicate": [
+                    "lightslayer-oath",
+                    {
+                        "or": [
+                            "iron-command:evil",
+                            "selfish-shield:evil",
+                            "destructive-vengeance:evil"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "lightslayer-evil",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "type": "feat"
+}

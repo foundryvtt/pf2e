@@ -1,0 +1,51 @@
+{
+    "_id": "N7dTFxpjXGn4ddq8",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Enhanced Familiar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>(Druid)</strong> You infuse your familiar with additional primal energy, increasing its abilities.</p>\n<p><strong>(Magus)</strong> You infuse your familiar with more magical energy.</p>\n<p><strong>(Sorcerer, Wizard, Witch)</strong> You infuse your familiar with additional magical energy.</p>\n<p><strong>(Thaumaturge)</strong> By applying the best of multiple traditions of magic, you've found a more efficient way for your familiar to store its energy.</p>\n<hr />\n<p>You can select four familiar or master abilities each day, instead of two.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "a familiar"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.familiarAbilities.value",
+                "priority": 9,
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid",
+                "magus",
+                "sorcerer",
+                "thaumaturge",
+                "witch",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,164 @@
+input[type="text"], input[type="number"] {
+    border: none;
+}
+
+.content {
+    display: grid;
+    grid-template-areas:
+        "leaders resources"
+        "leaders abilities";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    width: 100%;
+    gap: 0 1rem;
+    padding: 0.5rem;
+}
+
+.leaders {
+    grid-area: leaders;
+    flex: 1;
+    .leader {
+        display: grid;
+        grid-template-areas:
+            "img name"
+            "img label";
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr auto;
+        margin-bottom: 4px;
+
+        img {
+            @include frame-icon;
+            grid-area: img;
+            width: 2.75rem;
+            height: 2.75rem;
+            z-index: 1;
+        }
+        .name {
+            grid-area: name;
+            background: rgba(0, 0, 0, 0.025);
+            padding: 0 4px;
+            border: 0;
+            height: auto;
+            line-height: 1.5em;
+            height: 1.5em;
+            align-self: end;
+        }
+        .details {
+            grid-area: label;
+            align-self: flex-end;
+
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+
+            background: var(--paper-bg);
+            box-shadow: var(--drop-shadow);
+            font-size: var(--font-size-12);
+            padding: 0 4px;
+            position: relative;
+            margin-bottom: 1px;
+            height: 1.5rem;
+
+            .role {
+                font-variant: small-caps;
+                font-weight: 500;
+            }
+        }
+        .vacant {
+            input {
+                margin: 0;
+                width: 1em;
+                height: 1em;
+            }
+            i {
+                font-size: 1.2em;
+            }
+        }
+    }
+}
+
+.resources {
+    grid-area: resources;
+
+    .resource-data {
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+    }
+
+    .resource-dice {
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 0.25rem;
+        padding: 0 0.5rem;
+        .rollable {
+            flex: 1;
+        }
+        input {
+            width: 2ch;
+            text-align: center;
+        }
+    }
+
+    .commodities {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .commodity {
+        align-items: center;
+        display: flex;
+        gap: 0.25rem;
+        .type {
+            width: 4.25rem;
+        }
+
+        input {
+            width: 3ch;
+            text-align: center;
+        }
+
+        .value-max {
+            align-items: center;
+            display: flex;
+            gap: 0.125rem;
+            flex: 1;
+            input {
+                width: 2ch;
+            }
+        }
+    }
+}
+
+.ability-scores {
+    grid-area: abilities;
+    flex: 0;
+
+    .ability {
+        display: flex;
+        flex-direction: row;
+
+        .score {
+            width: 5rem;
+            text-align: center;
+            .value {
+                font-size: var(--font-size-20);
+            }
+        }
+
+        .corruption-section {
+            display: flex;
+            flex-wrap: wrap;
+
+            & > div {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                flex: 1;
+            }
+
+            progress {
+                flex-basis: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "t03Tc5I4B8RHsyqs",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Overwatch Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have an innate knack for tactical observation, and you've innovated to apply that knack in a variety of ways that allow you to assist your allies. With the help of enhanced visual gear (such as a specially modified telescope, goggled visor, or binoculars), you're keenly aware of the movement of combatants on the battlefield. You quickly and efficiently disperse that information to your nearby allies so they can use it to direct their own observations and reactions to danger.</p>\n<p>You're surrounded by an overwatch field aura in a @Template[type:emanation|distance:30]. Your overwatch field aura grants you increased perception and allows you to call out warnings to your allies within the aura to point out threats. This aura has the auditory and visual traits. You and allies within your overwatch field receive a +2 circumstance bonus when using Perception for Initiative checks.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Overwatch Field]</p>\n<p><strong>Special</strong> You can't select another dedication feat until after you have gained at least two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.yOEiNjHLQ6XuOruq]{Overwatch} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Perception"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Overwatch Field"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 30,
+                "slug": "overwatch-field",
+                "traits": [
+                    "auditory",
+                    "visual"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

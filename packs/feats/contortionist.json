@@ -1,0 +1,52 @@
+{
+    "_id": "JO3mcFvxjRp1V8XK",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Contortionist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can squeeze out of tight situations surprisingly quickly, gaining an advantage against foes that try to pin you down. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Quick Squeeze] skill feat, and if you're a master in Acrobatics, you can @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze] at full Speed.</p>\n<p>Whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Escape] using Acrobatics, the creature you Escaped from is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the next attack you make against it before the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Acrobat Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": "acrobatics",
+                "text": "Whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Escape] using Acrobatics, the creature you Escaped from is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the next attack you make against it before the end of your next turn.",
+                "title": "Success"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Squeeze"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

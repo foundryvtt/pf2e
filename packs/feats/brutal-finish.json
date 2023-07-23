@@ -1,0 +1,66 @@
+{
+    "_id": "tGXJU6yx7bYuyLvd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Brutal Finish",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wielding a melee weapon in two hands</p>\n<hr />\n<p>Your final blow can make an impact even if it rebounds off a foe's defenses.</p>\n<p>Make a Strike with the required weapon. After the Strike, your turn ends. The Strike deals one extra weapon damage die, or two extra weapon damage dice if you're at least 18th level. The Strike also gains the following failure effect.</p>\n<p><strong>Failure</strong> You deal damage equal to one weapon damage die of the required weapon. Increase this to two dice if you're at least 18th level.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "brutal-finish",
+                "toggleable": true
+            },
+            {
+                "key": "DamageDice",
+                "predicate": [
+                    "melee",
+                    "brutal-finish"
+                ],
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter",
+                "press"
+            ]
+        }
+    },
+    "type": "feat"
+}

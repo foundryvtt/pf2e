@@ -1,0 +1,109 @@
+{
+    "_id": "neNlIrZOs6zOODoe",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "OlnYDBwZvO3CeHG3",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Force Blast",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non‑undead creature opens the door or critically fails an attempt to disarm or dispel the rune</p>\n<hr />\n<p><strong>Effect</strong> A 30‑foot cone of force issues forth from the lock. Creatures within the cone must succeed a @Check[type:fortitude|dc:29|basic:true] saving throw or take [[/r 8d12[force]]] damage. Those who fail the save are pushed 10 feet, and those who critically fail are pushed 20 feet and are @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "force",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blast Tumbler",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>@Check[type:perception|dc:32|traits:action:seek] (master)</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A hard-to-reach rune is placed on the lock's tumbler. It emits a blast of force when the door is jostled.</p>",
+            "disable": "<p>@Check[type:thievery|dc:32|name:Disarm the Rune|traits:action:disable-a-device] (master) to disarm the rune, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (5th level; counteract DC 28) to counteract the rune's magic.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 10
+            },
+            "reset": "<p>The rune resets 1 minute after it triggers.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #165: Eyes of Empty Death"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

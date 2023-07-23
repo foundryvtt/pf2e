@@ -1,0 +1,104 @@
+{
+    "_id": "Pum2HQMMrFS89JnW",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "hz9E9TnkviNuCCnq",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gasp",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves adjacent to the wall where the corpse is entombed</p>\n<hr />\n<p><strong>Effect</strong> The spirit gasps and wails for aid while the wall takes on the shape of its face and roils, growing tendrils. All creatures within @Template[type:emanation|distance:10]{10 feet} must succeed at a @Check[type:will|dc:18] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} for as long as the haunt remains active. The haunt then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "enchantment",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Entombed Spirit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "hardness": 9,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The wall bulges out in the shape of a howling humanoid face as it twists and forms tendrils reaching for nearby creatures. This haunt is formed when a murder victim is entombed within a wall before or after their death.</p>",
+            "disable": "<p>@Check[type:occultism|dc:17] (trained) to weaken the spirit, @Check[type:athletics|dc:18] (trained) to force the spirit's face back inside the wall, or @Check[type:diplomacy|dc:19] (trained) to talk down the spirit; two total successes across all skills are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the area and resets immediately thereafter. If disabled, the haunt resets after 1 day. The haunt is permanently destroyed if the remains of the deceased are removed from the wall.</p>",
+            "routine": "<p>(3 actions) The spirit attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] up to two creatures within 10 feet with a [[/r 1d20+14 #Athletics]]{+14 Athletics modifier}, then squeezes each creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], dealing [[/r (1d10+4)[damage]]] damage. The haunt doesn't apply a multiple attack penalty to the second attempt to Grapple.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Book of the Dead"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

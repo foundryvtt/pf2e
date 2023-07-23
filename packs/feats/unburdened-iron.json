@@ -1,0 +1,63 @@
+{
+    "_id": "C1R4wd6G46CAVIn7",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Unburdened Iron",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned techniques first devised by your ancestors during their ancient wars, allowing you to comfortably wear massive suits of armor. Ignore the reduction to your Speed from any armor you wear. In addition, any time you're taking a penalty to your Speed from some other reason (such as from the encumbered condition or from a spell), deduct 5 feet from the penalty. For example, the encumbered condition normally gives a -10-foot penalty to Speed, but it gives you only a -5-foot penalty. If your Speed is taking multiple penalties, pick only one penalty to reduce.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "selectors": [
+                    "land-speed"
+                ],
+                "slug": "armor-speed-penalty",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "maxApplications": 1,
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "penalty:slug:armor-speed-penalty"
+                    },
+                    {
+                        "lte": [
+                            "penalty:value",
+                            -5
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "land-speed"
+                ],
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

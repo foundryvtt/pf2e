@@ -1,0 +1,81 @@
+{
+    "_id": "lX5KDS2hU5LihZRs",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Martial Disciple",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You dedicated yourself to intense training and rigorous study to become a great warrior. The school you attended might have been a traditionalist monastery, an elite military academy, or the local branch of a prestigious mercenary organization.</p>\n<p>Choose two ability boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free ability boost.</p>\n<p>You're trained in your choice of the Acrobatics or Athletics skill. You gain a skill feat: @UUID[Compendium.pf2e.feats-srd.Item.Cat Fall] if you chose Acrobatics or @UUID[Compendium.pf2e.feats-srd.Item.Quick Jump] if you chose Athletics. You're also trained in the Warfare Lore skill.</p>"
+        },
+        "items": {},
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "athletics"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "martial-disciple"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "martial-disciple:acrobatics"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Cat Fall"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "martial-disciple:athletics"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Jump"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "trainedLore": "Warfare Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

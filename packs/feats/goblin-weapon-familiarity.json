@@ -1,0 +1,70 @@
+{
+    "_id": "OYjzfTeWU7RJBT7v",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Goblin Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Others might look upon them with disdain, but you know that the weapons of your people are as effective as they are sharp. You are trained with the @UUID[Compendium.pf2e.equipment-srd.Item.Dogslicer] and @UUID[Compendium.pf2e.equipment-srd.Item.Horsechopper].</p>\n<p>In addition, you gain access to all uncommon goblin weapons. For the purpose of determining your proficiency, martial goblin weapons are simple weapons and advanced goblin weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-dogslicer.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-horsechopper.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:goblin",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGoblinWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-goblin-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:goblin",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialGoblinWeapons",
+                "sameAs": "simple",
+                "slug": "martial-goblin-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

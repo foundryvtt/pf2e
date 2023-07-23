@@ -1,0 +1,56 @@
+{
+    "_id": "omyZyfTnx3uYVgiP",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Arachnid Harness",
+    "system": {
+        "description": {
+            "value": "<p>You gain a climb Speed equal to half your land Speed and have your limbs free as you climb. If you use all your free limbs to help you Climb, your climb Speed equals your land Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "use-all-limbs"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Climb with all limbs",
+                "option": "use-all-limbs",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

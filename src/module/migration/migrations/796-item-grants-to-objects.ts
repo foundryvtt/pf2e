@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
-import { ItemGrantSource } from "@item/data/base";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemGrantSource } from "@item/data/base.ts";
 import { sluggify } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Convert `itemGrants` flags from arrays to `Record<string, GrantedItemData>`s */
 export class Migration796ItemGrantsToObjects extends MigrationBase {

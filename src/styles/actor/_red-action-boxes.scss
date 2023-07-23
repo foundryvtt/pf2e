@@ -1,0 +1,254 @@
+.section-container {
+    display: flex;
+    flex-direction: column;
+
+    .section-header {
+        border: 1px solid $primary-color;
+        border-radius: 3px 3px 0px 0px;
+        background: $primary-color;
+
+        display: flex;
+        flex: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+        text-align: left;
+        color: #f5efe0;
+        font-size: var(--font-size-13);
+        padding: 0 8px;
+        line-height: 2em;
+
+        h4 {
+            flex: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 0px;
+            text-transform: uppercase;
+        }
+
+        input {
+            color: inherit;
+            width: auto;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            justify-self: flex-end;
+        }
+    }
+
+    .section-body {
+        border: 1px solid $primary-color;
+        border-radius: 0px 0px 3px 3px;
+
+        display: flex;
+        flex: auto;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    &.headerless .section-body {
+        border-radius: 3px;
+    }
+}
+
+.actions-list, .attacks-list {
+    align-items: baseline;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+
+    .item-controls {
+        font-size: 0.8rem;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        margin-left: auto;
+
+        .chat {
+            margin-right: 3px;
+            font-size: 0.9em;
+        }
+    }
+
+    .action {
+        display: flex;
+        flex: 1 0 46%;
+        flex-direction: column;
+        margin-left: 6px;
+        margin-right: 6px;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--color-border-light-tertiary);
+        }
+
+        .action-header {
+            display: flex;
+            flex: 1 0 auto;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+            .action-name {
+                display: flex;
+                flex: auto;
+                font-size: 0.9rem;
+
+                h4 {
+                    margin: 0px;
+                    margin-bottom: 0px;
+                }
+
+                .action-traits {
+                    margin-left: 12px;
+                }
+
+                .action-tracking {
+                    flex: 0;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    margin-left: auto;
+                    margin-right: 16px;
+
+                    input {
+                        width: 0;
+                        flex: 0 1 48px;
+                        font-family: inherit;
+                        font-size: 0.9rem;
+                        background: none;
+                        text-align: center;
+                        border: 0;
+                        padding: 0 3px;
+                        height: auto;
+                    }
+
+                    span {
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+
+        .item-summary {
+            flex: 0 1 auto;
+            margin-top: 0.5em;
+        }
+    }
+
+    .attack {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        margin: 8px 6px 0 6px;
+        border-bottom: 1px solid var(--color-border-light-tertiary);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .attack-header {
+            display: flex;
+            flex: 1 0 auto;
+            flex-direction: row;
+            align-items: baseline;
+            width: 100%;
+        }
+
+        .attack-name {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2px;
+            white-space: nowrap;
+            margin: 0 4px 0 0;
+
+            font-size: 0.9rem;
+            font-weight: 500;
+
+            & > span {
+                gap: 3px;
+                margin-right: 4px;
+                display: flex;
+                align-items: baseline;
+                line-height: 1.125rem;
+            }
+        }
+
+        .attack-body {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+
+            width: 100%;
+            padding-top: 3px;
+
+            .flexrow,
+            .sub-section {
+                gap: 2px;
+            }
+
+            .sub-section {
+                align-items: flex-start;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                flex: auto;
+                justify-content: flex-start;
+
+                h4 {
+                    margin-left: 12px;
+                    margin-right: 12px;
+                }
+            }
+
+            button {
+                width: auto !important;
+                cursor: pointer;
+                margin: 0;
+                padding: 0 8px;
+                font-size: var(--font-size-11);
+                height: 18px;
+                line-height: 18px;
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                background: var(--color-primary);
+                color: #f5efe0;
+                text-align: center;
+                white-space: nowrap;
+                border-radius: 3px;
+                border: none;
+
+                &:first-child {
+                    margin-left: 0px;
+                }
+
+                &:hover {
+                    box-shadow: none;
+                    text-shadow: 0 0 2px white;
+                }
+            }
+
+            .attack-button {
+                background-color: var(--secondary);
+            }
+
+            .damage-button,
+            .critical-button {
+                background-color: var(--primary);
+            }
+
+            .attack-description {
+                min-height: 10px;
+            }
+        }
+    }
+}

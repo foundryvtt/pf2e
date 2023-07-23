@@ -1,0 +1,106 @@
+{
+    "_id": "AaiDy0SMHX6beLgm",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dR0oYwqVytbdr259",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Season's Toll",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters one of the four alcoves</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Season's Toll (5-6)",
+    "prototypeToken": {
+        "name": "Season's Toll"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Arcs of primal energy emerge from the L-shaped stone wall at the center of each alcove.</p>",
+            "disable": "<p>@Check[type:crafting|dc:28] or @Check[type:thievery|dc:28] (expert) to rig up a dummy or other object to distract one of the trap's sensors, or @Check[type:nature|dc:26] (trained) to temporarily befuddle one of the sensors with knowledge of primal magic.</p>\n<p>Alternatively, inserting the correct key into an alcove's keyhole disables that alcove's sensor.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The trap is powered by the Eternal Bloom. It resets after 5 minutes, at which time the doors to the vault slam shut once again.</p>",
+            "routine": "<p>(4 actions) The trap loses one action per magical sensor disabled. On its initiative, the trap uses each of its actions to target one creature adjacent to or within an alcove with a negative effect that corresponds to the season opposite the one depicted on the alcove's murals (@Check[type:fortitude|dc:27] to resist). For the purposes of this trap, creatures who are within an alcove's landscape count are within that alcove. The trap can target only one creature per alcove per round.</p>\n<hr />\n<p><strong>Spring Alcove (death)</strong> The decay of late autumn takes hold of the target.</p>\n<ul>\n<li><strong>Critical Success</strong> The trap has no effect.</li>\n<li><strong>Success</strong> The target takes [[/r (2d6+2)[negative]]] damage.</li>\n<li><strong>Failure</strong> The target takes [[/r (4d6+4)[negative]]] damage.</li>\n<li><strong>Critical Failure</strong> The target takes [[/r (4d6+4)[negative]]] damage and [[/r 1d6[persistent,negative]]] damage. Effects that use positive energy, such as the <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell, automatically end this persistent damage.<hr /></li>\n</ul>\n<p><strong>Summer Alcove (cold)</strong> Winter's bitter chill descends on the target.</p>\n<ul>\n<li><strong>Critical Success</strong> The trap has no effect.</li>\n<li><strong>Success</strong> The target takes [[/r (2d6+2)[cold]]] damage.</li>\n<li><strong>Failure</strong> The target takes [[/r (4d6+4)[cold]]] damage.</li>\n<li><strong>Critical Failure</strong> The target takes [[/r (4d6+4)[cold]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 hour.<hr /></li>\n</ul>\n<p><strong>Autumn Alcove (poison)</strong> Poisonous springtime pollen sprays at the target.</p>\n<ul>\n<li><strong>Critical Success</strong> The trap has no effect.</li>\n<li><strong>Success</strong> The target takes [[/r (2d6+2)[poison]]] damage.</li>\n<li><strong>Failure</strong> The target takes [[/r (4d6+4)[poison]]] damage.</li>\n<li><strong>Critical Failure</strong> The target takes [[/r (4d6+4)[poison]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.<hr /></li>\n</ul>\n<p><strong>Winter Alcove (fire)</strong> Heat greater than the hottest summer afternoon engulfs the target.</p>\n<ul>\n<li><strong>Critical Success</strong> The trap has no effect.</li>\n<li><strong>Success</strong> The target takes [[/r (2d6+2)[fire]]] damage.</li>\n<li><strong>Failure</strong> The target takes [[/r (4d6+4)[fire]]] damage.</li>\n<li><strong>Critical Failure</strong> The target takes [[/r (4d6+4)[fire]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 hour.</li>\n</ul>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #1-16: The Perennial Crown Part 1, Opal of Bhopan"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,60 @@
+{
+    "_id": "4FginnDcOt4wfedf",
+    "img": "systems/pf2e/icons/spells/waking-nightmare.webp",
+    "name": "Effect: Bittersweet Dreams",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a status penalty to attack rolls, saving throws, and skill checks according to its save result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.Dramofir.BittersweetDreamsSuccessFailure",
+                        "value": "-1"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.Dramofir.BittersweetDreamsCriticalFailure",
+                        "value": "-2"
+                    }
+                ],
+                "flag": "degreeOfSuccess",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.degreeOfSuccess}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

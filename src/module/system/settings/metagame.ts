@@ -1,4 +1,5 @@
-import { SettingsMenuPF2e } from "./menu";
+import { resetActors } from "@actor/helpers.ts";
+import { MenuTemplateData, SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
     showDC: {
@@ -12,6 +13,15 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.ShowResults.Hint",
         default: true,
         type: Boolean,
+    },
+    showPartyStats: {
+        name: "PF2E.SETTINGS.Metagame.ShowPartyStats.Name",
+        hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.isOfType("party")));
+        },
     },
     tokenSetsNameVisibility: {
         name: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Name",
@@ -64,8 +74,17 @@ class MetagameSettings extends SettingsMenuPF2e {
         return Object.keys(this.settings);
     }
 
-    static override get prefix() {
+    static override get prefix(): string {
         return `${this.namespace}_`;
+    }
+
+    /** Hide "metagame_showPartyStats" setting in production builds until party actor is released */
+    override async getData(): Promise<MenuTemplateData> {
+        const data = await super.getData();
+        if (BUILD_MODE === "production") {
+            delete data.settings.showPartyStats;
+        }
+        return data;
     }
 }
 

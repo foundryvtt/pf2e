@@ -1,0 +1,86 @@
+{
+    "_id": "8STJEFVJISujgpMR",
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Druidic Order",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Upon becoming a druid, you align yourself with a druidic order, which grants you a class feat, an order spell, and an additional trained skill tied to your order. While you'll always be a member of your initial order, it's not unheard of for a druid to request to study with other orders in search of greater understanding of the natural world, and PC druids are among the most likely to blend the powers of different orders.</p>\n<p>Order spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with local nature spirits or otherwise tend to the wilderness in a way befitting your order.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots to cast, and you can't cast them using spell slots. Selecting druid feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 points.</p>\n<hr />\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Animal Order]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Flame Order]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Leaf Order]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Stone Order]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Storm Order]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Wave Order]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Wild Order]</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:druid"
+                ],
+                "priority": 9,
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "level 1 druid class feature",
+                    "predicate": [
+                        "item:level:1",
+                        "item:trait:druid",
+                        "item:type:feature"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Animal Order"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Flame Order"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Leaf Order"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Stone Order"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Storm Order"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Wave Order"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Wild Order"
+                    }
+                ],
+                "flag": "druidicOrder",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.druidicOrder}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "kWc1fhmv9LBiTuei",
+    "img": "systems/pf2e/icons/conditions/grabbed.webp",
+    "name": "Grabbed",
+    "system": {
+        "description": {
+            "value": "<p>You're held in place by another creature, giving you the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[type:flat|dc:5] check or it is lost; roll the check after spending the action, but before any effects are applied.</p>"
+        },
+        "duration": {
+            "value": 0
+        },
+        "group": null,
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "value": {
+            "isValued": false,
+            "value": null
+        }
+    },
+    "type": "condition"
+}

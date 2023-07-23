@@ -1,0 +1,77 @@
+{
+    "_id": "xVhd8NF9KQ6VWfMu",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/compass-lensatic.webp",
+    "name": "Compass (Lensatic)",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>A compass helps you Sense Direction or navigate, provided you're in a location with uniform magnetic fields. Without a compass, you take a -2 item penalty to these checks (similar to using a shoddy item).</p>\n<p>A lensatic compass gives you a +1 item bonus to these checks.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "negateBulk": {
+            "value": ""
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": {
+                "gp": 20
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "compass-in-possession",
+                "requiresEquipped": false
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Lensatic Compass (Sense Direction or navigate)",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:navigate"
+                        ]
+                    }
+                ],
+                "selector": "survival",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

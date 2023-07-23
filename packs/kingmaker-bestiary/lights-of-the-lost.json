@@ -1,0 +1,120 @@
+{
+    "_id": "XOiNuunTFGbDYeu2",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Q0WHpEJkqbeT0KZr",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Waves of Fear",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature opens any of the doors into a priest's cell</p>\n<hr />\n<p><strong>Effect</strong> Waves of fear wash through area <strong>A12</strong> as all creatures in the room realize that, one by one, their loved ones are being murdered and that they will be the last to be slain. Every creature in area <strong>A12</strong> must attempt a @Check[type:will|dc:37] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lights of the Lost",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "emitsSound": "encounter",
+            "hardness": 25,
+            "hp": {
+                "details": "",
+                "max": 106,
+                "temp": 0,
+                "value": 106
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 32
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The murdered spirits of the slain priests manifest as churning, glowing spheres of floating, blood- red wine that drift and slither through the air. Within each can be glimpsed a silently screaming face.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:42] check to promise the restless spirits that justice will be served and the cause of their pain will be punished, or @Check[type:religion|dc:36] to invoke Cayden Cailean to calm the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>1 hour</p>",
+            "routine": "<p>(3 actions) Up to four different creatures in area <strong>A12</strong> are each targeted by one of the floating, churning spheres of wine drifting through the air; it hurtles toward them and douses them with wine that turns to life- draining blood as it strikes unerringly. The haunt cannot target the same creature more than once each round. After the haunt is reduced to its broken threshold of 53 HP, it can target no more than two different creatures. A creature targeted by the lights of the lost must attempt a @Check[type:fortitude|dc:37|traits:damaging-effect] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 4d6[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from drunkenness.</p>\n<p><strong>Failure</strong> The creature takes [[/r 8d6[negative]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The takes [[/r 16d6[negative]]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}, and becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. As long as the creature is doomed from this trap, they cannot reduce their sickened condition below 1, and they take a -1 circumstance penalty on all further saving throws made against fear effects as lingering traces of the terror the priests felt loom in their memories.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 29
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

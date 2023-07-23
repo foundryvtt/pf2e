@@ -1,0 +1,50 @@
+{
+    "_id": "kUv9eiP8Zhck70WZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Eldritch Debilitations",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know how to apply debilitations that are particularly troublesome for spellcasters. Add the following debilitations to the list you can choose from when you use @UUID[Compendium.pf2e.actionspf2e.Item.Debilitating Strike].</p>\n<ul>\n<li><strong>Debilitation</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</li>\n<li><strong>Debilitation</strong> The target can't @UUID[Compendium.pf2e.actionspf2e.Item.Step].</li>\n</ul>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "eldritch trickster racket"
+                },
+                {
+                    "value": "Debilitating Strike"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "target:condition:flat-footed"
+                ],
+                "selector": "strike-damage",
+                "text": "<span class='pf2-icon'>f</span> @UUID[Compendium.pf2e.feats-srd.Item.Eldritch Debilitations]"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

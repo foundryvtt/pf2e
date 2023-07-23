@@ -1,0 +1,94 @@
+{
+    "_id": "FnGOkNyLF4w3FyqZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fang Sharpener",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have filed your teeth into jagged points and have an unusually powerful jaw, making your mouth a dangerous weapon. If you're an irongut goblin, you gain a jaws unarmed attack that deals 1d4 piercing damage, and if you're a razortooth goblin, your jaws unarmed attack deals 1d8 piercing damage and loses the finesse trait. Whenever you score a critical hit with your jaws unarmed attack, your target takes [[/r 1[bleed]]] damage per weapon damage die.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "irongut goblin or razortooth goblin heritage"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "baseType": "jaws",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "systems/pf2e/icons/features/ancestry/razortooth-goblin.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "heritage:irongut-goblin"
+                ],
+                "slug": "irongut-jaws"
+            },
+            {
+                "definition": [
+                    "item:slug:razortooth-jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "predicate": [
+                    "self:heritage:razortooth-goblin"
+                ],
+                "property": "weapon-traits",
+                "value": "finesse"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "heritage:razortooth-goblin"
+                ],
+                "selector": "razortooth-jaws-damage"
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:irongut-jaws",
+                            "item:slug:razortooth-jaws"
+                        ]
+                    }
+                ],
+                "selector": "unarmed-damage",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

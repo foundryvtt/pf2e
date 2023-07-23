@@ -1,0 +1,109 @@
+{
+    "_id": "HXiA7x1jWnB1BqUy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "i0POO0dwNFDOcYuV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Devil",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature steps on any part of the floor not enclosed by the summoning circle</p>\n<hr />\n<p><strong>Effect</strong> One round after a creature touches the triggering area, the door to the room slams shut and locks (two <span data-pf2-action=\"pickALock\" data-pf2-dc=\"20\" data-pf2-glyph=\"D\" data-pf2-show-dc=\"gm\">Thievery</span> checks to pick) and a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Barbazu] devil appears in the summoning circle.</p>\n<p>The devil rolls initiative and remains for [[/br 3d6 #rounds]]{3d6 rounds}, after which the spell ends and the devil disappears. The devil also disappears if someone disables the trap before the duration expires.</p>\n<p>The summoned devil can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "conjuration",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Summoning Rune (Barbazu Devil)",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 11
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A summoning circle inlaid into the room's floor detects living creatures and summons a violent devil.</p>",
+            "disable": "<p>@Check[type:perception|dc:18|name:Notice the Trap's Magic|traits:action:seek] to notice the trap's magic and avoid stepping on the floor outside the circle, followed by @Check[type:thievery|dc:21|name:Break Summoning Circle|traits:action:disable-a-device] (trained) to break the circle or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd level; counteract DC 23) to counteract the rune</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "reset": "<p>The trap resets each day at dawn.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #157: Devil at the Dreaming Palace"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

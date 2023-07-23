@@ -1,0 +1,100 @@
+{
+    "_id": "O6KTpMxRnrft3j1g",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "JsNsn20QeaTd0P3Q",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hunger's Possession",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature bearing <em>Hunger's Call</em> moves within 30 feet of the exit stairs</p>\n<hr />\n<p><strong>Effect</strong> Whispering voices fill the triggering creature's mind with a compulsion for blood of the living. The creature must attempt a @Check[type:will|dc:20|name:Resist Hunger's Possession|traits:mental,occult,haunt,complex] save, and the haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>\n<p><strong>Critical Failure</strong> The target loses control of their mind and on their next round must move to the nearest ally and make an unarmed bite attack. The ally is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against this attack. The bite deals [[/r 1d4[piercing]]] {1d4 piercing damage} and a critical hit deals an additional [[/r 1[bleed]]] damage. At the end of their turn, the target regains control of their mind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blood Hunger",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Blood flows from the fanged skull rune as if it were an open wound.</p>",
+            "disable": "<p>@Check[type:religion|dc:20|name:Exorcise Spirit|traits:complex,haunt] (trained) to exorcise the spirit, @Check[type:religion|dc:21|name:Sever Spiritual Connection|traits:complex,haunt] or @Check[type:occultism|dc:21|name:Sever Spiritual Connection|traits:complex,haunt] (trained) to sever the connection between <em>Hunger's Call</em> and the temple, or @Check[type:crafting|dc:21|name:Break up the Mural|traits:complex,haunt] (trained) to break up the pattern of the mural; three total successes are required to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "<p>The mosaic ceases its routine 2 rounds after all living creatures are out of sight of the stairs. After 6 hours the haunt is ready to trigger again.</p>",
+            "routine": "<p>(3 actions) The bloody mosaic blasts shards of colored glass at anyone within 10 feet of the eastern wall, and they each take [[/r 1d10[slashing]]] damage plus [[/r 1[bleed]]] damage (@Check[type:reflex|dc:20|basic:true|name:Avoid the Glass Shards|traits:complex,haunt,slashing] save; critical success negates the bleed damage).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Intro #2: United in Purpose"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

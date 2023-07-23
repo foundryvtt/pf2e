@@ -1,0 +1,56 @@
+{
+    "_id": "2iR5uP6vgPzgKKNO",
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/headband-of-inspired-wisdom.webp",
+    "name": "Effect: Red-Rib Gill Mask (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>After Activating the mask, you also gain a +2 item bonus to Fortitude saves against inhaled effects; this bonus is increased to +3 against the deadly volcanic gas known around Terwa Lake as Dead Man's Breath, and possibly against other similar volcanic gases at the GM's discretion.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Red-Rib Gill (Inhaled Effects)",
+                "predicate": [
+                    "inhaled"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Red-Rib Gill (Dead Man's Breath)",
+                "predicate": [
+                    "dead-mans-breath"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #171: Hurricane's Howl"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

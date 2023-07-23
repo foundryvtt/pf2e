@@ -1,0 +1,98 @@
+{
+    "_id": "rsm5ZSX6oKJWQRvf",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "x46WnJD9YKQXpRkE",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Raging Storm",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The PCs fail an attempt to Disable the tempest, or 10 minutes pass without any attempt to leave the area (whichever comes first)</p>\n<hr />\n<p><strong>Effect</strong> Bolts of lightning lance down from above. If the PCs managed to succeed at a Survival check to prepare for the storm, their armies are protected and only one PC (determined randomly) is targeted by this bolt, otherwise all PCs and armies are targeted by bolts. Against PCs, the bolt inflicts [[/r 10d6[electricity]]] damage (@Check[type:reflex|dc:38|basic:true]). Against armies, the bolt inflicts 1 point of damage (DC 30 Mobility check negates). Then, whether or not the PCs managed to take shelter, roll initiative for Nyrissa's Tempest.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Nyrissa's Tempest",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Sudden dark clouds gather in the sky above, and moments later, blasts of lightning and swirling tornadoes begin to rip the landscape apart.</p>",
+            "disable": "<p>@Check[type:nature|dc:42] (master) to note the magical nature of the storm and to perform a quick ritual and prayer to the fey spirits of the region to cause the tempest to disperse, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (9th level, counteract DC 36) to counteract the tempest immediately.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) If the PCs successfully sought shelter with a Survival check, the storm takes no actions if the GM fails a @Check[type:flat|dc:16]. Otherwise, the storm takes four of the following actions, each determined by rolling a [[/br 1d4]], during the round. On each successive round, the number of actions the storm takes is reduced by 1; when the storm is reduced to 0 actions in this way, the hazard ends.</p>\n<ul>\n<li><strong>1 Thunderclap</strong> A blast of sound rips through the region. Unsheltered armies must attempt a DC 30 Morale check or increase their shaken value by 1. Unsheltered PCs take [[/r 10d6[sonic]]] damage (@Check[type:fortitude|dc:38|basic:true]).</li>\n<li><strong>2 Lightning</strong> The tempest takes its Raging Storm reaction as a single action.</li>\n<li><strong>3 Tornado</strong> A tornado funnel extends down from the storm to unerringly strike at a PC, who must attempt a @Check[type:fortitude|dc:38] save.</li>\n</ul>\n<hr>\n<p><strong>Critical Success</strong> The PC escapes unscathed.</p>\n<p><strong>Success</strong> The PC is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] and takes [[/r 8d6[bludgeoning]]] damage.</p>\n<p><strong>Failure</strong> The PC is hurled through the air, taking [[/r 8d6[bludgeoning]]] damage and then falling 1d6&times;10 feet for appropriate falling damage, landing prone.</p>\n<p><strong>Critical Failure</strong> As failure, but [[/r 8d6[bludgeoning]]] damage and a fall of [[/r 10*(2d8) #Feet Fallen]]{2d8 x 10 feet}.</p>\n<ul>\n<li><strong>4 Renewal Blasts</strong> of wind tear through the area but do no real damage. Attempt a @Check[type:flat|dc:11]; on a success, the number of actions the storm takes next round is not reduced as usual.</li>\n</ul>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

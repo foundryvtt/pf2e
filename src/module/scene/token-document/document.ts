@@ -1,19 +1,29 @@
 import { ActorPF2e } from "@actor";
-import { TokenPF2e } from "@module/canvas";
-import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
-import { TokenDataPF2e } from "./data";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { PrototypeTokenPF2e } from "@actor/data/base";
-import { TokenAura } from "./aura";
+import { PrototypeTokenPF2e } from "@actor/data/base.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { LightLevels } from "@scene/data.ts";
+import { ScenePF2e, TokenConfigPF2e } from "@scene/index.ts";
 import { objectHasKey, sluggify } from "@util";
-import { LightLevels } from "@scene/data";
+import { ActorDeltaPF2e } from "./actor-delta.ts";
+import { TokenAura } from "./aura/index.ts";
+import { TokenFlagsPF2e } from "./data.ts";
 
-class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
+class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     /** Has this token gone through at least one cycle of data preparation? */
-    private initialized?: boolean;
+    private constructed = true;
 
-    auras!: Map<string, TokenAura>;
+    declare auras: Map<string, TokenAura>;
+
+    /** Returns if the token is in combat, though some actors have different conditions */
+    override get inCombat(): boolean {
+        if (this.actor?.isOfType("party")) {
+            return this.actor.members.every((a) => game.combat?.getCombatantByActor(a.id));
+        }
+
+        return super.inCombat;
+    }
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
@@ -31,7 +41,10 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     /** Filter trackable attributes for relevance and avoidance of circular references */
-    static override getTrackedAttributes(data: Record<string, unknown> = {}, _path: string[] = []): TokenAttributes {
+    static override getTrackedAttributes(
+        data: Record<string, unknown> = {},
+        _path: string[] = []
+    ): TrackedAttributesDescription {
         // This method is being called with no associated actor: fill from the models
         if (_path.length === 0 && Object.keys(data).length === 0) {
             for (const [type, model] of Object.entries(game.system.model.Actor)) {
@@ -68,7 +81,17 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         return this.parent;
     }
 
-    protected override _initialize(): void {
+    /** Workaround for https://github.com/foundryvtt/foundryvtt/issues/9467 */
+    protected override _initializeSource(
+        data: Record<string, unknown>,
+        options?: DocumentConstructionContext<TParent>
+    ): this["_source"] {
+        data.delta ??= {};
+        return super._initializeSource(data, options);
+    }
+
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.constructed ??= false;
         this.auras = new Map();
         this._source.flags.pf2e ??= {};
         this._source.flags.pf2e.linkToActorSize ??= true;
@@ -76,14 +99,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
             : false;
 
-        super._initialize();
-
-        this.initialized = true;
+        super._initialize(options);
     }
 
     /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
-        return this.data.brightLight < 0;
+        return this.light.bright < 0;
     }
 
     get rulesBasedVision(): boolean {
@@ -140,53 +161,32 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         if (!this.actor || !this.isEmbedded) return;
 
-        // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault = [
-            ActorPF2e.DEFAULT_ICON,
-            `systems/pf2e/icons/default-icons/${this.actor.type}.svg`,
-        ].some((path) => this.texture.src?.endsWith(path));
-        if (tokenImgIsDefault) {
-            this.texture.src = this.actor._source.img;
-        }
+        TokenDocumentPF2e.assignDefaultImage(this);
 
         for (const [key, data] of this.actor.auras.entries()) {
             this.auras.set(
                 key,
                 new TokenAura({
                     slug: key,
+                    level: data.level,
                     radius: data.radius,
-                    token: this as Embedded<TokenDocumentPF2e>,
+                    token: this,
                     traits: new Set(data.traits),
                     colors: data.colors,
                 })
             );
         }
 
-        if (!this.initialized) return;
+        if (!this.constructed) return;
 
         // Dimensions and scale
-        const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
+        const linkDefault = !["hazard", "loot", "party"].includes(this.actor.type ?? "");
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
         // Autoscaling is a secondary feature of linking to actor size
         const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
-
-        // Nath mode
-        const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
-        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.texture.src)) {
-            this.texture.src = ((): VideoFilePath => {
-                switch (this.actor.alliance) {
-                    case "party":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
-                    case "opposition":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
-                    default:
-                        return this.texture.src;
-                }
-            })();
-        }
 
         // Alliance coloration, appropriating core token dispositions
         const { alliance } = this.actor.system.details;
@@ -200,16 +200,16 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Reset sight defaults if using rules-based vision */
     protected override _prepareDetectionModes(): void {
-        if (!(this.initialized && this.actor && this.rulesBasedVision)) {
+        if (!(this.constructed && this.actor && this.rulesBasedVision)) {
             return super._prepareDetectionModes();
         }
 
-        this.detectionModes = [{ id: "basicSight", enabled: true, range: null }];
+        this.detectionModes = [{ id: "basicSight", enabled: true, range: 0 }];
         if (["character", "familiar"].includes(this.actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
             this.sight.contrast = 0;
-            this.sight.range = null;
+            this.sight.range = 0;
             this.sight.saturation = 0;
             this.sight.visionMode = "basic";
         }
@@ -217,7 +217,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        if (!(this.initialized && this.actor && this.scene)) return;
+        if (!(this.constructed && this.actor && this.scene)) return;
 
         // Merge token overrides from REs into this document
         const { tokenOverrides } = this.actor.synthetics;
@@ -230,16 +230,19 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                 this.texture.scaleY = tokenOverrides.texture.scaleY;
                 this.flags.pf2e.autoscale = false;
             }
+            this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
         }
+
+        this.alpha = tokenOverrides.alpha ?? this.alpha;
 
         if (tokenOverrides.light) {
             this.light = new foundry.data.LightData(tokenOverrides.light, {
-                parent: this,
-            } as unknown as this);
+                parent: this as unknown as foundry.abstract.DataModel,
+            });
         }
 
         // Token dimensions from actor size
-        TokenDocumentPF2e.prepareSize(this, this.actor);
+        TokenDocumentPF2e.prepareSize(this);
 
         // Set vision and detection modes
         this.#prepareDerivedPerception();
@@ -260,7 +263,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
             const basicDetection = this.detectionModes.at(0);
             if (!basicDetection) return;
-            this.sight.range = basicDetection.range = defaults.range ?? null;
+            this.sight.range = basicDetection.range = defaults.range ?? 0;
 
             if (this.actor.isOfType("character") && this.actor.flags.pf2e.colorDarkvision) {
                 this.sight.saturation = 1;
@@ -288,8 +291,33 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
     }
 
+    /** Synchronize the token image with the actor image if the token does not currently have an image */
+    static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        const { actor } = token;
+        if (!actor) return;
+
+        const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${actor.type}.svg`];
+
+        // Always override token images if in Nath mode
+        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(token.texture.src)) {
+            token.texture.src = ((): VideoFilePath => {
+                switch (actor.alliance) {
+                    case "party":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
+                    case "opposition":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+                    default:
+                        return token.texture.src;
+                }
+            })();
+        } else if (defaultIcons.some((path) => token.texture.src?.endsWith(path))) {
+            token.texture.src = actor._source.img;
+        }
+    }
+
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
-    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e, actor: ActorPF2e | null): void {
+    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
+        const { actor } = token;
         if (!(actor && token.flags.pf2e.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
@@ -367,16 +395,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext<TParent>,
         userId: string
     ): void {
         super._onCreate(data, options, userId);
-        if (this.actor?.isOfType("loot")) this.actor.toggleTokenHiding();
+        if (game.user.id === userId && this.actor?.isOfType("loot")) {
+            this.actor.toggleTokenHiding();
+        }
     }
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentUpdateContext<TParent>,
         userId: string
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
@@ -386,44 +416,48 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Workaround for actor-data preparation issue: release token if this is made unlinked while controlled
-        if (changed.actorLink === false && this.rendered && this.object.controlled) {
+        if (changed.actorLink === false && this.rendered && this.object?.controlled) {
             this.object.release();
-        }
-
-        // Handle ephemeral changes from synthetic actor
-        if (!this.actorLink && this.parent && changed.actorData) {
-            const preUpdateIcon = this.texture.src;
-            // If the Actor data override changed, simulate updating the synthetic Actor
-            this._onUpdateTokenActor(changed.actorData, options, userId);
-            this.reset();
-
-            // Fake some updates to trigger redraw
-            changed.light = {} as foundry.data.LightSource;
-            if (preUpdateIcon !== this.texture.src) {
-                changed.texture = mergeObject(changed.texture ?? {}, {
-                    src: this.texture.src,
-                }) as foundry.data.TokenSource["texture"];
-            }
-            delete changed.actorData; // Prevent upstream from doing so a second time
         }
 
         return super._onUpdate(changed, options, userId);
     }
 
     /** Reinitialize vision if the actor's senses were updated directly */
-    override _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<Actor>): void {
-        super._onUpdateBaseActor(update, options);
-        if (!this.isLinked) return;
+    protected override _onRelatedUpdate(
+        update: Record<string, unknown> = {},
+        options: DocumentModificationContext<null> = {}
+    ): void {
+        super._onRelatedUpdate(update, options);
 
-        if (Object.keys(flattenObject(update ?? {})).some((k) => k.startsWith("system.traits.senses"))) {
-            this.reset();
-            if (canvas.effects.visionSources.some((s) => s.object === this.object)) {
-                canvas.perception.update({ initializeVision: true }, true);
-            }
+        const initializeVision =
+            this.sight.enabled && Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
+        if (initializeVision) canvas.perception.update({ initializeVision }, true);
+
+        const preUpdate = this.toObject(false);
+        const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+        this.reset();
+        const postUpdate = this.toObject(false);
+        const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+        const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+
+        // Assess the full diff using `diffObject`: additions, removals, and changes
+        const aurasChanged = ((): boolean => {
+            const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
+            const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
+            return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
+        })();
+
+        if (Object.keys(changes).length > 0) {
+            this.object?._onUpdate(changes, {}, game.user.id);
+        }
+
+        if (aurasChanged || "width" in changes || "height" in changes) {
+            this.scene?.checkAuras();
         }
     }
 
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
         if (!this.actor) return;
 
@@ -437,56 +471,16 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             }
         }
     }
-
-    /** Re-render token placeable if REs have ephemerally changed any visuals of this token */
-    onActorEmbeddedItemChange(): void {
-        if (!(this.isLinked && this.rendered && this.object.visible)) return;
-
-        this.object.drawEffects().then(() => {
-            const preUpdate = this.toObject(false);
-            const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
-            this.reset();
-            const postUpdate = this.toObject(false);
-            const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
-            const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-
-            // Assess the full diff using `diffObject`: additions, removals, and changes
-            const aurasChanged = ((): boolean => {
-                const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
-                const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
-                return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
-            })();
-            if (aurasChanged) changes.effects = []; // Nudge upstream to redraw effects
-
-            if (Object.keys(changes).length > 0) {
-                this._onUpdate(changes, {}, game.user.id);
-            }
-
-            if (aurasChanged || "width" in changes || "height" in changes) {
-                this.scene?.checkAuras();
-            }
-
-            // Update combat tracker with changed effects
-            if (this.combatant?.parent.active) ui.combat.render();
-        });
-        this.object.drawBars();
-    }
 }
 
-interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
-    readonly data: TokenDataPF2e<this>;
+interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
+    flags: TokenFlagsPF2e;
 
-    readonly _object: TokenPF2e | null;
-
-    get object(): TokenPF2e;
-
-    readonly parent: ScenePF2e | null;
-
-    get combatant(): CombatantPF2e<EncounterPF2e> | null;
-
-    _sheet: TokenConfigPF2e<this> | null;
-
+    get actor(): ActorPF2e<this | null> | null;
+    get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
+    get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
+    delta: ActorDeltaPF2e<this> | null;
 
     overlayEffect: ImageFilePath;
 }

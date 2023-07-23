@@ -1,0 +1,50 @@
+{
+    "_id": "mQJk8R0vHzvpTz0e",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/chatterer-of-follies.webp",
+    "name": "Effect: Chatterer of Follies",
+    "system": {
+        "description": {
+            "value": "<p>Until the end of your turn, that creature takes a -1 status penalty to Will saves against your enchantment spells and your illusion spells.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "enchantment",
+                            "illusion"
+                        ]
+                    }
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

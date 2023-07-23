@@ -1,0 +1,108 @@
+{
+    "_id": "NioUzYo4svyO981f",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "NM9kJLBc7AQTbD0I",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Eruption",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 10 feet of the lava</p>\n<hr />\n<p><strong>Effect</strong> The room rumbles and a blast of heat hits each creature in the area, followed by a surge of fear. The creatures must attempt a @Check[type:will|dc:18] save, and the haunt rolls initiative.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 2 and is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Relive the Rending (1-2)",
+    "prototypeToken": {
+        "name": "Relive the Rending"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The room shakes violently, as it did during the Rending, and the spirits of dozens of dwarves make a mad dash for safety, their terror palpable.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:18|name:Calm the Spirits|traits:unique,complex,haunt], @Check[type:intimidation|dc:18|name:Calm the Spirits|traits:unique,complex,haunt], or @Check[type:religion|dc:18|name:Calm the Spirits|traits:unique,complex,haunt] to calm the panicked spirits, or @Check[type:athletics|dc:20|name:Wrestle Spirits into Order|traits:unique,complex,haunt] to wrestle them into a semblance of order. Two successful checks are required to deactivate the haunt, and each attempt requires two actions.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "reset": "<p>Unless deactivated, the haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter. If deactivated, the haunt resets after 24 hours.</p>",
+            "routine": "<p>(1 action) Phantom dwarves trample toward the exit, dealing [[/r (1d10+4)[bludgeoning]]] damage to each living creature in the area (@Check[type:reflex|dc:20|basic:true|name:Trampled by Spirits|traits:complex,haunt,unique] save). On a critical failure, a creature is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p>A creature that attempts to Stand after being inside the haunt's area must succeed at a @Check[type:flat|dc:11] check or else get knocked back down by the trampling spirits.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-19: Enter the Pallid Peak"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

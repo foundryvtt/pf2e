@@ -1,0 +1,61 @@
+{
+    "_id": "tf3edMCyS15GhFPx",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Hooded Nagaji",
+    "system": {
+        "ancestry": {
+            "name": "Nagaji",
+            "slug": "nagaji",
+            "uuid": "Compendium.pf2e.ancestries.Item.J7T7bDLaQGoY1sMF"
+        },
+        "description": {
+            "value": "<p>You bear the hooded head of a spitting cobra, and like such cobras, you can shoot streams of venom from your mouth. You gain a venomous spit ranged unarmed attack with a range increment of 10 feet that deals 1d4 poison damage. On a critical hit, the target takes persistent poison damage equal to the number of weapon damage dice. Your spit doesn't have a weapon group or a critical specialization effect.</p>"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "poison",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "systems/pf2e/icons/spells/diamond-dust.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Nagaji.VenomSpit.StrikeLabel",
+                "predicate": [
+                    {
+                        "not": "feat:venom-spit"
+                    }
+                ],
+                "range": 10,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "not": "feat:venom-spit"
+                    }
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "PF2E.SpecificRule.Nagaji.VenomSpit.CriticalNote",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

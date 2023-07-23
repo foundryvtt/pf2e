@@ -1,0 +1,126 @@
+{
+    "_id": "DyiD239dNS7RIxZE",
+    "img": "systems/pf2e/icons/spells/searing-light.webp",
+    "name": "Searing Light",
+    "system": {
+        "ability": {
+            "value": ""
+        },
+        "area": null,
+        "category": {
+            "value": "spell"
+        },
+        "components": {
+            "focus": false,
+            "material": false,
+            "somatic": true,
+            "verbal": true
+        },
+        "cost": {
+            "value": ""
+        },
+        "damage": {
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "categories": [],
+                        "subtype": "",
+                        "value": "fire"
+                    },
+                    "value": "5d6"
+                }
+            }
+        },
+        "description": {
+            "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, <em>searing light</em> attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>\n<p>[[/r ((@item.level*2)-1)d6[good]]]{Leveled Good Damage}</p>"
+        },
+        "duration": {
+            "value": ""
+        },
+        "hasCounteractCheck": {
+            "value": true
+        },
+        "heightening": {
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1,
+            "type": "interval"
+        },
+        "level": {
+            "value": 3
+        },
+        "materials": {
+            "value": ""
+        },
+        "prepared": {
+            "value": ""
+        },
+        "primarycheck": {
+            "value": ""
+        },
+        "range": {
+            "value": "120 feet"
+        },
+        "rules": [
+            {
+                "damageType": "good",
+                "diceNumber": "(@spell.level*2)-1",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:fiend",
+                            "target:mode:undead"
+                        ]
+                    }
+                ],
+                "selector": "{item|_id}-damage"
+            }
+        ],
+        "save": {
+            "basic": "",
+            "value": ""
+        },
+        "secondarycasters": {
+            "value": ""
+        },
+        "secondarycheck": {
+            "value": ""
+        },
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "spellType": {
+            "value": "attack"
+        },
+        "sustained": {
+            "value": false
+        },
+        "target": {
+            "value": "1 creature"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traditions": {
+            "value": [
+                "divine",
+                "primal"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "attack",
+                "fire",
+                "good",
+                "light",
+                "evocation"
+            ]
+        }
+    },
+    "type": "spell"
+}

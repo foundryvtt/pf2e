@@ -1,0 +1,69 @@
+{
+    "_id": "xjE123p2rPTsz1eV",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fiendish Strikes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your festering connection to the forces of evil infuses your weapons with debilitating malevolence, tearing down creatures of good with every attack.</p>\n<p>All your weapon and unarmed Strikes deal [[/r 1[evil]]] damage and have the evil and magical traits.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "damageType": "evil",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": 1
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "evil"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tiefling"
+            ]
+        }
+    },
+    "type": "feat"
+}

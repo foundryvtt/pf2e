@@ -1,0 +1,86 @@
+{
+    "_id": "8DDwqrYHie33cf6d",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Genie Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've trained with weapons used by your genie ancestors. You are trained with @UUID[Compendium.pf2e.equipment-srd.Item.Falchion]{Falchions}, @UUID[Compendium.pf2e.equipment-srd.Item.Ranseur]{Ranseurs}, @UUID[Compendium.pf2e.equipment-srd.Item.Scimitar]{Scimitars}, and @UUID[Compendium.pf2e.equipment-srd.Item.Trident]{Tridents}.</p>\n<p>In addition, you gain access to all uncommon geniekin weapons. For the purpose of determining your proficiency, martial geniekin weapons are simple weapons and advanced geniekin weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-falchion.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-ranseur.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-scimitar.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-trident.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:geniekin",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGeniekinWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-geniekin-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:geniekin",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialGeniekinWeapons",
+                "sameAs": "simple",
+                "slug": "martial-geniekin-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ifrit",
+                "oread",
+                "suli",
+                "sylph",
+                "undine"
+            ]
+        }
+    },
+    "type": "feat"
+}

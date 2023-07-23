@@ -1,0 +1,72 @@
+{
+    "_id": "xCCvT9tprRQVFVDq",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Grizzled Muckrucker",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You've served on the Muckruckers, the unofficial guards of the flooded Puddles district. The pay's no good, the conditions are squalid, and you've seen things during your time on the force that've made you question your career entirely. Perhaps you joined the group out of a sense of duty to your fellow Absalomians, or maybe you felt an obligation to help restore your apocalyptic home district to some semblance of normalcy. Either way, the traumas you've endured, the double-crossers who've betrayed you, the wretched monsters that have crawled out of the muck to assail you-it's enough to turn an officer to weary cynicism or self-destruction through merciful drink.</p>\n<p>Thankfully, you found an out: an invitation to transfer to the newly formed Edgewatch. You accepted the offer in the hope that some fresh experience in a new district, surrounded by new people, might reignite the hope and passion you felt for the job so long ago.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Survival skill, as well as either Labor Lore or Underworld Lore. You gain a +1 circumstance bonus to Deception, Diplomacy, and Intimidation checks to @UUID[Compendium.pf2e.actionspf2e.Item.Interact] with Muckruckers, mercenaries, and adventurers. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Experienced Tracker] skill feat.</p>"
+        },
+        "items": {
+            "15iku": {
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Experienced Tracker",
+                "uuid": "Compendium.pf2e.feats-srd.Item.urQZwmzg2kS53vd5"
+            }
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Interacting with Muckruckers, mercenaries, and adventurers (Grizzled Muckrucker)",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:muckrucker",
+                            "target:mercenary",
+                            "target:adventurer"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder: Agents of Edgewatch Player's Guide"
+        },
+        "trainedLore": "Labor Lore or Underworld Lore",
+        "trainedSkills": {
+            "value": [
+                "sur"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

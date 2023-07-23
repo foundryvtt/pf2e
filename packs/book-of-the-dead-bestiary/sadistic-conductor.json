@@ -1,0 +1,110 @@
+{
+    "_id": "1854X0YrbGyTnhCy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fIhgzWWiqFCcA6nV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Conjure Instruments",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 15 feet</p>\n<hr />\n<p><strong>Effect</strong> The conductor conjures a hazardous spectral instrument into the hands of each sentient creature within 30 feet. Even a creature whose hands are full finds a spectral instrument superimposed over the other items it's carrying. Affected creatures must each attempt a @Check[type:will|dc:19] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The conjuration fails and no instrument appears in the creature's hands.</p>\n<p><strong>Success</strong> A conjured instrument appears in the creature's hands, but it isn't compelled to play it.</p>\n<p><strong>Failure</strong> A conjured instrument appears in the creature's hands and it's compelled to play it. The creature can't willingly put down the instrument while compelled to play.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature needs a critical success on its Performance in order for the conductor to be satisfied and dismiss its instrument.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sadistic Conductor",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 10,
+            "hp": {
+                "details": "per instrument",
+                "max": 22,
+                "temp": 0,
+                "value": 22
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A phantom conductor appears with a flourish, causing spectral instruments with razor-like strings to appear in the hands of those present. As the conductor gestures for the performance to begin, creatures are compelled to play the instruments.</p>",
+            "disable": "<p>@Check[type:perfomance|dc:18] to perform so well the conductor releases you from your instrument, banishing it voluntarily; @Check[type:occultism|dc:22] (trained) or @Check[type:religion|dc:22] (trained) to banish one instrument; or @Check[type:thievery|dc:25] (trained) to sabotage one instrument; each instrument must be banished, sabotaged, or destroyed to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "reset": "<p>The haunt deactivates when all conjured instruments are destroyed or there has been silence for 1 minute. It resets after 1 hour.</p>",
+            "routine": "<p>(1 action; enchantment, mental, occult) The conductor urges each creature within 30 feet to play the hazardous instrument it holds. Each creature that is compelled to play its instrument does so, and those who succeeded on their save can choose to do so. Playing the instrument, either from the haunt's routine or of a creature's own volition during an attempt to disable the haunt, deals [[/r (1d6+3)[slashing]]] damage (@Check[type:reflex|dc:21|basic:true|traits:enchantment,mental,occult] save), and the creature must attempt a @Check[type:performance|dc:18|traits:enchantment,mental,occult,damaging-effect] check. On a success, the conductor accepts the performance and dismisses that creature's instrument, and on a critical failure, the discordant sound and conductor's jeers deal an additional [[/r (1d6+3)[sonic]]] damage.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Book of the Dead"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

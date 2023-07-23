@@ -1,0 +1,76 @@
+{
+    "_id": "ReTbL6UDEkkdkHAY",
+    "folder": "RqckmRvBLh5Rc41t",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Holy Light",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Aspect</strong> celestial</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, Interact</p>\n<hr />\n<p><strong>Effect</strong> Your relic shines with holy light. This creates bright light in a @Template[type:emanation|distance:30] around the item. Evil creatures in the area are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, and can't lower their frightened value below 1 as long as they remain in the light. Fiends in the area increase any weakness to good damage they have by 5. You can Sustain this Activation for up to 1 minute.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "divine-retribution",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:evil",
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.RelicGift.DivineRetribution.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "target:trait:evil",
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.RelicGift.DivineRetribution.Success",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "traits": {
+            "value": [
+                "evocation",
+                "good"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,109 @@
+{
+    "_id": "99X7MbA4YeZu7lwJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "yhiV2j6enZO3nSvu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Herald the End",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The PCs arrive at the island</p>\n<hr />\n<p><strong>Effect</strong> A fiery point of light appears in the sky at the center of the Eclipse, swiftly growing in size as it becomes apparent that a meteor is hurtling toward the island. The Eclipse rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "The Eclipse",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 46
+            },
+            "emitsSound": "encounter",
+            "hardness": 32,
+            "hp": {
+                "details": "",
+                "max": 124,
+                "temp": 0,
+                "value": 124
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The Eclipse is located high in the sky, manifesting as an eclipsed sun.</p>",
+            "disable": "<p>Reduce the Eclipse to 0 HP, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (10th level; counteract DC 39) to counteract the Eclipse (once it's in range)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The Eclipse heals [[/r 50[healing]]] points of damage, retreats upward from PCs if any have approached (as determined by its Distance Score), then unleashes a meteor down on the island below. The meteor explodes upon striking the island, creating a @Template[type:burst|distance:30] that inflicts [[/r 8d6[fire], 4d6[bludgeoning]]]{8d6 fire damage and 4d6 bludegoning damage} (@Check[type:reflex|dc:41|basic:true] save) to all creatures caught in the blast. The eclipse targets these strikes to catch as many PCs in the blast as it can each time&mdash;while it doesn't seek to damage a bul‑gae, it won't worry about catching one or both in the area of effect if that spot is the most advantageous to striking the most possible PCs.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #192: Worst of All Possible Worlds"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 38
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

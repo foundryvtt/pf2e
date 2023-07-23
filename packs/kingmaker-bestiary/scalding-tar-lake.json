@@ -1,0 +1,100 @@
+{
+    "_id": "GviFe34FuTpo8AT0",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "rtPLskLwq9ldQzDC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Scalding Burst",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to move through the tar</p>\n<hr />\n<p><strong>Effect</strong> A scalding burst of hot tar burns the creature, which must immediately attempt a @Check[type:reflex|dc:28] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r 3d6[fire]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 6d6[fire]]] damage and [[/r 1d6[persistent,fire]]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 9d6[fire]]] damage, [[/r 2d6[persistent,fire]]] damage and takes a -10-foot status penalty to its Speed as long as it continues to take the persistent fire damage from the hot tar clinging to it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Scalding Tar Lake",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": true,
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(the tar lake is blatantly obvious, and its effects occur near the end of each round)</p>",
+                "value": -10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The bubbling tar churns and seethes, periodically bursting in a burning hot splatter of scalding sludge and gas.</p>",
+            "disable": "<p>@Check[type:survival|dc:30] check to throw rocks or other bits of debris into areas within the tar lake that are about to burst, allowing the lake to vent harmlessly for that round (on a critical success, this prevents the lake from venting for 3 rounds); permanently disabling the tar pit would require powerful magic or long-term engineering projects (subject to the GM's discretion).</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The bubbling lake of tar churns and sputters. One randomly determined target within 5 feet of the tar lake is targeted by a Scalding Burst.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

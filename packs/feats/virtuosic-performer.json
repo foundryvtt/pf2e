@@ -1,0 +1,92 @@
+{
+    "_id": "lFwfUvH2708rl6i3",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Virtuosic Performer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You have exceptional talent with one type of performance. You gain a +1 circumstance bonus when making a certain type of performance. If you are a master in Performance, this bonus increases to +2. Select one of the following specialties and apply the bonus when attempting Performance checks of that type. If it's unclear whether the specialty applies, the GM decides.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Performance"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Acting",
+                        "value": "acting"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Comedy",
+                        "value": "comedy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Dance",
+                        "value": "dance"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Keyboards",
+                        "value": "keyboards"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Oratory",
+                        "value": "oratory"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Percussion",
+                        "value": "percussion"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Singing",
+                        "value": "singing"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Strings",
+                        "value": "strings"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Winds",
+                        "value": "winds"
+                    }
+                ],
+                "flag": "performanceType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.VirtuosicPerformer.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:perform:{item|flags.pf2e.rulesSelections.performanceType}"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.prf.rank,3),2,1)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,121 @@
+{
+    "_id": "G2i7CUiYmyl1yjQo",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "z346znqdZJAlbClQ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Jolting Buzz",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to open the door without using the key</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a loud buzz and deals [[/r 5d10[electricity]]] damage and [[/r 5d10[sonic]]] damage to the triggering creature (@Check[type:reflex|dc:32|basic:true] save; this save applies to both the electricity damage and the sonic damage). Further, the creature must attempt a @Check[type:fortitude|dc:32] save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>\n<p><strong>Failure</strong> The target is paralyzed for [[/br 1d4 #rounds]]{1d4 rounds}. At the end of each of its turns, it can attempt a new @Check[type:fortitude|dc:32] save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<p><strong>Critical Failure</strong> The target is paralyzed for 1 minute. At the end of each of its turns, it can attempt a new Fortitude save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "evocation",
+                        "primal",
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Buzzing Latch Rune",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 33
+            },
+            "emitsSound": "encounter",
+            "hardness": 21,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 84,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 84
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 22
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An invisible rune on the door begins emitting a very loud buzzing sound, potentially paralyzing an intruder.</p>",
+            "disable": "<p>@Check[type:thievery|dc:34|name:Disrupt the Rune|traits:action:disable-a-device] (master) to disrupt the rune without triggering it or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (6th level; counteract DC 31) to magically counteract the rune</p>",
+            "isComplex": false,
+            "level": {
+                "value": 13
+            },
+            "reset": "<p>The trap resets after 1 hour.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #154: Siege of the Dinosaurs"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "electricity",
+                "magical",
+                "sonic",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

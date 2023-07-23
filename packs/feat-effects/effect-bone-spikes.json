@@ -1,0 +1,88 @@
+{
+    "_id": "ZsO5juyylVoxUkXh",
+    "img": "systems/pf2e/icons/spells/bone-spray.webp",
+    "name": "Effect: Bone Spikes",
+    "system": {
+        "description": {
+            "value": "<p>You can make bone spike unarmed Strikes, which deal 1d6 piercing damage and have the versatile S and sweep traits.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.DeviantAbilities.BoneSpikes.StrikeLabel",
+                "slug": "bone-spike",
+                "traits": [
+                    "versatile-s",
+                    "sweep",
+                    "unarmed"
+                ]
+            },
+            {
+                "definition": [
+                    "item:slug:bone-spike"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "awakening:bone-spikes:reach:active"
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.DeviantAbilities.BoneSpikes.ReachLabel",
+                "option": "awakening:bone-spikes:reach:active",
+                "predicate": [
+                    "awakening:bone-spikes:reach"
+                ],
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "awakening:bone-spikes:poison"
+                ],
+                "selector": "{item|_id}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

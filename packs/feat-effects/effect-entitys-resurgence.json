@@ -1,0 +1,48 @@
+{
+    "_id": "yr5ey5qC8dXH749T",
+    "img": "systems/pf2e/icons/spells/adapt-self.webp",
+    "name": "Effect: Entity's Resurgence",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.level+@actor.system.abilities.{actor|system.details.keyability.value}.mod"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

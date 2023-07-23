@@ -1,0 +1,111 @@
+{
+    "_id": "CF43oiymCFVVEkVS",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Automaton Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have come to better understand the process that made your body and the magic that powers it. You gain the trained proficiency rank in Arcana and Crafting. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice. You also become trained in Automaton Lore.</p>\n<p><strong>Enhancement</strong> Your gain greater understanding. Increase your proficiency rank in either Arcana or Crafting, as well as Automaton Lore, to expert. If you were already an expert in the chosen skill, increase your rank to master instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "predicate": [
+                    {
+                        "not": "enhancement:automaton-lore"
+                    }
+                ],
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.AutomatonLore",
+                    "value": "automaton-lore"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "predicate": [
+                    {
+                        "not": "enhancement:automaton-lore"
+                    }
+                ],
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.AutomatonLore",
+                    "value": "automaton-lore"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arc.rank",
+                "predicate": [
+                    "enhancement:automaton-lore:arc-expert"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "predicate": [
+                    "enhancement:automaton-lore:cra-expert"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arc.rank",
+                "predicate": [
+                    "enhancement:automaton-lore:arc-master"
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "predicate": [
+                    "enhancement:automaton-lore:cra-master"
+                ],
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

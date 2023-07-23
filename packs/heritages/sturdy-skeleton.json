@@ -1,0 +1,35 @@
+{
+    "_id": "P8Rl3dUsq8AzXLHC",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Sturdy Skeleton",
+    "system": {
+        "ancestry": {
+            "name": "Skeleton",
+            "slug": "skeleton",
+            "uuid": "Compendium.pf2e.ancestries.Item.58rL5sg2y4arW1i5"
+        },
+        "description": {
+            "value": "<p>Certain hazardous conditions are not suitable for the average skeleton, so a necromancer might choose to reanimate the bones of a dwarf, orc, or other creature with a reputation for sturdiness. You have 10 Hit Points instead of 6 and gain the @UUID[Compendium.pf2e.feats-srd.Item.Diehard] feat.</p>"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

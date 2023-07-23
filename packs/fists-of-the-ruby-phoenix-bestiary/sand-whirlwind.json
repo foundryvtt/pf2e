@@ -1,0 +1,98 @@
+{
+    "_id": "sVXMz65SI2rla17T",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nnFpmldqQc7XNy3S",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Sand Vacuum",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to leave the chamber</p>\n<hr />\n<p><strong>Effect</strong> A powerful wind pulls the creature back into the room. The triggering creature must attempt a @Check[type:fortitude|dc:39|traits:haunt] save. The haunt can use this reaction any number of times per round, but only once per creature that tries to leave the room. The haunt then rolls initiative, if it hasn't already.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pulled back 10 feet into the room.</p>\n<p><strong>Failure</strong> The creature is pulled back 15 feet into the room and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is pulled back 15 feet into the room and is blinded for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sand Whirlwind",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 23
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Buffeting winds swirl sharp grains of sand about the room.</p>",
+            "disable": "<p>@Check[type:religon|dc:38|name:State an Iroran Koan|traits:haunt]{Religion} (expert) to state an Iroran koan about being complete only upon recognizing one's incompleteness, or @Check[type:occultism|dc:41|name:Ward Against Hauntings|traits:haunt] (master) to create a ward against future hauntings</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "reset": "<p>The haunt deactivates after 1 minute and re-forms after 1 hour. The haunt is disabled and doesn't re-form if at least two creatures spend 1 minute to create an image with the sand. Creating the image requires a successful @Check[type:crafting|dc:30|name:Create Image in Sand] or @Check[type:thievery|dc:30|name:Create Image in Sand]check.</p>",
+            "routine": "<p>(1 action) The haunt's violent winds savagely buffet everyone in the room, dealing[[/r (6d10+30)[bludgeoning]]] damage to living creatures (@Check[type:reflex|dc:34|basic:true|traits:haunt]). On a critically failed save, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #166: Despair on Danger Island"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

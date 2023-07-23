@@ -1,0 +1,41 @@
+{
+    "_id": "p0S3VHkRgMye7RSI",
+    "img": "systems/pf2e/icons/spells/plant-form-shambler.webp",
+    "name": "Effect: Gathering Moss",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Gathering Moss]</p>\n<p>You gain fast healing equal to your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "details": "",
+                "key": "FastHealing",
+                "type": "fast-healing",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

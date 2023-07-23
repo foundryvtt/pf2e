@@ -1,0 +1,70 @@
+{
+    "_id": "h08Vfel5iIAARWdy",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Instrument of Zeal",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Divine energy fills your weapon. Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, your attack adds an extra damage die, and the target is slowed 1 on its next turn.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "divine ally (blade)"
+                },
+                {
+                    "value": "tenets of good"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "critical": true,
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "blade-justice",
+                            "retributive-strike"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "blade-justice",
+                            "retributive-strike"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, the target is slowed 1 on its next turn.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

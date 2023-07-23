@@ -1,0 +1,163 @@
+{
+    "_id": "Q5HbADjzw2s2biXq",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3q929POGtipyAAWE",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spectral Combat",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the spilled goblet</p>\n<hr />\n<p><strong>Effect</strong> The desperation of the sudden fight fills the minds of all creatures in the dining room as the apparition of Iron Taviah at the north end of the table lunges. The haunt deals [[/r 4d10[mental]]] damage (@Check[type:will|dc:30|basic:true]) to each creature in the room. On a failed save, the creature also takes [[/r 1d6[persistent,mental]]] damage. The haunt then rolls for initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "mental",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XVKwWXLGUpYzYyav",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spectral Claw",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d10+10",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "The Fight",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Nearby creatures are caught in the memory of the struggle between Iron Taviah and the Benefactor.</p>",
+            "disable": "<p>@Check[type:occultism|dc:28] or @Check[type:religion|dc:28] (expert) in the room to drain away the haunt's spiritual energy. Each successful check reduces the number of actions in the haunt's routine; three successful checks are required to completely disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>Unless completely disabled or destroyed, the haunt resets at the next moonrise at full strength.</p>",
+            "routine": "<p>(3 actions) The spectral Taviah uses 1 action to appear adjacent to a random creature within 30 feet if not already adjacent to a creature. It then uses its spectral claw Strike with its remaining actions.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #183: Field of Maidens"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

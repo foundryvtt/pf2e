@@ -1,18 +1,16 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function seek(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "perception");
+function seek(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "perception";
+    const rollOptions = ["action:seek"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Seek.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:seek"],
-        extraOptions: ["action:seek"],
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", "secret"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -20,5 +18,24 @@ export function seek(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Seek", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Seek", "success"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: "PF2E.Actions.Seek.Description",
+    name: "PF2E.Actions.Seek.Title",
+    notes: [
+        { outcome: ["criticalSuccess"], text: "PF2E.Actions.Seek.Notes.criticalSuccess" },
+        { outcome: ["success"], text: "PF2E.Actions.Seek.Notes.success" },
+    ],
+    rollOptions: ["action:seek"],
+    slug: "seek",
+    statistic: "perception",
+    traits: ["concentrate", "secret"],
+});
+
+export { seek as legacy, action };

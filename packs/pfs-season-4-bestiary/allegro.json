@@ -1,0 +1,230 @@
+{
+    "_id": "zbohP3l19fvkAypi",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Gfi3y6NZhEc2nvfS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sforzando",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the museum door without Fasiel's permission</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative as the paper birds attack. Wind and rain flurry through the area, applying a –2 circumstance penalty to ranged attacks and Perception checks, extinguishing non-magical fire, and impeding spells and abilities with the fire trait. Casters must succeed at a @Check[type:flat|dc:6] or the action is disrupted.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mNJbZv5dBFbQtG7i",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "rnQHv2ayVFXYnw7I": {
+                        "damage": "2d10+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VnEuq84U4K7vs59C",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Speed 30 feet",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9BqnP7D7ZTb3eHgT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hardness 14 Except Slashing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Allegro",
+    "prototypeToken": {
+        "name": "Adagio"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning"
+                },
+                {
+                    "exceptions": [],
+                    "type": "electricity"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A flock of animated paper birds flit about to the playful sounds of an @UUID[Compendium.pf2e.conditionitems.Item.Invisible] flute, played by the invisible janni Mehryar</p>",
+            "disable": "<p>@Check[type:crafting|dc:26] (trained) to create beautiful flying objects to complement the paper birds; @Check[type:acrobatics|dc:28] or @Check[type:performance|dc:25] (@Check[type:performance|dc:21] if using a flute) (trained) to perform along with the flute and paper birds (requires two successes); or one successful attack roll against the @UUID[Compendium.pf2e.conditionitems.Item.Invisible] Mehryar (AC 25, @Check[type:perception|dc:25] to determine Mehryar's location)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The trap deactivates and resets if no hostile creatures<br>remain outside.</p>",
+            "routine": "<p>(3 actions) On each of the trap's actions, the flock of paper birds attacks a different creature. On a successful hit, each target must attempt a @Check[type:reflex|dc:26] save. On a failure, they take [[/r 2d6[persistent,bleed]]] damage.</p>",
+            "source": {
+                "author": "",
+                "value": ""
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "IjoYgBgEYSTZKmab",
+    "img": "systems/pf2e/icons/spells/healers-blessing.webp",
+    "name": "Spell Effect: Healer's Blessing",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Healer's Blessing]</em></p>\n<p>When the target regains Hit Points from a healing spell, it regains 2 additional Hit Points. The target regains additional Hit Points from healer's blessing only the first time it regains HP from a given healing spell, so a spell that heals the creature repeatedly over a duration would restore additional Hit Points only once.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:type:spell",
+                    "item:trait:healing"
+                ],
+                "selector": "healing-received",
+                "value": "2 * @item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

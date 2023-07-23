@@ -1,0 +1,42 @@
+{
+    "_id": "yxgHWK2rTZKKAzDN",
+    "img": "systems/pf2e/icons/spells/tempt-fate.webp",
+    "name": "Effect: Unluck Aura",
+    "system": {
+        "description": {
+            "value": "<p>The creature must roll twice and take the worse result on all checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "all"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "PqZZSo06BH5N7x7C",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Diverting Vortex",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your most recent action was to cast a non-cantrip spell.</p>\n<hr />\n<p>You transfer vestiges of magical energy to the air around you, creating a vortex that deflects ranged attacks. Until the start of your next turn, you gain a +1 status bonus to AC against ranged weapon attacks and physical ranged unarmed attacks.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "label": "Use Diverting Vortex",
+                "option": "diverting-vortex",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ranged",
+                    "mundane"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

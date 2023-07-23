@@ -1,0 +1,53 @@
+{
+    "_id": "tBfalnbUZLkG9gs1",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Blade of Law",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You call upon the power of law and make a weapon or unarmed Strike against a foe you have witnessed breaking or disrespecting the law or otherwise acting disorderly. The Strike deals two extra weapon damage dice if the target of your Strike is chaotic. Whether or not the target is chaotic, you can convert the physical damage from the attack into lawful damage.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hellknight Dedication "
+                }
+            ]
+        },
+        "rules": [
+            {
+                "diceNumber": 2,
+                "key": "DamageDice",
+                "predicate": [
+                    "blade-of-law"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "blade-of-law",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

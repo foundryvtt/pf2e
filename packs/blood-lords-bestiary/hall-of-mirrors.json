@@ -1,0 +1,188 @@
+{
+    "_id": "R7NpmPUqPkMtsUIl",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "isBAFFJUmEHE7wYA",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ghostly Images",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more creatures enter the room</p>\n<hr />\n<p><strong>Effect</strong> Three trapped souls appear in mirrors throughout the room, menacing the reflections of the triggering creatures. The triggering creatures must each succeed at a @Check[type:will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "enchantment",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dk4DK0IWdOkcnqZT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Soul Shred",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A creature damaged by the haunt's reflective ripple Strike is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until 1 minute after it leaves the room. This enfeebled condition is cumulative, up to enfeebled 4. If the creature dies from reflective rip, its soul is contained within the mirror until the mirror is broken and a @UUID[Compendium.pf2e.pathfinder-bestiary-2.Actor.Specter] emerges.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w5Egx0UK1FBC7Hoi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Reflective Rip",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "soul-shred"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "9znf86yorsnzx9dvotlm": {
+                        "damage": "2d10 + 11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Hall of Mirrors",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Among the many mirrored reflections lurk three trapped souls. By attacking reflections, these spirits cause wounds to appear on the bodies of those reflected in the mirror. If a trapped soul kills its victim, the soul escapes the mirror, replaced by its victim's soul.</p>",
+            "disable": "<p>@Check[type:occultism|dc:24] (expert) to realign a mirror so a trapped soul can't hurt the reflections, @Check[type:religion|dc:28] (expert) to banish a trapped soul, or @Check[type:thievery|dc:28] (expert) to cover a mirror quickly enough to keep the trapped soul inside it; each successful attempt to disable the haunt reduces its number of actions by 1</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) Each trapped soul makes a reflective rip Strike against the reflection of a creature in the room; each trapped soul must attack a different target.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #182: Graveclaw"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,51 @@
+{
+    "_id": "itdoXvcDo8wwmTME",
+    "img": "systems/pf2e/icons/spells/detect-poison.webp",
+    "name": "Effect: Despoiler",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 circumstance penalty to all saving throws against poisons, diseases, and drugs.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease",
+                            "drug"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

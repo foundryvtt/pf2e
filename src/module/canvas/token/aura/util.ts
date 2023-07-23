@@ -1,8 +1,8 @@
-import { EffectAreaSquare } from "@module/canvas/effect-area-square";
-import { measureDistanceCuboid } from "@module/canvas/helpers";
-import { TokenAuraData } from "@scene/token-document/aura/types";
+import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
+import { measureDistanceCuboid } from "@module/canvas/helpers.ts";
+import { TokenAuraData } from "@scene/token-document/aura/types.ts";
 
-export function getAreaSquares(aura: TokenAuraData) {
+export function getAreaSquares(aura: TokenAuraData): EffectAreaSquare[] {
     if (!canvas.dimensions) return [];
     const squareWidth = canvas.dimensions.size;
     const rowCount = Math.ceil(aura.bounds.width / squareWidth);
@@ -33,6 +33,21 @@ export function getAreaSquares(aura: TokenAuraData) {
             ? "sound"
             : "move";
 
+    const tokenBounds = aura.token.bounds;
+    const tokenCenter = aura.token.center;
+    const tokenCenters = [
+        tokenCenter,
+        ...[
+            { x: 0, y: 1 },
+            { x: 1, y: 0 },
+            { x: 0, y: -1 },
+            { x: -1, y: 0 },
+        ].map((c) => ({
+            x: tokenCenter.x + c.x * Math.round(tokenBounds.width / 8),
+            y: tokenCenter.y + c.y * Math.round(tokenBounds.height / 8),
+        })),
+    ];
+
     return emptyVector
         .reduce(
             (squares: EffectAreaSquare[][]) => {
@@ -46,10 +61,15 @@ export function getAreaSquares(aura: TokenAuraData) {
             [genColumn(topLeftSquare)]
         )
         .flat()
-        .filter((s) => measureDistanceCuboid(aura.token.bounds, s) <= aura.radius)
+        .filter((s) => measureDistanceCuboid(tokenBounds, s) <= aura.radius)
         .map((square) => {
-            const ray = new Ray(aura.token.center, square.center);
-            square.active = !canvas.walls.checkCollision(ray, { type: collisionType, mode: "any" });
+            square.active = tokenCenters.some(
+                (c) =>
+                    !CONFIG.Canvas.polygonBackends[collisionType].testCollision(c, square.center, {
+                        type: collisionType,
+                        mode: "any",
+                    })
+            );
             return square;
         });
 }

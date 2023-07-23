@@ -1,0 +1,119 @@
+{
+    "_id": "TQqv9Q5mB4PW6LH9",
+    "img": "systems/pf2e/icons/features/classes/spirit-instinct.webp",
+    "name": "Spirit Instinct",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether you are emotionally sensitive to the spirits around you; worship ancestors or apparitions; or are haunted by the specter of an ancestor, relative, friend, or foe, your rage takes the form of a spiritual possession.</p>\n<h2>Anathema</h2>\n<p>Disrespecting corpses or spirits is anathema to your instinct; defending yourself against undead creatures is not.</p>\n<h2>Spirit Rage (Instinct Ability)</h2>\n<p>When raging, you can increase the additional damage from Rage from 2 to 3 and change its damage type to negative or positive, instead of the damage type for your weapon or unarmed attack (choose each time you Rage). If you choose to deal negative or positive damage, your weapon or unarmed attack gains the effects of the ghost touch property rune, which makes it more effective against incorporeal creatures, and your Rage action gains the divine and necromancy traits, plus negative or positive, as appropriate.</p>\n<h2>Specialization Ability<span style=\"float: right;\">Level 7</span></h2>\n<p>When using spirit rage, increase the damage from Rage from 3 to 7. If you have greater weapon specialization, instead increase the damage when using spirit rage to 13.</p>\n<h2>Raging Resistance<span style=\"float: right;\">Level 9</span></h2>\n<p>You resist negative damage, as well as damage dealt by the attacks and abilities of undead creatures, regardless of the damage type.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Barbarian.Spirit.ToggleLabel",
+                "option": "spirit-rage",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Spirit.PositiveDamage",
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Spirit.NegativeDamage",
+                        "value": "negative"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "negative",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.spiritRage}",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "spirit-rage"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "spirit-rage",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 7
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 13
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "spirit-rage"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

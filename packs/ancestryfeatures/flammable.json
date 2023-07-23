@@ -1,0 +1,43 @@
+{
+    "_id": "qKh6MxgE0cwde6mC",
+    "img": "systems/pf2e/icons/spells/blistering-invective.webp",
+    "name": "Flammable",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You have weakness to fire damage equal to one-third your level (minimum 1).</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "feat:sealed-poppet"
+                    }
+                ],
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/3))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

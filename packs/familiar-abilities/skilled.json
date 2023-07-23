@@ -1,0 +1,100 @@
+{
+    "_id": "jevzf9JbJJibpqaI",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Skilled",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "familiar",
+        "description": {
+            "value": "<p>Choose a skill other than Acrobatics or Stealth. Your familiar's modifier for that skill is equal to your level plus your key spellcasting ability modifier, rather than just your level. You can select this ability repeatedly, choosing a different skill each time.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "value": "survival"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "value": "thievery"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "value": "@actor.masterAbilityModifier"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

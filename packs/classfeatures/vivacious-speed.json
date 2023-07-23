@@ -1,0 +1,105 @@
+{
+    "_id": "8BOFeRE7ZfJ02N0O",
+    "img": "systems/pf2e/icons/features/classes/vivacious-speed.webp",
+    "name": "Vivacious Speed",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>When you've made an impression, you move even faster than normal, darting about the battlefield with incredible speed. Increase the status bonus to your Speeds when you have panache to a +10-foot status bonus; this bonus increases by 5 feet at 7th, 11th, 15th, and 19th levels. When you don't have panache, you still get half this status bonus to your Speed, rounded down to the nearest 5-foot increment.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "speed",
+                "slug": "vivacious-full",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 5
+                        },
+                        {
+                            "end": 6,
+                            "start": 3,
+                            "value": 10
+                        },
+                        {
+                            "end": 10,
+                            "start": 7,
+                            "value": 15
+                        },
+                        {
+                            "end": 14,
+                            "start": 11,
+                            "value": 20
+                        },
+                        {
+                            "end": 18,
+                            "start": 15,
+                            "value": 25
+                        },
+                        {
+                            "start": 19,
+                            "value": 30
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "speed",
+                "slug": "vivacious-half",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "start": 3,
+                            "value": 5
+                        },
+                        {
+                            "end": 18,
+                            "start": 11,
+                            "value": 10
+                        },
+                        {
+                            "start": 19,
+                            "value": 15
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

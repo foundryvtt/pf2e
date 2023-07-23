@@ -1,0 +1,152 @@
+{
+    "_id": "wjWedZ12f3t8ixE1",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ljtEKeEjWZpLfCLL",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Don Shroud",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the area</p>\n<hr />\n<p><strong>Effect</strong> The spirit steps out of the mirror, wearing the cloth as a shroud and revealing the mirror. The triggering creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} unless they succeed at a @Check[type:will|dc:38] save. The haunt then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HOnJVrqXXtc3EGEu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shrouded Touch",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "ru2njmbih3k9z7rfj9u1": {
+                        "damage": "3d12+19",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Shrouded Assailant",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "hardness": null,
+            "hp": {
+                "details": "spirit",
+                "max": 230,
+                "temp": 0,
+                "value": 230
+            },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "ghost-touch"
+                    ],
+                    "type": "all-damage",
+                    "value": 20
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 33
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A spirit steps out of a covered mirror, pulling off and becoming shrouded in the cloth, which reveals the mirror. The shrouded figure attacks the living until the cloth is yanked off, which banishes the formless spirit.</p>",
+            "disable": "<p>@Check[type:thievery|dc:43|name:Steal the Cloth|traits:action:disable-a-device] (master) to steal the cloth before the spirit manifests, or @Check[type:athletics|dc:47|name:Pull the Cloth Off] to pull the cloth off the spirit after it manifests</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "reset": "<p>The haunt can be reset if the mirror is covered in a cloth or shroud.</p>",
+            "routine": "<p>(3 actions) The spirit uses 3 actions to Step, fly 60 feet, or Strike, in any order. On a successful Strike the spirit's target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, and on a critical success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Dark Archive"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 35
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

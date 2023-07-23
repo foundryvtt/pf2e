@@ -1,0 +1,79 @@
+{
+    "_id": "dFQj6gLrbQi7APiA",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Agile Shield Grip",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wielding a shield with a shield boss or shield spikes in one hand.</p>\n<hr />\n<p>You change your grip on the shield, allowing you to combine rapid attacks with your shield boss or shield spikes and your main weapon's Strikes in a series of swift motions. You reduce your shield boss and shield spikes weapon damage die to 1d4. As long as the weapon damage die is 1d4, your shield boss and shield spike Strikes gain the agile weapon trait. You can use Agile Shield Grip again to switch to a normal grip, returning the damage to the usual amount and removing the agile trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "agile-shield-grip",
+                "toggleable": true
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d4"
+                },
+                "predicate": [
+                    "agile-shield-grip"
+                ],
+                "selector": "shield-boss-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d4"
+                },
+                "predicate": [
+                    "agile-shield-grip"
+                ],
+                "selector": "shield-spikes-damage"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:shield-boss",
+                            "item:base:shield-spikes"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "agile-shield-grip"
+                ],
+                "property": "weapon-traits",
+                "value": "agile"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "champion",
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

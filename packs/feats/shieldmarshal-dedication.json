@@ -1,0 +1,63 @@
+{
+    "_id": "3SGS0chf3SKosG5H",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Shieldmarshal Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your elite shieldmarshal training makes you equally at home in the squalor of Smokeside and the splendor of Skyside. You're intimately familiar with the city's labyrinthine streets and statutes. You become trained in Society; if you were already trained, you become an expert in Society instead. In urban environments, you can attempt Society checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction]. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Courtly Graces] and @UUID[Compendium.pf2e.feats-srd.Item.Streetwise] skill feats.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "skill:soc:rank:1"
+                ],
+                "value": 2
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Streetwise"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Courtly Graces"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "phase": "beforeDerived",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

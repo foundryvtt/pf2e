@@ -1,0 +1,47 @@
+{
+    "_id": "9u0uW1vZThRayXk2",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shaped Contaminant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Through a combination of careful manipulation and precise breath control, you can deploy inhaled toxins precisely. When you activate an inhaled poison, you can cause it to fill a @Template[type:line|distance:20] that's 5 feet tall rather than a 10-foot cube. You gain a +3 status bonus to saving throws against inhaled poisons that you activate.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Shaped Containment (vs. inhaled poisons you activate)",
+                "predicate": [
+                    "poison",
+                    "inhaled",
+                    "self-activated"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #149: Against the Scarlet Triad"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

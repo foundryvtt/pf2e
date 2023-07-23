@@ -1,0 +1,110 @@
+{
+    "_id": "OSNYHI3K4Ir8DVof",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HjR2aMjd5usxkdqA",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Elemental Surge",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-mephit creature enters the manor</p>\n<hr />\n<p><strong>Effect</strong> Raw elemental energy seeps into the Material Plane. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Planar Cracks (7-8)",
+    "prototypeToken": {
+        "name": "Planar Cracks"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The cracks scintillate and shift between the elemental planes, leaking perilous energy with each shift.</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Assemble a Seal|traits:environmental,magical] (expert) twice to assemble a seal using objects strongly grounded to the Material Plane, @Check[type:arcana|dc:26|name:Invoke Incantations|traits:environmental,magical] (trained) twice to invoke incantations to seal the cracks, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level, counteract DC 22) to counteract the cracks.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The cracks re-form after 1 hour.</p>",
+            "routine": "<p>(1 action) A surge of energy strikes a random non-mephit creature in the foyer. Roll [[/r 1d4]] to determine the element of the energy surge.</p>\n<p>1-Energy from the Plane of Air: the creature takes [[/r (2d10+3)[electricity]]] damage (@Check[type:reflex|dc:25|basic:true|name:Planar Cracks|traits:air,electricity] save); on a failure, the creature is pushed back 10 feet toward the entryway. The hazard gains the air and electricity traits for this round.</p>\n<p>2-Energy from the Plane of Earth: the creature takes [[/r (2d10+3)[bludgeoning]]] damage (@Check[type:reflex|dc:25|basic:true|name:Planar Cracks|traits:earth] save); on a failed save, the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The hazard gains the earth trait for this round.</p>\n<p>3-Energy from the Plane of Fire: the creature takes [[/r (2d10+9)[fire]]] damage (@Check[type:reflex|dc:25|basic:true|name:Planar Cracks|traits:fire] save). The hazard gains the fire trait for this round.</p>\n<p>4-Energy from the Plane of Water: the creature takes [[/r (2d10+3)[cold]]] damage (@Check[type:reflex|dc:25|basic:true|name:Planar Cracks|traits:water,cold] save); on a failed save, the creature's lungs fill with water, making them @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. The hazard gains the cold and water traits for this round.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-16: Freedom for Wishes"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

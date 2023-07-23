@@ -1,0 +1,55 @@
+{
+    "_id": "DkoxNw9tsFFXrfJY",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Charmed Life",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You attempt a saving throw, but you haven't rolled yet.</p>\n<hr />\n<p>When danger calls, you have a strange knack for coming out on top. You gain a +2 circumstance bonus to the triggering save.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma 14"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Use Charmed Life",
+                "option": "charmed-life",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "charmed-life"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

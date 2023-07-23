@@ -1,0 +1,52 @@
+{
+    "_id": "z3ATL8DcRVrT0Uzt",
+    "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+    "name": "Effect: Disarm (Success)",
+    "system": {
+        "description": {
+            "value": "<p>The target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "PF2E.Actions.Disarm.EffectLabel",
+                "option": "partially-disarmed",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "partially-disarmed"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

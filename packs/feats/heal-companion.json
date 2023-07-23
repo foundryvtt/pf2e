@@ -1,0 +1,45 @@
+{
+    "_id": "FhxkU6OftQeecpQW",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Heal Companion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have a deep devotion to your animal companion that enables you to magically heal their wounds. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal Companion]</em> warden spell and a focus pool of 1 Focus Point.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "an animal companion"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

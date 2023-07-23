@@ -1,0 +1,50 @@
+{
+    "_id": "RU6D7pNQSBt1zSuK",
+    "img": "systems/pf2e/icons/spells/angelic-wings.webp",
+    "name": "Effect: Propulsive Leap",
+    "system": {
+        "description": {
+            "value": "<p>You gain a fly Speed equal to your Speed or 20 feet, whichever is greater.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(@actor.attributes.speed.value,20)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "awakening:propulsive-leap:speed"
+                ],
+                "selector": "fly-speed",
+                "type": "status",
+                "value": 15
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

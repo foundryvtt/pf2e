@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data";
-import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data/index.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Suppress the "no-crowbar" penalty applied to the Force Open action */
 export class Migration781SuppressNoCrowbar extends MigrationBase {

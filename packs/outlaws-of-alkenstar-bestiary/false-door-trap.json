@@ -1,0 +1,109 @@
+{
+    "_id": "8I7Hu4LXhVcLky8Z",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "uQqKbknFHkpW2tUg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Explosive Charge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The doorknob is turned</p>\n<hr />\n<p><strong>Effect</strong> The charge behind the door explodes, dealing [[/r {(2d8+9)[fire],(2d8+9)[piercing]}]]{2d8+9 fire damage and 2d8+9 piercing damage} to all creatures in a @Template[type:cone|distance:10] blasting outward from the door (@Check[type:reflex|dc:27|basic:true]). The sound of the explosion can be heard up to 50 feet away.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "False Door Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 8,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to see the brick wall behind the edges of the door</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A black‑powder charge detonates as soon as the doorknob is turned, shattering the door into splinters.</p>",
+            "disable": "<p>@Check[type:thievery|dc:27|traits:action:disable-a-device|name:Disable a Device] (expert) to disable the doorknob trigger</p>\n<p></p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #179: Cradle of Quartz"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "5hUj7glY8YnO5sBI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advanced School Spell",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain access to a powerful new school spell depending on your arcane school.</p>\n<p>If you're an abjurer, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Energy Absorption]</em>; if you're a conjurer, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Dimensional Steps]</em>; if you're a diviner, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Vigilant Eye]</em>; if you're an enchanter, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Dread Aura]</em>; if you're an evoker, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Tempest]</em>; if you're an illusionist, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Invisibility Cloak]</em>; if you're a necromancer, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Life Siphon]</em>; and if you're a transmuter, you gain <em>@UUID[Compendium.pf2e.spells-srd.Item.Shifting Form]</em>.</p>\n<p>Increase the number of Focus Points in your focus pool by 1.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "arcane school"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

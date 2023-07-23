@@ -1,0 +1,54 @@
+{
+    "_id": "C80vQCKQBGRaqcmq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Multitalented",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to split your focus between multiple classes with ease. You gain a 2nd-level multiclass dedication feat, even if you normally couldn't take another dedication feat until you take more feats from your current archetype. If you're a half-elf, you don't need to meet the feat's ability score prerequisites.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:2",
+                        "item:category:class",
+                        "item:trait:dedication",
+                        "item:trait:multiclass"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "multitalented",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Multitalented.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.multitalented}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

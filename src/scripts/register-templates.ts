@@ -8,13 +8,14 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/dice/damage-roll.hbs",
         "systems/pf2e/templates/dice/damage-tooltip.hbs",
 
-        // PC Sheet Tooltips
+        // PC Sheet Tooltips and Section Partials
+        "systems/pf2e/templates/actors/character/partials/abilities.hbs",
+        "systems/pf2e/templates/actors/character/partials/background.hbs",
+        "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
+        "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
+        "systems/pf2e/templates/actors/character/partials/header.hbs",
         "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/character/partials/traits.hbs",
-        "systems/pf2e/templates/actors/character/partials/background.hbs",
-        "systems/pf2e/templates/actors/character/partials/abilities.hbs",
-        "systems/pf2e/templates/actors/character/partials/header.hbs",
-        "systems/pf2e/templates/actors/character/partials/granted-feat.hbs",
 
         // PC Sheet Sidebar
         "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs",
@@ -42,13 +43,19 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/hazard/partials/header.hbs",
         "systems/pf2e/templates/actors/hazard/partials/sidebar.hbs",
 
+        // Kingdom Sheet Partials
+        "systems/pf2e/templates/actors/party/kingdom/main.hbs",
+        "systems/pf2e/templates/actors/party/kingdom/activities.hbs",
+        "systems/pf2e/templates/actors/party/kingdom/advancement.hbs",
+
         // Shared Actor Sheet Partials
         "systems/pf2e/templates/actors/partials/coinage.hbs",
         "systems/pf2e/templates/actors/partials/inventory.hbs",
         "systems/pf2e/templates/actors/partials/item-line.hbs",
         "systems/pf2e/templates/actors/partials/carry-type.hbs",
-        "systems/pf2e/templates/actors/partials/conditions.hbs",
+        "systems/pf2e/templates/actors/partials/effects.hbs",
         "systems/pf2e/templates/actors/partials/dying-pips.hbs",
+        "systems/pf2e/templates/actors/partials/toggles.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",
         "systems/pf2e/templates/actors/spellcasting-spell-list.hbs",
@@ -77,6 +84,7 @@ export function registerTemplates(): void {
         // Item Sheet Partials
         "systems/pf2e/templates/items/rules-panel.hbs",
         "systems/pf2e/templates/items/action-details.hbs",
+        "systems/pf2e/templates/items/action-sidebar.hbs",
         "systems/pf2e/templates/items/affliction-details.hbs",
         "systems/pf2e/templates/items/affliction-sidebar.hbs",
         "systems/pf2e/templates/items/ancestry-details.hbs",
@@ -89,6 +97,8 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/items/book-details.hbs",
         "systems/pf2e/templates/items/book-sidebar.hbs",
         "systems/pf2e/templates/items/treasure-sidebar.hbs",
+        "systems/pf2e/templates/items/campaign-feature-details.hbs",
+        "systems/pf2e/templates/items/campaign-feature-sidebar.hbs",
         "systems/pf2e/templates/items/class-details.hbs",
         "systems/pf2e/templates/items/consumable-details.hbs",
         "systems/pf2e/templates/items/consumable-sidebar.hbs",
@@ -135,10 +145,13 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-effects.hbs",
 
         // Compendium Browser Partials
-        "systems/pf2e/templates/compendium-browser/browser-settings.hbs",
+        "systems/pf2e/templates/compendium-browser/settings/settings.hbs",
+        "systems/pf2e/templates/compendium-browser/settings/pack-settings.hbs",
+        "systems/pf2e/templates/compendium-browser/settings/source-settings.hbs",
         "systems/pf2e/templates/compendium-browser/filters.hbs",
 
         // Action Partial
+        "systems/pf2e/templates/chat/action/header.hbs",
         "systems/pf2e/templates/system/actions/repair/chat-button-partial.hbs",
         "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs",
         "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs",

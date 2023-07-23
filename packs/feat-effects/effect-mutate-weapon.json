@@ -1,0 +1,124 @@
+{
+    "_id": "ITvyvbB234bxceRK",
+    "img": "systems/pf2e/icons/unarmed-attacks/vine.webp",
+    "name": "Effect: Mutate Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Select one unarmed attack you gained with Living Weapon. The damage die for that attack increases by one step until the end of your turn. In addition, choose to either have the attack gain a reach of 10 feet until the end of your turn or for you to gain a +1 status bonus to attack rolls with the chosen unarmed attack until the end of your turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            "living-weapon:claw"
+                        ],
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Horn",
+                        "predicate": [
+                            "living-weapon:horn"
+                        ],
+                        "value": "horn"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            "living-weapon:jaws"
+                        ],
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tusk",
+                        "predicate": [
+                            "living-weapon:tusk"
+                        ],
+                        "value": "tusk"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "predicate": [
+                            "living-weapon:tail"
+                        ],
+                        "value": "tail"
+                    }
+                ],
+                "flag": "mutateWeaponTarget",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Target",
+                "rollOption": "mutate-weapon-target"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "{item|flags.pf2e.rulesSelections.mutateWeaponTarget}-damage"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Reach",
+                        "value": "reach"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Accuracy",
+                        "value": "accuracy"
+                    }
+                ],
+                "flag": "effectMutateWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Bonus",
+                "rollOption": "mutate-weapon-bonus"
+            },
+            {
+                "definition": [
+                    "item:{item|flags.pf2e.rulesSelections.mutateWeaponTarget}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "mutate-weapon-bonus:reach"
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "mutate-weapon-bonus:accuracy"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.mutateWeaponTarget}-attack-roll",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

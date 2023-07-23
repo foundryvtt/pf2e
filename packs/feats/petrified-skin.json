@@ -1,0 +1,90 @@
+{
+    "_id": "JddrdXv4pfdePsGK",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Petrified Skin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>It might have been a medusa, dracolisk, or even a fossil golem; regardless of the source, you were the target of some petrifying effect, and an element of that stony gaze has remained with you, both protecting and slowly consuming you. Your limbs are coated with a layer of stone that rests atop your skin and covers more of your body as you lose health. You gain a stone fist unarmed attack that deals 1d8 bludgeoning damage, has the shove trait, and is in the brawling weapon group (unlike a normal fist, it doesn't have the agile or finesse traits).</p>\n<p>Additionally, you become more petrified as your life force ebbs. When you have fewer than half your maximum Hit Points, you increase the damage die size of your stone fist from 1d8 to 1d10 and gain resistance to physical damage (except adamantine) equal to your Constitution modifier.</p>\n<p>If you would gain the dying condition, you can choose to instead be permanently petrified and avoid the risk of death. When you do, you enter your petrified form with your full maximum Hit Points instead of the normal number. If you become unpetrified, you return to 0 Hit Points, as normal. You can't voluntarily end this petrification. Counteracting this petrification requires a casting of stone to flesh of a spell level equal to at least half your level, and a successful counteract check against the hard DC for your level. Other effects like stone to flesh have similar limitations, as determined by the GM. Each time you recover from this petrification, you gain a new scar on your skin in the shape of a long, thin crack.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You have been petrified by an enemy"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist-earth-elemental.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.AftermathFeats.StoneFistLabel",
+                "slug": "stone-fist",
+                "traits": [
+                    "shove",
+                    "unarmed"
+                ]
+            },
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "type": "physical",
+                "value": "@actor.system.abilities.con.mod"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": "stone-fist-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "aftermath",
+                "transmutation"
+            ]
+        }
+    },
+    "type": "feat"
+}

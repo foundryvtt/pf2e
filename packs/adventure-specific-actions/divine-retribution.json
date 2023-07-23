@@ -1,0 +1,75 @@
+{
+    "_id": "k2YHPUydoyEKdhmP",
+    "folder": "RqckmRvBLh5Rc41t",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Divine Retribution",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Aspect</strong> celestial</p>\n<p><strong>Prerequisites</strong> The relic is a weapon.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command</p>\n<hr />\n<p><strong>Effect</strong> Drawing upon divine fury, you single out a target that damaged you or an ally within the past round and fill your relic with divine vengeance against them. Make a Strike against that foe, dealing an additional damage die on a hit. If the target is evil, it is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the start of your next turn on a hit (or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical hit).</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "divine-retribution",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:evil",
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.RelicGift.DivineRetribution.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "target:trait:evil",
+                    "divine-retribution"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.RelicGift.DivineRetribution.Success",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "traits": {
+            "value": [
+                "evocation"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

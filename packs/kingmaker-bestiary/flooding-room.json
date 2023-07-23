@@ -1,0 +1,109 @@
+{
+    "_id": "3HnIluPWsKm3eEYB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "J3lzyo3f2n6RNBG4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rushing Water",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The secret door to the west or any trapdoor is opened.</p>\n<hr />\n<p><strong>Effect</strong> The 12 ceiling trapdoors open along with the two secret doors to the cyclops zombie alcoves, releasing river water and zombies into the room. Any creature standing in the central 40-by-40 foot section of the main room must attempt a @Check[type:reflex|dc:28] save; the trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r (1d10+6)[bludgeoning]]] damage from the cascade of water.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d10+13)[bludgeoning]]] damage from the cascade of water.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (2d10+13)[bludgeoning]]] damage from the cascade of falling water and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Flooding Room",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 23
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>When the western secret door is opened or any of the trapdoors in the ceiling are forced open, the trap is triggered. As soon as this occurs, the portcullises to the east and west come crashing down, each consisting of solid iron sheets that form watertight seals. At the same time, the dozen 5-foot-wide trapdoors open in the ceiling. These holes are the mouths of winding tunnels that connect to a second pair of apertures on the submerged side of the island outside, allowing the waters of the Little Sellen River to plunge down into this room, possibly damaging or knocking @UUID[Compendium.pf2e.conditionitems.Item.Prone] those in the square portion of the room itself (but not in the adjoining hallway) and eventually flooding the entire chamber.</p>",
+            "disable": "<p>@Check[type:thievery|dc:26] (this increases to @Check[type:thievery|dc:30] once the trap is activated) to disable one of the 12 trapdoors and seal it shut; disabling all 12 of the trapdoors completely deactivates the trap, but a critical failure on any attempt causes the trap to trigger; @Check[type:thievery|dc:24] to disable one of the watertight portcullises and prevent it from falling; magic such as shape stone or wall of stone or even lock can also be used to disable portions of this deadly trap at the GM's discretion</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "<p>The trap must be reset with a major engineering effort.</p>",
+            "routine": "<p>(12 actions) The trap loses 1 action for each of its 12 ceiling trapdoors that are disabled. On each of the trap's actions, it pours water into the room, filling it to a depth of one inch. If all 12 trapdoors are open, it thus fills the room at a rate of 1 foot per round. If one of the portcullises is breached, the trap fills the room at half the rate, and if both are breached, it fills at one quarter the rate. Once the cascade of water begins, it's easy enough for a PC to avoid the downpour, but any creature that deliberately enters the cascade is subjected to the trap's Rushing Water reaction. If a creature is struck by Rushing Water while already underwater, the result of its Reflex save is automatically improved one degree of success.</p>\n<p>The flooding ends and the trap deactivates once the area is filled to the ceiling-at this point, the water's surface is at the level of the river, and at the top of the stairs leading down from areas <strong>D4</strong> and <strong>D6</strong>. A Medium or smaller creature can try to Swim to freedom through one of the 5-foot-wide tunnels leading to the river from a trapdoor, but doing so requires navigating 200 feet of flooded tunnels.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

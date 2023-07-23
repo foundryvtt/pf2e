@@ -1,0 +1,58 @@
+{
+    "_id": "ePObIpaJDgDb9CQj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Battle Cry",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>When you roll initiative, you can yell a mighty battle cry and <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"F\">Demoralize</span> an observed foe as a free action.</p>\n<p>If you're legendary in Intimidation, you can use a reaction to <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"R\">Demoralize</span> your foe when you critically succeed at an attack roll.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Intimidation"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "You can yell a mighty battle cry and <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"F\">Demoralize</span> an observed foe as a free action.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "skill:itm:rank:4"
+                ],
+                "selector": "attack",
+                "text": "You can use a reaction to <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"R\">Demoralize</span> your foe when you critically succeed at an attack roll.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

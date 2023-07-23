@@ -1,44 +1,46 @@
-import { CompendiumBrowser } from "..";
-import { BaseFilterData, CheckboxOptions, CompendiumBrowserIndexData, RangesData } from "./data";
-import { ErrorPF2e, sluggify } from "@util";
-import { TabName } from "../data";
+import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
+import { BrowserTabs, ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
+import { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, MultiselectData, RangesData } from "./data.ts";
+import { TableResultSource } from "types/foundry/common/documents/table-result.js";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
     protected browser: CompendiumBrowser;
+    /** The filter schema for this tab; The tabs filters are rendered based on this.*/
+    abstract filterData: BrowserFilter;
     /** An unmodified copy of this.filterData */
-    defaultFilterData!: BaseFilterData;
+    declare defaultFilterData: this["filterData"];
     /** The full CompendiumIndex of this tab */
     protected indexData: CompendiumBrowserIndexData[] = [];
+    /** The filtered CompendiumIndex */
+    protected currentIndex: CompendiumBrowserIndexData[] = [];
     /** Is this tab initialized? */
     isInitialized = false;
-    /** The filter schema for this tab; The tabs filters are rendered based on this.*/
-    filterData!: BaseFilterData;
     /** The total count of items in the currently filtered index */
     totalItemCount = 0;
     /** The initial display limit for this tab; Scrolling is currently hardcoded to +100 */
     scrollLimit = 100;
     /** The name of this tab */
-    tabName: Exclude<TabName, "settings">;
+    abstract tabName: ContentTabName;
     /** A DOMParser instance */
     #domParser = new DOMParser();
     /** The path to the result list template of this tab */
     abstract templatePath: string;
     /** Minisearch */
-    searchEngine!: MiniSearch;
+    declare searchEngine: MiniSearch<CompendiumBrowserIndexData>;
     /** Names of the document fields to be indexed. */
     searchFields: string[] = [];
     /** Names of fields to store, so that search results would include them.
      *  By default none, so resuts would only contain the id field. */
     storeFields: string[] = [];
 
-    constructor(browser: CompendiumBrowser, tabName: Exclude<TabName, "settings">) {
+    constructor(browser: CompendiumBrowser) {
         this.browser = browser;
-        this.tabName = tabName;
     }
 
-    /** Initialize this this tab */
+    /** Initialize this tab */
     async init(): Promise<void> {
         // Load the index and populate filter data
         await this.loadData();
@@ -56,22 +58,43 @@ export abstract class CompendiumBrowserTab {
         this.isInitialized = true;
     }
 
+    /** Open this tab
+     * @param filter An optional initial filter for this tab
+     */
+    async open(filter?: BrowserFilter): Promise<void> {
+        if (filter) {
+            if (!this.isInitialized) {
+                throw ErrorPF2e(`Tried to pass an initial filter to uninitialized tab "${this.tabName}"`);
+            }
+            this.filterData = filter;
+        }
+        return this.browser.loadTab(this.tabName);
+    }
+
     /** Filter indexData and return slice based on current scrollLimit */
     getIndexData(start: number): CompendiumBrowserIndexData[] {
         if (!this.isInitialized) {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
 
-        const currentIndex = (() => {
+        this.currentIndex = (() => {
             const searchText = this.filterData.search.text;
             if (searchText) {
-                const searchResult = this.searchEngine.search(searchText) as CompendiumBrowserIndexData[];
+                const searchResult = this.searchEngine.search(searchText);
                 return this.sortResult(searchResult.filter(this.filterIndexData.bind(this)));
             }
             return this.sortResult(this.indexData.filter(this.filterIndexData.bind(this)));
         })();
-        this.totalItemCount = currentIndex.length;
-        return currentIndex.slice(start, this.scrollLimit);
+        this.totalItemCount = this.currentIndex.length;
+        return this.currentIndex.slice(start, this.scrollLimit);
+    }
+
+    /** Returns a clean copy of the filterData for this tab. Initializes the tab if necessary. */
+    async getFilterData(): Promise<this["filterData"]> {
+        if (!this.isInitialized) {
+            await this.init();
+        }
+        return deepClone(this.defaultFilterData);
     }
 
     /** Reset all filters */
@@ -79,14 +102,38 @@ export abstract class CompendiumBrowserTab {
         this.filterData = deepClone(this.defaultFilterData);
     }
 
+    /** Check this tabs type */
+    isOfType<T extends ContentTabName>(...types: T[]): this is BrowserTabs[T];
+    isOfType(...types: string[]): boolean {
+        return types.some((t) => this.tabName === t);
+    }
+
     /** Load and prepare the compendium index and set filter options */
-    protected async loadData(): Promise<void> {}
+    protected abstract loadData(): Promise<void>;
 
     /** Prepare the the filterData object of this tab */
-    protected prepareFilterData(): void {}
+    protected abstract prepareFilterData(): this["filterData"];
 
     /** Filter indexData */
-    protected filterIndexData(_entry: CompendiumBrowserIndexData): boolean {
+    protected abstract filterIndexData(entry: CompendiumBrowserIndexData): boolean;
+
+    protected filterTraits(
+        traits: string[],
+        selected: MultiselectData["selected"],
+        condition: MultiselectData["conjunction"]
+    ): boolean {
+        const selectedTraits = selected.filter((s) => !s.not).map((s) => s.value);
+        const notTraits = selected.filter((t) => t.not).map((s) => s.value);
+        if (selectedTraits.length || notTraits.length) {
+            if (notTraits.some((t) => traits.includes(t))) {
+                return false;
+            }
+            const fullfilled =
+                condition === "and"
+                    ? selectedTraits.every((t) => traits.includes(t))
+                    : selectedTraits.some((t) => traits.includes(t));
+            if (!fullfilled) return false;
+        }
         return true;
     }
 
@@ -145,22 +192,22 @@ export abstract class CompendiumBrowserTab {
     protected generateCheckboxOptions(configData: Record<string, string>, sort = true): CheckboxOptions {
         // Localize labels for sorting
         const localized = Object.entries(configData).reduce(
-            (result, [key, label]) => ({
+            (result: Record<string, string>, [key, label]) => ({
                 ...result,
                 [key]: game.i18n.localize(label),
             }),
-            {} as Record<string, string>
+            {}
         );
         // Return localized and sorted CheckBoxOptions
         return Object.entries(sort ? this.sortedConfig(localized) : localized).reduce(
-            (result, [key, label]) => ({
+            (result: CheckboxOptions, [key, label]) => ({
                 ...result,
                 [key]: {
                     label,
                     selected: false,
                 },
             }),
-            {} as CheckboxOptions
+            {}
         );
     }
 
@@ -186,19 +233,19 @@ export abstract class CompendiumBrowserTab {
     /** Generates a sorted CheckBoxOptions object from a sources Set */
     protected generateSourceCheckboxOptions(sources: Set<string>): CheckboxOptions {
         return [...sources].sort().reduce(
-            (result, source) => ({
+            (result: CheckboxOptions, source) => ({
                 ...result,
                 [sluggify(source)]: {
                     label: source,
                     selected: false,
                 },
             }),
-            {} as CheckboxOptions
+            {}
         );
     }
 
     /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
-    protected sortedConfig(obj: Record<string, string>) {
+    protected sortedConfig(obj: Record<string, string>): Record<string, string> {
         return Object.fromEntries(
             [...Object.entries(obj)].sort((entryA, entryB) => entryA[1].localeCompare(entryB[1], game.i18n.lang))
         );
@@ -212,5 +259,82 @@ export abstract class CompendiumBrowserTab {
             }
         }
         return true;
+    }
+
+    #getRollTableResults({
+        initial = 0,
+        weight = 1,
+    }: {
+        initial?: number;
+        weight?: number;
+    }): Partial<TableResultSource>[] {
+        return this.currentIndex.flatMap((e, i) => {
+            const data = fromUuidSync(e.uuid);
+            if (!data?.pack || !data._id || !("name" in data)) return [];
+            const rangeMinMax = initial + i + 1;
+            return {
+                text: data.name,
+                type: CONST.TABLE_RESULT_TYPES.COMPENDIUM,
+                collection: data.pack,
+                resultId: data._id,
+                img: e.img,
+                weight,
+                range: [rangeMinMax, rangeMinMax],
+                drawn: false,
+            };
+        });
+    }
+
+    async createRollTable(): Promise<void> {
+        if (!this.isInitialized) {
+            throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
+        }
+        const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
+            count: this.currentIndex.length,
+        });
+        Dialog.confirm({
+            content,
+            title: game.i18n.localize("PF2E.CompendiumBrowser.RollTable.CreateLabel"),
+            yes: async ($html) => {
+                const html = $html[0];
+                const name =
+                    htmlQuery<HTMLInputElement>(html, "input[name=name]")?.value ||
+                    game.i18n.localize("PF2E.CompendiumBrowser.Title");
+                const weight = Number(htmlQuery<HTMLInputElement>(html, "input[name=weight]")?.value) || 1;
+                const results = this.#getRollTableResults({ weight });
+                const table = await RollTable.create({
+                    name,
+                    results,
+                    formula: `1d${results.length}`,
+                });
+                table?.sheet.render(true);
+            },
+        });
+    }
+
+    async addToRollTable(): Promise<void> {
+        if (!this.isInitialized) {
+            throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
+        }
+        const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
+            count: this.currentIndex.length,
+            rollTables: game.tables.contents,
+        });
+        Dialog.confirm({
+            title: game.i18n.localize("PF2E.CompendiumBrowser.RollTable.SelectTableTitle"),
+            content,
+            yes: async ($html) => {
+                const html = $html[0];
+                const option = htmlQuery<HTMLSelectElement>(html, "select[name=roll-table]")?.selectedOptions[0];
+                if (!option) return;
+                const weight = Number(htmlQuery<HTMLInputElement>(html, "input[name=weight]")?.value) || 1;
+                const table = game.tables.get(option.value, { strict: true });
+                await table.createEmbeddedDocuments(
+                    "TableResult",
+                    this.#getRollTableResults({ initial: table.results.size, weight })
+                );
+                table?.sheet.render(true);
+            },
+        });
     }
 }

@@ -1,0 +1,158 @@
+{
+    "_id": "4L38nr9t17thMZrB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "MEvSBSRMvbzou7sj",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dart Barrage",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature reaches the midpoint of the hall</p>\n<hr />\n<p><strong>Effect</strong> The trap makes an acid dart against three different random creatures in the hall. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lnChTLzpk1PEBJ0E",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Caustic Dart",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "3ln4roi2dzrzhqf6m82i0s": {
+                        "damage": "2d4+5",
+                        "damageType": "piercing"
+                    },
+                    "tutd4l57u3mxyyf770o87j": {
+                        "damage": "4d4+8",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Caustic Dart Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 31
+            },
+            "hardness": 20,
+            "hasHealth": true,
+            "hp": {
+                "details": "per launching mechanism",
+                "max": 80,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) or @Check[type:perception|dc:30|traits:action:seek] (expert) to notice the three launching mechanisms built into the wall</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Three launching mechanisms built into the mudbrick walls expel darts containing acidic chemicals. All three launching mechanisms must be disabled or destroyed to deactivate the trap.</p>",
+            "disable": "<p>@Check[type:thievery|dc:32|name:Jam the tube|traits:trap,mechanical,complex] (master) to sufficiently jam the tubes to make the trap unable to attack creatures in a single 5-foot square in the room, or @Check[type:crafting|dc:34|name:Alter a launching mechanism|traits:trap,mechanical,complex] (master) to alter one of the three launching mechanisms.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>The trap deactivates and resets 1 minute after no creatures are in area <strong>C7</strong></p>",
+            "routine": "<p>(3 actions) The trap uses each action for a caustic dart Strike. The trap loses 1 action for each launching mechanism that is broken or destroyed.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #153: Life's Long Shadows"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

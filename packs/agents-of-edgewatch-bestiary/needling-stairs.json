@@ -1,0 +1,237 @@
+{
+    "_id": "rAUaIxp3QFgT3bzl",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fBWMN8Yh6mm05krO",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "First Step",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature ends its movement on one of the stairs</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature, then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jzOEMi9hAVAe1K1V",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Poisoned Needle",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "no-map"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+8",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "2": {
+                        "category": "persistent",
+                        "damage": "4d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": "<p>No MAP applies to strikes made by poisoned needle attacks</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iqSjrlDup1I8i5VX",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Bloody Feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves onto an active step</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pk7WhgmEvUXgGRiz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The Poisoned Needle Strikes do not apply a MAP.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "no-map",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Needling Stairs",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hasHealth": true,
+            "hp": {
+                "details": "to break the spring under the step and make that step safe to stand on",
+                "max": 25,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 25
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>This staircase has springs in each step, which send poisoned needles shooting up through tiny holes in the wood when stepped on. Each step, 6 in total, takes up one 5-foot square.</p>",
+            "disable": "<p>@Check[type:thievery|dc:33|name:Disable Stair Spring|traits:action:disable-a-device] (master) on each stair to disable its spring, or deactivate the switch in area <strong>C8</strong> to deactivate the whole trap. Cutting the wire on the topmost stair (>@Check[type:thievery|dc:35|name:Cut Wire on Top-Most Stair|traits:action:disable-a-device] to Disable the Device) that connects the staircase to the control switch prevents the control switch from turning the trap on or off.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>If deactivated via the switch, the trap can be reactivated with the switch in area <strong>C8</strong>.</p>",
+            "routine": "<p>(1 action) The trap makes a separate poisoned needle Strike against each creature currently on an active step as 1 action. Because it is constantly jabbing needles up through any weight-bearing steps, the trap can also use its Bloody Feet free action to jab at a creature on one of the steps during that creature's turn.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #159: All or Nothing"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,95 @@
+{
+    "_id": "jaAnxfXVmUQy0IKU",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "One-Inch Punch",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You put all your force into a single mighty, carefully controlled blow. Make an unarmed Strike. If you spend two actions and this Strike hits, you deal an extra die of weapon damage. You can instead spend 3 actions to perform an even more powerful attack, dealing a second additional die of weapon damage on a hit.</p>\n<p>If you're at least 10th level, the number of additional dice you add from this feat doubles, for a total of 2 additional dice if you spend 2 actions or 4 additional dice if you spend 3 actions.</p>\n<p>If you're at least 18th level, the number of additional dice you add from this feat triples, for a total of 3 additional dice if you spend 2 actions or 6 additional dice if you spend 3 actions.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert strikes"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "one-inch-punch",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Actions.TwoActions",
+                        "value": "two"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Actions.ThreeActions",
+                        "value": "three"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
+                "key": "DamageDice",
+                "predicate": [
+                    "melee",
+                    {
+                        "or": [
+                            "unarmed",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ]
+                    },
+                    "one-inch-punch:two"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level, 18), 6, ternary(gte(@actor.level, 10), 4, 2))",
+                "key": "DamageDice",
+                "predicate": [
+                    "melee",
+                    {
+                        "or": [
+                            "unarmed",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ]
+                    },
+                    "one-inch-punch:three"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -9,7 +9,7 @@
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
         <h3>{{item.name}}</h3>
-        <h4>{{data.levelLabel}}</h4>
+        <h4>{{data.rankLabel}}</h4>
     </header>
 
     <section class="item-properties tags">
@@ -32,19 +32,17 @@
     </section>
 
     <section class="card-buttons">
-        {{#if data.isSave}}
-            <button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
-        {{/if}}
-        {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
-            <section class="owner-buttons">
-                {{#if item.hasVariants}}
-                    {{#each data.variants as |variant|}}
-                        <button type="button" data-action="selectVariant" data-overlay-ids="{{variant.overlayIds}}"{{#if variant.actions}} class="with-image"{{/if}}>
-                            {{#if variant.actions}}<img src="{{variant.actions}}" />{{/if}}
-                            <span>{{variant.name}}</span>
-                        </button>
-                    {{/each}}
-                {{else}}
+        {{#each data.variants as |variant|}}
+            <button type="button" data-action="selectVariant" data-overlay-ids="{{variant.overlayIds}}"{{#if variant.actions}} class="with-image"{{/if}}>
+                {{#if variant.actions}}<img src="{{variant.actions}}" />{{/if}}
+                <span>{{variant.name}}</span>
+            </button>
+        {{else}}
+            {{#if data.isSave}}
+                <button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
+            {{/if}}
+            {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
+                <section class="owner-buttons">
                     {{#if data.check}}
                         <div class="spell-attack-buttons">
                             <button type="button" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
@@ -59,7 +57,7 @@
                     {{/if}}
                     {{#if data.hasCounteractCheck.value}}
                         <div class="spell-button">
-                            <button type="button" data-action="spellCounteract">{{localize "PF2E.Counteract"}}</button>
+                            <button type="button" data-action="spellCounteract">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
                         </div>
                     {{/if}}
                     {{#if data.area.type}}
@@ -70,9 +68,9 @@
                     {{#if item.isVariant}}
                         <button type="button" data-action="selectVariant" data-original-id="{{item.original.id}}">{{localize "PF2E.Item.Spell.Variants.SelectOtherVariantLabel"}}</button>
                     {{/if}}
-                {{/if}}
-            </section>
-        {{/if}}
+                </section>
+            {{/if}}
+        {{/each}}
     </section>
 
     <footer class="card-footer">

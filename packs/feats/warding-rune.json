@@ -1,0 +1,83 @@
+{
+    "_id": "u4idmXH5dd2gU9uA",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Warding Rune",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your runes provide a warding effect that protects you against a specific school of magic. Choose a school of magic other than divination. You gain a rune on your body corresponding to that school, and you gain a +2 circumstance bonus to all saving throws against effects of that school.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Runescarred Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAbjuration",
+                        "value": "abjuration"
+                    },
+                    {
+                        "label": "PF2E.TraitConjuration",
+                        "value": "conjuration"
+                    },
+                    {
+                        "label": "PF2E.TraitEnchantment",
+                        "value": "enchantment"
+                    },
+                    {
+                        "label": "PF2E.TraitEvocation",
+                        "value": "evocation"
+                    },
+                    {
+                        "label": "PF2E.TraitIllusion",
+                        "value": "illusion"
+                    },
+                    {
+                        "label": "PF2E.TraitNecromancy",
+                        "value": "necromancy"
+                    },
+                    {
+                        "label": "PF2E.TraitTransmutation",
+                        "value": "transmutation"
+                    }
+                ],
+                "flag": "school",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.WardingRune.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.school}"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: World Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

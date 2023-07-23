@@ -1,0 +1,65 @@
+{
+    "_id": "jDVTrMaswJRJRTuf",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Besmara - Moderate Boon",
+    "system": {
+        "description": {
+            "value": "<p><strong>Moderate Boon:</strong> You are at home on the seas and always ready to plunder an enemy vessel or defend your own. When aboard a boat, you gain a +2 status bonus to all initiative rolls, Acrobatics checks to Balance, and Athletics checks to Climb. In addition, you never get seasick.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:boat"
+                ],
+                "selector": "initiative",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:balance",
+                    "terrain:boat"
+                ],
+                "selector": "acrobatics",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:climb",
+                    "terrain:boat"
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,8 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { damageDiceIcon, DamageType, DAMAGE_TYPE_ICONS } from "@system/damage";
-import { DamageRoll } from "@system/damage/roll";
+import { damageDiceIcon } from "@system/damage/helpers.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import { DamageType } from "@system/damage/types.ts";
+import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, pick, sortBy } from "@util";
-import { PersistentDamagePF2e } from "./document";
+import { PersistentDamagePF2e } from "./document.ts";
 
 class PersistentDamageDialog extends Application {
     constructor(private actor: ActorPF2e, options: Partial<ApplicationOptions> = {}) {
@@ -31,11 +33,11 @@ class PersistentDamageDialog extends Application {
 
     override async getData(): Promise<PersistentDialogData> {
         const existing = this.actor.itemTypes.condition
-            .filter((c): c is Embedded<PersistentDamagePF2e> => c.slug === "persistent-damage")
+            .filter((c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage")
             .map((c) => ({
                 id: c.id,
                 bullet: damageDiceIcon(c.system.persistent.damage).outerHTML,
-                active: c.isActive,
+                active: c.active,
                 ...pick(c.system.persistent, ["formula", "damageType", "dc"]),
             }));
 
@@ -57,7 +59,7 @@ class PersistentDamageDialog extends Application {
             };
         });
 
-        return sortBy(types, (type) => type.label);
+        return types.sort(sortBy((type) => type.label));
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {
@@ -110,7 +112,7 @@ class PersistentDamageDialog extends Application {
 
         html.querySelector("[data-action=roll-persistent]")?.addEventListener("click", () => {
             const existing = this.actor.itemTypes.condition.filter(
-                (c): c is Embedded<PersistentDamagePF2e> => c.slug === "persistent-damage"
+                (c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage"
             );
 
             for (const condition of existing) {

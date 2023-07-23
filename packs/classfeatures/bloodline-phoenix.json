@@ -1,0 +1,64 @@
+{
+    "_id": "TWR1wbPJuCLnGdFZ",
+    "img": "systems/pf2e/icons/features/classes/phoenix.webp",
+    "name": "Bloodline: Phoenix",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have been blessed by a phoenix, perhaps via some magical interaction with a similarly blessed individual. Grant this new sorcerer bloodline to players who finish the Fists of the Ruby Phoenix Adventure Path. Players can then choose this bloodline for any new sorcerer characters they create for future campaigns.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Nature</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Burning Hands]</em>; 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.See Invisibility]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fireball]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Breath of Life]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Contingency]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Moment of Renewal]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Meteor Swarm]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Rejuvenating Flames]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shroud of Flame]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleansing Flames]</em></p>\n<p><strong>Blood Magic</strong> The primal fire of life and death flows through you or one target. Choose to have either you or a target of the spell gain temporary Hit Points equal to the spell's level for 1 round, or to have a target of the spell take fire damage equal to the spell's level (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.sorcerer",
+                "priority": 39,
+                "value": "primal"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #168: King of the Mountain"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

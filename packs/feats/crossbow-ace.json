@@ -1,0 +1,65 @@
+{
+    "_id": "CpjN7v1QN8TQFcvI",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Crossbow Ace",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have a deep understanding of the crossbow. When you're wielding a crossbow and use Hunt Prey or use Interact to reload your crossbow, you gain a +2 circumstance bonus to the damage roll on your next Strike with that crossbow.</p>\n<p>If the crossbow is a simple crossbow, also increase the damage die size for that attack by one step.</p>\n<p>You must make the attack before the end of your next turn or these benefits are lost.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Reloaded crossbow or Hunted Prey",
+                "option": "crossbow-ace",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "crossbow-ace",
+                    "item:tag:crossbow"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "crossbow-ace",
+                    "item:tag:crossbow",
+                    "item:category:simple"
+                ],
+                "selector": "strike-damage",
+                "slug": "crossbow-ace-dice-upgrade"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

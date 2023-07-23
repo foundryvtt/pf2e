@@ -1,0 +1,40 @@
+{
+    "_id": "lj5iHaiY0IwCCptd",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Aphorite",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You were born with a connection to Axis, the Plane of Law. You gain the aphorite trait, in addition to the traits from your ancestry. You also gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low‑light vision. You can choose from aphorite feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "rules": [
+            {
+                "add": [
+                    "aphorite"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "aphorite"
+            ]
+        }
+    },
+    "type": "heritage"
+}

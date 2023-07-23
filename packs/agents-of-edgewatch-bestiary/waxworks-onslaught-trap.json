@@ -1,0 +1,115 @@
+{
+    "_id": "jgSS31hwrQ1n4jVF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "aSPT9O0IpzqjiqG0",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Seal Room",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 5 feet of a tub</p>\n<hr />\n<p><strong>Effect</strong> The fires beneath the vats blaze to life, magically melting the wax in the tubs. The tubs emit gouts of wax over the room's exits, sealing them shut. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Waxworks Onslaught Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 39
+            },
+            "hardness": 25,
+            "hasHealth": true,
+            "hp": {
+                "details": "to destroy a tub and prevent it from making any further attacks; <strong>Door Seal Hardness</strong> 18; <strong>Door Seal HP</strong> 72 (BT 36) to destroy the wax on a sealed door and allow anyone to escape through the door",
+                "max": 104,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 104
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 27
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four huge tubs containing congealed wax, enchanted to melt and envelop unwary intruders, each sit atop a cold fire.</p>",
+            "disable": "<p>@Check[type:thievery|dc:43|name:Drain Wax from a Tub|traits:action:disable-a-device] (master) to drain the wax from a tub or @Check[type:athletics|dc:45|name:Push Through Wax|traits:action:force-open] (master) to push through the wax blocking a sealed door and escape (other creatures must push their own way through, as the wax reseals)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>The trap deactivates and resets after 1 hour. At that time, the wax in the tubs cools and congeals, and any wax elsewhere in the room magically goes back into the tubs.</p>",
+            "routine": "<p>(4 actions) The trap loses 1 action each turn per drained or destroyed tub. On each action, a different tub spews hot wax at a random creature in the room, dealing 3d12 fire damage to the target and all adjacent creatures (@Check[type:reflex|dc:35|basic:true]). On a failure or critical failure, the creature is also encased in hot wax. A creature that starts its turn encased in wax takes 8d12 fire damage and is immobilized until it Escapes the hardening wax (DC 35). Each turn it remains encased, the damage dealt by the hot wax decreases by 2d12 but the DC to Escape increases by 2 (minimum 0 damage, maximum DC 43). A creature that can't get free from the wax might suffocate.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #160: Assault on Hunting Lodge Seven"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

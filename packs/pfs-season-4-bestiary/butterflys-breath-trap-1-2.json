@@ -1,0 +1,141 @@
+{
+    "_id": "TubB70Gyx3RV7inZ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Tpmn2I5mBbpAxTRW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Goodnight Kiss",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature opens the doors of the Segada council building</p>\n<hr />\n<p><strong>Effect</strong> All creatures within 10 feet are exposed to the butterfly's breath poison.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "X9aJw2glSOeXkBPl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Butterfly's Breath",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<hr />\n<p><strong>Onset</strong> 10 minutes</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (6 hours)</p>\n<p><strong>Stage 2</strong> stupefied 1 (12 hours)</p>\n<p><strong>Stage 3</strong> stupefied 1 (24 hours)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "inhaled",
+                        "occult",
+                        "poison",
+                        "sleep"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Butterfly's Breath Trap (1-2)",
+    "prototypeToken": {
+        "name": "Butterfly's Breath Trap"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A sickly-sweet perfume wafts through the air outside the council building, assaulting the senses of all that inhale it.</p>",
+            "disable": "<p>@Check[type:survival|dc:17] to hold your breath through the perfume, @Check[type:occultism|dc:16] (trained) to draw a warding rune in the air to disperse the poison, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (1st level; counteract DC 15) to counteract the poison</p>",
+            "isComplex": false,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #4-12: Negotiations for the Star Gun"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

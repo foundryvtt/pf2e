@@ -1,0 +1,43 @@
+{
+    "_id": "jlZjUtrfcfIWumSe",
+    "img": "systems/pf2e/icons/spells/enduring-might.webp",
+    "name": "Effect: Renewed Vigor",
+    "system": {
+        "description": {
+            "value": "<p>You gain temporary Hit Points equal to half your level plus your Constitution modifier.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "value": "floor(@actor.level/2) + @actor.abilities.con.mod"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

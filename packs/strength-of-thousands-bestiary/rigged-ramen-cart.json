@@ -1,0 +1,110 @@
+{
+    "_id": "ufAw6vB7h0iNpgt1",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "y9wgwxol8v9fx740",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Death by Noodle",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The cart is moved, damaged, or physically searched</p>\n<hr />\n<p><strong>Effect</strong> The cart explodes in a @Template[type:burst|distance:40]{40‑foot radius}, dealing [[/r {10d6[fire],10d6[piercing]} #Death by Noodle]]{10d6 fire damage and and 10d6 piercing damage} to all creatures within the area (@Check[type:reflex|dc:36|basic:true] save).</p>\n<p>Creatures who fail their save against this effect are also covered in \"noodles\" of tar and other sticky alchemical substances that make the creature @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until they spend at least an hour scrubbing the noodles off.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rigged Ramen Cart",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "hardness": 25,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 25
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A seemingly innocent ramen cart is rigged to detonate if moved from its current location.</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Disable the Detonation Trigger|traits:hazard,alchemical,mechanical,trap] (master) to disable the detonation trigger</p>",
+            "isComplex": false,
+            "level": {
+                "value": 15
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #173: Doorway to the Red Star"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "alchemical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

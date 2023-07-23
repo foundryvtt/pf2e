@@ -1,23 +1,18 @@
-import { EffectBadge } from "@item/abstract-effect";
-import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
 import {
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    ItemFlagsPF2e,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-} from "@item/data/base";
-import { EffectPF2e } from ".";
+    AbstractEffectSystemData,
+    AbstractEffectSystemSource,
+    EffectAuraData,
+    EffectBadge,
+    EffectBadgeSource,
+    EffectContextData,
+    EffectTraits,
+    TimeUnit,
+} from "@item/abstract-effect/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };
-
-type EffectData = Omit<EffectSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource> & {
-        flags: EffectFlags;
-    };
 
 type EffectFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -25,7 +20,8 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends Omit<ItemSystemSource, "traits">, ItemLevelData {
+interface EffectSystemSource extends AbstractEffectSystemSource {
+    level: { value: number };
     traits: EffectTraits;
     start: {
         value: number;
@@ -41,19 +37,21 @@ interface EffectSystemSource extends Omit<ItemSystemSource, "traits">, ItemLevel
         show: boolean;
     };
     unidentified: boolean;
-    target: string | null;
     expired?: boolean;
     /** A numeric value or dice expression of some rules significance to the effect */
-    badge: EffectBadge | null;
+    badge: EffectBadgeSource | null;
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
 }
 
-interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "traits"> {
+interface EffectSystemData
+    extends Omit<EffectSystemSource, "fromSpell">,
+        Omit<AbstractEffectSystemData, "level" | "traits"> {
     expired: boolean;
+    badge: EffectBadge | null;
     remaining: string;
 }
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };
+export { EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

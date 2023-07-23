@@ -1,0 +1,58 @@
+{
+    "_id": "8d3QxoKmqSkB9Mcj",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Endure Death's Touch",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wearing medium or heavy armor in which you have expert proficiency.</p>\n<p><strong>Trigger</strong> An undead hits you with an unarmed attack.</p>\n<hr />\n<p>Your conviction redirects the undead's attack through your armor and then harmlessly away. You gain resistance 5 to physical damage and resistance 10 to negative damage against the triggering attack. You gain a +2 circumstance bonus on any saving throws against effects from the undead's natural attack; if you succeed at the saving throw, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Knight Vigilant Dedication"
+                },
+                {
+                    "value": "expert in medium or heavy armor"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Use Endure Death's Touch",
+                "option": "endure-deaths-touch",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "endure-deaths-touch"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Character Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

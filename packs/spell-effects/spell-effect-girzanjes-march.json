@@ -1,0 +1,108 @@
+{
+    "_id": "QJRaVbulmpOzWi6w",
+    "img": "systems/pf2e/icons/spells/girzanjes-march.webp",
+    "name": "Spell Effect: Girzanje's March",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Girzanje's March</p>\n<p>Allied creatures who can hear and understand you gain a +1 status bonus to attack rolls, Fortitude saves, and Will saves against mental effects.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The status bonus increases to +2.</p>\n<p><strong>Heightened (10th)</strong> The status bonus increases to +3.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "fortitude",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "start": 10,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "attack",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "start": 10,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "start": 10,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #171: Hurricane's Howl"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

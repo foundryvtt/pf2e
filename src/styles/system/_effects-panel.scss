@@ -2,7 +2,7 @@
     position: relative; // The panel is positioned relative to this element
 }
 
-.effect-panel {
+#effects-panel {
     pointer-events: initial;
     position: absolute;
     top: 5px;
@@ -10,27 +10,26 @@
 
     .effect-item {
         display: flex;
-        justify-content: flex-end;
+        justify-content: end;
         height: 52px;
 
         &[data-badge-type=formula] .icon {
             cursor: pointer;
-            &:hover {
-                &::before {
-                    content: "\f6cf";
-                    background: rgba(0, 0, 0, 0.5);
-                    font-family: "Font Awesome 5 Free";
-                    font-weight: 900;
-                    font-size: var(--font-size-26);
-                    color: white;
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding-bottom: 4px; // offset
-                }
+
+            &:hover::before {
+                content: "\f6cf";
+                background: rgba(0, 0, 0, 0.5);
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                font-size: var(--font-size-26);
+                color: white;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 4px; // offset
             }
         }
 
@@ -43,18 +42,24 @@
         }
 
         .effect-info {
+            background-color: rgba(0, 0, 0, 0.75);
+            color: white;
             display: none;
             height: min-content;
             margin-right: 0.5em;
+            max-width: 300px;
             padding: 0.25em 0.5rem;
-            background-color: rgba(0, 0, 0, 0.75);
-            color: white;
 
             h1 {
-                font-size: var(--font-size-12);
-                text-align: right;
-                border: none;
                 @include p-reset;
+                border: none;
+                font-size: var(--font-size-12);
+                padding-top: 0.25em;
+                text-align: right;
+
+                i.fa-comment-alt {
+                    margin-left: 2px;
+                }
             }
 
             .tags {
@@ -70,21 +75,27 @@
                 }
             }
 
-            a {
-                display: block;
-                border: 1px outset white;
-                font-size: var(--font-size-10);
-                margin-top: 0.125rem;
-                padding: 0.125rem;
+            a, span[data-pf2-effect-area] {
+                color: var(--color-text-dark-primary);
             }
 
-            .instructions {
+            i[data-pf2-repost] {
+                cursor: pointer;
+            }
+
+            .instructions, .description {
                 font-size: 0.75em;
                 text-align: right;
             }
+
+            .description {
+                max-height: 15em;
+                overflow-y: auto;
+                text-align: left;
+            }
         }
 
-        .icon {
+        > .icon {
             @include frame-silver;
             align-items: center;
             background-repeat: no-repeat;
@@ -98,6 +109,15 @@
             height: 48px;
             width: 48px;
 
+            &.aura {
+                border-radius: 50%;
+                box-shadow: 0px 0px 10px 5px white;
+            }
+
+            &.unidentified {
+                filter: drop-shadow(0 0 8px var(--visibility-gm-bg));
+            }
+
             .expired {
                 position: absolute;
                 left: 0;
@@ -108,6 +128,7 @@
                 color: white;
                 background-color: var(--primary);
             }
+
             .linked {
                 position: absolute;
                 display: inline-block;
@@ -117,6 +138,7 @@
                 color: white;
                 background-color: rgba(0, 0, 0, 0.75);
             }
+
             .value-wrapper {
                 position: absolute;
                 bottom: -1px;
@@ -140,15 +162,11 @@
                     }
                 }
             }
-
-            &.unidentified {
-                filter: drop-shadow(0 0 8px var(--visibility-gm-bg));
-            }
         }
     }
 
-    hr {
+    > hr {
         margin-right: 0;
-        width: 40px;
+        width: 48px;
     }
 }

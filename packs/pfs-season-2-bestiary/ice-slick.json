@@ -1,0 +1,112 @@
+{
+    "_id": "LZiiTvbxfgJ3QfIQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "JjaALZ4hZdcjjhAS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Slip and Slide",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the ice slick</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:acrobatics|dc:15|name:Balance|traits:environmental]{Athletics} check to @UUID[Compendium.pf2e.action-macros.Macro.Balance: Acrobatics]{Balance}. If it fails this check, it falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and slides 10 feet in the direction it was moving when this reaction was triggered. If this movement is stopped by a wall, the target takes 1d6 bludgeoning damage per 5 feet of prevented movement. If this forced movement moves the target through another creature's space, that other creature must succeed at a @Check[type:reflex|dc:14|name:Tripped by Sliding Ally] save or be knocked prone as well.</p>\n<hr />\n<p>5 foot damage: [[/r 1d6[bludgeoning]]] damage</p>\n<p>10 foot damage: [[/r 2d6[bludgeoning]]] damage</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ice Slick",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A sheer slick of ice causes anyone other than Ssalarn who attempts to cross it to slip and fall.</p>",
+            "disable": "<p><span class=\"pf2-icon\">2</span> @Check[type:athletics|dc:18|name:Break Ice Slick|traits:environmental] to break the ice and roughen its surface</p>",
+            "isComplex": false,
+            "level": {
+                "value": 0
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Bounty #1: The Whitefang Wyrm"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

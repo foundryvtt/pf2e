@@ -1,0 +1,137 @@
+{
+    "_id": "JRn1QlBUtlU7xjYR",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "d8um494r4xk6f98a",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Deadly Footing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The area of the venom pool is difficult terrain, and each creature moving through it takes [[/r 10[acid]]]{10 acid} for every square of its area that it moves into.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pdwzupwod8pa2gwn",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Poison Puff",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves through any square in the hazard's space</p><hr />\n<p><strong>Effect</strong> The pool produces a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Cloudkill]</em>; (@Check[type:fortitude|dc:40|traits:death,necromancy,poison]) at its center. It then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": "Pathfinder #174: Shadows of the Ancients"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Venom Pool",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(legendary) to distinguish between the hazard and the oozes within it; @Check[type:perception|dc:0|traits:hazard,complex,environmental] to notice the pool</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "A shallow, foul-smelling puddle of toxic acid blocks a narrow hall (marked with a dotted line on the map), and poison bursts from it when disturbed.",
+            "disable": "<p>@Check[type:crafting|dc:40|name:Neutralize the acid|traits:hazard,complex,environmental] (master) or @Check[type:survival|dc:42|name:Neutralize the acid|traits:hazard,complex,environmental] (legendary) to neutralize the acid while within reach of it. Three successes using either skill (or a combination of both) destroys the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "reset": "The hazard ends after 1 minute, contracting to its original size and keeping still until disturbed again.",
+            "routine": "<p>(2 actions) The hazard uses its first action to spread 10 feet down the hallway in both directions. Once out of the hall, each side spreads in a random direction each round, but they don't go through doors. The hazard uses its second action to move the center of the <em>@UUID[Compendium.pf2e.spells-srd.Item.Cloudkill]</em> up to 20 feet in any direction to which any part of the pool has line of effect (normally, to encompass the greatest number of characters). If the <em>cloudkill</em> isn't present, it instead uses its second action to produce a new <em>cloudkill</em>, as Poison Puff.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #174: Shadows of the Ancients"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

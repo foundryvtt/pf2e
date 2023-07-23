@@ -1,0 +1,54 @@
+{
+    "_id": "8bMmGBO6gsMfWZk3",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Stunning Fist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The focused power of your flurry threatens to overwhelm your opponent. When you target the same creature with two Strikes from your @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows], you can try to stun the creature. If either Strike hits and deals damage, the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). This is an incapacitation effect.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Flurry of Blows"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "stunning-fist",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "stunning-fist"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Monk.StunningFist.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

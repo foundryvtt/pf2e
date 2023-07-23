@@ -1,11 +1,11 @@
-<form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();" {{#if flat}}data-flat="{{flat}}"{{/if}}>
+<form {{#if flat}}data-flat="{{flat}}"{{/if}}>
     <header class="trait-header flexrow">
         <div class="header-search">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search" value="{{searchString}}" placeholder="Search" autocomplete="off"/>
+            <i class="fa-solid fa-search"></i>
+            <input type="search" value="{{searchString}}" placeholder="{{localize "SIDEBAR.Search" types=(localize options.title)}}" autocomplete="off" />
         </div>
     </header>
-    <ol class="trait-list">
+    <ol class="trait-list{{#if allowCustom}} has-custom{{/if}}">
         {{#each choices as |choice key|}}
         <li class="trait-item">
             <label class="trait-selection-label">
@@ -18,7 +18,7 @@
     {{#if allowCustom}}
     <div class="form-group-stacked trait-footer">
         <label>{{localize "PF2E.SpecialLabel"}}:</label>
-        <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
+        <input type="text" name="custom" value="{{custom}}" />
     </div>
     {{/if}}
     <button class="trait-footer" type="submit"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>

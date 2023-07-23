@@ -1,0 +1,73 @@
+{
+    "_id": "mzDgsuuo5wCgqyxR",
+    "img": "systems/pf2e/icons/spells/mirecloak.webp",
+    "name": "Spell Effect: Mirecloak",
+    "system": {
+        "description": {
+            "value": "<p>You wrap the targeted creatures in thin, sickly green shrouds that sap information from attackers. The shroud settles about each target's shoulders, granting a +1 status bonus to AC and a +2 status bonus to Stealth checks, both only while the target is in dim light or darkness.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.DimLightOrDarkness",
+                "option": "mireclock-darkness",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "mirecloak-darkness",
+                            "lighting:dim-light",
+                            "lighting:darkness"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "mirecloak-darkness",
+                            "lighting:dim-light",
+                            "lighting:darkness"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #171: Hurricane's Howl"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,90 @@
+{
+    "_id": "8foxmfC6FFT3oYpV",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Sentinel Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have trained carefully to maximize the protective qualities of your armor.</p>\n<p>You become trained in light armor and medium armor. If you already were trained in light armor and medium armor, you gain training in heavy armor as well.</p>\n<p>Whenever you gain a class feature that grants you expert or greater proficiency in any type of armor (but not unarmored defense), you also gain that proficiency in the armor types granted to you by this feat. If you are at least 13th level and you have a class feature that grants you expert proficiency in unarmored defense, you also become an expert in the armor types granted to you by this feat.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.TnD2hTWTyjGKlw9b]{Sentinel} archetype.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.heavy.rank",
+                "priority": 41,
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "value": "min(1,@actor.system.martial.light.rank)*min(1,@actor.system.martial.medium.rank)*max(@actor.system.martial.light.rank, @actor.system.martial.medium.rank)"
+                        },
+                        {
+                            "start": 13,
+                            "value": "min(1,@actor.system.martial.light.rank)*min(1,@actor.system.martial.medium.rank)*max(@actor.system.martial.light.rank,@actor.system.martial.medium.rank,min(2,@actor.system.martial.unarmored.rank))"
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "priority": 41,
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "value": "max(1,@actor.system.martial.light.rank)"
+                        },
+                        {
+                            "start": 13,
+                            "value": "max(1,@actor.system.martial.light.rank,min(2,@actor.system.martial.unarmored.rank))"
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.light.rank",
+                "priority": 41,
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "value": 1
+                        },
+                        {
+                            "start": 13,
+                            "value": "max(1,min(2,@actor.system.martial.unarmored.rank))"
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

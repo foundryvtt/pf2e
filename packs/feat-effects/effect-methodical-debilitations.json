@@ -1,0 +1,42 @@
+{
+    "_id": "emSh1VxHVtTmt925",
+    "img": "systems/pf2e/icons/features/classes/debilitating-strikes.webp",
+    "name": "Effect: Methodical Debilitations",
+    "system": {
+        "description": {
+            "value": "<p>The target is unable to flank or provide flanking.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.canFlank",
+                "value": false
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

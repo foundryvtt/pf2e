@@ -1,6 +1,6 @@
 import { isObject, tupleHasValue } from "@util";
-import { isSystemDamageTerm, markAsCrit, renderComponentDamage } from "./helpers";
-import { DamageInstance } from "./roll";
+import { isSystemDamageTerm, markAsCrit, renderComponentDamage } from "./helpers.ts";
+import { DamageInstance } from "./roll.ts";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     operator: ArithmeticOperator;
@@ -364,7 +364,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     }
 
     /** `MathTerm` incorrectly reports as being deterministic, so consider them to always not be so */
-    override get isDeterministic() {
+    override get isDeterministic(): boolean {
         return (
             this.number.isDeterministic &&
             this.faces.isDeterministic &&

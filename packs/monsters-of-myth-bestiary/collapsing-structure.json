@@ -1,0 +1,104 @@
+{
+    "_id": "0ypo8Vt3B6p9DqAt",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "g5m5e4hco3ofotn2",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shake Apart",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Ebeshra applies any amount of force to the structure</p>\n<hr />\n<p><strong>Effect</strong> The building trembles. The floors of the building and the streets within 30 feet of the building become difficult terrain; creatures on this difficult terrain take a -2 circumstance penalty to attack rolls, AC, and skill checks. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Structure",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master) to notice cracks forming in the walls of the structure as Ebeshra approaches</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Ebeshra brushes against a structure, possibly causing it to collapse.</p>",
+            "disable": "<p>@Check[type:athletics|dc:43|name:Brace Building (Athletics)|traits:complex,environmental,kaiju,hazard] (master), @Check[type:crafting|dc:43|name:Brace Building (Crafting)|traits:complex,environmental,kaiju,hazard] (master), or @Check[type:engineering|dc:43|name:Brace Building (Engineering)|traits:complex,environmental,kaiju,hazard]{Engineering Lore} (master) to brace the structure to reduce the risk of collapse until the end of the creature's next turn. The DC of the flat check for this round (see Routine) is increased by 4 on a success, or by 8 on a critical success. Increasing the flat check DC to 21 or higher stabilizes the structure, ending this hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "reset": "<p>The building becomes susceptible to Shake Apart again 1d6 rounds after it's stabilized.</p>",
+            "routine": "<p>The GM rolls a @Check[type:flat|dc:9|showDC:owner] to determine if the building partially collapses, increasing the DC as listed above. On a successful check, dust and debris fall within the building and 30 feet around it, providing concealment and dealing [[/r 6d6[bludgeoning]]] damage to [[/r 1d4 #Targets]] randomly chosen targets (@Check[type:reflex|dc:35|basic:true|name:Falling Debris|traits:hazard,complex,environmental,kaiju] save; on a critical failure, the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]). On a critical success, the effect is the same, but the debris deals [[/r 12d6[bludgeoning]]] damage to [[/r 2d4 #Targets]] randomly chosen targets instead (@Check[type:reflex|dc:35|basic:true|name:Falling Debris|traits:hazard,complex,environmental,kaiju] save; on a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by rubble until freed [@UUID[Compendium.pf2e.actionspf2e.Item.Force Open] DC 38, @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 35]).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Lost Omens: Monsters of Myth"
+            }
+        },
+        "flavourText": "",
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "sidebarText": "",
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "kaiju"
+            ]
+        }
+    },
+    "type": "hazard"
+}

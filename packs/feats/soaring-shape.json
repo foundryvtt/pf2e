@@ -1,0 +1,94 @@
+{
+    "_id": "wNHUryoRzlfDCFAd",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Soaring Shape",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Wings free you from the shackles of the ground below.</p>\n<p>Add the bat and bird forms in <em>@UUID[Compendium.pf2e.spells-srd.Item.Aerial Form]</em> to your <em>wild shape</em> list.</p>\n<p>If you have @UUID[Compendium.pf2e.feats-srd.Item.Insect Shape], you also add the wasp form to your <em>wild shape</em> list. If you have @UUID[Compendium.pf2e.feats-srd.Item.Ferocious Shape], you also add the pterosaur form to your <em>wild shape</em> list.</p>\n<p>Whenever you use <em>wild shape</em> to gain a form that grants you a specific Acrobatics modifier, you gain a +1 status bonus to Acrobatics checks.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wild Shape"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "battle-form:acrobatics"
+                ],
+                "selector": "acrobatics",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.jvwKRHtOiPAm4uAP"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.0QVufU5o3xIxiHmP"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape",
+                    "feat:insect-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.xgZxYqjDPNtsQ3Qp"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape",
+                    "feat:ferocious-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.Item.UjoNm3lrhlg4ctAQ"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

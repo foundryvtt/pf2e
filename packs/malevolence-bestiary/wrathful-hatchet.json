@@ -1,0 +1,170 @@
+{
+    "_id": "w2EmOacJ2zGfygFu",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1dy3ttqcMMPzUzOo",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Furious Shriek",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 5 feet of the hatchet or more than 3 creatures enter area C10</p>\n<hr />\n<p><strong>Effect</strong> The furious shriek of Asethanna's rage resonates throughout the room, and all creatures within 25 feet of the hatchet must attempt a @Check[type:will|dc:25] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature feels as if the wrathful haunt is particularly enraged at them. The creature becomes frightened 2; their frightened condition doesn't decrease automatically as long as the haunt remains active, and the hatchet gains a +2 circumstance bonus to all wrathful hatchet Strikes it attempts against the creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J88670eDfpomkkvm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wrathful Hatchet",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+6",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "mental"
+                    },
+                    "2": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Wrathful Hatchet",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "hardness": 14,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(Expert) Darkvision</p>",
+                "value": 17
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 7
+                }
+            ]
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The hatchet embedded atop the desk wiggles, vibrates, and then flies into the air, accompanied by a rage-filled cry of a woman.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:27|name:Soothe the Haunt's Wrath] to soothe the haunt's wrath or @Check[type:religion|dc:25|name:Exorcise the Haunt] to exorcise the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>24 hours; putting Xarwin's ghost to rest destroys this haunt forever.</p>",
+            "routine": "<p>(3 actions; evocation, occult) The haunted hatchet uses an action to move to a square adjacent to a creature within 25 feet, attempts a wrathful hatchet Strike against an adjacent creature, or attempts to Escape from being immobilized or restrained. If there are no creatures within 25 feet, the hatchet moves in a random direction.</p>\n<p>If it ends its turn and there are no creatures within 25 feet, the hatchet falls to the ground, and the haunt ends.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Malevolence"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

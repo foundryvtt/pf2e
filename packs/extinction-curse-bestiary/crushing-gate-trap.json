@@ -1,0 +1,115 @@
+{
+    "_id": "V4LPaPABVm9YYqdH",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "RvNmrpkeCr0FxRBy",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gate Collapse",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The stone rod is moved or either door is touched</p>\n<hr />\n<p><strong>Effect</strong> The two falling doors deal [[/r (6d12+35)[bludgeoning]]] damage (@Check[type:reflex|dc:37|basic:true] save) to all creatures within 15 feet of the gate. On a failure, a creature is also pinned beneath the door and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until the door is moved (@Check[type:athletics|dc:34|traits:action:force-open]) or destroyed; each door has the same AC, Fortitude save, Hardness, and Hit Points as the trap itself. On a critical failure, the creature is trapped in such a way that it can't attempt to free itself. Moving or destroying one door doesn't help free anyone trapped by the other door.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Crushing Gate Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 26,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 104,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 104
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>@Check[type:perception|dc:42|traits:action:seek] (master) to spot the triggering rod beneath the black sand.</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A hidden stone rod causes two immense stone doors to fall forward from their gate, crushing anything beneath them. The doors also fall forward if touched.</p>",
+            "disable": "<p>@Check[type:thievery|dc:42|name:Secure Door in Place|traits:action:disable-a-device] (expert) to secure the doors in place without triggering the trap</p>",
+            "isComplex": false,
+            "level": {
+                "value": 16
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #155: Lord of the Black Sands"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

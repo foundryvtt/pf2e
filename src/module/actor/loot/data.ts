@@ -1,19 +1,13 @@
 import {
     ActorSystemData,
     ActorSystemSource,
-    BaseActorDataPF2e,
     BaseActorSourcePF2e,
     ActorAttributesSource,
     ActorAttributes,
-} from "@actor/data/base";
-import { LootPF2e } from ".";
+} from "@actor/data/base.ts";
 
 /** The stored source data of a loot actor */
 type LootSource = BaseActorSourcePF2e<"loot", LootSystemSource>;
-
-interface LootData
-    extends Omit<LootSource, "data" | "system" | "effects" | "flags" | "items" | "prototypeToken" | "type">,
-        BaseActorDataPF2e<LootPF2e, "loot", LootSystemData, LootSource> {}
 
 /** The system-level data of loot actors. */
 interface LootSystemSource extends ActorSystemSource {
@@ -24,8 +18,8 @@ interface LootSystemSource extends ActorSystemSource {
     traits?: never;
 }
 
-interface LootSystemData extends LootSystemSource, ActorSystemData {
-    attributes: LootAttributesData;
+interface LootSystemData extends Omit<LootSystemSource, "attributes">, ActorSystemData {
+    attributes: LootAttributes;
     details: LootDetailsData;
     traits?: never;
 }
@@ -33,12 +27,17 @@ interface LootSystemData extends LootSystemSource, ActorSystemData {
 interface LootAttributesSource extends ActorAttributesSource {
     hp?: never;
     ac?: never;
-    immunities: never[];
-    weaknesses: never[];
-    resistances: never[];
+    perception?: never;
+    immunities?: never;
+    weaknesses?: never;
+    resistances?: never;
 }
 
-type LootAttributesData = LootAttributesSource & ActorAttributes;
+interface LootAttributes
+    extends Omit<LootAttributesSource, "immunities" | "weaknesses" | "resistances">,
+        Omit<ActorAttributes, "perception" | "hp" | "ac"> {
+    initiative?: never;
+}
 
 interface LootDetailsSource {
     description: string;
@@ -51,4 +50,4 @@ interface LootDetailsData extends LootDetailsSource {
     alliance: null;
 }
 
-export { LootData, LootSource, LootSystemData, LootSystemSource };
+export { LootSource, LootSystemData, LootSystemSource };

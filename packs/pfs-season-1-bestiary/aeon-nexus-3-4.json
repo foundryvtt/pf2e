@@ -1,0 +1,107 @@
+{
+    "_id": "WM8ycweNEOEFE08F",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "BZbjUiSahHTYztMv",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Static",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature who is not carrying a wayfinder with an aeon stone from the nexus slotted into it approaches within 15 feet of the aeon nexus</p>\n<hr />\n<p><strong>Effect</strong> The trap shocks the target, dealing [[/r 2d8[electricity]]] damage to the triggering creature (@Check[type:reflex|dc:21|basic:true]), then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Aeon Nexus (3-4)",
+    "prototypeToken": {
+        "name": "Aeon Nexus"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "hardness": 10,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 42,
+                "temp": 0,
+                "value": 42
+            },
+            "stealth": {
+                "details": "<p>(DC 20 to find the cluster of aeon stones at the center of the nexus in the fog)</p>",
+                "value": 8
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A small cluster of aeon stones floats two feet off the ground, orbiting by shards of shattered aeon stones that crackle with electricity.</p>",
+            "disable": "<p>@Check[type:thievery|dc:23|name:Remove Aeon Stone|traits:magical,trap] (trained) to remove one nexus aeon stone from the center</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap loses one action each turn for each nexus aeon stone removed from its center. On each action, it shoots a jet of electrified, razor-sharp aeon stone shards at a different creature within 30 feet, dealing [[/r 1d8[piercing]]] damage and [[/r 1d8[electricity]]] damage (@Check[type:reflex|dc:21|basic:true|name:Aeon Nexus]).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Quest #9: Wayfinder Origins"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

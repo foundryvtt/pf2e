@@ -1,0 +1,45 @@
+{
+    "_id": "XSXMGb5h4Um6YXiT",
+    "img": "systems/pf2e/icons/spells/stinking-cloud.webp",
+    "name": "Effect: Air of Sickness",
+    "system": {
+        "description": {
+            "value": "<p>The creature takes a -2 status penalty to saves made to resist diseases.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "disease"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,46 @@
+{
+    "_id": "ScZ8tlV5zS0Jwnqn",
+    "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
+    "name": "Effect: Blood Frenzy",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains temporary hit points and other effects based on the specific creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.level + @actor.abilities.con.mod + @actor.system.custom.modifiers.frenzyMod"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.custom.modifiers.frenzyMod",
+                "value": 0
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,67 @@
+{
+    "_id": "PSqxbLzKKzbMUnU9",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Entwined Energy Ki",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can transform your inner power into a type of energy to empower your ki abilities. When you gain this feat, choose either acid, cold, electricity, fire, or sonic damage. When you cast ki blast, you can choose to have the spell deal the type of damage you chose instead of force damage. When you cast ki form or ki strike, add the type of damage you chose to the list of damage types you can select for the spell.</p>\n<p><strong>Special</strong> At the GM's discretion, this feat can alter other ki spells.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "entwinedEnergyKi",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "entwined-energy-ki:{item|flags.pf2e.rulesSelections.entwinedEnergyKi}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #166: Despair on Danger Island"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

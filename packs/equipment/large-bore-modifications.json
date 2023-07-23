@@ -1,0 +1,136 @@
+{
+    "_id": "N9bhBhJ6JawzVitu",
+    "img": "systems/pf2e/icons/equipment/other/attached-items/large-bore-modification.webp",
+    "name": "Large Bore Modifications",
+    "system": {
+        "baseItem": null,
+        "containerId": "null",
+        "description": {
+            "value": "<p>These modifications include a heavier stock and larger replacement barrel designed to increase the stopping power of firearms. <em>Large bore modifications</em> can only be applied to firearms with the kickback or scatter traits, and attaching <em>large bore modifications</em> takes 1 hour, though this time can overlap with the standard time required to maintain and clean your firearm to prevent misfires.</p>\n<p>When you attach <em>large bore modifications</em> to a kickback weapon, the circumstance bonus to damage granted by the kickback trait increases from 1 to 2 additional Damage and the Strength requirement to fire the weapon without penalty increases to 18.</p>\n<p>When you attach <em>large bore modifications</em> to a weapon with the scatter trait, the radius of the scatter effect increases by 5 feet, but the weapon imposes a -2 penalty on attack rolls if the wielder's Strength score is less than 14. If the weapon has both the kickback and scatter traits, apply both sets of modifications with the Strength requirement raised to 18 to avoid penalties when firing.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 120
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "kickback"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "scatter",
+                    {
+                        "not": "kickback"
+                    }
+                ],
+                "selector": "attack",
+                "slug": "large-bore-scatter",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 13,
+                            "start": 1,
+                            "value": -2
+                        },
+                        {
+                            "start": 14,
+                            "value": 0
+                        }
+                    ],
+                    "field": "actor|system.abilities.str.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "kickback"
+                ],
+                "selector": "attack",
+                "slug": "large-bore-kickback",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "start": 1,
+                            "value": -2
+                        },
+                        {
+                            "start": 18,
+                            "value": 0
+                        }
+                    ],
+                    "field": "actor|system.abilities.str.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "kickback",
+                    "scatter"
+                ],
+                "selector": "attack",
+                "slug": "large-bore-scatter-kickback",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "start": 1,
+                            "value": -2
+                        },
+                        {
+                            "start": 18,
+                            "value": 0
+                        }
+                    ],
+                    "field": "actor|system.abilities.str.value"
+                }
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "attached-to-firearm"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "type": "equipment"
+}

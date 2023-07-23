@@ -1,0 +1,44 @@
+{
+    "_id": "xOD3ufpzA8H7W4sP",
+    "img": "systems/pf2e/icons/spells/captivating-adoration.webp",
+    "name": "Effect: Aura of Good Cheer",
+    "system": {
+        "description": {
+            "value": "<p>Allies within the aura gain a +1 status bonus to Will saves against emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #188: They Watched the Stars"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

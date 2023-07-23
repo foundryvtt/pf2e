@@ -1,0 +1,60 @@
+{
+    "_id": "J6EwMsXtXg30eaiB",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Stoke the Fervent - High Tormentor",
+    "system": {
+        "description": {
+            "value": "<p>Each ally that hears the call gains a +4 status bonus to attack rolls and damage rolls, a +2 status bonus to saving throws, and takes a -2 status penalty to AC. Affected allies must use at least one of their actions to Strike each round, if they are able (even if it means attacking an ally, object, or thin air).</p>\n<p>The effect duration has been set to the average duration for [[/br 2d4 #rounds]]{2d4 rounds}. Set the duration to the correct value when the effect is added.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 5
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Stoke the Fervent",
+                "selector": [
+                    "attack",
+                    "strike-damage"
+                ],
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Stoke the Fervent",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Stoke the Fervent",
+                "selector": "ac",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #155: Lord of the Black Sands"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

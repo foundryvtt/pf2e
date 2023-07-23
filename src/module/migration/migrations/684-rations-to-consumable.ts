@@ -1,9 +1,9 @@
-import { ActorSourcePF2e } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ConsumablePF2e } from "@item";
-import { EquipmentSource, ItemSourcePF2e } from "@item/data";
-import { KitEntryData } from "@item/kit/data";
+import { EquipmentSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { KitEntryData } from "@item/kit/data.ts";
 import { ErrorPF2e, isObject } from "@util";
-import { MigrationBase } from "../base";
+import { MigrationBase } from "../base.ts";
 
 /** Convert rations to a consumable with seven uses */
 export class Migration684RationsToConsumable extends MigrationBase {

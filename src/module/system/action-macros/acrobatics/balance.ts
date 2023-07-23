@@ -1,18 +1,18 @@
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-export function balance(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
+const PREFIX = "PF2E.Actions.Balance";
+
+function balance(options: SkillActionOptions): void {
+    const slug = options?.skill ?? "acrobatics";
+    const rollOptions = ["action:balance"];
+    const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        statName: property,
         actionGlyph: options.glyph ?? "A",
-        title: "PF2E.Actions.Balance.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:balance"],
-        extraOptions: ["action:balance"],
+        title: `${PREFIX}.Title`,
+        checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["move"],
-        checkType,
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
@@ -22,5 +22,26 @@ export function balance(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "criticalFailure"),
         ],
+    }).catch((error: Error) => {
+        ui.notifications.error(error.message);
+        throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
+        { outcome: ["success"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:balance"],
+    slug: "balance",
+    statistic: "acrobatics",
+    traits: ["move"],
+});
+
+export { balance as legacy, action };

@@ -1,0 +1,63 @@
+{
+    "_id": "Lb8mrOF3W2VGSOpA",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Arcane Communication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can deliver silent messages. You gain touch telepathy, allowing you to communicate silently and mentally with any creature you're touching, as long as you share a language.</p>\n<p><strong>Enhancement</strong> You can send your messages even further. Your telepathy gains a range of 10 feet, but you still have to share a language with your target.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneCommunication",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-communication"
+                        }
+                    ],
+                    "value": "arcane-communication"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneCommunication",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-communication"
+                        }
+                    ],
+                    "value": "arcane-communication"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

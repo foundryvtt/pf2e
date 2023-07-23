@@ -1,0 +1,102 @@
+{
+    "_id": "Q8cPvvyxbFYedlc8",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/cloak-of-the-bat.webp",
+    "name": "Scapular of Shields",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This fine scapular features the image of an ornate shield. While wearing the cloak, you feel protected and capable of withstanding even the deadliest blows. Each time you're critically hit while wearing the scapular, attempt a @Check[type:flat|dc:17]. On a success, it becomes a normal hit. When you invest the scapular, you either increase your Constitution score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> envision</p>\n<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> You're critically hit with an attack</p>\n<p><strong>Effect</strong> The shield on your scapular glows with light, helping reduce the effectiveness of the attack. You take normal damage from the triggering attack as if the attack were a normal hit instead. Other effects that trigger with critical hits such as the deadly weapon trait, additional conditions, and so on still occur.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would take damage from an attack</p>\n<p><strong>Effect</strong> The shield on your scapular animates and intercedes on the attack. You gain 20 resistance to all damage against the triggering damage.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 15000
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.con.value",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.con.value",
+                "value": 18
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ScapularOfShields.CriticalImmunityLabel",
+                "option": "scapular-crit-immunity",
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ScapularOfShields.ResistAllLabel",
+                "option": "scapular-resist-all",
+                "toggleable": true
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "scapular-crit-immunity"
+                ],
+                "type": "critical-hits"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "scapular-resist-all"
+                ],
+                "type": "all-damage",
+                "value": 20
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #192: Worst of All Possible Worlds"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "abjuration",
+                "apex",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worngarment"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "equipment"
+}

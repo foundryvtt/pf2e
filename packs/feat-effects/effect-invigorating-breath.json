@@ -1,0 +1,39 @@
+{
+    "_id": "tl94WHJ2Hg0akK2o",
+    "img": "systems/pf2e/icons/spells/breath-of-life.webp",
+    "name": "Effect: Invigorating Breath",
+    "system": {
+        "description": {
+            "value": "<p>You gain 20 temporary Hit Points. At 15th level, you instead gain 30 temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "ternary(gte(@actor.level,15),30,20)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #188: They Watched the Stars"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

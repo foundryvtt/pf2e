@@ -1,7 +1,4 @@
-<strong>
-    <span class="pf2-icon larger">{{action.typeNumber}}</span>
-    {{localize action.title}}{{#if action.subtitle}}: {{localize action.subtitle}}{{/if}}
-</strong>
+{{> systems/pf2e/templates/chat/action/header.hbs glyph=action.typeNumber subtitle=action.subtitle title=action.title}}
 {{#if traits}}
     <div class="tags">
         {{#each traits as |trait|}}

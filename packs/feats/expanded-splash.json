@@ -1,0 +1,57 @@
+{
+    "_id": "gyVcJfZTmBytLsXq",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Expanded Splash",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can throw bombs at just the right trajectory to create especially large and powerful explosions. When you throw an alchemical bomb and that bomb has the splash trait, you can add your Intelligence modifier to the bomb's usual splash damage, and it deals splash damage to every creature within 10 feet of the target.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Calculated Splash"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "damageCategory": "splash",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:splash"
+                ],
+                "selector": "alchemical-bomb-damage",
+                "value": "@actor.abilities.int.mod"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:trait:splash"
+                ],
+                "selector": "alchemical-bomb-damage",
+                "text": "The bomb deals splash damage to every creature within 10 feet of the target.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

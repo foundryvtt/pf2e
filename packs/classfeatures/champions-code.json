@@ -1,0 +1,61 @@
+{
+    "_id": "fykh5pE99O3I2sOI",
+    "img": "systems/pf2e/icons/features/classes/champion-code.webp",
+    "name": "Champion's Code",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You follow a code of conduct, beginning with tenets shared by all champions of an alignment (such as good), and continuing with tenets of your cause. Deities often add additional strictures (for instance, @UUID[Compendium.pf2e.deities.Item.Torag] champions can't show mercy to enemies of their people, making it almost impossible for them to follow the redeemer cause). Only rules for good champions appear in this book. Tenets are listed in order of importance, starting with the most important. If a situation places two tenets in conflict, you aren't in a no-win situation; instead, follow the more important tenet. For instance, as a paladin, if an evil king asked you if you're hiding refugees so he could execute them, you could lie to him, since the tenet against lying is less important than preventing harm to innocents. Trying to subvert your code by creating a situation that forces a higher tenet to override a lower tenet (for example, promising not to respect authorities and then, to keep your word, disrespecting authorities) is a violation of the champion code.</p>\n<p>If you stray from your alignment or violate your code of conduct, you lose your focus pool and divine ally until you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual, but you keep any other champion abilities that don't require those class features. If your alignment shifts but is still one allowed by your deity, your GM might let you retrain your cause while still following the same deity.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion:alignment:lg",
+                            "class:champion:alignment:ng",
+                            "class:champion:alignment:cg"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.The Tenets of Good"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion:alignment:le",
+                            "class:champion:alignment:ne",
+                            "class:champion:alignment:ce"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.The Tenets of Evil"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

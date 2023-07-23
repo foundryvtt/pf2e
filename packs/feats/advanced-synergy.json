@@ -1,0 +1,76 @@
+{
+    "_id": "lqs4MIlO1N1YglOi",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advanced Synergy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain one summoner feat. For the purpose of meeting its prerequisites, your summoner level is equal to half your character level.</p>\n<p><strong>Special</strong> You can select this feat more than once. Each time you select it, you gain another summoner feat.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Summoner Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "postFilter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "base-item:location:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "self:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"summoner\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Multiclass.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedSynergy}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

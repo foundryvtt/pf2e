@@ -1,0 +1,101 @@
+{
+    "_id": "wun5VzDIMSZCVLuI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "9awhcUUChblK5dxi",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Seize",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Trigger A living creature spends 1 round in the area</p>\n<p>Effect A whispered shout carries through the air: \"I have a face! I have a name! My sisters may be forgotten, but I will reclaim what's mine\" Sinking statues desperately grasp at creatures in the area, struggling to stay above the surface. The haunt attempts an [[/r 1d20+18 #Grapple]]{Athletics check (with a +18 modifier)} to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] each creature in the area. On a success, a creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] (Escape DC 28). The haunt then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Waking Nightmare",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Faceless statues struggle against each other to stay above the black dust.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:24|name:Convince the Statues] (expert) to urge the statues to work together, @Check[type:intimidation|dc:27|traits:action:coerce|name:Coerce the Statues] (expert) to Coerce the statues away, or @Check[type:occultism|dc:30|name:Oppose Psychic Influence] (trained) to oppose the psychic influence. Each check to disable the haunt is a two-action activity; three total successes are required to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter.</p>",
+            "routine": "<p>(1 action) On the haunt's initiative, creatures in the area sink deeper into the dust as statues grasp at them. Creatures in the area take [[/r (2d10+9)[mental]]]{2d10+9 mental damage} (@Check[type:will|dc:25|basic:true] saving throw). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. Creatures @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the haunt take a -1 circumstance penalty to their saving throw.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #3-17: Dreams of a Dustbound Isle"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

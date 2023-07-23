@@ -1,0 +1,107 @@
+{
+    "_id": "AMgTG6TwfoNmseWm",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Channel Rot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned to channel your curse through weapons you wield instead of solely through your flesh. The benefits of @UUID[Compendium.pf2e.feats-srd.Item.Accursed Touch] apply to any melee weapon you wield instead of only your fist Strikes.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Accursed Touch"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            13
+                        ]
+                    },
+                    {
+                        "not": "item:fist"
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.Base",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            14
+                        ]
+                    },
+                    {
+                        "nor": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    20
+                                ]
+                            },
+                            "item:fist"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.FourteenthLevel",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            20
+                        ]
+                    },
+                    {
+                        "not": "item:fist"
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.TwentiethLevel",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

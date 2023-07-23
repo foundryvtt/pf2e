@@ -1,0 +1,55 @@
+{
+    "_id": "MjQyTcV8Jiv1Jtln",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Recognize Spell",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature within line of sight casts a spell that you don't have prepared or in your spell repertoire, or a trap or similar object casts such a spell. You must be aware of the casting.</p>\n<hr />\n<p>If you are trained in the appropriate skill for the spell's tradition and it's a common spell of 2nd level or lower, you automatically identify it (you still roll to attempt to get a critical success, but can't get a worse result than success). The highest level of spell you automatically identify increases to 4 if you're an expert, 6 if you're a master, and 10 if you're legendary.</p>\n<p>The GM rolls a secret Arcana, Nature, Occultism, or Religion check, whichever corresponds to the tradition of the spell being cast. If you're not trained in the skill, you can't get a result better than failure.</p>\n<hr />\n<p><strong>Critical Success</strong> You correctly recognize the spell and gain a +1 circumstance bonus to your saving throw or your AC against it.</p>\n<p><strong>Success</strong> You correctly recognize the spell.</p>\n<p><strong>Failure</strong> You fail to recognize the spell.</p>\n<p><strong>Critical Failure</strong> You misidentify the spell as another spell entirely, of the GM's choice.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Arcana, Nature, Occultism or Religion"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Critical success on Recognize Spell",
+                "predicate": [
+                    "action:recognize-spell",
+                    "critical-success"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "secret",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

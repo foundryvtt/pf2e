@@ -1,0 +1,157 @@
+{
+    "_id": "ce5vC049lfuXnPSy",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "kMVtB4pZd0LYoYOm",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Slam Doors",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A second creature crosses a magical sensor at the midpoint of the hall.</p>\n<hr />\n<p><strong>Effect</strong> The doors at either end of the hall slam shut and lock in place while the trap is active (the doors open automatically if the trap is disabled or destroyed). The doors (Hardness 14, HP 56 [28 BT]) can be Forced Open with a @Check[type:athletics|dc:40|traits:action:force-open] check, or via a @Check[type:thievery|dc:35|traits:action:pick-a-lock] check to Pick the Lock. The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OZRGnwXPUQq6AsKe",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Force Bolt",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "4OGPZFRbFQm4DsVO": {
+                        "damage": "4d10+18",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": "<p>(can target any creature in area <strong>A8</strong>)</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Orb Blast Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 42
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hp": {
+                "details": "per orb",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "slashing",
+                    "value": 15
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master) to realize that the glimmering orbs signal a dangerous trap.</p>",
+                "value": 35
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Five globes shoot bolts of force up and down the hall when a second creature reaches its midpoint.</p>",
+            "disable": "<p>@Check[type:thievery|dc:48] (master) to deactivate the trap entirely before it triggers, @Check[type:thievery|dc:45] (expert) to deactivate one of the glimmering orbs after the trap rolls initiative, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (9th level; counteract DC 41) to deactivate the trap entirely.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "reset": "<p>The trap deactivates 1 round after it has no creatures to target and resets automatically after 1 minute.</p>",
+            "routine": "<p>(5 actions) Five energized orbs each take one action to make a force bolt attack against a different target in the hallway (a single target cannot be fired at more than once per round by the trap). The trap doesn't take multiple attack penalties. Each orb that is disabled or destroyed reduces the trap's actions by 1.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 33
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

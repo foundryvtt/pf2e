@@ -1,0 +1,65 @@
+{
+    "_id": "GFtNQvpzuqtsdOTG",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hunter's Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you focus on aiming, your attack becomes particularly accurate. Make a ranged weapon Strike against your hunted prey. On this Strike, you gain a +2 circumstance bonus to the attack roll and ignore your prey's concealed condition.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "hunters-aim",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hunters-aim",
+                    "hunted-prey",
+                    "ranged"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "hunters-aim",
+                    "hunted-prey",
+                    "ranged",
+                    "target:condition:concealed"
+                ],
+                "selector": "attack",
+                "text": "Ignore your prey's concealed condition.",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

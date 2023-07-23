@@ -1,0 +1,64 @@
+{
+    "_id": "9DWxzEavOeymc6Ql",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Spiritual Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wielding a weapon with at least one fundamental rune and your familiar is adjacent to you or in your space.</p>\n<p>Your spirit guide enhances your attacks with occult power. Make a Strike with a weapon that has at least one fundamental rune. This counts as two attacks when calculating your multiple attack penalty. The Strike has the effects of the ghost touch property rune and deals an additional 2d6 force damage. If your weapon has a major striking rune, this Strike instead deals 3d6 force damage.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Scion of Domora Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "spiritual-strike",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "spiritual-strike"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "diceNumber": "ternary(gte(@weapon.system.damage.dice,4),3,2)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "spiritual-strike"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #188: They Watched the Stars"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

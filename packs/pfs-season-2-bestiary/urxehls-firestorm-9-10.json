@@ -1,0 +1,190 @@
+{
+    "_id": "DyADskqXgDZlRWz3",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "FHqDQpzkqnIwlrD0",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Urxehl's Ire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature who doesn't worship Urxehl walks into the hazard's area</p>\n<hr />\n<p><strong>Effect</strong> The hazard rolls initiative as bolts of profane fire begin to target the intruders.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1PyZ8r3XpchSv9Wb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>Multiple Attack Penalties do not apply to the corrupted fire bolt strike.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NNsvPEKeWr0bXQGz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Corrupted Fire Bolt",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "no-map"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "uztzova2a3xkij7adhxc": {
+                        "damage": "2d6+11",
+                        "damageType": "fire"
+                    },
+                    "45j0lu8tdnmz645ry91y": {
+                        "damage": "1d6",
+                        "damageType": "evil"
+                    }
+                },
+                "description": {
+                    "value": "<p>No MAP applies to strikes made by corrupted fire bolt attacks</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evil",
+                        "fire",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Urxehl's Firestorm (9-10)",
+    "prototypeToken": {
+        "name": "Urxehl's Firestorm"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>Abyssal fire rains from the sky.</p>",
+            "disable": "<p>@Check[type:arcana|dc:31], @Check[type:nature|dc:31], @Check[type:occultism|dc:31], or  @Check[type:religion|dc:31] (trained) twice or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (4th level; counteract DC 24) to cause a temporary, local disruption to the Disciple of Urxehl's ritual. Checks to disrupt the firestorm require two actions. Defeating the Disciple of Urxehl also disables the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The hazard activates when the PCs reach <strong>Event: Rain of Fire</strong>, area <strong>A1</strong>, and area <strong>A9</strong>. If the PCs defeat the Disciple of Urxehl, the hazard is permanently destroyed.</p>",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "evil",
+                "fire",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

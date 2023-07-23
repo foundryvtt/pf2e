@@ -1,0 +1,68 @@
+{
+    "_id": "dtNsRAhCRfteA1ev",
+    "img": "systems/pf2e/icons/features/ancestry/fishseeker-shoony.webp",
+    "name": "Blunt Snout",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Your small, blunt snout and labyrinthine sinus system make you resistant to phenomena that assail the nose. When you roll a saving throw against inhaled threats (such as inhaled poisons) and olfactory effects (such as xulgath stench), you get the outcome one degree of success better than the result of your roll.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "inhaled",
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "olfactory",
+                            "inhaled"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #153: Life's Long Shadows"
+        },
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "shoony": "Shoony"
+            },
+            "value": [
+                "shoony"
+            ]
+        }
+    },
+    "type": "feat"
+}

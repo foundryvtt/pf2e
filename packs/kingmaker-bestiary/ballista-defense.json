@@ -1,0 +1,149 @@
+{
+    "_id": "0qc6h3jgLFNhX1tG",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "bvBZPt5ocFCNJflm",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ready and Load",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The alarm is raised while the PCs are approaching the Palace</p>\n<hr />\n<p><strong>Effect</strong> The guards ready and load the ballista. The ballista defense then rolls Initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DNaScDDIg4t6u0Hw",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ballista Bolt",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "4V1qdF7eTqKx2Eqr": {
+                        "damage": "2d12+15",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-300"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Ballista Defense",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 31
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 23
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A ballista armed with a massive bolt fires on a creature approaching the Palace.</p>",
+            "disable": "<p>@Check[type:thievery|dc:36] (master) to sabotage the ballista by reaching through the firing slit from outside (this DC is reduced by 10 if the PCs are in the room with the ballista, @Check[type:thievery|dc:26]), or @Check[type:intimidation|dc:33] to frighten off the Pitax Warden operating the ballista.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "reset": "<p>(1 day) If the PCs haven't reached 30 Liberation Points, additional ammunition for a ballista can be secured in a day, but if the PCs have reached 30 Liberation Points, a ballista that runs out of ammo cannot be reset.</p>",
+            "routine": "<p>(3 actions) The ballista takes 1 action to fire a ballista bolt and 2 actions to reload. After ten rounds, the ballista is out of ammunition and can no longer function.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

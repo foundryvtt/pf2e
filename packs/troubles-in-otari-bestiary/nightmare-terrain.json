@@ -1,0 +1,115 @@
+{
+    "_id": "hv50ovLKV6lu49dF",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Fk4R8F6Vr2Lr7mZZ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Step into Nightmares",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>If a creature that can see moves 10 feet into the affected area, the hazard rolls Stealth (+16) for its initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Nightmare Terrain",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": null,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": null,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                }
+            ],
+            "stealth": {
+                "details": "<p>@Check[type:perception|dc:22|traits:action:seek] to detect the subtle magical aura of the land</p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>What seems like an innocent stretch of land assaults trespassers with terrible illusions.</p>",
+            "disable": "<p>@Check[type:arcana|dc:22], @Check[type:nature|dc:22], @Check[type:occultism|dc:22], or @Check[type:religion|dc:22] (by a hero with expert proficiency in that skill) three times to temporarily disrupt the magic, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (3rd-level spell, DC 25)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The terrible visions cease after all creatures have left the affected area, but the hazard is immediately ready to inflict its visions on the next creature to enter.</p>",
+            "routine": "<p>(1 action) Terrible visions assail the minds of all creatures who can see within the affected area. Each creature must attempt a @Check[type:will|dc:24] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d8+9)[mental]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (4d8+18)[mental]]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Adventure: Troubles in Otari"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

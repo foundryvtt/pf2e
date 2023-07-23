@@ -1,0 +1,104 @@
+{
+    "_id": "WqkV7xd2KOmNQd67",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "unRMsmyHgUc7VDnx",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ghostly Pull",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> One round passes since a creature entered the refectory.</p>\n<hr />\n<p><strong>Effect</strong> A Broken Rebus monk grabs the creature and yanks them toward the room's center. The triggering creature must attempt a @Check[type:fortitude|dc:36|traits:haunt] save. The haunt can use this reaction any number of times per round, but only once per creature that tries to leave the room. The haunt then rolls initiative, if it hasn't already.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pulled 10 feet into the room.</p>\n<p><strong>Failure</strong> The creature is pulled 15 feet into the room.</p>\n<p><strong>Critical Failure</strong> The creature is pulled 15 feet into the room, knocked prone, and takes [[/r 2d6[bludgeoning]]] damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Broken Rebus Attack",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Ghostly attackers knock the tables about, send dishes flying, and pull fleeing creatures into the room.</p>",
+            "disable": "<p>@Check[type:religion|dc:34|name:Say an Iroran prayer|traits:haunt] (expert) to say an Iroran prayer and put the haunt temporarily to rest, @Check[type:occultism|dc:38|name:Ward Against Future Hauntings|traits:haunt] (master) to create a ward against future hauntings.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "reset": "<p>The haunt deactivates after 1 minute. It re-forms at the same times every day, 7 a.m. and 7 p.m., which is when the monks had their morning and evening meals. If at least two people cook a meal in the kitchen, share a meal in the refectory, and utter a prayer to Irori before the meal, the haunt becomes permanently disabled and doesn't re-form.</p>",
+            "routine": "<p>(1 action) The haunt sends a flurry of objects hurtling across the room. All creatures in the room are battered by the ghostly objects, taking [[/r (3d10+14)[force]]] damage (@Check[type:reflex|dc:36|basic:true] save).</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #166: Despair on Danger Island"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

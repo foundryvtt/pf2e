@@ -1,0 +1,113 @@
+{
+    "_id": "Tmev5DrM9pgZE00u",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "4za9VR0CgR6G0P7F",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Take Captive",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Pathfinder agents enter the electric castle</p>\n<p><strong>Effect</strong> Spectral hag claws emerge from the walls. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "evil",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "In The Witch's Clutches",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "HP is per facet; BT is 22",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 23
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Spectral hag claws reach out from the walls of the gem-like chamber to grab the PCs' souls and pull them into the trap's onyx facets.</p>",
+            "disable": "<p>@Check[type:thievery|dc:28] (expert) or @Check[type:crafting|dc:28](expert) to find the weak spot and crack each facet, or dispel magic (5th level; counteract DC 26) to counteract each facet; the hazard has a number of facets equal to the number of PCs.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "reset": "",
+            "routine": "<p>The hazard gains a number of actions equal to the number of PCs; it loses 1 action each round for each facet that has been disabled. Each claw tears at a different PC, who takes [[/r (2d10+13)[mental]]]{2d10 + 13 mental damage} (basic @Check[type:will|dc:30] save). On a failure, they are @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the claw (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 28). On a critical failure, or on a failure if they are already grabbed, they have their soul ripped from their body, which falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. Each round on their turn, the soul can attempt a @Check[type:intimidation|dc:28], @Check[type:occultism|dc:28], or @Check[type:survival|dc:28] check to fortify itself and return to its body as a three-action activity. The possible outcomes are as follows.</p>\n<hr>\n<p><strong>Critical Success</strong> The soul returns to their body, which loses the unconscious condition.</p>\n<p><strong>Success</strong> The soul returns to their body, which loses the unconscious condition, but gains the grabbed condition.</p>\n<p><strong>Failure</strong> The soul makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The soul makes no progress toward escape and the target takes [[/r (2d10+13)[mental]]]{2d10 + 13 mental damage} until they are reduced to 0 Hit Points, after which they remain in captivity until the trap is defeated.</p>\n<hr>\n<p>Each claw focuses on its target until the target is reduced to 0 Hit Points, after which it takes no action on its turn unless another facet is disabled or its target regains Hit Points.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #4-11: Prisoners of the Electric Castle"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

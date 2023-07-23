@@ -1,0 +1,58 @@
+{
+    "_id": "kPyyZGD5L6b2Kl8C",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Constant Gaze",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your eyes keep a continual watch for dangers from all sides. You can't be flanked by creatures of your level or lower, even when you haven't used Watchful Gaze.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Watchful Gaze"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "self:condition:flat-footed:ignore:flanking",
+                "predicate": [
+                    {
+                        "lte": [
+                            "origin:level",
+                            "self:level"
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flatFootable",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: The Mwangi Expanse"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goloma"
+            ]
+        }
+    },
+    "type": "feat"
+}

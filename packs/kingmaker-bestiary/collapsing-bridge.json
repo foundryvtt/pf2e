@@ -1,0 +1,108 @@
+{
+    "_id": "AXmQ8rUKsJFZUKb6",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "xI9jqkNAsWJ8GrxC",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Collapse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A support is destroyed</p>\n<p><strong>Effect</strong> The bridge collapses. Any creature on the bridge between the red dotted lines falls 30 feet into water or onto land, taking damage as appropriate plus an additional [[/r 5d6[bludgeoning]]] damage (@Check[type:reflex|dc:24|basic:true]) from falling debris; a creature within five feet of the red dotted line can try to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] (@Check[type:reflex|dc:24]) to avoid falling. A creature under the bridge-either directly below it or within ten feet of it-must attempt a @Check[type:reflex|dc:24] save; a creature that's not directly under the bridge improves the result of their saving throw one degree.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes [[/r (2d8 + 9)[bludgeoning]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r (4d8 + 18)[bludgeoning]]] damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (8d8 + 18)[bludgeoning]]] damage, is knocked prone, and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by fallen rubble from the collapsed bridge.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Bridge",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": false,
+            "hardness": 10,
+            "hp": {
+                "details": "For each support",
+                "max": 58,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(or 0 if a PC has analyzed the supports and discovered they are on the verge of collapse)</p>",
+                "value": 25
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>As a pillar collapses, the bridge itself groans and shakes, then crumbles into the river below.</p>",
+            "disable": "<p>Several weeks of repair can rebuild the supports and remove the danger; at the GM's discretion, spells like <em>@UUID[Compendium.pf2e.spells-srd.Item.Wall of Stone]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Wall of Force]</em> can be used to augment the supports more quickly, although these spells are likely out of reach of the PCs at this point.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "reset": "",
+            "routine": "",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Kingmaker"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

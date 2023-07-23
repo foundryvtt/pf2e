@@ -1,0 +1,53 @@
+{
+    "_id": "EEnL4zyCDo4HD6Rn",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Fey Transcendence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You become a powerful fey creature, gaining strengths tied to the First World but also some of the weakness against which all fey must contend. You gain a +2 status bonus to saves against illusion, emotion, and enchantment effects, and you can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on and to make very simple @UUID[Compendium.pf2e.actionspf2e.Item.Request]{Requests} of animals and plants. You regain twice the number of Hit Points when resting in a natural wooded area, such as a forest or jungle. You have weakness to cold iron equal to half your level.</p>\n<hr />\n<p><strong>Special</strong> This feat gains the trait appropriate for your ancestry (human for human, goblin for goblin, etc.).</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Fey Influence"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "cold-iron",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "illusion",
+                    "emotion",
+                    "enchantment"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "POBvoXifa9HaejAg",
+    "img": "systems/pf2e/icons/features/classes/animal.webp",
+    "name": "Animal Order",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You have a strong connection to beasts, and you are allied with a beast companion. You are trained in Athletics. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Animal Companion]{Animal Companion (Druid)} druid feat. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal Animal]</em> order spell. Committing wanton cruelty to animals or killing animals unnecessarily is anathema to your order. (This doesn't prevent you from defending yourself against animals or killing them cleanly for food.)</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "predicate": [
+                    {
+                        "not": "feat:order-explorer:animal-order"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:druid"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Animal Companion"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

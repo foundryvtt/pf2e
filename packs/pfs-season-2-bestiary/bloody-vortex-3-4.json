@@ -1,0 +1,141 @@
+{
+    "_id": "B73Oo8pLdSGKqqOx",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vh6b73Iq4YynHkM4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Invoke Curse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Silaqui rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The ritual vortex begins to draw in nearby creatures. The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CtrAM9aex1pLbos9",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Consuming Maelstrom",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A creature that is pulled into the center square of the vortex (or that chooses to enter it) must attempt a @Check[type:reflex|dc:17] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is ejected safely to a square of their choice within 10 feet of the vortex.</p>\n<p><strong>Success</strong> The creature is ejected safely to a square adjacent to the vortex.</p>\n<p><strong>Failure</strong> The creature takes [[/r (1d6+3)[electricity]]] damage and is moved upward 40 feet.</p>\n<p><strong>Critical Failure</strong> As failure. Additionally, the creature is exposed the raw nature of the sea devil's frenzy and is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (@Check[type:will|dc:17|traits:mental] negates). This is a mental effect.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "divine",
+                        "electricity"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bloody Vortex (3-4)",
+    "prototypeToken": {
+        "name": "Bloody Vortex"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 25,
+                "temp": 0,
+                "value": 25
+            },
+            "stealth": {
+                "details": "",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "",
+            "disable": "<p>Slay Silaqui, or @Check[type:thievery|dc:17|traits:action:disable-a-device] (trained) to pry the gem out of Silaqui followed by disrupting the gem's power by either breaking it (AC 15, Hardness 5, HP 25, BT 13) or using <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (2nd level; counteract DC 15)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "reset": "",
+            "routine": "<p>All creatures within 40 feet of the vortex except Silaqui are drawn toward it. They must attempt either a @Check[type:fortitude|dc:14] save or an @Check[type:athletics|dc:14|traits:action:swim] check to Swim with a DC of 14, with the following results.</p>\n<hr />\n<p><strong>Success</strong> The creature is not moved.</p>\n<p><strong>Failure</strong> The creature is moved 10 feet closer to the center of the vortex. If this causes the creature to reach the center square of the vortex, they are exposed to Consuming Maelstrom.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature is moved 20 feet closer to the center of the vortex.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder Society Scenario #2-06: The Crashing Wave"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "divine",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

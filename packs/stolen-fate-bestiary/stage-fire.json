@@ -1,0 +1,100 @@
+{
+    "_id": "UX7QKytewemOnNeX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "9oQQFmeZHDTcH6Ap",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Erupt in Flame",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>When this encounter begins, the fire erupts in a ring that encircles the entire stage, as shown by the dotted outline on the map. The stage fire then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stage Fire",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>Stealth DC is 0, Initiative modifier is +28</p>",
+                "value": 28
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Flames engulf the opera house's stage.</p>",
+            "disable": "<p>@Check[type:survival|dc:27] to extinguish two adjacent squares of fire (with a critical success extinguishing four adjacent squares); any water spell (such as from <em>@UUID[Compendium.pf2e.spells-srd.Item.Create Water]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Push]</em>) cast at the fire extinguishes two squares automatically, or [[/r 2d4 #Squares]] adjacent squares if the caster of the spell achieves a DC 30 result with a spell attack roll; <em>@UUID[Compendium.pf2e.spells-srd.Item.Quench]</em> instantly extinguishes all fire within its 20‑foot burst.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "reset": "",
+            "routine": "<p>On its turn, the stage fire expands inward and outward by 5 feet, filling all adjacent squares with fire. Creatures within these squares take [[/r 4d6[fire]]] damage (@Check[type:reflex|dc:30|basic:true]), as do any creatures that enter a burning square. This fire damage can be inflicted on a creature only once per turn.</p>\n<p>In addition, a creature that ends its turn in a burning square takes [[/r 8d6[fire]]] damage (@Check[type:reflex|dc:30|basic:true]); on a failed save, that creature also takes [[/r 1d6[persistent,fire]]] damage.</p>",
+            "source": {
+                "author": "",
+                "value": "Pathfinder #190: The Choosing"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fire"
+            ]
+        }
+    },
+    "type": "hazard"
+}

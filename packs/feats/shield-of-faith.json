@@ -1,0 +1,55 @@
+{
+    "_id": "w3qyriA1YnzXaas3",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shield Of Faith",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Residual energy from your domain spells bolsters your defenses. When you spend a Focus Point to cast a domain spell, you gain a +1 status bonus to your AC until the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Domain Initiate"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "label": "Spend a Focus Point on a Domain Spell",
+                "option": "shield-of-faith",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shield-of-faith"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,75 @@
+{
+    "_id": "Wn3DWAXo2TRxrhI6",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Sniper's Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You take an extra moment to carefully sync your aim and breathing, then fire a shot with great accuracy. Make a ranged weapon Strike. You gain a +2 circumstance bonus to this Strike's attack roll and ignore the target's concealment. If you're using a kickback firearm, you don't take the normal circumstance penalty on this Strike for not having the required Strength score or firing without using a stabilizer.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Way of the Sniper"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "snipers-aim",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "snipers-aim",
+                    "item:ranged"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "target:condition:concealed",
+                    "item:ranged"
+                ],
+                "selector": "attack",
+                "text": "PF2E.SpecificRule.SnipersAim.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "snipers-aim"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "kickback",
+                "suppress": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

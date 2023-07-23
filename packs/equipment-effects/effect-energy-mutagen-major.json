@@ -1,0 +1,118 @@
+{
+    "_id": "RIozNOntRJok5ZJt",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/energy-mutagen.webp",
+    "name": "Effect: Energy Mutagen (Major)",
+    "system": {
+        "description": {
+            "value": "<p><strong>Benefit</strong> You gain resistance 20 to the attuned energy type. Whenever you score a hit with a melee weapon, add 2d6 damage of the attuned energy type.</p>\n<p><strong>Drawback</strong> You gain weakness 5 to the other three energy types.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "energy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType",
+                "rollOption": "energy-mutagen"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:acid"
+                    }
+                ],
+                "type": "acid",
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:cold"
+                    }
+                ],
+                "type": "cold",
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:electricity"
+                    }
+                ],
+                "type": "electricity",
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:fire"
+                    }
+                ],
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.energy}",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:melee",
+                    {
+                        "not": "unarmed"
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.energy}",
+                "value": 20
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

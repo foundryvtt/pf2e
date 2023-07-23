@@ -1,0 +1,41 @@
+{
+    "_id": "E10qJgInN8Fx3yhW",
+    "img": "systems/pf2e/icons/spells/enthrall.webp",
+    "name": "Effect: Distracting Frolic",
+    "system": {
+        "description": {
+            "value": "<p>The target ally can roll the save twice and take the better result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "selector": "saving-throw"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

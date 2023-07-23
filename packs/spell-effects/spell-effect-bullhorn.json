@@ -1,0 +1,56 @@
+{
+    "_id": "9yzlmYUdvdQshTDF",
+    "img": "systems/pf2e/icons/spells/bullhorn.webp",
+    "name": "Spell Effect: Bullhorn",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "auditory",
+                    "action:perform",
+                    "terrain:largeVenue"
+                ],
+                "selector": "performance",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:coerce"
+                ],
+                "selector": "intimidation",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

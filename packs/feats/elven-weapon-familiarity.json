@@ -1,0 +1,94 @@
+{
+    "_id": "4NKyZVkmWjDyyIYZ",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Elven Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You favor bows and other elegant weapons. You are trained with @UUID[Compendium.pf2e.equipment-srd.Item.Longbow]{Longbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Composite Longbow]{Composite Longbows}, @UUID[Compendium.pf2e.equipment-srd.Item.Longsword]{Longswords}, @UUID[Compendium.pf2e.equipment-srd.Item.Rapier]{Rapiers}, @UUID[Compendium.pf2e.equipment-srd.Item.Shortbow]{Shortbows}, and @UUID[Compendium.pf2e.equipment-srd.Item.Composite Shortbow]{Composite Shortbows}.</p>\n<p>In addition, you gain access to all uncommon elf weapons. For the purpose of determining your proficiency, martial elf weapons are simple weapons and advanced elf weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-composite-longbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-longsword.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-rapier.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-shortbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-composite-shortbow.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:elf",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedElfWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-elf-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:elf",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialElfWeapons",
+                "sameAs": "simple",
+                "slug": "martial-elf-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

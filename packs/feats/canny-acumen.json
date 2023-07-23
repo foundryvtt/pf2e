@@ -1,0 +1,75 @@
+{
+    "_id": "i4yRvVwvXbGZDsD1",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Canny Acumen",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>Your avoidance or observation is beyond the ken of most in your profession. Choose Fortitude saves, Reflex saves, Will saves, or Perception. You become an expert in your choice. At 17th level, you become a master in your choice.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "value": "system.saves.fortitude.rank"
+                    },
+                    {
+                        "label": "PF2E.SavesReflex",
+                        "value": "system.saves.reflex.rank"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "value": "system.saves.will.rank"
+                    },
+                    {
+                        "label": "PF2E.PerceptionLabel",
+                        "value": "system.attributes.perception.rank"
+                    }
+                ],
+                "flag": "cannyAcumen",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "{item|flags.pf2e.rulesSelections.cannyAcumen}",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 16,
+                            "start": 1,
+                            "value": 2
+                        },
+                        {
+                            "start": 17,
+                            "value": 3
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general"
+            ]
+        }
+    },
+    "type": "feat"
+}

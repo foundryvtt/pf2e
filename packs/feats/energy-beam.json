@@ -1,0 +1,98 @@
+{
+    "_id": "AMbYEv9rUt2fcR7F",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Energy Beam",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can channel your core's power through the magical gem that serves as your eye. You gain an energy beam ranged unarmed attack that deals [[/r 1d4[fire]]] damage. The energy beam has a range increment of 20 feet. On a critical hit, the target takes persistent fire damage equal to the number of weapon damage dice. Your eye beam does not add critical specialization effects.</p>\n<p><strong>Enhancement</strong> You channel greater power. Increase the damage die of your energy beam by one step, from 1d4 to 1d6.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "fire",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "icons/magic/light/projectile-beam-yellow.webp",
+                "key": "Strike",
+                "range": 20,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "slug": "energy-beam-persistent",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "enhancement:energy-beam"
+                ],
+                "selector": "{item|id}-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.EnergyBeam",
+                    "predicate": [
+                        {
+                            "not": "enhancement:energy-beam"
+                        }
+                    ],
+                    "value": "energy-beam"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.EnergyBeam",
+                    "predicate": [
+                        {
+                            "not": "enhancement:energy-beam"
+                        }
+                    ],
+                    "value": "energy-beam"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

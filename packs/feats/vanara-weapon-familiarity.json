@@ -1,0 +1,98 @@
+{
+    "_id": "oQzyeSUlKx6eHcZp",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Vanara Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You favor weapons steeped in vanaran tradition. You gain access to, and are trained with, the bo staff, chakram, katar, panabas, and urumi. In addition, you gain access to all uncommon vanara weapons. For the purpose of determining your proficiency, martial vanara weapons are simple weapons, and advanced vanara weapons are martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-bo-staff.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-chakram.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-panabas.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-katar.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-urumi.rank",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:trait:orc",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedOrcWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-orc-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:vanara",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedVanaraWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-vanara-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:vanara",
+                    "item:category:martial",
+                    {
+                        "not": "item:category:advanced"
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialVanaraWeapons",
+                "sameAs": "simple",
+                "slug": "martial-vanara-weapons"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "vanara"
+            ]
+        }
+    },
+    "type": "feat"
+}

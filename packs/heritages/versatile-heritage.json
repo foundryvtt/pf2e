@@ -1,0 +1,42 @@
+{
+    "_id": "hFBwsVcSnNCJoimo",
+    "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
+    "name": "Versatile Heritage",
+    "system": {
+        "ancestry": {
+            "name": "Human",
+            "slug": "human",
+            "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        },
+        "description": {
+            "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:trait:general"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "versatileHeritage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

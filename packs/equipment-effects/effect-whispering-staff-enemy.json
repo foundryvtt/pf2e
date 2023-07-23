@@ -1,0 +1,49 @@
+{
+    "_id": "NBxTbdCCqmilAxqA",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Whispering Staff (Enemy)",
+    "system": {
+        "description": {
+            "value": "<p>Through the staff's strange whispering, you gain a glimpse into the mind and desires of one creature you can see within 30 feet. Until the end of your next turn, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to you and takes a –2 circumstance penalty to saving throws against your spells.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 20
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Whispering Staff",
+                "predicate": [
+                    "origin"
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex",
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

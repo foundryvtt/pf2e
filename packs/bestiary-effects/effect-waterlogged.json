@@ -1,0 +1,50 @@
+{
+    "_id": "UxNq9uo1GpDYTi5Z",
+    "img": "systems/pf2e/icons/spells/mariners-curse.webp",
+    "name": "Effect: Waterlogged",
+    "system": {
+        "description": {
+            "value": "<p>While waterlogged, the berberoka can use Spray Water, their size grows to Gargantuan, and their Speed is reduced to 15 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "gargantuan"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "swim-speed",
+                "value": 15
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "land-speed",
+                "value": 15
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

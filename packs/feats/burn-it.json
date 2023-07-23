@@ -1,0 +1,77 @@
+{
+    "_id": "sJ7WTLDwAbIA9Elc",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Burn It!",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Fire fascinates you. Your spells and alchemical items that deal fire damage gain a status bonus to damage equal to half the spell's level or one-quarter the item's level (minimum 1). You also gain a +1 status bonus to any @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Fire Damage} you deal.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:alchemical",
+                    "item:damage:type:fire"
+                ],
+                "selector": "strike-damage",
+                "slug": "burn-it-strike",
+                "type": "status",
+                "value": "max(floor(@weapon.level/4), 1)"
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:damage:type:fire"
+                ],
+                "selector": "spell-damage",
+                "slug": "burn-it-spell",
+                "type": "status",
+                "value": "max(floor(@spell.level/2), 1)"
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:damage:type:fire",
+                    "item:damage:persistent:fire",
+                    {
+                        "or": [
+                            "item:trait:alchemical",
+                            "item:type:spell"
+                        ]
+                    }
+                ],
+                "selector": "damage",
+                "slug": "burn-it-persistent",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

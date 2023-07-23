@@ -1,0 +1,131 @@
+{
+    "_id": "qIOKqT93h6CX6V4k",
+    "img": "systems/pf2e/icons/features/classes/complex-simplicity.webp",
+    "name": "Complex Simplicity",
+    "system": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Increase your innovation's weapon damage die by one step (d4 to d6, d6 to d8, d8 to d10, d10 to d12). In addition, it gains one of the following traits of your choice: versatile B, versatile P, or versatile S.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "{actor|flags.pf2e.trackedItems.weaponInnovation}-damage"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitVersatileB",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:bludgeoning",
+                                    "weapon-innovation:trait:versatile-b"
+                                ]
+                            }
+                        ],
+                        "value": "versatile-b"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileP",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:piercing",
+                                    "weapon-innovation:trait:versatile-p"
+                                ]
+                            }
+                        ],
+                        "value": "versatile-p"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileS",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:slashing",
+                                    "weapon-innovation:trait:versatile-s"
+                                ]
+                            }
+                        ],
+                        "value": "versatile-s"
+                    }
+                ],
+                "flag": "versatileTrait",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:bludgeoning",
+                                    "weapon-innovation:trait:versatile-b"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:piercing",
+                                    "weapon-innovation:trait:versatile-p"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "weapon-innovation:damage:type:slashing",
+                                    "weapon-innovation:trait:versatile-s"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.VersatileTrait",
+                "rollOption": "complex-simplicity"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "complex-simplicity:versatile-b",
+                            "complex-simplicity:versatile-p",
+                            "complex-simplicity:versatile-s"
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "{item|flags.pf2e.rulesSelections.versatileTrait}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}
