@@ -31,8 +31,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "meddling:ancestor:skill",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:skill",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:1"
@@ -46,8 +46,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:1"
@@ -61,8 +61,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:1"
@@ -74,10 +74,11 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "class:oracle",
                     {
                         "or": [
-                            "meddling:ancestor:skill",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:skill",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:2"
@@ -89,10 +90,11 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "class:oracle",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:2"
@@ -104,10 +106,11 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "class:oracle",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:2"
@@ -121,8 +124,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "meddling:ancestor:skill",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:skill",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:3"
@@ -136,8 +139,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:3"
@@ -151,8 +154,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
                     "parent:badge:value:3"
@@ -164,12 +167,11 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "nor": [
-                            "cantrip"
-                        ]
-                    },
+                    "class:oracle",
                     "item:duration:0",
+                    {
+                        "not": "item:trait:cantrip"
+                    },
                     {
                         "gte": [
                             "parent:badge:value",
@@ -201,7 +203,14 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "ancestral-influence:martial"
+                    "class:oracle",
+                    "ancestral-influence:martial",
+                    {
+                        "gte": [
+                            "parent:badge:value",
+                            2
+                        ]
+                    }
                 ],
                 "selector": "strike-attack-roll",
                 "slug": "curse-battle-attack",
@@ -211,16 +220,17 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "class:oracle",
+                    "ancestral-influence:martial",
                     {
                         "gte": [
                             "parent:badge:value",
                             2
                         ]
-                    },
-                    "ancestral-influence:martial"
+                    }
                 ],
                 "selector": "strike-damage",
-                "slug": "curse-battle-damage",
+                "slug": "curse-martial-damage",
                 "type": "status",
                 "value": 2
             },
@@ -236,12 +246,13 @@
                     }
                 ],
                 "selector": "strike-damage",
-                "slug": "curse-battle-damage",
+                "slug": "curse-martial-damage",
                 "value": 6
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "class:oracle",
                     {
                         "gte": [
                             "parent:badge:value",
