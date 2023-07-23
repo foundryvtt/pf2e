@@ -107,6 +107,25 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         this.#appendBrowseButton(html);
     }
 
+    /** Overriden so matched actors in a party reveal their party "folder" as well */
+    protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void {
+        super._onSearchFilter(event, query, rgx, html);
+
+        const partyElements = htmlQueryAll(html, ".party");
+        for (const partyEl of partyElements) {
+            const hasMatch = query !== "" && htmlQueryAll(html, ".actor").some((li) => li.style.display !== "none");
+            if (hasMatch) {
+                partyEl.style.display = "flex";
+                partyEl.classList.remove("collapsed");
+                const partyHeader = htmlQuery(partyEl, ".party-header");
+                if (partyHeader) partyHeader.style.display = "flex";
+            } else {
+                const partyId = partyEl.dataset.entryId ?? "";
+                partyEl.classList.toggle("collapsed", !this.extraFolders[partyId]);
+            }
+        }
+    }
+
     protected override _onDragStart(event: ElementDragEvent): void {
         super._onDragStart(event);
 
