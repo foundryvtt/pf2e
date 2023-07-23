@@ -63,6 +63,8 @@ abstract class IWRData<TType extends IWRType> {
                 return ["damage:component:critical"];
             case "damage-from-spells":
                 return ["damage", "item:type:spell"];
+            case "disease":
+                return ["item:trait:disease"];
             case "emotion":
                 return ["item:type:effect", "item:trait:emotion"];
             case "energy":
