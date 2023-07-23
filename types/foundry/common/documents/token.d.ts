@@ -12,6 +12,10 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
 
     readonly actorLink: boolean;
 
+    x: number;
+
+    y: number;
+
     displayName: TokenDisplayMode;
 
     disposition: TokenDisposition;

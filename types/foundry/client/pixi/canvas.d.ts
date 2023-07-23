@@ -3,9 +3,11 @@ export {};
 declare global {
     class Canvas<
         TScene extends Scene = Scene,
-        TAmbientLight extends AmbientLight = AmbientLight,
-        TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
-        TToken extends Token = Token,
+        TAmbientLight extends AmbientLight<AmbientLightDocument<TScene>> = AmbientLight<AmbientLightDocument<TScene>>,
+        TMeasuredTemplate extends MeasuredTemplate<MeasuredTemplateDocument<TScene>> = MeasuredTemplate<
+            MeasuredTemplateDocument<TScene>
+        >,
+        TToken extends Token<TokenDocument<TScene>> = Token<TokenDocument<TScene>>,
         TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup
     > {
         constructor();
