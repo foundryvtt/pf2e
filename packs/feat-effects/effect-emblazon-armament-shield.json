@@ -17,9 +17,24 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "armor"
+                    ]
+                },
+                "flag": "effectEmblazonArmamentShield",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Armor"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectEmblazonArmamentShield}"
+                ],
+                "property": "hardness",
                 "type": "status",
                 "value": 1
             }
