@@ -66,6 +66,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
                 predicate: this.predicate,
                 outcome: this.outcome,
                 visibility: this.visibility,
+                rule: this,
             });
             const notes = (this.actor.synthetics.rollNotes[selector] ??= []);
             notes.push(note);
