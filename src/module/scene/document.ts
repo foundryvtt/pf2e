@@ -1,12 +1,14 @@
+import Document, { _Document } from "types/foundry/common/abstract/document.js";
+import { DataSchema } from "types/foundry/common/data/fields.js";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
-import { SceneConfigPF2e } from "./sheet.ts";
+import { checkAuras } from "./helpers.ts";
 import {
     AmbientLightDocumentPF2e,
     MeasuredTemplateDocumentPF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "./index.ts";
-import { checkAuras } from "./helpers.ts";
+import { SceneConfigPF2e } from "./sheet.ts";
 
 class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
@@ -83,6 +85,29 @@ class ScenePF2e extends Scene {
             for (const token of canvas.tokens.placeables) {
                 token.auras.draw();
             }
+        }
+    }
+
+    protected override _onDeleteDescendantDocuments(
+        parent: this,
+        collection: string,
+        documents: Document<_Document | null, DataSchema>[],
+        ids: string[],
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+
+        // Upstream will only refresh lighting if the delete token's source is emitting light: handle cases where
+        // the token's prepared data light data was overridden from TokenLight REs.
+        const tokensHadSyntheticLights = documents.some(
+            (d) =>
+                d instanceof TokenDocumentPF2e &&
+                !(d._source.light.dim || d._source.light.bright) &&
+                d.actor?.synthetics.tokenOverrides.light
+        );
+        if (tokensHadSyntheticLights) {
+            canvas.perception.update({ initializeLighting: true, initializeVision: true });
         }
     }
 }

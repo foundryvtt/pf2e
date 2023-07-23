@@ -1,13 +1,13 @@
 import { resetActors } from "@actor/helpers.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
-import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
+import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { TokenPF2e } from "@module/canvas/token/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { EncounterPF2e } from "@module/encounter/index.ts";
 import { StatusEffectIconTheme } from "@scripts/config/index.ts";
-import Translations from "static/lang/en.json";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
+import Translations from "static/lang/en.json";
 
 const debouncedRender = foundry.utils.debounce(() => {
     canvas.tokens.hud.render();
