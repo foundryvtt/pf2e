@@ -2,6 +2,7 @@ import { PredicateField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, sluggify } from "@util";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
+import { AELikeDataPrepPhase, AELikeRuleElement } from "./ae-like.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
@@ -68,6 +69,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 validationError: "must be a string consisting of only lowercase letters, numbers, and hyphens.",
             }),
             option: new fields.StringField({ required: true, nullable: false, blank: false }),
+            phase: new fields.StringField({
+                required: false,
+                nullable: false,
+                choices: deepClone(AELikeRuleElement.PHASES),
+                initial: "applyAEs",
+            }),
             suboptions: new fields.ArrayField(
                 new fields.SchemaField({
                     label: new fields.StringField({
@@ -131,6 +138,18 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
     }
 
+    override onApplyActiveEffects(): void {
+        if (this.phase === "applyAEs") this.#setRollOption();
+    }
+
+    override beforePrepareData(): void {
+        if (this.phase === "beforeDerived") this.#setRollOption();
+    }
+
+    override afterPrepareData(): void {
+        if (this.phase === "afterDerived") this.#setRollOption();
+    }
+
     #resolveOption({ appendSuboption = true } = {}): string {
         const baseOption = this.resolveInjectedProperties(this.option)
             .replace(/[^-:\w]/g, "")
@@ -154,7 +173,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
     }
 
-    override onApplyActiveEffects(): void {
+    #setRollOption(): void {
         const optionSet = new Set(
             [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat()
         );
@@ -162,10 +181,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         const { rollOptions } = this.actor;
         const domainRecord = (rollOptions[this.domain] ??= {});
-        const option = this.#resolveOption();
         const baseOption = (this.option = this.#resolveOption({ appendSuboption: false }));
 
-        if (!option || !baseOption) {
+        if (!baseOption) {
             this.failValidation(
                 'The "option" property must be a string consisting of only letters, numbers, colons, and hyphens'
             );
@@ -177,29 +195,33 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 .flatMap((key: string) => {
                     return {
                         key,
-                        count: Number(new RegExp(`^${option}:(\\d+)$`).exec(key)?.[1]),
+                        count: Number(new RegExp(`^${baseOption}:(\\d+)$`).exec(key)?.[1]),
                     };
                 })
                 .find((keyAndCount) => !!keyAndCount.count);
             if (existing) {
                 delete domainRecord[existing.key];
-                domainRecord[`${option}:${existing.count + 1}`] = true;
+                domainRecord[`${baseOption}:${existing.count + 1}`] = true;
             } else {
-                domainRecord[`${option}:1`] = true;
+                domainRecord[`${baseOption}:1`] = true;
             }
         } else {
             const suboptions = this.suboptions.filter((s) => s.predicate.test(optionSet));
             if (suboptions.length > 0 && !suboptions.some((s) => s.selected)) {
-                // If predicate testing eliminated the selected suboption, select the first.
+                // If predicate testing eliminated the selected suboption, select the first and deselect the rest.
                 suboptions[0].selected = true;
+                for (const otherSuboption of this.suboptions) {
+                    if (otherSuboption !== suboptions[0]) otherSuboption.selected = false;
+                }
             } else if (this.suboptions.length > 0 && suboptions.length === 0) {
                 // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle.
                 return;
             }
 
+            const fullOption = this.#resolveOption();
             const value = this.resolveValue();
             if (value) {
-                domainRecord[option] = value;
+                domainRecord[fullOption] = value;
                 // Also set option without the suboption appended
                 domainRecord[baseOption] = value;
             }
@@ -221,7 +243,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     toggle.enabled = !this.disabledIf.test(rollOptions);
                     if (!toggle.enabled && !this.alwaysActive && typeof this.disabledValue === "boolean") {
                         toggle.checked = this.disabledValue;
-                        if (!this.disabledValue) delete domainRecord[option];
+                        if (!this.disabledValue) delete domainRecord[fullOption];
                     }
                 }
                 this.actor.synthetics.toggles.push(toggle);
@@ -316,6 +338,7 @@ interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, Model
 type RollOptionSchema = RuleElementSchema & {
     scope: StringField<string, string, false, false, true>;
     domain: StringField<string, string, true, false, true>;
+    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
     option: StringField<string, string, true, false, false>;
     /** Suboptions for a toggle, appended to the option string */
     suboptions: ArrayField<
