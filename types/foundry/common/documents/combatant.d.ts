@@ -1,18 +1,18 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
 import type { BaseCombat, BaseUser } from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
 /** The Combat document model. */
-export default class BaseCombatant<TParent extends BaseCombat | null> extends Document<TParent> {
+export default class BaseCombatant<TParent extends BaseCombat | null> extends Document<TParent, CombatantSchema> {
     static override get metadata(): CombatantMetadata;
-
-    name: string;
-    flags: DocumentFlags;
 
     /** Is a user able to update an existing Combatant? */
     protected static _canUpdate(user: BaseUser, doc: BaseCombatant<BaseCombat | null>, data: CombatantSource): boolean;
 }
 
-export default interface BaseCombatant<TParent extends BaseCombat | null> extends CombatantSource, Document<TParent> {
+export default interface BaseCombatant<TParent extends BaseCombat | null>
+    extends Document<TParent, CombatantSchema>,
+        ModelPropsFromSchema<CombatantSchema> {
     readonly _source: CombatantSource;
 }
 
@@ -28,25 +28,28 @@ interface CombatantMetadata extends DocumentMetadata {
     };
 }
 
-/**
- * The data schema for a Combat document.
- * @property _id              The _id which uniquely identifies this Combatant embedded document
- * @property [tokenId]        The _id of a Token associated with this Combatant
- * @property [name]           A customized name which replaces the name of the Token in the tracker
- * @property [img]            A customized image which replaces the Token image in the tracker
- * @property [initiative]     The initiative score for the Combatant which determines its turn order
- * @property [hidden=false]   Is this Combatant currently hidden?
- * @property [defeated=false] Has this Combatant been defeated?
- * @property [flags={}]       An object of optional key/value flags
- */
-export interface CombatantSource {
-    _id: string | null;
-    actorId: string;
-    sceneId: string;
-    tokenId: string;
-    img: VideoFilePath;
-    initiative: number | null;
-    hidden: boolean;
-    defeated: boolean;
-    flags: DocumentFlags;
-}
+/** The data schema for a Combat document. */
+type CombatantSchema = {
+    /** The _id which uniquely identifies this Combatant embedded document */
+    _id: fields.DocumentIdField;
+    /** The _id of an Actor associated with this Combatant */
+    actorId: fields.ForeignDocumentField<string>;
+    /** The _id of a Token associated with this Combatant */
+    tokenId: fields.ForeignDocumentField<string>;
+    /** A customized name which replaces the name of the Token in the tracker */
+    sceneId: fields.ForeignDocumentField<string>;
+    /** A customized image which replaces the Token image in the tracker */
+    name: fields.StringField<string, string, false, false, true>;
+    /** A customized image which replaces the Token image in the tracker */
+    img: fields.FilePathField<ImageFilePath>;
+    /** The initiative score for the Combatant which determines its turn order */
+    initiative: fields.NumberField;
+    /** Is this Combatant currently hidden? */
+    hidden: fields.BooleanField;
+    /** Has this Combatant been defeated? */
+    defeated: fields.BooleanField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+};
+
+type CombatantSource = SourceFromSchema<CombatantSchema>;
