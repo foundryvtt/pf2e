@@ -11,7 +11,6 @@ import { sluggify } from "@util";
 
 class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
-    override slug: string;
 
     static override defineSchema(): MartialProficiencySchema {
         const { fields } = foundry.data;
@@ -59,6 +58,8 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
 interface MartialProficiencyRuleElement
     extends RuleElementPF2e<MartialProficiencySchema>,
         ModelPropsFromSchema<MartialProficiencySchema> {
+    slug: string;
+
     get actor(): CharacterPF2e;
 }
 
