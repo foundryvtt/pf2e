@@ -17,9 +17,7 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
         return {
             ...sheetData,
             hasSidebar: true,
-            itemType: hasLevel
-                ? game.i18n.localize(this.item.isFeat ? "PF2E.Item.Feat.LevelLabel" : "PF2E.LevelLabel")
-                : null,
+            itemType: hasLevel ? game.i18n.localize(this.item.levelLabel) : null,
             categories: KINGMAKER_CATEGORIES,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
