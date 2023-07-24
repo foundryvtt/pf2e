@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
+import { ActionTrait } from "@item/action/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -172,6 +173,10 @@ export const InlineRollLinks = {
                                     : null;
                             })();
                             const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
+                            // Get actual traits and include as such
+                            const traits = isSavingThrow
+                                ? []
+                                : parsedTraits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
 
                             statistic.roll({
                                 ...eventRollParams,
@@ -180,6 +185,7 @@ export const InlineRollLinks = {
                                 dc,
                                 target: !isSavingThrow && dc?.statistic ? targetActor : null,
                                 item,
+                                traits,
                             });
                         }
                     }

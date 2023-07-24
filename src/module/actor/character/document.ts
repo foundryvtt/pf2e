@@ -44,7 +44,7 @@ import {
     PhysicalItemPF2e,
     WeaponPF2e,
 } from "@item";
-import { ActionTrait } from "@item/action/data.ts";
+import { ActionTrait } from "@item/action/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
 import { getPropertyRuneStrikeAdjustments, getResilientBonus } from "@item/physical/runes.ts";

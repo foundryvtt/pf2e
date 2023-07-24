@@ -1,4 +1,4 @@
-import { ActionTrait } from "@item/action/index.ts";
+import { ActionTrait } from "@item/action/types.ts";
 import { ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
 import { SpellTrait } from "@item/spell/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
