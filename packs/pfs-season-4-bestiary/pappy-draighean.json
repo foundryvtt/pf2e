@@ -1,5 +1,6 @@
 {
-    "_id": "R0YrD0izubtQYbTU",
+    "_id": "1G589gnuWGIOdrou",
+    "folder": "FY2jAlHZq7EKNTzq",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -96,9 +97,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": 18,
+                    "dc": 20,
                     "mod": 0,
-                    "value": 10
+                    "value": 12
                 },
                 "tradition": {
                     "value": "primal"
@@ -1295,7 +1296,7 @@
         {
             "_id": "1A17VJOGWG0BFypA",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
+            "name": "Staff",
             "sort": 1300000,
             "system": {
                 "attack": {
@@ -1305,18 +1306,37 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 7
+                    "value": 9
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "1d6+3",
+                        "damage": "1d4+5",
                         "damageType": "bludgeoning"
                     }
                 },
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandDd8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1428,7 +1448,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a leprechaun uses their innate spells to deceive, trick, or humiliate a creature, the spell DC increases to 20 and the attack modifier to +11.</p>"
+                    "value": "<p>When a leprechaun uses their innate spells to deceive, trick, or humiliate a creature, the spell DC increases to 22 and the attack modifier to +13.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1484,7 +1504,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 8
+                    "value": 10
                 },
                 "proficient": {
                     "value": 0
@@ -1507,7 +1527,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 9
+                    "value": 11
                 },
                 "proficient": {
                     "value": 0
@@ -1530,7 +1550,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -1553,7 +1573,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -1576,7 +1596,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 9
+                    "value": 11
                 },
                 "proficient": {
                     "value": 0
@@ -1599,7 +1619,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 8
+                    "value": 10
                 },
                 "proficient": {
                     "value": 0
@@ -1613,7 +1633,7 @@
             "type": "lore"
         }
     ],
-    "name": "Leprechaun",
+    "name": "Pappy Draighean",
     "system": {
         "abilities": {
             "cha": {
@@ -1638,7 +1658,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 20
             },
             "adjustment": null,
             "allSaves": {
@@ -1646,15 +1666,15 @@
             },
             "hp": {
                 "details": "",
-                "max": 25,
+                "max": 40,
                 "temp": 0,
-                "value": 25
+                "value": 40
             },
             "initiative": {
                 "statistic": "perception"
             },
             "perception": {
-                "value": 11
+                "value": 13
             },
             "speed": {
                 "otherSpeeds": [],
@@ -1665,15 +1685,15 @@
             "alignment": {
                 "value": "CN"
             },
-            "blurb": "",
+            "blurb": "Variant leprechaun",
             "creatureType": "Fey",
             "level": {
-                "value": 2
+                "value": 3
             },
             "privateNotes": "",
             "publicNotes": "<p>Leprechauns are mostly jovial tricksters who prefer mischief over conflict. They fill their days with as much fun, wine, and food as possible. Mostly found in forested regions, leprechauns respect nature and those who protect it.</p>\n<p>Leprechauns do not attack on sight. Rather, they engage in conversation and try to charm, cajole, or trick those they meet into doing favors for them or freely giving over a treasured item, usually in return for illusory wealth or false promises of wealth and success. These small tricksters are masters at discerning the desires of those they meet-a knack that puts them in a powerful position when bargaining for goods or favors. They aren't above turning people against each other for their own benefit but generally not to an extent that causes harm.</p>\n<p>In most cases, a leprechaun doesn't keep a purloined possession for long. The leprechaun most often returns such stolen prizes just in time to defuse tensions, often as they point out the humor of the situation, hoping to share their amusement and mirth with the victim. In cases where a leprechaun's trick goes too far and results in an incensed victim, the leprechaun quickly flees the conflict rather than engage in combat. This willingness to return stolen goods or to flee from battles fades as leprechauns grow older. Ancient leprechauns who have lived for thousands of years often spiral into dark bitterness and increasingly use their powers and illusions to lure those who offend them or fail to appreciate a joke into danger... or even death.</p>",
             "source": {
-                "value": "Pathfinder Bestiary 2"
+                "value": "Pathfinder Society Scenario #4-16: Dacilane Academy's First Great Prank War"
             }
         },
         "resources": {
@@ -1685,15 +1705,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 8
+                "value": 10
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 11
+                "value": 13
             },
             "will": {
                 "saveDetail": "",
-                "value": 10
+                "value": 12
             }
         },
         "traits": {
@@ -1708,7 +1728,7 @@
                     "sylvan"
                 ]
             },
-            "rarity": "common",
+            "rarity": "unique",
             "senses": {
                 "value": "low-light vision"
             },
