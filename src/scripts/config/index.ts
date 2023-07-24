@@ -1077,6 +1077,7 @@ export const PF2ECONFIG = {
         dziriak: "PF2E.LanguageDziriak",
         ekujae: "PF2E.LanguageEkujae",
         "elder-thing": "PF2E.LanguageElderThing",
+        empyrean: "PF2E.LanguageEmpyrean",
         erutaki: "PF2E.LanguageErutaki",
         formian: "PF2E.LanguageFormian",
         garundi: "PF2E.LanguageGarundi",
