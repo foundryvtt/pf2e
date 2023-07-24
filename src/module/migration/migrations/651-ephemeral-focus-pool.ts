@@ -108,7 +108,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
-        const systemData: { resources: { focus?: { max?: number; "-=max"?: null } } } = source.system;
+        const systemData: { resources: { focus?: { max?: unknown; "-=max"?: null } } } = source.system;
         systemData.resources ??= {};
 
         const resources = systemData.resources;

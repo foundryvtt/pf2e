@@ -141,7 +141,7 @@ interface ActorTraitsSource<TTrait extends string> {
     value: TTrait[];
     /** The rarity of the actor (common, uncommon, etc.) */
     rarity?: Rarity;
-    /** The character size (such as 'med'). */
+    /** The actor size (such as 'med'). */
     size?: { value: Size };
 }
 

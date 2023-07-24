@@ -61,7 +61,7 @@ function remove(actor: CharacterPF2e, event: MouseEvent): void {
         content: `<p>${message}</p>`,
         defaultYes: false,
         yes: () => {
-            if (!(key in actor._source.system.martial)) return;
+            if (!(key in (actor._source.system.martial ?? {}))) return;
             actor.update({ [`system.martial.-=${key}`]: null });
         },
     });
