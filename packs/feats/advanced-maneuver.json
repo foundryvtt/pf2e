@@ -34,31 +34,22 @@
             {
                 "adjustName": false,
                 "choices": {
-                    "postFilter": [
+                    "filter": [
                         {
                             "lte": [
                                 "item:level",
                                 {
                                     "div": [
-                                        "base-item:location:level",
+                                        "parent:location:level",
                                         2
                                     ]
                                 }
                             ]
                         },
-                        {
-                            "lte": [
-                                "item:level",
-                                {
-                                    "div": [
-                                        "self:level",
-                                        2
-                                    ]
-                                }
-                            ]
-                        }
+                        "item:category:class",
+                        "item:trait:fighter"
                     ],
-                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"fighter\"}}"
+                    "itemType": "feat"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Multiclass.Prompt.AdvancedMulticlassFeat"
