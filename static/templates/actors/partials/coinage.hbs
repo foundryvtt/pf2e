@@ -8,15 +8,28 @@
             </li>
         {{/each}}
         {{#if editable}}
-            <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
-                <button type="button" data-action="add-coins"><i class="fa-solid fa-plus fa-fw"></i></button>
+            <li>
+                <button type="button" data-action="add-coins" title="{{localize "PF2E.AddCoinsTitle"}}">
+                    <i class="fa-solid fa-plus fa-fw"></i>
+                </button>
             </li>
-            <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
-                <button type="button" data-action="remove-coins"><i class="fa-solid fa-minus fa-fw"></i></button>
+            <li>
+                <button type="button" data-action="remove-coins" title="{{localize "PF2E.RemoveCoinsTitle"}}">
+                    <i class="fa-solid fa-minus fa-fw"></i>
+                </button>
             </li>
             {{#if (or isLoot (eq @root.document.type "character"))}}
-                <li class="sell-all-treasure" title="{{localize "PF2E.SellAllTreasureTitle"}}">
-                    <button type="button" data-action="sell-all-treasure"><i class="fa-solid fa-coins fa-fw"></i></button>
+                <li title="{{localize "PF2E.SellAllTreasureTitle"}}">
+                    <button type="button" data-action="sell-all-treasure">
+                        <i class="fa-solid fa-coins fa-fw"></i>
+                    </button>
+                </li>
+            {{/if}}
+            {{#if canDistributeCoins}}
+                <li>
+                    <button type="button" data-action="distribute-coins" title="{{localize "PF2E.Actor.Inventory.DistributeCoins"}}">
+                        <i class="fa-solid fa-share-all fa-fw"></i>
+                    </button>
                 </li>
             {{/if}}
         {{/if}}

@@ -18,7 +18,11 @@ interface PopupFormData extends FormData {
 /**
  * @category Other
  */
-export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
+export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeCoinsOptions> {
+    constructor(actor: ActorPF2e, options: Partial<DistributeCoinsOptions> = {}) {
+        super(actor, options);
+    }
+
     static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "distribute-coins";
@@ -27,6 +31,24 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         options.template = "systems/pf2e/templates/actors/distribute-coins.hbs";
         options.width = "auto";
         return options;
+    }
+
+    override async getData(options?: Partial<DistributeCoinsOptions>): Promise<PopupData> {
+        const sheetData: PopupData = await super.getData(options);
+        const playerActors = (options?.recipients ?? game.actors.contents).filter(
+            (a) =>
+                a.hasPlayerOwner &&
+                a.isOfType("character") &&
+                !a.isToken &&
+                !a.system.traits.value.some((t) => ["minion", "eidolon"].includes(t))
+        );
+        sheetData.actorInfo = playerActors.map((a) => ({
+            id: a.id,
+            name: a.name,
+            checked: game.users.players.some((u) => u.active && u.character?.id === a.id),
+        }));
+
+        return sheetData;
     }
 
     override async _updateObject(_event: Event, formData: Record<string, unknown> & PopupFormData): Promise<void> {
@@ -104,16 +126,9 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         options.updateData = mergeObject(options.updateData ?? {}, { actorIds: actorIds });
         return super._onSubmit(event, options);
     }
+}
 
-    override async getData(): Promise<PopupData> {
-        const sheetData: PopupData = await super.getData();
-        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.isOfType("character"));
-        sheetData.actorInfo = playerActors.map((actor) => ({
-            id: actor.id,
-            name: actor.name,
-            checked: game.users.players.some((user) => user.active && user.character?.id === actor.id),
-        }));
-
-        return sheetData;
-    }
+interface DistributeCoinsOptions extends FormApplicationOptions {
+    /** An optional initial list of recipients to receive coins */
+    recipients?: ActorPF2e[];
 }

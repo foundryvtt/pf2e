@@ -13,6 +13,7 @@ import { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
+import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -55,6 +56,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     override async getData(options?: ActorSheetOptions): Promise<PartySheetData> {
         const base = await super.getData(options);
         const members = this.actor.members;
+        const canDistributeCoins =
+            game.user.isGM &&
+            this.isEditable &&
+            this.actor.inventory.coins.copperValue > 0 &&
+            members.some(
+                (m) =>
+                    m.hasPlayerOwner &&
+                    m.isOfType("character") &&
+                    !m.system.traits.value.some((t) => ["minion", "eidolon"].includes(t))
+            );
 
         return {
             ...base,
@@ -73,6 +84,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .map((actor) => actor.inventory.bulk.value)
                     .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
             },
+            canDistributeCoins,
             explorationSummary: {
                 speed: this.actor.system.attributes.speed.value,
                 activities:
@@ -198,6 +210,27 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return this.actor.members.filter((m): m is CreaturePF2e => !!m?.system.traits.languages?.value.includes(slug));
     }
 
+    protected setSummaryView(view: string): void {
+        const summary = htmlQuery(this.element[0], "[data-tab=overview] .summary");
+        if (!summary) return;
+
+        const viewElements = htmlQueryAll(summary, "[data-view]:not([data-action=change-view])");
+        for (const element of viewElements) {
+            element.hidden = view !== element.dataset.view;
+        }
+
+        // Add active css classes to the buttons (for styling purposes only)
+        for (const button of htmlQueryAll(summary, "[data-action=change-view]")) {
+            button.classList.toggle("active", button.dataset.view === view);
+        }
+
+        this.currentSummaryView = view;
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
@@ -289,6 +322,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             $(skillTag).tooltipster({ content });
         }
 
+        htmlQuery(html, "button[data-action=distribute-coins]")?.addEventListener("click", () => {
+            new DistributeCoinsPopup(this.actor, { recipients: this.actor.members }).render(true);
+        });
+
         htmlQuery(html, "[data-action=clear-exploration]")?.addEventListener("click", async () => {
             await Promise.all(this.actor.members.map((m) => m.update({ "system.exploration": [] })));
             ui.notifications.info("PF2E.Actor.Party.ClearActivities.Complete", { localize: true });
@@ -297,23 +334,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
             game.pf2e.actions.restForTheNight({ event, actors: this.actor.members });
         });
-    }
-
-    protected setSummaryView(view: string): void {
-        const summary = htmlQuery(this.element[0], "[data-tab=overview] .summary");
-        if (!summary) return;
-
-        const viewElements = htmlQueryAll(summary, "[data-view]:not([data-action=change-view])");
-        for (const element of viewElements) {
-            element.hidden = view !== element.dataset.view;
-        }
-
-        // Add active css classes to the buttons (for styling purposes only)
-        for (const button of htmlQueryAll(summary, "[data-action=change-view]")) {
-            button.classList.toggle("active", button.dataset.view === view);
-        }
-
-        this.currentSummaryView = view;
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */

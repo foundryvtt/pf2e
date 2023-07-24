@@ -76,42 +76,37 @@
         }
 
         .currency-image {
+            @include gold-border;
             height: 24px;
             width: 24px;
-            @include gold-border;
             background-size: cover !important;
         }
     }
 
-    .add-coins-popup,
-    .remove-coins-popup,
-    .sell-all-treasure {
-        > button {
-            @include flex-center;
+    li > button {
+        @include flex-center;
+        @include p-reset;
+        background-color: var(--tertiary);
+        border-radius: 1px;
+        border: none;
+        box-shadow: 0 0 0 1px rgba(black, 0.25),
+                    inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+        color: rgba(black, 0.75);
+        font-size: var(--font-size-13);
+        font-weight: 600;
+        height: 24px;
+        line-height: 1;
+        margin-left: 2px;
+        width: 30px;
+
+        > i {
             @include p-reset;
-            line-height: 1;
-            color: rgba(black, 0.75);
-            background-color: var(--tertiary);
-            border: none;
-            border-radius: 1px;
-            box-shadow: 0 0 0 1px rgba(black, 0.25),
-                inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+        }
 
-            width: 30px;
-            height: 24px;
-            font-size: var(--font-size-13);
-            font-weight: 600;
-            margin-left: 2px;
-
-            > i {
-                @include p-reset;
-            }
-
-            &:hover {
-                background-color: var(--primary);
-                color: white;
-                cursor: pointer;
-            }
+        &:hover:not(:disabled) {
+            background-color: var(--primary);
+            color: white;
+            cursor: pointer;
         }
     }
 }
