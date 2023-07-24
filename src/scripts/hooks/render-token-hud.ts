@@ -21,7 +21,7 @@ export const RenderTokenHUD = {
         const { actor, scene } = token;
         const actionIcon = ((): HTMLImageElement => {
             const imgElement = document.createElement("img");
-            imgElement.src = "systems/pf2e/static/icons/other/enter-exit.svg";
+            imgElement.src = "systems/pf2e/icons/other/enter-exit.svg";
             const willRetrieve = actor.members.some((m) => m.getActiveTokens(true, true).length > 0);
             imgElement.className = willRetrieve ? "retrieve" : "deposit";
             imgElement.title = game.i18n.localize(
