@@ -1,5 +1,5 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { ActorSource } from "./actor.d.ts";
+import type { ActorDeltaSource } from "./actor-delta.d.ts";
 import type { BaseActorDelta, BaseScene, BaseUser } from "./module.d.ts";
 
 /**
@@ -80,12 +80,8 @@ export default interface BaseToken<TParent extends BaseScene | null = BaseScene 
  * @property [displayName=0]      The display mode of the Token nameplate, from CONST.TOKEN_DISPLAY_MODES
  * @property actorId              The _id of an Actor document which this Token represents
  * @property [actorLink=false]    Does this Token uniquely represent a singular Actor, or is it one of many?
- * @property [actorData]          Token-level data which overrides the base data of the associated Actor
  * @property [width=1]            The width of the Token in grid units
  * @property [height=1]           The height of the Token in grid units
- * @property [scale=1]            A scale factor applied to the Token image, between 0.25 and 3
- * @property [mirrorX=false]      Flip the Token image horizontally?
- * @property [mirrorY=false]      Flip the Token image vertically?
  * @property [x=0]                The x-coordinate of the top-left corner of the Token
  * @property [y=0]                The y-coordinate of the top-left corner of the Token
  * @property [elevation=0]        The vertical elevation of the Token, in distance units
@@ -95,14 +91,7 @@ export default interface BaseToken<TParent extends BaseScene | null = BaseScene 
  * @property [overlayEffect]      A single icon path which is displayed as an overlay on the Token
  * @property [hidden=false]       Is the Token currently hidden from player view?
  * @property [vision]             Is this Token a source of vision?
- * @property [dimSight=0]         How far in distance units the Token can naturally see as if in dim light
- * @property [brightSight=0]      How far in distance units the Token can naturally see as if in bright light
- * @property [sightAngle=360]     The angle at which this Token is able to see, if it has vision
  * @property [light]              The angle at which this Token is able to see, if it has vision
- * @property [dimLight=0]         How far in distance units this Token emits dim light
- * @property [brightLight=0]      How far in distance units this Token emits bright light
- * @property [lightAngle=360]     The angle at which this Token is able to emit light
- * @property [lightAnimation]     A data object which configures token light animation settings
  * @property [disposition=-1]     A displayed Token disposition from CONST.TOKEN_DISPOSITIONS
  * @property [displayBars=0]      The display mode of Token resource bars, from CONST.TOKEN_DISPLAY_MODES
  * @property [bar1]               The configuration of the Token's primary resource bar
@@ -113,17 +102,9 @@ export interface TokenSource extends TokenLightData {
     _id: string;
     name: string;
 
-    // Navigation
-    active: boolean;
-    navigation: boolean;
-    navOrder: number;
-    navName: string;
-
     actorId: string | null;
     actorLink: boolean;
-    delta: DeepPartial<ActorSource> | null;
-    mirrorX: boolean;
-    mirrorY: boolean;
+    delta: ActorDeltaSource;
     height: number;
     width: number;
     x: number;
@@ -133,12 +114,19 @@ export interface TokenSource extends TokenLightData {
     effects: VideoFilePath[];
     overlayEffect: string | undefined;
     alpha: number;
-    vision: boolean;
-    dimSight: number;
-    brightSight: number;
-    sightAngle: number;
     light: foundry.data.LightSource;
     hidden: boolean;
+    sight: {
+        enabled: boolean;
+        range: number;
+        angle: number;
+        color: HexColorString;
+        attenuation: number;
+        brightness: number;
+        saturation: number;
+        contrast: number;
+        visionMode: string;
+    };
     texture: {
         src: VideoFilePath;
         scaleX: number;
@@ -148,8 +136,6 @@ export interface TokenSource extends TokenLightData {
         rotation: number | null;
         tint: `#${string}`;
     };
-
-    lightAnimation: foundry.data.AnimationData;
     disposition: TokenDisposition;
     displayName: TokenDisplayMode;
     displayBars: TokenDisplayMode;

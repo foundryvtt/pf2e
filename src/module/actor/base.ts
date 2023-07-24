@@ -534,13 +534,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.prototypeToken.actorLink = true;
-                    merged.prototypeToken.vision = true;
+                    merged.prototypeToken.sight = { enabled: true };
                     break;
                 case "loot":
-                case "party":
                     // Make loot actors linked and interactable
-                    merged.prototypeToken.actorLink = true;
                     merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
+                    merged.prototypeToken.actorLink = true;
+                    merged.prototypeToken.sight = { enabled: false };
+                    break;
+                case "party":
+                    // Party actors are linked and have observer ownership so that players can see during exploration
+                    merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
+                    merged.prototypeToken.actorLink = true;
+                    merged.prototypeToken.sight = { enabled: true, range: 1 };
                     break;
             }
 
