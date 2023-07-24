@@ -24,7 +24,35 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "parent:location:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        },
+                        "item:category:class",
+                        "item:trait:psychic"
+                    ],
+                    "itemType": "feat"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedThoughtform}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Dark Archive"
         },

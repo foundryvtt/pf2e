@@ -24,7 +24,35 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                {
+                                    "div": [
+                                        "parent:location:level",
+                                        2
+                                    ]
+                                }
+                            ]
+                        },
+                        "item:category:class",
+                        "item:trait:sorcerer"
+                    ],
+                    "itemType": "feat"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedBloodPotency}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
