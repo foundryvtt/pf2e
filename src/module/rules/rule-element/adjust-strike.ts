@@ -1,6 +1,6 @@
 import { ActorType } from "@actor/data/index.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/action/data.ts";
+import { ActionTrait } from "@item/action/types.ts";
 import { prunePropertyRunes } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
