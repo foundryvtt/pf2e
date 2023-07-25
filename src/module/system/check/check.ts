@@ -207,8 +207,8 @@ class CheckPF2e {
         const item = context.item ?? null;
 
         const flavor = await (async (): Promise<string> => {
-            const result = await this.createResultFlavor({ degree, target: context.target ?? null });
-            const tags = this.createTagFlavor({ check, context, extraTags });
+            const result = await this.#createResultFlavor({ degree, target: context.target ?? null });
+            const tags = this.#createTagFlavor({ check, context, extraTags });
 
             const header = document.createElement("h4");
             header.classList.add("action");
@@ -281,7 +281,7 @@ class CheckPF2e {
         return roll;
     }
 
-    private static createTagFlavor({ check, context, extraTags }: CreateTagFlavorParams): HTMLElement[] {
+    static #createTagFlavor({ check, context, extraTags }: CreateTagFlavorParams): HTMLElement[] {
         interface TagObject {
             label: string;
             name?: string;
@@ -448,7 +448,7 @@ class CheckPF2e {
                   const parsedFlavor = document.createElement("div");
                   parsedFlavor.innerHTML = oldFlavor;
                   const target = context.target ?? null;
-                  const targetFlavor = await this.createResultFlavor({ degree, target });
+                  const targetFlavor = await this.#createResultFlavor({ degree, target });
                   if (targetFlavor) {
                       htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
                   }
@@ -517,7 +517,7 @@ class CheckPF2e {
         return element.innerHTML;
     }
 
-    private static async createResultFlavor({ degree, target }: CreateResultFlavorParams): Promise<HTMLElement | null> {
+    static async #createResultFlavor({ degree, target }: CreateResultFlavorParams): Promise<HTMLElement | null> {
         if (!degree) return null;
 
         const { dc } = degree;
