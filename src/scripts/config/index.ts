@@ -1079,6 +1079,7 @@ export const PF2ECONFIG = {
         "elder-thing": "PF2E.LanguageElderThing",
         empyrean: "PF2E.LanguageEmpyrean",
         erutaki: "PF2E.LanguageErutaki",
+        fey: "PF2E.LanguageFey",
         formian: "PF2E.LanguageFormian",
         garundi: "PF2E.LanguageGarundi",
         girtablilu: "PF2E.LanguageGirtablilu",
