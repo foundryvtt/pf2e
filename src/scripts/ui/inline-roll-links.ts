@@ -8,8 +8,8 @@ import { calculateDC } from "@module/dc.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
+import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
@@ -85,7 +85,7 @@ export const InlineRollLinks = {
             const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller } = link.dataset;
             if (!pf2Check) return;
 
-            link.addEventListener("click", (event) => {
+            link.addEventListener("click", async (event) => {
                 const parent = resolveActor(foundryDoc);
                 const actors = (() => {
                     if (pf2Roller === "self") {
@@ -176,23 +176,31 @@ export const InlineRollLinks = {
                                 return null;
                             })();
 
-                            // Retrieve the item if it is not a weapon and this is a saving throw
+                            const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
+
+                            // Retrieve the item if:
+                            // (2) The item is an action or,
+                            // (1) The check is a saving throw and the item is not a weapon.
                             // Exclude weapons so that roll notes on strikes from incapacitation abilities continue to work.
                             const item = (() => {
-                                if (!tupleHasValue(SAVE_TYPES, statistic.slug)) return null;
-                                return foundryDoc instanceof ItemPF2e && !foundryDoc.isOfType("weapon")
-                                    ? foundryDoc
-                                    : foundryDoc instanceof ChatMessagePF2e && !foundryDoc.item?.isOfType("weapon")
-                                    ? foundryDoc.item
+                                const itemFromDoc =
+                                    foundryDoc instanceof ItemPF2e
+                                        ? foundryDoc
+                                        : foundryDoc instanceof ChatMessagePF2e
+                                        ? foundryDoc.item
+                                        : null;
+
+                                return itemFromDoc?.isOfType("action") ||
+                                    (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
+                                    ? itemFromDoc
                                     : null;
                             })();
-                            const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
                             // Get actual traits and include as such
                             const traits = isSavingThrow
                                 ? []
                                 : parsedTraits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
 
-                            statistic.roll({
+                            const args: StatisticRollParameters = {
                                 ...eventRollParams,
                                 extraRollOptions: parsedTraits,
                                 origin: isSavingThrow && parent instanceof ActorPF2e ? parent : null,
@@ -200,7 +208,23 @@ export const InlineRollLinks = {
                                 target: !isSavingThrow && dc?.statistic ? targetActor : null,
                                 item,
                                 traits,
-                            });
+                            };
+
+                            // Use a special header for checks against defenses
+                            const itemIsEncounterAction = !!(item?.isOfType("action") && item.actionCost);
+                            if (itemIsEncounterAction && pf2Defense) {
+                                const subtitleLocKey =
+                                    pf2Check in CONFIG.PF2E.magicTraditions
+                                        ? "PF2E.ActionsCheck.spell"
+                                        : "PF2E.ActionsCheck.x";
+                                args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                                    glyph: getActionGlyph(item.actionCost),
+                                    subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
+                                    title: item.name,
+                                });
+                            }
+
+                            statistic.roll(args);
                         }
                     }
                 }
