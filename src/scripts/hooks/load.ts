@@ -108,6 +108,7 @@ export const Load = {
                 for (const app of apps) {
                     app.render();
                 }
+                if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
             });
         }
     },

@@ -60,7 +60,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
     get inMemoryOnly(): boolean {
-        return this.collection.has(this.id);
+        return !this.collection.has(this.id);
     }
 
     /**
