@@ -36,7 +36,7 @@ import { CheckRollContext } from "./types.ts";
 
 interface RerollOptions {
     heroPoint?: boolean;
-    keep?: "new" | "best" | "worst";
+    keep?: "new" | "higher" | "lower";
 }
 
 type CheckRollCallback = (
@@ -397,7 +397,7 @@ class CheckPF2e {
                     return;
                 }
             } else {
-                ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorNoActor"));
+                ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
                 return;
             }
         }
@@ -412,17 +412,30 @@ class CheckPF2e {
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const RollCls = oldRoll.constructor as typeof CheckRoll;
-        const newData = deepClone(oldRoll.data);
-        const newOptions = { ...oldRoll.options, isReroll: true };
-        const newRoll = await new RollCls(oldRoll.formula, newData, newOptions).evaluate({ async: true });
+        // Clone the old roll and call a hook allowing the clone to be altered.
+        // Tampering with the old roll is disallowed.
+        const unevaluatedNewRoll = oldRoll.clone();
+        unevaluatedNewRoll.options.isReroll = true;
+        Hooks.callAll("pf2e.preReroll", [
+            Roll.fromJSON(JSON.stringify(oldRoll.toJSON())),
+            unevaluatedNewRoll,
+            heroPoint,
+            keep,
+        ]);
+
+        // Evaluate the new roll and call a second hook allowing the roll to be altered
+        const newRoll = await unevaluatedNewRoll.evaluate({ async: true });
+        Hooks.callAll("pf2e.reroll", [Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep]);
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
         let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
 
         // Check if we should keep the old roll instead.
-        if ((keep === "best" && oldRoll.total > newRoll.total) || (keep === "worst" && oldRoll.total < newRoll.total)) {
+        if (
+            (keep === "higher" && oldRoll.total > newRoll.total) ||
+            (keep === "lower" && oldRoll.total < newRoll.total)
+        ) {
             // If so, switch the css classes and keep the old roll.
             [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
             keptRoll = oldRoll;
