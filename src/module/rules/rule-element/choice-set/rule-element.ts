@@ -352,7 +352,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.category",
                         "system.group",
                         "system.level",
-                        "system.maxTakeable",
+                        "system.maxTakable",
                         "system.slug",
                         "system.traits",
                     ],
