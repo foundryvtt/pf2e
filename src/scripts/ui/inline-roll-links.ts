@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
+import { ActionTrait } from "@item/action/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -8,7 +9,7 @@ import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
@@ -82,6 +83,8 @@ export const InlineRollLinks = {
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
             const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller } = link.dataset;
+            if (!pf2Check) return;
+
             link.addEventListener("click", (event) => {
                 const parent = resolveActor(foundryDoc);
                 const actors = (() => {
@@ -130,11 +133,23 @@ export const InlineRollLinks = {
                     }
                     default: {
                         for (const actor of actors) {
-                            const statistic = actor.getStatistic(pf2Check ?? "");
+                            const statistic = ((): Statistic | null => {
+                                if (pf2Check in CONFIG.PF2E.magicTraditions) {
+                                    const bestSpellcasting =
+                                        actor.spellcasting
+                                            .filter((c) => c.tradition === pf2Check)
+                                            .flatMap((s) => s.statistic ?? [])
+                                            .sort((a, b) => b.check.mod - a.check.mod)
+                                            .shift() ?? null;
+                                    if (bestSpellcasting) return bestSpellcasting;
+                                }
+                                return actor.getStatistic(pf2Check);
+                            })();
                             if (!statistic) {
-                                console.warn(`PF2e System | Skip rolling unknown statistic ${pf2Check}`);
+                                console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check}`).message);
                                 continue;
                             }
+
                             const targetActor = pf2Defense ? game.user.targets.first()?.actor : null;
 
                             const dcValue = (() => {
@@ -172,6 +187,10 @@ export const InlineRollLinks = {
                                     : null;
                             })();
                             const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
+                            // Get actual traits and include as such
+                            const traits = isSavingThrow
+                                ? []
+                                : parsedTraits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
 
                             statistic.roll({
                                 ...eventRollParams,
@@ -180,6 +199,7 @@ export const InlineRollLinks = {
                                 dc,
                                 target: !isSavingThrow && dc?.statistic ? targetActor : null,
                                 item,
+                                traits,
                             });
                         }
                     }

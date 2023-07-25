@@ -61,11 +61,12 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
         if (selector && text) {
             const note = new RollNotePF2e({
                 selector,
-                title,
+                title: title ? this.getReducedLabel(title) : null,
                 text,
                 predicate: this.predicate,
                 outcome: this.outcome,
                 visibility: this.visibility,
+                rule: this,
             });
             const notes = (this.actor.synthetics.rollNotes[selector] ??= []);
             notes.push(note);

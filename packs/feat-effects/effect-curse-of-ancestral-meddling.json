@@ -29,13 +29,13 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "parent:badge:value:1",
                     {
                         "or": [
-                            "meddling:ancestor:skill",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:skillful",
+                            "ancestral-influence:spellcasting"
                         ]
-                    },
-                    "parent:badge:value:1"
+                    }
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
@@ -44,13 +44,20 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "parent:badge:value:1",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
-                    "parent:badge:value:1"
+                    {
+                        "nor": [
+                            "check:type:initiative",
+                            "downtime",
+                            "exploration"
+                        ]
+                    }
                 ],
                 "selector": "skill-check",
                 "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
@@ -59,13 +66,20 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "parent:badge:value:1",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
-                    "parent:badge:value:1"
+                    {
+                        "nor": [
+                            "check:type:initiative",
+                            "downtime",
+                            "exploration"
+                        ]
+                    }
                 ],
                 "selector": "perception",
                 "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
@@ -74,13 +88,47 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "parent:badge:value:1",
                     {
                         "or": [
-                            "meddling:ancestor:skill",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:skillful"
+                        ]
+                    }
+                ],
+                "selector": "spell-attack",
+                "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "parent:badge:value:1",
+                    {
+                        "or": [
+                            "ancestral-influence:martial",
+                            "ancestral-influence:skillful"
                         ]
                     },
-                    "parent:badge:value:2"
+                    {
+                        "not": "item:trait:attack"
+                    }
+                ],
+                "selector": "spell-damage",
+                "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "class:oracle",
+                    "parent:badge:value:2",
+                    {
+                        "or": [
+                            "ancestral-influence:skillful",
+                            "ancestral-influence:spellcasting"
+                        ]
+                    }
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
@@ -89,13 +137,21 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "class:oracle",
+                    "parent:badge:value:2",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
-                    "parent:badge:value:2"
+                    {
+                        "nor": [
+                            "check:type:initiative",
+                            "downtime",
+                            "exploration"
+                        ]
+                    }
                 ],
                 "selector": "skill-check",
                 "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
@@ -104,13 +160,21 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "class:oracle",
+                    "parent:badge:value:2",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
-                    "parent:badge:value:2"
+                    {
+                        "nor": [
+                            "check:type:initiative",
+                            "downtime",
+                            "exploration"
+                        ]
+                    }
                 ],
                 "selector": "perception",
                 "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
@@ -119,13 +183,48 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "class:oracle",
+                    "parent:badge:value:2",
                     {
                         "or": [
-                            "meddling:ancestor:skill",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:skillful"
+                        ]
+                    }
+                ],
+                "selector": "spell-attack",
+                "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "class:oracle",
+                    "parent:badge:value:2",
+                    {
+                        "or": [
+                            "ancestral-influence:martial",
+                            "ancestral-influence:skillful"
                         ]
                     },
-                    "parent:badge:value:3"
+                    {
+                        "not": "item:trait:attack"
+                    }
+                ],
+                "selector": "spell-damage",
+                "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "parent:badge:value:3",
+                    {
+                        "or": [
+                            "ancestral-influence:skillful",
+                            "ancestral-influence:spellcasting"
+                        ]
+                    }
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
@@ -134,13 +233,20 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "parent:badge:value:3",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
-                    "parent:badge:value:3"
+                    {
+                        "nor": [
+                            "check:type:initiative",
+                            "downtime",
+                            "exploration"
+                        ]
+                    }
                 ],
                 "selector": "skill-check",
                 "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
@@ -149,27 +255,66 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "parent:badge:value:3",
                     {
                         "or": [
-                            "meddling:ancestor:battle",
-                            "meddling:ancestor:spellcasting"
+                            "ancestral-influence:martial",
+                            "ancestral-influence:spellcasting"
                         ]
                     },
-                    "parent:badge:value:3"
+                    {
+                        "nor": [
+                            "check:type:initiative",
+                            "downtime",
+                            "exploration"
+                        ]
+                    }
                 ],
                 "selector": "perception",
+                "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "parent:badge:value:3",
+                    {
+                        "or": [
+                            "ancestral-influence:martial",
+                            "ancestral-influence:skillful"
+                        ]
+                    }
+                ],
+                "selector": "spell-attack-roll",
+                "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "parent:badge:value:3",
+                    {
+                        "or": [
+                            "ancestral-influence:martial",
+                            "ancestral-influence:skillful"
+                        ]
+                    },
+                    {
+                        "not": "item:trait:attack"
+                    }
+                ],
+                "selector": "spell-damage",
                 "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
                 "title": "{item|name}"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "nor": [
-                            "cantrip"
-                        ]
-                    },
+                    "class:oracle",
                     "item:duration:0",
+                    {
+                        "not": "item:trait:cantrip"
+                    },
                     {
                         "gte": [
                             "parent:badge:value",
@@ -201,7 +346,14 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "ancestral-influence:martial"
+                    "class:oracle",
+                    "ancestral-influence:martial",
+                    {
+                        "gte": [
+                            "parent:badge:value",
+                            2
+                        ]
+                    }
                 ],
                 "selector": "strike-attack-roll",
                 "slug": "curse-battle-attack",
@@ -211,16 +363,17 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "class:oracle",
+                    "ancestral-influence:martial",
                     {
                         "gte": [
                             "parent:badge:value",
                             2
                         ]
-                    },
-                    "ancestral-influence:martial"
+                    }
                 ],
                 "selector": "strike-damage",
-                "slug": "curse-battle-damage",
+                "slug": "curse-martial-damage",
                 "type": "status",
                 "value": 2
             },
@@ -236,12 +389,13 @@
                     }
                 ],
                 "selector": "strike-damage",
-                "slug": "curse-battle-damage",
+                "slug": "curse-martial-damage",
                 "value": 6
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "class:oracle",
                     {
                         "gte": [
                             "parent:badge:value",

@@ -44,7 +44,7 @@ import {
     PhysicalItemPF2e,
     WeaponPF2e,
 } from "@item";
-import { ActionTrait } from "@item/action/data.ts";
+import { ActionTrait } from "@item/action/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
 import { getPropertyRuneStrikeAdjustments, getResilientBonus } from "@item/physical/runes.ts";
@@ -1010,23 +1010,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const strength = this.system.abilities.str.mod;
         const requirement = wornArmor?.strength ?? strength;
         const penaltyValue = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
-
+        const derivedFromLand = !!("derivedFromLand" in statistic && statistic.derivedFromLand);
         const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
         const slug = "armor-speed-penalty";
-        const armorPenalty = penaltyValue
-            ? new ModifierPF2e({
-                  slug,
-                  label: modifierName,
-                  modifier: penaltyValue,
-                  type: "untyped",
-                  predicate: new PredicatePF2e({ not: "armor:ignore-speed-penalty" }),
-                  adjustments: extractModifierAdjustments(
-                      this.synthetics.modifierAdjustments,
-                      ["all-speeds", "speed", `${movementType}-speed`],
-                      slug
-                  ),
-              })
-            : null;
+        const armorPenalty =
+            penaltyValue && !derivedFromLand
+                ? new ModifierPF2e({
+                      slug,
+                      label: modifierName,
+                      modifier: penaltyValue,
+                      type: "untyped",
+                      predicate: new PredicatePF2e({ not: "armor:ignore-speed-penalty" }),
+                      adjustments: extractModifierAdjustments(
+                          this.synthetics.modifierAdjustments,
+                          ["all-speeds", "speed", `${movementType}-speed`],
+                          slug
+                      ),
+                  })
+                : null;
 
         if (armorPenalty) {
             statistic.push(armorPenalty);

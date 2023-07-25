@@ -119,7 +119,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                 },
                 category: {
                     isExpanded: true,
-                    label: "PF2E.ActionActionTypeLabel",
+                    label: "PF2E.BrowserFilterCategory",
                     options: {},
                     selected: [],
                 },

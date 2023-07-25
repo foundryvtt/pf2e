@@ -118,7 +118,7 @@ a.foundry-href {
     color: var(--color-text-dark-primary);
     font-weight: 500;
     line-height: 1.6em;
-    padding: 1px 0 1px 4px;
+    padding: 1px 4px;
     white-space: nowrap;
     word-break: break-all;
 }
@@ -183,9 +183,14 @@ span[data-pf2-action] {
 a.inline-check, span[data-pf2-check] {
     @include inline-link;
 
+    &:has([data-pf2-repost]) {
+        padding-right: 0;
+    }
+
     &:hover {
         text-shadow: none;
     }
+
 
     &:has(.label:hover, i.fa-dice-d20:hover) {
         text-shadow: 0 0 8px var(--color-shadow-primary);
@@ -193,7 +198,10 @@ a.inline-check, span[data-pf2-check] {
 
     > i.icon {
         color: var(--color-text-dark-inactive);
-        margin-right: 0.25em;
+
+        &:has(+ span.label > :first-child:is([data-visibility="gm"])) {
+            margin-right: 0.25em;
+        }
     }
 
     &[data-pf2-traits*="secret"] {

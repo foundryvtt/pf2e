@@ -191,7 +191,9 @@ class CheckPF2e {
         const notesText =
             notes
                 .filter((note) => {
-                    if (!note.predicate.test(rollOptions)) return false;
+                    if (!note.predicate.test([...rollOptions, ...(note.rule?.item.getRollOptions("parent") ?? [])])) {
+                        return false;
+                    }
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;

@@ -8,10 +8,10 @@ import {
     ItemTraits,
 } from "@item/data/base.ts";
 import { OneToThree } from "@module/data.ts";
+import { ActionTrait } from "./types.ts";
 
 type ActionItemSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
 
-type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
 interface ActionTraits extends ItemTraits<ActionTrait> {
     rarity?: never;
 }
@@ -42,4 +42,4 @@ interface ActionSystemData extends ActionSystemSource, Omit<ItemSystemData, "lev
 
 type ActionCategory = keyof ConfigPF2e["PF2E"]["actionCategories"];
 
-export { ActionCategory, ActionItemSource, ActionSystemData, ActionTrait, ActionTraits };
+export { ActionCategory, ActionItemSource, ActionSystemData, ActionTraits };

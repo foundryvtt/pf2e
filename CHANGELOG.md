@@ -1,3 +1,28 @@
+## 5.2.2
+
+### System Improvements
+
+-   (stwlam) Add handling of disease immunity
+
+### Bugfixes
+
+-   (stwlam) Fix stack overflow sometimes occurring when two unlinked tokens have intersecting auras
+-   (stwlam) Prevent armor speed penalty from being doubly applied to derived speeds
+
+### Data Updates
+
+-   (Dire Weasel) Add automatic success of saving throws against cold effects to Icy Apotheosis
+-   (Dire Weasel) Fix name for Blood-Pear Tree's Bloody Pear and remove Blight ability
+-   (Dire Weasel) Fix resistances for Vampire Rival and Skeleton Rivals
+-   (Dire Weasel) Fix usage of Handling Gloves and Twining Chains
+-   (stwlam) Fix predicates in ancestors curse effect
+-   (stwlam) Have Leukodaemon's aura only affect creatures
+-   (Tikael, Dire Weasel) Add basic automation to Gelid Shard archetype
+-   (Tikael) Fix rule elements on Twisting Tree
+-   (Tikael) Utilize inline checks against defenses in several items
+-   (Tikael) Add automation to Leprechaun Magic
+-   (TMun) Add "Prepare the Processional" downtime activity
+
 ## 5.2.1
 
 ### System Improvements

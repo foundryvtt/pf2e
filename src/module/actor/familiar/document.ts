@@ -193,13 +193,15 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
                 ...extractModifiers(synthetics, domains),
             ];
+            const label = game.i18n.localize("PF2E.Familiar.AttackRoll");
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
+                label,
                 roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                     const options = new Set(params.options ?? []);
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, options);
 
                     const roll = await CheckPF2e.roll(
-                        new CheckModifier("Attack Roll", stat),
+                        new CheckModifier(label, stat),
                         {
                             actor: this,
                             type: "attack-roll",

@@ -86,6 +86,9 @@ class Statistic extends SimpleStatistic {
 
     proficient = true;
 
+    /** The `Statistic` from which this one was derived (set by `Statistic#extend`), or otherwise `null`. */
+    base: Statistic | null = null;
+
     /** If this is a skill, returns whether it is a lore skill or not */
     lore?: boolean;
 
@@ -193,7 +196,7 @@ class Statistic extends SimpleStatistic {
             rollOptions.push(...extraRollOptions);
         }
 
-        return new Set(rollOptions);
+        return new Set(rollOptions.sort());
     }
 
     withRollOptions(options?: RollOptionParameters): Statistic {
@@ -223,7 +226,10 @@ class Statistic extends SimpleStatistic {
             result.dc.domains = maybeMergeArrays(this.data.dc.domains, data.dc?.domains);
             result.dc.modifiers = maybeMergeArrays(this.data.dc.modifiers, data.dc?.modifiers);
         }
-        return new Statistic(this.actor, result, this.options);
+
+        const extended = new Statistic(this.actor, result, this.options);
+        extended.base = this;
+        return extended;
     }
 
     /** Shortcut to `this#check#roll` */
@@ -397,7 +403,15 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const extraModifiers = this.type === "flat-check" ? [] : [...(args.modifiers ?? [])];
 
         // Get roll options and roll notes
-        const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
+        const extraRollOptions = [
+            ...(args.extraRollOptions ?? []),
+            ...(rollContext?.options ?? []),
+            `check:statistic:${this.parent.slug}`,
+            `check:type:${this.type.replace(/-check$/, "")}`,
+        ];
+        if (this.parent.base) {
+            extraRollOptions.push(`check:statistic:base:${this.parent.base.slug}`);
+        }
         const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
         const notes = [...extractNotes(actor.synthetics.rollNotes, domains), ...(args.extraRollNotes ?? [])];
 

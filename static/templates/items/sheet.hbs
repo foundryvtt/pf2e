@@ -57,11 +57,6 @@
                     <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                 {{/if}}
             {{/if}}
-            {{#developMode}}
-                {{#if isPhysical}}
-                    <a class="list-row" data-tab="activations">{{localize "PF2E.Item.Activation.Label"}}</a>
-                {{/if}}
-            {{/developMode}}
             {{#if (and isPhysical user.isGM)}}
                 <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
             {{/if}}
@@ -110,14 +105,6 @@
                     </div>
                 </div>
             {{/if}}
-
-            {{#developMode}}
-                {{#if isPhysical}}
-                    <div class="tab item-activations" data-tab="activations">
-                        {{> "systems/pf2e/templates/items/activation-panel.hbs"}}
-                    </div>
-                {{/if}}
-            {{/developMode}}
 
             <!-- Mystification Details -->
             {{#if (and isPhysical user.isGM)}}

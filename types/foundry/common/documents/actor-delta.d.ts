@@ -27,7 +27,7 @@ export default class BaseActorDelta<TParent extends BaseToken | null> extends ab
 export default interface BaseActorDelta<TParent extends BaseToken | null>
     extends abstract.Document<TParent, ActorDeltaSchema>,
         ModelPropsFromSchema<ActorDeltaSchema> {
-    readonly _source: SourceFromSchema<ActorDeltaSchema>;
+    readonly _source: ActorDeltaSource;
 }
 
 interface ActorDeltaMetadata extends abstract.DocumentMetadata {
@@ -53,3 +53,5 @@ type ActorDeltaSchema = {
     ownership: fields.DocumentOwnershipField;
     flags: fields.ObjectField<DocumentFlags>;
 };
+
+export type ActorDeltaSource = SourceFromSchema<ActorDeltaSchema>;
