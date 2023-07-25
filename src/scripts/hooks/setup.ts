@@ -1,6 +1,5 @@
-import { registerSheets } from "../register-sheets.ts";
-import { HomebrewElements } from "@system/settings/homebrew/menu.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
+import { registerSheets } from "../register-sheets.ts";
 
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const Setup = {
@@ -8,10 +7,6 @@ export const Setup = {
         Hooks.once("setup", () => {
             // Register actor and item sheets
             registerSheets();
-
-            // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-            const homebrew = new HomebrewElements();
-            homebrew.onSetup();
 
             // Some of game.pf2e must wait until the setup phase
             SetGamePF2e.onSetup();

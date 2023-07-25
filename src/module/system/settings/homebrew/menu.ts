@@ -25,12 +25,12 @@ import Tagify from "@yaireo/tagify";
 import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu.ts";
 import {
     CustomDamageData,
+    HOMEBREW_TRAIT_KEYS,
     HomebrewElementsSheetData,
     HomebrewKey,
     HomebrewTag,
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
-    HOMEBREW_TRAIT_KEYS,
     SECONDARY_TRAIT_RECORDS,
 } from "./data.ts";
 import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers.ts";
@@ -41,9 +41,9 @@ class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
 
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
-    private initialRefresh = true;
+    #initialRefresh = true;
 
-    private damageManager = new DamageTypeManager();
+    #damageManager = new DamageTypeManager();
 
     static override get SETTINGS(): string[] {
         return Object.keys(this.settings);
@@ -174,7 +174,7 @@ class HomebrewElements extends SettingsMenuPF2e {
 
         if (event.type === "submit") {
             const cleanupTasks = HOMEBREW_TRAIT_KEYS.map((key) => {
-                return this.processDeletions(key, data[key]);
+                return this.#processDeletions(key, data[key]);
             }).filter((task): task is MigrationBase => !!task);
 
             // Close without waiting for migrations to complete
@@ -189,7 +189,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
-    private processDeletions(listKey: HomebrewTraitKey, newTagList: HomebrewTag[]): MigrationBase | null {
+    #processDeletions(listKey: HomebrewTraitKey, newTagList: HomebrewTag[]): MigrationBase | null {
         const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}`);
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
@@ -209,7 +209,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         return game.user.isGM && deletions.length > 0 ? prepareCleanup(listKey, deletions) : null;
     }
 
-    onSetup(): void {
+    onInit(): void {
         this.#refreshSettings();
         this.#registerModuleTags();
     }
@@ -217,8 +217,8 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Assigns all homebrew data stored in the world's settings to their relevant locations */
     #refreshSettings(): void {
         // Perform any cleanup for being the initial refresh
-        if (!this.initialRefresh) {
-            this.damageManager.deleteAllHomebrew();
+        if (!this.#initialRefresh) {
+            this.#damageManager.deleteAllHomebrew();
         }
 
         // Add custom traits from settings
@@ -231,7 +231,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         // Add custom damage from settings
         const customTypes = game.settings.get("pf2e", "homebrew.damageTypes");
         for (const data of customTypes) {
-            this.damageManager.addCustomDamage(data);
+            this.#damageManager.addCustomDamage(data);
         }
 
         // Add custom damage from modules. Do this every time to ensure data integrity (in case of conflicts)
@@ -248,14 +248,14 @@ class HomebrewElements extends SettingsMenuPF2e {
                 }
 
                 for (const [slug, value] of Object.entries(elements)) {
-                    this.damageManager.addCustomDamage(value, { slug });
+                    this.#damageManager.addCustomDamage(value, { slug });
                 }
             }
         }
 
         // Refresh any open sheets to show the new settings
-        if (this.initialRefresh) {
-            this.initialRefresh = false;
+        if (this.#initialRefresh) {
+            this.#initialRefresh = false;
         } else {
             const sheets = Object.values(ui.windows).filter(
                 (app): app is DocumentSheet => app instanceof ActorSheet || app instanceof ItemSheetPF2e
