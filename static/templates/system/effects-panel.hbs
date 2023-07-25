@@ -41,21 +41,22 @@
             </div>
         {{/if}}
         {{#if (eq effect.slug "persistent-damage")}}
-            <a data-action="recover-persistent-damage">
-                {{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}
+            <a class="inline-check" data-action="recover-persistent-damage">
+                <i class="fa-solid fa-dice-d20 icon"></i>
+                <span class="label">{{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}</span>
             </a>
         {{/if}}
         <div class="instructions">
             {{#if (nor effect.isLocked effect.inMemoryOnly)}}
                 {{#if (eq effect.badge.type "formula")}}
-                    <p>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</p>
+                    <div>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</div>
                 {{/if}}
 
                 {{#if (eq effect.badge.type "counter")}}
-                    <p>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</p>
-                    <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
+                    <div>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</div>
+                    <div>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</div>
                 {{else}}
-                    <p>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</p>
+                    <div>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</div>
                 {{/if}}
             {{/if}}
         </div>
