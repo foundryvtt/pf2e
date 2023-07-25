@@ -6,7 +6,7 @@
         {
             "_id": "PwoAYTwFf2RzdakE",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Root",
+            "name": "Branch",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -16,11 +16,11 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 15
                 },
                 "damageRolls": {
                     "lRY1kUWtp18mnXQW": {
-                        "damage": "1d8+4",
+                        "damage": "2d8+4",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -44,7 +44,7 @@
         {
             "_id": "7izpKuskd27DQuNj",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Seed",
+            "name": "Nuts",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -52,17 +52,15 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "germinate"
-                    ]
+                    "value": []
                 },
                 "bonus": {
-                    "value": 8
+                    "value": 11
                 },
                 "damageRolls": {
                     "j6fBKGp99Jxzhufx": {
-                        "damage": "1d6+3",
-                        "damageType": "piercing"
+                        "damage": "2d6+4",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -127,10 +125,102 @@
             "type": "action"
         },
         {
+            "_id": "R3nQMIctYNinJLgl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[type:reflex|dc:22], [[/r 5d8[bludgeoning]]] damage, Escape DC 20, Rupture 10</p>\n<p>A creature Engulfed by the living grove must also attempt a @Check[type:fortitude|dc:22|basic:true] save as it's battered between the thin, tightly packed trunks.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "engulf",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VWfouijDuiF46BuT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Defensive Camouflage",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The living grove can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] in natural environments even if it doesn't have cover. While Hiding, its root system is safely covered in dirt, granting the grove a +3 status bonus to AC. A critical hit cracks this protective layer of earth to disperse in the wind, ending the effect.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "defensive-camouflage",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "defensive-camouflage"
+                        ],
+                        "selector": "ac",
+                        "type": "status",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "x4joWcox110MiNIF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -153,7 +243,7 @@
             "_id": "O5nW6X3ehwXdQ7sY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -197,7 +287,7 @@
             "_id": "Ttvj9SwE5O6Glm2J",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
