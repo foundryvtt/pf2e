@@ -1113,6 +1113,7 @@ export const PF2ECONFIG = {
         ocotan: "PF2E.LanguageOcotan",
         okaiyan: "PF2E.LanguageOkaiyan",
         osiriani: "PF2E.LanguageOsiriani",
+        orvian: "PF2E.LanguageOrvian",
         petran: "PF2E.LanguagePetran",
         protean: "PF2E.LanguageProtean",
         pyric: "PF2E.LanguagePyric",
