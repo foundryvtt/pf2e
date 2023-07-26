@@ -30,6 +30,14 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
     }
 
+    override getRollOptions(prefix = this.type): string[] {
+        const options = super.getRollOptions(prefix);
+        if (this.frequency) {
+            options.push(`${prefix}:frequency:limited`);
+        }
+        return options;
+    }
+
     override async getChatData(
         this: ActionItemPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
