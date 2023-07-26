@@ -1,10 +1,20 @@
+import * as R from "remeda";
 import { Optional } from "./misc.ts";
 
 /**  DOM helper functions that return HTMLElement(s) (or `null`) */
 
 type MaybeHTML = Optional<Document | Element | EventTarget>;
 
-/** Create an `HTMLElement` with classes, dataset, and children */
+/**
+ * Create an `HTMLElement` with classes, dataset, and children
+ * @param nodeName  A valid HTML element tag name,
+ * @param [options] Additional options for adjusting the created element
+ * @param [options.classes=[]]  A list of class names
+ * @param [options.dataset={}]  An object of keys and values with which to populate the `dataset`: nullish values will
+ *                              be excluded.
+ * @param [options.children=[]] A list of child elements as well as strings that will be converted to text nodes
+ * @returns The HTML element with all options applied
+ */
 function createHTMLElement(
     nodeName: keyof HTMLElementTagNameMap,
     { classes = [], dataset = {}, children = [] }: CreateHTMLElementOptions = {}
@@ -12,7 +22,7 @@ function createHTMLElement(
     const element = document.createElement(nodeName);
     element.classList.add(...classes);
 
-    for (const [key, value] of Object.entries(dataset)) {
+    for (const [key, value] of Object.entries(dataset).filter(([, v]) => !R.isNil(v))) {
         element.dataset[key] = String(value);
     }
 
@@ -26,7 +36,7 @@ function createHTMLElement(
 
 interface CreateHTMLElementOptions {
     classes?: string[];
-    dataset?: Record<string, string | number>;
+    dataset?: Record<string, string | number | null | undefined>;
     children?: (HTMLElement | string)[];
 }
 

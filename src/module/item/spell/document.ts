@@ -236,9 +236,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 }
             }
 
-            // Increase or decrease the first instance of damage by 4 if elite or weak
+            // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
             if (terms.length > 0 && !base.length && this.actor.isOfType("npc") && this.actor.attributes.adjustment) {
-                terms.push({ dice: null, modifier: this.actor.isElite ? 4 : -4 });
+                const value = this.unlimited ? 2 : 4;
+                terms.push({ dice: null, modifier: this.actor.isElite ? value : -value });
             }
 
             const damageType = damage.type.value;
