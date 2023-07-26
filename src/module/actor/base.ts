@@ -7,6 +7,7 @@ import {
     AuraData,
     CheckContext,
     CheckContextParams,
+    DamageRollContextParams,
     EmbeddedItemInstances,
     RollContext,
     RollContextParams,
@@ -41,7 +42,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
+import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
@@ -972,11 +973,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         };
     }
 
-    /**
-     * Calculates attack roll target data including the target's DC.
-     * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
-     * but more can be added via the options.
-     */
+    /** Calculate attack roll targeting data, including the target's DC. */
     async getCheckContext<TStatistic extends StatisticCheck | StrikeData, TItem extends AttackItem | null>(
         params: CheckContextParams<TStatistic, TItem>
     ): Promise<CheckContext<this, TStatistic, TItem>> {
@@ -995,6 +992,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         return { ...context, dc: dcData };
+    }
+
+    /** Acquire additional data for a damage roll. */
+    getDamageRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
+        params: DamageRollContextParams<TStatistic, TItem>
+    ): Promise<RollContext<this, TStatistic, TItem>>;
+    async getDamageRollContext(params: DamageRollContextParams): Promise<RollContext<this>> {
+        const context = await this.getRollContext(params);
+        if (params.outcome) {
+            const outcome = sluggify(params.outcome);
+            context.options.add(`check:outcome:${outcome}`);
+        }
+
+        return context;
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
