@@ -147,19 +147,19 @@ class TextEditorPF2e extends TextEditor {
     ): Promise<HTMLElement | null> {
         if (data.length < 4) return null;
         const item = options.rollData?.item ?? null;
-        const [_match, inlineType, paramString, buttonLabel] = data;
+        const [_match, inlineType, paramString, inlineLabel] = data;
 
         switch (inlineType) {
             case "Check": {
                 const actor = options.rollData?.actor ?? item?.actor ?? null;
-                return this.#createCheck({ paramString, inlineLabel: buttonLabel, item, actor });
+                return this.#createCheck({ paramString, inlineLabel, item, actor });
             }
             case "Damage":
-                return this.#createDamageRoll({ paramString, rollData: options.rollData });
+                return this.#createDamageRoll({ paramString, rollData: options.rollData, inlineLabel });
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplate(paramString, buttonLabel, item?.system);
+                return this.#createTemplate(paramString, inlineLabel, item?.system);
             default:
                 return null;
         }
@@ -501,6 +501,7 @@ class TextEditorPF2e extends TextEditor {
     static async #createDamageRoll(args: {
         paramString: string;
         rollData?: RollDataPF2e;
+        inlineLabel?: string;
     }): Promise<HTMLElement | null> {
         const params = this.#parseInlineParams(args.paramString, { first: "formula" });
         if (!params || !params.formula) {
@@ -517,7 +518,7 @@ class TextEditorPF2e extends TextEditor {
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula);
         const element = createHTMLElement("a", {
             classes: ["inline-roll", "roll"],
-            children: [damageDiceIcon(roll), roll.formula],
+            children: [damageDiceIcon(roll), args.inlineLabel ?? roll.formula],
             dataset: {
                 formula: roll._formula,
                 tooltip: roll.formula,
@@ -672,7 +673,7 @@ async function augmentInlineDamageRoll(
             name: name ?? item?.name ?? actor?.name ?? "",
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],
-            traits: traits ?? [],
+            traits: traits?.filter((t) => t in CONFIG.PF2E.actionTraits) ?? [],
             notes: [],
             materials: [],
         };
