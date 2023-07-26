@@ -561,6 +561,7 @@ export const PF2ECONFIG = {
         "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
         "affixed-to-instrument": "PF2E.TraitAffixedToInstrument",
         "affixed-to-load-bearing-wall-or-pillar": "PF2E.TraitAffixedToLoadBearingWallOrPillar",
+        "affixed-to-melee-weapon": "PF2E.TraitAffixedToMeleeWeapon",
         "affixed-to-object-structure-or-creature": "PF2E.TraitAffixedToStructureObjectOrCreature",
         "affixed-to-the-ground": "PF2E.TraitAffixedToGround",
         "affixed-to-unarmored-defense-item": "PF2E.TraitAffixedToUnarmoredItem",
@@ -587,6 +588,7 @@ export const PF2ECONFIG = {
         "attached-to-crossbow-or-firearm-scope": "PF2E.TraitAttachedToCrossbowOrFirearmScope",
         "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
         "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
+        "attached-to-ships-bow": "PF2E.TraitAttachedToShipsBow",
         bonded: "PF2E.TraitBonded",
         carried: "PF2E.TraitCarried",
         "each-rune-applied-to-a-separate-item-that-has-pockets":
