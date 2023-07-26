@@ -1615,12 +1615,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 params.options ??= [];
                 const targetToken = params.target ?? game.user.targets.first() ?? null;
 
-                const context = await this.getRollContext({
+                const context = await this.getDamageRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     statistic: action,
                     target: { token: targetToken },
                     domains,
+                    outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
 

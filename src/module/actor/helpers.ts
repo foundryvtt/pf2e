@@ -388,12 +388,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const domains = ["all", `${item.id}-damage`, "strike-damage", "damage-roll"];
             const targetToken = params.target ?? game.user.targets.first() ?? null;
 
-            const context = await actor.getRollContext({
+            const context = await actor.getDamageRollContext({
                 item,
                 statistic: strike,
                 target: { token: targetToken },
                 viewOnly: params.getFormula ?? false,
                 domains,
+                outcome,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
             });
 
