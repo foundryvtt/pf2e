@@ -7,6 +7,7 @@ import {
     AuraData,
     CheckContext,
     CheckContextParams,
+    DamageRollContextParams,
     EmbeddedItemInstances,
     RollContext,
     RollContextParams,
@@ -30,7 +31,7 @@ import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 import { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { ChatMessagePF2e, ScenePF2e, TokenDocumentPF2e, UserPF2e } from "@module/documents.ts";
-import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
@@ -41,7 +42,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, localizer, objectHasKey, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
+import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { ActorConditions } from "./conditions.ts";
 import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
@@ -60,6 +61,7 @@ import { ActorSizePF2e } from "./data/size.ts";
 import {
     calculateRangePenalty,
     checkAreaEffects,
+    createEncounterRollOptions,
     getRangeIncrement,
     isOffGuardFromFlanking,
     isReallyPC,
@@ -685,12 +687,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Setup the basic structure of pf2e flags with roll options
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, {
             rollOptions: {
-                all: { [`self:type:${this.type}`]: true },
+                all: {
+                    [`self:type:${this.type}`]: true,
+                    ...createEncounterRollOptions(this),
+                },
             },
             trackedItems: {},
         });
-
-        this.setEncounterRollOptions();
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
@@ -772,36 +775,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         );
         TokenDocumentPF2e.assignDefaultImage(this.prototypeToken);
         TokenDocumentPF2e.prepareSize(this.prototypeToken);
-    }
-
-    /** If there is an active encounter, set roll options for it and this actor's participant */
-    setEncounterRollOptions(): void {
-        const encounter = game.ready ? game.combat : null;
-        if (!encounter?.started) return;
-
-        const participants = encounter.combatants.contents
-            .filter(
-                (c): c is RolledCombatant<EncounterPF2e> & { initiative: number } => typeof c.initiative === "number"
-            )
-            .sort((a, b) => b.initiative - a.initiative); // Sort descending by initiative roll result
-        const participant = participants.find((c) => c.actor === this);
-        if (typeof participant?.initiative !== "number") return;
-
-        const rollOptionsAll = this.rollOptions.all;
-        rollOptionsAll["encounter"] = true;
-        rollOptionsAll[`encounter:round:${encounter.round}`] = true;
-        rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
-        rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
-
-        const initiativeRoll = Math.trunc(participant.initiative);
-        rollOptionsAll[`self:participant:initiative:roll:${initiativeRoll}`] = true;
-        const rank = participants.indexOf(participant) + 1;
-        rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
-
-        const { initiativeStatistic } = participant.flags.pf2e;
-        if (initiativeStatistic) {
-            rollOptionsAll[`self:participant:initiative:stat:${initiativeStatistic}`] = true;
-        }
     }
 
     /* -------------------------------------------- */
@@ -1000,11 +973,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         };
     }
 
-    /**
-     * Calculates attack roll target data including the target's DC.
-     * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
-     * but more can be added via the options.
-     */
+    /** Calculate attack roll targeting data, including the target's DC. */
     async getCheckContext<TStatistic extends StatisticCheck | StrikeData, TItem extends AttackItem | null>(
         params: CheckContextParams<TStatistic, TItem>
     ): Promise<CheckContext<this, TStatistic, TItem>> {
@@ -1023,6 +992,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         return { ...context, dc: dcData };
+    }
+
+    /** Acquire additional data for a damage roll. */
+    getDamageRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
+        params: DamageRollContextParams<TStatistic, TItem>
+    ): Promise<RollContext<this, TStatistic, TItem>>;
+    async getDamageRollContext(params: DamageRollContextParams): Promise<RollContext<this>> {
+        const context = await this.getRollContext(params);
+        if (params.outcome) {
+            const outcome = sluggify(params.outcome);
+            context.options.add(`check:outcome:${outcome}`);
+        }
+
+        return context;
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */

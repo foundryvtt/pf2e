@@ -153,10 +153,11 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        return [
+        return R.compact([
             ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
             `${prefix}:category:${this.category}`,
-        ];
+            this.frequency ? `${prefix}:frequency:limited` : null,
+        ]);
     }
 
     /* -------------------------------------------- */

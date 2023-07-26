@@ -6,17 +6,17 @@ import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, localizer, objectHasKey, sluggify } from "@util";
-import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
-import { DamageRoll } from "./damage/roll.ts";
-import { Statistic } from "./statistic/index.ts";
-import { createDamageFormula } from "./damage/formula.ts";
-import { CreateDamageFormulaParams, InlineDamageTemplate, DamageRollContext } from "./damage/types.ts";
 import * as R from "remeda";
-import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
 import { DamagePF2e } from "./damage/damage.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { createDamageFormula } from "./damage/formula.ts";
+import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
+import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
+import { DamageRoll } from "./damage/roll.ts";
+import { CreateDamageFormulaParams, DamageRollContext, InlineDamageTemplate } from "./damage/types.ts";
+import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
@@ -236,7 +236,7 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
-            params.traits ||= itemData?.traits?.value?.join(",") ?? "";
+            params.traits ||= itemData?.traits?.value?.toString() ?? "";
 
             // If no button label is entered directly create default label
             if (!label) {
@@ -511,20 +511,22 @@ class TextEditorPF2e extends TextEditor {
         const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
         const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
 
-        const traits = params.traits?.split(",") ?? item?.system.traits?.value ?? [];
+        const traits = params.traits?.split(",") ?? item?.system.traits?.value;
         const result = await augmentInlineDamageRoll(params.formula, { skipDialog: true, actor, item, traits });
 
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula);
         const element = createHTMLElement("a", {
             classes: ["inline-roll", "roll"],
             children: [damageDiceIcon(roll), roll.formula],
+            dataset: {
+                formula: roll._formula,
+                tooltip: roll.formula,
+                damageRoll: "",
+                pf2BaseFormula: params.formula,
+                pf2Traits: traits?.toString() || null,
+                pf2ItemId: item?.id,
+            },
         });
-        element.dataset.formula = roll._formula;
-        element.dataset.tooltip = roll.formula;
-        element.dataset.damageRoll = "";
-        element.dataset.pf2BaseFormula = params.formula;
-        element.dataset.pf2Traits = traits.join(",");
-        if (item) element.dataset.pf2ItemId = item?.id;
 
         return element;
     }
@@ -625,6 +627,13 @@ async function augmentInlineDamageRoll(
             ...(item?.getRollOptions("item") ?? []),
             ...(traits ?? []),
         ]);
+
+        // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
+        const firstBase = base.at(0);
+        if (firstBase && actor?.isOfType("npc") && (actor.isElite || actor.isWeak)) {
+            const value = options.has("item:frequency:limited") ? 4 : 2;
+            firstBase.terms?.push({ dice: null, modifier: actor.isElite ? value : -value });
+        }
 
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };

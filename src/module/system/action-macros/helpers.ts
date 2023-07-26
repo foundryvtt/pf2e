@@ -177,7 +177,7 @@ export class ActionMacroHelpers {
                     target: targetActor,
                 })!;
 
-                const header = await renderTemplate("./systems/pf2e/templates/chat/action/header.hbs", {
+                const header = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                     glyph: options.actionGlyph,
                     subtitle,
                     title: options.title,

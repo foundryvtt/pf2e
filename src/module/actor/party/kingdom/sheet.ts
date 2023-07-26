@@ -18,7 +18,7 @@ import {
     KingdomSource,
 } from "./types.ts";
 import { Kingdom } from "./model.ts";
-import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_LEADERSHIP } from "./values.ts";
+import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_LEADERSHIP, KINGDOM_RUIN_LABELS } from "./values.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 
@@ -80,15 +80,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     ...this.kingdom.abilities[slug],
                     slug,
                     label: game.i18n.localize(KINGDOM_ABILITY_LABELS[slug]),
+                    ruinLabel: game.i18n.localize(KINGDOM_RUIN_LABELS[slug]),
                 };
             }),
-            leadership: KINGDOM_LEADERSHIP.map((role) => {
-                const data = this.kingdom.leadership[role];
-                const label = game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${role}`);
+            leadership: KINGDOM_LEADERSHIP.map((slug) => {
+                const data = this.kingdom.leadership[slug];
+                const label = game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${slug}`);
                 const document = fromUuidSync(data.uuid ?? "");
                 const actor = document instanceof ActorPF2e ? document : null;
                 const img = actor?.prototypeToken.texture.src ?? actor?.img ?? ActorPF2e.DEFAULT_ICON;
-                return { ...data, actor, img, role, label };
+                return { ...data, actor, img, slug, label };
             }),
             actions: R.sortBy(kingdom.activities, (a) => a.name).map((item) => ({
                 item,
@@ -145,6 +146,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 statistic?.roll(eventToRollParams(event));
             });
         }
+
+        htmlQuery(html, "[data-action=collect]")?.addEventListener("click", () => {
+            this.kingdom.collect();
+        });
 
         // Handle action filters
         this.filterActions(this.selectedFilter, { instant: true });
@@ -265,7 +270,19 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         if (!this.actor.id) return;
-        return this.kingdom.update(formData as DeepPartial<KingdomSource>);
+
+        const data: DeepPartial<KingdomSource> = expandObject(formData);
+
+        // Ensure penalties are all negative numbers
+        for (const abilitySlug of KINGDOM_ABILITIES) {
+            const ability = data.abilities?.[abilitySlug];
+
+            if (ability?.penalty) {
+                ability.penalty = -Math.abs(ability.penalty);
+            }
+        }
+
+        return this.kingdom.update(data);
     }
 }
 
@@ -275,8 +292,9 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     abilities: (KingdomAbilityData & {
         slug: string;
         label: string;
+        ruinLabel: string;
     })[];
-    leadership: (KingdomLeadershipData & { actor: ActorPF2e | null; img: string; role: string; label: string })[];
+    leadership: (KingdomLeadershipData & { actor: ActorPF2e | null; img: string; slug: string; label: string })[];
     actions: { item: CampaignFeaturePF2e; traits: SheetOptions }[];
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];

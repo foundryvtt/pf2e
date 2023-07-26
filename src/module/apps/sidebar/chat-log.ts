@@ -413,21 +413,21 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 },
             },
             {
-                name: "PF2E.RerollMenu.KeepWorst",
+                name: "PF2E.RerollMenu.KeepLower",
                 icon: fontAwesomeIcon("dice-one").outerHTML,
                 condition: canReroll,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "worst" });
+                    CheckPF2e.rerollFromMessage(message, { keep: "lower" });
                 },
             },
             {
-                name: "PF2E.RerollMenu.KeepBest",
+                name: "PF2E.RerollMenu.KeepHigher",
                 icon: fontAwesomeIcon("dice-six").outerHTML,
                 condition: canReroll,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { keep: "best" });
+                    CheckPF2e.rerollFromMessage(message, { keep: "higher" });
                 },
             }
         );

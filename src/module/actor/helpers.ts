@@ -147,6 +147,38 @@ function calculateMAPs(
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
 }
 
+/** Create roll options pertaining to the active encounter and the actor's participant */
+function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
+    const encounter = game.ready ? game.combat : null;
+    if (!encounter?.started) return {};
+
+    const participants = encounter.combatants.contents
+        .filter((c) => typeof c.initiative === "number")
+        .sort((a, b) => b.initiative! - a.initiative!); // Sort descending by initiative roll result
+    const participant = actor.combatant;
+    if (typeof participant?.initiative !== "number" || !participants.includes(participant)) {
+        return {};
+    }
+
+    const initiativeRoll = Math.trunc(participant.initiative);
+    const initiativeRank = participants.indexOf(participant) + 1;
+    const { initiativeStatistic } = participant.flags.pf2e;
+
+    const entries = (
+        [
+            ["encounter", true],
+            [`encounter:round:${encounter.round}`, true],
+            [`encounter:turn:${encounter.turn + 1}`, true],
+            ["self:participant:own-turn", encounter.combatant?.actor === actor],
+            [`self:participant:initiative:roll:${initiativeRoll}`, true],
+            [`self:participant:initiative:rank:${initiativeRank}`, true],
+            [`self:participant:initiative:stat:${initiativeStatistic}`, !!initiativeStatistic],
+        ] as const
+    ).filter(([, value]) => !!value);
+
+    return Object.fromEntries(entries);
+}
+
 /** Whether flanking puts this actor off-guard */
 function isOffGuardFromFlanking(actor: ActorPF2e): boolean {
     if (!actor.isOfType("creature")) return false;
@@ -356,12 +388,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const domains = ["all", `${item.id}-damage`, "strike-damage", "damage-roll"];
             const targetToken = params.target ?? game.user.targets.first() ?? null;
 
-            const context = await actor.getRollContext({
+            const context = await actor.getDamageRollContext({
                 item,
                 statistic: strike,
                 target: { token: targetToken },
                 viewOnly: params.getFormula ?? false,
                 domains,
+                outcome,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
             });
 
@@ -488,6 +521,7 @@ export {
     calculateMAPs,
     calculateRangePenalty,
     checkAreaEffects,
+    createEncounterRollOptions,
     getRangeIncrement,
     isOffGuardFromFlanking,
     isReallyPC,
