@@ -22,6 +22,7 @@ import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_LEADERSHIP,
+    KINGDOM_RUIN_LABELS,
     KINGDOM_SIZE_DATA,
     KINGDOM_SKILLS,
     KINGDOM_SKILL_ABILITIES,
@@ -98,6 +99,10 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         return [icon];
     }
 
+    async collect(): Promise<void> {
+        // todo: implement
+    }
+
     async update(data: DeepPartial<KingdomSource> & Record<string, unknown>): Promise<void> {
         await this.actor.update({ "system.campaign": data });
     }
@@ -156,7 +161,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             number: Math.max(0, this.level + 4 + this.resources.dice.bonus - this.resources.dice.penalty),
         });
 
-        // Inject control dc modifier
+        // Inject control dc size modifier
         if (sizeData.controlMod) {
             const modifiers = (synthetics.statisticsModifiers["control-dc"] ??= []);
             modifiers.push(
@@ -167,6 +172,23 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                         modifier: sizeData.controlMod,
                     })
             );
+        }
+
+        // Add any relevant ruin penalties
+        for (const ability of KINGDOM_ABILITIES) {
+            const penalty = this.abilities[ability].penalty;
+            if (penalty) {
+                const modifiers = (synthetics.statisticsModifiers[`${ability}-based`] ??= []);
+                modifiers.push(
+                    () =>
+                        new ModifierPF2e({
+                            slug: "ruin",
+                            type: "item",
+                            label: KINGDOM_RUIN_LABELS[ability],
+                            modifier: penalty,
+                        })
+                );
+            }
         }
 
         // Auto-set if vacant (for npcs), and inject vacancy penalty modifiers into synthetics
@@ -190,7 +212,8 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
         // Compute commodity max values
         for (const value of Object.values(this.resources.commodities)) {
-            value.max = value.sites + 2 * value.resourceSites;
+            value.max = sizeData.storage;
+            value.gathered = value.sites + 2 * value.resourceSites;
         }
 
         // Calculate the control dc, used for skill checks

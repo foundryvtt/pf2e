@@ -96,6 +96,11 @@ const KINGDOM_RESOURCES_SCHEMA = {
                     min: 0,
                     initial: 0,
                 }),
+                gathered: new fields.NumberField<number, number, true, false>({
+                    initial: 0,
+                    required: true,
+                    nullable: false,
+                }),
             });
 
             return [type, schema];

@@ -13,6 +13,14 @@ import { ModifierAdjustment, RawModifier } from "@actor/modifiers.ts";
 const KINGDOM_ABILITIES = ["culture", "economy", "loyalty", "stability"] as const;
 const KINGDOM_ABILITY_LABELS = R.mapToObj(KINGDOM_ABILITIES, (a) => [a, `PF2E.Kingmaker.Abilities.${a}`]);
 
+/** Ruin label by ability slug */
+const KINGDOM_RUIN_LABELS = {
+    culture: "PF2E.Kingmaker.Kingdom.Ruin.corruption",
+    economy: "PF2E.Kingmaker.Kingdom.Ruin.crime",
+    stability: "PF2E.Kingmaker.Kingdom.Ruin.decay",
+    loyalty: "PF2E.Kingmaker.Kingdom.Ruin.strife",
+};
+
 const KINGDOM_LEADERSHIP = [
     "ruler",
     "counselor",
@@ -66,14 +74,21 @@ const KINGDOM_SKILL_ABILITIES: Record<KingdomSkill, KingdomAbility> = {
     wilderness: "stability",
 };
 
+interface KingdomSizeData {
+    faces: number;
+    type: KingdomNationType;
+    controlMod: number;
+    storage: number;
+}
+
 const CONTROL_DC_BY_LEVEL = [14, 15, 16, 18, 20, 22, 23, 24, 26, 27, 28, 30, 31, 32, 34, 35, 36, 38, 39, 40];
 const KINGDOM_SIZE_DATA = {
-    1: { faces: 4, type: "territory", controlMod: 0 },
-    10: { faces: 6, type: "province", controlMod: 1 },
-    25: { faces: 8, type: "state", controlMod: 2 },
-    50: { faces: 10, type: "country", controlMod: 3 },
-    100: { faces: 12, type: "dominion", controlMod: 4 },
-} satisfies Record<number, { faces: number; type: KingdomNationType; controlMod: number }>;
+    1: { faces: 4, type: "territory", controlMod: 0, storage: 4 },
+    10: { faces: 6, type: "province", controlMod: 1, storage: 8 },
+    25: { faces: 8, type: "state", controlMod: 2, storage: 12 },
+    50: { faces: 10, type: "country", controlMod: 3, storage: 16 },
+    100: { faces: 12, type: "dominion", controlMod: 4, storage: 20 },
+} satisfies Record<number, KingdomSizeData>;
 
 const vacancyLabel = (role: KingdomLeadershipRole) =>
     game.i18n.format("PF2E.Kingmaker.Kingdom.VacantRole", {
@@ -267,6 +282,7 @@ export {
     KINGDOM_SKILL_ABILITIES,
     KINGDOM_SKILL_LABELS,
     KINGDOM_LEADERSHIP,
+    KINGDOM_RUIN_LABELS,
     VACANCY_PENALTIES,
     getKingdomABCData,
 };
