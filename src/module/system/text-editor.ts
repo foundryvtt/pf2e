@@ -626,6 +626,13 @@ async function augmentInlineDamageRoll(
             ...(traits ?? []),
         ]);
 
+        // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
+        const firstBase = base.at(0);
+        if (firstBase && actor?.isOfType("npc") && (actor.isElite || actor.isWeak)) {
+            const value = options.has("item:frequency:limited") ? 4 : 2;
+            firstBase.terms?.push({ dice: null, modifier: actor.isElite ? value : -value });
+        }
+
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
             return extractDamageSynthetics(actor, domains, {

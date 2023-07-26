@@ -531,6 +531,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             options.add(`${prefix}:duration:0`);
         }
 
+        if (!this.unlimited) {
+            options.add(`${prefix}:frequency:limited`);
+        }
+
         const damageValues = Object.values(this.system.damage.value);
         for (const damage of damageValues) {
             if (damage.type) {
