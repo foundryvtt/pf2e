@@ -5,7 +5,7 @@ import * as R from "remeda";
 import {
     CriticalInclusion,
     DamageCategoryUnique,
-    DamageFormulaData,
+    CreateDamageFormulaParams,
     DamagePartialTerm,
     DamageType,
     MaterialDamageEffect,
@@ -20,14 +20,17 @@ interface AssembledFormula {
 
 /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
 function createDamageFormula(
-    damage: DamageFormulaData,
+    damage: CreateDamageFormulaParams,
     degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
 ): AssembledFormula;
-function createDamageFormula(damage: DamageFormulaData): AssembledFormula;
-function createDamageFormula(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
-function createDamageFormula(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
+function createDamageFormula(damage: CreateDamageFormulaParams): AssembledFormula;
 function createDamageFormula(
-    damage: DamageFormulaData,
+    damage: CreateDamageFormulaParams,
+    degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE
+): null;
+function createDamageFormula(damage: CreateDamageFormulaParams, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
+function createDamageFormula(
+    damage: CreateDamageFormulaParams,
     degree: DegreeOfSuccessIndex = DEGREE_OF_SUCCESS.SUCCESS
 ): AssembledFormula | null {
     damage = deepClone(damage);

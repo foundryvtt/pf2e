@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
-import { DamageDicePF2e, DamageDiceOverride, ModifierPF2e, PROFICIENCY_RANK_OPTION } from "@actor/modifiers.ts";
+import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e, PROFICIENCY_RANK_OPTION } from "@actor/modifiers.ts";
 import { AbilityString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
@@ -20,12 +20,12 @@ import { AssembledFormula, createDamageFormula, parseTermsFromSimpleFormula } fr
 import { nextDamageDieSize } from "./helpers.ts";
 import { DamageModifierDialog } from "./modifier-dialog.ts";
 import {
+    CreateDamageFormulaParams,
     DamageCategoryUnique,
     DamageDieSize,
     DamageRollContext,
     MaterialDamageEffect,
     WeaponBaseDamageData,
-    WeaponDamageFormulaData,
     WeaponDamageTemplate,
 } from "./types.ts";
 import { DAMAGE_DIE_FACES } from "./values.ts";
@@ -494,7 +494,7 @@ class WeaponDamagePF2e {
         const testedModifiers = extracted.modifiers;
         damageDice.push(...extracted.dice);
 
-        const damage: WeaponDamageFormulaData = {
+        const damage: CreateDamageFormulaParams = {
             base: [base],
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
             // only the weapon's damage die plus any extra dice from a striking rune. They don't count
@@ -543,12 +543,12 @@ class WeaponDamagePF2e {
 
     /** Apply damage dice overrides and create a damage formula */
     static #finalizeDamage(
-        damage: WeaponDamageFormulaData,
+        damage: CreateDamageFormulaParams,
         degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
     ): AssembledFormula;
-    static #finalizeDamage(damage: WeaponDamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
-    static #finalizeDamage(damage: WeaponDamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
-    static #finalizeDamage(damage: WeaponDamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
+    static #finalizeDamage(damage: CreateDamageFormulaParams, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
+    static #finalizeDamage(damage: CreateDamageFormulaParams, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
+    static #finalizeDamage(damage: CreateDamageFormulaParams, degree: DegreeOfSuccessIndex): AssembledFormula | null {
         damage = deepClone(damage);
         const base = damage.base.at(0);
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
