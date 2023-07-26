@@ -837,10 +837,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Consume a unit of ammunition used by this weapon */
     async consumeAmmo(): Promise<void> {
         const { ammo } = this;
-        if (ammo?.isOfType("weapon") && !ammo.system.usage.canBeAmmo) {
-            throw ErrorPF2e("attempted to consume weapon not usable as ammunition");
-        } else {
-            await ammo?.update({ "system.quantity": Math.max(ammo.quantity - 1, 0) });
+        if (ammo?.isOfType("consumable")) {
+            return ammo.consume();
+        } else if (ammo?.isOfType("weapon")) {
+            if (!ammo.system.usage.canBeAmmo) {
+                throw ErrorPF2e("attempted to consume weapon not usable as ammunition");
+            }
+            await ammo.update({ "system.quantity": Math.max(ammo.quantity - 1, 0) });
         }
     }
 
