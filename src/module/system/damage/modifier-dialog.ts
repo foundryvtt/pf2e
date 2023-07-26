@@ -15,7 +15,7 @@ import {
     BaseDamageData,
     DamageCategoryUnique,
     DamageDieSize,
-    DamageFormulaData,
+    CreateDamageFormulaParams,
     DamageRollContext,
     DamageType,
 } from "./types.ts";
@@ -334,7 +334,7 @@ class DamageModifierDialog extends Application {
 }
 
 interface DamageDialogParams {
-    damage: DamageFormulaData;
+    damage: CreateDamageFormulaParams;
     context: Partial<DamageRollContext>;
 }
 

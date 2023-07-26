@@ -1,3 +1,18 @@
+## 5.2.3
+
+### Bugfixes
+
+-   (stwlam) Fix check for whether a feat can be taken multiple times in choice set rule elements
+-   (stwlam) Fix several display issues with effects panel
+-   (stwlam) Fix version check in workaround of upstream encounter-creation issue
+-   (stwlam) Set label for familiar's attack-roll statistic
+-   (Supe) Fix action categories label in compendium browser
+
+### Data Updates
+
+-   (Tikael) Fix typo in trait description
+-   (stwlam) Add inline check to Swallow Whole description
+
 ## 5.2.2
 
 ### System Improvements

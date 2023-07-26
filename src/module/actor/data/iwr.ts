@@ -47,6 +47,7 @@ abstract class IWRData<TType extends IWRType> {
         switch (iwrType) {
             case "air":
             case "earth":
+            case "radiation":
             case "water":
                 return [`item:trait:${iwrType}`];
             case "all-damage":

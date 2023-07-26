@@ -1,8 +1,18 @@
-import { ErrorPF2e, fontAwesomeIcon } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";
-import { DamageCategory, DamageDieSize, DamageType } from "./types.ts";
-import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values.ts";
+import {
+    BaseDamageData,
+    DamageCategory,
+    DamageCategoryUnique,
+    DamageDieSize,
+    DamagePartialTerm,
+    DamageType,
+} from "./types.ts";
+import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES_TUPLE } from "./values.ts";
+import { DamageDicePF2e } from "@actor/modifiers.ts";
+import * as R from "remeda";
+import { combinePartialTerms } from "./formula.ts";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
@@ -33,6 +43,99 @@ const DamageCategorization = {
         return new Set(types);
     },
 } as const;
+
+const FACES = [4, 6, 8, 10, 12];
+
+/** Apply damage dice overrides and upgrades to a non-weapon's damage formula */
+function applyDamageDiceOverrides(base: BaseDamageData[], dice: DamageDicePF2e[]): void {
+    type RequiredNonNullable<T, K extends keyof T> = T & { [P in K]-?: NonNullable<T[P]> };
+    const overrideDice = dice.filter(
+        (d): d is RequiredNonNullable<DamageDicePF2e, "override"> => !d.ignored && !!d.override
+    );
+
+    if (!overrideDice.length) return;
+
+    for (const data of base) {
+        for (const adjustment of overrideDice) {
+            const die = data.terms?.find((t): t is RequiredNonNullable<DamagePartialTerm, "dice"> => !!t.dice);
+            if (!die) continue;
+
+            die.dice.number = adjustment.override.diceNumber ?? die.dice.number;
+            if (adjustment.override.dieSize) {
+                const faces = Number(/\d{1,2}/.exec(adjustment.override.dieSize)?.shift());
+                if (Number.isInteger(faces)) die.dice.faces = faces;
+            } else if (adjustment.override.upgrade || adjustment.override.downgrade) {
+                // die size increases are once-only for weapons, but has no such limit for non-weapons
+                const direction = adjustment.override.upgrade ? 1 : -1;
+                die.dice.faces = FACES[FACES.indexOf(die.dice.faces) + direction] ?? die.dice.faces;
+            }
+        }
+    }
+}
+
+/** Given a DamageRoll, reverts it into base damage data to allow adding modifiers and damage dice */
+function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
+    interface DamagePartialWithCategory extends DamagePartialTerm {
+        category: DamageCategoryUnique | null;
+    }
+
+    /** Internal function to recursively extract terms from a parsed DamageInstance's head term */
+    function extractTermsFromExpression(
+        expression: RollTerm,
+        { category = null }: { category?: DamageCategoryUnique | null } = {}
+    ): DamagePartialWithCategory[] {
+        // If this expression introduces a category, override it when recursing
+        category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, expression.options.flavor)
+            ? expression.options.flavor
+            : category;
+
+        if (expression instanceof Die) {
+            return [{ dice: R.pick(expression, ["number", "faces"]), modifier: 0, category }];
+        } else if (expression instanceof NumericTerm) {
+            return [{ dice: null, modifier: expression.number, category }];
+        } else if (expression instanceof Grouping) {
+            return extractTermsFromExpression(expression.term, { category });
+        } else if (!(expression instanceof ArithmeticExpression)) {
+            console.error("Unrecognized roll term type " + expression.constructor.name, expression);
+            return [{ dice: null, modifier: 0, category }];
+        }
+
+        const left = expression.operands[0];
+        const right = expression.operands[1];
+        const operator = expression.operator;
+
+        const leftTerms = extractTermsFromExpression(left, { category });
+        const rightTerms = extractTermsFromExpression(right, { category });
+
+        // Special case: allow * and / to work modifiers
+        if (operator === "*" || operator === "/") {
+            const firstLeft = leftTerms[0];
+            const firstRight = rightTerms[0];
+            if (leftTerms.length !== 1 || rightTerms.length !== 1 || firstLeft.dice || firstRight.dice) {
+                throw ErrorPF2e(`Cannot use ${operator} on non-simple terms`);
+            }
+
+            const firstMod = firstLeft.modifier ?? 0;
+            const secondMod = firstRight.modifier ?? 0;
+            return [{ dice: null, modifier: operator === "*" ? firstMod * secondMod : firstMod / secondMod, category }];
+        }
+
+        const groups = R.groupBy([...leftTerms, ...rightTerms], (t) => t.category ?? "");
+        return Object.values(groups).flatMap((terms) => {
+            const category = terms[0].category;
+            return combinePartialTerms(terms).map((t): DamagePartialWithCategory => ({ ...t, category }));
+        });
+    }
+
+    return roll.instances.flatMap((instance): BaseDamageData[] => {
+        const category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
+        const terms = extractTermsFromExpression(instance.head, { category });
+        return Object.values(R.groupBy(terms, (t) => t.category ?? "")).map((terms) => {
+            const category = terms[0].category;
+            return { damageType: instance.type, category, terms };
+        });
+    });
+}
 
 /** Create a span element for displaying splash damage */
 function renderComponentDamage(term: RollTerm): HTMLElement {
@@ -115,8 +218,10 @@ function markAsCrit(term: RollTerm, multiplier: 2 | 3): void {
 
 export {
     DamageCategorization,
+    applyDamageDiceOverrides,
     damageDiceIcon,
     deepFindTerms,
+    extractBaseDamage,
     isSystemDamageTerm,
     looksLikeDamageRoll,
     markAsCrit,

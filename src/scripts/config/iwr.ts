@@ -68,6 +68,7 @@ const immunityTypes = {
     possession: "PF2E.Damage.IWR.Type.possession",
     precision: "PF2E.Damage.RollFlavor.precision",
     prone: "PF2E.Damage.IWR.Type.prone",
+    radiation: "PF2E.Damage.IWR.Type.radiation",
     restrained: "PF2E.Damage.IWR.Type.restrained",
     "salt-water": "PF2E.Damage.IWR.Type.salt-water",
     scrying: "PF2E.Damage.IWR.Type.scrying",
