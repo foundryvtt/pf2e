@@ -30,7 +30,7 @@ import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 import { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { ChatMessagePF2e, ScenePF2e, TokenDocumentPF2e, UserPF2e } from "@module/documents.ts";
-import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
@@ -60,6 +60,7 @@ import { ActorSizePF2e } from "./data/size.ts";
 import {
     calculateRangePenalty,
     checkAreaEffects,
+    createEncounterRollOptions,
     getRangeIncrement,
     isOffGuardFromFlanking,
     isReallyPC,
@@ -685,12 +686,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Setup the basic structure of pf2e flags with roll options
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, {
             rollOptions: {
-                all: { [`self:type:${this.type}`]: true },
+                all: {
+                    [`self:type:${this.type}`]: true,
+                    ...createEncounterRollOptions(this),
+                },
             },
             trackedItems: {},
         });
-
-        this.setEncounterRollOptions();
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
@@ -772,36 +774,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         );
         TokenDocumentPF2e.assignDefaultImage(this.prototypeToken);
         TokenDocumentPF2e.prepareSize(this.prototypeToken);
-    }
-
-    /** If there is an active encounter, set roll options for it and this actor's participant */
-    setEncounterRollOptions(): void {
-        const encounter = game.ready ? game.combat : null;
-        if (!encounter?.started) return;
-
-        const participants = encounter.combatants.contents
-            .filter(
-                (c): c is RolledCombatant<EncounterPF2e> & { initiative: number } => typeof c.initiative === "number"
-            )
-            .sort((a, b) => b.initiative - a.initiative); // Sort descending by initiative roll result
-        const participant = participants.find((c) => c.actor === this);
-        if (typeof participant?.initiative !== "number") return;
-
-        const rollOptionsAll = this.rollOptions.all;
-        rollOptionsAll["encounter"] = true;
-        rollOptionsAll[`encounter:round:${encounter.round}`] = true;
-        rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
-        rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
-
-        const initiativeRoll = Math.trunc(participant.initiative);
-        rollOptionsAll[`self:participant:initiative:roll:${initiativeRoll}`] = true;
-        const rank = participants.indexOf(participant) + 1;
-        rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
-
-        const { initiativeStatistic } = participant.flags.pf2e;
-        if (initiativeStatistic) {
-            rollOptionsAll[`self:participant:initiative:stat:${initiativeStatistic}`] = true;
-        }
     }
 
     /* -------------------------------------------- */

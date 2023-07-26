@@ -6,12 +6,14 @@ import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemType } from "@item/data/index.ts";
 import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers.ts";
+import { RuleElementPF2e } from "@module/rules/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
+import { createEncounterRollOptions } from "@actor/helpers.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -93,6 +95,19 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         systemData.details.level = { value: master?.level ?? 0 };
         this.rollOptions.all[`self:level:${this.level}`] = true;
         systemData.details.alliance = master?.alliance ?? "party";
+
+        // Set encounter roll options from the master's perspective
+        if (master) {
+            this.flags.pf2e.rollOptions.all = mergeObject(
+                this.flags.pf2e.rollOptions.all,
+                createEncounterRollOptions(master)
+            );
+        }
+    }
+
+    /** Skip rule-element preparation if there is no master */
+    protected override prepareRuleElements(): RuleElementPF2e[] {
+        return this.master ? super.prepareRuleElements() : [];
     }
 
     override prepareDerivedData(): void {
@@ -101,13 +116,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         const { master } = this;
         const systemData = this.system;
         const { attributes, traits } = systemData;
-
-        // Apply active effects if the master (if selected) is ready.
-        if (master) {
-            super.applyActiveEffects();
-        } else {
-            this.rules = [];
-        }
 
         // Ensure uniqueness of traits
         traits.value = [...this.traits].sort();
