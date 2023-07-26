@@ -7,7 +7,7 @@ input[type="text"], input[type="number"] {
     grid-template-areas:
         "leaders resources"
         "leaders abilities";
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.9fr 1fr;
     grid-template-rows: auto 1fr;
     width: 100%;
     gap: 0 1rem;
@@ -16,7 +16,6 @@ input[type="text"], input[type="number"] {
 
 .leaders {
     grid-area: leaders;
-    flex: 1;
     .leader {
         display: grid;
         grid-template-areas:
@@ -133,6 +132,10 @@ input[type="text"], input[type="number"] {
     grid-area: abilities;
     flex: 0;
 
+    input {
+        height: auto;
+    }
+
     .ability {
         display: flex;
         flex-direction: row;
@@ -142,6 +145,15 @@ input[type="text"], input[type="number"] {
             text-align: center;
             .value {
                 font-size: var(--font-size-20);
+            }
+        }
+
+        .ruin-value {
+            display: flex;
+            gap: 2px;
+            justify-content: center;
+            input {
+                width: 3ch;
             }
         }
 
