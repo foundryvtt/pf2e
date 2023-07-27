@@ -101,15 +101,18 @@ async function repair(options: RepairActionOptions): Promise<void> {
 }
 
 async function onRepairChatCardEvent(
-    event: JQuery.ClickEvent,
+    event: MouseEvent,
     message: ChatMessagePF2e | undefined,
-    $card: JQuery
+    card: HTMLElement
 ): Promise<void> {
-    const itemUuid = $card.attr("data-item-uuid");
+    const itemUuid = card.dataset.itemUuid;
     const item = await fromUuid(itemUuid ?? "");
-    if (!(item instanceof PhysicalItemPF2e)) return;
-    const $button = $(event.currentTarget);
-    const repair = $button.attr("data-repair");
+    const button = event.currentTarget;
+    if (!(item instanceof PhysicalItemPF2e) || !(button instanceof HTMLElement)) {
+        return;
+    }
+
+    const repair = button.dataset.repair;
     const speaker =
         message &&
         ChatMessagePF2e.getSpeaker({
@@ -118,7 +121,7 @@ async function onRepairChatCardEvent(
             token: message.token,
         });
     if (repair === "restore") {
-        const value = Number($button.attr("data-repair-value") ?? "0");
+        const value = Number(button.dataset.repairValue) || 0;
         const beforeRepair = item.system.hp.value;
         const afterRepair = Math.min(item.system.hp.max, beforeRepair + value);
         await item.update({ "system.hp.value": afterRepair });
