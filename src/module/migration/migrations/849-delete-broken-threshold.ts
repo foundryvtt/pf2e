@@ -3,7 +3,7 @@ import { PhysicalItemHPSource } from "@item/physical/data.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 
-/**  Remove broken threshold from physical item source data */
+/** Remove broken threshold from physical item source data */
 export class Migration849DeleteBrokenThreshold extends MigrationBase {
     static override version = 0.849;
 

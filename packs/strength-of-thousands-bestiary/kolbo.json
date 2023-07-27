@@ -792,7 +792,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Kolbo isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to creatures of 6th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using surprise attack.</p>"
+                    "value": "<p>Kolbo isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to creatures of 6th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -801,7 +801,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": 6
                     }
                 ],
@@ -878,7 +878,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Kolbo deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>Kolbo deals an extra 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -890,7 +890,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -911,8 +911,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

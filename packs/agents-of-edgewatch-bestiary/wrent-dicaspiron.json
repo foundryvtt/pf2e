@@ -611,7 +611,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any creature taking @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage} is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the Skinner's attacks. When attacking a flat-footed creature, the Skinner deals an additional 2d6 precision damage.</p>"
+                    "value": "<p>Any creature taking @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage} is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Skinner's attacks. When attacking an off-guard creature, the Skinner deals an additional 2d6 precision damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -623,7 +623,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
@@ -638,13 +638,13 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

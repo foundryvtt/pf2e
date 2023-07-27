@@ -507,7 +507,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Delamar isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to creatures of 6th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using @UUID[Compendium.pf2e.feats-srd.Item.Surprise Attack].</p>"
+                    "value": "<p>Delamar isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to creatures of 6th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using @UUID[Compendium.pf2e.feats-srd.Item.Surprise Attack].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -516,7 +516,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": 6
                     }
                 ],
@@ -603,7 +603,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>On the first round of combat, if Delamar rolled Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to him.</p>"
+                    "value": "<p>On the first round of combat, if Delamar rolled Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to him.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -632,7 +632,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,
@@ -705,7 +705,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Delamar deals an extra 2d6 precision damage precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Delamar deals an extra 2d6 precision damage precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -717,7 +717,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "finesse",
@@ -734,8 +734,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

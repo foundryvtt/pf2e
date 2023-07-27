@@ -814,7 +814,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hateful hermit unleashes a vexing stream of profanities and threats at a single foe he can see within 30 feet. The hermit gains a +1 circumstance bonus on all attack rolls made against that target until he chooses a different target to Focus Hatred on. The target must attempt a @Check[type:will|dc:22] save, with the below effects. The hateful hermit cannot Focus Hatred again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Focus Hatred for 24 hours.</p>\n<p><strong>Success</strong> The target is distracted by the hatred and is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the hermit's next attack.</p>\n<p><strong>Failure</strong> The hermit's words unnerve the target and distract them; the target is flat-footed until the end of the hateful hermit's next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is flat-footed for 1 minute.</p>"
+                    "value": "<p>The hateful hermit unleashes a vexing stream of profanities and threats at a single foe he can see within 30 feet. The hermit gains a +1 circumstance bonus on all attack rolls made against that target until he chooses a different target to Focus Hatred on. The target must attempt a @Check[type:will|dc:22] save, with the below effects. The hateful hermit cannot Focus Hatred again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Focus Hatred for 24 hours.</p>\n<p><strong>Success</strong> The target is distracted by the hatred and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the hermit's next attack.</p>\n<p><strong>Failure</strong> The hermit's words unnerve the target and distract them; the target is off-guard until the end of the hateful hermit's next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is off-guard for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -873,7 +873,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hateful hermit deals 2d6 extra precision damage to flat-footed creatures.</p>\n<hr />\n<p><span></span></p>\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The hateful hermit deals 2d6 extra precision damage to off-guard creatures.</p>\n<hr />\n<p><span></span></p>\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -885,7 +885,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -906,8 +906,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

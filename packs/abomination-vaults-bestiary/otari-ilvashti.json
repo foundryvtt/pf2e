@@ -277,7 +277,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Otari fades away, momentarily emerges from the shadow of another creature within 30 feet, and makes a ghostly hand Strike against a single target within reach of this creature (but not against the creature whose shadow he infests).</p>\n<p>On a successful Strike, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the start of Otari's next turn. Otari then reappears at his starting point.</p>\n<p>The creature whose shadow Otari infests is exposed to filth fever.</p>"
+                    "value": "<p>Otari fades away, momentarily emerges from the shadow of another creature within 30 feet, and makes a ghostly hand Strike against a single target within reach of this creature (but not against the creature whose shadow he infests).</p>\n<p>On a successful Strike, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of Otari's next turn. Otari then reappears at his starting point.</p>\n<p>The creature whose shadow Otari infests is exposed to filth fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -323,7 +323,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Otari deals 2d6 extra precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Otari deals 2d6 extra precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -335,7 +335,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -356,8 +356,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

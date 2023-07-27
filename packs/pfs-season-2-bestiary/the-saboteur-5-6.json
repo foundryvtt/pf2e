@@ -515,7 +515,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Damage[1d4[bleed]] if the target was @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] or if the attack was a critical hit.</p>"
+                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Damage[1d4[bleed]] if the target was @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] or if the attack was a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -528,7 +528,7 @@
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:damage:type:piercing",
@@ -546,7 +546,7 @@
                         "key": "DamageDice",
                         "predicate": [
                             {
-                                "not": "target:condition:flat-footed"
+                                "not": "target:condition:off-guard"
                             },
                             {
                                 "or": [
@@ -631,7 +631,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The saboteur deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creatures.</p>"
+                    "value": "<p>The saboteur deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -643,15 +643,15 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -686,7 +686,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On the first round of combat, if the saboteur rolls Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to them.</p>"
+                    "value": "<p>On the first round of combat, if the saboteur rolls Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to them.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -715,7 +715,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,

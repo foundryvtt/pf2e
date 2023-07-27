@@ -490,7 +490,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Falrok successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against melee attacks he attempts against it until the end of his next turn. On a critical success, the target is flat-footed against all melee attacks until the end of their next turn, not just Falrok's.</p>"
+                    "value": "<p>When Falrok successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against melee attacks he attempts against it until the end of his next turn. On a critical success, the target is off-guard against all melee attacks until the end of their next turn, not just Falrok's.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -532,7 +532,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>4d6 precision</p>\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>4d6 precision</p>\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -544,7 +544,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -565,8 +565,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

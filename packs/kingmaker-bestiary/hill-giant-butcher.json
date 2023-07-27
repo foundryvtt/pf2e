@@ -1224,7 +1224,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hill giant butcher deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The hill giant butcher deals an extra 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1236,7 +1236,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -1257,8 +1257,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -1335,7 +1335,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round;</p>\n<p><strong>Requirement</strong> the hill giant butcher is wielding two melee weapons, each in a different hand</p>\n<p><strong>Effect</strong> The hill giant butcher uses both of its axes against a single target. It makes two Strikes against its menaced prey, one with each of the required weapons. If both hit the same menaced prey, combine their damage for the purpose of its resistances and weaknesses. In addition, if both Strikes hit, the menaced prey is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the start of the hill giant butcher's next turn. Apply the hill giant butcher's multiple attack penalty normally.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round;</p>\n<p><strong>Requirement</strong> the hill giant butcher is wielding two melee weapons, each in a different hand</p>\n<p><strong>Effect</strong> The hill giant butcher uses both of its axes against a single target. It makes two Strikes against its menaced prey, one with each of the required weapons. If both hit the same menaced prey, combine their damage for the purpose of its resistances and weaknesses. In addition, if both Strikes hit, the menaced prey is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of the hill giant butcher's next turn. Apply the hill giant butcher's multiple attack penalty normally.</p>"
                 },
                 "requirements": {
                     "value": ""

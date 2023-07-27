@@ -337,7 +337,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition is also @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against Gedovius's attacks.</p>"
+                    "value": "<p>Any creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition is also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against Gedovius's attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -354,7 +354,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,
@@ -419,7 +419,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Gedovius's last action was a melee Strike that dealt sneak attack damage to a @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] target.</p>\n<hr />\n<p><strong>Effect</strong> Gedovius deals @Damage[6d6[bleed]] damage to the target.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Gedovius's last action was a melee Strike that dealt sneak attack damage to a @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] target.</p>\n<hr />\n<p><strong>Effect</strong> Gedovius deals @Damage[6d6[bleed]] damage to the target.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -458,7 +458,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Gedovius deals 3d6 extra precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Gedovius deals 3d6 extra precision damage to off-guard creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -470,7 +470,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -491,8 +491,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

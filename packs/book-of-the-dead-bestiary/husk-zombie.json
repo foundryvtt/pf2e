@@ -385,7 +385,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The husk zombie deals an additional 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The husk zombie deals an additional 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -397,7 +397,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -418,8 +418,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -454,7 +454,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The husk zombie's turn begins</p>\n<hr />\n<p><strong>Effect</strong> The husk zombie has a sudden burst of speed. They are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] this turn and can use the extra action only to Stride or Strike. If the husk zombie's first action this turn is a melee Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the attack.</p>\n<p>The husk zombie can't use Sudden Surge again until after they spend at least 10 minutes standing motionless.</p>"
+                    "value": "<p><strong>Trigger</strong> The husk zombie's turn begins</p>\n<hr />\n<p><strong>Effect</strong> The husk zombie has a sudden burst of speed. They are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] this turn and can use the extra action only to Stride or Strike. If the husk zombie's first action this turn is a melee Strike, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>\n<p>The husk zombie can't use Sudden Surge again until after they spend at least 10 minutes standing motionless.</p>"
                 },
                 "requirements": {
                     "value": ""

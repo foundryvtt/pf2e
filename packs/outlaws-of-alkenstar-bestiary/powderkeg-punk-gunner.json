@@ -646,7 +646,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The gunner is flanked by two or more creatures and the gunner's pistol is loaded</p>\n<hr />\n<p><strong>Effect</strong> The gunner turns their pistol on themself and pulls the trigger, firing through their own gut to catch the foe behind them unawares. The gunner makes a flintlock pistol Strike against an adjacent creature, who becomes @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against this Strike. The gunner takes @Damage[1d4[piercing]] damage.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The gunner is flanked by two or more creatures and the gunner's pistol is loaded</p>\n<hr />\n<p><strong>Effect</strong> The gunner turns their pistol on themself and pulls the trigger, firing through their own gut to catch the foe behind them unawares. The gunner makes a flintlock pistol Strike against an adjacent creature, who becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against this Strike. The gunner takes @Damage[1d4[piercing]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -685,7 +685,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The gunner deals an additional 1d6 precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The gunner deals an additional 1d6 precision damage to off-guard creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -697,7 +697,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -718,8 +718,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
