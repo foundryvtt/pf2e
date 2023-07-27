@@ -47,8 +47,11 @@ abstract class IWRData<TType extends IWRType> {
         switch (iwrType) {
             case "air":
             case "earth":
+            case "metal":
             case "radiation":
+            case "visual":
             case "water":
+            case "wood":
                 return [`item:trait:${iwrType}`];
             case "all-damage":
                 return ["damage"];
@@ -111,8 +114,6 @@ abstract class IWRData<TType extends IWRType> {
                 const component = iwrType === "splash-damage" ? "splash" : "precision";
                 return [`damage:component:${component}`];
             }
-            case "visual":
-                return ["item:trait:visual"];
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             default: {
@@ -143,7 +144,7 @@ abstract class IWRData<TType extends IWRType> {
                 }
 
                 if (setHasElement(MAGIC_SCHOOLS, iwrType)) {
-                    return ["item:trait:spell", `item:trait:${iwrType}`];
+                    return ["item:type:effect", `item:trait:${iwrType}`];
                 }
 
                 return [`unhandled:${iwrType}`];
@@ -310,4 +311,25 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
     doubleVs?: ResistanceType[];
 }
 
-export { IWRSource, ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource };
+/** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
+const NON_DAMAGE_WEAKNESSES: Set<IWRType> = new Set([
+    "air",
+    "earth",
+    "salt",
+    "metal",
+    "radiation",
+    "salt-water",
+    "water",
+    "wood",
+]);
+
+export {
+    ImmunityData,
+    ImmunitySource,
+    IWRSource,
+    NON_DAMAGE_WEAKNESSES,
+    ResistanceData,
+    ResistanceSource,
+    WeaknessData,
+    WeaknessSource,
+};
