@@ -49,6 +49,7 @@ const immunityTypes = {
     light: "PF2E.Damage.IWR.Type.light",
     magic: "PF2E.Damage.IWR.Type.magic",
     mental: "PF2E.Damage.RollFlavor.mental",
+    metal: "PF2E.Damage.IWR.Type.metal",
     "misfortune-effects": "PF2E.Damage.IWR.Type.misfortune-effects",
     mithral: "PF2E.Damage.IWR.Type.mithral",
     necromancy: "PF2E.Damage.IWR.Type.necromancy",
@@ -89,6 +90,7 @@ const immunityTypes = {
     unconscious: "PF2E.Damage.IWR.Type.unconscious",
     visual: "PF2E.Damage.IWR.Type.visual",
     water: "PF2E.Damage.IWR.Type.water",
+    wood: "PF2E.Damage.IWR.Type.wood",
 };
 
 const weaknessTypes = {
@@ -146,6 +148,7 @@ const weaknessTypes = {
     water: "PF2E.Damage.IWR.Type.water",
     weapons: "PF2E.Damage.IWR.Type.weapons",
     "weapons-shedding-bright-light": "PF2E.Damage.IWR.Type.weapons-shedding-bright-light",
+    wood: "PF2E.Damage.IWR.Type.wood",
 };
 
 const resistanceTypes = {
@@ -201,6 +204,7 @@ const resistanceTypes = {
     water: "PF2E.Damage.IWR.Type.water",
     weapons: "PF2E.Damage.IWR.Type.weapons",
     "weapons-shedding-bright-light": "PF2E.Damage.IWR.Type.weapons-shedding-bright-light",
+    wood: "PF2E.Damage.IWR.Type.wood",
 };
 
 export { immunityTypes, weaknessTypes, resistanceTypes };
