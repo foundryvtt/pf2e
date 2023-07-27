@@ -23,7 +23,7 @@ import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
 import { WeaponTraitToggles, prunePropertyRunes } from "./helpers.ts";
 import type {
@@ -120,7 +120,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Whether the weapon in its current usage is thrown: a thrown-only weapon or a thrown usage of a melee weapon */
     get isThrown(): boolean {
-        return this.isRanged && this.reload === "-";
+        return this.isRanged && (this.baseType === "alchemical-bomb" || this.system.traits.value.includes("thrown"));
     }
 
     /** Whether the weapon is _can be_ thrown: a thrown-only weapon or one that has a throwable usage */
@@ -169,7 +169,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Does this weapon require ammunition in order to make a strike? */
     get requiresAmmo(): boolean {
-        return this.isRanged && ![null, "-"].includes(this.reload);
+        return this.isRanged && !this.isThrown && ![null, "-"].includes(this.reload);
     }
 
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
@@ -309,9 +309,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         ABP.cleanupRunes(this);
 
-        const traitsArray = systemData.traits.value;
-        // Thrown weapons always have a reload of "-"
-        if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d+)?$/.test(t))) {
+        // Thrown weapons always have a reload of "-" or 0
+        if (this.isThrown && !tupleHasValue(["-", "0"], this.system.reload.value)) {
             this.system.reload.value = "-";
         }
 
@@ -343,6 +342,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.traits.toggles = new WeaponTraitToggles(this);
 
         // Ensure unarmed attacks always have the unarmed trait
+        const traitsArray = systemData.traits.value;
         if (systemData.category === "unarmed" && !traitsArray.includes("unarmed")) {
             systemData.traits.value.push("unarmed");
         }

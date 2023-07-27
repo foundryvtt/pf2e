@@ -76,6 +76,7 @@ import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
 import { ErrorPF2e, objectHasKey, signedInteger, sluggify, sortedStringify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
@@ -145,6 +146,21 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** This PC's ability scores */
     override get abilities(): Abilities {
         return deepClone(this.system.abilities);
+    }
+
+    get handsFree(): ZeroToTwo {
+        const heldItems = this.inventory.filter((i) => i.isHeld);
+        return Math.clamped(
+            2 - R.sumBy(heldItems, (i) => (i.traits.has("free-hand") ? 0 : i.handsHeld)),
+            0,
+            2
+        ) as ZeroToTwo;
+    }
+
+    /** The number of hands this PC "really" has free: this is, ignoring allowances for the Free Hand trait */
+    get handsReallyFree(): ZeroToTwo {
+        const heldItems = this.inventory.filter((i) => i.isHeld);
+        return Math.clamped(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
     }
 
     override get hitPoints(): CharacterHitPointsSummary {
@@ -780,17 +796,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Set number of hands free
-        const heldItems = this.inventory.filter((i) => i.isHeld);
-        const handsFree = heldItems.reduce((count, item) => {
-            const handsOccupied = item.traits.has("free-hand") ? 0 : item.handsHeld;
-            return Math.max(count - handsOccupied, 0);
-        }, 2);
-
+        const { handsFree, handsReallyFree } = this;
         this.attributes.handsFree = handsFree;
         rollOptionsAll[`hands-free:${handsFree}`] = true;
 
         // Some rules specify ignoring the Free Hand trait
-        const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
     }
 
@@ -1429,11 +1439,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
         };
 
+        const ready =
+            weapon.isEquipped ||
+            (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && this.handsReallyFree > 0);
+
         const action: CharacterStrike = mergeObject(strikeStat, {
             label: weapon.name,
             imageUrl: weapon.img,
             quantity: weapon.quantity,
-            ready: weapon.isEquipped,
+            ready,
             domains: selectors,
             visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
             glyph: "A",
