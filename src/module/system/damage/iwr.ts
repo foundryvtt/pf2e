@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 
@@ -26,11 +26,9 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         (ir) => new ResistanceData({ type: ir.type, value: ir.max ?? Infinity })
     );
 
-    // Collect weaknesses that "[don't] normally deal damage, such as water" and apply separately as untyped damage
     const nonDamageWeaknesses = weaknesses.filter(
         (w) =>
-            ["water", "salt", "salt-water"].includes(w.type) &&
-            instances.some((i) => w.test([...i.formalDescription, ...rollOptions]))
+            NON_DAMAGE_WEAKNESSES.has(w.type) && instances.some((i) => w.test([...i.formalDescription, ...rollOptions]))
     );
     const damageWeaknesses = weaknesses.filter((w) => !nonDamageWeaknesses.includes(w));
 

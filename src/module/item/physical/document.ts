@@ -51,15 +51,22 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     get carryType(): ItemCarryType {
-        return this.system.equipped.carryType ?? (this.system.containerId ? "worn" : "stowed");
+        return this.system.equipped.carryType;
     }
 
+    /** Whether the item is currently being held */
+    get isHeld(): boolean {
+        return this.handsHeld > 0;
+    }
+
+    /** The number of hands being used to hold this item */
     get handsHeld(): number {
         return this.system.equipped.carryType === "held" ? this.system.equipped.handsHeld ?? 1 : 0;
     }
 
-    get isHeld(): boolean {
-        return this.handsHeld > 0;
+    /** Whether the item is currently being worn */
+    get isWorn(): boolean {
+        return this.system.equipped.carryType === "worn";
     }
 
     get price(): Price {
@@ -238,10 +245,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             const heldOrStowed = stackData?.lightBulk ?? weightToBulk(systemData.weight.value)?.toLightBulk() ?? 0;
             const worn = systemData.equippedBulk.value
                 ? weightToBulk(systemData.equippedBulk.value)?.toLightBulk() ?? 0
-                : null;
+                : heldOrStowed;
 
-            const { carryType } = systemData.equipped;
-            const value = this.isEquipped && carryType === "worn" ? worn ?? heldOrStowed : heldOrStowed;
+            const value = this.type === "armor" && this.isEquipped ? worn : heldOrStowed;
 
             return { heldOrStowed, worn, value, per };
         })();
