@@ -108,7 +108,6 @@ class TextEditorPF2e extends TextEditor {
                 ? [message.actor, message.getRollData()]
                 : [null, {}];
         const options = anchor.dataset.flavor ? { flavor: anchor.dataset.flavor } : {};
-        const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
 
         const speaker = ChatMessagePF2e.getSpeaker({ actor });
         const rollMode = objectHasKey(CONFIG.Dice.rollModes, anchor.dataset.mode) ? anchor.dataset.mode : "roll";
@@ -130,6 +129,7 @@ class TextEditorPF2e extends TextEditor {
             return;
         }
 
+        const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
         return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
     }
 
@@ -515,15 +515,15 @@ class TextEditorPF2e extends TextEditor {
         const traits = params.traits?.split(",") ?? item?.system.traits?.value;
         const result = await augmentInlineDamageRoll(params.formula, { skipDialog: true, actor, item, traits });
 
-        const roll = result?.template.damage.roll ?? new DamageRoll(params.formula);
+        const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
         const element = createHTMLElement("a", {
             classes: ["inline-roll", "roll"],
             children: [damageDiceIcon(roll), args.inlineLabel ?? roll.formula],
             dataset: {
                 formula: roll._formula,
                 tooltip: roll.formula,
-                damageRoll: "",
-                pf2BaseFormula: params.formula,
+                damageRoll: params.formula,
+                pf2BaseFormula: result ? params.formula : null,
                 pf2Traits: traits?.toString() || null,
                 pf2ItemId: item?.id,
             },
@@ -612,6 +612,11 @@ async function augmentInlineDamageRoll(
     }
 ): Promise<{ template: InlineDamageTemplate; context: DamageRollContext } | null> {
     const { name, actor, item, traits } = args;
+
+    // Special case: this is probably an unowned item. Show the normal formula in such cases.
+    if (!actor && baseFormula.includes("@actor")) {
+        return null;
+    }
 
     try {
         const rollData = item?.getRollData() ?? actor?.getRollData();
