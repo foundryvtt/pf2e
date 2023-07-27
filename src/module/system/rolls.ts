@@ -15,7 +15,7 @@ interface RollDataPF2e extends RollOptions {
 /** Possible parameters of a RollFunction */
 interface RollParameters {
     /** The triggering event */
-    event?: JQuery.TriggeredEvent;
+    event?: MouseEvent | JQuery.TriggeredEvent;
     /** Any options which should be used in the roll. */
     options?: string[] | Set<string>;
     /** Optional DC data for the roll */
