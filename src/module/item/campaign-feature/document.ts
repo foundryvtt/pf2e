@@ -6,12 +6,13 @@ import { sluggify, tupleHasValue } from "@util";
 import { ItemPF2e } from "../index.ts";
 import { CampaignFeatureSource, CampaignFeatureSystemData, CampaignFeatureSystemSource } from "./data.ts";
 import { BehaviorType, KingmakerCategory, KingmakerTrait } from "./types.ts";
-import { KINGDOM_CATEGORY_DATA, KINGMAKER_CATEGORY_TYPES } from "./values.ts";
+import { CategoryData, KINGDOM_CATEGORY_DATA, KINGMAKER_CATEGORY_TYPES } from "./values.ts";
 
 class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare group: FeatGroup<PartyPF2e, CampaignFeaturePF2e> | null;
     declare grants: CampaignFeaturePF2e[];
     declare behavior: BehaviorType;
+    declare levelLabel: string;
 
     get category(): KingmakerCategory {
         return this.system.category;
@@ -51,9 +52,11 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const categoryData = KINGDOM_CATEGORY_DATA[this.category] ?? Object.values(KINGDOM_CATEGORY_DATA)[0];
+        const categoryData: CategoryData =
+            KINGDOM_CATEGORY_DATA[this.category] ?? Object.values(KINGDOM_CATEGORY_DATA)[0];
         this.behavior = categoryData.behavior;
         this.group = null;
+        this.levelLabel = categoryData.levelLabel ?? (this.isFeat ? "PF2E.Item.Feat.LevelLabel" : "PF2E.LevelLabel");
 
         // Initialize frequency uses if not set
         if (this.actor && this.system.frequency) {
