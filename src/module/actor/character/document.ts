@@ -1,7 +1,7 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
-import { ALLIANCES } from "@actor/creature/values.ts";
+import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
@@ -337,7 +337,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Base saves structure
         systemData.saves = mergeObject(
-            R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0 }]),
+            R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0, ability: SAVING_THROW_DEFAULT_ATTRIBUTES[t] }]),
             systemData.saves ?? {}
         );
 
