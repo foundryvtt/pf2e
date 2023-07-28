@@ -306,6 +306,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }, {} as Record<(typeof boostLevels)[number], number>);
 
         // Base ability scores
+        const manualAttributes = Object.keys(this.system.abilities ?? {}).length > 0;
         this.system.abilities = R.mapToObj(Array.from(ABILITY_ABBREVIATIONS), (a) => [
             a,
             mergeObject({ value: 10 }, this.system.abilities?.[a] ?? {}),
@@ -315,7 +316,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const existingBoosts = systemData.build?.abilities?.boosts;
         systemData.build = {
             abilities: {
-                manual: Object.keys(systemData.abilities).length > 0,
+                manual: manualAttributes,
                 keyOptions: [],
                 boosts: {
                     ancestry: [],
@@ -1934,14 +1935,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             await this.update({ "system.abilities": baseAbilities });
         } else {
             // Delete stored ability scores for boost-driven management
-            const deletions = Array.from(ABILITY_ABBREVIATIONS).reduce(
-                (accumulated: Record<string, null>, abbrev) => ({
-                    ...accumulated,
-                    [`-=${abbrev}`]: null,
-                }),
-                {}
-            );
-            await this.update({ "system.abilities": deletions });
+            await this.update({ "system.-=abilities": null });
         }
     }
 }
