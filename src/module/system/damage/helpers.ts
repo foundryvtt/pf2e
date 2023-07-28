@@ -140,8 +140,8 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
         const category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
         const terms = extractTermsFromExpression(instance.head, { category });
         return Object.values(R.groupBy(terms, (t) => t.category ?? "")).map((terms) => {
-            const category = terms[0].category;
-            return { damageType: instance.type, category, terms };
+            const category = instance.persistent ? "persistent" : terms[0].category;
+            return { damageType: instance.type, category, terms: terms.map((t) => R.omit(t, ["category"])) };
         });
     });
 }
