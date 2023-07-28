@@ -64,65 +64,78 @@ class ChatCards {
             const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
 
             // Spell actions
-            if (action === "spellAttack") spell?.rollAttack(event);
-            else if (action === "spellAttack2") spell?.rollAttack(event, 2);
-            else if (action === "spellAttack3") spell?.rollAttack(event, 3);
-            else if (action === "spellDamage") spell?.rollDamage(event);
-            else if (action === "spellCounteract") spell?.rollCounteract(event);
-            else if (action === "spellTemplate") spell?.placeTemplate();
-            else if (action === "selectVariant") {
-                const castLevel = Number(htmlQuery(html, "div.chat-card")?.dataset.castLevel) || 1;
-                const overlayIdString = button.dataset.overrlayIds;
-                if (overlayIdString) {
-                    const overlayIds = overlayIdString.split(",").map((id) => id.trim());
-                    const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
-                    if (variantSpell) {
-                        const variantMessage = await variantSpell.toMessage(undefined, {
+            switch (action) {
+                case "spell-attack":
+                    return spell?.rollAttack(event);
+                case "spell-attack-2":
+                    return spell?.rollAttack(event, 2);
+                case "spell-attack-3":
+                    return spell?.rollAttack(event, 3);
+                case "spell-damage":
+                    spell?.rollDamage(event);
+                    return;
+                case "spell-save":
+                    return ChatCards.#rollActorSaves({ event, button, actor, item });
+                case "spell-counteract":
+                    spell?.rollCounteract(event);
+                    return;
+                case "spell-template":
+                    return spell?.placeTemplate();
+                case "spell-variant": {
+                    const castLevel = Number(htmlQuery(html, "div.chat-card")?.dataset.castLevel) || 1;
+                    const overlayIdString = button.dataset.overrlayIds;
+                    if (overlayIdString) {
+                        const overlayIds = overlayIdString.split(",").map((id) => id.trim());
+                        const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
+                        if (variantSpell) {
+                            const variantMessage = await variantSpell.toMessage(undefined, {
+                                create: false,
+                                data: { castLevel },
+                            });
+                            if (variantMessage) {
+                                const messageSource = variantMessage.toObject();
+                                await message.update(messageSource);
+                            }
+                        }
+                    } else if (spell) {
+                        const originalSpell = spell?.original ?? spell;
+                        const originalMessage = await originalSpell.toMessage(undefined, {
                             create: false,
                             data: { castLevel },
                         });
-                        if (variantMessage) {
-                            const messageSource = variantMessage.toObject();
-                            await message.update(messageSource);
+                        if (originalMessage) {
+                            await message.update(originalMessage.toObject());
                         }
                     }
-                } else if (spell) {
-                    const originalSpell = spell?.original ?? spell;
-                    const originalMessage = await originalSpell.toMessage(undefined, {
-                        create: false,
-                        data: { castLevel },
-                    });
-                    if (originalMessage) {
-                        await message.update(originalMessage.toObject());
-                    }
+                    return;
                 }
-            } else if (action === "consume") {
-                // Consumable usage
-                if (item.isOfType("consumable")) {
-                    item.consume();
-                } else if (item.isOfType("melee")) {
-                    // Button is from an NPC attack effect
-                    const consumable = actor.items.get(button.dataset.item ?? "");
-                    if (consumable?.isOfType("consumable")) {
-                        const oldQuant = consumable.quantity;
-                        const consumableString = game.i18n.localize("TYPES.Item.consumable");
-                        const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
-                        await consumable.consume();
-                        const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
-                        let flavor = message.flavor.replace(
-                            toReplace,
-                            `${consumable.name} - ${consumableString} (${currentQuant})`
-                        );
-                        if (currentQuant === 0) {
-                            const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
-                            flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
+                case "consume": {
+                    // Consumable usage
+                    if (item.isOfType("consumable")) {
+                        item.consume();
+                    } else if (item.isOfType("melee")) {
+                        // Button is from an NPC attack effect
+                        const consumable = actor.items.get(button.dataset.item ?? "");
+                        if (consumable?.isOfType("consumable")) {
+                            const oldQuant = consumable.quantity;
+                            const consumableString = game.i18n.localize("TYPES.Item.consumable");
+                            const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
+                            await consumable.consume();
+                            const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
+                            let flavor = message.flavor.replace(
+                                toReplace,
+                                `${consumable.name} - ${consumableString} (${currentQuant})`
+                            );
+                            if (currentQuant === 0) {
+                                const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
+                                flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
+                            }
+                            await message.update({ flavor });
+                            message.render(true);
                         }
-                        await message.update({ flavor });
-                        message.render(true);
                     }
+                    return;
                 }
-            } else if (action === "save") {
-                ChatCards.#rollActorSaves({ event, button, actor, item });
             }
         } else if (actor.isOfType("character", "npc")) {
             const physicalItem = await (async (): Promise<PhysicalItemPF2e | null> => {
@@ -139,8 +152,7 @@ class ChatCards {
                 const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
                 const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
-                    return;
+                    return ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                 }
 
                 if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
@@ -163,8 +175,7 @@ class ChatCards {
 
                 const result = await actor.addToInventory(itemObject, undefined);
                 if (!result) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
-                    return;
+                    return ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
                 }
 
                 ChatMessagePF2e.create({
@@ -195,11 +206,10 @@ class ChatCards {
                 }
             } else if (physicalItem && action === "receieve-crafting-item") {
                 if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
-                    await craftSpellConsumable(physicalItem, quantity, actor);
+                    return craftSpellConsumable(physicalItem, quantity, actor);
                 } else {
-                    await craftItem(physicalItem, quantity, actor);
+                    return craftItem(physicalItem, quantity, actor);
                 }
-                return;
             }
         }
     }
