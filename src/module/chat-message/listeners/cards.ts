@@ -75,12 +75,21 @@ class ChatCards {
                     spell?.rollDamage(event);
                     return;
                 case "spell-save":
-                    return ChatCards.#rollActorSaves({ event, button, actor, item });
+                    return this.#rollActorSaves({ event, button, actor, item });
                 case "spell-counteract":
                     spell?.rollCounteract(event);
                     return;
                 case "spell-template":
-                    return spell?.placeTemplate();
+                    return spell?.placeTemplate(message);
+                case "spell-template-clear": {
+                    const templateIds =
+                        canvas.scene?.templates.filter((t) => t.message === message).map((t) => t.id) ?? [];
+                    button.disabled = true;
+                    await canvas.scene?.deleteEmbeddedDocuments("MeasuredTemplate", templateIds);
+                    button.disabled = false;
+                    button.style.display = "none";
+                    return;
+                }
                 case "spell-variant": {
                     const castLevel = Number(htmlQuery(html, "div.chat-card")?.dataset.castLevel) || 1;
                     const overlayIdString = button.dataset.overrlayIds;
