@@ -18,7 +18,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
 
         if (actorData.type === "character" || actorData.type === "npc") {
             // Numeric HP max
-            if (typeof actorData.system.attributes.hp.max === "string") {
+            if ("max" in actorData.system.attributes.hp && typeof actorData.system.attributes.hp.max === "string") {
                 const newMax = parseInt(actorData.system.attributes.hp.max as string, 10);
                 if (Number.isInteger(newMax)) {
                     actorData.system.attributes.hp.max = newMax;

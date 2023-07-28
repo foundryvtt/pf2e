@@ -17,7 +17,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "character") {
-            const craftingData: MaybeWithOldEntries = source.system.crafting;
+            const craftingData: MaybeWithOldEntries = source.system.crafting ?? {};
             const craftingEntries = craftingData.entries ?? {};
             const rules: MaybeWithRequiredTraits[] = source.items.flatMap((i) => i.system.rules);
             for (const rule of rules) {
@@ -36,8 +36,8 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
         }
     }
 
-    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules = itemSource.system.rules;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        const rules = source.system.rules;
         // Change requiredTraits property to craftableItems predicate
         const craftingEntryRules = rules.filter(
             (r: RuleElementSource & { requiredTraits?: unknown }): r is MaybeWithRequiredTraits =>

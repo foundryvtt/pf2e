@@ -10,10 +10,11 @@ export class Migration722CraftingSystemData extends MigrationBase {
         if (source.type !== "character") return;
 
         if (!isObject(source.system.crafting)) {
-            source.system.crafting = { entries: {}, formulas: [] };
+            const filledCrafting = { entries: {}, formulas: [] };
+            source.system.crafting = filledCrafting;
         }
 
-        const { crafting } = source.system;
+        const crafting: Record<string, unknown> = source.system.crafting ?? {};
         if (!isObject(crafting.entries) || Array.isArray(crafting.entries)) {
             crafting.entries = {};
         }

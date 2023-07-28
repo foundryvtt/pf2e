@@ -1,4 +1,4 @@
-import { CharacterDetails } from "@actor/character/data.ts";
+import { CharacterDetailsSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
 import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from "@item/data/index.ts";
@@ -23,20 +23,20 @@ export class Migration620RenameToWebp extends MigrationBase {
         return ITEMS_WITH_ITEMS.includes(itemData.type);
     }
 
-    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
-        actorData.img = this.#renameToWebP(actorData.img);
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        source.img = this.#renameToWebP(source.img);
 
-        if (typeof actorData.prototypeToken?.texture.src === "string") {
-            actorData.prototypeToken.texture.src = this.#renameToWebP(actorData.prototypeToken.texture.src);
+        if (typeof source.prototypeToken?.texture.src === "string") {
+            source.prototypeToken.texture.src = this.#renameToWebP(source.prototypeToken.texture.src);
         }
 
         // Icons for active effects
-        for (const effect of actorData.effects ?? []) {
+        for (const effect of source.effects ?? []) {
             effect.icon = this.#renameToWebP(effect.icon);
         }
 
-        if (actorData.type === "character") {
-            const details: CharacterDetails & { deity?: { image: string } } = actorData.system.details;
+        if (source.type === "character") {
+            const details: CharacterDetailsSource & { deity?: { image: string } } = source.system.details;
             if (details.deity) {
                 details.deity.image = this.#renameToWebP(details.deity.image);
             }
