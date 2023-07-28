@@ -39,34 +39,34 @@
             </button>
         {{else}}
             {{#if data.isSave}}
-                <button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
+                <button type="button" data-action="spell-save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
             {{/if}}
             {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
                 <section class="owner-buttons">
                     {{#if data.check}}
                         <div class="spell-attack-buttons">
-                            <button type="button" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
-                            <button type="button" data-action="spellAttack2">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map1}}</button>
-                            <button type="button" data-action="spellAttack3">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map2}}</button>
+                            <button type="button" data-action="spell-attack">{{localize "PF2E.AttackLabel"}}</button>
+                            <button type="button" data-action="spell-attack-2">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map1}}</button>
+                            <button type="button" data-action="spell-attack-3">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map2}}</button>
                         </div>
                     {{/if}}
                     {{#if data.hasDamage}}
                         <div class="spell-button">
-                            <button type="button" data-action="spellDamage">{{data.damageLabel}}</button>
+                            <button type="button" data-action="spell-damage">{{data.damageLabel}}</button>
                         </div>
                     {{/if}}
                     {{#if data.hasCounteractCheck.value}}
                         <div class="spell-button">
-                            <button type="button" data-action="spellCounteract">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
+                            <button type="button" data-action="spell-counteract">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
                         </div>
                     {{/if}}
                     {{#if data.area.type}}
                         <div class="spell-button">
-                            <button type="button" data-action="spellTemplate">{{localize "PF2E.Item.Spell.PlaceMeasuredTemplate" shape=data.areaType size=data.areaSize unit=data.areaUnit}}</button>
+                            <button type="button" data-action="spell-template">{{localize "PF2E.Item.Spell.PlaceMeasuredTemplate" shape=data.areaType size=data.areaSize unit=data.areaUnit}}</button>
                         </div>
                     {{/if}}
                     {{#if item.isVariant}}
-                        <button type="button" data-action="selectVariant" data-original-id="{{item.original.id}}">{{localize "PF2E.Item.Spell.Variants.SelectOtherVariantLabel"}}</button>
+                        <button type="button" data-action="spell-variant" data-original-id="{{item.original.id}}">{{localize "PF2E.Item.Spell.Variants.SelectOtherVariantLabel"}}</button>
                     {{/if}}
                 </section>
             {{/if}}
@@ -74,8 +74,8 @@
     </section>
 
     <footer class="card-footer">
-        {{#each data.properties}}
-            <span>{{localize this}}</span>
+        {{#each data.properties as |property|}}
+            <span>{{localize property}}</span>
         {{/each}}
     </footer>
 </div>
