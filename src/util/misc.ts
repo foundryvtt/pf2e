@@ -397,18 +397,14 @@ function sortedStringify(obj: object): string {
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
-    const clone = isObject(source) ? deepClone(source) : source;
+    const clone = Array.isArray(source) || isObject(source) ? deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
+    } else if (Array.isArray(clone)) {
+        return clone.map((e) => recursiveReplaceString(e, replace));
     } else if (isObject<Record<string, unknown>>(clone)) {
-        for (const [key, value] of Object.entries(clone)) {
-            if (Array.isArray(value)) {
-                clone[key] = value.map((e: unknown) =>
-                    typeof e === "string" || isObject(e) ? recursiveReplaceString(e, replace) : e
-                );
-            } else if (typeof value === "string" || isObject(value)) {
-                clone[key] = recursiveReplaceString(value, replace);
-            }
+        for (const key of Object.keys(clone)) {
+            clone[key] = recursiveReplaceString(clone[key], replace);
         }
     }
 

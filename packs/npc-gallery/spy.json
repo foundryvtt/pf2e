@@ -697,7 +697,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> Once per round.</p>\n<hr />\n<p><strong>Effect</strong> The spy draws a weapon and then Strikes with it. The target of the strike is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the attack.</p>"
+                    "value": "<p><strong>Frequency</strong> Once per round.</p>\n<hr />\n<p><strong>Effect</strong> The spy draws a weapon and then Strikes with it. The target of the strike is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -739,7 +739,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The spy deals an extra 2d6 Precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The spy deals an extra 2d6 Precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -751,7 +751,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -772,8 +772,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

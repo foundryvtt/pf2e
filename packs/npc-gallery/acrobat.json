@@ -402,7 +402,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>When the acrobat rolls a success on an Acrobatics check, they get a critical success instead.</p>\n<p>They aren't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] when attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] and can attempt an Acrobatics check instead of a Reflex save to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge].</p>"
+                    "value": "<p>When the acrobat rolls a success on an Acrobatics check, they get a critical success instead.</p>\n<p>They aren't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] when attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] and can attempt an Acrobatics check instead of a Reflex save to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -550,7 +550,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The acrobat deals an extra 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The acrobat deals an extra 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -562,7 +562,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -583,8 +583,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

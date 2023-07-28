@@ -967,7 +967,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Ginjana isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], or flanking creatures of 11th level or lower, or by creatures of 11th level or lower using surprise attack.</p>"
+                    "value": "<p>Ginjana isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], or flanking creatures of 11th level or lower, or by creatures of 11th level or lower using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -976,7 +976,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": 11
                     }
                 ],
@@ -1134,7 +1134,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Ginjana critically succeeds at an attack roll, the target of the attack is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the end of Ginjana's next turn.</p>"
+                    "value": "<p>When Ginjana critically succeeds at an attack roll, the target of the attack is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of Ginjana's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1292,7 +1292,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ginjana deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Ginjana deals an extra 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1304,7 +1304,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -1325,8 +1325,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -1361,7 +1361,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On the first round of combat, if Ginjana rolls Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to her.</p>"
+                    "value": "<p>On the first round of combat, if Ginjana rolls Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to her.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1390,7 +1390,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,

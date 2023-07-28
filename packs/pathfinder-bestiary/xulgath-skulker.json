@@ -451,7 +451,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If a xulgath skulker starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Undetected] by a creature or merely @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from it, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the skulker's attacks until the end of the skulker's turn.</p>"
+                    "value": "<p>If a xulgath skulker starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Undetected] by a creature or merely @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from it, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the skulker's attacks until the end of the skulker's turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -505,7 +505,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -526,8 +526,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

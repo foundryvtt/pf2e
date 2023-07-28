@@ -610,7 +610,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Dresh can use the promise of wealth to distract her foes. When she succeeds or critically succeeds on a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against a target within 30 feet, the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against her ranged attacks as well as her melee Strikes.</p>"
+                    "value": "<p>Dresh can use the promise of wealth to distract her foes. When she succeeds or critically succeeds on a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against a target within 30 feet, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against her ranged attacks as well as her melee Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -693,7 +693,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Dresh deals an additional 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Dresh deals an additional 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -705,7 +705,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -726,8 +726,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

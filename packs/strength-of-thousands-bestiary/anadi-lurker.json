@@ -1401,7 +1401,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage, flat-footed, and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage, off-guard, and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1492,7 +1492,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The anadi lurker deals an additional 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The anadi lurker deals an additional 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1504,15 +1504,15 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

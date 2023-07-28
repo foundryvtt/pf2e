@@ -672,7 +672,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, clumsy 2, and flat-footed (1 round)</p>"
+                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, clumsy 2, and off-guard (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -978,7 +978,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Rigg's Strikes deal an extra 3d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p><span></span></p>\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>Rigg's Strikes deal an extra 3d6 precision damage to off-guard creatures.</p>\n<hr />\n<p><span></span></p>\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -990,7 +990,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -1011,8 +1011,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

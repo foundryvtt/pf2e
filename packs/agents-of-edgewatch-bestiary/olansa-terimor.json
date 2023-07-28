@@ -234,7 +234,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You gain a sixth sense that warns you of danger that might befall the target of the spell. If you choose a creature other than yourself as the target, you create a psychic link through which you can inform the target of danger. This link is a mental effect. Due to the amount of information this spell requires you to process, you can't have more than one foresight spell in effect at a time. Casting foresight again ends the previous foresight. While foresight is in effect, the target gains a +2 status bonus to initiative rolls and isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures or when flanked. In addition, you gain the following reaction: @UUID[Compendium.pf2e.actionspf2e.Item.Foresight]</p>"
+                    "value": "<p>You gain a sixth sense that warns you of danger that might befall the target of the spell. If you choose a creature other than yourself as the target, you create a psychic link through which you can inform the target of danger. This link is a mental effect. Due to the amount of information this spell requires you to process, you can't have more than one foresight spell in effect at a time. Casting foresight again ends the previous foresight. While foresight is in effect, the target gains a +2 status bonus to initiative rolls and isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures or when flanked. In addition, you gain the following reaction: @UUID[Compendium.pf2e.actionspf2e.Item.Foresight]</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -2511,7 +2511,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Olansa deals 4d6 extra precision damage to flat-footed creatures</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Olansa deals 4d6 extra precision damage to off-guard creatures</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2523,7 +2523,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -2544,8 +2544,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

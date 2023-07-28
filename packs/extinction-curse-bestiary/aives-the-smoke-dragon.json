@@ -644,7 +644,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>On the first round of combat, if Aives rolled Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to him.</p>"
+                    "value": "<p>On the first round of combat, if Aives rolled Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to him.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -673,7 +673,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,
@@ -814,7 +814,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Aives deals an extra 1d6 precision damage precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Aives deals an extra 1d6 precision damage precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -826,7 +826,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -847,8 +847,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

@@ -626,7 +626,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Damage[1d4[bleed]] if the target was @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] or if the attack was a critical hit.</p>"
+                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Damage[1d4[bleed]] if the target was @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] or if the attack was a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -639,7 +639,7 @@
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:damage:type:piercing",
@@ -657,7 +657,7 @@
                         "key": "DamageDice",
                         "predicate": [
                             {
-                                "not": "target:condition:flat-footed"
+                                "not": "target:condition:off-guard"
                             },
                             {
                                 "or": [
