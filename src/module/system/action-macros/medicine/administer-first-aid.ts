@@ -2,6 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
 import { CreaturePF2e } from "@module/actor/index.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
 const PREFIX = "PF2E.Actions.AdministerFirstAid";
 
@@ -10,15 +11,19 @@ type AdministerFirstAidVariant = (typeof ADMINISTER_FIRST_AID_VARIANTS)[number];
 
 function stabilizeDifficultyClass(target: CreaturePF2e) {
     const { dying } = target.attributes;
-    if (dying?.value) {
-        const dc = 5 + dying.recoveryDC + dying.value;
-        return new Statistic(target, {
-            slug: "administer-first-aid",
-            label: `${PREFIX}.Stabilize.Title`,
-            dc: { base: dc, label: `${PREFIX}.Stabilize.DifficultyClass.Label` },
-        });
+    if (!dying?.value) {
+        throw new Error(game.i18n.localize(`${PREFIX}.Warning.TargetNotDying`));
     }
-    throw new Error(game.i18n.localize(`${PREFIX}.Warning.TargetNotDying`));
+    const dcModifier = new ModifierPF2e({
+        slug: "dying-recovery",
+        label: "PF2E.ModifierTitle",
+        modifier: 5 + dying.recoveryDC + dying.value - 10,
+    });
+    return new Statistic(target, {
+        slug: "administer-first-aid",
+        label: `${PREFIX}.Stabilize.Title`,
+        dc: { label: `${PREFIX}.Stabilize.DifficultyClass.Label`, modifiers: [dcModifier] },
+    });
 }
 
 function administerFirstAid(options: { variant: AdministerFirstAidVariant } & SkillActionOptions): void {
