@@ -34,7 +34,16 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     statistic: Statistic;
 
-    ability: AbilityString;
+    attribute: AbilityString;
+
+    /** @deprecated */
+    get ability(): AbilityString {
+        foundry.utils.logCompatibilityWarning(
+            "`TrickMagicItemEntry#ability` is deprecated. Use `TrickMagicItemEntry#attribute` instead.",
+            { since: "5.3.0", until: "6.0.0" }
+        );
+        return this.attribute;
+    }
 
     tradition: MagicTradition;
 
@@ -59,7 +68,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
                 }
             });
 
-        this.ability = ability;
+        this.attribute = ability;
         const tradition = (this.tradition = TrickMagicTradition[skill]);
 
         const selectors = [`${ability}-based`, "all", "spell-attack-dc"];
