@@ -1,7 +1,7 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
-import { ALLIANCES } from "@actor/creature/values.ts";
+import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
@@ -83,7 +83,6 @@ import {
     CharacterAttributes,
     CharacterFlags,
     CharacterProficiency,
-    CharacterSaves,
     CharacterSource,
     CharacterStrike,
     CharacterSystemData,
@@ -269,10 +268,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
-
-        // template.json may be stale, work around it until core is fixed
-        this.system.exploration ??= [];
 
         // If there are no parties, clear the exploration activities list
         if (!this.parties.size) {
@@ -309,10 +304,19 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             result[level] = allowed;
             return result;
         }, {} as Record<(typeof boostLevels)[number], number>);
+
+        // Base ability scores
+        const manualAttributes = Object.keys(this.system.abilities ?? {}).length > 0;
+        this.system.abilities = R.mapToObj(Array.from(ABILITY_ABBREVIATIONS), (a) => [
+            a,
+            mergeObject({ value: 10 }, this.system.abilities?.[a] ?? {}),
+        ]);
+
+        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
         const existingBoosts = systemData.build?.abilities?.boosts;
         systemData.build = {
             abilities: {
-                manual: Object.keys(systemData.abilities).length > 0,
+                manual: manualAttributes,
                 keyOptions: [],
                 boosts: {
                     ancestry: [],
@@ -331,10 +335,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             },
         };
 
-        // Base ability scores
-        for (const abbrev of ABILITY_ABBREVIATIONS) {
-            systemData.abilities[abbrev] = mergeObject({ value: 10 }, systemData.abilities[abbrev] ?? {});
-        }
+        // Base saves structure
+        systemData.saves = mergeObject(
+            R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0, ability: SAVING_THROW_DEFAULT_ATTRIBUTES[t] }]),
+            systemData.saves ?? {}
+        );
 
         // Actor document and data properties from items
         const { details } = this.system;
@@ -377,24 +382,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
 
-        // Familiar abilities
-        attributes.familiarAbilities = { value: 0 };
-
-        // Saves and skills
-        const saves: DeepPartial<CharacterSaves> = this.system.saves;
-        for (const save of SAVE_TYPES) {
-            saves[save] = {
-                ability: CONFIG.PF2E.savingThrowDefaultAbilities[save],
-                rank: saves[save]?.rank ?? 0,
-            };
-        }
-
-        const skills = this.system.skills;
+        // Skills
+        const { skills } = this.system;
         for (const key of SKILL_ABBREVIATIONS) {
             const skill = skills[key];
             skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].ability;
             skill.armor = ["dex", "str"].includes(skill.ability);
         }
+
+        // Familiar abilities
+        attributes.familiarAbilities = { value: 0 };
 
         // Spellcasting-tradition proficiencies
         systemData.proficiencies = {
@@ -424,7 +421,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.system.traits.size = new ActorSizePF2e({ value: "med" });
 
         // Weapon and Armor category proficiencies
-        const martial: DeepPartial<MartialProficiencies> = this.system.martial;
+        const martial: DeepPartial<MartialProficiencies> = (systemData.martial ??= {});
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
             const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
@@ -447,11 +444,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Indicate that crafting formulas stored directly on the actor are deletable
+        systemData.crafting = mergeObject({ formulas: [], entries: {} }, systemData.crafting ?? {});
         for (const formula of this.system.crafting.formulas) {
             formula.deletable = true;
         }
-
-        this.system.crafting.entries = {};
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
@@ -1927,7 +1923,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Toggle between boost-driven and manual management of ability scores */
     async toggleAbilityManagement(): Promise<void> {
-        if (Object.keys(this._source.system.abilities).length === 0) {
+        if (Object.keys(this._source.system.abilities ?? {}).length === 0) {
             // Add stored ability scores for manual management
             const baseAbilities = Array.from(ABILITY_ABBREVIATIONS).reduce(
                 (accumulated: Record<string, { value: 10 }>, abbrev) => ({
@@ -1939,14 +1935,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             await this.update({ "system.abilities": baseAbilities });
         } else {
             // Delete stored ability scores for boost-driven management
-            const deletions = Array.from(ABILITY_ABBREVIATIONS).reduce(
-                (accumulated: Record<string, null>, abbrev) => ({
-                    ...accumulated,
-                    [`-=${abbrev}`]: null,
-                }),
-                {}
-            );
-            await this.update({ "system.abilities": deletions });
+            await this.update({ "system.-=abilities": null });
         }
     }
 }

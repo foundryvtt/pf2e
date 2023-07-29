@@ -59,9 +59,11 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
             ? origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []
             : [];
         const { badge } = this;
+        const itemOrigin = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
 
         return [
             ...super.getRollOptions(prefix),
+            ...itemOrigin,
             ...Object.entries({
                 [`badge:type:${badge?.type}`]: !!badge,
                 [`badge:value:${badge?.value}`]: !!badge,

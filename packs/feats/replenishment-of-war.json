@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Striking out against your enemies draws praise and protection from your deity. When you damage a creature with a Strike using your deity's favored weapon, you gain a number of temporary Hit Points equal to half your level, or equal to your level if the Strike was a critical hit. These temporary Hit Points last until the start of your next turn.</p>"
+            "value": "<p>Striking out against your enemies draws praise and protection from your deity. When you damage a creature with a Strike using your deity's favored weapon, you gain a number of temporary Hit Points equal to half your level, or equal to your level if the Strike was a critical hit. These temporary Hit Points last until the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Replenishment of War]</p>"
         },
         "level": {
             "value": 10
@@ -23,7 +23,17 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:deity-favored"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Cleric.ReplenishmentOfWar.Note",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

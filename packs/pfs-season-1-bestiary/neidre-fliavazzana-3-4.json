@@ -606,7 +606,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Neidre isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to hidden, undetected, or flanking creatures of her level or lower, or creatures of her level or lower using surprise attack. However, they can still help their allies flank.</p>"
+                    "value": "<p>Neidre isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to hidden, undetected, or flanking creatures of her level or lower, or creatures of her level or lower using surprise attack. However, they can still help their allies flank.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -615,7 +615,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": "@actor.level"
                     }
                 ],
@@ -655,7 +655,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Neidre deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>Neidre deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the off-guard condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -667,7 +667,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -688,8 +688,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -724,7 +724,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to Neidre.</p>"
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Neidre.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -747,7 +747,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,

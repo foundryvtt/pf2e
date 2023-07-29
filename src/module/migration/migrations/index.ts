@@ -247,3 +247,4 @@ export { Migration846SpellSchoolOptional } from "./846-spell-school-optional.ts"
 export { Migration847TempHPRuleEvents } from "./847-temp-hp-rule-events.ts";
 export { Migration848NumericArmorProperties } from "./848-numeric-armor-properties.ts";
 export { Migration849DeleteBrokenThreshold } from "./849-delete-broken-threshold.ts";
+export { Migration850FlatFootedToOffGuard } from "./850-flat-footed-to-off-guard.ts";

@@ -593,7 +593,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The cleansed cultist deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The cleansed cultist deals an extra 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -605,7 +605,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -626,8 +626,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -662,7 +662,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The cultist makes two Strikes, one with their shortsword and one with their dagger, both against the same target. The target is automatically @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the second attack. Apply the cultist's multiple attack penalty to the Strikes normally.</p>"
+                    "value": "<p>The cultist makes two Strikes, one with their shortsword and one with their dagger, both against the same target. The target is automatically @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the second attack. Apply the cultist's multiple attack penalty to the Strikes normally.</p>"
                 },
                 "requirements": {
                     "value": ""

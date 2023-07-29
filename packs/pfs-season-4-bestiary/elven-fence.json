@@ -1,6 +1,5 @@
 {
     "_id": "ZWfXDI2Xy4HJroL8",
-    "folder": "2vAezE9AKRjC3wpz",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -895,7 +894,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the fence successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, their target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the fence's attacks until the end of the fence's next turn. On a critical success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against all attacks until the end of the fence's next turn.</p>"
+                    "value": "<p>When the fence successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, their target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the fence's attacks until the end of the fence's next turn. On a critical success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against all attacks until the end of the fence's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -937,7 +936,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The fence deals and extra 2d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creatures.</p>"
+                    "value": "<p>The fence deals and extra 2d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -949,15 +948,15 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

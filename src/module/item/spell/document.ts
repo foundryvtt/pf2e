@@ -138,8 +138,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.system.category.value === "ritual";
     }
 
-    get ability(): AbilityString {
+    get attribute(): AbilityString {
         return this.spellcasting?.ability ?? this.trickMagicEntry?.ability ?? "cha";
+    }
+
+    /** @deprecated */
+    get ability(): AbilityString {
+        return this.attribute;
     }
 
     get components(): Record<SpellComponent, boolean> & { value: string } {
@@ -196,7 +201,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const rollData = super.getRollData();
         if (this.actor?.isOfType("character", "npc")) {
-            rollData["mod"] = this.actor.abilities[this.ability].mod;
+            rollData["mod"] = this.actor.abilities[this.attribute].mod;
         }
         rollData["castLevel"] = castLevel;
         rollData["heighten"] = Math.max(0, castLevel - this.baseRank);
@@ -803,7 +808,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Roll counteract check */
-    async rollCounteract(event?: JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
+        event = event instanceof Event ? event : event?.originalEvent;
         if (!this.actor?.isOfType("character", "npc")) return null;
 
         const spellcastingEntry = this.trickMagicEntry ?? this.spellcasting;

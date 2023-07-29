@@ -7,6 +7,7 @@ import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts
 import { ActionType } from "@item/data/base.ts";
 import { isPhysicalData } from "@item/data/helpers.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
@@ -132,7 +133,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             user: { isGM: game.user.isGM },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             toggles: this.actor.synthetics.toggles,
-            isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
+            isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:off-guard"],
             totalCoinage,
             totalCoinageGold,
             totalWealth,
@@ -1099,7 +1100,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const updated = await actor.increaseCondition(itemSource.system.slug, { value });
                 return [updated ?? []].flat();
             }
-        } else if (itemSource.type === "effect" || itemSource.type === "affliction") {
+        } else if (itemIsOfType(itemSource, "affliction", "effect")) {
             // Pass along level, badge-value, and traits to an effect dragged from a spell
             const { level, value, context } = data;
             if (typeof level === "number" && level >= 0) {

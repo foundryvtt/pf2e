@@ -1,5 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatPF2e } from "@item";
+import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {
@@ -13,19 +14,22 @@ export class Migration602UpdateDiehardFeat extends MigrationBase {
         this.#diehardPromise = fromUuid("Compendium.pf2e.feats-srd.I0BhPWqYf1bbzEYg");
     }
 
-    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
-        const diehard = actorData.items.find(
-            (itemData) => itemData.system.slug === "diehard" && itemData.type === "feat"
-        );
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        const diehard = source.items.find((itemData) => itemData.system.slug === "diehard" && itemData.type === "feat");
 
-        if (actorData.type === "character" && diehard !== undefined) {
-            actorData.system.attributes.dying.max = 4;
-            const diehardIndex = actorData.items.indexOf(diehard);
+        if (
+            source.type === "character" &&
+            diehard !== undefined &&
+            "dying" in source.system.attributes &&
+            isObject<{ max: number }>(source.system.attributes.dying)
+        ) {
+            source.system.attributes.dying.max = 4;
+            const diehardIndex = source.items.indexOf(diehard);
             const newDiehard = await this.#diehardPromise;
             if (!(newDiehard instanceof FeatPF2e)) {
                 throw Error("PF2E System | Expected item not found in Compendium");
             }
-            actorData.items.splice(diehardIndex, 1, newDiehard.toObject());
+            source.items.splice(diehardIndex, 1, newDiehard.toObject());
         }
     }
 }

@@ -448,7 +448,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Nishkiv makes two dagger Strikes against the same target. If his first attack hits, the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to the second attack. The multiple attack penalty applies to these attacks as normal.</p>"
+                    "value": "<p>Nishkiv makes two dagger Strikes against the same target. If his first attack hits, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the second attack. The multiple attack penalty applies to these attacks as normal.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -487,7 +487,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Nishkiv deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Nishkiv deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -499,7 +499,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -520,8 +520,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

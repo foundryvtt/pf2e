@@ -1,6 +1,5 @@
 {
     "_id": "E0KmdZTSCae2rVJi",
-    "folder": "FY2jAlHZq7EKNTzq",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -1322,7 +1321,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A lurker in light's Strikes deal an additional 2d6 precision damage to flat-footed creatures.</p>"
+                    "value": "<p>A lurker in light's Strikes deal an additional 2d6 precision damage to off-guard creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1334,15 +1333,15 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

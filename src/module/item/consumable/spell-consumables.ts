@@ -3,10 +3,10 @@ import { ConsumableSource } from "@item/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
-import { calculateDC, DCOptions } from "@module/dc.ts";
+import { DCOptions, calculateDC } from "@module/dc.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 
-const cantripDeckId = "tLa4bewBhyqzi6Ow";
+const CANTRIP_DECK_ID = "tLa4bewBhyqzi6Ow";
 
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
@@ -44,7 +44,7 @@ const wandCompendiumIds: Record<number, string | undefined> = {
 function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel: number): string | null {
     switch (type) {
         case "cantripDeck5":
-            return cantripDeckId;
+            return CANTRIP_DECK_ID;
         case "scroll":
             return scrollCompendiumIds[heightenedLevel] ?? null;
         default:
@@ -59,7 +59,7 @@ function getNameForSpellConsumable(type: SpellConsumableItemType, spellName: str
 
 function isSpellConsumable(itemId: string): boolean {
     return (
-        itemId === cantripDeckId ||
+        itemId === CANTRIP_DECK_ID ||
         Object.values(scrollCompendiumIds).includes(itemId) ||
         Object.values(wandCompendiumIds).includes(itemId)
     );
@@ -137,9 +137,9 @@ function calculateTrickMagicItemCheckDC(
 }
 
 export {
+    SpellConsumableItemType,
+    TrickMagicItemDifficultyData,
     calculateTrickMagicItemCheckDC,
     createConsumableFromSpell,
     isSpellConsumable,
-    SpellConsumableItemType,
-    TrickMagicItemDifficultyData,
 };

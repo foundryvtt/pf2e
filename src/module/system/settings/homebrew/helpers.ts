@@ -3,7 +3,7 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data/index.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { isObject, objectHasKey } from "@util";
+import { isObject } from "@util";
 import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
@@ -55,10 +55,11 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                 }
                 case "weaponCategories": {
                     if (source.type === "character") {
+                        const martial = source.system.martial ?? {};
                         for (const key of deletions) {
-                            if (objectHasKey(source.system.martial, key)) {
-                                delete source.system.martial[key];
-                                (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            if (martial[key]) {
+                                delete martial[key];
+                                (martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                             }
                         }
                     }
@@ -69,9 +70,10 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                         const proficiencyKeys = deletions.map(
                             (deletion) => `weapon-group-${deletion}`
                         ) as WeaponGroupProficiencyKey[];
+                        const martial = source.system.martial ?? {};
                         for (const key of proficiencyKeys) {
-                            delete source.system.martial[key];
-                            (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete martial[key];
+                            (martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
@@ -81,9 +83,10 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
                         const proficiencyKeys = deletions.map(
                             (deletion) => `weapon-base-${deletion}`
                         ) as BaseWeaponProficiencyKey[];
+                        const martial = source.system.martial ?? {};
                         for (const key of proficiencyKeys) {
-                            delete source.system.martial[key];
-                            (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete martial[key];
+                            (martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;

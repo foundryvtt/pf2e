@@ -437,6 +437,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         actor: origin.actor.uuid,
                         token: origin.token.uuid,
                         item: null,
+                        spellcasting: null,
                     },
                     roll: null,
                 };
@@ -651,9 +652,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             rule.afterPrepareData?.();
         }
 
-        // IWR rule elements were only just processed: set the actor to not flat-footable if immune to the condition
-        if (this.attributes.flanking.flatFootable && this.isImmuneTo("flat-footed")) {
-            this.attributes.flanking.flatFootable = false;
+        // IWR rule elements were only just processed: set the actor to not off-guardable if immune to the condition
+        if (this.attributes.flanking.offGuardable && this.isImmuneTo("off-guard")) {
+            this.attributes.flanking.offGuardable = false;
         }
 
         this.preparePrototypeToken();
@@ -673,7 +674,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         super.prepareBaseData();
 
         this.system.autoChanges = {};
-        this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
+        this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, offGuardable: false };
 
         const { attributes } = this.system;
         attributes.hp &&= mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
@@ -923,7 +924,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         );
         if (isFlankingStrike && params.target?.token?.actor && isOffGuardFromFlanking(params.target.token.actor)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
-            const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
+            const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             targetEphemeralEffects.push(condition.toObject());
         }
 

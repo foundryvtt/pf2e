@@ -73,7 +73,10 @@ function applyDamageDiceOverrides(base: BaseDamageData[], dice: DamageDicePF2e[]
     }
 }
 
-/** Given a DamageRoll, reverts it into base damage data to allow adding modifiers and damage dice */
+/**
+ * Given a DamageRoll, reverts it into base damage data to allow adding modifiers and damage dice.
+ * Throws an exception if it cannot be parsed
+ */
 function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
     interface DamagePartialWithCategory extends DamagePartialTerm {
         category: DamageCategoryUnique | null;
@@ -91,13 +94,19 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
 
         if (expression instanceof Die) {
             return [{ dice: R.pick(expression, ["number", "faces"]), modifier: 0, category }];
+        } else if (expression instanceof IntermediateDie) {
+            if (!expression.number.isDeterministic || !expression.faces.isDeterministic) {
+                throw ErrorPF2e("Unable to parse DamageRoll with non-deterministic intermediate expressions.");
+            }
+            const number = expression.number.evaluate({ async: false }).total;
+            const faces = expression.faces.evaluate({ async: false }).total;
+            return [{ dice: { faces, number }, modifier: 0, category }];
         } else if (expression instanceof NumericTerm) {
             return [{ dice: null, modifier: expression.number, category }];
         } else if (expression instanceof Grouping) {
             return extractTermsFromExpression(expression.term, { category });
         } else if (!(expression instanceof ArithmeticExpression)) {
-            console.error("Unrecognized roll term type " + expression.constructor.name, expression);
-            return [{ dice: null, modifier: 0, category }];
+            throw ErrorPF2e("Unrecognized roll term type " + expression.constructor.name);
         }
 
         const left = expression.operands[0];
@@ -131,8 +140,8 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
         const category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
         const terms = extractTermsFromExpression(instance.head, { category });
         return Object.values(R.groupBy(terms, (t) => t.category ?? "")).map((terms) => {
-            const category = terms[0].category;
-            return { damageType: instance.type, category, terms };
+            const category = instance.persistent ? "persistent" : terms[0].category;
+            return { damageType: instance.type, category, terms: terms.map((t) => R.omit(t, ["category"])) };
         });
     });
 }

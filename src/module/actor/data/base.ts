@@ -86,8 +86,8 @@ interface ActorAttributes extends ActorAttributesSource {
         canGangUp: GangUpCircumstance[];
         /** Whether the actor can be flanked at all */
         flankable: boolean;
-        /** Given the actor is flankable, whether it is flat-footed when flanked */
-        flatFootable: FlatFootableCircumstance;
+        /** Given the actor is flankable, whether it is off-guard when flanked */
+        offGuardable: OffGuardableCircumstance;
     };
 }
 
@@ -118,12 +118,12 @@ interface BaseHitPointsSource {
     details: string;
 }
 
-type FlatFootableCircumstance =
+type OffGuardableCircumstance =
     /** Flat-footable in all flanking situations */
     | true
     /** Flat-footable if the flanker's level is less than or equal to the actor's own */
     | number
-    /** Never flat-footable */
+    /** Never off-guardable */
     | false;
 
 type GangUpCircumstance =
@@ -141,7 +141,7 @@ interface ActorTraitsSource<TTrait extends string> {
     value: TTrait[];
     /** The rarity of the actor (common, uncommon, etc.) */
     rarity?: Rarity;
-    /** The character size (such as 'med'). */
+    /** The actor size (such as 'med'). */
     size?: { value: Size };
 }
 

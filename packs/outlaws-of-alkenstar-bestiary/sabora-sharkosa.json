@@ -571,7 +571,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Sharkosa is aware of at least one of her enemies and not @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed]</p>\n<p><strong>Trigger</strong> Sharkosa rolls for initiative</p>\n<hr />\n<p><strong>Effect</strong> Sharkosa makes two melee Strikes, or draws her pistol and makes a ranged Strike, against an enemy she is aware of.</p>"
+                    "value": "<p><strong>Requirements</strong> Sharkosa is aware of at least one of her enemies and not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]</p>\n<p><strong>Trigger</strong> Sharkosa rolls for initiative</p>\n<hr />\n<p><strong>Effect</strong> Sharkosa makes two melee Strikes, or draws her pistol and makes a ranged Strike, against an enemy she is aware of.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -786,7 +786,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Sharkosa deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Sharkosa deals an extra 2d6 precision damage to off-guard creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -798,7 +798,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -819,8 +819,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

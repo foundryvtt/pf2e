@@ -137,7 +137,7 @@ class PackExtractor {
         const { packSources, folders } = await db.getEntries();
 
         // Prepare subfolder data
-        if (folders.length) {
+        if (folders.length > 0) {
             const getFolderPath = (folder: DBFolder, parts: string[] = []): string => {
                 if (parts.length > 3) {
                     throw PackError(
@@ -173,6 +173,8 @@ class PackExtractor {
             const preparedSource = this.#convertLinks(source, packDirectory);
             if ("items" in preparedSource && preparedSource.type === "npc" && !this.disablePresort) {
                 preparedSource.items = this.#sortDataItems(preparedSource);
+            } else if (!this.#folderPathMap.get(preparedSource.folder ?? "")) {
+                delete (preparedSource as { folder?: unknown }).folder;
             }
             const outData = this.#prettyPrintJSON(preparedSource);
 
@@ -181,7 +183,7 @@ class PackExtractor {
             const outFileName = `${slug}.json`;
 
             // Handle subfolders
-            const subfolder = preparedSource.folder ? this.#folderPathMap.get(preparedSource.folder) : null;
+            const subfolder = this.#folderPathMap.get(preparedSource.folder ?? "");
             const outFolderPath = subfolder ? path.resolve(this.tempDataPath, subfolder) : outPath;
             if (subfolder && !fs.existsSync(outFolderPath)) {
                 fs.mkdirSync(outFolderPath, { recursive: true });

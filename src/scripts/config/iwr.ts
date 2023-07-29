@@ -35,7 +35,6 @@ const immunityTypes = {
     fatigued: "PF2E.Damage.IWR.Type.fatigued",
     "fear-effects": "PF2E.Damage.IWR.Type.fear-effects",
     fire: "PF2E.Damage.RollFlavor.fire",
-    "flat-footed": "PF2E.Damage.IWR.Type.flat-footed",
     fleeing: "PF2E.Damage.IWR.Type.fleeing",
     force: "PF2E.Damage.RollFlavor.force",
     frightened: "PF2E.Damage.IWR.Type.frightened",
@@ -57,6 +56,7 @@ const immunityTypes = {
     "non-magical": "PF2E.Damage.IWR.Type.non-magical",
     "nonlethal-attacks": "PF2E.Damage.IWR.Type.nonlethal-attacks",
     "object-immunities": "PF2E.Damage.IWR.Type.object-immunities",
+    "off-guard": "PF2E.Damage.IWR.Type.off-guard",
     olfactory: "PF2E.Damage.IWR.Type.olfactory",
     orichalcum: "PF2E.Damage.IWR.Type.orichalcum",
     paralyzed: "PF2E.Damage.IWR.Type.paralyzed",
@@ -138,6 +138,7 @@ const weaknessTypes = {
     silver: "PF2E.Damage.IWR.Type.silver",
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sonic: "PF2E.Damage.RollFlavor.sonic",
+    spells: "PF2E.Damage.IWR.Type.spells",
     "splash-damage": "PF2E.Damage.IWR.Type.splash-damage",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     "vampire-weaknesses": "PF2E.Damage.IWR.Type.vampire-weaknesses",
@@ -197,6 +198,7 @@ const resistanceTypes = {
     silver: "PF2E.Damage.IWR.Type.silver",
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sonic: "PF2E.Damage.RollFlavor.sonic",
+    spells: "PF2E.Damage.IWR.Type.spells",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     vorpal: "PF2E.Damage.IWR.Type.vorpal",
     "vorpal-adamantine": "PF2E.Damage.IWR.Type.vorpal-adamantine",
@@ -207,4 +209,4 @@ const resistanceTypes = {
     wood: "PF2E.Damage.IWR.Type.wood",
 };
 
-export { immunityTypes, weaknessTypes, resistanceTypes };
+export { immunityTypes, resistanceTypes, weaknessTypes };

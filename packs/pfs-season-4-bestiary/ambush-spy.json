@@ -1,6 +1,5 @@
 {
     "_id": "8OzYnoDXrQcSL0GD",
-    "folder": "2vAezE9AKRjC3wpz",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -740,7 +739,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The ambush spy draws a weapon and then Strikes with it. The target of the Strike is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the attack.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The ambush spy draws a weapon and then Strikes with it. The target of the Strike is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -786,7 +785,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The spy deals an extra 2d6 Precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creatures.</p>"
+                    "value": "<p>The spy deals an extra 2d6 Precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -798,15 +797,15 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

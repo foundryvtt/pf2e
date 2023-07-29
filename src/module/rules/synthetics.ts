@@ -70,7 +70,7 @@ type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
 
-interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label"> {
+interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
     type: MovementType;
     /**
      * Whether this speed is derived from a creature's land speed:

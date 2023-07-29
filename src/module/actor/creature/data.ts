@@ -19,7 +19,7 @@ import type {
     SkillLongForm,
 } from "@actor/types.ts";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
+import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
 import { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
 import { Alignment, CreatureTrait } from "./types.ts";
@@ -47,7 +47,7 @@ interface CreatureSystemSource extends ActorSystemSource {
     customModifiers?: Record<string, RawModifier[]>;
 
     /** Saving throw data */
-    saves?: Record<SaveType, { value?: number; mod?: number }>;
+    saves?: Record<SaveType, object | undefined>;
 
     resources?: CreatureResourcesSource;
 }
@@ -65,7 +65,7 @@ interface CreatureTraitsSource extends ActorTraitsSource<CreatureTrait> {
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
 
-    size?: { value: Size };
+    senses?: { value: string } | SenseData[];
 }
 
 interface CreatureResourcesSource {
@@ -150,7 +150,6 @@ interface CreatureAttributes extends ActorAttributes {
         manipulate: number;
     };
 
-    senses: { value: string } | CreatureSensePF2e[];
     shield?: HeldShieldData;
     speed: CreatureSpeeds;
 
@@ -177,7 +176,7 @@ interface CreatureSpeeds extends StatisticModifier {
 }
 
 interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
-    type: MovementType;
+    type: Exclude<MovementType, "land">;
     source?: string;
     total?: number;
     derivedFromLand?: boolean;

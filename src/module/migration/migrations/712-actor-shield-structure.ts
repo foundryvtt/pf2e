@@ -1,4 +1,4 @@
-import { CharacterAttributes } from "@actor/character/data.ts";
+import { CharacterAttributesSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { NPCAttributesSource } from "@actor/npc/data.ts";
 import { MigrationBase } from "../base.ts";
@@ -22,4 +22,4 @@ export class Migration712ActorShieldStructure extends MigrationBase {
     }
 }
 
-type WithDeletableShield = (NPCAttributesSource | CharacterAttributes) & { shield?: unknown; "-=shield"?: null };
+type WithDeletableShield = (NPCAttributesSource | CharacterAttributesSource) & { shield?: unknown; "-=shield"?: null };

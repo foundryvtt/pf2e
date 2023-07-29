@@ -378,7 +378,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If Urok successfully identifies a creature using Recall Knowledge, that creature is flat-footed against his attacks until the start of his next turn; if he critically succeeds, it's flat-footed against his attacks for 1 minute.</p>"
+                    "value": "<p>If Urok successfully identifies a creature using Recall Knowledge, that creature is off-guard against his attacks until the start of his next turn; if he critically succeeds, it's off-guard against his attacks for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -457,7 +457,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -469,7 +469,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -490,8 +490,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

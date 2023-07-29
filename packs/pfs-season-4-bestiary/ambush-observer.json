@@ -1,6 +1,5 @@
 {
     "_id": "OXhYQYaXtFRHj0EG",
-    "folder": "2vAezE9AKRjC3wpz",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -974,7 +973,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The ambush observer isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to creatures of 4th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using surprise attack.</p>"
+                    "value": "<p>The ambush observer isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to creatures of 4th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], flanking, or using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -983,7 +982,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": 4
                     }
                 ],
@@ -1097,7 +1096,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The burglambush observer deals 1d6 extra precision damage to flat-footed creatures.</p>"
+                    "value": "<p>The burglambush observer deals 1d6 extra precision damage to off-guard creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1109,15 +1108,15 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -1152,7 +1151,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On the first round of combat, if the ambush observer rolls Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to them.</p>"
+                    "value": "<p>On the first round of combat, if the ambush observer rolls Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to them.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1181,7 +1180,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,
