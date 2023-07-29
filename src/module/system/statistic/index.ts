@@ -80,8 +80,6 @@ abstract class SimpleStatistic {
 class Statistic extends SimpleStatistic {
     ability: AbilityString | null = null;
 
-    abilityModifier: ModifierPF2e | null = null;
-
     rank: ZeroToFour | null = null;
 
     proficient = true;
@@ -103,7 +101,7 @@ class Statistic extends SimpleStatistic {
 
         // Add some base modifiers depending on data values
         // If this is a character with an ability, add/set the ability modifier
-        const abilityModifier =
+        const attributeModifier =
             actor.isOfType("character") && data.ability
                 ? data.modifiers.find((m) => m.type === "ability" && m.ability === data.ability) ??
                   createAbilityModifier({ actor, ability: data.ability, domains })
@@ -119,7 +117,7 @@ class Statistic extends SimpleStatistic {
             : null;
 
         // Add the auto-generated modifiers, overriding any already existing copies
-        const baseModifiers = R.compact([abilityModifier, proficiencyModifier]);
+        const baseModifiers = R.compact([attributeModifier, proficiencyModifier]);
         const activeSlugs = new Set(baseModifiers.map((m) => m.slug));
         data.modifiers = data.modifiers.filter((m) => !activeSlugs.has(m.slug));
         data.modifiers.unshift(...baseModifiers);
@@ -141,6 +139,10 @@ class Statistic extends SimpleStatistic {
 
         // Add DC data with an additional domain if not already set
         this.data.dc ??= { domains: [`${this.slug}-dc`] };
+    }
+
+    get attributeModifier(): ModifierPF2e | null {
+        return this.modifiers.find((m) => m.type === "ability" && m.enabled && m.ability === this.ability) ?? null;
     }
 
     get check(): StatisticCheck<this> {
