@@ -141,7 +141,13 @@ class Statistic extends SimpleStatistic {
         this.data.dc ??= { domains: [`${this.slug}-dc`] };
     }
 
+    /** Get the ability modifier used with this statistic. Since NPC statistics are contrived, create a new one. */
     get attributeModifier(): ModifierPF2e | null {
+        if (this.actor.isOfType("npc")) {
+            return this.ability
+                ? createAbilityModifier({ actor: this.actor, ability: this.ability, domains: this.domains })
+                : null;
+        }
         return this.modifiers.find((m) => m.type === "ability" && m.enabled && m.ability === this.ability) ?? null;
     }
 

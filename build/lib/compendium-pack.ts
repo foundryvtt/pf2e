@@ -11,6 +11,7 @@ import coreIconsJSON from "../core-icons.json" assert { type: "json" };
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { PackEntry } from "./types.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 
 interface PackMetadata {
     system: string;
@@ -116,15 +117,28 @@ class CompendiumPack {
 
         this.data = parsedData;
 
+        const imagePathsFromItemSystemData = (item: ItemSourcePF2e): string[] => {
+            if (itemIsOfType(item, "ancestry", "background", "class", "kit")) {
+                const grants: Record<string, { img: ImageFilePath }> = item.system.items;
+                return Object.values(grants).map((i) => i.img);
+            }
+            return [];
+        };
+
         for (const docSource of this.data) {
             // Populate CompendiumPack.namesToIds for later conversion of compendium links
             packMap.set(docSource.name, docSource._id!);
 
             // Check img paths
             if ("img" in docSource && typeof docSource.img === "string") {
-                const imgPaths: string[] = [docSource.img ?? ""].concat(
-                    isActorSource(docSource) ? docSource.items.map((itemData) => itemData.img ?? "") : []
-                );
+                const imgPaths = [
+                    docSource.img,
+                    isActorSource(docSource)
+                        ? docSource.items.flatMap((i) => [i.img, ...imagePathsFromItemSystemData(i)])
+                        : isItemSource(docSource)
+                        ? imagePathsFromItemSystemData(docSource)
+                        : [],
+                ].flat();
                 const documentName = docSource.name;
                 for (const imgPath of imgPaths) {
                     if (imgPath.startsWith("data:image")) {
@@ -140,7 +154,7 @@ class CompendiumPack {
                         decodeURIComponent(imgPath).replace("systems/pf2e/", "")
                     );
                     if (!isCoreIconPath && !fs.existsSync(repoImgPath)) {
-                        throw PackError(`${documentName} (${this.packId}) has a broken image link: ${imgPath}`);
+                        throw PackError(`${documentName} (${this.packId}) has an unknown image path: ${imgPath}`);
                     }
                     if (!(imgPath === "" || imgPath.match(/\.(?:svg|webp)$/))) {
                         throw PackError(`${documentName} (${this.packId}) references a non-WEBP/SVG image: ${imgPath}`);
