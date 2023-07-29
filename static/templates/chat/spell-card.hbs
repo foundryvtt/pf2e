@@ -62,7 +62,12 @@
                     {{/if}}
                     {{#if data.area.type}}
                         <div class="spell-button">
-                            <button type="button" data-action="spell-template">{{localize "PF2E.Item.Spell.PlaceMeasuredTemplate" shape=data.areaType size=data.areaSize unit=data.areaUnit}}</button>
+                            <button type="button" data-action="spell-template">
+                                {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" shape=data.areaType size=data.areaSize unit=data.areaUnit}}
+                            </button>
+                            <button class="small hidden" type="button" data-action="spell-template-clear" data-tooltip="{{localize "PF2E.Item.Spell.MeasuredTemplate.Clear"}}">
+                                <i class="fa-solid fa-fw fa-trash"></i>
+                            </button>
                         </div>
                     {{/if}}
                     {{#if item.isVariant}}

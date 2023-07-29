@@ -32,7 +32,7 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override getRollOptions(prefix = this.type): string[] {
         const options = super.getRollOptions(prefix);
-        if (this.frequency) {
+        if (this.frequency || this.system.deathNote) {
             options.push(`${prefix}:frequency:limited`);
         }
         return options;

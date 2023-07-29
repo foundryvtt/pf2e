@@ -1,0 +1,52 @@
+{
+    "_id": "MqZ6FScbfGtXB8tt",
+    "img": "systems/pf2e/icons/spells/magic-fang.webp",
+    "name": "Spell Effect: Runic Body",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Runic Body]</em></p>\n<p>All the target's unarmed attacks become +1 striking unarmed attacks, gaining a +1 item bonus to attack rolls and increasing the number of damage dice to two.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The unarmed attacks are +2 greater striking.</p>\n<p><strong>Heightened (9th)</strong> The unarmed attacks are +3 major striking.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "WeaponPotency",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-attack-roll",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,6),2,1))"
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "unarmed"
+                ],
+                "selector": "strike-damage",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,6),2,1))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Player Core"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,8 +1,10 @@
-import { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
-import { ScenePF2e } from "./document.ts";
-import { ItemPF2e } from "@item";
 import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
+import { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
+import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
+import { ChatMessagePF2e } from "@module/documents.ts";
+import { ScenePF2e } from "./document.ts";
 
 export class MeasuredTemplateDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null
@@ -23,6 +25,27 @@ export class MeasuredTemplateDocumentPF2e<
 
         return item;
     }
+
+    /** The chat message from which this template was spawned */
+    get message(): ChatMessagePF2e | null {
+        return game.messages.get(this.flags.pf2e?.messageId ?? "") ?? null;
+    }
+
+    /** If present, show the clear-template button on the message from which this template was spawned */
+    protected override _onCreate(
+        data: this["_source"],
+        options: DocumentModificationContext<TParent>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+        toggleClearTemplatesButton(this.message);
+    }
+
+    /** If present, hide the clear-template button on the message from which this template was spawned */
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+        super._onDelete(options, userId);
+        toggleClearTemplatesButton(this.message);
+    }
 }
 
 export interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
@@ -31,6 +54,7 @@ export interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null =
 
     flags: DocumentFlags & {
         pf2e?: {
+            messageId?: string;
             origin?: ItemOriginFlag;
         };
     };

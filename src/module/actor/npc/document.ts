@@ -289,7 +289,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const { ability, tradition } = entry;
+            const { attribute, tradition } = entry;
 
             // There are still some bestiary entries where these values are strings
             entry.system.spelldc.dc = Number(entry.system.spelldc.dc);
@@ -303,7 +303,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 entry.system.spelldc.value -= 2;
             }
 
-            const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
+            const baseSelectors = ["all", `${attribute}-based`, "spell-attack-dc"];
             const attackSelectors = [
                 `${tradition}-spell-attack`,
                 "spell-attack",

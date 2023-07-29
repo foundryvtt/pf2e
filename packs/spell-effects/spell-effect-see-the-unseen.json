@@ -1,0 +1,52 @@
+{
+    "_id": "T5bk6UH7yuYog1Fp",
+    "img": "systems/pf2e/icons/spells/see-invisibility.webp",
+    "name": "Spell Effect: See the Unseen",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.See the Unseen]</em></p>\n<p>You can see invisible creatures as though they weren't invisible, although their features are blurred, making them @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and difficult to identify. You also gain a +2 status bonus to checks you make to disbelieve illusions.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "seeInvisibility"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "illusion"
+                ],
+                "selector": [
+                    "perception",
+                    "will"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Player Core"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

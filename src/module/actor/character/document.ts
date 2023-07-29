@@ -1,7 +1,7 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
-import { ALLIANCES } from "@actor/creature/values.ts";
+import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
@@ -306,6 +306,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }, {} as Record<(typeof boostLevels)[number], number>);
 
         // Base ability scores
+        const manualAttributes = Object.keys(this.system.abilities ?? {}).length > 0;
         this.system.abilities = R.mapToObj(Array.from(ABILITY_ABBREVIATIONS), (a) => [
             a,
             mergeObject({ value: 10 }, this.system.abilities?.[a] ?? {}),
@@ -315,7 +316,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const existingBoosts = systemData.build?.abilities?.boosts;
         systemData.build = {
             abilities: {
-                manual: Object.keys(systemData.abilities).length > 0,
+                manual: manualAttributes,
                 keyOptions: [],
                 boosts: {
                     ancestry: [],
@@ -336,7 +337,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Base saves structure
         systemData.saves = mergeObject(
-            R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0 }]),
+            R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0, ability: SAVING_THROW_DEFAULT_ATTRIBUTES[t] }]),
             systemData.saves ?? {}
         );
 
@@ -662,10 +663,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             entry.system.proficiency.value = Math.max(entry.rank, baseStat.rank ?? 0) as ZeroToFour;
             entry.statistic = baseStat.extend({
                 slug: entry.slug ?? sluggify(`${entry.name}-spellcasting`),
-                ability: entry.ability,
+                ability: entry.attribute,
                 rank: entry.rank,
                 rollOptions: entry.getRollOptions("spellcasting"),
-                domains: ["spell-attack-dc", `${entry.ability}-based`],
+                domains: ["spell-attack-dc", `${entry.attribute}-based`],
                 check: {
                     type: "spell-attack-roll",
                     domains: ["spell-attack", "spell-attack-roll", "attack", "attack-roll"],
@@ -1934,14 +1935,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             await this.update({ "system.abilities": baseAbilities });
         } else {
             // Delete stored ability scores for boost-driven management
-            const deletions = Array.from(ABILITY_ABBREVIATIONS).reduce(
-                (accumulated: Record<string, null>, abbrev) => ({
-                    ...accumulated,
-                    [`-=${abbrev}`]: null,
-                }),
-                {}
-            );
-            await this.update({ "system.abilities": deletions });
+            await this.update({ "system.-=abilities": null });
         }
     }
 }
