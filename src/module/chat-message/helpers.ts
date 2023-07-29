@@ -1,9 +1,9 @@
+import { DamageDicePF2e, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ErrorPF2e, htmlQuery, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
 import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
-import { extractEphemeralEffects } from "@module/rules/helpers.ts";
-import { applyStackingRules, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 
 function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFlag {
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
@@ -190,4 +190,20 @@ function toggleOffShieldBlock(messageId: string): void {
     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
 }
 
-export { isCheckContextFlag, applyDamageFromMessage };
+/**
+ * Show or hide a clear-measured-template button on a message (applicable to spell cards with template-placed buttons).
+ * The button will be shown if templates are placed and the user has ownership; otherwise it will be hidden.
+ */
+function toggleClearTemplatesButton(message: ChatMessagePF2e | null): void {
+    if (!message || !canvas.ready) return;
+
+    const selector = `li[data-message-id="${message.id}"] button[data-action=spell-template-clear]`;
+    for (const chatLogDOM of htmlQueryAll(document.body, "#chat-log, #chat-popout")) {
+        const clearTemplatesButton = htmlQuery(chatLogDOM, selector);
+        if (!clearTemplatesButton) continue;
+        const hasMeasuredTemplates = !!canvas.scene?.templates.some((t) => t.message === message && t.isOwner);
+        clearTemplatesButton.classList.toggle("hidden", !hasMeasuredTemplates);
+    }
+}
+
+export { applyDamageFromMessage, isCheckContextFlag, toggleClearTemplatesButton };
