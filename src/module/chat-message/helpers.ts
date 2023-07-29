@@ -202,7 +202,7 @@ function toggleClearTemplatesButton(message: ChatMessagePF2e | null): void {
         const clearTemplatesButton = htmlQuery(chatLogDOM, selector);
         if (!clearTemplatesButton) continue;
         const hasMeasuredTemplates = !!canvas.scene?.templates.some((t) => t.message === message && t.isOwner);
-        clearTemplatesButton.classList.toggle("hidden", !hasMeasuredTemplate);
+        clearTemplatesButton.classList.toggle("hidden", !hasMeasuredTemplates);
     }
 }
 
