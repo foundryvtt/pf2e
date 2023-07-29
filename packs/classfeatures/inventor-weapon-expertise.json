@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You develop tricks for using your weapons more effectively. Your proficiency ranks for simple and martial weapons and unarmed attacks increase to expert.</p>\n<p>If you have a weapon @UUID[Compendium.pf2e.classfeatures.Item.Innovation], you gain access to the critical specialization effect with your innovation.</p>"
+            "value": "<p>You develop tricks for using your weapons more effectively. Your proficiency ranks for simple and martial weapons and unarmed attacks increase to expert.</p>\n<p>If you have a @UUID[Compendium.pf2e.classfeatures.Item.Weapon Innovation], you gain access to the critical specialization effect with your innovation.</p>"
         },
         "level": {
             "value": 5
@@ -37,6 +37,13 @@
                 "mode": "upgrade",
                 "path": "system.martial.martial.rank",
                 "value": 2
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "feature:weapon-innovation",
+                    "item:id:{actor|flags.pf2e.innovationId}"
+                ]
             }
         ],
         "source": {
