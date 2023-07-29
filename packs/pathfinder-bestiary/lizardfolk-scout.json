@@ -379,7 +379,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -418,7 +418,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the lizardfolk scout starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Undetected] by a creature or @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from it, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the scout's attacks until the end of the scout's turn.</p>"
+                    "value": "<p>If the lizardfolk scout starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Undetected] by a creature or @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from it, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the scout's attacks until the end of the scout's turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -460,7 +460,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The lizardfolk scout deals an extra 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The lizardfolk scout deals an extra 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -472,7 +472,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -493,8 +493,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -529,7 +529,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Non-lizardfolk creatures in difficult terrain and non-lizardfolk creatures that are in water and lack a swim Speed are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to the lizardfolk scout.</p>"
+                    "value": "<p>Non-lizardfolk creatures in difficult terrain and non-lizardfolk creatures that are in water and lack a swim Speed are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the lizardfolk scout.</p>"
                 },
                 "requirements": {
                     "value": ""

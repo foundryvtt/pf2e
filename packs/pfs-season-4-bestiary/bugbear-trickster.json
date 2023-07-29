@@ -404,7 +404,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The creature kicks sand into an adjacent creature's face. That creature makes a @Check[type:reflex|dc:19|basic:true]. On a failure, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and treated as @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to this creature's next attack; a success negates the flatfooted effects.</p>\n\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>"
+                    "value": "<p>The creature kicks sand into an adjacent creature's face. That creature makes a @Check[type:reflex|dc:19|basic:true]. On a failure, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and treated as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to this creature's next attack; a success negates the off-guard effects.</p>\n\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -443,7 +443,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The bugbear trickster deals 1d8 extra precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The bugbear trickster deals 1d8 extra precision damage to off-guard creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -455,15 +455,15 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

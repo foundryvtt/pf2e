@@ -524,7 +524,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Ajbal isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to creatures of 13th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], undetected, flanking, or using surprise attack.</p>"
+                    "value": "<p>Ajbal isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to creatures of 13th level or lower that are @UUID[Compendium.pf2e.conditionitems.Item.Hidden], undetected, flanking, or using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -533,7 +533,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": 13
                     }
                 ],
@@ -760,7 +760,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ajbal deals an additional 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Ajbal deals an additional 1d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -772,7 +772,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -793,8 +793,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -829,7 +829,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ajbal's last action was a melee Strike that dealt sneak attack damage to a @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] target</p>\n<hr />\n<p><strong>Effect</strong> Ajbal deals [[/r 6[bleed]]] damage to the target creature, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for as long as it's bleeding.</p>"
+                    "value": "<p><strong>Requirements</strong> Ajbal's last action was a melee Strike that dealt sneak attack damage to a @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] target</p>\n<hr />\n<p><strong>Effect</strong> Ajbal deals [[/r 6[bleed]]] damage to the target creature, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for as long as it's bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -863,7 +863,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A trident Ajbal is using gains the shove trait, and any creature Ajbal critically hits with a trident is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the start of Ajbal's next turn.</p>"
+                    "value": "<p>A trident Ajbal is using gains the shove trait, and any creature Ajbal critically hits with a trident is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of Ajbal's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

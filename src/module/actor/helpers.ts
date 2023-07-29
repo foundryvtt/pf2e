@@ -187,11 +187,11 @@ function isOffGuardFromFlanking(actor: ActorPF2e): boolean {
     if (!flanking.flankable) return false;
 
     const rollOptions = actor.getRollOptions();
-    if (typeof flanking.flatFootable === "number") {
-        return !PredicatePF2e.test([{ lte: ["origin:level", flanking.flatFootable] }], rollOptions);
+    if (typeof flanking.offGuardable === "number") {
+        return !PredicatePF2e.test([{ lte: ["origin:level", flanking.offGuardable] }], rollOptions);
     }
 
-    return flanking.flatFootable;
+    return flanking.offGuardable;
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */

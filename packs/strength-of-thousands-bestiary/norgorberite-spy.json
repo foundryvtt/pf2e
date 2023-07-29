@@ -556,7 +556,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When the Norgorberite spy successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints} a creature, the target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the spy's ranged attacks as well as melee attacks.</p>"
+                    "value": "<p>When the Norgorberite spy successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints} a creature, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the spy's ranged attacks as well as melee attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -681,7 +681,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Norgorberite spy deals an additional 4d6 precision damage to flat-footed creatures or creatures within reach of at least two of their allies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The Norgorberite spy deals an additional 4d6 precision damage to off-guard creatures or creatures within reach of at least two of their allies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -693,7 +693,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "finesse",
@@ -726,7 +726,7 @@
                                 ]
                             },
                             {
-                                "not": "target:condition:flat-footed"
+                                "not": "target:condition:off-guard"
                             }
                         ],
                         "selector": "strike-damage"
@@ -734,8 +734,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -770,7 +770,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to the Norgorberite spy.</p>"
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the Norgorberite spy.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -793,7 +793,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,

@@ -308,7 +308,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any enemy is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the tough robber's melee attacks due to flanking as long as the enemy is within melee reach of both the tough robber and one of the tough robber's allies.</p>"
+                    "value": "<p>Any enemy is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the tough robber's melee attacks due to flanking as long as the enemy is within melee reach of both the tough robber and one of the tough robber's allies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -353,7 +353,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The experienced robber leads an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] creatures.</p>"
+                    "value": "<p>The experienced robber leads an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -365,15 +365,15 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed"
+                            "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

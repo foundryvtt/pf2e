@@ -314,7 +314,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A Graylok ambusher isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], undetected, or flanking creatures of 8th level or lower or creatures of 8th level or lower using sneak attack. However, such creatures can still help other creatures flank.</p>"
+                    "value": "<p>A Graylok ambusher isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], undetected, or flanking creatures of 8th level or lower or creatures of 8th level or lower using sneak attack. However, such creatures can still help other creatures flank.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -323,7 +323,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": "@actor.level"
                     }
                 ],
@@ -423,7 +423,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the Graylok ambusher's attacks.</p>"
+                    "value": "<p>Any creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the Graylok ambusher's attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -440,7 +440,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,
@@ -544,7 +544,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Graylok ambusher deals an additional 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The Graylok ambusher deals an additional 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -556,7 +556,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -577,8 +577,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

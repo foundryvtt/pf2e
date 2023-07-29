@@ -211,7 +211,7 @@ class ChatMessagePF2e extends ChatMessage {
 
         await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
-        Listeners.ChatCards.listen($html);
+        Listeners.ChatCards.listen(this, html);
         InlineRollLinks.listen(html, this);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
         Listeners.MessageTooltips.listen($html);

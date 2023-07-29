@@ -801,7 +801,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 })}</p>`;
                 const title = game.i18n.localize("PF2E.CraftingTab.RemoveFormulaDialogTitle");
                 if (await Dialog.confirm({ title, content })) {
-                    const actorFormulas = this.actor.toObject().system.crafting.formulas ?? [];
+                    const actorFormulas = this.actor.toObject().system.crafting?.formulas ?? [];
                     actorFormulas.findSplice((f) => f.uuid === itemUuid);
                     this.actor.update({ "system.crafting.formulas": actorFormulas });
                 }
@@ -1225,7 +1225,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         }
         // Sort other formulas
-        const formulas = this.actor.toObject().system.crafting.formulas ?? [];
+        const formulas = this.actor.toObject().system.crafting?.formulas ?? [];
         const source = formulas.find((f) => f.uuid === sourceFormula.uuid);
         const target = formulas.find((f) => f.uuid === targetUuid);
         if (source && target) {

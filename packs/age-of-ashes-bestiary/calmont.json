@@ -781,7 +781,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Calmont isn't @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], or flanking creatures of level 3 or lower.</p>"
+                    "value": "<p>Calmont isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], or flanking creatures of level 3 or lower.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -790,7 +790,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": 3
                     }
                 ],
@@ -920,7 +920,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Calmont deals 1d6 extra damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Calmont deals 1d6 extra damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -932,7 +932,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -953,8 +953,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -989,7 +989,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If Calmont used Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to Calmont on the first round of combat.</p>"
+                    "value": "<p>If Calmont used Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Calmont on the first round of combat.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1018,7 +1018,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,

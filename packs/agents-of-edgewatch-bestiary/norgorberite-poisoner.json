@@ -498,7 +498,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit a flat-footed creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal @Damage[1d4[bleed]].</p>"
+                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit an off-guard creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal @Damage[1d4[bleed]].</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -718,7 +718,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The poisoner isn't flat-footed to creatures of 11th level or lower that are hidden, undetected, flanking, or using surprise attack.</p>"
+                    "value": "<p>The poisoner isn't off-guard to creatures of 11th level or lower that are hidden, undetected, flanking, or using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -727,7 +727,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.flanking.flatFootable",
+                        "path": "system.attributes.flanking.offGuardable",
                         "value": 11
                     }
                 ],
@@ -845,7 +845,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The poisoner deals an additional 3d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The poisoner deals an additional 3d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -857,7 +857,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -878,8 +878,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -914,7 +914,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Creatures the poisoner hits with a critical hit are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against their attacks until the end of their next turn.</p>"
+                    "value": "<p>Creatures the poisoner hits with a critical hit are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against their attacks until the end of their next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

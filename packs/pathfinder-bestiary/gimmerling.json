@@ -478,7 +478,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[type:reflex|dc:32|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] until the start of its next turn.</p>\n<p><strong>Failure</strong> The target takes @Damage[2d10[bludgeoning]] damage and is flat-footed until the start of its next turn.</p>\n<p><strong>Critical failure</strong> As failure, and the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[type:reflex|dc:32|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of its next turn.</p>\n<p><strong>Failure</strong> The target takes @Damage[2d10[bludgeoning]] damage and is off-guard until the start of its next turn.</p>\n<p><strong>Critical failure</strong> As failure, and the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -604,7 +604,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The gimmerling deals 2d6 extra precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The gimmerling deals 2d6 extra precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -616,7 +616,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -637,8 +637,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

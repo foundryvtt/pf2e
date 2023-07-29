@@ -354,7 +354,7 @@ class WeaponDamagePF2e {
         );
 
         // Backstabber trait
-        if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
+        if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:off-guard")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 slug: "backstabber",

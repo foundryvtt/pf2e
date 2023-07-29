@@ -424,7 +424,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The clockwork buccaneer @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}. If the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to the buccaneer's melee attacks, it becomes flat-footed to the buccaneer's ranged attacks as well.</p>"
+                    "value": "<p>The clockwork buccaneer @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}. If the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the buccaneer's melee attacks, it becomes off-guard to the buccaneer's ranged attacks as well.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -499,7 +499,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The clockwork buccaneer deals an extra 2d6 precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The clockwork buccaneer deals an extra 2d6 precision damage to off-guard creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -511,7 +511,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -532,8 +532,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

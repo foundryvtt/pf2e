@@ -724,7 +724,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A nuglub's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] targets, or 1d10 precision damage if the target is @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p>A nuglub's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] targets, or 1d10 precision damage if the target is @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -736,7 +736,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "not": "target:condition:prone"
                             }
@@ -756,8 +756,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],

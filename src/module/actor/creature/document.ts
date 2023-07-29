@@ -228,7 +228,7 @@ abstract class CreaturePF2e<
         attributes.hardness ??= { value: 0 };
         attributes.flanking.canFlank = true;
         attributes.flanking.flankable = true;
-        attributes.flanking.flatFootable = true;
+        attributes.flanking.offGuardable = true;
         attributes.reach = { base: 0, manipulate: 0 };
 
         if (attributes.initiative) {

@@ -1,4 +1,4 @@
-import { CharacterDetails } from "@actor/character/data.ts";
+import { CharacterDetailsSource } from "@actor/character/data.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
@@ -273,4 +273,4 @@ interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSour
     ancestry: { uuid: ItemUUID; name: string } | null;
 }
 
-type MaybeWithStoredHeritage = Omit<CharacterDetails, "heritage"> & { heritage?: unknown; "-=heritage"?: null };
+type MaybeWithStoredHeritage = CharacterDetailsSource & { heritage?: unknown; "-=heritage"?: null };

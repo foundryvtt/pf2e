@@ -1,4 +1,3 @@
-import { CharacterProficiency } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ClassSource, ItemSourcePF2e } from "@item/data/index.ts";
@@ -38,7 +37,7 @@ export class Migration653AEstoREs extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const systemData: { martial: Record<string, CharacterProficiency> } = actorSource.system;
+        const systemData = actorSource.system;
         systemData.martial = {}; // Only remove on compendium JSON
 
         // Remove transferred ActiveEffects, some of which will be converted to RuleElements

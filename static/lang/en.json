@@ -760,7 +760,7 @@
         "ConditionTypeEnfeebled": "Enfeebled",
         "ConditionTypeFascinated": "Fascinated",
         "ConditionTypeFatigued": "Fatigued",
-        "ConditionTypeFlatFooted": "Flat-Footed",
+        "ConditionTypeFlatFooted": "Off-Guard",
         "ConditionTypeFleeing": "Fleeing",
         "ConditionTypeFriendly": "Friendly",
         "ConditionTypeFrightened": "Frightened",
@@ -772,6 +772,7 @@
         "ConditionTypeIndifferent": "Indifferent",
         "ConditionTypeInvisible": "Invisible",
         "ConditionTypeObserved": "Observed",
+        "ConditionTypeOffGuard": "Off-Guard",
         "ConditionTypeParalyzed": "Paralyzed",
         "ConditionTypePersistent": "Persistent Damage",
         "ConditionTypePersistentShort": "Persistent",
@@ -970,7 +971,7 @@
                     "fascinated": "fascinated",
                     "fatigued": "fatigued",
                     "fear-effects": "fear effects",
-                    "flat-footed": "flat-footed",
+                    "off-guard": "off-guard",
                     "fleeing": "fleeing",
                     "frightened": "frightened",
                     "ghost-touch": "ghost touch",
@@ -3627,7 +3628,7 @@
         "TraitDescriptionAura": "An aura is an emanation that continually ebbs out from you, af ecting creatures within a certain radius. Aura can also refer to the magical signature of an item or a creature with a strong alignment.",
         "TraitDescriptionAutomaton": "A creature with this trait is a member of the automaton ancestry.",
         "TraitDescriptionAzarketi": "Amphibious humanoids who live among the seas of the Inner Sea region, said to have descended from the people of Azlant. Sometimes known as gillmen or Low Azlanti.",
-        "TraitDescriptionBackstabber": "When you hit a flat-footed creature, this weapon deals 1 precision damage in addition to its normal damage. The precision damage increases to 2 if the weapon is a +3 weapon.",
+        "TraitDescriptionBackstabber": "When you hit an off-guard creature, this weapon deals 1 precision damage in addition to its normal damage. The precision damage increases to 2 if the weapon is a +3 weapon.",
         "TraitDescriptionBackswing": "You can use the momentum from a missed attack with this weapon to lead into your next attack. After missing with this weapon on your turn, you gain a +1 circumstance bonus to your next attack with this weapon before the end of your turn.",
         "TraitDescriptionBarbarian": "This indicates abilities from the barbarian class.",
         "TraitDescriptionBard": "This indicates abilities from the bard class.",
@@ -5117,7 +5118,7 @@
                     "Shield": "You can knock the target up to 10 feet away.",
                     "Sling": "The target also takes a -10-foot status penalty to its Speed for 1 round if it fails the save.",
                     "Spear": "The clumsy condition lasts for 2 rounds.",
-                    "Sword": "The target is flat-footed until the end of your next turn."
+                    "Sword": "The target is off-guard until the end of your next turn."
                 }
             },
             "hauling": {
@@ -5329,7 +5330,7 @@
             },
             "confused": {
                 "name": "Confused",
-                "rules": "<p>You don't have your wits about you, and you attack wildly. You are flat-footed, you don't treat anyone as your ally (though they might still treat you as theirs), and you can't Delay, Ready, or use reactions.<p></p>You use all your actions to Strike or cast offensive cantrips, though the GM can have you use other actions to facilitate attack, such as draw a weapon, move so that a target is in reach, and so forth. Your targets are determined randomly by the GM. If you have no other viable targets, you target yourself, automatically hitting but not scoring a critical hit. If it's impossible for you to attack or cast spells, you babble incoherently, wasting your actions.</p>\n<p>Each time you take damage from an attack or spell, you can attempt a @Check[type:flat|dc:11] to recover from your confusion and end the condition.</p>",
+                "rules": "<p>You don't have your wits about you, and you attack wildly. You are off-guard, you don't treat anyone as your ally (though they might still treat you as theirs), and you can't Delay, Ready, or use reactions.<p></p>You use all your actions to Strike or cast offensive cantrips, though the GM can have you use other actions to facilitate attack, such as draw a weapon, move so that a target is in reach, and so forth. Your targets are determined randomly by the GM. If you have no other viable targets, you target yourself, automatically hitting but not scoring a critical hit. If it's impossible for you to attack or cast spells, you babble incoherently, wasting your actions.</p>\n<p>Each time you take damage from an attack or spell, you can attempt a @Check[type:flat|dc:11] to recover from your confusion and end the condition.</p>",
                 "summary": "You attack indiscriminately."
             },
             "controlled": {
@@ -5382,9 +5383,9 @@
                 "rules": "<p>You're tired and can't summon much energy. You take a -1 status penalty to AC and saving throws. While exploring, you can't choose an exploration activity.</p>\n<p>You recover from fatigue after a full night's rest.</p>",
                 "summary": "Your defenses are lower and you can't focus while exploring."
             },
-            "flat-footed": {
-                "name": "Flat-Footed",
-                "rules": "<p>You're distracted or otherwise unable to focus your full attention on defense. You take a -2 circumstance penalty to AC. Some effects give you the flat-footed condition only to certain creatures or against certain attacks. Others- especially conditions-can make you universally flatfooted against everything. If a rule doesn't specify that the condition applies only to certain circumstances, it applies to all of them; for example, many effects simply say \"The target is flat-footed.\"</p>",
+            "off-guard": {
+                "name": "Off-Guard",
+                "rules": "<p>You're distracted or otherwise unable to focus your full attention on defense. You take a -2 circumstance penalty to AC. Some effects give you the off-guard condition only to certain creatures or against certain attacks. Others- especially conditions-can make you universally flatfooted against everything. If a rule doesn't specify that the condition applies only to certain circumstances, it applies to all of them; for example, many effects simply say \"The target is off-guard.\"</p>",
                 "summary": "You're unable to defend yourself to your full capability."
             },
             "fleeing": {
@@ -5404,7 +5405,7 @@
             },
             "grabbed": {
                 "name": "Grabbed",
-                "rules": "<p>You're held in place by another creature, giving you the flat-footed and immobilized conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[type:flat|dc:5] or it is lost; roll the check after spending the action, but before any effects are applied.</p>",
+                "rules": "<p>You're held in place by another creature, giving you the off-guard and immobilized conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[type:flat|dc:5] or it is lost; roll the check after spending the action, but before any effects are applied.</p>",
                 "summary": "A creature, object, or magic holds you in place."
             },
             "group": {
@@ -5420,7 +5421,7 @@
             },
             "hidden": {
                 "name": "Hidden",
-                "rules": "<p>While you're hidden from a creature, that creature knows the space you're in but can't tell precisely where you are. You typically become hidden by using Stealth to Hide. When Seeking a creature using only imprecise senses, it remains hidden, rather than observed. A creature you're hidden from is flat-footed to you, and it must succeed at a @Check[type:flat|dc:11] when targeting you with an attack, spell, or other effect or it fails affect you. Area effects aren't subject to this flat check.</p>\n<p>A creature might be able to use the Seek action to try to observe you.</p>",
+                "rules": "<p>While you're hidden from a creature, that creature knows the space you're in but can't tell precisely where you are. You typically become hidden by using Stealth to Hide. When Seeking a creature using only imprecise senses, it remains hidden, rather than observed. A creature you're hidden from is off-guard to you, and it must succeed at a @Check[type:flat|dc:11] when targeting you with an attack, spell, or other effect or it fails affect you. Area effects aren't subject to this flat check.</p>\n<p>A creature might be able to use the Seek action to try to observe you.</p>",
                 "summary": "A creature you're hidden from knows your location but can't see you."
             },
             "hostile": {
@@ -5450,7 +5451,7 @@
             },
             "paralyzed": {
                 "name": "Paralyzed",
-                "rules": "<p>Your body is frozen in place. You have the flat-footed condition and can't act except to Recall Knowledge and use actions that require only the use of your mind (as determined by the GM). Your senses still function, but only in the areas you can perceive without moving your body, so you can't Seek while paralyzed.</p>",
+                "rules": "<p>Your body is frozen in place. You have the off-guard condition and can't act except to Recall Knowledge and use actions that require only the use of your mind (as determined by the GM). Your senses still function, but only in the areas you can perceive without moving your body, so you can't Seek while paralyzed.</p>",
                 "summary": "Your body is frozen in place."
             },
             "persistent-damage": {
@@ -5465,7 +5466,7 @@
             },
             "prone": {
                 "name": "Prone",
-                "rules": "<p>You're lying on the ground. You are flat-footed and take a -2 circumstance penalty to attack rolls. The only move actions you can use while you're prone are Crawl and Stand. Standing up ends the prone condition. You can Take Cover while prone to hunker down and gain cover against ranged attacks, even if you don't have an object to get behind, gaining a +4 circumstance bonus to AC against ranged attacks (but you remain flat-footed).</p>\n<p>If you would be knocked prone while you're Climbing or Flying, you fall. You can't be knocked prone when Swimming.</p>",
+                "rules": "<p>You're lying on the ground. You are off-guard and take a -2 circumstance penalty to attack rolls. The only move actions you can use while you're prone are Crawl and Stand. Standing up ends the prone condition. You can Take Cover while prone to hunker down and gain cover against ranged attacks, even if you don't have an object to get behind, gaining a +4 circumstance bonus to AC against ranged attacks (but you remain off-guard).</p>\n<p>If you would be knocked prone while you're Climbing or Flying, you fall. You can't be knocked prone when Swimming.</p>",
                 "summary": "You're lying on the ground and are easier to attack."
             },
             "quickened": {
@@ -5475,7 +5476,7 @@
             },
             "restrained": {
                 "name": "Restrained",
-                "rules": "<p>You're tied up and can barely move, or a creature has you pinned. You have the flat-footed and immobilized conditions, and you can't use any actions with the attack or manipulate traits except to attempt to Escape or Force Open your bonds. Restrained overrides grabbed.</p>",
+                "rules": "<p>You're tied up and can barely move, or a creature has you pinned. You have the off-guard and immobilized conditions, and you can't use any actions with the attack or manipulate traits except to attempt to Escape or Force Open your bonds. Restrained overrides grabbed.</p>",
                 "summary": "You're tied up and can't move, or a grappling creature has you pinned."
             },
             "sickened": {
@@ -5500,12 +5501,12 @@
             },
             "unconscious": {
                 "name": "Unconscious",
-                "rules": "<p>You're sleeping, or you've been knocked out. You can't act. You take a -4 status penalty to AC, Perception, and Reflex saves, and you have the blinded and flat-footed conditions. When you gain this condition, you fall prone and drop items you are wielding or holding unless the effect states otherwise or the GM determines you're in a position in which you wouldn't.</p>\n<p>If you're unconscious because you're dying, you can't wake up while you have 0 Hit Points. If you are restored to 1 Hit Point or more via healing, you lose the dying and unconscious conditions and can act normally on your next turn.</p>\n<p>If you are unconscious and at 0 Hit Points, but not dying, you naturally return to 1 Hit Point and awaken after sufficient time passes. The GM determines how long you remain unconscious, from a minimum of 10 minutes to several hours. If you receive healing during this time, you lose the unconscious condition and can act normally on your next turn.</p>\n<p>If you're unconscious and have more than 1 Hit Point (typically because you are asleep or unconscious due to an effect), you wake up in one of the following ways. Each causes you to lose the unconscious condition.</p><ul><li>You take damage, provided the damage doesn't reduce you to 0 Hit Points. If the damage reduces you to 0 Hit Points, you remain unconscious and gain the dying condition as normal.</li><li>You receive healing, other than the natural healing you get from resting.</li><li>Someone shakes you awake with an Interact action.</li><li>There's loud noise going on around you-though this isn't automatic. At the start of your turn, you automatically attempt a Perception check against the noise's DC (or the lowest DC if there is more than one noise), waking up if you succeed. If creatures are attempting to stay quiet around you, this Perception check uses their Stealth DCs. Some magical effects make you sleep so deeply that they don't allow you to attempt this Perception check.</li><li>If you are simply asleep, the GM decides you wake up either because you have had a restful night's sleep or something disrupted that rest.</ul>",
+                "rules": "<p>You're sleeping, or you've been knocked out. You can't act. You take a -4 status penalty to AC, Perception, and Reflex saves, and you have the blinded and off-guard conditions. When you gain this condition, you fall prone and drop items you are wielding or holding unless the effect states otherwise or the GM determines you're in a position in which you wouldn't.</p>\n<p>If you're unconscious because you're dying, you can't wake up while you have 0 Hit Points. If you are restored to 1 Hit Point or more via healing, you lose the dying and unconscious conditions and can act normally on your next turn.</p>\n<p>If you are unconscious and at 0 Hit Points, but not dying, you naturally return to 1 Hit Point and awaken after sufficient time passes. The GM determines how long you remain unconscious, from a minimum of 10 minutes to several hours. If you receive healing during this time, you lose the unconscious condition and can act normally on your next turn.</p>\n<p>If you're unconscious and have more than 1 Hit Point (typically because you are asleep or unconscious due to an effect), you wake up in one of the following ways. Each causes you to lose the unconscious condition.</p><ul><li>You take damage, provided the damage doesn't reduce you to 0 Hit Points. If the damage reduces you to 0 Hit Points, you remain unconscious and gain the dying condition as normal.</li><li>You receive healing, other than the natural healing you get from resting.</li><li>Someone shakes you awake with an Interact action.</li><li>There's loud noise going on around you-though this isn't automatic. At the start of your turn, you automatically attempt a Perception check against the noise's DC (or the lowest DC if there is more than one noise), waking up if you succeed. If creatures are attempting to stay quiet around you, this Perception check uses their Stealth DCs. Some magical effects make you sleep so deeply that they don't allow you to attempt this Perception check.</li><li>If you are simply asleep, the GM decides you wake up either because you have had a restful night's sleep or something disrupted that rest.</ul>",
                 "summary": "You're asleep or knocked out."
             },
             "undetected": {
                 "name": "Undetected",
-                "rules": "<p>When you are undetected by a creature, that creature cannot see you at all, has no idea what space you occupy, and can't target you, though you still can be affected by abilities that target an area. When you're undetected by a creature, that creature is flat-footed to you.</p>\n<p>A creature you're undetected by can guess which square you're in to try targeting you. It must pick a square and attempt an attack. This works like targeting a hidden creature (requiring a @Check[type:flat|dc:11]), but the flat check and attack roll are rolled in secret by the GM, who doesn't reveal whether the attack missed due to failing the flat check, failing the attack roll, or choosing the wrong square.</p>\n<p>A creature can use the Seek action to try to find you.</p>",
+                "rules": "<p>When you are undetected by a creature, that creature cannot see you at all, has no idea what space you occupy, and can't target you, though you still can be affected by abilities that target an area. When you're undetected by a creature, that creature is off-guard to you.</p>\n<p>A creature you're undetected by can guess which square you're in to try targeting you. It must pick a square and attempt an attack. This works like targeting a hidden creature (requiring a @Check[type:flat|dc:11]), but the flat check and attack roll are rolled in secret by the GM, who doesn't reveal whether the attack missed due to failing the flat check, failing the attack roll, or choosing the wrong square.</p>\n<p>A creature can use the Seek action to try to find you.</p>",
                 "summary": "A creature you're undetected by doesn't know where you are."
             },
             "unfriendly": {

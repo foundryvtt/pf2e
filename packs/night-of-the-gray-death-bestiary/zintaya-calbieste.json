@@ -787,7 +787,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Gray Gardener assassin distracts a creature within 30 feet, using a few choice words or gestures. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] against the assassin's attacks until the end of the assassin's next turn. Depending on the distraction, this action gains either the auditory or the visual trait.</p>"
+                    "value": "<p>The Gray Gardener assassin distracts a creature within 30 feet, using a few choice words or gestures. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the assassin's attacks until the end of the assassin's next turn. Depending on the distraction, this action gains either the auditory or the visual trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -960,7 +960,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Gray Gardener assassin deals an additional 6d6 precision damage precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The Gray Gardener assassin deals an additional 6d6 precision damage precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -972,7 +972,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -993,8 +993,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -1029,7 +1029,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to the Gray Gardener assassin.</p>"
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the Gray Gardener assassin.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1052,7 +1052,7 @@
                             "strike-damage",
                             "attack-spell-damage"
                         ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Flat-Footed"
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
                     }
                 ],
                 "slug": null,

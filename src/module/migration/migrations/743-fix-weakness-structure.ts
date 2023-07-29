@@ -1,4 +1,4 @@
-import { CharacterTraitsData } from "@actor/character/data.ts";
+import { CharacterTraitsSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { NPCTraitsSource } from "@actor/npc/data.ts";
 import { MigrationBase } from "../base.ts";
@@ -23,7 +23,7 @@ export class Migration743FixWeaknessStructure extends MigrationBase {
     }
 }
 
-type WithWRTraits = (CharacterTraitsData | NPCTraitsSource) & {
+type WithWRTraits = (CharacterTraitsSource | NPCTraitsSource) & {
     dv?: never[];
     dr?: never[];
 };

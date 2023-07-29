@@ -803,7 +803,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Roll counteract check */
-    async rollCounteract(event?: JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
+        event = event instanceof Event ? event : event?.originalEvent;
         if (!this.actor?.isOfType("character", "npc")) return null;
 
         const spellcastingEntry = this.trickMagicEntry ?? this.spellcasting;

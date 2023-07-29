@@ -322,7 +322,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The kokogiak's Strikes deal an additional 2d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The kokogiak's Strikes deal an additional 2d6 precision damage to off-guard creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -334,7 +334,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:flat-footed",
+                            "target:condition:off-guard",
                             {
                                 "or": [
                                     "item:trait:agile",
@@ -355,8 +355,8 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
-                        "option": "target:condition:flat-footed",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
                         "toggleable": "totm"
                     }
                 ],
@@ -391,7 +391,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Using their voice imitation abilities, a kokogiak emits the horrific wails of its former victims. Each creature within @Template[type:emanation|distance:120]{120 feet} takes @Damage[4d6[mental]] damage and must attempt a @Check[type:will|dc:32|traits:damaging-effect] save.</p>\n<p>A creature frightened by this ability is @UUID[Compendium.pf2e.conditionitems.Item.Flat-Footed] to the kokogiak.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}, and is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn.</p>"
+                    "value": "<p>Using their voice imitation abilities, a kokogiak emits the horrific wails of its former victims. Each creature within @Template[type:emanation|distance:120]{120 feet} takes @Damage[4d6[mental]] damage and must attempt a @Check[type:will|dc:32|traits:damaging-effect] save.</p>\n<p>A creature frightened by this ability is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the kokogiak.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}, and is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
