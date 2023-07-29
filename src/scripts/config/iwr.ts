@@ -138,6 +138,7 @@ const weaknessTypes = {
     silver: "PF2E.Damage.IWR.Type.silver",
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sonic: "PF2E.Damage.RollFlavor.sonic",
+    spells: "PF2E.Damage.IWR.Type.spells",
     "splash-damage": "PF2E.Damage.IWR.Type.splash-damage",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     "vampire-weaknesses": "PF2E.Damage.IWR.Type.vampire-weaknesses",
@@ -197,6 +198,7 @@ const resistanceTypes = {
     silver: "PF2E.Damage.IWR.Type.silver",
     slashing: "PF2E.Damage.RollFlavor.slashing",
     sonic: "PF2E.Damage.RollFlavor.sonic",
+    spells: "PF2E.Damage.IWR.Type.spells",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     vorpal: "PF2E.Damage.IWR.Type.vorpal",
     "vorpal-adamantine": "PF2E.Damage.IWR.Type.vorpal-adamantine",
@@ -207,4 +209,4 @@ const resistanceTypes = {
     wood: "PF2E.Damage.IWR.Type.wood",
 };
 
-export { immunityTypes, weaknessTypes, resistanceTypes };
+export { immunityTypes, resistanceTypes, weaknessTypes };

@@ -114,6 +114,9 @@ abstract class IWRData<TType extends IWRType> {
                 const component = iwrType === "splash-damage" ? "splash" : "precision";
                 return [`damage:component:${component}`];
             }
+            case "spells": {
+                return ["damage", { or: ["item:type:spell", "item:from-spell"] }];
+            }
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             default: {
@@ -315,10 +318,11 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
 const NON_DAMAGE_WEAKNESSES: Set<IWRType> = new Set([
     "air",
     "earth",
-    "salt",
     "metal",
     "radiation",
+    "salt",
     "salt-water",
+    "spells",
     "water",
     "wood",
 ]);
