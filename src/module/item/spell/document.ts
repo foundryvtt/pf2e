@@ -139,11 +139,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get attribute(): AbilityString {
-        return this.spellcasting?.ability ?? this.trickMagicEntry?.ability ?? "cha";
+        return this.spellcasting?.attribute ?? this.trickMagicEntry?.attribute ?? "cha";
     }
 
     /** @deprecated */
     get ability(): AbilityString {
+        foundry.utils.logCompatibilityWarning("`SpellPF2e#ability` is deprecated. Use `SpellPF2e#attribute` instead.", {
+            since: "5.3.0",
+            until: "6.0.0",
+        });
         return this.attribute;
     }
 
