@@ -1,0 +1,57 @@
+{
+    "_id": "GnWkI3T3LYRlm3X8",
+    "img": "systems/pf2e/icons/spells/magic-weapon.webp",
+    "name": "Spell Effect: Runic Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Runic Weapon]</em></p>\n<p>The target becomes a +1 striking weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The weapon is +2 greater striking.</p>\n<p><strong>Heightened (9th)</strong> The weapon is +3 major striking.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,6),2,1))"
+            },
+            {
+                "key": "Striking",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,6),2,1))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Player Core"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
