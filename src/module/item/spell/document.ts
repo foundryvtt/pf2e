@@ -261,7 +261,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             return null;
         }
 
-        const { actor, ability } = this;
+        const { actor, attribute } = this;
         const domains = [
             "damage",
             "spell-damage",
@@ -296,17 +296,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const modifiers: ModifierPF2e[] = [];
         const damageDice: DamageDicePF2e[] = [];
         if (actor.system.abilities) {
-            const { abilities } = actor.system;
-            const abilityModifiers = Object.entries(this.system.damage.value)
+            const attributes = actor.system.abilities;
+            const attributeModifiers = Object.entries(this.system.damage.value)
                 .filter(([, d]) => d.applyMod)
                 .map(
                     ([k, d]) =>
                         new ModifierPF2e({
-                            label: CONFIG.PF2E.abilities[ability],
+                            label: CONFIG.PF2E.abilities[attribute],
                             slug: `ability-${k}`,
                             // Not a restricted ability modifier in the same way it is for checks or weapon damage
                             type: "untyped",
-                            modifier: abilities[ability].mod,
+                            modifier: attributes[attribute].mod,
                             damageType: d.type.value,
                             damageCategory: d.type.subtype || null,
                         })
@@ -316,7 +316,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const resolvables = { spell: this };
 
             const extracted = extractDamageSynthetics(actor, domains, {
-                extraModifiers: abilityModifiers,
+                extraModifiers: attributeModifiers,
                 resolvables,
                 test: options,
             });
