@@ -1,12 +1,12 @@
 import {
     AbilityBasedStatistic,
     ActorAttributes,
+    ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
     ActorTraitsData,
     ActorTraitsSource,
     BaseActorSourcePF2e,
-    HitPointsStatistic,
     StrikeData,
 } from "@actor/data/base.ts";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
@@ -137,7 +137,7 @@ type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 interface CreatureAttributes extends ActorAttributes {
-    hp: HitPointsStatistic;
+    hp: ActorHitPoints;
     ac: { value: number };
     hardness?: { value: number };
     perception: CreaturePerception;
