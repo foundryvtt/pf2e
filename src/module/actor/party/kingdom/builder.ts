@@ -1,12 +1,12 @@
-import * as R from "remeda";
+import { BoostFlawState } from "@actor/character/attribute-builder.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { PartyPF2e } from "../document.ts";
-import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, getKingdomABCData } from "./values.ts";
-import { KingdomAbility, KingdomCHG } from "./types.ts";
-import { Kingdom } from "./model.ts";
-import { BoostFlawState } from "@actor/sheet/popups/ability-builder.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
+import { Kingdom } from "./model.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
+import { KingdomAbility, KingdomCHG } from "./types.ts";
+import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, getKingdomABCData } from "./values.ts";
 
 const KINGDOM_BUILD_CATEGORIES = ["charter", "heartland", "government"] as const;
 const KINGDOM_BOOST_LEVELS = [1, 5, 10, 15, 20] as const;
