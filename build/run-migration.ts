@@ -27,6 +27,7 @@ import { Migration847TempHPRuleEvents } from "@module/migration/migrations/847-t
 import { Migration848NumericArmorProperties } from "@module/migration/migrations/848-numeric-armor-properties.ts";
 import { Migration849DeleteBrokenThreshold } from "@module/migration/migrations/849-delete-broken-threshold.ts";
 import { Migration850FlatFootedToOffGuard } from "@module/migration/migrations/850-flat-footed-to-off-guard.ts";
+import { Migration851JustInnovationId } from "@module/migration/migrations/851-just-innovation-id.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -54,6 +55,7 @@ const migrations: MigrationBase[] = [
     new Migration848NumericArmorProperties(),
     new Migration849DeleteBrokenThreshold(),
     new Migration850FlatFootedToOffGuard(),
+    new Migration851JustInnovationId(),
 ];
 
 global.deepClone = <T>(original: T): T => {

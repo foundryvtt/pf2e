@@ -5,7 +5,7 @@ import { MigrationBase } from "../base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { isObject } from "remeda";
 
-/** Rename  */
+/** Rename all uses and mentions of "flat-footed" to "off-guard"  */
 export class Migration850FlatFootedToOffGuard extends MigrationBase {
     static override version = 0.85;
 
