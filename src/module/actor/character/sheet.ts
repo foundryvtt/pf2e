@@ -33,8 +33,8 @@ import {
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
-import { AbilityBuilderPopup } from "../sheet/popups/ability-builder.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
+import { AttributeBuilder } from "./attribute-builder.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
 import { PreparedFormulaData } from "./crafting/entry.ts";
@@ -657,7 +657,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
 
         $html.find("button[data-action=edit-ability-scores]").on("click", async () => {
-            await new AbilityBuilderPopup(this.actor).render(true);
+            await new AttributeBuilder(this.actor).render(true);
         });
 
         // SPELLCASTING
