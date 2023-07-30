@@ -600,7 +600,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
 
         // Handle adding and inputting custom user submitted modifiers
-        for (const customModifierEl of htmlQueryAll(html, ".custom-modifier-tooltip")) {
+        for (const customModifierEl of htmlQueryAll(html, ".modifiers-tooltip")) {
             const stat = customModifierEl.dataset.stat;
             if (!stat) continue;
 
