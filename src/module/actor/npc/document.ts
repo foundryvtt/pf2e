@@ -324,6 +324,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
                 slug: sluggify(`${entry.name}-spellcasting`),
+                ability: entry.attribute,
                 label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
