@@ -17,7 +17,6 @@ import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
-import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, signedInteger, sluggify } from "@util";
 import { StrikeAttackTraits } from "./creature/helpers.ts";
@@ -180,18 +179,14 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 }
 
 /** Whether flanking puts this actor off-guard */
-function isOffGuardFromFlanking(actor: ActorPF2e): boolean {
-    if (!actor.isOfType("creature")) return false;
-
-    const { flanking } = actor.attributes;
-    if (!flanking.flankable) return false;
-
-    const rollOptions = actor.getRollOptions();
-    if (typeof flanking.offGuardable === "number") {
-        return !PredicatePF2e.test([{ lte: ["origin:level", flanking.offGuardable] }], rollOptions);
-    }
-
-    return flanking.offGuardable;
+function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
+    if (!target?.isOfType("creature")) return false;
+    const { flanking } = target.attributes;
+    return !flanking.flankable
+        ? false
+        : typeof flanking.offGuardable === "number"
+        ? origin.level > flanking.offGuardable
+        : flanking.offGuardable;
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
