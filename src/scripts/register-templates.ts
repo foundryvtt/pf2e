@@ -50,11 +50,11 @@ export function registerTemplates(): void {
         // Shared Actor Sheet Partials
         "systems/pf2e/templates/actors/partials/carry-type.hbs",
         "systems/pf2e/templates/actors/partials/coinage.hbs",
-        "systems/pf2e/templates/actors/partials/custom-modifier.hbs",
         "systems/pf2e/templates/actors/partials/dying-pips.hbs",
         "systems/pf2e/templates/actors/partials/effects.hbs",
         "systems/pf2e/templates/actors/partials/inventory.hbs",
         "systems/pf2e/templates/actors/partials/item-line.hbs",
+        "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/partials/toggles.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",
