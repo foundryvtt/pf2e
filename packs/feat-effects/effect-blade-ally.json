@@ -34,7 +34,12 @@
                         "label": "PF2E.WeaponPropertyRune.anarchic.Name",
                         "predicate": [
                             "feat:radiant-blade-spirit",
-                            "self:trait:chaotic"
+                            {
+                                "or": [
+                                    "feature:liberator",
+                                    "feature:antipaladin"
+                                ]
+                            }
                         ],
                         "value": "anarchic"
                     },
@@ -42,14 +47,19 @@
                         "label": "PF2E.WeaponPropertyRune.axiomatic.Name",
                         "predicate": [
                             "feat:radiant-blade-spirit",
-                            "self:trait:lawful"
+                            {
+                                "or": [
+                                    "feature:paladin",
+                                    "feature:tyrant"
+                                ]
+                            }
                         ],
                         "value": "axiomatic"
                     },
                     {
                         "label": "PF2E.WeaponPropertyRune.disrupting.Name",
                         "predicate": [
-                            "self:trait:good"
+                            "feature:the-tenets-of-good"
                         ],
                         "value": "disrupting"
                     },
@@ -63,7 +73,7 @@
                     {
                         "label": "PF2E.WeaponPropertyRune.fearsome.Name",
                         "predicate": [
-                            "self:trait:evil"
+                            "feature:the-tenets-of-evil"
                         ],
                         "value": "fearsome"
                     },
@@ -77,7 +87,7 @@
                     {
                         "label": "PF2E.WeaponPropertyRune.ghostTouch.Name",
                         "predicate": [
-                            "self:trait:good"
+                            "feature:the-tenets-of-good"
                         ],
                         "value": "ghost-touch"
                     },
@@ -85,7 +95,7 @@
                         "label": "PF2E.WeaponPropertyRune.holy.Name",
                         "predicate": [
                             "feat:radiant-blade-spirit",
-                            "self:trait:good"
+                            "feature:the-tenets-of-good"
                         ],
                         "value": "holy"
                     },
@@ -108,7 +118,7 @@
                         "label": "PF2E.WeaponPropertyRune.unholy.Name",
                         "predicate": [
                             "feat:radiant-blade-spirit",
-                            "self:trait:evil"
+                            "feature:the-tenets-of-evil"
                         ],
                         "value": "unholy"
                     }
