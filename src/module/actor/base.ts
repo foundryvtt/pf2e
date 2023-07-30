@@ -919,10 +919,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             isMelee &&
             typeof reach === "number" &&
             params.statistic instanceof StatisticModifier &&
-            targetToken &&
+            targetToken?.actor &&
             selfToken?.isFlanking(targetToken, { reach })
         );
-        if (isFlankingStrike && params.target?.token?.actor && isOffGuardFromFlanking(params.target.token.actor)) {
+        if (isFlankingStrike && isOffGuardFromFlanking(targetToken.actor, selfActor)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             targetEphemeralEffects.push(condition.toObject());
