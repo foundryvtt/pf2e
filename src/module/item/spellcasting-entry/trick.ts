@@ -55,23 +55,21 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         this.skill = skill;
         this.id = `trick-${this.skill}`;
 
-        const { abilities } = actor;
-        const { ability } = (["int", "wis", "cha"] as const)
-            .map((ability) => {
-                return { ability, value: abilities[ability].value };
-            })
+        const attributes = actor.abilities;
+        const { attribute } = (["int", "wis", "cha"] as const)
+            .map((attribute) => ({ attribute, mod: attributes[attribute].mod }))
             .reduce((highest, next) => {
-                if (next.value > highest.value) {
+                if (next.mod > highest.mod) {
                     return next;
                 } else {
                     return highest;
                 }
             });
 
-        this.attribute = ability;
+        this.attribute = attribute;
         const tradition = (this.tradition = TrickMagicTradition[skill]);
 
-        const selectors = [`${ability}-based`, "all", "spell-attack-dc"];
+        const selectors = [`${attribute}-based`, "all", "spell-attack-dc"];
         const attackSelectors = [
             `${tradition}-spell-attack`,
             "spell-attack",
@@ -87,7 +85,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
-            ability,
+            ability: attribute,
             rank: trickRank || "untrained-level",
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,

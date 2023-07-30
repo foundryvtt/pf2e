@@ -3,7 +3,8 @@ import { Abilities } from "@actor/creature/data.ts";
 import { AbilityString } from "@actor/types.ts";
 import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { maintainFocusInRender } from "@module/sheet/helpers.ts";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 
 class AttributeBuilder extends Application {
@@ -19,7 +20,7 @@ class AttributeBuilder extends Application {
         return {
             ...super.defaultOptions,
             classes: ["attribute-builder"],
-            title: game.i18n.localize("PF2E.AbilityScoresHeader"),
+            title: game.i18n.localize("PF2E.Actor.Creature.AttributeModifiers"),
             template: "systems/pf2e/templates/actors/character/attribute-builder.hbs",
             width: "auto",
             height: "auto",
@@ -30,19 +31,19 @@ class AttributeBuilder extends Application {
         return `attribute-builder-${this.actor.uuid}`;
     }
 
-    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<AbilityBuilderSheetData> {
+    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<AttributeBuilderSheetData> {
         const { actor } = this;
-        const build = actor.system.build.abilities;
+        const build = actor.system.build.attributes;
 
         return {
             ...(await super.getData(options)),
             actor,
-            abilities: CONFIG.PF2E.abilities,
+            attributes: CONFIG.PF2E.abilities,
             manual: build.manual,
             ancestry: actor.ancestry,
             background: actor.background,
             class: actor.class,
-            abilityScores: actor.abilities,
+            attributeModifiers: actor.abilities,
             manualKeyAbility: actor.keyAttribute,
             keyOptions: build.keyOptions,
             ...this.#calculateAncestryBoosts(),
@@ -80,7 +81,7 @@ class AttributeBuilder extends Application {
 
         // Get accumultated boosts (and flaws) from the actor
         // These are necessary to prevent double boosting in legacy flaws
-        const build = actor.system.build.abilities;
+        const build = actor.system.build.attributes;
         const netBoosted = R.difference(build.boosts.ancestry, build.flaws.ancestry);
 
         // Create boost (and flaw) buttons for the ancestry
@@ -162,10 +163,10 @@ class AttributeBuilder extends Application {
         const unselectedRestricted = boosts.filter((b) => b.value.length < 6 && !b.selected).flatMap((b) => b.value);
         const remaining = boosts.length - selectedBoosts.length;
 
-        for (const ability of ABILITY_ABBREVIATIONS) {
-            const selected = selectedBoosts.includes(ability);
-            const mightBeForced = unselectedRestricted.includes(ability);
-            buttons[ability].boost = {
+        for (const attribute of ABILITY_ABBREVIATIONS) {
+            const selected = selectedBoosts.includes(attribute);
+            const mightBeForced = unselectedRestricted.includes(attribute);
+            buttons[attribute].boost = {
                 selected,
                 disabled: !(selected || remaining) || (!!unselectedRestricted.length && !mightBeForced),
             };
@@ -184,7 +185,7 @@ class AttributeBuilder extends Application {
                 const choices = Object.values(boosts)[0].value.map((ability) =>
                     game.i18n.localize(CONFIG.PF2E.abilities[ability])
                 );
-                return game.i18n.format("PF2E.Actor.Character.AbilityBuilder.BackgroundBoostDescription", {
+                return game.i18n.format("PF2E.Actor.Character.AttributeBuilder.BackgroundBoostDescription", {
                     a: choices[0],
                     b: choices[1],
                 });
@@ -197,20 +198,42 @@ class AttributeBuilder extends Application {
     }
 
     #calculateLeveledBoosts(): LevelBoostData[] {
-        const build = this.actor.system.build.abilities;
+        const build = this.actor.system.build.attributes;
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
+        const boostIsPartial = (attribute: AbilityString, level = 0): boolean => {
+            if (level < 5 || build.manual) return false;
+            const boosts = R.compact([
+                build.boosts.ancestry.find((a) => a === attribute),
+                build.boosts.background.find((a) => a === attribute),
+                build.boosts.class === attribute ? attribute : null,
+                build.boosts[1].find((a) => a === attribute),
+                level === 20 ? build.boosts[20].find((a) => a === attribute) : null,
+                level >= 15 ? build.boosts[15].find((a) => a === attribute) : null,
+                level >= 10 ? build.boosts[10].find((a) => a === attribute) : null,
+                level >= 5 ? build.boosts[5].find((a) => a === attribute) : null,
+            ]).length;
+            const flaws = Number(build.flaws.ancestry.some((a) => a === attribute));
+            const netBoosts = boosts - flaws;
+
+            const cssClasses: Record<number, boolean> = { 0: false, 1: true };
+            return netBoosts >= 5 ? cssClasses[netBoosts % 2] : false;
+        };
+
         return ([1, 5, 10, 15, 20] as const).map((level): LevelBoostData => {
             const remaining = build.allowedBoosts[level] - build.boosts[level].length;
             const buttons = this.#createButtons();
             for (const ability of ABILITY_ABBREVIATIONS) {
+                const selected = build.boosts[level].includes(ability);
+                const partial = selected && boostIsPartial(ability, level);
                 buttons[ability].boost = {
-                    selected: build.boosts[level].includes(ability),
+                    selected,
+                    partial,
                     disabled: !remaining,
                 };
             }
-
             const eligible = build.allowedBoosts[level] > 0;
             const minLevel = isGradual ? Math.max(1, level - 3) : level;
+
             return { buttons, remaining, level, eligible, minLevel };
         });
     }
@@ -227,6 +250,11 @@ class AttributeBuilder extends Application {
                 return [];
             }
         });
+    }
+
+    /** Maintain focus on manual entry inputs */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        return maintainFocusInRender(this, () => super._render(force, options));
     }
 
     /** Remove this application from the actor's apps on close */
@@ -249,6 +277,7 @@ class AttributeBuilder extends Application {
             arrow: false,
             debug: BUILD_MODE === "development",
             interactive: true,
+            maxWidth: 350,
             side: ["bottom"],
             theme: "crb-hover",
         });
@@ -256,7 +285,25 @@ class AttributeBuilder extends Application {
         $html.find("div.tooltip").tooltipster();
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
-            input.addEventListener("focus", () => input.select());
+            input.addEventListener("focus", () => {
+                if (input.type === "text" && input.dataset.dtype === "Number") {
+                    input.value = input.value.replace(/\D/g, "");
+                    input.type = "number";
+                }
+                input.select();
+            });
+
+            input.addEventListener("blur", () => {
+                if (input.type === "number" && input.dataset.dtype === "Number") {
+                    input.type = "text";
+                    const newValue = Math.trunc(Math.clamped(Number(input.value) || 0, -5, 10));
+                    input.value = signedInteger(newValue);
+
+                    const propertyPath = input.dataset.property;
+                    if (!propertyPath) throw ErrorPF2e("Empty property path");
+                    actor.update({ [propertyPath]: newValue });
+                }
+            });
         }
 
         htmlQuery(html, "[data-action=toggle-alternate-ancestry-boosts]")?.addEventListener("click", () => {
@@ -287,21 +334,23 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "[data-section=ancestry] .boost")) {
             button.addEventListener("click", async () => {
                 const ancestry = actor.ancestry;
-                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
-                if (!ancestry || !ability) return;
+                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                    return;
+                }
 
                 // If alternative ancestry boosts, write to there instead
                 if (ancestry.system.alternateAncestryBoosts) {
                     const existingBoosts = ancestry.system.alternateAncestryBoosts;
-                    const boosts = existingBoosts.includes(ability)
-                        ? existingBoosts.filter((b) => b !== ability)
-                        : [...existingBoosts, ability].slice(0, 2);
+                    const boosts = existingBoosts.includes(attribute)
+                        ? existingBoosts.filter((b) => b !== attribute)
+                        : [...existingBoosts, attribute].slice(0, 2);
                     ancestry.update({ "system.alternateAncestryBoosts": boosts });
                     return;
                 }
 
                 const boostToRemove = Object.entries(ancestry.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === ability
+                    ([, b]) => b.selected === attribute
                 );
                 if (boostToRemove) {
                     await ancestry.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
@@ -312,7 +361,7 @@ class AttributeBuilder extends Application {
                     ([, b]) => !b.selected && b.value.length > 0
                 );
                 if (freeBoost) {
-                    await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
+                    await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: attribute });
                 }
             });
         }
@@ -320,33 +369,35 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "[data-section=voluntary] .boost-button")) {
             button.addEventListener("click", () => {
                 const ancestry = actor.ancestry;
-                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
-                if (!ancestry || !ability) return;
+                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                    return;
+                }
 
                 const removing = button.classList.contains("selected");
 
                 if (button.dataset.action === "flaw") {
                     const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [] };
-                    const alreadyHasFlaw = flaws.includes(ability);
+                    const alreadyHasFlaw = flaws.includes(attribute);
                     const isLegacy = boost !== undefined;
 
                     // If removing, it must exist and there shouldn't be a boost selected
                     if (removing && alreadyHasFlaw && !boost) {
-                        flaws.splice(flaws.indexOf(ability), 1);
+                        flaws.splice(flaws.indexOf(attribute), 1);
                         ancestry.update({ system: { voluntary: { flaws } } });
                         return;
                     }
 
                     // If adding, we need to be under 2 flaws if legacy, it must be new or be a locked ancestry boost (to double flaw)
-                    const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
+                    const boostedByAncestry = ancestry.lockedBoosts.includes(attribute);
                     const canDoubleFlaw = boostedByAncestry && isLegacy;
                     const maxFlaws = isLegacy ? 2 : 6;
                     if (flaws.length < maxFlaws && (!alreadyHasFlaw || canDoubleFlaw)) {
-                        flaws.push(ability);
+                        flaws.push(attribute);
                         ancestry.update({ system: { voluntary: { flaws } } });
                     }
                 } else {
-                    const boost = removing ? null : ability;
+                    const boost = removing ? null : attribute;
                     ancestry.update({ system: { voluntary: { boost } } });
                 }
             });
@@ -354,11 +405,13 @@ class AttributeBuilder extends Application {
 
         for (const button of htmlQueryAll(html, "[data-section=background] .boost")) {
             button.addEventListener("click", () => {
-                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
-                if (!ability) return;
+                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                if (!setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                    return;
+                }
 
                 const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === ability
+                    ([, b]) => b.selected === attribute
                 );
                 if (boostToRemove) {
                     actor.background?.update({
@@ -372,23 +425,23 @@ class AttributeBuilder extends Application {
                 );
                 if (freeBoost) {
                     actor.background?.update({
-                        [`system.boosts.${freeBoost[0]}.selected`]: ability,
+                        [`system.boosts.${freeBoost[0]}.selected`]: attribute,
                     });
                 }
             });
         }
 
-        for (const button of htmlQueryAll(html, "button[data-action=class-key-ability]")) {
+        for (const button of htmlQueryAll(html, "button[data-action=class-key-attribute]")) {
             button.addEventListener("click", () => {
-                const ability = button.dataset.ability;
-                if (!setHasElement(ABILITY_ABBREVIATIONS, ability)) {
-                    throw ErrorPF2e(`Unrecognized ability abbreviation: ${ability}`);
+                const attribute = button.dataset.attribute;
+                if (!setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                    throw ErrorPF2e(`Unrecognized ability abbreviation: ${attribute}`);
                 }
 
-                if (actor.system.build.abilities.manual) {
-                    actor.update({ [`system.details.keyability.value`]: ability });
+                if (actor.system.build.attributes.manual) {
+                    actor.update({ [`system.details.keyability.value`]: attribute });
                 } else {
-                    actor.class?.update({ [`system.keyAbility.selected`]: ability });
+                    actor.class?.update({ [`system.keyAbility.selected`]: attribute });
                 }
             });
         }
@@ -396,27 +449,20 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "[data-level] .boost")) {
             button.addEventListener("click", () => {
                 const level = Number(htmlClosest(button, "[data-level]")?.dataset.level);
-                const ability = htmlClosest(button, "[data-ability]")?.dataset.ability as AbilityString;
-                if (!ability || !tupleHasValue([1, 5, 10, 15, 20] as const, level)) return;
+                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                if (!setHasElement(ABILITY_ABBREVIATIONS, attribute) || !tupleHasValue([1, 5, 10, 15, 20], level)) {
+                    return;
+                }
 
-                const buildSource = mergeObject(actor.toObject().system.build ?? {}, { abilities: { boosts: {} } });
-                const boosts = (buildSource.abilities.boosts[level] ??= []);
-                if (boosts.includes(ability)) {
-                    boosts.splice(boosts.indexOf(ability), 1);
+                const buildSource = mergeObject(actor.toObject().system.build ?? {}, { attributes: { boosts: {} } });
+                const boosts = (buildSource.attributes.boosts[level] ??= []);
+                if (boosts.includes(attribute)) {
+                    boosts.splice(boosts.indexOf(attribute), 1);
                 } else {
-                    boosts.push(ability);
+                    boosts.push(attribute);
                 }
 
                 actor.update({ "system.build": buildSource });
-            });
-        }
-
-        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=number][data-property]")) {
-            input.addEventListener("blur", () => {
-                const propertyPath = input.dataset.property;
-                if (!propertyPath) throw ErrorPF2e("Empty property path");
-                const value = Math.trunc(Number(input.value));
-                actor.update({ [propertyPath]: value });
             });
         }
 
@@ -427,22 +473,20 @@ class AttributeBuilder extends Application {
     }
 }
 
-interface AbilityBuilderSheetData {
+interface AttributeBuilderSheetData {
     actor: CharacterPF2e;
-    abilityScores: Abilities;
+    attributeModifiers: Abilities;
     manualKeyAbility: AbilityString;
-    abilities: Record<AbilityString, string>;
+    attributes: Record<AbilityString, string>;
     ancestry: AncestryPF2e<CharacterPF2e> | null;
     background: BackgroundPF2e<CharacterPF2e> | null;
     class: ClassPF2e<CharacterPF2e> | null;
     manual: boolean;
-
     ancestryBoosts: AncestryBoosts | null;
     voluntaryFlaws: VoluntaryFlaws | null;
     backgroundBoosts: BackgroundBoosts | null;
     keyOptions: AbilityString[] | null;
     levelBoosts: LevelBoostData[];
-
     legacyFlaws: boolean;
 }
 
@@ -456,6 +500,7 @@ interface BuilderButton {
     selected?: boolean;
     locked?: boolean;
     disabled?: boolean;
+    partial?: boolean;
     second?: Omit<BuilderButton, "second">;
 }
 

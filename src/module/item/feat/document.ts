@@ -123,8 +123,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Add key ability options to parent's list
         if (actor.isOfType("character") && subfeatures.keyOptions.length > 0) {
-            actor.system.build.abilities.keyOptions = R.uniq([
-                ...actor.system.build.abilities.keyOptions,
+            actor.system.build.attributes.keyOptions = R.uniq([
+                ...actor.system.build.attributes.keyOptions,
                 ...subfeatures.keyOptions,
             ]);
         }

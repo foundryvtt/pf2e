@@ -95,13 +95,13 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
         const { build } = actor.system;
         if (this.system.alternateAncestryBoosts) {
-            build.abilities.boosts.ancestry.push(...this.system.alternateAncestryBoosts);
+            build.attributes.boosts.ancestry.push(...this.system.alternateAncestryBoosts);
         } else {
             // Add ability boosts and flaws
             for (const target of ["boosts", "flaws"] as const) {
                 for (const ability of Object.values(this.system[target])) {
                     if (ability.selected) {
-                        build.abilities[target].ancestry.push(ability.selected);
+                        build.attributes[target].ancestry.push(ability.selected);
                     }
                 }
             }
@@ -110,8 +110,8 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         // Add voluntary boost and flaws (if they exist)
         if (this.system.voluntary) {
             const { boost, flaws } = this.system.voluntary;
-            if (boost) build.abilities.boosts.ancestry.push(boost);
-            build.abilities.flaws.ancestry.push(...flaws);
+            if (boost) build.attributes.boosts.ancestry.push(boost);
+            build.attributes.flaws.ancestry.push(...flaws);
         }
 
         // Add languages

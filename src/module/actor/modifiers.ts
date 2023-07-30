@@ -282,7 +282,7 @@ type ModifierOrderedParams = [
  */
 function createAbilityModifier({ actor, ability, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
     const withAbilityBased = domains.includes(`${ability}-based`) ? domains : [...domains, `${ability}-based`];
-    const modifierValue = Math.floor((actor.abilities[ability].value - 10) / 2);
+    const modifierValue = actor.abilities[ability].mod;
     const cappedValue = Math.min(modifierValue, max ?? modifierValue);
 
     return new ModifierPF2e({
