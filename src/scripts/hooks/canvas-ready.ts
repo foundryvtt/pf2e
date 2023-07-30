@@ -1,3 +1,5 @@
+import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
+
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const CanvasReady = {
     listen: (): void => {
@@ -16,15 +18,19 @@ export const CanvasReady = {
         Hooks.on("canvasReady", () => {
             // Effect Panel singleton application
             game.pf2e.effectPanel.render(true);
+            if (!canvas.scene) return;
 
-            if (canvas.scene) {
-                if (game.ready) canvas.scene.reset();
-                // Accomodate hex grid play with a usable default cone angle
-                CONFIG.MeasuredTemplate.defaults.angle = canvas.scene.hasHexGrid ? 60 : 90;
+            if (game.ready) canvas.scene.reset();
+            // Accomodate hex grid play with a usable default cone angle
+            CONFIG.MeasuredTemplate.defaults.angle = canvas.scene.hasHexGrid ? 60 : 90;
 
-                for (const token of canvas.tokens.placeables.filter((t) => t.visible)) {
-                    token.renderFlags.set({ redrawEffects: true });
-                }
+            for (const token of canvas.tokens.placeables.filter((t) => t.visible)) {
+                token.renderFlags.set({ redrawEffects: true });
+            }
+
+            // Show clear-measured-templates buttons
+            for (const message of game.messages.contents.slice((-1 * CONFIG.ChatMessage.batchSize) / 2)) {
+                toggleClearTemplatesButton(message);
             }
         });
     },

@@ -139,11 +139,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get attribute(): AbilityString {
-        return this.spellcasting?.ability ?? this.trickMagicEntry?.ability ?? "cha";
+        return this.spellcasting?.attribute ?? this.trickMagicEntry?.attribute ?? "cha";
     }
 
     /** @deprecated */
     get ability(): AbilityString {
+        foundry.utils.logCompatibilityWarning("`SpellPF2e#ability` is deprecated. Use `SpellPF2e#attribute` instead.", {
+            since: "5.3.0",
+            until: "6.0.0",
+        });
         return this.attribute;
     }
 
@@ -437,7 +441,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             .sort((first, second) => first.level - second.level);
     }
 
-    createTemplate(): MeasuredTemplatePF2e {
+    createTemplate(message?: ChatMessagePF2e): MeasuredTemplatePF2e {
         const templateConversion = {
             burst: "circle",
             emanation: "circle",
@@ -458,6 +462,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             fillColor: game.user.color,
             flags: {
                 pf2e: {
+                    messageId: message?.id,
                     origin: {
                         name: this.name,
                         slug: this.slug,
@@ -478,8 +483,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return new MeasuredTemplatePF2e(templateDoc);
     }
 
-    placeTemplate(): void {
-        this.createTemplate().drawPreview();
+    placeTemplate(message?: ChatMessagePF2e): void {
+        this.createTemplate(message).drawPreview();
     }
 
     override prepareBaseData(): void {

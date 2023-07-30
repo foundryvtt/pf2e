@@ -25,8 +25,17 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     /** Spellcasting attack and dc data created during actor preparation */
     declare statistic: Statistic;
 
+    get attribute(): AbilityString {
+        return this.system.ability.value || "cha";
+    }
+
+    /** @deprecated */
     get ability(): AbilityString {
-        return this.system.ability.value || "int";
+        foundry.utils.logCompatibilityWarning(
+            "`SpellcastingEntryPF2e#ability` is deprecated. Use `SpellcastingEntryPF2e#attribute` instead.",
+            { since: "5.3.0", until: "6.0.0" }
+        );
+        return this.attribute;
     }
 
     /** This entry's magic tradition, null if the spell's tradition should be used instead */
@@ -281,7 +290,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             id: this.id,
             name: this.name,
             sort: this.sort,
-            ability: this.ability,
+            attribute: this.attribute,
             statistic: this.statistic.getChatData(),
             tradition: this.tradition,
             category: this.system.prepared.value,
@@ -298,7 +307,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     override getRollOptions(prefix = "spellcasting"): string[] {
-        return [`${prefix}:${this.ability}`, `${prefix}:${this.tradition}`, `${prefix}:${this.system.prepared.value}`];
+        return [
+            `${prefix}:${this.attribute}`,
+            `${prefix}:${this.tradition}`,
+            `${prefix}:${this.system.prepared.value}`,
+        ];
     }
 
     /* -------------------------------------------- */
