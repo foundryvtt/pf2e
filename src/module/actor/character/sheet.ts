@@ -599,10 +599,39 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             this.actor.update({ "system.exploration": [] });
         });
 
-        $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.#onIncrementModifierValue(event));
-        $html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.#onDecrementModifierValue(event));
-        $html.find(".add-modifier .add-modifier-submit").on("click", (event) => this.#onAddCustomModifier(event));
-        $html.find(".modifier-list .remove-modifier").on("click", (event) => this.#onRemoveCustomModifier(event));
+        // Handle adding and inputting custom user submitted modifiers
+        for (const customModifierEl of htmlQueryAll(html, ".custom-modifier-tooltip")) {
+            const stat = customModifierEl.dataset.stat;
+            if (!stat) continue;
+
+            for (const removeButton of htmlQueryAll(customModifierEl, "[data-action=remove-modifier]")) {
+                const slug = removeButton.dataset.slug ?? "";
+                removeButton.addEventListener("click", () => {
+                    this.actor.removeCustomModifier(stat, slug);
+                });
+            }
+
+            const modifierValueEl = htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier input[type=number]");
+            htmlQuery(customModifierEl, "[data-action=increment]")?.addEventListener("click", () => {
+                modifierValueEl?.stepUp();
+            });
+            htmlQuery(customModifierEl, "[data-action=decrement]")?.addEventListener("click", () => {
+                modifierValueEl?.stepDown();
+            });
+
+            htmlQuery(customModifierEl, "[data-action=create-custom-modifier]")?.addEventListener("click", () => {
+                const modifier = modifierValueEl?.valueAsNumber || 1;
+                const type = htmlQuery<HTMLSelectElement>(customModifierEl, ".add-modifier-type")?.value ?? "";
+                const label =
+                    htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier-name")?.value?.trim() ??
+                    game.i18n.localize(`PF2E.ModifierType.${type}`);
+                if (!setHasElement(MODIFIER_TYPES, type)) {
+                    return ui.notifications.error("Type is required.");
+                }
+
+                this.actor.addCustomModifier(stat, label, modifier, type);
+            });
+        }
 
         // Toggle invested state
         $html.find(".item-toggle-invest").on("click", (event) => {
@@ -1040,57 +1069,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         if (typeof newValue === "number") {
             await item.update({ [propertyKey]: newValue });
-        }
-    }
-
-    #onIncrementModifierValue(event: JQuery.ClickEvent): void {
-        const parent = $(event.currentTarget).parents(".add-modifier");
-        (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepUp();
-    }
-
-    #onDecrementModifierValue(event: JQuery.ClickEvent): void {
-        const parent = $(event.currentTarget).parents(".add-modifier");
-        (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepDown();
-    }
-
-    #onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): void {
-        const parent = $(event.currentTarget).parents(".add-modifier");
-        const stat = $(event.currentTarget).attr("data-stat") ?? "";
-        const modifier = Number(parent.find(".add-modifier-value input[type=number]").val()) || 1;
-        const type = parent.find<HTMLSelectElement>(".add-modifier-type")[0]?.value ?? "";
-        const name =
-            (parent.find<HTMLInputElement>(".add-modifier-name")[0]?.value ?? "").trim() ||
-            game.i18n.localize(`PF2E.ModifierType.${type}`);
-        const errors: string[] = [];
-        if (!stat.trim()) {
-            // This is a UI error rather than a user error
-            throw ErrorPF2e("No character attribute found");
-        }
-        const modifierTypes: string[] = Array.from(MODIFIER_TYPES);
-        if (!modifierTypes.includes(type)) {
-            errors.push("Type is required.");
-        }
-        if (errors.length > 0) {
-            ui.notifications.error(errors.join(" "));
-        } else {
-            this.actor.addCustomModifier(stat, name, modifier, type);
-        }
-    }
-
-    #onRemoveCustomModifier(event: JQuery.ClickEvent): void {
-        const stat = $(event.currentTarget).attr("data-stat") ?? "";
-        const slug = $(event.currentTarget).attr("data-slug") ?? "";
-        const errors: string[] = [];
-        if (!stat.trim()) {
-            errors.push("Statistic is required.");
-        }
-        if (!slug.trim()) {
-            errors.push("Slug is required.");
-        }
-        if (errors.length > 0) {
-            ui.notifications.error(errors.join(" "));
-        } else {
-            this.actor.removeCustomModifier(stat, slug);
         }
     }
 
