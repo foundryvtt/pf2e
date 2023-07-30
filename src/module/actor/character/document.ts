@@ -138,8 +138,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
     }
 
-    get keyAbility(): AbilityString {
+    get keyAttribute(): AbilityString {
         return this.system.details.keyability.value || "str";
+    }
+
+    /** @deprecated */
+    get keyAbility(): AbilityString {
+        foundry.utils.logCompatibilityWarning(
+            "`CharacterPF2e#keyAbility` is deprecated. Use `CharacterPF2e#keyAttribute` instead.",
+            { since: "5.2.0", until: "6.0.0" }
+        );
+        return this.keyAttribute;
     }
 
     /** This PC's ability scores */

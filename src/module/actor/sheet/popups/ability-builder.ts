@@ -40,7 +40,7 @@ class AbilityBuilderPopup extends Application {
             background: actor.background,
             class: actor.class,
             abilityScores: actor.abilities,
-            manualKeyAbility: actor.keyAbility,
+            manualKeyAbility: actor.keyAttribute,
             keyOptions: build.keyOptions,
             ...this.#calculateAncestryBoosts(),
             backgroundBoosts: this.#calculateBackgroundBoosts(),
