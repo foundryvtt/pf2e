@@ -4,7 +4,7 @@
     "name": "Effect: Bronze Bull Pendant",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bronze Bull Pendant]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bronze Bull Pendant]</p>\n<p>When you activate the pendant, you gain a +2 status bonus to the Athletics check to Shove, and if you roll a critical failure on the check, you get a failure instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,6 +24,16 @@
                 "selector": "athletics",
                 "type": "status",
                 "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "athletics"
             }
         ],
         "source": {
