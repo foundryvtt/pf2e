@@ -89,7 +89,7 @@ class ChatMessagePF2e extends ChatMessage {
         const roll = this.rolls[0];
         return !!(
             this.actor?.isOwner &&
-            this.canUserModify(game.user, "update") &&
+            (this.isAuthor || this.isOwner) &&
             roll instanceof CheckRoll &&
             roll.isRerollable
         );
