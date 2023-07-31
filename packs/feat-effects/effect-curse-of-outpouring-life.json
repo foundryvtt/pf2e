@@ -27,6 +27,12 @@
         },
         "rules": [
             {
+                "key": "FlatModifier",
+                "selector": "healing-received",
+                "value": "-max(floor(@actor.level/2),1)",
+                "type": "status"
+            },
+            {
                 "key": "DamageDice",
                 "override": {
                     "dieSize": "d12"
