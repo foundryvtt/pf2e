@@ -1,5 +1,5 @@
 import { Size, SIZES } from "@module/data.ts";
-import { applyNTimes, Optional } from "@util";
+import { applyNTimes } from "@util";
 
 interface StackDefinition {
     size: number;
@@ -228,7 +228,7 @@ const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
  * "l", "1", "L", "1; L", "2; 3L", "2;3L"
  * @param weight if not parseable will return null or undefined
  */
-export function weightToBulk(weight: Optional<string | number>): Bulk | null {
+export function weightToBulk(weight: Maybe<string | number>): Bulk | null {
     if (typeof weight !== "string" && typeof weight !== "number") {
         return null;
     }
