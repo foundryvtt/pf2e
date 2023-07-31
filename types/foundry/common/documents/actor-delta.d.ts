@@ -1,7 +1,7 @@
-import { TombstoneData } from "@common/data/data.js";
 import type * as abstract from "../abstract/module.d.ts";
+import type { TombstoneData } from "../data/data.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import type { BaseActiveEffect, BaseActor, BaseItem, BaseToken, ItemSource } from "./module.d.ts";
+import type { BaseActiveEffect, BaseActor, BaseItem, ItemSource } from "./module.d.ts";
 
 /**
  * The Document definition for an ActorDelta.
