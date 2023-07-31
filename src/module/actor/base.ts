@@ -165,6 +165,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return firstUpdater ?? null;
     }
 
+    get abilities(): Abilities | null {
+        return null;
+    }
+
     /** Shortcut to system-data attributes */
     get attributes(): this["system"]["attributes"] {
         return this.system.attributes;
@@ -1869,7 +1873,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     flags: ActorFlagsPF2e;
     readonly _source: ActorSourcePF2e;
-    readonly abilities?: Abilities;
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e<this>>;
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e<this>>;
     system: ActorSystemData;
