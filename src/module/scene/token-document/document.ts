@@ -93,6 +93,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this.auras = new Map();
+
         this._source.flags.pf2e ??= {};
         this._source.flags.pf2e.linkToActorSize ??= true;
         this._source.flags.pf2e.autoscale = this._source.flags.pf2e.linkToActorSize
@@ -300,7 +301,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Always override token images if in Nath mode
         if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(token.texture.src)) {
-            token.texture.src = ((): VideoFilePath => {
+            token.texture.src = ((): ImageFilePath | VideoFilePath => {
                 switch (actor.alliance) {
                     case "party":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
@@ -481,8 +482,6 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
     delta: ActorDeltaPF2e<this> | null;
-
-    overlayEffect: ImageFilePath;
 }
 
 export { TokenDocumentPF2e };

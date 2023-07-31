@@ -1,6 +1,6 @@
 import type { DataModel, Document } from "../abstract/module.d.ts";
 import type { BaseActor, BaseActorDelta, BaseScene, BaseToken } from "../documents/module.d.ts";
-import type { TokenBarData, TokenSource } from "../documents/token.d.ts";
+import type { TokenSource } from "../documents/token.d.ts";
 import type * as fields from "./fields.d.ts";
 
 /**
@@ -132,7 +132,7 @@ export class TextureData extends fields.SchemaField<TextureDataSchema> {
 
 type TextureDataSchema = {
     /** The URL of the texture source. */
-    src: fields.FilePathField;
+    src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, false, true>;
     /** The scale of the texture in the X dimension. */
     scaleX: fields.NumberField<number, number, false, false>;
     /** The scale of the texture in the Y dimension. */
@@ -165,9 +165,9 @@ export class PrototypeToken<TParent extends BaseActor | null> extends Document<T
 
     lightAnimation: AnimationData;
 
-    bar1: TokenBarData;
+    bar1: BaseToken["bar1"];
 
-    bar2: TokenBarData;
+    bar2: BaseToken["bar1"];
 }
 
 export interface PrototypeToken<TParent extends BaseActor | null>
