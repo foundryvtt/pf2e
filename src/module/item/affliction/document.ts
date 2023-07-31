@@ -1,12 +1,20 @@
 import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
-import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
-import { AfflictionDamageTemplate, DamagePF2e, DamageRollContext, BaseDamageData } from "@system/damage/index.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
+import { AfflictionDamageTemplate, BaseDamageData, DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { ErrorPF2e } from "@util";
+import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
 
 class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+    constructor(source: object, context?: DocumentConstructionContext<TParent>) {
+        super(source, context);
+        if (BUILD_MODE === "production") {
+            throw ErrorPF2e("Affliction items are not available in production builds");
+        }
+    }
+
     override get badge(): EffectBadge {
         const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
         return {
