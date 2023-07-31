@@ -92,9 +92,8 @@ class ChatCards {
                 }
                 case "spell-variant": {
                     const castLevel = Number(htmlQuery(html, "div.chat-card")?.dataset.castLevel) || 1;
-                    const overlayIdString = button.dataset.overrlayIds;
-                    if (overlayIdString) {
-                        const overlayIds = overlayIdString.split(",").map((id) => id.trim());
+                    const overlayIds = button.dataset.overlayIds?.split(",").map((id) => id.trim());
+                    if (overlayIds) {
                         const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
                         if (variantSpell) {
                             const variantMessage = await variantSpell.toMessage(undefined, {

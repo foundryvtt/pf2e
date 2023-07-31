@@ -1,6 +1,7 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { createEncounterRollOptions } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
@@ -11,9 +12,9 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
+import { HitPointsStatistic } from "@system/statistic/hit-points.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
-import { createEncounterRollOptions } from "@actor/helpers.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -132,30 +133,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Hit Points
-        {
-            const perLevelModifiers = extractModifiers(synthetics, ["hp-per-level"]).map((modifier) => {
-                const clone = modifier.clone();
-                clone.modifier *= level;
-                return clone;
-            });
-
-            const modifiers = [
-                new ModifierPF2e("PF2E.MasterLevelHP", level * 5, "untyped"),
-                extractModifiers(synthetics, ["hp"]),
-                perLevelModifiers,
-            ].flat();
-
-            const stat = mergeObject(new StatisticModifier("hp", modifiers), attributes.hp, {
-                overwrite: false,
-            });
-            stat.max = stat.totalModifier;
-            stat.value = Math.min(stat.value, stat.max);
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            systemData.attributes.hp = stat;
-        }
+        const hitPoints = new HitPointsStatistic(this, { baseMax: level * 5 });
+        this.system.attributes.hp = hitPoints.getTraceData();
 
         // Armor Class
         if (master) {

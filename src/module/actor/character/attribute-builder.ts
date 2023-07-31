@@ -6,25 +6,28 @@ import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 
-class AbilityBuilderPopup extends Application {
-    constructor(private actor: CharacterPF2e) {
+class AttributeBuilder extends Application {
+    actor: CharacterPF2e;
+
+    constructor(actor: CharacterPF2e) {
         super();
+        this.actor = actor;
         actor.apps[this.appId] = this;
     }
 
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
-            classes: ["ability-builder-popup"],
+            classes: ["attribute-builder"],
             title: game.i18n.localize("PF2E.AbilityScoresHeader"),
-            template: "systems/pf2e/templates/actors/character/ability-builder.hbs",
+            template: "systems/pf2e/templates/actors/character/attribute-builder.hbs",
             width: "auto",
             height: "auto",
         };
     }
 
     override get id(): string {
-        return `ability-builder-${this.actor.id}`;
+        return `attribute-builder-${this.actor.uuid}`;
     }
 
     override async getData(options: Partial<FormApplicationOptions> = {}): Promise<AbilityBuilderSheetData> {
@@ -40,7 +43,7 @@ class AbilityBuilderPopup extends Application {
             background: actor.background,
             class: actor.class,
             abilityScores: actor.abilities,
-            manualKeyAbility: actor.keyAbility,
+            manualKeyAbility: actor.keyAttribute,
             keyOptions: build.keyOptions,
             ...this.#calculateAncestryBoosts(),
             backgroundBoosts: this.#calculateBackgroundBoosts(),
@@ -482,4 +485,4 @@ interface LevelBoostData extends BoostFlawRow {
     minLevel: number;
 }
 
-export { AbilityBuilderPopup, BoostFlawState };
+export { AttributeBuilder, BoostFlawState };

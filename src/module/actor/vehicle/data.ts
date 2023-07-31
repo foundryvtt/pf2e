@@ -2,11 +2,11 @@ import {
     ActorAttributes,
     ActorAttributesSource,
     ActorDetailsSource,
+    ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
     ActorTraitsData,
     BaseActorSourcePF2e,
-    HitPointsStatistic,
 } from "@actor/data/base.ts";
 import { ImmunitySource } from "@actor/data/iwr.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
@@ -66,8 +66,7 @@ interface VehicleAttributes extends Omit<VehicleAttributesSource, AttributesSour
 }
 type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 
-interface VehicleHitPoints extends HitPointsStatistic {
-    negativeHealing: false;
+interface VehicleHitPoints extends ActorHitPoints {
     brokenThreshold: number;
 }
 
