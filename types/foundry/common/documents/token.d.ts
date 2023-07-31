@@ -1,8 +1,8 @@
+import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
 import type { LightData, TextureData } from "../data/data.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type { ActorDeltaSource } from "./actor-delta.d.ts";
 import type { BaseActorDelta, BaseScene } from "./module.d.ts";
-import { ActorDeltaSource } from "./actor-delta.js";
 
 /**
  * The Token document model.
