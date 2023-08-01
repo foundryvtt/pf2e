@@ -1,0 +1,481 @@
+{
+    "_id": "D1WlR977uIedFwAr",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "X96eMFn2HE3EgdR9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "iuZICwSXfXgdRWuW": {
+                        "damage": "1d4+1",
+                        "damageType": "piercing"
+                    },
+                    "mrQo40R2XK92PiBC": {
+                        "damage": "1d4",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XOgsZao1mESzRXEO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "1cn26GhsS8vvYBCZ": {
+                        "damage": "1d4+1",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5wY4wBfyRAg9lxrg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jpn2DZ0KNmSb2ijE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Below the Crust",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A lava otter can @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] at its full Speed in lava.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dhFYS8UEoqeoC1fW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Molten Form",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any creature that hits the lava otter with an unarmed Strike or otherwise touches it takes @Damage[1[fire]] damage. If a gallon or more of water touches the lava otter, or if it's affected by a water effect, its outer layer of lava hardens to a rocky shell, deactivating its molten form and imposing weakness 5 to bludgeoning damage. Molten form reactivates if the otter swims in lava for 1 minute.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "molten-form",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "molten-form"
+                            }
+                        ],
+                        "type": "bludgeoning",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rXGwj4xzTMYeS4Un",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scattering Magma",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The otter is in molten form, and its previous action was a successful jaws Strike</p>\n<hr />\n<p><strong>Effect</strong> The otter grips with its jaws and rapidly twists, flinging lava. The otter deals @Damage[1d4[fire]] damage to all creatures adjacent to it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2fRePV0HTRR0IzT1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tight-Knit Family",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A lava otter can share the same space as another lava otter, but no more than two lava otters can occupy the same space.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a5FEe5SUmLkKYVfZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ADolEiueFZXGRTju",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Lava",
+                        "predicate": [
+                            "terrain:lava"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "variants": {
+                    "0": {
+                        "label": "+9 in lava",
+                        "options": "terrain:lava"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Lava Otter",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 15
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 22,
+                "temp": 0,
+                "value": 22
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 7
+            },
+            "speed": {
+                "details": "Swim in lava only",
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 40
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These fiery otters frolic and hunt in the lava streams of the Planes of Fire. They're known to be highly territorial, instigating fights with rival otter families to compete for territory. Cautiously curious of strangers, entire packs have been known to descend upon anyone who attacks or event accidentally threatens a family member.</p>\n<hr />\n<p>The ifrits of the Dominion of Flame conscript even more of the plane's fire elementals in preparation for new wars in the returned planes, even mobilizing ones that rarely travel near settlements.</p>\n<h2>Familiar Poaching</h2>\n<p>Many greedy fire wizards wish to domesticate lava otters to act as their familiars, a sentiment loathed by most denizens of the Plane of Fire. While the otters' burning pelts serve as a deterrence for would-be poachers, numerous naari (fire geniekin) still take it upon themselves to patrol lava otter habitats to protect them from poaching.</p>",
+            "source": {
+                "value": "Pathfinder Rage of Elements"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "elemental",
+                "fire"
+            ]
+        }
+    },
+    "type": "npc"
+}

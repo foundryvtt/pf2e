@@ -1,0 +1,143 @@
+{
+    "_id": "4TZNsGF9LNBxAWmS",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Voice of Elements",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can speak with the secret tones of elements you channel, finding words in the crackle of flame, the grinding of stone. Your kinetic aura grants you these three benefits while active.</p>\n<ul>\n<li>You can speak all the languages of your kinetic elements (Sussuran for air, Petran for earth, Pyric for fire, Talican for metal, Thalassic for water, Muan for wood).</li>\n<li>You can communicate with mindless elementals on a basic level if they have a trait that matches one of your kinetic elements or are made of one of those elements. This allows you to use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on them and to make very simple @UUID[Compendium.pf2e.actionspf2e.Item.Request]{Requests}.</li>\n<li>You gain a +2 circumstance bonus to Charisma-based skill checks you attempt against elementals of one of your kinetic elements.</li>\n</ul>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "predicate": [
+                    "kinetic-gate:air"
+                ],
+                "value": "sussuran"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "predicate": [
+                    "kinetic-gate:fire"
+                ],
+                "value": "pyric"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ],
+                "value": "talican"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "predicate": [
+                    "kinetic-gate:water"
+                ],
+                "value": "thalassic"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "predicate": [
+                    "kinetic-gate:wood"
+                ],
+                "value": "muan"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "predicate": [
+                    "kinetic-gate:earth"
+                ],
+                "value": "petran"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "target:trait:air",
+                                    "kinetic-gate:air"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "target:trait:fire",
+                                    "kinetic-gate:fire"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "target:trait:earth",
+                                    "kinetic-gate:earth"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "target:trait:metal",
+                                    "kinetic-gate:metal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "target:trait:water",
+                                    "kinetic-gate:water"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "target:trait:elemental",
+                                    "target:trait:wood",
+                                    "kinetic-gate:wood"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "cha-skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kineticist"
+            ]
+        }
+    },
+    "type": "feat"
+}

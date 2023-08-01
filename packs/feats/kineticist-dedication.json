@@ -1,0 +1,95 @@
+{
+    "_id": "CbfszeYw3cf99kdv",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Kineticist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in kineticist class DC and impulse attack rolls. Choose one element to be your kinetic element (air, earth, fire, metal, water, or wood). You gain a kinetic aura and the @UUID[Compendium.pf2e.actionspf2e.Item.Channel Elements] action, though you don't get to use an @UUID[Compendium.pf2e.actionspf2e.Item.Elemental Blast] or stance impulse when you take that action. You gain the Elemental Blast action. Your Elemental Blast does not automatically gain additional damage dice every four levels, instead requiring you to take the @UUID[Compendium.pf2e.feats-srd.Item.Improved Elemental Blast] feat.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.1kRGIb5LPPKypQpN]{Kineticist Archetype}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution +2"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.kineticist",
+                "priority": 39,
+                "value": {
+                    "ability": "con",
+                    "label": "PF2E.TraitKineticist",
+                    "rank": 1
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Channel Elements"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Elemental Blast"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "elementOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                "rollOption": "kinetic-gate"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

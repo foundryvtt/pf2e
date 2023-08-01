@@ -1,0 +1,48 @@
+{
+    "_id": "ZV4J5YTZGrqh6cvY",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "Elemental Familiar (Earth)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "familiar",
+        "description": {
+            "value": "<p>Your familiar gains the earth elemental trait.</p>\n<p>Your familiar gains resistance to physical damage (except adamantine) equal to half your level.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "add": [
+                    "earth"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "value": [
+                "earth"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}
