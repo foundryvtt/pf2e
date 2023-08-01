@@ -289,7 +289,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 interface FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null>
     extends CreaturePF2e<TParent> {
     readonly _source: FamiliarSource;
-    readonly abilities?: never;
     system: FamiliarSystemData;
 }
 

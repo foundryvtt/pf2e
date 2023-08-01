@@ -76,7 +76,10 @@ class PredicatePF2e extends Array<PredicateStatement> {
                 const maybeNumber = Number(operand);
                 if (!Number.isNaN(maybeNumber)) return [maybeNumber];
                 const pattern = new RegExp(String.raw`^${operand}:([^:]+)$`);
-                return domainArray.map((s) => Number(pattern.exec(s)?.[1] || NaN)).filter((v) => !Number.isNaN(v));
+                const values = domainArray
+                    .map((s) => Number(pattern.exec(s)?.[1] || NaN))
+                    .filter((v) => !Number.isNaN(v));
+                return values.length > 0 ? values : [NaN];
             };
             const leftValues = getValues(left);
             const rightValues = getValues(right);

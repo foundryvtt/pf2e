@@ -227,9 +227,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.parent && !this.parent.flags?.pf2e) return;
 
         super.prepareData();
-
-        // Refresh the Item Directory if this item isn't embedded
-        if (!this.isOwned && game.ready) ui.items.render();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -697,6 +694,18 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const updateKeys = Object.keys(actorUpdates);
         if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
             this.actor.update(actorUpdates);
+        }
+    }
+
+    /** Refresh the Item Directory if this item isn't embedded */
+    protected override _onUpdate(
+        data: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        userId: string
+    ): void {
+        super._onUpdate(data, options, userId);
+        if (!this.isOwned && game.ready && game.items.has(this.id)) {
+            ui.items.render();
         }
     }
 

@@ -32,7 +32,7 @@ import {
     RollTwiceOption,
 } from "@system/check/index.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { ErrorPF2e, isObject, Optional, signedInteger, traitSlugToObject } from "@util";
+import { ErrorPF2e, isObject, signedInteger, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import {
     BaseStatisticData,
@@ -40,6 +40,7 @@ import {
     StatisticChatData,
     StatisticCheckData,
     StatisticData,
+    StatisticDifficultyClassData,
     StatisticTraceData,
 } from "./data.ts";
 
@@ -222,8 +223,14 @@ class Statistic extends BaseStatistic {
      * Extend this statistic into a new cloned statistic with additional data.
      * Combines all domains and modifier lists.
      */
-    extend(data: Omit<DeepPartial<StatisticData>, "check"> & { check?: Partial<StatisticCheckData> }): Statistic {
-        function maybeMergeArrays<T>(arr1: Optional<T[]>, arr2: Optional<T[]>) {
+    extend(
+        data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
+            dc?: Partial<StatisticDifficultyClassData>;
+            check?: Partial<StatisticCheckData>;
+            modifiers?: ModifierPF2e[];
+        }
+    ): Statistic {
+        function maybeMergeArrays<T>(arr1: Maybe<T[]>, arr2: Maybe<T[]>) {
             if (!arr1 && !arr2) return undefined;
             return [...new Set([arr1 ?? [], arr2 ?? []].flat())];
         }

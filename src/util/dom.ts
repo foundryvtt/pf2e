@@ -1,9 +1,8 @@
 import * as R from "remeda";
-import { Optional } from "./misc.ts";
 
 /**  DOM helper functions that return HTMLElement(s) (or `null`) */
 
-type MaybeHTML = Optional<Document | Element | EventTarget>;
+type MaybeHTML = Maybe<Document | Element | EventTarget>;
 
 /**
  * Create an `HTMLElement` with classes, dataset, and children

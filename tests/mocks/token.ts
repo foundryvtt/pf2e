@@ -15,7 +15,7 @@ export class MockToken {
     }
 
     get id(): string {
-        return this._source._id;
+        return this._source._id!;
     }
 
     get name(): string {

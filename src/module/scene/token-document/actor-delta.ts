@@ -2,6 +2,7 @@ import { ActorSystemSource } from "@actor/data/base.ts";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import type { TombstoneSource } from "types/foundry/common/data/data.d.ts";
+import type { ActorDeltaSource } from "types/foundry/common/documents/actor-delta.d.ts";
 import { TokenDocumentPF2e } from "./document.ts";
 
 class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelta<TParent> {
@@ -71,12 +72,12 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
 }
 
 interface ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelta<TParent> {
-    readonly _source: ActorDeltaSourcePF2e<TParent>;
+    readonly _source: ActorDeltaSourcePF2e;
 }
 
-type ActorDeltaSourcePF2e<TParent extends TokenDocumentPF2e | null> = ActorDelta<TParent>["_source"] & {
+interface ActorDeltaSourcePF2e extends ActorDeltaSource {
     system: ActorSystemSource | null;
     items: (ItemSourcePF2e | TombstoneSource)[];
-};
+}
 
 export { ActorDeltaPF2e };
