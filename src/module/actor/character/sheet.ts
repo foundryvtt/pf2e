@@ -63,10 +63,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     protected readonly actorConfigClass = CharacterConfig;
 
     /** A cache of this PC's known formulas, for use by sheet callbacks */
-    private knownFormulas: Record<string, CraftingFormula> = {};
+    #knownFormulas: Record<string, CraftingFormula> = {};
 
     /** Non-persisted tweaks to formula data */
-    private formulaQuantities: Record<string, number> = {};
+    #formulaQuantities: Record<string, number> = {};
+
+    #attributeBuilder?: AttributeBuilder;
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
@@ -131,7 +133,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.deity = this.actor.deity;
 
         // Update hero points label
-        sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
         sheetData.data.resources.heroPoints.hover = game.i18n.format(
             this.actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
             this.actor.heroPoints
@@ -207,10 +208,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             entries: await this.#prepareCraftingEntries(craftingFormulas),
         };
 
-        this.knownFormulas = Object.values(formulasByLevel)
+        this.#knownFormulas = Object.values(formulasByLevel)
             .flat()
             .reduce((result: Record<string, CraftingFormula>, entry) => {
-                entry.batchSize = this.formulaQuantities[entry.uuid] ?? entry.batchSize;
+                entry.batchSize = this.#formulaQuantities[entry.uuid] ?? entry.batchSize;
                 result[entry.uuid] = entry;
                 return result;
             }, {});
@@ -465,46 +466,56 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         });
 
+        // MAIN
+
+        const mainPanel = htmlQuery(html, ".tab[data-tab=character]");
+        if (!mainPanel) throw ErrorPF2e("Unexpected failure finding actions panel");
+
         // Ancestry/Heritage/Class/Background/Deity context menu
-        new ContextMenu(
-            $html,
-            ".detail-item-control",
-            [
-                {
-                    name: "PF2E.EditItemTitle",
-                    icon: fontAwesomeIcon("edit").outerHTML,
-                    callback: (target) => {
-                        const itemId = $(target).closest("[data-item-id]").attr("data-item-id");
-                        const item = this.actor.items.get(itemId ?? "");
-                        item?.sheet.render(true, { focus: true });
+        if (this.isEditable) {
+            new ContextMenu(
+                mainPanel,
+                ".detail-item-control",
+                [
+                    {
+                        name: "PF2E.EditItemTitle",
+                        icon: fontAwesomeIcon("edit").outerHTML,
+                        callback: (target) => {
+                            const itemId = $(target).closest("[data-item-id]").attr("data-item-id");
+                            const item = this.actor.items.get(itemId ?? "");
+                            item?.sheet.render(true, { focus: true });
+                        },
                     },
-                },
-                {
-                    name: "PF2E.DeleteItemTitle",
-                    icon: fontAwesomeIcon("trash").outerHTML,
-                    callback: (target) => {
-                        const row = htmlClosest(target[0], "[data-item-id]");
-                        const itemId = row?.dataset.itemId;
-                        const item = this.actor.items.get(itemId ?? "");
+                    {
+                        name: "PF2E.DeleteItemTitle",
+                        icon: fontAwesomeIcon("trash").outerHTML,
+                        callback: (target) => {
+                            const row = htmlClosest(target[0], "[data-item-id]");
+                            const itemId = row?.dataset.itemId;
+                            const item = this.actor.items.get(itemId ?? "");
 
-                        if (row && item) {
-                            this.deleteItem(row, item);
-                        } else {
-                            throw ErrorPF2e("Item not found");
-                        }
+                            if (row && item) {
+                                this.deleteItem(row, item);
+                            } else {
+                                throw ErrorPF2e("Item not found");
+                            }
+                        },
                     },
-                },
-            ],
-            { eventName: "click" }
-        );
+                ],
+                { eventName: "click" }
+            );
 
-        for (const link of htmlQueryAll(html, ".crb-tag-selector")) {
-            link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
+            for (const link of htmlQueryAll(html, ".crb-tag-selector")) {
+                link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
+            }
+
+            htmlQuery(mainPanel, "button[data-action=edit-attribute-modifiers]")?.addEventListener("click", () => {
+                (this.#attributeBuilder ??= new AttributeBuilder(this.actor)).render(true);
+            });
         }
 
         // ACTIONS
         const actionsPanel = htmlQuery(html, ".tab.actions");
-        if (!actionsPanel) throw ErrorPF2e("Unexpected failure finding actions panel");
 
         // Filter strikes
         htmlQuery(actionsPanel, ".toggle-unready-strikes")?.addEventListener("click", () => {
@@ -685,10 +696,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
 
-        $html.find("button[data-action=edit-ability-scores]").on("click", async () => {
-            await new AttributeBuilder(this.actor).render(true);
-        });
-
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab.spellcasting");
 
@@ -715,7 +722,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             quantity?.addEventListener("change", async () => {
                 const itemUUID = element.dataset.itemId ?? "";
-                const formula = this.knownFormulas[itemUUID];
+                const formula = this.#knownFormulas[itemUUID];
                 const minBatchSize = formula.minimumBatchSize;
                 const newValue = Number(quantity.value) || minBatchSize;
                 if (newValue < 1) return;
@@ -729,7 +736,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     await craftingEntry.setFormulaQuantity(Number(index), itemUUID ?? "", newValue);
                     return;
                 }
-                this.formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
+                this.#formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
                 this.render();
             });
             for (const button of htmlQueryAll(
@@ -739,7 +746,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 button.addEventListener("click", async () => {
                     if (!quantity) return;
                     const itemUUID = element.dataset.itemId ?? "";
-                    const formula = this.knownFormulas[itemUUID];
+                    const formula = this.#knownFormulas[itemUUID];
                     const minBatchSize = formula.minimumBatchSize;
                     const step = button.dataset.action === "increase-quantity" ? minBatchSize : -minBatchSize;
                     const newValue = (Number(quantity.value) || step) + step;
@@ -754,7 +761,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         await craftingEntry.setFormulaQuantity(Number(index), itemUUID ?? "", newValue);
                         return;
                     }
-                    this.formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
+                    this.#formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
                     this.render();
                 });
             }
@@ -763,7 +770,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             craftButton?.addEventListener("click", async (event) => {
                 const { itemUuid, free, prepared } = craftButton.dataset;
                 const itemQuantity = Number(quantity?.value) || 1;
-                const formula = this.knownFormulas[itemUuid ?? ""];
+                const formula = this.#knownFormulas[itemUuid ?? ""];
                 if (!formula) return;
 
                 if (prepared === "true") {
@@ -824,7 +831,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (!itemUuid) return;
 
                 // Render confirmation modal dialog
-                const name = this.knownFormulas[itemUuid]?.name;
+                const name = this.#knownFormulas[itemUuid]?.name;
                 const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.RemoveFormulaDialogQuestion", {
                     name,
                 })}</p>`;
@@ -847,7 +854,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
 
                 // Render confirmation modal dialog
-                const name = this.knownFormulas[itemUuid]?.name;
+                const name = this.#knownFormulas[itemUuid]?.name;
                 const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", {
                     name,
                 })}</p>`;
@@ -1134,7 +1141,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
             const uuid = dropData.pf2e.itemUuid;
             if (typeof uuid === "string") {
-                const formula = this.knownFormulas[uuid];
+                const formula = this.#knownFormulas[uuid];
                 // Sort existing formulas
                 if (formula) {
                     const targetUuid = htmlClosest(event.target, "li.formula-item")?.dataset.itemId ?? "";
@@ -1155,7 +1162,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         if (sourceFormula.uuid === targetUuid) return;
 
         const sourceLevel = sourceFormula.level;
-        const targetLevel = this.knownFormulas[targetUuid].level;
+        const targetLevel = this.#knownFormulas[targetUuid].level;
 
         // Do not allow sorting with different formula level outside of a crafting entry
         if (!entrySelector && sourceLevel !== targetLevel) {
@@ -1232,17 +1239,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         return super._onSortItem(event, itemSource);
-    }
-
-    /** Get the font-awesome icon used to display hero points */
-    private getHeroPointsIcon(level: number): string {
-        const icons = [
-            '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
-            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
-        ];
-        return icons[level] ?? icons[0];
     }
 
     /** Overriden to open sub-tabs if requested */

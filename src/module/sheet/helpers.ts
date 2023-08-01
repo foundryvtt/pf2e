@@ -63,7 +63,7 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
 }
 
 /** Override to refocus tagify elements in _render() to workaround handlebars full re-render */
-async function maintainFocusInRender(sheet: DocumentSheet, renderLogic: () => Promise<void>): Promise<void> {
+async function maintainFocusInRender(sheet: Application, renderLogic: () => Promise<void>): Promise<void> {
     const element = sheet.element.get(0);
     const { activeElement } = document;
     const activeWasHere = element?.contains(activeElement);

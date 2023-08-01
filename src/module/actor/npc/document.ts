@@ -32,7 +32,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return this._source.system.details.level.value;
     }
 
-    /** This NPC's ability scores */
+    /** This NPC's attribute modifiers */
     override get abilities(): Abilities {
         return deepClone(this.system.abilities);
     }
@@ -194,10 +194,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
         system.details.level.base = baseLevel;
 
-        // Compute 10+mod ability scores from ability modifiers
         for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Number(ability.mod) || 0;
-            ability.value = ability.mod * 2 + 10;
+            ability.mod = Math.trunc(Number(ability.mod)) || 0;
         }
 
         // Hit Points

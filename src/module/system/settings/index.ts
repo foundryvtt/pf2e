@@ -287,6 +287,7 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
+        onChange: () => resetActors(),
     });
 
     // Secret for now until the user side is complete and a UI is built
@@ -296,6 +297,7 @@ export function registerSettings(): void {
         config: false,
         default: [],
         type: Array,
+        onChange: () => resetActors(),
     });
 
     // This only exists to not break existing macros (yet). We'll keep it for a few versions

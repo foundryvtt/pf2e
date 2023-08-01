@@ -318,13 +318,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const manualAttributes = Object.keys(this.system.abilities ?? {}).length > 0;
         this.system.abilities = R.mapToObj(Array.from(ABILITY_ABBREVIATIONS), (a) => [
             a,
-            mergeObject({ value: 10 }, this.system.abilities?.[a] ?? {}),
+            mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
         ]);
 
         const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
-        const existingBoosts = systemData.build?.abilities?.boosts;
+        const existingBoosts = systemData.build?.attributes?.boosts;
         systemData.build = {
-            abilities: {
+            attributes: {
                 manual: manualAttributes,
                 keyOptions: [],
                 boosts: {
@@ -467,7 +467,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         super.prepareEmbeddedDocuments();
 
         for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.floor((ability.value - 10) / 2);
+            ability.mod = Math.trunc(ability.mod) || 0;
         }
 
         this.setNumericRollOptions();
@@ -480,7 +480,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
      */
     override prepareDataFromItems(): void {
         super.prepareDataFromItems();
-        this.setAbilityScores();
+        this.setAttributeModifiers();
     }
 
     override prepareDerivedData(): void {
@@ -733,38 +733,38 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    private setAbilityScores(): void {
+    private setAttributeModifiers(): void {
         const { build } = this.system;
 
-        if (!build.abilities.manual) {
+        if (!build.attributes.manual) {
             for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
                 // All higher levels are stripped out during data prep
-                const boosts = build.abilities.boosts[section];
+                const boosts = build.attributes.boosts[section];
                 if (typeof boosts === "string") {
                     // Class's key ability score
                     const ability = this.system.abilities[boosts];
-                    ability.value += ability.value >= 18 ? 1 : 2;
+                    ability.mod += ability.mod >= 4 ? 0.5 : 1;
                 } else if (Array.isArray(boosts)) {
                     for (const abbrev of boosts) {
                         const ability = this.system.abilities[abbrev];
-                        ability.value += ability.value >= 18 ? 1 : 2;
+                        ability.mod += ability.mod >= 4 ? 0.5 : 1;
                     }
                 }
 
                 // Optional and non-optional flaws only come from the ancestry section
-                const flaws = section === "ancestry" ? build.abilities.flaws[section] : [];
+                const flaws = section === "ancestry" ? build.attributes.flaws[section] : [];
                 for (const abbrev of flaws) {
                     const ability = this.system.abilities[abbrev];
-                    ability.value -= 2;
+                    ability.mod -= 1;
                 }
             }
         }
 
-        // Enforce a minimum of 1 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
+        // Enforce a minimum of -5 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
         for (const ability of Object.values(this.system.abilities)) {
-            ability.value = Math.clamped(ability.value, 1, 30);
-            // Record base values: same as stored value if in manual mode, and prior to RE modifications otherwise
-            ability.base = ability.value;
+            ability.mod = Math.trunc(Math.clamped(ability.mod, -5, 10));
+            // Record base modifier: same as stored modifier if in manual mode, and prior to RE modifications otherwise
+            ability.base = ability.mod;
         }
     }
 
@@ -776,8 +776,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         rollOptionsAll[`perception:rank:${perceptionRank}`] = true;
 
         for (const key of ABILITY_ABBREVIATIONS) {
-            const score = this.abilities[key].value;
-            rollOptionsAll[`ability:${key}:score:${score}`] = true;
+            const mod = this.abilities[key].mod;
+            rollOptionsAll[`ability:${key}:mod:${mod}`] = true;
         }
 
         for (const key of SKILL_ABBREVIATIONS) {
@@ -926,7 +926,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const modifiers: ModifierPF2e[] = [];
 
             // Indicate that the strength requirement of this actor's armor is met
-            if (typeof wornArmor?.strength === "number" && this.system.abilities.str.mod >= wornArmor.strength) {
+            const strengthRequirement = wornArmor?.strength;
+            if (typeof strengthRequirement === "number" && this.system.abilities.str.mod >= strengthRequirement) {
                 for (const selector of ["skill-check", "initiative"]) {
                     const rollOptions = (this.rollOptions[selector] ??= {});
                     // Nullish assign to not overwrite setting by rule element
@@ -1851,7 +1852,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const systemData = this.system;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        if (changed.system?.details?.level || changed.system?.build?.abilities) {
+        if (changed.system?.details?.level || changed.system?.build?.attributes) {
             const level = changed.system?.details?.level;
             if (typeof level?.value === "number") {
                 level.value = Math.clamped(Number(level.value) || 0, 0, 30) || 0;

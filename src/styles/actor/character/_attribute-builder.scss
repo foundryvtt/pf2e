@@ -6,6 +6,9 @@
     height: 100%;
     padding: 10px 20px 10px 20px;
     position: relative;
+    --color-boost: #316549;
+    --color-boost-dark: #1b3c2a;
+    --color-flaw: #5e0000;
 
     h3 {
         font: 400 var(--font-size-24) var(--serif-condensed);
@@ -40,7 +43,7 @@
             }
         }
 
-        .abilities {
+        .attributes {
             display: grid;
             grid-template-columns: repeat(6, 84px);
             grid-template-rows: auto;
@@ -63,7 +66,7 @@
             display: block;
         }
 
-        .abilities {
+        .attributes {
             align-items: normal;
         }
     }
@@ -78,7 +81,7 @@
         pointer-events: none;
         align-items: normal;
 
-        .abilities div:nth-child(odd) {
+        .attributes div:nth-child(odd) {
             background-color: rgba(68, 55, 48, 0.1);
         }
     }
@@ -184,37 +187,47 @@
             color: var(--button-color);
             display: flex;
             font-size: var(--font-size-12);
-            justify-content: space-around;
-            outline: none;
+            height: 1.5em;
+            justify-content: center;
             margin: 0;
+            outline: none;
             padding: 0.1em 0 0;
             position: relative;
             text-transform: uppercase;
-
             width: 6em;
-            height: 1.5em;
+
+            > i.key-attribute {
+                font-size: smaller;
+                left: 2px;
+                margin-top: 1px;
+                position: absolute;
+            }
 
             &.boost {
                 margin-top: auto; // line up with bottom
-                --button-color: #316549;
-                --button-locked-color: #1b3c2a;
+                --button-color: var(--color-boost);
+                --button-locked-color: var(--color-boost-dark);
             }
 
             &.flaw {
                 margin-bottom: auto; // line up with top
-                --button-color: #5e0000;
-                --button-locked-color: #5e0000;
+                --button-color: var(--color-flaw);
+                --button-locked-color: var(--color-flaw);
             }
 
             &.selected {
                 background: var(--button-color);
+
+                &.partial {
+                    background: var(--color-boost-dark);
+                }
             }
 
             &:hover {
                 box-shadow: 0 0 5px var(--button-color);
                 cursor: pointer;
 
-                &.key-ability.selected {
+                &.key-attribute.selected {
                     box-shadow: none;
                     cursor: default;
                 }
@@ -224,13 +237,6 @@
                     box-shadow: none;
                     cursor: not-allowed;
                 }
-            }
-
-            i.fas {
-                font-size: var(--font-size-10);
-                left: 0.5em;
-                position: absolute;
-                text-align: left;
             }
 
             &.hidden {
@@ -301,7 +307,7 @@
             }
         }
 
-        .abilities {
+        .attributes {
             grid-template-rows: auto auto;
         }
 
