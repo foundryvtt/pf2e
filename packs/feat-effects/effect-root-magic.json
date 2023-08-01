@@ -1,0 +1,49 @@
+{
+    "_id": "jO7wMhnjT7yoAtQg",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/tanglefoot-bag.webp",
+    "name": "Effect: Root Magic",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:type:spell",
+                            "origin:trait:haunt"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "ternary(eq(@item.origin.skills.occultism.rank,4),3,ternary(gt(@item.origin.skills.occultism.rank,1),2,1))"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
