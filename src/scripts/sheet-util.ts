@@ -19,4 +19,4 @@ function eventToRollParams(event?: JQuery.TriggeredEvent | Event | null): Params
     return params;
 }
 
-export { eventToRollParams };
+export { eventToRollParams, isRelevantEvent };

@@ -9,9 +9,23 @@ interface AbstractEffectSystemSource extends ItemSystemSource {
     fromSpell?: boolean;
 }
 
+interface AbstractEffectWithDurationSystemSource extends AbstractEffectSystemSource {
+    expired: boolean;
+    duration: {
+        value: number;
+        unit: TimeUnit | "unlimited" | "encounter";
+        expiry: AbstractEffectExpiryType | null;
+    };
+}
+
 interface AbstractEffectSystemData extends ItemSystemData {
     /** Whether this effect originated from a spell */
     fromSpell: boolean;
+}
+
+interface AbstractEffectWithDurationSystemData extends AbstractEffectSystemData {
+    expired: boolean;
+    remaining: string;
 }
 
 interface EffectBadgeBaseSource {
@@ -90,9 +104,13 @@ type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
 
+type AbstractEffectExpiryType = "turn-start" | "turn-end";
+
 export type {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
+    AbstractEffectWithDurationSystemData,
+    AbstractEffectWithDurationSystemSource,
     EffectAuraData,
     EffectBadge,
     EffectBadgeFormulaSource,
@@ -102,4 +120,5 @@ export type {
     EffectTrait,
     EffectTraits,
     TimeUnit,
+    AbstractEffectExpiryType,
 };

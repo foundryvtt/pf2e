@@ -84,6 +84,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
                 damage: {},
                 conditions: {},
                 effects: [],
+                duration: { value: -1, unit: "unlimited", expiry: "turn-end" },
             };
 
             const id = randomID();
@@ -207,6 +208,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         for (const key of categories) {
             formData[key] ||= null;
         }
+        formData["system.save.value"] ||= 0;
 
         return super._updateObject(event, formData);
     }

@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ConditionPF2e, ItemPF2e } from "@item";
-import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { AbstractEffectWithDurationPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
 import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -23,7 +23,9 @@ const EXPIRING_CONDITIONS: Set<ConditionSlug> = new Set([
     "unconscious",
 ]);
 
-class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+class AfflictionPF2e<
+    TParent extends ActorPF2e | null = ActorPF2e | null
+> extends AbstractEffectWithDurationPF2e<TParent> {
     constructor(source: object, context?: DocumentConstructionContext<TParent>) {
         super(source, context);
         if (BUILD_MODE === "production") {
@@ -49,21 +51,71 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return Object.keys(this.system.stages).length || 1;
     }
 
-    override async increase(): Promise<void> {
-        if (this.stage === this.maxStage) return;
+    override async increase(update: { by: number } = { by: 1 }): Promise<void> {
+        if (this.stage === this.maxStage) {
+            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+            const stageStart = { value: game.time.worldTime, initiative };
 
-        const stage = Math.min(this.maxStage, this.system.stage + 1);
-        await this.update({ system: { stage } });
+            await this.update({ system: { stageStart } });
+            return;
+        }
+
+        const stage = Math.min(this.maxStage, this.system.stage + (update.by ?? 1));
+
+        const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+        const stageStart = { value: game.time.worldTime, initiative };
+
+        await this.update({ system: { stage, stageStart } });
     }
 
-    override async decrease(): Promise<void> {
-        const stage = this.system.stage - 1;
-        if (stage === 0) {
+    override async decrease(update: { by: number } = { by: 1 }): Promise<void> {
+        const stage = this.system.stage - (update.by ?? 1);
+        if (stage <= 0) {
             await this.delete();
             return;
         }
 
-        await this.update({ system: { stage } });
+        const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+        const stageStart = { value: game.time.worldTime, initiative };
+
+        await this.update({ system: { stage, stageStart } });
+    }
+
+    override get isIdentified(): boolean {
+        return !this.system.unidentified;
+    }
+
+    get remainingStageDuration(): { expired: boolean; remaining: number } {
+        const stageKey = Object.keys(this.system.stages)[this.system.stage - 1];
+        const stageDuration = this.system.stages[stageKey].duration;
+
+        if (["unlimited"].includes(stageDuration.unit)) {
+            return { expired: false, remaining: Infinity };
+        }
+        const duration = stageDuration.value * (DURATION_UNITS[stageDuration.unit] ?? 0);
+        const { unit, expiry } = stageDuration;
+
+        const start = this.system.start.value;
+        const { combatant } = game.combat ?? {};
+
+        // Prevent effects that expire at end of current turn from expiring immediately outside of encounters
+        const addend = !combatant && duration === 0 && unit === "rounds" && expiry === "turn-end" ? 1 : 0;
+        const remaining = start + duration + addend - game.time.worldTime;
+        const result = { remaining, expired: remaining <= 0 };
+
+        if (remaining === 0 && combatant?.actor) {
+            const startInitiative = this.system.start.initiative ?? 0;
+            const currentInitiative = combatant.initiative ?? 0;
+
+            // A familiar won't be represented in the encounter tracker: use the master in its place
+            const fightyActor = this.actor?.isOfType("familiar") ? this.actor.master ?? this.actor : this.actor;
+            const isEffectTurnStart =
+                startInitiative === currentInitiative && combatant.actor === (this.origin ?? fightyActor);
+
+            result.expired = isEffectTurnStart ? expiry === "turn-start" : currentInitiative < startInitiative;
+        }
+
+        return result;
     }
 
     get onsetDuration(): number {
@@ -241,25 +293,19 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
+        const result = super._preCreate(data, options, user);
         if (this.isOwned) {
-            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
-            this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
+            this._source.system.start = {
+                value: this._source.system.start.value + this.onsetDuration,
+                initiative: this._source.system.start.initiative,
+            };
+            this._source.system.stageStart = {
+                value: game.time.worldTime + this.onsetDuration,
+                initiative: this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null,
+            };
         }
 
-        return super._preCreate(data, options, user);
-    }
-
-    protected override async _preUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
-        user: UserPF2e
-    ): Promise<boolean | void> {
-        const duration = changed.system?.duration;
-        if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
-            if (duration.value === -1) duration.value = 1;
-        }
-
-        return super._preUpdate(changed, options, user);
+        return result;
     }
 
     protected override _onCreate(
@@ -281,7 +327,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         super._onUpdate(changed, options, userId);
 
         // If the stage changed, perform stage change events
-        if (changed.system?.stage && game.user === this.actor?.primaryUpdater) {
+        if ((changed.system?.stageStart || changed.system?.stage) && game.user === this.actor?.primaryUpdater) {
             this.handleStageChange();
         }
     }
@@ -296,11 +342,31 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 extraRollOptions: this.getRollOptions("item"),
             });
 
-            if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
+            if (result?.degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
+                this.decrease({ by: 2 });
+            } else if (result?.degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
                 this.decrease();
-            } else {
+            } else if (result?.degreeOfSuccess === DegreeOfSuccess.FAILURE) {
                 this.increase();
+            } else {
+                this.increase({ by: 2 });
             }
+        }
+    }
+
+    async onEndTurn(): Promise<void> {
+        if (this.remainingStageDuration.expired) {
+            this.toMessage();
+        }
+
+        this.deleteOnset();
+    }
+
+    async deleteOnset(): Promise<void> {
+        const { system } = this;
+        if (system.onset && game.time.worldTime >= this.system.stageStart.value) {
+            await this.createStageMessage();
+            await this.update({ "system.onset": null });
         }
     }
 
@@ -315,7 +381,8 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 }
 
-interface AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+interface AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
+    extends AbstractEffectWithDurationPF2e<TParent> {
     flags: AfflictionFlags;
     readonly _source: AfflictionSource;
     system: AfflictionSystemData;

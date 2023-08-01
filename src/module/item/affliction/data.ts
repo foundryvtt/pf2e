@@ -1,7 +1,8 @@
 import { SaveType } from "@actor/types.ts";
 import {
-    AbstractEffectSystemData,
-    AbstractEffectSystemSource,
+    AbstractEffectWithDurationSystemData,
+    AbstractEffectWithDurationSystemSource,
+    AbstractEffectExpiryType,
     EffectAuraData,
     EffectContextData,
     EffectTraits,
@@ -21,7 +22,7 @@ type AfflictionFlags = ItemFlagsPF2e & {
     };
 };
 
-interface AfflictionSystemSource extends AbstractEffectSystemSource {
+interface AfflictionSystemSource extends AbstractEffectWithDurationSystemSource {
     level: { value: number };
     traits: EffectTraits;
     save: {
@@ -31,18 +32,22 @@ interface AfflictionSystemSource extends AbstractEffectSystemSource {
     stage: number;
     stages: Record<string, AfflictionStageData>;
     onset?: AfflictionOnset;
-    duration: AfflictionDuration;
     start: {
         value: number;
         initiative: number | null;
     };
+    stageStart: {
+        value: number;
+        initiative: number | null;
+    };
+    unidentified: boolean;
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
 }
 
 interface AfflictionSystemData
     extends Omit<AfflictionSystemSource, "fromSpell">,
-        Omit<AbstractEffectSystemData, "level" | "traits"> {}
+        Omit<AbstractEffectWithDurationSystemData, "level" | "traits"> {}
 
 interface AfflictionOnset {
     value: number;
@@ -59,12 +64,13 @@ interface AfflictionStageData {
     damage: Record<string, AfflictionDamage>;
     conditions: Record<string, AfflictionConditionData>;
     effects: AfflictionEffectData[];
+    duration: AfflictionDuration;
 }
 
 interface AfflictionDuration {
     value: number;
     unit: TimeUnit | "unlimited";
-    expiry: AfflictionExpiryType | null;
+    expiry: AbstractEffectExpiryType | null;
 }
 
 interface AfflictionConditionData {
@@ -78,11 +84,7 @@ interface AfflictionEffectData {
     uuid: ItemUUID;
 }
 
-type AfflictionExpiryType = "turn-end";
-
 export type {
-    AfflictionExpiryType,
-    AfflictionDuration,
     AfflictionConditionData,
     AfflictionDamage,
     AfflictionFlags,

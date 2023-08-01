@@ -7,6 +7,7 @@ import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data.ts";
+import { DURATION_UNITS } from "./values.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
@@ -175,4 +176,96 @@ interface AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null
     system: AfflictionSystemData | ConditionSystemData | EffectSystemData;
 }
 
-export { AbstractEffectPF2e };
+abstract class AbstractEffectWithDurationPF2e<
+    TParent extends ActorPF2e | null = ActorPF2e | null
+> extends AbstractEffectPF2e<TParent> {
+    get isExpired(): boolean {
+        return this.system.expired;
+    }
+
+    get totalDuration(): number {
+        const { duration } = this.system;
+        if (["unlimited", "encounter"].includes(duration.unit)) {
+            return Infinity;
+        } else {
+            return duration.value * (DURATION_UNITS[duration.unit] ?? 0);
+        }
+    }
+
+    get remainingDuration(): { expired: boolean; remaining: number } {
+        const duration = this.totalDuration;
+        const { unit, expiry } = this.system.duration;
+        if (unit === "encounter") {
+            const isExpired = this.system.expired;
+            return { expired: isExpired, remaining: isExpired ? 0 : Infinity };
+        } else if (duration === Infinity) {
+            return { expired: false, remaining: Infinity };
+        } else {
+            const start = this.system.start.value;
+            const { combatant } = game.combat ?? {};
+
+            // Prevent effects that expire at end of current turn from expiring immediately outside of encounters
+            const addend = !combatant && duration === 0 && unit === "rounds" && expiry === "turn-end" ? 1 : 0;
+            const remaining = start + duration + addend - game.time.worldTime;
+            const result = { remaining, expired: remaining <= 0 };
+
+            if (remaining === 0 && combatant?.actor) {
+                const startInitiative = this.system.start.initiative ?? 0;
+                const currentInitiative = combatant.initiative ?? 0;
+
+                // A familiar won't be represented in the encounter tracker: use the master in its place
+                const fightyActor = this.actor?.isOfType("familiar") ? this.actor.master ?? this.actor : this.actor;
+                const isEffectTurnStart =
+                    startInitiative === currentInitiative && combatant.actor === (this.origin ?? fightyActor);
+
+                result.expired = isEffectTurnStart ? expiry === "turn-start" : currentInitiative < startInitiative;
+            }
+
+            return result;
+        }
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        this.system.expired = this.remainingDuration.expired;
+    }
+
+    /** Set the start time and initiative roll of a newly created effect */
+    protected override async _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        if (this.isOwned) {
+            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+            this._source.system.start = { value: game.time.worldTime, initiative };
+        }
+
+        return super._preCreate(data, options, user);
+    }
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        const duration = changed.system?.duration;
+        if (duration?.unit === "unlimited") {
+            duration.expiry = null;
+        } else if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
+            duration.expiry ||= "turn-start";
+            if (duration.value === -1) duration.value = 1;
+        }
+
+        return super._preUpdate(changed, options, user);
+    }
+}
+
+interface AbstractEffectWithDurationPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
+    extends AbstractEffectPF2e<TParent> {
+    system: AfflictionSystemData | EffectSystemData;
+    readonly _source: AfflictionSource | EffectSource;
+}
+
+export { AbstractEffectPF2e, AbstractEffectWithDurationPF2e };

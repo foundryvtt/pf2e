@@ -140,6 +140,9 @@ class CombatantPF2e<
         for (const condition of activeConditions) {
             await condition.onEndTurn({ token: this.token });
         }
+        for (const affliction of actor.itemTypes.affliction) {
+            await affliction.onEndTurn();
+        }
 
         // Effect changes on turn start/end
         for (const effect of actor.itemTypes.effect) {

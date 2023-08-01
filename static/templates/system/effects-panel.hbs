@@ -58,6 +58,10 @@
                 {{#if (eq effect.badge.type "counter")}}
                     <div>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</div>
                     <div>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</div>
+                    {{#if (eq effect.type "affliction")}}
+                        <div>{{localize "PF2E.EffectPanel.DoubleIncrementToolTip"}}</div>
+                        <div>{{localize "PF2E.EffectPanel.DoubleDecrementToolTip"}}</div>
+                    {{/if}}
                 {{else}}
                     <div>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</div>
                 {{/if}}
