@@ -1136,7 +1136,7 @@ export const PF2ECONFIG = {
         skald: "PF2E.LanguageSkald",
         sphinx: "PF2E.LanguageSphinx",
         strix: "PF2E.LanguageStrix",
-        susurran: "PF2E.LanguageSusurran",
+        sussuran: "PF2E.LanguageSussuran",
         taldane: "PF2E.LanguageTaldane",
         talican: "PF2E.LanguageTalican",
         tekritanin: "PF2E.LanguageTekritanin",
