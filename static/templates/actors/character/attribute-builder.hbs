@@ -1,11 +1,11 @@
 <form autocomplete="off" onsubmit="event.preventDefault();">
-    <div class="ability-rows">
+    <div class="attribute-rows">
         <header class="row{{#if manual}} not-eligible{{/if}}">
             <div class="row-heading">
-                <h3>{{localize "PF2E.Actor.Character.AbilityBuilder.Title"}}</h3>
+                <h3>{{localize "PF2E.Actor.Character.AttributeBuilder.Title"}}</h3>
             </div>
-            <div class="abilities">
-                {{#each abilityScores as |ability key|}}
+            <div class="attributes">
+                {{#each attributeModifiers as |attribute key|}}
                     <div class="row-column">
                         <h3>{{localize (concat "PF2E.AbilityId." key)}}</h3>
                     </div>
@@ -23,7 +23,7 @@
                         <div class="title">{{localize "TYPES.Item.ancestry"}}</div>
                         <div class="description" data-tooltip-content="#{{actor.id}}-ancestry-tooltip">{{ancestry.name}}</div>
                         <label class="extra">
-                            {{localize "PF2E.Actor.Character.AbilityBuilder.AlternateBoostsLabel"}} <input type="checkbox" {{checked ancestryBoosts.alternate}} data-action="toggle-alternate-ancestry-boosts">
+                            {{localize "PF2E.Actor.Character.AttributeBuilder.AlternateBoostsLabel"}} <input type="checkbox" {{checked ancestryBoosts.alternate}} data-action="toggle-alternate-ancestry-boosts">
                         </label>
                     </div>
                 </div>
@@ -31,21 +31,21 @@
                 <div class="row-heading">
                     <div class="label">
                         <div class="title">{{localize "TYPES.Item.ancestry"}}</div>
-                        <div class="description">{{localize "PF2E.Actor.Character.AbilityBuilder.NotSelected"}}</div>
+                        <div class="description">{{localize "PF2E.Actor.Character.AttributeBuilder.NotSelected"}}</div>
                     </div>
                 </div>
             {{/if}}
 
-            {{> abilityRow buttons=ancestryBoosts.buttons fallback="PF2E.Actor.Character.AbilityBuilder.AncestryMissingHelp"}}
+            {{> attributeRow buttons=ancestryBoosts.buttons fallback="PF2E.Actor.Character.AttributeBuilder.AncestryMissingHelp"}}
 
             <div class="hover-content" id="{{actor.id}}-ancestry-tooltip">
-                <h2>{{localize "PF2E.Actor.Character.AbilityBuilder.Boosts"}}</h2>
+                <h2>{{localize "PF2E.Actor.Character.AttributeBuilder.Boosts"}}</h2>
                 <ul class="boost-details">
                     {{#each ancestryBoosts.labels as |boost|}}
                         <li><i class="fas fa-circle"></i>{{boost}}</li>
                     {{/each}}
                 </ul>
-                <h2>{{localize "PF2E.Actor.Character.AbilityBuilder.Flaws"}}</h2>
+                <h2>{{localize "PF2E.Actor.Character.AttributeBuilder.Flaws"}}</h2>
                 <ul class="boost-details">
                     {{#each ancestryBoosts.flawLabels as |flaw|}}
                         <li><i class="fas fa-circle"></i>{{flaw}}</li>
@@ -60,18 +60,18 @@
                 <div class="row-heading">
                     {{#if voluntaryFlaws.remaining}}<div class="remaining extra">{{voluntaryFlaws.remaining}}</div>{{/if}}
                     <div class="label">
-                        <div class="description" data-tooltip-content="#{{actor.id}}-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AbilityBuilder.VoluntaryFlaw.Title"}}</div>
+                        <div class="description" data-tooltip-content="#{{actor.id}}-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title"}}</div>
                         <label class="extra" data-tooltip-content="#{{actor.id}}-legacy-voluntary-flaw-tooltip">
-                            {{localize "PF2E.Actor.Character.AbilityBuilder.LegacyFlaws"}} <i class="fas fa-info-circle small"></i>
+                            {{localize "PF2E.Actor.Character.AttributeBuilder.LegacyFlaws"}} <i class="fa-solid fa-info-circle small"></i>
                             <input type="checkbox" data-action="toggle-legacy-voluntary-flaw" {{checked legacyFlaws}}>
                         </label>
                     </div>
                 </div>
-                {{> abilityRow buttons=voluntaryFlaws.buttons}}
+                {{> attributeRow buttons=voluntaryFlaws.buttons}}
             {{/if}}
 
-            <div class="hover-content" id="{{actor.id}}-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AbilityBuilder.VoluntaryFlaw.Description"}}</div>
-            <div class="hover-content" id="{{actor.id}}-legacy-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AbilityBuilder.VoluntaryFlaw.LegacyDescription"}}</div>
+            <div class="hover-content" id="{{actor.id}}-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Description"}}</div>
+            <div class="hover-content" id="{{actor.id}}-legacy-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.LegacyDescription"}}</div>
         </section>
 
         <hr />
@@ -91,22 +91,22 @@
                 <div class="row-heading">
                     <div class="label">
                         <div class="title">{{localize "TYPES.Item.background"}}</div>
-                        <div class="description">{{localize "PF2E.Actor.Character.AbilityBuilder.NotSelected"}}</div>
+                        <div class="description">{{localize "PF2E.Actor.Character.AttributeBuilder.NotSelected"}}</div>
                     </div>
                 </div>
             {{/if}}
 
-            {{> abilityRow buttons=backgroundBoosts.buttons fallback="PF2E.Actor.Character.AbilityBuilder.BackgroundMissingHelp"}}
+            {{> attributeRow buttons=backgroundBoosts.buttons fallback="PF2E.Actor.Character.AttributeBuilder.BackgroundMissingHelp"}}
 
             <div class="hover-content" id="{{actor.id}}-background-tooltip">
                 {{#if backgroundBoosts.tooltip}}
                     {{backgroundBoosts.tooltip}}
                 {{else}}
-                    <h2>{{localize "PF2E.Actor.Character.AbilityBuilder.Boosts"}}</h2>
+                    <h2>{{localize "PF2E.Actor.Character.AttributeBuilder.Boosts"}}</h2>
                     <ul class="boost-details">
                         {{#each backgroundBoosts.labels as |boost|}}
                             {{#if boost}}
-                                <li><i class="fas fa-circle"></i>{{boost}}</li>
+                                <li><i class="fa-solid fa-circle"></i>{{boost}}</li>
                             {{/if}}
                         {{/each}}
                     </ul>
@@ -126,17 +126,17 @@
                         <div class="description">{{class.name}}</div>
                     </div>
                 </div>
-                <div class="abilities">
-                    {{#each abilities as |key ability|}}
+                <div class="attributes">
+                    {{#each attributes as |key attribute|}}
                         <div class="row-column">
-                            <button type="button" data-action="class-key-ability" data-key="{{key}}" data-ability="{{ability}}"
-                                class="boost key-ability
-                                {{~#if (not (contains ../keyOptions ability))}} hidden{{/if}}
-                                {{~#if (eq ../class.system.keyAbility.selected ability)}} selected{{/if}}
+                            <button type="button" data-action="class-key-attribute" data-key="{{key}}" data-attribute="{{attribute}}"
+                                class="boost key-attribute
+                                {{~#if (not (contains ../keyOptions attribute))}} hidden{{/if}}
+                                {{~#if (eq ../class.system.keyAbility.selected attribute)}} selected{{/if}}
                                 {{~#if ../manual}} hidden{{/if}}"
                             >
-                                <i class="fa-solid fa-fw fa-key"></i>
-                                {{localize "PF2E.Actor.Character.AbilityBuilder.KeyIcon"}}
+                                <i class="fa-solid fa-fw fa-key key-attribute"></i>
+                                <span>{{localize "PF2E.Actor.Character.AttributeBuilder.KeyIcon"}}</span>
                             </button>
                         </div>
                     {{/each}}
@@ -145,10 +145,10 @@
                 <div class="row-heading">
                     <div class="label">
                         <div class="title">{{localize "TYPES.Item.class"}}</div>
-                        <div class="description">{{localize "PF2E.Actor.Character.AbilityBuilder.NotSelected"}}</div>
+                        <div class="description">{{localize "PF2E.Actor.Character.AttributeBuilder.NotSelected"}}</div>
                     </div>
                 </div>
-                <div class="full-row">{{localize "PF2E.Actor.Character.AbilityBuilder.ClassMissingHelp"}}</div>
+                <div class="full-row">{{localize "PF2E.Actor.Character.AttributeBuilder.ClassMissingHelp"}}</div>
             {{/if}}
         </section>
 
@@ -176,48 +176,48 @@
                         </div>
                     </div>
                 </div>
-                {{> abilityRow buttons=boosts.buttons}}
+                {{> attributeRow buttons=boosts.buttons}}
             </section>
         {{/each}}
 
         <section class="row summary-row">
             <div class="row-heading">
                 <aside class="hint-container">
-                    <h3>{{localize "PF2E.Actor.Character.AbilityBuilder.AbilityScoreMethod.Title"}}</h3>
-                    <p>{{localize "PF2E.Actor.Character.AbilityBuilder.AbilityScoreMethod.Description"}}</p>
+                    <h3>{{localize "PF2E.Actor.Character.AttributeBuilder.InputMethod.Title"}}</h3>
+                    <p>{{localize "PF2E.Actor.Character.AttributeBuilder.InputMethod.Description"}}</p>
                     <label>
                         <input type="checkbox" name="toggle-manual-mode"{{checked manual}}>
-                        {{localize "PF2E.Actor.Character.AbilityBuilder.AbilityScoreMethod.UseCustomLabel"}}
+                        {{localize "PF2E.Actor.Character.AttributeBuilder.InputMethod.Manual"}}
                     </label>
                 </aside>
             </div>
-            <div class="abilities">
-                {{#each abilityScores as |ability key|}}
-                    <div class="row-column">
+            <div class="attributes">
+                {{#each attributeModifiers as |attribute key|}}
+                    <div class="row-column"{{#if attribute.partial}} title="{{localize "PF2E.Actor.Character.AttributeBuilder.HasPartial"}}"{{/if}}>
                         {{#if ../manual}}
-                            <button type="button" data-action="class-key-ability" data-key="{{lookup ../abilities key}}" data-ability="{{key}}"
+                            <button type="button" data-action="class-key-attribute" data-key="{{lookup ../attributes key}}" data-attribute="{{key}}"
                                 class="boost{{#if (eq ../manualKeyAbility key)}} selected{{/if}}"
                                 tabindex="-1"
                             >
-                                <i class="fas fa-fw fa-key"></i>
-                                {{localize "PF2E.Actor.Character.AbilityBuilder.KeyIcon"}}
+                                <i class="fa-solid fa-fw fa-key"></i>
+                                <span>{{localize "PF2E.Actor.Character.AttributeBuilder.KeyIcon"}}</span>
                             </button>
-                            <input type="number" data-property="system.abilities.{{key}}.value" name="system.abilities.{{key}}.value" value="{{ability.base}}" placeholder="10">
+                            <input type="text" data-property="system.abilities.{{key}}.mod" name="system.abilities.{{key}}.mod" value="{{numberFormat attribute.base sign=true}}" data-dtype="Number" placeholder="0">
                         {{else}}
                             <button type="button" class="boost hidden"></button>
-                            <div class="value">{{ability.base}}</div>
+                            <div class="value">{{numberFormat attribute.base sign=true}}{{#if attribute.partial}}*{{/if}}</div>
                         {{/if}}
-                        <h4>{{localize (lookup ../abilities key)}}</h4>
+                        <h4>{{localize (lookup ../attributes key)}}</h4>
                     </div>
                 {{/each}}
-                <button class="complete" type="button" data-action="close">{{localize "PF2E.Actor.Character.AbilityBuilder.Complete"}}</button>
+                <button class="complete" type="button" data-action="close">{{localize "PF2E.Actor.Character.AttributeBuilder.Complete"}}</button>
             </div>
         </section>
     </div>
 
     <div class="row background-stripes">
         <div class="row-heading"></div>
-        <div class="abilities">
+        <div class="attributes">
             <div></div>
             <div></div>
             <div></div>
@@ -228,11 +228,11 @@
     </div>
 </form>
 
-{{#*inline "abilityRow"}}
+{{#*inline "attributeRow"}}
     {{#if buttons}}
-        <div class="abilities">
+        <div class="attributes">
             {{#each buttons as |state|}}
-                <div class="row-column" data-ability="{{state.ability}}" data-stat="{{state.stat}}">
+                <div class="row-column" data-attribute="{{state.ability}}">
                     {{#if flaw}}
                         {{> boostButton type="flaw" button=state.flaw}}
                     {{/if}}
@@ -258,14 +258,25 @@
     {{/if}}
 
     {{#*inline "boostButtonSingle"}}
-        <button type="button" data-action="{{type}}" class="tooltip boost-button {{type}} {{number}}{{#if button.selected}} selected{{/if}}{{#if button.locked}} locked{{/if}}" {{disabled (and button.disabled (not button.selected))}}>
-            {{#if button.locked}}<i class="fas fa-lock"></i>{{/if}}
+        <button
+            type="button"
+            data-action="{{type}}"
+            class="tooltip boost-button {{type}} {{number}}{{#if button.selected}} selected{{#if button.partial}} partial{{/if}}{{/if}}{{#if button.locked}} locked{{/if}}"
+            {{disabled (and button.disabled (not button.selected))}}
+        >
+            {{#if button.locked}}<i class="fa-solid fa-lock"></i>{{/if}}
             {{#if (eq number "second")}}
-                x2
+                <span>x2</span>
             {{else if (eq type "flaw")}}
-                {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
+                <span>{{localize "PF2E.Actor.Character.AttributeBuilder.Flaw"}}</span>
             {{else}}
-                {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}
+                <span>
+                    {{~#if button.partial~}}
+                        {{localize "PF2E.Actor.Character.AttributeBuilder.Partial"}}
+                    {{~else~}}
+                        {{localize "PF2E.Actor.Character.AttributeBuilder.Boost"}}
+                    {{~/if~}}
+                </span>
             {{/if}}
         </button>
     {{/inline}}

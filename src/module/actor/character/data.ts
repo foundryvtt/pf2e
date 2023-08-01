@@ -76,7 +76,7 @@ type CharacterFlags = ActorFlagsPF2e & {
 };
 
 interface CharacterSystemSource extends CreatureSystemSource {
-    abilities?: Record<AbilityString, { value: number }>;
+    abilities?: Record<AbilityString, { mod: number }>;
     attributes: CharacterAttributesSource;
     details: CharacterDetailsSource;
     traits: CharacterTraitsSource;
@@ -181,7 +181,7 @@ interface CharacterDetailsSource {
 }
 
 interface CharacterBuildSource {
-    abilities?: AttributeBoostsSource;
+    attributes?: AttributeBoostsSource;
 }
 
 interface AttributeBoostsSource {
@@ -268,7 +268,7 @@ interface CharacterAbilityData extends AbilityData {
 }
 
 interface CharacterBuildData {
-    abilities: AttributeBoosts;
+    attributes: AttributeBoosts;
 }
 
 /**

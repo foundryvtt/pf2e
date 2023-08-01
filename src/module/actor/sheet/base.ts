@@ -33,6 +33,7 @@ import {
     isObject,
     objectHasKey,
     setHasElement,
+    signedInteger,
     tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -262,8 +263,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const propertyPath = input.dataset.property ?? "";
                 input.name = propertyPath;
                 if (input instanceof HTMLInputElement) {
-                    const baseValue = Number(getProperty(this.actor._source, propertyPath));
-                    input.value = String(baseValue);
+                    const baseValue = Math.trunc(Number(getProperty(this.actor._source, propertyPath)) || 0);
+                    input.value = baseValue.toString();
+                    if (input.type === "text" && input.dataset.dtype === "Number") {
+                        input.type = "number";
+                    }
                 }
             });
 
@@ -271,9 +275,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 input.removeAttribute("name");
                 const propertyPath = input.dataset.property ?? "";
                 const preparedValue = getProperty(this.actor, propertyPath);
+                const baseValue = Math.trunc(Number(getProperty(this.actor._source, propertyPath)) || 0);
+                const newValue = Math.trunc(Number(input.value));
                 if (input instanceof HTMLInputElement) {
-                    const isPositiveModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
-                    input.value = isPositiveModifier ? `+${preparedValue}` : String(preparedValue);
+                    if (input.type === "number" && input.dataset.dtype === "Number") {
+                        input.type = "text";
+                    }
+                    if (baseValue === newValue) {
+                        input.value = input.classList.contains("modifier")
+                            ? signedInteger(Number(preparedValue) || 0)
+                            : String(newValue);
+                    }
                 }
             });
         }
