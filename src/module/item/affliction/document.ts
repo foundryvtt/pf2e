@@ -29,17 +29,17 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return this.system.stage;
     }
 
-    override async increase(): Promise<void> {
+    override async increase(twoStages = false): Promise<void> {
         const maxStage = Object.keys(this.system.stages).length || 1;
         if (this.stage === maxStage) return;
 
-        const stage = Math.min(maxStage, this.system.stage + 1);
+        const stage = Math.min(maxStage, this.system.stage + (twoStages ? 2 : 1));
         await this.update({ system: { stage } });
     }
 
-    override async decrease(): Promise<void> {
-        const stage = this.system.stage - 1;
-        if (stage === 0) {
+    override async decrease(twoStages = false): Promise<void> {
+        const stage = this.system.stage - (twoStages ? 2 : 1);
+        if (stage <= 0) {
             await this.delete();
             return;
         }
@@ -143,7 +143,9 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         userId: string
     ): void {
         super._onCreate(data, options, userId);
-        this.createStageMessage();
+        if (!data.system.onset) {
+            this.createStageMessage();
+        }
     }
 
     override _onUpdate(
