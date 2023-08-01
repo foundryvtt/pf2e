@@ -156,6 +156,7 @@ const resistanceTypes = {
     acid: "PF2E.Damage.RollFlavor.acid",
     adamantine: "PF2E.Damage.IWR.Type.adamantine",
     air: "PF2E.Damage.RollFlavor.air",
+    alchemical: "PF2E.Damage.IWR.Type.alchemical",
     "all-damage": "PF2E.Damage.IWR.Type.all-damage",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
     bleed: "PF2E.Damage.RollFlavor.bleed",

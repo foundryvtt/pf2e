@@ -46,6 +46,7 @@ abstract class IWRData<TType extends IWRType> {
 
         switch (iwrType) {
             case "air":
+            case "alchemical":
             case "earth":
             case "metal":
             case "radiation":
@@ -317,6 +318,7 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
 /** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
 const NON_DAMAGE_WEAKNESSES: Set<IWRType> = new Set([
     "air",
+    "alchemical",
     "earth",
     "metal",
     "radiation",
