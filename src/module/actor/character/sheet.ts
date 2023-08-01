@@ -131,7 +131,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.deity = this.actor.deity;
 
         // Update hero points label
-        sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
         sheetData.data.resources.heroPoints.hover = game.i18n.format(
             this.actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
             this.actor.heroPoints
@@ -1232,17 +1231,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         return super._onSortItem(event, itemSource);
-    }
-
-    /** Get the font-awesome icon used to display hero points */
-    private getHeroPointsIcon(level: number): string {
-        const icons = [
-            '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
-            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
-        ];
-        return icons[level] ?? icons[0];
     }
 
     /** Overriden to open sub-tabs if requested */
