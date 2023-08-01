@@ -354,6 +354,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return super._onDropItemCreate(itemData);
     }
 
+    /** Override to not auto-disable fields on a thing meant to be used by players */
+    protected override _disableFields(_form: HTMLElement): void {}
+
     /** Recursively performs a render and activation of all sub-regions */
     async #renderRegions(element: HTMLElement, data: object): Promise<void> {
         // Eventually this should cache results to compare if re-rendering
