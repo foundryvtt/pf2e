@@ -217,6 +217,7 @@ const creatureTraits = {
     skulk: "PF2E.TraitSkulk",
     soulbound: "PF2E.TraitSoulbound",
     spirit: "PF2E.TraitSpirit",
+    sporeborn: "PF2E.TraitSporeborn",
     spriggan: "PF2E.TraitSpriggan",
     stheno: "PF2E.TraitStheno",
     summoned: "PF2E.TraitSummoned",
