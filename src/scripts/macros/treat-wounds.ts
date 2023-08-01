@@ -110,8 +110,9 @@ async function treat(
     const rank = skill.rank ?? 1;
     const usedProf = requestedProf <= rank ? requestedProf : rank;
     const medicBonus = CheckFeat(actor, "medic-dedication") ? (usedProf - 1) * 5 : 0;
+    const godlessBonus = CheckFeat(actor, "godless-healing") ? 5 : 0;
     const dcValue = [15, 20, 30, 40][usedProf - 1] + mod;
-    const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus;
+    const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus + godlessBonus;
 
     const rollOptions = actor.getRollOptions(["all", "skill-check", "medicine"]);
     rollOptions.push("action:treat-wounds");
