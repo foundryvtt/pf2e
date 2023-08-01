@@ -1,0 +1,58 @@
+{
+    "_id": "9BUk7zy1aE092XCS",
+    "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
+    "name": "Kinetic Quickness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your body flows with the elegance of a flame a wave, a breeze. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 11
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.saves.reflex.rank",
+                "value": 3
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "reflex",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "reflex",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Reflex",
+                "title": "{item|name}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kineticist"
+            ]
+        }
+    },
+    "type": "feat"
+}

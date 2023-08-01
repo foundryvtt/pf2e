@@ -1,0 +1,53 @@
+{
+    "_id": "0lYbjDI2N3xVl24E",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Glass Form",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "piercing"
+                ],
+                "value": "5*floor((@item.level -2)/2)"
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "sonic",
+                    "bludgeoning"
+                ],
+                "value": "5*floor((@item.level -2)/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

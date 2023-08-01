@@ -1,0 +1,55 @@
+{
+    "_id": "8y6Ap9xIsnseYYvk",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Tempest Cloak",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:damage:category:physical",
+                    "item:ranged"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "reflex",
+                    "will",
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "CDNKDV3UsAp95D1m",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Serrate",
+    "system": {
+        "description": {
+            "value": "<p>Strikes with the target weapon deal additional slashing damage until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "serrateWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "slashing",
+                "diceNumber": "ceil(@item.level/2)",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.serrateWeapon}-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

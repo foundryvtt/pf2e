@@ -1,0 +1,57 @@
+{
+    "_id": "qD1OA6dx8h33nKFC",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Ferrous Form",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "type": [
+                    "death-effects",
+                    "disease",
+                    "drained",
+                    "fatigued",
+                    "healing",
+                    "nonlethal",
+                    "paralyzed",
+                    "poison",
+                    "sickened",
+                    "positive",
+                    "negative"
+                ]
+            },
+            {
+                "exceptions": "adamantine",
+                "key": "Resistance",
+                "type": "physical",
+                "value": "5+((ciel(@item.level/8))*5)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

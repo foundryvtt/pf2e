@@ -1,0 +1,199 @@
+{
+    "_id": "oDDS6D2KTjpbA491",
+    "img": "systems/pf2e/icons/spells/shield.webp",
+    "name": "Spell Effect: Glass Shield",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "ac": 1,
+                    "broken": false,
+                    "brokenThreshold": 0,
+                    "destroyed": false,
+                    "hp": {
+                        "max": 0,
+                        "value": 0
+                    },
+                    "icon": "systems/pf2e/icons/spells/shield.webp",
+                    "itemId": "{item|_id}",
+                    "name": "PF2E.ShieldLabel",
+                    "raised": true
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 2
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": 7
+                        },
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 10
+                        },
+                        {
+                            "start": 9,
+                            "value": 12
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:shield:equipped",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hp",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 4
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 8
+                        },
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": 16
+                        },
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 24
+                        },
+                        {
+                            "start": 9,
+                            "value": 32
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.brokenThreshold",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 2
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": 8
+                        },
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 12
+                        },
+                        {
+                            "start": 9,
+                            "value": 16
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
