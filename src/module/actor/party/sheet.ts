@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Language } from "@actor/creature/index.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
@@ -7,7 +7,7 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
@@ -92,7 +92,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         ([max]) => Number(max) >= this.actor.system.attributes.speed.value
                     )?.[1] ?? 0,
             },
-            explorationMembers: this.#prepareExploration(),
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
         };
     }
@@ -108,6 +107,12 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         return this.actor.members.map((actor) => {
+            const observer = actor.testUserPermission(game.user, "OBSERVER");
+            const restricted = !(game.settings.get("pf2e", "metagame_showPartyStats") || observer);
+            const activities = actor.isOfType("character")
+                ? R.compact(actor.system.exploration.map((id) => actor.items.get(id)))
+                : [];
+
             return {
                 actor,
                 hasBulk: actor.inventory.bulk.encumberedAfter !== Infinity,
@@ -118,6 +123,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .slice(0, 5)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 heroPoints: actor.isOfType("character") ? actor.system.resources.heroPoints : null,
+                owner: actor.isOwner,
+                observer,
+                limited: observer || actor.limited,
                 speeds: [
                     { label: "PF2E.Speed", value: actor.attributes.speed.value },
                     ...actor.attributes.speed.otherSpeeds.map((s) => ({
@@ -147,7 +155,17 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         label: CONFIG.PF2E.senses[r.type] ?? r.type,
                     }));
                 })(),
-                restricted: !(game.settings.get("pf2e", "metagame_showPartyStats") || actor.isOwner),
+                activities: activities.map((action) => ({
+                    id: action.id,
+                    name: action.name,
+                    img: action.img,
+                    traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
+                })),
+                hp: {
+                    showValue: observer || !restricted,
+                    ...actor.hitPoints,
+                },
+                restricted,
             };
         });
     }
@@ -185,25 +203,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const bestBaseSkills = R.compact(baseKnowledgeSkills.map(getBestSkill));
         const bestLoreSkills = R.sortBy(R.compact([...loreSkills].map(getBestSkill)), (s) => -s.mod);
         return [...bestBaseSkills, ...bestLoreSkills];
-    }
-
-    #prepareExploration(): MemberExploration[] {
-        const characters = this.actor.members.filter((m): m is CharacterPF2e => m.isOfType("character"));
-        return characters.map((actor): MemberExploration => {
-            const activities = R.compact(actor.system.exploration.map((id) => actor.items.get(id)));
-
-            return {
-                actor,
-                owner: actor.isOwner,
-                activities: activities.map((action) => ({
-                    id: action.id,
-                    name: action.name,
-                    img: action.img,
-                    traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
-                })),
-                choices: actor.itemTypes.action.filter((a) => a.system.traits.value.includes("exploration")),
-            };
-        });
     }
 
     #getActorsThatUnderstand(slug: Language) {
@@ -426,7 +425,6 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
         speed: number;
         activities: number;
     };
-    explorationMembers: MemberExploration[];
     /** Unsupported items on the sheet, may occur due to disabled campaign data */
     orphaned: ItemPF2e[];
 }
@@ -443,18 +441,20 @@ interface MemberBreakdown {
     heroPoints: ValueAndMax | null;
     hasBulk: boolean;
     bestSkills: SkillData[];
+
+    /** If the actor is owned by the current user */
+    owner: boolean;
+    /** If the actor has observer or greater permission */
+    observer: boolean;
+    /** If the actor has limited or greater permission */
+    limited: boolean;
+
     speeds: { label: string; value: number }[];
     senses: { label: string | null; labelFull: string; acuity?: string }[];
+    hp: { showValue: boolean; temp: number; value: number; max: number };
 
     /** If true, the current user is restricted from seeing meta details */
     restricted: boolean;
-}
-
-interface MemberExploration {
-    actor: ActorPF2e;
-    owner: boolean;
-    activities: { img: string; id: string; name: string; traits: SheetOptions }[];
-    choices: { id: string; name: string }[];
 }
 
 interface LanguageSheetData {
