@@ -777,7 +777,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         for (const key of ABILITY_ABBREVIATIONS) {
             const mod = this.abilities[key].mod;
-            rollOptionsAll[`ability:${key}:mod:${mod}`] = true;
+            rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
         for (const key of SKILL_ABBREVIATIONS) {
