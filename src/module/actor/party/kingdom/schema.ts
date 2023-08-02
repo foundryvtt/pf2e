@@ -1,8 +1,9 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
-import { ArrayField, StringField } from "types/foundry/common/data/fields.js";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.js";
 import { KingdomAbility } from "./types.ts";
 import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
+import { RawModifier } from "@actor/modifiers.ts";
 
 const { fields } = foundry.data;
 
@@ -178,6 +179,8 @@ const KINGDOM_SCHEMA = {
             return [ability, schema];
         })
     ),
+    build: new fields.SchemaField(KINGDOM_BUILD_SCHEMA),
+    customModifiers: new fields.ObjectField<Record<string, RawModifier[]>>({ initial: {} }),
     leadership: new fields.SchemaField(
         R.mapToObj(KINGDOM_LEADERSHIP, (role) => {
             const schema = new fields.SchemaField({
@@ -193,7 +196,6 @@ const KINGDOM_SCHEMA = {
             return [role, schema];
         })
     ),
-    build: new fields.SchemaField(KINGDOM_BUILD_SCHEMA),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
 };
 

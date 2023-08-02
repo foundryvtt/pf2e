@@ -10,7 +10,16 @@
                     <i class="fa-solid fa-dice-d20"></i>{{numberFormat skill.mod decimals=0 sign=true}}
                 </a>
                 <span class="name">{{skill.label}}</span>
-                {{> proficiencySelect name=(concat "build.skills." skill.slug ".rank") rank=skill.rank}}
+                <div class="button-group">
+                    {{> proficiencySelect name=(concat "build.skills." skill.slug ".rank") rank=skill.rank}}
+                    <button type="button" class="hover small-button modifiers" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">
+                        <i class="fa-solid fa-cog"></i>
+                    </button>
+                </div>
+
+                {{#with skill}}
+                    {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title=label}}
+                {{/with}}
             </section>
         {{/each}}
     </div>
