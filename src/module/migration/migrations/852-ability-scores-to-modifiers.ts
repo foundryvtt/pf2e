@@ -59,6 +59,40 @@ export class Migration852AbilityScoresToModifiers extends MigrationBase {
                     break;
             }
         }
+
+        // Handle other rule elements with calculated values that incorporate ability scores
+        const otherRules = source.system.rules.filter(
+            (r): r is RuleElementSource & { value: string } =>
+                "value" in r && typeof r.value === "string" && /\.abilities\.[a-z]{3}\.value\b/.test(r.value)
+        );
+        for (const rule of otherRules) {
+            rule.value = rule.value
+                .replace(
+                    /(?:floor\()?\(?@actor.abilities.([a-z]{3})\.value ?- ?10\) ?\/ ?2\)?/,
+                    `@actor.abilities.$1.mod`
+                )
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        if (source.system.slug === "thaumaturges-investiture") {
+            source.system.rules = source.system.rules.filter((r) => r.key !== "ActiveEffectLike");
+            const bracketedAELike = {
+                key: "ActiveEffectLike",
+                mode: "upgrade",
+                path: "system.resources.investiture.max",
+                value: {
+                    brackets: [
+                        { end: 4, start: 4, value: 14 },
+                        { end: 5, start: 5, value: 16 },
+                        { end: 6, start: 6, value: 18 },
+                        { start: 7, value: 20 },
+                    ],
+                    field: "system.abilities.cha.mod",
+                },
+            };
+            source.system.rules.push(bracketedAELike);
+        }
     }
 }
 
