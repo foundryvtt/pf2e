@@ -7,10 +7,10 @@
             <span class="label">{{localize "PF2E.HeroPointsLabel"}}</span>
             <span class="adjust-stat" data-property="system.resources.heroPoints.value" value="{{data.resources.heroPoints.value}}" title="{{localize data.resources.heroPoints.hover}}">
                 {{#times data.resources.heroPoints.max}}
-                    {{#if (gt member.heroPoints.value this)}}
+                    {{#if (gt @root.data.resources.heroPoints.value this)}}
                         <i class="fa-solid fa-hospital-symbol"></i>
                     {{else}}
-                        <i class="fa-solid fa-circle"></i>
+                        <i class="fa-regular fa-circle"></i>
                     {{/if}}
                 {{/times}}
             </span>
