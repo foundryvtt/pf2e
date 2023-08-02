@@ -24,13 +24,13 @@ import {
     StrikeData,
 } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { InitiativeTraceData } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types.ts";
 import { MeleePF2e } from "@item";
 import { Rarity, Size } from "@module/data.ts";
 import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
-import { InitiativeTraceData } from "@actor/initiative.ts";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
@@ -179,6 +179,10 @@ interface NPCAttributes
     classDC: { value: number };
     /** And a fake class-or-spell DC to go along with it */
     classOrSpellDC: { value: number };
+
+    /** Rarely needed for an NPC but always available! */
+    bonusEncumbranceBulk: number;
+    bonusLimitBulk: number;
 }
 
 interface NPCDetails extends NPCDetailsSource {
