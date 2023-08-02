@@ -3,6 +3,10 @@
     "img": "systems/pf2e/icons/spells/flame-wisp.webp",
     "name": "Spell Effect: Flame Wisp",
     "system": {
+        "badge": {
+            "type": "counter",
+            "value": 3
+        },
         "description": {
             "value": "<p>Three faintly glowing wisps of fire float around your head. Each time you hit a creature with a Strike, one of the wisps goes hurtling towards that creature, dealing 1d4 fire damage. If you Cast a Spell with the fire trait while you have fewer than three wisps, a new wisp appears.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d4.</p>"
         },
@@ -17,10 +21,11 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "selector": "{item|_id}-damage",
-                "text": "Each time you hit a creature with a Strike, one of the wisps goes hurtling towards that creature, dealing [[/r 1d4[fire]]] damage. <strong>Heightened (+2)</strong> The damage increases by [[/r 1d4]].",
-                "title": "Flame Wisp"
+                "damageType": "fire",
+                "diceNumber": "floor(@item.level/2)",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "strike-damage"
             }
         ],
         "source": {
