@@ -704,7 +704,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         userId: string
     ): void {
         super._onUpdate(data, options, userId);
-        if (!this.isOwned && game.ready && game.items.has(this.id)) {
+        if (game.ready && game.items.get(this.id) === this) {
             ui.items.render();
         }
     }

@@ -208,6 +208,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         resetActors(removedCreatures);
+
+        // Update the actor directory if this included campaign changes
+        if (game.ready && !!changed.system?.campaign && game.actors.get(this.id) === (this as ActorPF2e)) {
+            ui.actors.render();
+        }
     }
 
     /** Overriden to inform creatures the party is defunct */
