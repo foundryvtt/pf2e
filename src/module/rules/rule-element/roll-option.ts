@@ -55,7 +55,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         return {
             ...super.defineSchema(),
-            scope: new fields.StringField({
+            placement: new fields.StringField({
                 required: false,
                 nullable: false,
                 initial: "actions-tab",
@@ -230,7 +230,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 const toggle: RollOptionToggle = {
                     itemId: this.item.id,
                     label: this.getReducedLabel(),
-                    scope: this.scope,
+                    placement: this.placement,
                     domain: this.domain,
                     option: baseOption,
                     suboptions,
@@ -296,11 +296,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     /* -------------------------------------------- */
 
     /**
-     * Add or remove directly from/to a provided set of roll options. All RollOption REs, regardless of phase, are
-     * (re-)called here.
+     * Add or remove directly from/to a provided set of roll options. All RollOption REs with a placement different from
+     * "actions-tab", regardless of phase, are (re-)called here.
      */
     override beforeRoll(domains: string[], rollOptions: Set<string>): void {
-        if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
+        if (this.placement !== "actions-tab" || !(this.test(rollOptions) && domains.includes(this.domain))) return;
 
         this.value = this.resolveValue();
         const option = this.#resolveOption();
@@ -336,7 +336,7 @@ interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, Model
 }
 
 type RollOptionSchema = RuleElementSchema & {
-    scope: StringField<string, string, false, false, true>;
+    placement: StringField<string, string, false, false, true>;
     domain: StringField<string, string, true, false, true>;
     phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
     option: StringField<string, string, true, false, false>;
@@ -379,7 +379,7 @@ type SuboptionData = {
 };
 
 interface RollOptionSource extends RuleElementSource {
-    scope?: unknown;
+    placement?: unknown;
     domain?: unknown;
     option?: unknown;
     toggleable?: unknown;
