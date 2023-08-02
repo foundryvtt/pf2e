@@ -6,7 +6,7 @@ import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "../document.ts";
 import { KingdomBuilder } from "./builder.ts";
@@ -21,6 +21,7 @@ import { Kingdom } from "./model.ts";
 import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_LEADERSHIP, KINGDOM_RUIN_LABELS } from "./values.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
+import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic"];
@@ -159,6 +160,51 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             this.filterActions(filterButton.dataset.slug ?? null);
         });
+
+        $html.find("[data-tooltip-content]").tooltipster({
+            trigger: "click",
+            arrow: false,
+            contentAsHTML: true,
+            debug: BUILD_MODE === "development",
+            interactive: true,
+            side: ["right", "bottom"],
+            theme: "crb-hover",
+            minWidth: 120,
+        });
+
+        // Handle adding and inputting custom user submitted modifiers
+        for (const customModifierEl of htmlQueryAll(html, ".modifiers-tooltip")) {
+            const stat = customModifierEl.dataset.stat;
+            if (!stat) continue;
+
+            for (const removeButton of htmlQueryAll(customModifierEl, "[data-action=remove-modifier]")) {
+                const slug = removeButton.dataset.slug ?? "";
+                removeButton.addEventListener("click", () => {
+                    this.kingdom.removeCustomModifier(stat, slug);
+                });
+            }
+
+            const modifierValueEl = htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier input[type=number]");
+            htmlQuery(customModifierEl, "[data-action=increment]")?.addEventListener("click", () => {
+                modifierValueEl?.stepUp();
+            });
+            htmlQuery(customModifierEl, "[data-action=decrement]")?.addEventListener("click", () => {
+                modifierValueEl?.stepDown();
+            });
+
+            htmlQuery(customModifierEl, "[data-action=create-custom-modifier]")?.addEventListener("click", () => {
+                const modifier = modifierValueEl?.valueAsNumber || 1;
+                const type = htmlQuery<HTMLSelectElement>(customModifierEl, ".add-modifier-type")?.value ?? "";
+                const label =
+                    htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier-name")?.value?.trim() ??
+                    game.i18n.localize(`PF2E.ModifierType.${type}`);
+                if (!setHasElement(MODIFIER_TYPES, type)) {
+                    return ui.notifications.error("Type is required.");
+                }
+
+                this.kingdom.addCustomModifier(stat, { label, modifier, type });
+            });
+        }
     }
 
     protected filterActions(trait: string | null, options: { instant?: boolean } = {}): void {
