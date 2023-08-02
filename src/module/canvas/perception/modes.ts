@@ -30,23 +30,13 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         });
     }
 
-    /** Short-circuit test to false if token is GM-hidden */
-    override testVisibility(
-        visionSource: VisionSource<Token>,
-        mode: TokenDetectionMode,
-        config?: CanvasVisibilityTestConfig
-    ): boolean {
-        return (
-            !(config?.object instanceof PlaceableObject && config.object.document.hidden) &&
-            super.testVisibility(visionSource, mode, config)
-        );
-    }
-
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
-        if (!super._canDetect(visionSource, target)) return false;
-        const targetIsUndetected =
-            target instanceof TokenPF2e && !!target.actor?.hasCondition("hidden", "undetected", "unnoticed");
-        return !targetIsUndetected;
+        if (target instanceof PlaceableObject && target.document.hidden) return false;
+        if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
+            return false;
+        }
+
+        return super._canDetect(visionSource, target);
     }
 
     /** Potentially short-circuit range test */
@@ -78,22 +68,12 @@ class HearingDetectionMode extends DetectionMode {
         return filter;
     }
 
-    /** Short-circuit test to false if token is GM-hidden */
-    override testVisibility(
-        visionSource: VisionSource<Token>,
-        mode: TokenDetectionMode,
-        config?: CanvasVisibilityTestConfig
-    ): boolean {
-        return (
-            config?.object instanceof TokenPF2e &&
-            !config.object.document.hidden &&
-            super.testVisibility(visionSource, mode, config)
-        );
-    }
-
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
+
+        // Not if the token is GM-hidden
+        if (target.document.hidden) return false;
 
         // Not if the target doesn't emit sound
         if (!target.actor?.emitsSound) return false;
@@ -167,6 +147,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
         return (
             super._canDetect(visionSource, target) &&
             target instanceof TokenPF2e &&
+            !target.document.hidden &&
             !target.actor?.isOfType("loot") &&
             !target.actor?.hasCondition("undetected", "unnoticed")
         );
