@@ -1,11 +1,11 @@
 {
-    "_id": "LVLf8bfqqLkM56tj",
+    "_id": "YTTKgBLXSIna2KNO",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zfCt8fgeHWRkMoaN",
+            "_id": "S6oKXYfqdJ5hjtpb",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Thorny Vine",
+            "name": "Claw",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -15,16 +15,16 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 5
+                    "value": 23
                 },
                 "damageRolls": {
-                    "034lKINHRdRK01t1": {
-                        "damage": "1",
-                        "damageType": "piercing"
+                    "46sxvmHX5maxdwC7": {
+                        "damage": "2d4",
+                        "damageType": "poison"
                     },
-                    "UO9qfQLxRr1AuZ6M": {
-                        "damage": "1d4",
-                        "damageType": "bludgeoning"
+                    "ah9XmmsblfI0Y4ry": {
+                        "damage": "2d8+10",
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -37,7 +37,7 @@
                 },
                 "traits": {
                     "value": [
-                        "reach-10"
+                        "reach-15"
                     ]
                 },
                 "weaponType": {
@@ -47,7 +47,53 @@
             "type": "melee"
         },
         {
-            "_id": "mtQotdPA4n1esSWv",
+            "_id": "aoCeGBRCxqnCGCqc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Radioactive Shrapnel",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "peSQkoWZYked1R8z": {
+                        "damage": "2d4",
+                        "damageType": "poison"
+                    },
+                    "xERKRQfKkSqY8mTs": {
+                        "damage": "2d8+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "brutal",
+                        "propulsive",
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MwcQe3Vu2Mg24Xri",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
@@ -55,7 +101,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -89,44 +135,9 @@
             "type": "action"
         },
         {
-            "_id": "9gAaXXK7fWFvAfU8",
+            "_id": "LiCGsOpImpmb5XPd",
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Accord Essence",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 30 feet that benefited from the wisp's resonance in the last hour is targeted by an attack</p>\n<hr />\n<p><strong>Effect</strong> The wisp detonates itself in a small elemental explosion of leaves and pollen. This gives temporary Hit Points equal to half the wisp's current HP to all allies within 30 feet that have benefited from the wisp's resonance aura in the past hour. These temporary Hit Points last 1 hour.</p>\n<p>A wisp that uses this reaction is permanently destroyed and can be restored only by a <em>@UUID[Compendium.pf2e.spells-srd.6dDtGIUerazSHIOu]{Wish}</em> ritual or similarly powerful effect. If an ability would prevent the wisp's destruction (for instance, if the wisp is summoned and would merely be dismissed), Accord Essence has no effect.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "plant"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y9gukafwaFEAEqG0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Resonance",
+            "name": "Green Glow",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -137,7 +148,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet.</p>\n<p>All wisps vibrate at a frequency attuned to their element, resonating with and empowering all creatures and effects sharing that trait. A creature in the area gains a +1 status bonus to attack and damage rolls for effects with the plant or wood trait; a creature with the elemental trait and either plant trait or wood trait gains this bonus to all attack and damage rolls. For wood wisps, this bonus also applies to nonmagical wooden weapons, such as staves and clubs.</p>"
+                    "value": "<p>20 feet.</p>\n<p>An abysium horror constantly emanates a powerful energy toxic to life. This radiation sheds dim light in the area. Any creature beginning its turn in the aura must attempt a @Check[type:fortitude|dc:27] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} on a failure or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure. Once out of the aura, an affected creature's sickened condition automatically decreases by 1 at the beginning of each of its turns.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -145,7 +156,7 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 30
+                        "radius": 20
                     }
                 ],
                 "slug": null,
@@ -155,8 +166,8 @@
                 "traits": {
                     "value": [
                         "aura",
-                        "plant",
-                        "wood"
+                        "poison",
+                        "radiation"
                     ]
                 },
                 "trigger": {
@@ -166,9 +177,14 @@
             "type": "action"
         },
         {
-            "_id": "cM7y0IGI7NQFI9f3",
+            "_id": "cfJq41ZCSn0BeF4R",
+            "flags": {
+                "core": {
+                    "sourceId": ""
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "In Concert",
+            "name": "Heavy",
             "sort": 500000,
             "system": {
                 "actionType": {
@@ -177,51 +193,14 @@
                 "actions": {
                     "value": null
                 },
-                "category": "offensive",
+                "category": "defensive",
                 "description": {
-                    "value": "<p>When a wood wisp rolls a critical failure on a check to Aid, they get a failure instead, and when they roll a success, they get a critical success instead.</p>"
+                    "value": "<p>As long as it is immobile, the elemental can't be forcibly moved or knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. If it takes a move action, it loses this immunity until the start of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalFailure"
-                        ],
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": "all",
-                        "text": "<p>When a wood wisp rolls a critical failure on a check to Aid, they get a\nfailure instead.</p>",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": "all",
-                        "text": "<p>When a wood wisp rolls a success on a check to Aid, they get a\ncritical success instead.</p>",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better",
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": "all",
-                        "type": "skill"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -236,39 +215,58 @@
             "type": "action"
         },
         {
-            "_id": "p5wLmnWG9nNwkbJv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "_id": "Av83UM2Xggu6ncAG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
             "sort": 600000,
             "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
                 "description": {
+                    "value": "<p>Large or smaller. claw, @Check[type:reflex|dc:27|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "requirements": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
                 "rules": [],
-                "slug": null,
+                "slug": "trample",
                 "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
                     "value": ""
                 }
             },
-            "type": "lore"
+            "type": "action"
         },
         {
-            "_id": "FOFR9rj0HRbfwejn",
+            "_id": "pzvvJBV5uD9WCJS1",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Plane of Wood Lore",
+            "name": "Athletics",
             "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 4
+                    "value": 23
                 },
                 "proficient": {
                     "value": 0
@@ -282,16 +280,16 @@
             "type": "lore"
         },
         {
-            "_id": "02oWTgLoNJ4pcvpN",
+            "_id": "XaCx7vMHQIXDYaZz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
+            "name": "Survival",
             "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 6
+                    "value": 19
                 },
                 "proficient": {
                     "value": 0
@@ -305,23 +303,23 @@
             "type": "lore"
         }
     ],
-    "name": "Wood Wisp",
+    "name": "Abysium Horror",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": 3
             },
             "con": {
-                "mod": 2
+                "mod": 5
             },
             "dex": {
-                "mod": 1
+                "mod": 3
             },
             "int": {
-                "mod": 0
+                "mod": 3
             },
             "str": {
-                "mod": 3
+                "mod": 7
             },
             "wis": {
                 "mod": 3
@@ -330,16 +328,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 29
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 20,
+                "max": 215,
                 "temp": 0,
-                "value": 20
+                "value": 215
             },
             "immunities": [
                 {
@@ -363,33 +361,25 @@
                 "statistic": "perception"
             },
             "perception": {
-                "value": 6
+                "value": 17
             },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
                         "type": "climb",
-                        "value": 40
-                    },
-                    {
-                        "type": "fly",
                         "value": 20
                     }
                 ],
-                "value": 0
-            },
-            "weaknesses": [
-                {
-                    "exceptions": [],
-                    "type": "axe-vulnerability",
-                    "value": 2
-                },
-                {
-                    "exceptions": [],
-                    "type": "fire",
-                    "value": 2
-                }
-            ]
+                "value": 30
+            }
         },
         "details": {
             "alignment": {
@@ -398,10 +388,10 @@
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 0
+                "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>Like other wisps, wood wisps roam their plane and attune to other wisps, wandering with them in symphonies. Because of their willingness to bond, wood wisps appear outside their home plane more than other wood elementals, though they're still relatively rare compared to other wisps.</p>\n<p>Wood wisps resemble coconuts trailed by thick nests of branches that cover and conceal even deeper webs of thorny vines. They are, unfortunately, both unaware of the pain these thorns can cause fleshy creatures and very physically affectionate in their eagerness to offer assistance.</p>",
+            "publicNotes": "<p>A monstrous spider-like creature composed of the radioactive skymetal abysium, this deadly predator contaminates anything it touches.</p>",
             "source": {
                 "value": "Pathfinder Rage of Elements"
             }
@@ -410,23 +400,22 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 5
+                "value": 21
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 2
+                "value": 19
             },
             "will": {
                 "saveDetail": "",
-                "value": 8
+                "value": 17
             }
         },
         "traits": {
             "languages": {
                 "custom": "",
-                "selected": [],
                 "value": [
-                    "muan"
+                    "talican"
                 ]
             },
             "rarity": "common",
@@ -434,12 +423,11 @@
                 "value": "darkvision"
             },
             "size": {
-                "value": "tiny"
+                "value": "huge"
             },
             "value": [
                 "elemental",
-                "plant",
-                "wood"
+                "metal"
             ]
         }
     },

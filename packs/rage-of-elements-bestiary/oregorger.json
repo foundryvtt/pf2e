@@ -1,30 +1,29 @@
 {
-    "_id": "LVLf8bfqqLkM56tj",
+    "_id": "AahAJjsv74rPfAG5",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zfCt8fgeHWRkMoaN",
+            "_id": "blNHIBg9cEnYAnx9",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Thorny Vine",
+            "name": "Adamantine Bite",
             "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "devour-metal"
+                    ]
                 },
                 "bonus": {
-                    "value": 5
+                    "value": 23
                 },
                 "damageRolls": {
-                    "034lKINHRdRK01t1": {
-                        "damage": "1",
+                    "DB29gbsy3Y1Wzf7D": {
+                        "damage": "2d12+12",
                         "damageType": "piercing"
-                    },
-                    "UO9qfQLxRr1AuZ6M": {
-                        "damage": "1d4",
-                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -47,7 +46,47 @@
             "type": "melee"
         },
         {
-            "_id": "mtQotdPA4n1esSWv",
+            "_id": "5Q33V1clDTnXWIuD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "aKH8ZlXzWtq4mplU": {
+                        "damage": "2d6+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "34cJs7GrFrW98RkM",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
@@ -55,7 +94,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -89,44 +128,14 @@
             "type": "action"
         },
         {
-            "_id": "9gAaXXK7fWFvAfU8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Accord Essence",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 30 feet that benefited from the wisp's resonance in the last hour is targeted by an attack</p>\n<hr />\n<p><strong>Effect</strong> The wisp detonates itself in a small elemental explosion of leaves and pollen. This gives temporary Hit Points equal to half the wisp's current HP to all allies within 30 feet that have benefited from the wisp's resonance aura in the past hour. These temporary Hit Points last 1 hour.</p>\n<p>A wisp that uses this reaction is permanently destroyed and can be restored only by a <em>@UUID[Compendium.pf2e.spells-srd.6dDtGIUerazSHIOu]{Wish}</em> ritual or similarly powerful effect. If an ability would prevent the wisp's destruction (for instance, if the wisp is summoned and would merely be dismissed), Accord Essence has no effect.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "plant"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
+            "_id": "rDukP9s5TtLABcyy",
+            "flags": {
+                "core": {
+                    "sourceId": ""
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "Y9gukafwaFEAEqG0",
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Resonance",
+            "name": "Rust Vision",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -135,93 +144,14 @@
                 "actions": {
                     "value": null
                 },
-                "category": "defensive",
+                "category": "interaction",
                 "description": {
-                    "value": "<p>30 feet.</p>\n<p>All wisps vibrate at a frequency attuned to their element, resonating with and empowering all creatures and effects sharing that trait. A creature in the area gains a +1 status bonus to attack and damage rolls for effects with the plant or wood trait; a creature with the elemental trait and either plant trait or wood trait gains this bonus to all attack and damage rolls. For wood wisps, this bonus also applies to nonmagical wooden weapons, such as staves and clubs.</p>"
+                    "value": "<p>An oregorger ignores the concealed condition from rust clouds.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "aura",
-                        "plant",
-                        "wood"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cM7y0IGI7NQFI9f3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "In Concert",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a wood wisp rolls a critical failure on a check to Aid, they get a failure instead, and when they roll a success, they get a critical success instead.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalFailure"
-                        ],
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": "all",
-                        "text": "<p>When a wood wisp rolls a critical failure on a check to Aid, they get a\nfailure instead.</p>",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": "all",
-                        "text": "<p>When a wood wisp rolls a success on a check to Aid, they get a\ncritical success instead.</p>",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better",
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": "all",
-                        "type": "skill"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -236,62 +166,148 @@
             "type": "action"
         },
         {
-            "_id": "p5wLmnWG9nNwkbJv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "_id": "3uXN6ARwNvN0NOSK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Caustic Rust",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet.</p>\n<p>The oregorger continually leaks tiny fragments of partially digested rust into the air around it. Any creature that ends its turn in the aura takes @Damage[2d6[acid]] damage with a @Check[type:reflex|dc:27|basic:true] save. A creature that critically fails is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "acid",
+                        "aura"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "509qOyqLd5OdAHZE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devour Metal",
             "sort": 600000,
             "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
                 "description": {
+                    "value": "<p>Any time the oregorger scores a critical hit with an adamantine bite attack, it deals the same amount of damage to any metal armor worn by the target, automatically bypassing any Hardness lower than 10. If a creature uses the Shield Block reaction with a metal shield against an oregorger's adamantine bite, the shield is automatically broken, but no other item takes damage from that attack. Unattended metal items automatically take full damage from an oregorger's adamantine bite attack, ignoring their Hardness if it's lower than 10.</p>"
+                },
+                "requirements": {
                     "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
                 },
                 "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 }
             },
-            "type": "lore"
+            "type": "action"
         },
         {
-            "_id": "FOFR9rj0HRbfwejn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Plane of Wood Lore",
+            "_id": "cGhPeUIuvKKzGoE1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Searing Spew",
             "sort": 700000,
             "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
+                    "value": "<p>The oregorger belches forth a cloud of caustic, rusted debris from its maw, filling a cube adjacent to itself that's @Template[type:line|distance:10|width:10] feet on each side. Any creature in this area takes @Damage[6d6[acid],6d6[slashing]] damage (@Check[type:reflex|dc:30|basic:true]). The ground under the cloud is difficult terrain for 1 hour, after which the shrapnel crumbles to dust.</p>\n<p>The oregorger can't use Searing Spew again for [[/br 1d4 #rounds]]{1d4 rounds}, but the ability recharges if the oregorger damages an item with devour metal.</p>"
+                },
+                "requirements": {
                     "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
                 },
                 "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "acid"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
                 }
             },
-            "type": "lore"
+            "type": "action"
         },
         {
-            "_id": "02oWTgLoNJ4pcvpN",
+            "_id": "qkcBM20RuhyLzLU2",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
+            "name": "Acrobatics",
             "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 6
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "KSDUlUPrEPeEimTH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
                 },
                 "proficient": {
                     "value": 0
@@ -305,23 +321,23 @@
             "type": "lore"
         }
     ],
-    "name": "Wood Wisp",
+    "name": "Oregorger",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": 3
             },
             "con": {
-                "mod": 2
+                "mod": 7
             },
             "dex": {
-                "mod": 1
+                "mod": 2
             },
             "int": {
-                "mod": 0
+                "mod": -1
             },
             "str": {
-                "mod": 3
+                "mod": 8
             },
             "wis": {
                 "mod": 3
@@ -330,16 +346,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 30
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 20,
+                "max": 245,
                 "temp": 0,
-                "value": 20
+                "value": 245
             },
             "immunities": [
                 {
@@ -363,33 +379,35 @@
                 "statistic": "perception"
             },
             "perception": {
-                "value": 6
+                "value": 18
             },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "acid",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "climb",
-                        "value": 40
+                        "type": "burrow",
+                        "value": 20
                     },
                     {
                         "type": "fly",
                         "value": 20
                     }
                 ],
-                "value": 0
-            },
-            "weaknesses": [
-                {
-                    "exceptions": [],
-                    "type": "axe-vulnerability",
-                    "value": 2
-                },
-                {
-                    "exceptions": [],
-                    "type": "fire",
-                    "value": 2
-                }
-            ]
+                "value": 30
+            }
         },
         "details": {
             "alignment": {
@@ -398,10 +416,10 @@
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 0
+                "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "<p>Like other wisps, wood wisps roam their plane and attune to other wisps, wandering with them in symphonies. Because of their willingness to bond, wood wisps appear outside their home plane more than other wood elementals, though they're still relatively rare compared to other wisps.</p>\n<p>Wood wisps resemble coconuts trailed by thick nests of branches that cover and conceal even deeper webs of thorny vines. They are, unfortunately, both unaware of the pain these thorns can cause fleshy creatures and very physically affectionate in their eagerness to offer assistance.</p>",
+            "publicNotes": "<p>Oregorgers are hulking, four-limbed brutes with bodies of raw primal metals accreted in layers. Driven entirely by an insatiable drive to consume metal, an oregorger stops at nothing to greedily devour as much metal as it can and expel it as caustic rust.</p>",
             "source": {
                 "value": "Pathfinder Rage of Elements"
             }
@@ -410,36 +428,34 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 5
+                "value": 24
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 2
+                "value": 17
             },
             "will": {
                 "saveDetail": "",
-                "value": 8
+                "value": 20
             }
         },
         "traits": {
             "languages": {
                 "custom": "",
-                "selected": [],
                 "value": [
-                    "muan"
+                    "talican"
                 ]
             },
             "rarity": "common",
             "senses": {
-                "value": "darkvision"
+                "value": "darkvision, rust vision"
             },
             "size": {
-                "value": "tiny"
+                "value": "lg"
             },
             "value": [
                 "elemental",
-                "plant",
-                "wood"
+                "metal"
             ]
         }
     },
