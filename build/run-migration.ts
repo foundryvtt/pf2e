@@ -26,6 +26,7 @@ import { Migration849DeleteBrokenThreshold } from "@module/migration/migrations/
 import { Migration850FlatFootedToOffGuard } from "@module/migration/migrations/850-flat-footed-to-off-guard.ts";
 import { Migration851JustInnovationId } from "@module/migration/migrations/851-just-innovation-id.ts";
 import { Migration852AbilityScoresToModifiers } from "@module/migration/migrations/852-ability-scores-to-modifiers.ts";
+import { Migration853RemasterLanguages } from "@module/migration/migrations/853-remaster-languages.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration850FlatFootedToOffGuard(),
     new Migration851JustInnovationId(),
     new Migration852AbilityScoresToModifiers(),
+    new Migration853RemasterLanguages(),
 ];
 
 global.deepClone = <T>(original: T): T => {
