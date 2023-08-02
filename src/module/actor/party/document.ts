@@ -114,18 +114,18 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     async addMembers(...membersToAdd: CreaturePF2e[]): Promise<void> {
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
-
         const existingUUIDs = new Set(existing.map((data) => data.uuid));
         const newMembers = membersToAdd.filter((a) => !existingUUIDs.has(a.uuid));
-        const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
-        await this.update({ system: { details: { members } } });
 
-        // Remove all members from their original folder
+        // Remove all members from their original folder first
         for (const member of newMembers) {
             if (member.folder) {
                 await member.update({ folder: null });
             }
         }
+
+        const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
+        await this.update({ system: { details: { members } } });
 
         await resetActors(newMembers);
     }

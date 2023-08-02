@@ -19,7 +19,7 @@
             </li>
         {{/unless}}
         {{#each members as |member|}}
-            <li class="box">
+            <li class="box {{#unless member.limited}}readonly{{/unless}}">
                 <div class="actor-link content" data-actor-uuid="{{member.actor.uuid}}" data-action="open-sheet" data-tab="inventory">
                     <img src="{{member.actor.img}}" />
                     <div class="sub-data">
