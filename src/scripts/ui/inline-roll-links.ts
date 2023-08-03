@@ -82,7 +82,8 @@ export const InlineRollLinks = {
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller } = link.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Selectors, pf2Label, pf2Defense, pf2Adjustment, pf2Roller } =
+                link.dataset;
             if (!pf2Check) return;
 
             link.addEventListener("click", async (event) => {
@@ -113,6 +114,11 @@ export const InlineRollLinks = {
                     ?.split(",")
                     .map((trait) => trait.trim())
                     .filter((trait) => !!trait);
+                const parsedSelectors =
+                    pf2Selectors
+                        ?.split(",")
+                        .map((selector) => selector.trim())
+                        .filter((selector) => !!selector) ?? [];
                 const eventRollParams = eventToRollParams(event);
 
                 switch (pf2Check) {
@@ -123,6 +129,7 @@ export const InlineRollLinks = {
                                 slug: "flat",
                                 modifiers: [],
                                 check: { type: "flat-check" },
+                                domains: parsedSelectors,
                             });
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
@@ -144,7 +151,7 @@ export const InlineRollLinks = {
                                     if (bestSpellcasting) return bestSpellcasting;
                                 }
                                 return actor.getStatistic(pf2Check);
-                            })();
+                            })()?.extend({ domains: parsedSelectors });
                             if (!statistic) {
                                 console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check}`).message);
                                 continue;

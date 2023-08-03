@@ -305,6 +305,7 @@ class TextEditorPF2e extends TextEditor {
             type: rawParams.type,
             basic: rawParams.basic !== undefined && ["true", ""].includes(rawParams.basic),
             showDC: rawParams.showDC === "" ? "all" : rawParams.showDC,
+            selectors: rawParams.selectors?.split(",").map((selector) => selector.trim()) ?? [],
             traits: (() => {
                 const traits: string[] = [];
                 // Set item traits
@@ -407,6 +408,7 @@ class TextEditorPF2e extends TextEditor {
         anchor.append(icon);
 
         anchor.dataset.pf2Traits = params.traits.toString();
+        if (params.selectors) anchor.dataset.pf2Selectors = params.selectors.toString();
         const name = params.name ?? item?.name ?? params.type;
         anchor.dataset.pf2RepostFlavor = name;
         const role = params.showDC ?? "owner";
@@ -431,6 +433,10 @@ class TextEditorPF2e extends TextEditor {
 
         switch (params.type) {
             case "flat":
+                if (params.selectors.length > 0) {
+                    anchor.dataset.tooltip = localize("Invalid", { message: localize("Errors.FlatCheckSelectors") });
+                    anchor.dataset.invalid = "true";
+                }
                 anchor.append(createLabel(inlineLabel ?? game.i18n.localize("PF2E.FlatCheck")));
                 anchor.dataset.pf2Check = "flat";
                 break;
@@ -723,6 +729,7 @@ interface CheckLinkParams {
     basic: boolean;
     adjustment?: string;
     traits: string[];
+    selectors: string[];
     name?: string;
     showDC?: string;
     immutable?: string;
