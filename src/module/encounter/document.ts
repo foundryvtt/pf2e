@@ -269,7 +269,7 @@ class EncounterPF2e extends Combat {
      * https://github.com/foundryvtt/foundryvtt/issues/9718
      */
     protected override async _manageTurnEvents(adjustedTurn?: number): Promise<void> {
-        if (this.previous || game.release.build >= 307) {
+        if (this.previous || game.release.build >= 308) {
             return super._manageTurnEvents(adjustedTurn);
         }
     }
