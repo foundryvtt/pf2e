@@ -9,7 +9,9 @@ export class MacroPF2e extends Macro {
 
     /** Wrap script `command` in curly braces to place macro-execution parameters in outer scope  */
     override execute(scope?: { actor?: ActorPF2e; token?: TokenPF2e } | undefined): unknown {
-        if (this.type !== "script") return super.execute(scope);
+        if (this.type !== "script" || game.release.build >= 307) {
+            return super.execute(scope);
+        }
 
         const originalCommand = this.command;
         this.command = ["{", this.command, "}"].join("\n");
