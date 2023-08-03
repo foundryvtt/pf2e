@@ -1,3 +1,68 @@
+## 5.3.0
+
+### Highlights
+
+-   Rage of Elements content is in. As usual with data entry from larger volumes, this is the initial pass, to be followed up with QA and automation passes.
+-   A new syntax for inline rolls, `@Damage`, has been added. This has additional features & options compared to basic Foundry `/roll` expressions, such as support for pulling in modifiers and additional damage dice.
+
+### New Features
+
+-   (Supe) Add @Damage inline rolls
+
+### System Improvements
+
+-   (stwlam) Remove ability scores, rename "ability modifiers" to "attribute modifiers"
+-   (stwlam) Add "Clear Placed Templates" button to area-effect spell cards
+-   (stwlam) Add support for thrown weapons with reload values of 0
+
+### Bugfixes
+
+-   (stwlam) Fix issue causing repeating-weapon magazines to be consumed too quickly
+-   (stwlam) Fix check for Deny Advantage
+-   (stwlam) Fix issue causing some rule elements that check effect origins to not function at key points
+-   (stwlam) Initialize apply homebrew elements early enough for utilization by rule elements
+-   (stwlam) Fix numeric predication comparisons when no right-hand operands are found
+-   (Supe) Fix elite/weak adjustment for cantrips
+-   (Supe) Fix issue causing CPUs to be pegged while collecting information to present choice set dialogs
+
+### Data Updates
+
+-   (Abaddon) Fix Game Hunter Dedication prerequisite
+-   (Dire Weasel, Dogstarrb, Roxim, SpartanCPA, Tikael, TMun) Add content from _Rage of Elements_
+-   (Dire Weasel) Add rule elements to Aquatic Ambush creature ability
+-   (Dire Weasel) Add effect for Replenishment of War
+-   (Dire Weasel) Add spell effect for False Life
+-   (Dire Weasel) Add swim speed to Drowned Mummy
+-   (Dire Weasel) Brush up Effect: Dragon Turtle Scale and Effect: Bronze Bull Pendant
+-   (Dire Weasel) Fix action cost and traits of Focusing Hum
+-   (Dire Weasel) Fix copies of Ferocity missing death note
+-   (Dire Weasel) Set the ability on the NPCs casting statistic
+-   (Drental) Add effect for Root Magic feat
+-   (hotdog) Add images to several weapons missing them
+-   (n1xx1) Fix title case of at-will and constant spells
+-   (redeux) Add missing attribute boosts for 4 iconic PCs
+-   (SpartanCPA) Remove Spell School traits from Bestiary Glossary items
+-   (SpartanCPA) Update Glossary Abilities to @Damage
+-   (stwlam) Add critical specialization to Inventor Weapon Expertise (when attacking with a weapon innovation)
+-   (stwlam) Have Godless Helaing feat add 5 additional healing received when called for
+-   (stwlam) Add status penalty to healing received in Life curse effect
+-   (stwlam) Limit moderate life curse effects to PCs with Oracle class
+-   (stwlam) Migrate in-universe languages renamed in Rage of Elements
+-   (stwlam) Rename all uses/mentions of "flat-footed" to "off-guard"
+-   (Surge) Add missed vehicles from G&G and SoT
+-   (Surge) Fix display of saving throws on sheets of vehicles with broken condition
+-   (Tikael) Add new Player Core preview spells, alter existing spells
+-   (Tikael) Add journal entry explaining system handling of remaster changes
+-   (Tikael) Add Scions of Domora archetype journal entry
+-   (Tikael) Change many compendiums item descriptions to utilize new inline @Damage syntax
+-   (Tikael) Change cooldown wording on several abilities to recharge
+-   (Tikael) Change harrow court items to class or spell DC
+-   (Tikael) Improve automation of Flame Wisp
+-   (Tikael) Remove penalty for amphibious and aquatic unarmed strikes underwater
+-   (Tikael) Remove some duplicate PFS actors
+-   (TMun) Add PFS 4-99 errata
+-   (TMun) Correct the price of Starsong Nectar from _Treasure Vault_
+
 ## 5.2.3
 
 ### Bugfixes
