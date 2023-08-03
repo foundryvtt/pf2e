@@ -454,7 +454,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         if (aurasChanged || "width" in changes || "height" in changes) {
-            this.scene?.checkAuras();
+            this.scene?.checkAuras?.();
         }
     }
 
