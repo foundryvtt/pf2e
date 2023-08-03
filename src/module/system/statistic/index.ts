@@ -401,13 +401,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             const isValidAttacker = actor.isOfType("creature", "hazard");
             const isTargetedCheck =
                 (this.type === "spell-attack-roll" && item?.isOfType("spell")) ||
-                (["perception-check", "skill-check"].includes(this.type) &&
+                (["check", "perception-check", "skill-check"].includes(this.type) &&
                     !!(args.dc?.statistic || args.dc?.slug) &&
-                    (!item || item.isOfType("weapon")));
+                    (!item || item.isOfType("action", "weapon")));
 
             return isValidAttacker && isTargetedCheck
                 ? actor.getCheckContext({
-                      item,
+                      item: item?.isOfType("melee", "spell", "weapon") ? item : null,
                       domains,
                       statistic: this,
                       target: targetToken,
