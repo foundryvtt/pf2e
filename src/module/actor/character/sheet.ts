@@ -511,6 +511,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             htmlQuery(mainPanel, "button[data-action=edit-attribute-modifiers]")?.addEventListener("click", () => {
                 (this.#attributeBuilder ??= new AttributeBuilder(this.actor)).render(true);
+                this.actor.apps[this.#attributeBuilder.appId] = this.#attributeBuilder;
             });
         }
 
