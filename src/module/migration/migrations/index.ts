@@ -251,3 +251,4 @@ export { Migration850FlatFootedToOffGuard } from "./850-flat-footed-to-off-guard
 export { Migration851JustInnovationId } from "./851-just-innovation-id.ts";
 export { Migration852AbilityScoresToModifiers } from "./852-ability-scores-to-modifiers.ts";
 export { Migration853RemasterLanguages } from "./853-remaster-languages.ts";
+export { Migration854BracketedAbilityScoresToModifiers } from "./854-bracketed-ability-scores-to-modifiers.ts";

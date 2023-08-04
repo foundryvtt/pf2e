@@ -4,7 +4,7 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.js";
 import { AELikeChangeMode } from "@module/rules/rule-element/ae-like.ts";
 
-/** Convert ability scores to attribute modifiers  */
+/** Convert ability scores to attribute modifiers */
 export class Migration852AbilityScoresToModifiers extends MigrationBase {
     static override version = 0.852;
 
@@ -34,7 +34,7 @@ export class Migration852AbilityScoresToModifiers extends MigrationBase {
         }
     }
 
-    /** Convert AE-like rule elements (typically on apex items) to increase ability modifiers instead of scores  */
+    /** Convert AE-like rule elements (typically on apex items) to increase ability modifiers instead of scores */
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const apexRules = source.system.rules.filter(
             (r: MaybeAELikeSource): r is ApexRuleSource =>
