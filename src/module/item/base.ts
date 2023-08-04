@@ -31,6 +31,10 @@ import { ItemInstances } from "./types.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
+        return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
+    }
+
     /** Prepared rule elements from this item */
     declare rules: RuleElementPF2e[];
 
@@ -610,11 +614,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
-        // Set default icon
-        if (this._source.img === ItemPF2e.DEFAULT_ICON) {
-            this._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
-        }
-
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const clone = this.actor.clone({
