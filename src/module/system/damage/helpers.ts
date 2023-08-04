@@ -103,6 +103,12 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
             return [{ dice: { faces, number }, modifier: 0, category }];
         } else if (expression instanceof NumericTerm) {
             return [{ dice: null, modifier: expression.number, category }];
+        } else if (expression instanceof MathTerm) {
+            if (!expression.isDeterministic) {
+                throw ErrorPF2e("Unable to parse DamageRoll with non-deterministic math terms.");
+            }
+            const modifier = DamageInstance.getValue(expression, "expected");
+            return [{ dice: null, modifier, category }];
         } else if (expression instanceof Grouping) {
             return extractTermsFromExpression(expression.term, { category });
         } else if (!(expression instanceof ArithmeticExpression)) {
@@ -127,6 +133,14 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
             const firstMod = firstLeft.modifier ?? 0;
             const secondMod = firstRight.modifier ?? 0;
             return [{ dice: null, modifier: operator === "*" ? firstMod * secondMod : firstMod / secondMod, category }];
+        }
+
+        // Flip right side terms if subtraction
+        if (operator === "-") {
+            for (const term of rightTerms) {
+                if (term.dice) term.dice.number *= -1;
+                term.modifier *= -1;
+            }
         }
 
         const groups = R.groupBy([...leftTerms, ...rightTerms], (t) => t.category ?? "");
