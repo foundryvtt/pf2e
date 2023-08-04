@@ -98,8 +98,8 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
             if (!expression.number.isDeterministic || !expression.faces.isDeterministic) {
                 throw ErrorPF2e("Unable to parse DamageRoll with non-deterministic intermediate expressions.");
             }
-            const number = expression.number.evaluate({ async: false }).total;
-            const faces = expression.faces.evaluate({ async: false }).total;
+            const number = DamageInstance.getValue(expression.number, "expected");
+            const faces = DamageInstance.getValue(expression.faces, "expected");
             return [{ dice: { faces, number }, modifier: 0, category }];
         } else if (expression instanceof NumericTerm) {
             return [{ dice: null, modifier: expression.number, category }];
