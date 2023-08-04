@@ -122,7 +122,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     }
 
     override get isDeterministic(): boolean {
-        return this.operands.every((o) => o.isDeterministic && !(o instanceof MathTerm));
+        return this.operands.every((o) => o.isDeterministic);
     }
 
     get minimumValue(): number {
@@ -268,7 +268,7 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     override get isDeterministic(): boolean {
-        return this.term.isDeterministic && !(this.term instanceof MathTerm);
+        return this.term.isDeterministic;
     }
 
     get minimumValue(): number {
@@ -363,14 +363,8 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
         return this.die ? [this.die] : [];
     }
 
-    /** `MathTerm` incorrectly reports as being deterministic, so consider them to always not be so */
     override get isDeterministic(): boolean {
-        return (
-            this.number.isDeterministic &&
-            this.faces.isDeterministic &&
-            !(this.number instanceof MathTerm) &&
-            !(this.faces instanceof MathTerm)
-        );
+        return this.number.isDeterministic && this.faces.isDeterministic;
     }
 
     get minimumValue(): number {
