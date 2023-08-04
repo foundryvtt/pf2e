@@ -623,6 +623,7 @@ async function augmentInlineDamageRoll(
         const base = extractBaseDamage(new DamageRoll(baseFormula, rollData));
 
         const domains = R.compact([
+            "damage",
             "inline-damage",
             item ? `${item.id}-inline-damage` : null,
             item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
