@@ -53,8 +53,7 @@ export const InlineRollLinks = {
         }
     },
 
-    listen: ($html: HTMLElement | JQuery, foundryDoc: ClientDocument | null = null): void => {
-        const html = $html instanceof HTMLElement ? $html : $html[0]!;
+    listen: (html: HTMLElement, foundryDoc: ClientDocument | null = null): void => {
         foundryDoc ??= resolveDocument(html, foundryDoc);
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => ["A", "SPAN"].includes(l.nodeName));
@@ -109,10 +108,11 @@ export const InlineRollLinks = {
 
                 if (actors.length === 0) return;
 
-                const parsedTraits = pf2Traits
-                    ?.split(",")
-                    .map((trait) => trait.trim())
-                    .filter((trait) => !!trait);
+                const extraRollOptions =
+                    pf2Traits
+                        ?.split(",")
+                        .map((o) => o.trim())
+                        .filter((o) => !!o) ?? [];
                 const eventRollParams = eventToRollParams(event);
 
                 switch (pf2Check) {
@@ -127,11 +127,18 @@ export const InlineRollLinks = {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
                                 : null;
-                            flatCheck.roll({ ...eventRollParams, extraRollOptions: parsedTraits, dc });
+                            flatCheck.roll({ ...eventRollParams, extraRollOptions, dc });
                         }
                         break;
                     }
                     default: {
+                        const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
+
+                        // Get actual traits for display in chat cards
+                        const traits = isSavingThrow
+                            ? []
+                            : extraRollOptions.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
+
                         for (const actor of actors) {
                             const statistic = ((): Statistic | null => {
                                 if (pf2Check in CONFIG.PF2E.magicTraditions) {
@@ -143,7 +150,17 @@ export const InlineRollLinks = {
                                             .shift() ?? null;
                                     if (bestSpellcasting) return bestSpellcasting;
                                 }
-                                return actor.getStatistic(pf2Check);
+                                const bySlug = actor.getStatistic(pf2Check);
+                                // Frame the statistic as an attack-roll stat if the action includes the "attack" trait
+                                // and the check is otherwise unclassified.
+                                return bySlug?.check.type === "check" && traits.includes("attack")
+                                    ? bySlug.extend({
+                                          check: {
+                                              type: "attack-roll",
+                                              domains: ["attack", "attack-roll", `${pf2Check}-attack-roll`],
+                                          },
+                                      })
+                                    : bySlug;
                             })();
                             if (!statistic) {
                                 console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check}`).message);
@@ -176,8 +193,6 @@ export const InlineRollLinks = {
                                 return null;
                             })();
 
-                            const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
-
                             // Retrieve the item if:
                             // (2) The item is an action or,
                             // (1) The check is a saving throw and the item is not a weapon.
@@ -195,14 +210,10 @@ export const InlineRollLinks = {
                                     ? itemFromDoc
                                     : null;
                             })();
-                            // Get actual traits and include as such
-                            const traits = isSavingThrow
-                                ? []
-                                : parsedTraits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
 
                             const args: StatisticRollParameters = {
                                 ...eventRollParams,
-                                extraRollOptions: parsedTraits,
+                                extraRollOptions,
                                 origin: isSavingThrow && parent instanceof ActorPF2e ? parent : null,
                                 dc,
                                 target: !isSavingThrow && dc?.statistic ? targetActor : null,
