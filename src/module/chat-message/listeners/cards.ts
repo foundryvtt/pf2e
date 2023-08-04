@@ -28,7 +28,7 @@ class ChatCards {
         if (!actor) return;
 
         // Confirm roll permission
-        if (!game.user.isGM && !actor.isOwner && action !== "save") return;
+        if (!game.user.isGM && !actor.isOwner && action !== "spell-save") return;
 
         // Handle strikes
         const strikeAction = message._strike;
