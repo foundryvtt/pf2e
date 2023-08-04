@@ -613,13 +613,9 @@ async function augmentInlineDamageRoll(
 ): Promise<{ template: InlineDamageTemplate; context: DamageRollContext } | null> {
     const { name, actor, item, traits } = args;
 
-    // Special case: this is probably an unowned item. Show the normal formula in such cases.
-    if (!actor && baseFormula.includes("@actor")) {
-        return null;
-    }
-
     try {
-        const rollData = item?.getRollData() ?? actor?.getRollData();
+        const rollData: Record<string, unknown> = item?.getRollData() ?? actor?.getRollData() ?? {};
+        rollData.actor ??= { level: 1 };
         const base = extractBaseDamage(new DamageRoll(baseFormula, rollData));
 
         const domains = R.compact([
