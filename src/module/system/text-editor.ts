@@ -512,8 +512,17 @@ class TextEditorPF2e extends TextEditor {
         const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
         const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
 
-        const traits = params.traits?.split(",") ?? item?.system.traits?.value;
-        const result = await augmentInlineDamageRoll(params.formula, { skipDialog: true, actor, item, traits });
+        const rollOptions = ((): string[] => {
+            const fromParams = params.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
+            const fromItem = item?.system.traits?.value ?? [];
+            return params.overrideTraits === "true" ? fromParams : R.uniq([...fromParams, ...fromItem]);
+        })().sort();
+        const result = await augmentInlineDamageRoll(params.formula, {
+            skipDialog: true,
+            actor,
+            item,
+            traits: rollOptions,
+        });
 
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
         const element = createHTMLElement("a", {
@@ -524,7 +533,7 @@ class TextEditorPF2e extends TextEditor {
                 tooltip: roll.formula,
                 damageRoll: params.formula,
                 pf2BaseFormula: result ? params.formula : null,
-                pf2Traits: traits?.toString() || null,
+                pf2Traits: rollOptions.toString() || null,
                 pf2ItemId: item?.id,
             },
         });
