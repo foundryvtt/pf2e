@@ -81,15 +81,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.parent;
     }
 
-    /** Workaround for https://github.com/foundryvtt/foundryvtt/issues/9467 */
-    protected override _initializeSource(
-        data: Record<string, unknown>,
-        options?: DocumentConstructionContext<TParent>
-    ): this["_source"] {
-        data.delta ??= {};
-        return super._initializeSource(data, options);
-    }
-
     protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this.auras = new Map();
