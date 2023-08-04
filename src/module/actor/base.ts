@@ -127,6 +127,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
     }
 
+    static override getDefaultArtwork(actorData: foundry.documents.ActorSource): {
+        img: ImageFilePath;
+        texture: { src: ImageFilePath | VideoFilePath };
+    } {
+        const img: ImageFilePath = `systems/pf2e/icons/default-icons/${actorData.type}.svg`;
+        return { img, texture: { src: img } };
+    }
+
     /** Cache the return data before passing it to the caller */
     override get itemTypes(): EmbeddedItemInstances<this> {
         return (this._itemTypes ??= super.itemTypes as EmbeddedItemInstances<this>);
@@ -1737,21 +1745,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override async _preCreate(
-        data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
-        user: UserPF2e
-    ): Promise<boolean | void> {
-        // Set default portrait and token images
-        this._source.prototypeToken = mergeObject(this._source.prototypeToken ?? {}, { texture: {} });
-        if (this._source.img === ActorPF2e.DEFAULT_ICON) {
-            this._source.img =
-                this._source.prototypeToken.texture.src = `systems/pf2e/icons/default-icons/${data.type}.svg`;
-        }
-
-        return super._preCreate(data, options, user);
-    }
-
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ActorUpdateContext<TParent>,
@@ -1856,6 +1849,12 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         linked?: boolean,
         document?: boolean
     ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+
+    _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void>;
 
     /** See implementation in class */
     createEmbeddedDocuments(
