@@ -7,4 +7,9 @@
     <div class="card-content">
         {{{item.description}}}
     </div>
+    {{#if data.isSave}}
+        <section class="card-buttons">
+            <button type="button" data-action="affliction-save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
+        </section>
+    {{/if}}
 </div>
