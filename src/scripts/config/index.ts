@@ -2,6 +2,7 @@ import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, 
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import { Alignment } from "@actor/creature/types.ts";
 import { ActorType } from "@actor/data/index.ts";
+import { AttributeString } from "@actor/types.ts";
 import {
     ActionItemPF2e,
     AfflictionPF2e,
@@ -22,8 +23,8 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
-    SpellcastingEntryPF2e,
     SpellPF2e,
+    SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
@@ -67,7 +68,6 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
-import { AbilityString } from "@actor/types.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -81,7 +81,7 @@ const actorTypes: Record<ActorType, string> = {
     vehicle: "TYPES.Actor.vehicle",
 };
 
-const abilities: Record<AbilityString, string> = {
+const abilities: Record<AttributeString, string> = {
     str: "PF2E.AbilityStr",
     dex: "PF2E.AbilityDex",
     con: "PF2E.AbilityCon",

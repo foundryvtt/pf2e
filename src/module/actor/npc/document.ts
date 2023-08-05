@@ -4,7 +4,7 @@ import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { AbilityString, SaveType } from "@actor/types.ts";
+import { AttributeString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
@@ -397,7 +397,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         function createTrace(stat: Statistic, item?: LorePF2e<NPCPF2e>) {
             const { ability, shortForm } = objectHasKey(SKILL_EXPANDED, stat.slug)
                 ? SKILL_EXPANDED[stat.slug]
-                : { ability: "int" as AbilityString, shortForm: stat.slug };
+                : { ability: "int" as AttributeString, shortForm: stat.slug };
             system.skills[shortForm] = {
                 ...stat.getTraceData(),
                 base: item?.system.mod.value,

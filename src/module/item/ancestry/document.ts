@@ -2,7 +2,7 @@ import { ActorPF2e, CharacterPF2e } from "@actor";
 import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { Size } from "@module/data.ts";
 import { sluggify } from "@util";
@@ -30,18 +30,18 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     }
 
     /** Returns all boosts enforced by this ancestry normally */
-    get lockedBoosts(): AbilityString[] {
+    get lockedBoosts(): AttributeString[] {
         return Object.values(this.system.boosts)
             .filter((boost) => boost.value.length === 1)
             .map((boost) => boost.selected)
-            .filter((boost): boost is AbilityString => !!boost);
+            .filter((boost): boost is AttributeString => !!boost);
     }
 
     /** Returns all flaws enforced by this ancestry normally */
-    get lockedFlaws(): AbilityString[] {
+    get lockedFlaws(): AttributeString[] {
         return Object.values(this.system.flaws)
             .map((flaw) => flaw.selected)
-            .filter((flaw): flaw is AbilityString => !!flaw);
+            .filter((flaw): flaw is AttributeString => !!flaw);
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
