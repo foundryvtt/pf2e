@@ -124,6 +124,14 @@ export const Ready = {
             ]);
             resetActors(new Set(actorsToReprepare));
 
+            // Show the GM the Remaster changes journal entry if they haven't seen it already.
+            if (game.user.isGM && !game.settings.get("pf2e", "seenRemasterJournalEntry")) {
+                fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2").then((entry) => {
+                    entry?.sheet.render(true);
+                });
+                game.settings.set("pf2e", "seenRemasterJournalEntry", true);
+            }
+
             // Announce the system is ready in case any module needs access to an application not available until now
             Hooks.callAll("pf2e.systemReady");
         });
