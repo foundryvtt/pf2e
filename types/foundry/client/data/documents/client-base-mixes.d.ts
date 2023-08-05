@@ -9709,7 +9709,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
     protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 }
 
-export class ClientBaseUser extends foundry.documents.BaseUser {
+export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends foundry.documents.BaseUser<TCharacter> {
     protected _sheet: FormApplication<this> | null;
 
     /**

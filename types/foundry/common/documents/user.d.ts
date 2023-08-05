@@ -11,10 +11,13 @@ import type * as fields from "../data/fields.d.ts";
  * @param data Initial data from which to construct the document.
  * @property   data The constructed data object for the document.
  */
-export default class BaseUser extends Document<null, UserSchema> {
+export default class BaseUser<TCharacter extends BaseActor<null> = BaseActor<null>> extends Document<
+    null,
+    UserSchema<TCharacter>
+> {
     static override get metadata(): UserMetadata;
 
-    static override defineSchema(): UserSchema;
+    static override defineSchema(): UserSchema<BaseActor<null>>;
 
     /* ---------------------------------------- */
     /*  Permissions                             */
@@ -51,7 +54,9 @@ export default class BaseUser extends Document<null, UserSchema> {
     hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
 }
 
-export default interface BaseUser extends Document<null, UserSchema>, ModelPropsFromSchema<UserSchema> {
+export default interface BaseUser<TCharacter extends BaseActor<null> = BaseActor<null>>
+    extends Document<null, UserSchema<TCharacter>>,
+        ModelPropsFromSchema<UserSchema<TCharacter>> {
     readonly _source: UserSource;
 
     get documentName(): "User";
@@ -64,14 +69,14 @@ interface UserMetadata extends DocumentMetadata {
     labelPlural: "DOCUMENT.Users";
 }
 
-type UserSchema = {
+type UserSchema<TActor extends BaseActor<null>> = {
     _id: fields.DocumentIdField;
     name: fields.StringField<string, string, true, false, false>;
     role: fields.NumberField<UserRole, UserRole, true, false, true>;
     password: fields.StringField<string, string, true, false, true>;
     passwordSalt: fields.StringField<string>;
     avatar: fields.FilePathField<ImageFilePath>;
-    character: fields.ForeignDocumentField<BaseActor<null>>;
+    character: fields.ForeignDocumentField<TActor>;
     color: fields.ColorField<true, false, true>;
     pronouns: fields.StringField<string, string, true, false, true>;
     hotbar: fields.ObjectField<Record<number, string>>;
@@ -80,4 +85,4 @@ type UserSchema = {
     _stats: fields.DocumentStatsField;
 };
 
-type UserSource = SourceFromSchema<UserSchema>;
+type UserSource = SourceFromSchema<UserSchema<BaseActor<null>>>;
