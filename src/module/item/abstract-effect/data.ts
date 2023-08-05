@@ -1,4 +1,4 @@
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/action/types.ts";
 import { ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
 import { MagicTradition, SpellTrait } from "@item/spell/index.ts";
@@ -75,7 +75,7 @@ interface EffectContextData {
 }
 
 interface EffectContextSpellcastingData {
-    attribute: { type: AbilityString; mod: number };
+    attribute: { type: AttributeString; mod: number };
     tradition: MagicTradition | null;
 }
 

@@ -1,7 +1,7 @@
 import { CharacterPF2e } from "@actor";
 import { Abilities } from "@actor/creature/data.ts";
-import { AbilityString } from "@actor/types.ts";
-import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
+import { AttributeString } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, signedInteger, tupleHasValue } from "@util";
@@ -53,11 +53,11 @@ class AttributeBuilder extends Application {
         };
     }
 
-    #createButtons(): Record<AbilityString, BoostFlawState> {
-        return Array.from(ABILITY_ABBREVIATIONS).reduce((accumulated, ability) => {
-            accumulated[ability] = { ability };
+    #createButtons(): Record<AttributeString, BoostFlawState> {
+        return Array.from(ATTRIBUTE_ABBREVIATIONS).reduce((accumulated, attribute) => {
+            accumulated[attribute] = { ability: attribute };
             return accumulated;
-        }, {} as Record<AbilityString, BoostFlawState>);
+        }, {} as Record<AttributeString, BoostFlawState>);
     }
 
     #calculateAncestryBoosts(): { ancestryBoosts: AncestryBoosts | null; voluntaryFlaws: VoluntaryFlaws | null } {
@@ -74,7 +74,7 @@ class AttributeBuilder extends Application {
             if (alternateAncestryBoosts) return [2, alternateAncestryBoosts];
 
             const baseBoosts = Object.values(ancestry.system.boosts);
-            const selectedBoosts = baseBoosts.map((b) => b.selected).filter((b): b is AbilityString => !!b);
+            const selectedBoosts = baseBoosts.map((b) => b.selected).filter((b): b is AttributeString => !!b);
             const maxBoosts = baseBoosts.filter((b) => b.value.length > 0 || b.selected).length;
             return [maxBoosts, selectedBoosts];
         })();
@@ -88,16 +88,16 @@ class AttributeBuilder extends Application {
         const remaining = maxBoosts - selectedBoosts.length;
         const lockedBoosts = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedBoosts;
         const lockedFlaws = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedFlaws;
-        for (const ability of ABILITY_ABBREVIATIONS) {
-            const state = buttons[ability];
-            const selected = selectedBoosts.includes(ability);
+        for (const attribute of ATTRIBUTE_ABBREVIATIONS) {
+            const state = buttons[attribute];
+            const selected = selectedBoosts.includes(attribute);
             state.boost = {
                 selected,
-                locked: lockedBoosts?.includes(ability),
-                disabled: selected ? false : !remaining || netBoosted.includes(ability),
+                locked: lockedBoosts?.includes(attribute),
+                disabled: selected ? false : !remaining || netBoosted.includes(attribute),
             };
 
-            if (lockedFlaws?.includes(ability)) {
+            if (lockedFlaws?.includes(attribute)) {
                 state.flaw = { selected: true, locked: true };
             }
         }
@@ -109,9 +109,9 @@ class AttributeBuilder extends Application {
             const flawsComplete = legacyFlaws && voluntary.flaws.length >= 2;
 
             const buttons = this.#createButtons();
-            for (const ability of ABILITY_ABBREVIATIONS) {
-                const state = buttons[ability];
-                const numFlaws = voluntary.flaws.filter((f) => f === ability).length;
+            for (const attribute of ATTRIBUTE_ABBREVIATIONS) {
+                const state = buttons[attribute];
+                const numFlaws = voluntary.flaws.filter((f) => f === attribute).length;
                 state.flaw = {
                     selected: numFlaws > 0,
                     disabled: !numFlaws && flawsComplete,
@@ -119,17 +119,19 @@ class AttributeBuilder extends Application {
 
                 if (legacyFlaws) {
                     // Locked ancestry boosts can accept a second flaw
-                    if (lockedBoosts?.includes(ability)) {
+                    if (lockedBoosts?.includes(attribute)) {
                         state.flaw.second = {
                             selected: numFlaws > 1,
                             disabled: !numFlaws || (numFlaws < 2 && flawsComplete),
                         };
                     }
 
-                    const boosted = voluntary.boost === ability;
+                    const boosted = voluntary.boost === attribute;
                     state.boost = {
                         selected: boosted,
-                        disabled: boosted ? false : !flawsComplete || !!voluntary.boost || netBoosted.includes(ability),
+                        disabled: boosted
+                            ? false
+                            : !flawsComplete || !!voluntary.boost || netBoosted.includes(attribute),
                     };
                 }
             }
@@ -159,11 +161,11 @@ class AttributeBuilder extends Application {
         const buttons = this.#createButtons();
 
         const boosts = Object.values(actor.background.system.boosts).filter((b) => b.value.length > 0);
-        const selectedBoosts = boosts.map((b) => b.selected).filter((b): b is AbilityString => !!b);
+        const selectedBoosts = boosts.map((b) => b.selected).filter((b): b is AttributeString => !!b);
         const unselectedRestricted = boosts.filter((b) => b.value.length < 6 && !b.selected).flatMap((b) => b.value);
         const remaining = boosts.length - selectedBoosts.length;
 
-        for (const attribute of ABILITY_ABBREVIATIONS) {
+        for (const attribute of ATTRIBUTE_ABBREVIATIONS) {
             const selected = selectedBoosts.includes(attribute);
             const mightBeForced = unselectedRestricted.includes(attribute);
             buttons[attribute].boost = {
@@ -182,9 +184,7 @@ class AttributeBuilder extends Application {
             ) {
                 // in the very common case where background boosts are a choice of 2, and a free
                 // give it a helpful tooltip
-                const choices = Object.values(boosts)[0].value.map((ability) =>
-                    game.i18n.localize(CONFIG.PF2E.abilities[ability])
-                );
+                const choices = Object.values(boosts)[0].value.map((b) => game.i18n.localize(CONFIG.PF2E.abilities[b]));
                 return game.i18n.format("PF2E.Actor.Character.AttributeBuilder.BackgroundBoostDescription", {
                     a: choices[0],
                     b: choices[1],
@@ -200,7 +200,7 @@ class AttributeBuilder extends Application {
     #calculateLeveledBoosts(): LevelBoostData[] {
         const build = this.actor.system.build.attributes;
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
-        const boostIsPartial = (attribute: AbilityString, level = 0): boolean => {
+        const boostIsPartial = (attribute: AttributeString, level = 0): boolean => {
             if (level < 5 || build.manual) return false;
             const boosts = R.compact([
                 build.boosts.ancestry.find((a) => a === attribute),
@@ -222,10 +222,10 @@ class AttributeBuilder extends Application {
         return ([1, 5, 10, 15, 20] as const).map((level): LevelBoostData => {
             const remaining = build.allowedBoosts[level] - build.boosts[level].length;
             const buttons = this.#createButtons();
-            for (const ability of ABILITY_ABBREVIATIONS) {
-                const selected = build.boosts[level].includes(ability);
-                const partial = selected && boostIsPartial(ability, level);
-                buttons[ability].boost = {
+            for (const attribute of ATTRIBUTE_ABBREVIATIONS) {
+                const selected = build.boosts[level].includes(attribute);
+                const partial = selected && boostIsPartial(attribute, level);
+                buttons[attribute].boost = {
                     selected,
                     partial,
                     disabled: !remaining,
@@ -239,13 +239,13 @@ class AttributeBuilder extends Application {
     }
 
     #getBoostFlawLabels(
-        boostData: Record<string, { value: AbilityString[]; selected: AbilityString | null }>
+        boostData: Record<string, { value: AttributeString[]; selected: AttributeString | null }>
     ): string[] {
         return Object.values(boostData).flatMap((boosts) => {
             if (boosts.value.length === 6) {
                 return game.i18n.localize("PF2E.AbilityFree");
             } else if (boosts.value.length > 0) {
-                return boosts.value.map((ability) => game.i18n.localize(CONFIG.PF2E.abilities[ability])).join(" or ");
+                return boosts.value.map((b) => game.i18n.localize(CONFIG.PF2E.abilities[b])).join(" or ");
             } else {
                 return [];
             }
@@ -335,7 +335,7 @@ class AttributeBuilder extends Application {
             button.addEventListener("click", async () => {
                 const ancestry = actor.ancestry;
                 const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
-                if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                if (!ancestry || !setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                     return;
                 }
 
@@ -370,7 +370,7 @@ class AttributeBuilder extends Application {
             button.addEventListener("click", () => {
                 const ancestry = actor.ancestry;
                 const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
-                if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                if (!ancestry || !setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                     return;
                 }
 
@@ -406,7 +406,7 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "[data-section=background] .boost")) {
             button.addEventListener("click", () => {
                 const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
-                if (!setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                     return;
                 }
 
@@ -434,8 +434,8 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "button[data-action=class-key-attribute]")) {
             button.addEventListener("click", () => {
                 const attribute = button.dataset.attribute;
-                if (!setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
-                    throw ErrorPF2e(`Unrecognized ability abbreviation: ${attribute}`);
+                if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
+                    throw ErrorPF2e(`Unrecognized attribute abbreviation: ${attribute}`);
                 }
 
                 if (actor.system.build.attributes.manual) {
@@ -450,7 +450,7 @@ class AttributeBuilder extends Application {
             button.addEventListener("click", () => {
                 const level = Number(htmlClosest(button, "[data-level]")?.dataset.level);
                 const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
-                if (!setHasElement(ABILITY_ABBREVIATIONS, attribute) || !tupleHasValue([1, 5, 10, 15, 20], level)) {
+                if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute) || !tupleHasValue([1, 5, 10, 15, 20], level)) {
                     return;
                 }
 
@@ -467,7 +467,7 @@ class AttributeBuilder extends Application {
         }
 
         htmlQuery(html, "input[name=toggle-manual-mode]")?.addEventListener("click", () => {
-            actor.toggleAbilityManagement();
+            actor.toggleAttributeManagement();
         });
         htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => this.close());
     }
@@ -476,8 +476,8 @@ class AttributeBuilder extends Application {
 interface AttributeBuilderSheetData {
     actor: CharacterPF2e;
     attributeModifiers: Abilities;
-    manualKeyAbility: AbilityString;
-    attributes: Record<AbilityString, string>;
+    manualKeyAbility: AttributeString;
+    attributes: Record<AttributeString, string>;
     ancestry: AncestryPF2e<CharacterPF2e> | null;
     background: BackgroundPF2e<CharacterPF2e> | null;
     class: ClassPF2e<CharacterPF2e> | null;
@@ -485,7 +485,7 @@ interface AttributeBuilderSheetData {
     ancestryBoosts: AncestryBoosts | null;
     voluntaryFlaws: VoluntaryFlaws | null;
     backgroundBoosts: BackgroundBoosts | null;
-    keyOptions: AbilityString[] | null;
+    keyOptions: AttributeString[] | null;
     levelBoosts: LevelBoostData[];
     legacyFlaws: boolean;
 }
@@ -505,7 +505,7 @@ interface BuilderButton {
 }
 
 interface BoostFlawRow {
-    buttons: Record<AbilityString, BoostFlawState>;
+    buttons: Record<AttributeString, BoostFlawState>;
     remaining: number;
 }
 

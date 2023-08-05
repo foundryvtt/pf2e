@@ -29,7 +29,6 @@
 -   (Tikael) Fix broken links in remaster journal, add language changes
 -   (Tikael) Move more inline rolls to the new damage format
 -   (Tikael) Backfill frequencies for most NPC actions
-
 -   (TMun) Add knockdown to cinder wolf strikes from PFS 1-14
 
 ## 5.3.0

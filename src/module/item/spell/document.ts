@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/types.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data/index.ts";
@@ -138,12 +138,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.system.category.value === "ritual";
     }
 
-    get attribute(): AbilityString {
+    get attribute(): AttributeString {
         return this.spellcasting?.attribute ?? this.trickMagicEntry?.attribute ?? "cha";
     }
 
     /** @deprecated */
-    get ability(): AbilityString {
+    get ability(): AttributeString {
         foundry.utils.logCompatibilityWarning("`SpellPF2e#ability` is deprecated. Use `SpellPF2e#attribute` instead.", {
             since: "5.3.0",
             until: "6.0.0",

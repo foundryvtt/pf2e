@@ -11,8 +11,8 @@ import {
 } from "@actor/data/base.ts";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type {
-    AbilityString,
     ActorAlliance,
+    AttributeString,
     MovementType,
     SaveType,
     SkillAbbreviation,
@@ -114,7 +114,7 @@ interface AbilityData {
     mod: number;
 }
 
-type Abilities = Record<AbilityString, AbilityData>;
+type Abilities = Record<AttributeString, AbilityData>;
 
 /** A type representing the possible ability strings. */
 type Language = keyof ConfigPF2e["PF2E"]["languages"];

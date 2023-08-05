@@ -1,5 +1,5 @@
 import { CreatureTrait, Language } from "@actor/creature/index.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ABCSystemData, ABCSystemSource } from "@item/abc/index.ts";
 import { BaseItemSourcePF2e } from "@item/data/base.ts";
 import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
@@ -16,12 +16,12 @@ interface AncestrySystemSource extends ABCSystemSource {
         custom: string;
     };
     /** If present, use the alternate ancestry boosts, which are two free */
-    alternateAncestryBoosts?: AbilityString[];
-    boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
-    flaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
+    alternateAncestryBoosts?: AttributeString[];
+    boosts: Record<string, { value: AttributeString[]; selected: AttributeString | null }>;
+    flaws: Record<string, { value: AttributeString[]; selected: AttributeString | null }>;
     voluntary?: {
-        boost?: AbilityString | null;
-        flaws: AbilityString[];
+        boost?: AttributeString | null;
+        flaws: AttributeString[];
     };
     hp: number;
     languages: ValuesList<Language>;

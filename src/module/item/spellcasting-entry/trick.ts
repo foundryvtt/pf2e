@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AbilityString, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, SkillLongForm } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -34,10 +34,10 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     statistic: Statistic;
 
-    attribute: AbilityString;
+    attribute: AttributeString;
 
     /** @deprecated */
-    get ability(): AbilityString {
+    get ability(): AttributeString {
         foundry.utils.logCompatibilityWarning(
             "`TrickMagicItemEntry#ability` is deprecated. Use `TrickMagicItemEntry#attribute` instead.",
             { since: "5.3.0", until: "6.0.0" }
