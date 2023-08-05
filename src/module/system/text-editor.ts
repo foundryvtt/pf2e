@@ -17,6 +17,7 @@ import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { CreateDamageFormulaParams, DamageRollContext, InlineDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
+import { StrikeSelf } from "@actor/types.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
@@ -669,6 +670,16 @@ async function augmentInlineDamageRoll(
             outcome: isAttack ? "success" : null, // we'll need to support other outcomes later
             domains,
             options,
+            self: ((): StrikeSelf | null => {
+                if (!actor) return null;
+                return {
+                    actor,
+                    token: actor.token,
+                    item: null,
+                    statistic: null,
+                    modifiers,
+                };
+            })(),
         };
 
         if (BUILD_MODE === "development" && !args.skipDialog) {
