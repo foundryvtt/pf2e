@@ -24,7 +24,7 @@ export default class BaseActor<TParent extends BaseToken | null = BaseToken | nu
      * @param actorData The source actor data.
      * @returns Candidate actor image and prototype token artwork.
      */
-    static getDefaultArtwork(actorData: ActorSource): {
+    static getDefaultArtwork(actorData: PreDocumentId<ActorSource>): {
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     };

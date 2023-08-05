@@ -127,7 +127,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
     }
 
-    static override getDefaultArtwork(actorData: foundry.documents.ActorSource): {
+    static override getDefaultArtwork(actorData: PreDocumentId<foundry.documents.ActorSource>): {
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
@@ -1742,8 +1742,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
+
+    protected override _applyDefaultTokenSettings(
+        data: PreDocumentId<this["_source"]>,
+        options?: { fromCompendium?: boolean }
+    ): DeepPartial<this["_source"]> {
+        const diff = super._applyDefaultTokenSettings(data, options);
+        if (this._source.prototypeToken.texture.src === CONST.DEFAULT_TOKEN) {
+            this._source.prototypeToken.texture.src = ActorPF2e.getDefaultArtwork(data).texture.src;
+        }
+
+        return diff;
+    }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
