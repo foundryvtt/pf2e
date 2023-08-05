@@ -64,7 +64,7 @@ declare global {
         TItem extends Item<null>,
         TMacro extends Macro,
         TScene extends Scene,
-        TUser extends User
+        TUser extends UserPF2e
     > {
         pf2e: {
             actions: Record<string, Function>;
