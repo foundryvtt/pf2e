@@ -14,6 +14,7 @@ import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortB
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
+import { SKILL_LONG_FORMS } from "@actor/values.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -71,8 +72,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...base,
             restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
             members: this.#prepareMembers(),
-            languages: this.#prepareLanguages(),
-            knowledge: this.#prepareKnowledge(),
+            overviewSummary: this.#prepareOverviewSummary(),
             inventorySummary: {
                 totalCoins:
                     sum(members.map((actor) => actor.inventory.coins.goldValue ?? 0)) +
@@ -86,10 +86,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             },
             canDistributeCoins,
             explorationSummary: {
-                speed: this.actor.system.attributes.speed.value,
+                speed: this.actor.system.attributes.speed.total,
                 activities:
                     Object.entries(CONFIG.PF2E.hexplorationActivities).find(
-                        ([max]) => Number(max) >= this.actor.system.attributes.speed.value
+                        ([max]) => Number(max) >= this.actor.system.attributes.speed.total
                     )?.[1] ?? 0,
             },
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
@@ -120,7 +120,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     .filter((s): s is Statistic => !!s?.proficient && !s.lore)
                     .sort(sortBy((s) => s.mod ?? 0))
                     .reverse()
-                    .slice(0, 5)
+                    .slice(0, 4)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 heroPoints: actor.isOfType("character") ? actor.system.resources.heroPoints : null,
                 owner: actor.isOwner,
@@ -170,23 +170,21 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         });
     }
 
-    #prepareLanguages(): LanguageSheetData[] {
-        const allLanguages = new Set(this.actor.members.flatMap((m) => m.system.traits.languages?.value ?? []));
-
-        return [...allLanguages]
-            .map(
-                (slug): LanguageSheetData => ({
-                    slug,
-                    label: game.i18n.localize(CONFIG.PF2E.languages[slug]),
-                    actors: this.#getActorsThatUnderstand(slug),
-                })
-            )
-            .sort(sortBy((l) => l.label));
-    }
-
-    #prepareKnowledge(): SkillData[] {
+    #prepareOverviewSummary(): PartySheetData["overviewSummary"] | null {
         const members = this.actor.members;
-        const baseKnowledgeSkills = ["arcana", "nature", "occultism", "religion", "crafting"] as const;
+        if (!members.length) return null;
+
+        const allLanguages = new Set(members.flatMap((m) => m.system.traits.languages?.value ?? []));
+        const baseKnowledgeSkills = [
+            "arcana",
+            "nature",
+            "occultism",
+            "religion",
+            "crafting",
+            "society",
+            "medicine",
+        ] as const;
+
         const loreSkills = new Set(
             members
                 .flatMap((m) => Object.values(m.skills))
@@ -194,15 +192,36 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 .map((s) => s.slug)
         );
 
-        function getBestSkill(slug: string) {
+        function getBestSkill(slug: string): SkillData | null {
             const bestMember = R.maxBy(members, (m) => m.skills[slug]?.mod ?? -Infinity);
             const statistic = bestMember?.skills[slug];
             return statistic ? R.pick(statistic, ["slug", "mod", "label", "rank"]) : null;
         }
 
-        const bestBaseSkills = R.compact(baseKnowledgeSkills.map(getBestSkill));
-        const bestLoreSkills = R.sortBy(R.compact([...loreSkills].map(getBestSkill)), (s) => -s.mod);
-        return [...bestBaseSkills, ...bestLoreSkills];
+        return {
+            languages: R.sortBy(
+                [...allLanguages].map(
+                    (slug): LanguageSheetData => ({
+                        slug,
+                        label: game.i18n.localize(CONFIG.PF2E.languages[slug]),
+                        actors: this.#getActorsThatUnderstand(slug),
+                    })
+                ),
+                (l) => l.label
+            ),
+            skills: R.sortBy(
+                Array.from(SKILL_LONG_FORMS).map((slug): SkillData => {
+                    const best = getBestSkill(slug);
+                    const label = game.i18n.localize(CONFIG.PF2E.skillList[slug]);
+                    return best ?? { mod: 0, label, slug, rank: 0 };
+                }),
+                (s) => s.label
+            ),
+            knowledge: {
+                regular: R.compact(baseKnowledgeSkills.map(getBestSkill)),
+                lore: R.sortBy(R.compact([...loreSkills].map(getBestSkill)), (s) => s.label),
+            },
+        };
     }
 
     #getActorsThatUnderstand(slug: Language) {
@@ -311,7 +330,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const slug = skillTag.dataset.slug ?? "";
             const statistics = R.compact(this.actor.members.map((m) => m.skills[slug]));
             const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
-                const label = `${statistic.actor.name} ${addSign(statistic.mod)}`;
+                const rank = statistic.rank ?? (statistic.proficient ? 1 : 0);
+                const prof = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[rank]);
+                const label = `${statistic.actor.name} (${prof}) ${addSign(statistic.mod)}`;
                 const row = createHTMLElement("div", { children: [label] });
                 row.style.textAlign = "right";
                 return row;
@@ -414,8 +435,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     restricted: boolean;
     members: MemberBreakdown[];
-    languages: LanguageSheetData[];
-    knowledge: SkillData[];
+    overviewSummary: {
+        languages: LanguageSheetData[];
+        skills: SkillData[];
+        knowledge: {
+            regular: SkillData[];
+            lore: SkillData[];
+        };
+    } | null;
     inventorySummary: {
         totalCoins: number;
         totalWealth: number;

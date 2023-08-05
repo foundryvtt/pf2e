@@ -19,6 +19,16 @@ export default class BaseActor<TParent extends BaseToken | null = BaseToken | nu
     /** The default icon used for newly created Actor documents */
     static DEFAULT_ICON: ImageFilePath;
 
+    /**
+     * Determine default artwork based on the provided actor data.
+     * @param actorData The source actor data.
+     * @returns Candidate actor image and prototype token artwork.
+     */
+    static getDefaultArtwork(actorData: ActorSource): {
+        img: ImageFilePath;
+        texture: { src: ImageFilePath | VideoFilePath };
+    };
+
     static override get metadata(): ActorMetadata;
 
     /** A Collection of Item embedded Documents */

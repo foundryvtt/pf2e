@@ -5,11 +5,14 @@
         </div>
     {{/unless}}
 
-    {{#if members}}
+    {{#with overviewSummary}}
         <section class="summary">
             <nav>
                 <button type="button" data-action="change-view" data-view="languages">
                     {{localize "PF2E.Actor.Party.Languages"}}
+                </button>
+                <button type="button" data-action="change-view" data-view="skills">
+                    {{localize "PF2E.Actor.Party.Skills"}}
                 </button>
                 <button type="button" data-action="change-view" data-view="rk">
                     {{localize "PF2E.RecallKnowledge.Label"}}
@@ -25,15 +28,22 @@
                     </li>
                 {{/each}}
             </ul>
+            <div class="skills" data-view="skills">
+                {{#each skills as |skill|}}
+                    {{> skillTag skill=skill}}
+                {{/each}}
+            </div>
             <div class="skills" data-view="rk">
-                {{#each knowledge as |skill|}}
-                    <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
-                        {{skill.label}} {{numberFormat skill.mod sign=true}}
-                    </span>
+                {{#each knowledge as |section|}}
+                    <div class="skills">
+                        {{#each section as |skill|}}
+                            {{> skillTag skill=skill}}
+                        {{/each}}
+                    </div>
                 {{/each}}
             </div>
         </section>
-    {{/if}}
+    {{/with}}
 
     {{#each members as |member|}}
         <section class="member {{#unless member.limited}}readonly{{/unless}}" data-actor-uuid="{{member.actor.uuid}}">
@@ -135,12 +145,16 @@
                         </button>
                     {{/with}}
                     {{#each member.bestSkills as |skill|}}
-                        <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
-                            {{skill.label}} {{numberFormat skill.mod sign=true}}
-                        </span>
+                        {{> skillTag skill=skill}}
                     {{/each}}
                 </div>
             </div>
         </section>
     {{/each}}
 </div>
+
+{{#*inline "skillTag"}}
+    <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
+        {{skill.label}} {{numberFormat skill.mod sign=true}}
+    </span>
+{{/inline}}

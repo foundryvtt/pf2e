@@ -323,6 +323,15 @@ export function registerSettings(): void {
         },
     });
 
+    // Show the GM information about the remaster
+    game.settings.register("pf2e", "seenRemasterJournalEntry", {
+        name: "Seen Remaster journal entry?",
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
+    });
+
     if (BUILD_MODE === "production") {
         registerWorldSchemaVersion();
     }

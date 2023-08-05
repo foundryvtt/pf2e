@@ -108,8 +108,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override prepareDerivedData(): void {
         // Compute travel speed. Creature travel speed isn't implemented yet
-        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.value));
-        this.attributes.speed = { value: travelSpeed };
+        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
+        this.attributes.speed = { total: travelSpeed };
     }
 
     async addMembers(...membersToAdd: CreaturePF2e[]): Promise<void> {
