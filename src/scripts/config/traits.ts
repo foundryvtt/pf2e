@@ -362,7 +362,15 @@ const magicSchools: Record<MagicSchool, string> = {
     transmutation: "PF2E.TraitTransmutation",
 };
 
+const afflictionTraits = {
+    drug: "PF2E.TraitDrug",
+    poison: "PF2E.TraitPoison",
+    disease: "PF2E.TraitDisease",
+    curse: "PF2E.TraitCurse",
+};
+
 const spellTraits = {
+    ...afflictionTraits,
     ...alignmentTraits,
     ...classTraits,
     ...damageTraits,
@@ -722,6 +730,7 @@ const consumableTraits = {
 
 const actionTraits = {
     ...featTraits,
+    ...afflictionTraits,
     ...consumableTraits,
     ...spellTraits,
     circus: "PF2E.TraitCircus",
@@ -1366,6 +1375,7 @@ const kingmakerTraits = {
 
 export {
     actionTraits,
+    afflictionTraits,
     alignmentTraits,
     ancestryItemTraits,
     ancestryTraits,

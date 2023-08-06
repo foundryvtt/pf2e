@@ -42,6 +42,7 @@ import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
+    afflictionTraits,
     alignmentTraits,
     ancestryItemTraits,
     ancestryTraits,
@@ -688,6 +689,7 @@ export const PF2ECONFIG = {
     otherConsumableTags,
 
     actionTraits,
+    afflictionTraits,
     spellTraits,
     featTraits,
     creatureTraits,
@@ -1360,7 +1362,7 @@ export const PF2ECONFIG = {
         },
         traits: {
             action: actionTraits,
-            affliction: actionTraits,
+            affliction: afflictionTraits,
             armor: armorTraits,
             ancestry: creatureTraits,
             backpack: equipmentTraits,
