@@ -521,8 +521,7 @@ class TextEditorPF2e extends TextEditor {
             return params.overrideTraits === "true" ? fromParams : R.uniq([...fromParams, ...fromItem]);
         })().sort();
 
-        const extraRollOptions = ((): string[] => params.options?.split(",").flatMap((t) => t.trim() || []) ?? [])()
-            .sort();
+        const extraRollOptions = R.compact(params.options?.split(",").map((t) => t.trim()) ?? []).sort();
 
         const result = await augmentInlineDamageRoll(params.formula, {
             skipDialog: true,
