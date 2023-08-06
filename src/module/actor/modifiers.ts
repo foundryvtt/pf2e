@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -44,7 +44,7 @@ interface BaseRawModifier {
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type?: ModifierType;
     /** If the type is "ability", this should be set to a particular ability */
-    ability?: AbilityString | null;
+    ability?: AttributeString | null;
     /** Numeric adjustments to apply */
     adjustments?: ModifierAdjustment[];
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
@@ -115,7 +115,7 @@ class ModifierPF2e implements RawModifier {
     #originalValue: number;
 
     type: ModifierType;
-    ability: AbilityString | null;
+    ability: AttributeString | null;
     adjustments: ModifierAdjustment[];
     force: boolean;
     enabled: boolean;
@@ -297,7 +297,7 @@ function createAbilityModifier({ actor, ability, domains, max }: CreateAbilityMo
 
 interface CreateAbilityModifierParams {
     actor: CharacterPF2e | NPCPF2e;
-    ability: AbilityString;
+    ability: AttributeString;
     domains: string[];
     /** An optional maximum for this ability modifier */
     max?: number;

@@ -9,7 +9,7 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
@@ -85,7 +85,7 @@ abstract class BaseStatistic {
 
 /** A Pathfinder statistic used to perform checks and calculate DCs */
 class Statistic extends BaseStatistic {
-    ability: AbilityString | null = null;
+    ability: AttributeString | null = null;
 
     rank: ZeroToFour | null = null;
 

@@ -1,5 +1,5 @@
 import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { objectHasKey, sluggify } from "@util";
@@ -139,7 +139,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 return modifier;
             };
 
-            const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
+            const modifiers = (this.actor.synthetics.modifiers[selector] ??= []);
             modifiers.push(construct);
         }
     }
@@ -157,7 +157,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** The modifier (or bonus/penalty) type */
     type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
-    ability: StringField<AbilityString, AbilityString, false, false, false>;
+    ability: StringField<AttributeString, AttributeString, false, false, false>;
     /** Hide this modifier from breakdown tooltips if it is disabled */
     min: NumberField<number, number, false, false, false>;
     max: NumberField<number, number, false, false, false>;

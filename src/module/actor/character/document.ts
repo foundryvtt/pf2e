@@ -15,7 +15,7 @@ import {
     ensureProficiencyOption,
 } from "@actor/modifiers.ts";
 import {
-    AbilityString,
+    AttributeString,
     AttackItem,
     CheckContext,
     CheckContextParams,
@@ -26,7 +26,7 @@ import {
     SkillLongForm,
 } from "@actor/types.ts";
 import {
-    ABILITY_ABBREVIATIONS,
+    ATTRIBUTE_ABBREVIATIONS,
     SAVE_TYPES,
     SKILL_ABBREVIATIONS,
     SKILL_DICTIONARY,
@@ -138,12 +138,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
     }
 
-    get keyAttribute(): AbilityString {
+    get keyAttribute(): AttributeString {
         return this.system.details.keyability.value || "str";
     }
 
     /** @deprecated */
-    get keyAbility(): AbilityString {
+    get keyAbility(): AttributeString {
         foundry.utils.logCompatibilityWarning(
             "`CharacterPF2e#keyAbility` is deprecated. Use `CharacterPF2e#keyAttribute` instead.",
             { since: "5.2.0", until: "6.0.0" }
@@ -316,7 +316,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Base ability scores
         const manualAttributes = Object.keys(this.system.abilities ?? {}).length > 0;
-        this.system.abilities = R.mapToObj(Array.from(ABILITY_ABBREVIATIONS), (a) => [
+        this.system.abilities = R.mapToObj(Array.from(ATTRIBUTE_ABBREVIATIONS), (a) => [
             a,
             mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
         ]);
@@ -493,9 +493,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);
 
-        // Extract as separate variables for easier use in this method.
-        const { statisticsModifiers } = synthetics;
-
         // Update experience percentage from raw experience amounts.
         systemData.details.xp.pct = Math.min(
             Math.round((systemData.details.xp.value * 100) / systemData.details.xp.max),
@@ -505,8 +502,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
             const params = { slug: "level-bump", label: "PF2E.PFS.LevelBump", modifier: 1 };
-            statisticsModifiers.all.push(() => new ModifierPF2e(params));
-            statisticsModifiers.damage.push(() => new ModifierPF2e(params));
+            this.synthetics.modifiers.all.push(() => new ModifierPF2e(params));
+            this.synthetics.modifiers.damage.push(() => new ModifierPF2e(params));
         }
 
         // Calculate HP and SP
@@ -642,8 +639,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (heldShield?.speedPenalty) {
             const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, "untyped");
             speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
-            statisticsModifiers.speed ??= [];
-            statisticsModifiers.speed.push(() => speedPenalty);
+            this.synthetics.modifiers.speed ??= [];
+            this.synthetics.modifiers.speed.push(() => speedPenalty);
         }
 
         // Speeds
@@ -775,7 +772,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const perceptionRank = this.system.attributes.perception.rank;
         rollOptionsAll[`perception:rank:${perceptionRank}`] = true;
 
-        for (const key of ABILITY_ABBREVIATIONS) {
+        for (const key of ATTRIBUTE_ABBREVIATIONS) {
             const mod = this.abilities[key].mod;
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
@@ -1201,7 +1198,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         options: {
             categories: WeaponCategory[];
             ammos?: (ConsumablePF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>)[];
-            defaultAbility?: AbilityString;
+            defaultAbility?: AttributeString;
         }
     ): CharacterStrike {
         const { synthetics } = this;
@@ -1291,7 +1288,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const selectors = (() => {
             const options = { resolvables: { weapon } };
             const abilityModifier = [...modifiers, ...extractModifiers(synthetics, baseSelectors, options)]
-                .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
+                .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability")
                 .flatMap((modifier) => (modifier.predicate.test(baseOptions) ? modifier : []))
                 .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
 
@@ -1932,10 +1929,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Toggle between boost-driven and manual management of ability scores */
-    async toggleAbilityManagement(): Promise<void> {
+    async toggleAttributeManagement(): Promise<void> {
         if (Object.keys(this._source.system.abilities ?? {}).length === 0) {
             // Add stored ability scores for manual management
-            const baseAbilities = Array.from(ABILITY_ABBREVIATIONS).reduce(
+            const baseAbilities = Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
                 (accumulated: Record<string, { value: 10 }>, abbrev) => ({
                     ...accumulated,
                     [abbrev]: { value: 10 as const },

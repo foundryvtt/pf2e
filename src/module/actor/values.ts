@@ -1,8 +1,8 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
-import { AbilityString, ImmunityType, ResistanceType, SkillLongForm, WeaknessType } from "@actor/types.ts";
+import { AttributeString, ImmunityType, ResistanceType, SkillLongForm, WeaknessType } from "@actor/types.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 
-const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
+const ATTRIBUTE_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
 const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 
@@ -63,7 +63,7 @@ const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
 const DC_SLUGS = new Set(["ac", "armor", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
 
 interface SkillExpanded {
-    ability: AbilityString;
+    ability: AttributeString;
     shortForm: SkillAbbreviation;
 }
 
@@ -99,7 +99,7 @@ const CONSTRUCT_COMPANION_SOURCE_IDS = [
 ];
 
 export {
-    ABILITY_ABBREVIATIONS,
+    ATTRIBUTE_ABBREVIATIONS,
     ANIMAL_COMPANION_SOURCE_IDS,
     CONSTRUCT_COMPANION_SOURCE_IDS,
     CREATURE_ACTOR_TYPES,

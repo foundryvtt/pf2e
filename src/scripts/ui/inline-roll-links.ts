@@ -227,6 +227,8 @@ export const InlineRollLinks = {
                                 const subtitleLocKey =
                                     pf2Check in CONFIG.PF2E.magicTraditions
                                         ? "PF2E.ActionsCheck.spell"
+                                        : statistic.check.type === "attack-roll"
+                                        ? "PF2E.ActionsCheck.x-attack-roll"
                                         : "PF2E.ActionsCheck.x";
                                 args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                                     glyph: getActionGlyph(item.actionCost),

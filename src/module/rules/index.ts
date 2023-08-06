@@ -34,6 +34,7 @@ import { RollNoteRuleElement } from "./rule-element/roll-note.ts";
 import { RollOptionRuleElement } from "./rule-element/roll-option.ts";
 import { RollTwiceRuleElement } from "./rule-element/roll-twice.ts";
 import { SenseRuleElement } from "./rule-element/sense.ts";
+import { StatisticRuleElement } from "./rule-element/statistic.ts";
 import { StrikeRuleElement } from "./rule-element/strike.ts";
 import { StrikingRuleElement } from "./rule-element/striking.ts";
 import { SubstituteRollRuleElement } from "./rule-element/substitute-roll.ts";
@@ -81,6 +82,7 @@ class RuleElements {
         RollOption: RollOptionRuleElement,
         RollTwice: RollTwiceRuleElement,
         Sense: SenseRuleElement,
+        Statistic: StatisticRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
         SubstituteRoll: SubstituteRollRuleElement,

@@ -60,8 +60,8 @@ class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaFie
 /** A sluggified string field */
 class SlugField<
     TRequired extends boolean = true,
-    TNullable extends boolean = true,
-    THasInitial extends boolean = true
+    TNullable extends boolean = boolean,
+    THasInitial extends boolean = boolean
 > extends fields.StringField<string, string, TRequired, TNullable, THasInitial> {
     constructor(options: SlugFieldOptions<TRequired, TNullable, THasInitial> = {}) {
         options.blank = false;
@@ -86,8 +86,8 @@ class SlugField<
 
 interface SlugField<
     TRequired extends boolean = true,
-    TNullable extends boolean = true,
-    THasInitial extends boolean = true
+    TNullable extends boolean = boolean,
+    THasInitial extends boolean = boolean
 > extends StringField<string, string, TRequired, TNullable, THasInitial> {
     options: SlugFieldOptions<TRequired, TNullable, THasInitial>;
 }
