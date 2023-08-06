@@ -647,6 +647,7 @@ async function augmentInlineDamageRoll(
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(item?.getRollOptions("item") ?? []),
+            ...(traits ?? []),
             ...(extraRollOptions ?? []),
         ]);
 
