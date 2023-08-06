@@ -117,11 +117,13 @@ class TextEditorPF2e extends TextEditor {
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
             const traits = anchor.dataset.pf2Traits?.split(",") ?? [];
+            const extraRollOptions = anchor.dataset.pf2RollOptions?.split(",") ?? [];
             const result = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event),
                 actor,
                 item,
                 traits,
+                extraRollOptions,
             });
             if (result) {
                 await DamagePF2e.roll(result.template, result.context);
@@ -513,16 +515,21 @@ class TextEditorPF2e extends TextEditor {
         const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
         const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
 
-        const rollOptions = ((): string[] => {
+        const traits = ((): string[] => {
             const fromParams = params.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
             const fromItem = item?.system.traits?.value ?? [];
             return params.overrideTraits === "true" ? fromParams : R.uniq([...fromParams, ...fromItem]);
         })().sort();
+
+        const extraRollOptions = ((): string[] => params.options?.split(",").flatMap((t) => t.trim() || []) ?? [])()
+            .sort();
+
         const result = await augmentInlineDamageRoll(params.formula, {
             skipDialog: true,
             actor,
             item,
-            traits: rollOptions,
+            traits,
+            extraRollOptions,
         });
 
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
@@ -534,7 +541,8 @@ class TextEditorPF2e extends TextEditor {
                 tooltip: roll.formula,
                 damageRoll: params.formula,
                 pf2BaseFormula: result ? params.formula : null,
-                pf2Traits: rollOptions.toString() || null,
+                pf2Traits: traits.toString() || null,
+                pf2RollOptions: extraRollOptions.toString() || null,
                 pf2ItemId: item?.id,
             },
         });
@@ -619,9 +627,10 @@ async function augmentInlineDamageRoll(
         actor?: ActorPF2e | null;
         item?: ItemPF2e | null;
         traits?: string[];
+        extraRollOptions?: string[];
     }
 ): Promise<{ template: InlineDamageTemplate; context: DamageRollContext } | null> {
-    const { name, actor, item, traits } = args;
+    const { name, actor, item, traits, extraRollOptions } = args;
 
     try {
         const rollData: Record<string, unknown> = item?.getRollData() ?? actor?.getRollData() ?? {};
@@ -638,7 +647,7 @@ async function augmentInlineDamageRoll(
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(item?.getRollOptions("item") ?? []),
-            ...(traits ?? []),
+            ...(extraRollOptions ?? []),
         ]);
 
         // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
