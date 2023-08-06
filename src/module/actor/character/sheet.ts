@@ -425,8 +425,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         });
 
-        // Left/right-click adjustments (increment or decrement) of actor and item stats
-        $html.find(".adjust-stat").on("click contextmenu", (event) => this.#onClickAdjustStat(event));
+        // Adjust Hero Points
+        const heroPointsPips = htmlQuery(html, "[data-action=adjust-hero-points]");
+        heroPointsPips?.addEventListener("click", async () => {
+            const newValue = Math.min(this.actor.heroPoints.value + 1, this.actor.heroPoints.max);
+            await this.actor.update({ "system.resources.heroPoints.value": newValue });
+        });
+        heroPointsPips?.addEventListener("contextmenu", async (event) => {
+            event.preventDefault();
+            const newValue = Math.max(this.actor.heroPoints.value - 1, 0);
+            await this.actor.update({ "system.resources.heroPoints.value": newValue });
+        });
+
         for (const selectElem of htmlQueryAll<HTMLSelectElement>(html, "select.adjust-stat-select")) {
             selectElem.addEventListener("change", () => this.#onChangeAdjustStat(selectElem));
         }
@@ -999,22 +1009,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             ui.notifications.warn("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures", { localize: true });
             selectElem.value = currentValue.toString();
         }
-    }
-
-    /** Handle clicking of proficiency-rank adjustment buttons */
-    async #onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
-        const $button = $(event.delegateTarget);
-        const propertyKey = $button.attr("data-property") ?? "";
-        const currentValue = getProperty(this.actor, propertyKey);
-
-        if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
-
-        const change = event.type === "click" ? 1 : -1;
-        const max = propertyKey.includes("heroPoints") ? 3 : 4;
-        const update = currentValue + change;
-        const newValue = Math.clamped(update, 0, max);
-
-        await this.actor.update({ [propertyKey]: newValue });
     }
 
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
