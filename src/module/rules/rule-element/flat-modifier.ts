@@ -139,7 +139,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 return modifier;
             };
 
-            const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
+            const modifiers = (this.actor.synthetics.modifiers[selector] ??= []);
             modifiers.push(construct);
         }
     }

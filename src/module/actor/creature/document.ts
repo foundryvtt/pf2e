@@ -355,9 +355,8 @@ abstract class CreaturePF2e<
         const { customModifiers } = this.system;
 
         // Custom modifiers
-        const { statisticsModifiers } = this.synthetics;
         for (const [selector, modifiers] of Object.entries(customModifiers)) {
-            const syntheticModifiers = (statisticsModifiers[selector] ??= []);
+            const syntheticModifiers = (this.synthetics.modifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }

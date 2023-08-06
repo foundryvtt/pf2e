@@ -37,7 +37,7 @@ class AutomaticBonusProgression {
         const setting = game.settings.get("pf2e", "automaticBonusVariant");
 
         if (save > 0) {
-            const modifiers = (synthetics.statisticsModifiers["saving-throw"] ??= []);
+            const modifiers = (synthetics.modifiers["saving-throw"] ??= []);
             modifiers.push(
                 () =>
                     new ModifierPF2e({
@@ -50,7 +50,7 @@ class AutomaticBonusProgression {
         }
 
         if (ac > 0) {
-            const modifiers = (synthetics.statisticsModifiers["ac"] ??= []);
+            const modifiers = (synthetics.modifiers["ac"] ??= []);
             modifiers.push(
                 () =>
                     new ModifierPF2e({
@@ -63,7 +63,7 @@ class AutomaticBonusProgression {
         }
 
         if (perception > 0) {
-            const modifiers = (synthetics.statisticsModifiers["perception"] ??= []);
+            const modifiers = (synthetics.modifiers["perception"] ??= []);
             modifiers.push(
                 () =>
                     new ModifierPF2e({
@@ -79,7 +79,7 @@ class AutomaticBonusProgression {
             const values = this.abpValues(level);
             const attack = values.attack;
             if (attack > 0) {
-                const modifiers = (synthetics.statisticsModifiers["strike-attack-roll"] ??= []);
+                const modifiers = (synthetics.modifiers["strike-attack-roll"] ??= []);
                 modifiers.push(
                     () =>
                         new ModifierPF2e({

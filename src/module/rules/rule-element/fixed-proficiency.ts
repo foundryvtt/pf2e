@@ -42,7 +42,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
             label: this.label,
             modifier: proficiencyBonus + abilityModifier,
         });
-        const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
+        const modifiers = (this.actor.synthetics.modifiers[selector] ??= []);
         modifiers.push(() => modifier);
     }
 

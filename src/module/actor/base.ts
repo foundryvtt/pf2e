@@ -362,7 +362,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return this.skills[slug] ?? null;
         }
 
-        return null;
+        return this.synthetics.statistics.get(slug) ?? null;
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */
@@ -605,6 +605,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
             modifierAdjustments: { all: [], damage: [] },
+            modifiers: { all: [], damage: [] },
             movementTypes: {},
             multipleAttackPenalties: {},
             ephemeralEffects: {},
@@ -612,7 +613,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             rollSubstitutions: {},
             rollTwice: {},
             senses: [],
-            statisticsModifiers: { all: [], damage: [] },
+            statistics: new Map(),
             strikeAdjustments: [],
             strikes: new Map(),
             striking: {},
