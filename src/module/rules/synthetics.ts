@@ -13,6 +13,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { PredicatePF2e } from "@system/predication.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
@@ -30,13 +31,14 @@ interface RuleElementSynthetics {
         };
     };
     modifierAdjustments: ModifierAdjustmentSynthetics;
+    modifiers: ModifierSynthetics;
     movementTypes: { [K in MovementType]?: DeferredMovementType[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     rollSubstitutions: Record<string, RollSubstitution[]>;
     rollTwice: Record<string, RollTwiceSynthetic[]>;
     senses: SenseSynthetic[];
-    statisticsModifiers: ModifierSynthetics;
+    statistics: Map<string, Statistic>;
     strikeAdjustments: StrikeAdjustment[];
     strikes: Map<string, WeaponPF2e<ActorPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;

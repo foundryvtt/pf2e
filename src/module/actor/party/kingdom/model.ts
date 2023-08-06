@@ -188,7 +188,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             const modifiers = (customModifiers[selector] = customModifiers[selector].map(
                 (rawModifier: RawModifier) => new ModifierPF2e(rawModifier)
             ));
-            (synthetics.statisticsModifiers[selector] ??= []).push(...modifiers.map((m) => () => m));
+            (synthetics.modifiers[selector] ??= []).push(...modifiers.map((m) => () => m));
         }
 
         const sizeData =
@@ -205,7 +205,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
         // Inject control dc size modifier
         if (sizeData.controlMod) {
-            const modifiers = (synthetics.statisticsModifiers["control-dc"] ??= []);
+            const modifiers = (synthetics.modifiers["control-dc"] ??= []);
             modifiers.push(
                 () =>
                     new ModifierPF2e({
@@ -220,7 +220,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         for (const ability of KINGDOM_ABILITIES) {
             const penalty = this.abilities[ability].penalty;
             if (penalty) {
-                const modifiers = (synthetics.statisticsModifiers[`${ability}-based`] ??= []);
+                const modifiers = (synthetics.modifiers[`${ability}-based`] ??= []);
                 modifiers.push(
                     () =>
                         new ModifierPF2e({
@@ -246,7 +246,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             if (data.vacant) {
                 const penalties = VACANCY_PENALTIES[role]();
                 for (const [selector, entries] of Object.entries(penalties.modifiers ?? {})) {
-                    const modifiers = (synthetics.statisticsModifiers[selector] ??= []);
+                    const modifiers = (synthetics.modifiers[selector] ??= []);
                     modifiers.push(...entries.map((e) => () => new ModifierPF2e(e)));
                 }
             }

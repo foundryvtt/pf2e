@@ -1,3 +1,36 @@
+## 5.3.1
+
+### System Improvements
+
+-   (Supe) Support more formulas using math terms in @Damage
+-   (stwlam) Show GMs remaster changes journal entry once on startup
+
+### Bugfixes
+
+-   (Kim) Fix issue preventing some adventure reimports
+-   (stwlam) Fix attribute boost buttons sometimes not reflecting being clicked
+-   (stwlam) Respect `overrideTraits` (and its absence) in @Damage expressions
+-   (Supe) Add "damage" selector to @Damage
+-   (Supe) Handle top-level math terms and subtraction in @Damage
+-   (Supe) Assume actor is level 1 in @Damage instead of skipping
+-   (Surge) Display vehicle source in description tab
+
+### Data Updates
+
+-   (Abaddon) Fix Bravery Baldric descriptions
+-   (Abaddon) Fix Spiderfoot Brew item variants
+-   (abrault) Fix spell-save button in chat cards
+-   (dellatorreadrian) Fix searching actions in Compendium Browser using text and type at the same time
+-   (Roxim) Add automation for Martial Performance feat
+-   (stwlam) Migrate bracketed AE-likes modifying ability scores (used by Companion Compendia eidolons)
+-   (Tikael) Add _Translate_ to list of renamed spells
+-   (Tikael) Automate Bristle's inline damage increase
+-   (Tikael) Change the Kinetic Gate feature to be renamed with selected choices
+-   (Tikael) Fix broken links in remaster journal, add language changes
+-   (Tikael) Move more inline rolls to the new damage format
+-   (Tikael) Backfill frequencies for most NPC actions
+-   (TMun) Add knockdown to cinder wolf strikes from PFS 1-14
+
 ## 5.3.0
 
 ### Highlights

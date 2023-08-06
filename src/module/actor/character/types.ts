@@ -1,5 +1,5 @@
 import { HitPointsSummary } from "@actor/base.ts";
-import { AbilityString, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, SkillLongForm } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { Statistic } from "@system/statistic/index.ts";
 
@@ -8,7 +8,7 @@ interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryAddend: number;
 }
 
-type CharacterSkill = Statistic & { rank: ZeroToFour; ability: AbilityString };
+type CharacterSkill = Statistic & { rank: ZeroToFour; ability: AttributeString };
 
 type CharacterSkills = Record<SkillLongForm, CharacterSkill> & Partial<Record<string, CharacterSkill>>;
 
