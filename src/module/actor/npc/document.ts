@@ -158,9 +158,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
-        const { modifierAdjustments, statisticsModifiers, strikes } = synthetics;
+        const { modifierAdjustments, strikes } = synthetics;
         const itemTypes = this.itemTypes;
         const baseLevel = this.system.details.level.base;
+        this.synthetics.modifiers.hp ??= [];
 
         if (this.isElite) {
             modifierAdjustments.all.push({
@@ -168,8 +169,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base + 2,
                 test: () => true,
             });
-            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
-            statisticsModifiers.hp.push(
+            this.synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
@@ -183,8 +183,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base - 2,
                 test: () => true,
             });
-            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
-            statisticsModifiers.hp.push(
+            this.synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",

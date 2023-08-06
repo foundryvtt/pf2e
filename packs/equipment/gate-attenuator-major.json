@@ -34,7 +34,34 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.con.mod",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.con.mod",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:kineticist",
+                            "feat:kineticist-dedication"
+                        ]
+                    }
+                ],
+                "selector": "impulse-attack-roll",
+                "type": "item",
+                "value": 2
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Rage of Elements"

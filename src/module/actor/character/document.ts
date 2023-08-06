@@ -493,9 +493,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);
 
-        // Extract as separate variables for easier use in this method.
-        const { statisticsModifiers } = synthetics;
-
         // Update experience percentage from raw experience amounts.
         systemData.details.xp.pct = Math.min(
             Math.round((systemData.details.xp.value * 100) / systemData.details.xp.max),
@@ -505,8 +502,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
             const params = { slug: "level-bump", label: "PF2E.PFS.LevelBump", modifier: 1 };
-            statisticsModifiers.all.push(() => new ModifierPF2e(params));
-            statisticsModifiers.damage.push(() => new ModifierPF2e(params));
+            this.synthetics.modifiers.all.push(() => new ModifierPF2e(params));
+            this.synthetics.modifiers.damage.push(() => new ModifierPF2e(params));
         }
 
         // Calculate HP and SP
@@ -642,8 +639,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (heldShield?.speedPenalty) {
             const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, "untyped");
             speedPenalty.predicate.push({ not: "self:shield:ignore-speed-penalty" });
-            statisticsModifiers.speed ??= [];
-            statisticsModifiers.speed.push(() => speedPenalty);
+            this.synthetics.modifiers.speed ??= [];
+            this.synthetics.modifiers.speed.push(() => speedPenalty);
         }
 
         // Speeds

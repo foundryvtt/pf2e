@@ -267,8 +267,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */
     private stripInvalidModifiers(): void {
         const invalidModifierTypes: ModifierType[] = ["ability", "proficiency", "item"];
-        for (const key of Object.keys(this.synthetics.statisticsModifiers)) {
-            this.synthetics.statisticsModifiers[key] = this.synthetics.statisticsModifiers[key]?.filter((modifier) => {
+        for (const key of Object.keys(this.synthetics.modifiers)) {
+            this.synthetics.modifiers[key] = this.synthetics.modifiers[key]?.filter((modifier) => {
                 const resolvedModifier = modifier();
                 return resolvedModifier && !invalidModifierTypes.includes(resolvedModifier.type);
             });

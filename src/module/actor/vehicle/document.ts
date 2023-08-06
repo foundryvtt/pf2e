@@ -68,17 +68,15 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         super.prepareDerivedData();
         this.prepareSynthetics();
 
-        const { modifierAdjustments, statisticsModifiers } = this.synthetics;
-
         // If broken, inject some synthetics first
         if (this.hasCondition("broken")) {
             for (const selector of ["ac", "saving-throw"]) {
-                const modifiers = (statisticsModifiers[selector] ??= []);
+                const modifiers = (this.synthetics.modifiers[selector] ??= []);
                 const brokenModifier = new ModifierPF2e({
                     slug: "broken",
                     label: "PF2E.ConditionTypeBroken",
                     modifier: -2,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, [selector], "broken"),
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, [selector], "broken"),
                 });
 
                 modifiers.push(() => brokenModifier);
@@ -101,7 +99,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
                     slug: "base",
                     label: "PF2E.ModifierTitle",
                     modifier: this.system.attributes.ac.value - 10,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, ["all", "ac"], "base"),
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, ["all", "ac"], "base"),
                 }),
             ],
         });
