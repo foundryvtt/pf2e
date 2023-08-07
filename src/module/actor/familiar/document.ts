@@ -2,15 +2,12 @@ import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions } from "@actor/helpers.ts";
-import { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier, applyStackingRules } from "@actor/modifiers.ts";
+import { ModifierPF2e, ModifierType, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemType } from "@item/data/index.ts";
-import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
-import { RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { HitPointsStatistic } from "@system/statistic/hit-points.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -175,43 +172,13 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         // Attack
         if (master) {
-            const domains = ["attack", "attack-roll", "all"];
-            const modifiers = [
-                new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
-                ...extractModifiers(synthetics, domains),
-            ];
-            const label = game.i18n.localize("PF2E.Familiar.AttackRoll");
-            const stat = mergeObject(new StatisticModifier("attack", modifiers), {
-                label,
-                roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                    const options = new Set(params.options ?? []);
-                    const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, options);
-
-                    const roll = await CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        {
-                            actor: this,
-                            type: "attack-roll",
-                            options,
-                            rollTwice,
-                            dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
-                        },
-                        params.event,
-                        params.callback
-                    );
-
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions: options });
-                    }
-
-                    return roll;
-                },
+            systemData.attack = new Statistic(this, {
+                slug: "attack-roll",
+                label: "PF2E.Familiar.AttackRoll",
+                modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")],
+                domains: ["attack", "attack-roll"],
+                check: { type: "attack-roll", domains: ["attack", "attack-roll"] },
             });
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            systemData.attack = mergeObject(stat, { value: stat.totalModifier });
         }
 
         // Perception
