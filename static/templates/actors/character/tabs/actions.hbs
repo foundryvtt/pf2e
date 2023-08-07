@@ -230,9 +230,11 @@
         {{#if item.dealsDamage}}
             <button type="button" class="tag damage" data-action="strike-damage"
                 {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                title="{{damageFormula}}"
                 >{{localize "PF2E.DamageLabel"}}</button>
             <button type="button" class="tag damage" data-action="strike-critical"
                 {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                title="{{criticalDamageFormula}}"
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
             {{#if (and versatileOptions (not (eq item.altUsageType "thrown")))}}
                 <div class="versatile-options">

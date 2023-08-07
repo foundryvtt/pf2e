@@ -119,6 +119,21 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         })();
 
+        // Generate evaluated lables for strike buttons
+        const strikes = actorData.system.actions ?? [];
+        for (const strike of strikes) {
+            for (const map of [0, 1, 2]) {
+                const variant = strike.variants[map];
+                variant.label = String(await variant.roll({ getLabel: true }));
+            }
+            if (strike.damage) {
+                strike.damageFormula = String(await strike.damage({ getLabel: true }));
+            }
+            if (strike.critical) {
+                strike.criticalDamageFormula = String(await strike.critical({ getLabel: true }));
+            }
+        }
+
         const sheetData: ActorSheetDataPF2e<TActor> = {
             cssClass: this.actor.isOwner ? "editable" : "locked",
             editable: this.isEditable,
@@ -378,22 +393,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Set damage-formula tooltips on damage buttons
-        const damageButtons = htmlQueryAll<HTMLButtonElement>(
+        const damageButtons = htmlQueryAll(
             $strikesList[0],
             ["button[data-action=strike-damage]", "button[data-action=strike-critical]"].join(",")
         );
         for (const button of damageButtons) {
-            const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
-            const altUsage = tupleHasValue(["thrown", "melee"] as const, button.dataset.altUsage)
-                ? button.dataset.altUsage
-                : null;
-
-            const strike = this.getStrikeFromDOM(button);
-            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
-                if (!formula) return;
-                button.title = formula.toString();
-                $(button).tooltipster({ position: "top", theme: "crb-hover" });
-            });
+            $(button).tooltipster({ position: "top", theme: "crb-hover" });
         }
 
         // Remove Spell Slot

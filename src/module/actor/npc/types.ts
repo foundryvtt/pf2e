@@ -42,7 +42,7 @@ type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
 type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 
 interface NPCSystemSheetData extends NPCSystemData {
-    actions: NPCStrikeSheetData[];
+    actions: NPCStrike[];
     attributes: NPCAttributes & {
         ac: ArmorClassTraceData & WithAdjustments;
         hp: HitPointsStatistic & WithAdjustments;
@@ -57,11 +57,6 @@ interface NPCSystemSheetData extends NPCSystemData {
     sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
     skills: Record<SkillAbbreviation, NPCSkillSheetData>;
-}
-
-interface NPCStrikeSheetData extends NPCStrike {
-    /** The damage formula of the strike for display on sheets */
-    damageFormula?: string;
 }
 
 interface NPCSpellcastingSheetData extends SpellcastingSheetData {
@@ -138,7 +133,6 @@ export {
     NPCSkillSheetData,
     NPCSpeedSheetData,
     NPCSpellcastingSheetData,
-    NPCStrikeSheetData,
     NPCSystemSheetData,
     VariantCloneParams,
 };

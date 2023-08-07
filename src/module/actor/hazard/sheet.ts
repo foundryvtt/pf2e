@@ -64,7 +64,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             reset: await enrich(systemData.details.reset),
         });
 
-        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = systemData.actions;
+        const strikesWithDescriptions: StrikeData[] = systemData.actions;
         const actorRollData = actor.getRollData();
         for (const attack of strikesWithDescriptions) {
             const itemRollData = attack.item.getRollData();
@@ -74,7 +74,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     async: true,
                 });
             }
-            attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
+            attack.damageFormula = String(await attack.damage?.({ getLabel: true }));
         }
 
         return {

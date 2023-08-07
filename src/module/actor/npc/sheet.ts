@@ -30,7 +30,6 @@ import {
     NPCSkillSheetData,
     NPCSpeedSheetData,
     NPCSpellcastingSheetData,
-    NPCStrikeSheetData,
     NPCSystemSheetData,
 } from "./types.ts";
 
@@ -393,7 +392,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
      */
     async #prepareActions(sheetData: NPCSheetData): Promise<void> {
         // Enrich strike descriptions
-        const attacks: NPCStrikeSheetData[] = sheetData.data.actions;
+        const attacks = sheetData.data.actions;
         const actorRollData = this.actor.getRollData();
         for (const attack of attacks) {
             if (attack.description.length > 0) {
@@ -403,7 +402,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
                     async: true,
                 });
             }
-            attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
+            attack.damageFormula = String(await attack.damage?.({ getLabel: true }));
         }
 
         const actions: NPCActionSheetData = {

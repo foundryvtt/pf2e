@@ -234,12 +234,16 @@ interface StrikeData extends StatisticModifier {
     attack?: RollFunction<AttackRollParams>;
     /** Roll normal (non-critical) damage for this weapon. */
     damage?: DamageRollFunction;
+    /** The non-critical damage formula for this strike */
+    damageFormula?: string;
     /** Roll critical damage for this weapon. */
     critical?: DamageRollFunction;
+    /** The critical damage formula for this strike */
+    criticalDamageFormula?: string;
     /** Alternative usages of a strike weapon: thrown, combination-melee, etc. */
     altUsages?: StrikeData[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
-    variants: { label: string; roll: RollFunction<AttackRollParams> }[];
+    variants: { label?: string; roll: RollFunction<AttackRollParams> }[];
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {

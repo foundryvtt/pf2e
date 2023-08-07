@@ -29,8 +29,8 @@ interface RollParameters {
 interface AttackRollParams extends RollParameters {
     /** A target token: pulled from `game.users.targets` if not provided */
     target?: TokenPF2e | null;
-    /** Retrieve the formula of the strike roll without following through to the end */
-    getFormula?: true;
+    /** Returns the fully evaluated attack modifier for strikes and the formula for damage. */
+    getLabel?: boolean;
     /** Should this strike consume ammunition, if applicable? */
     consumeAmmo?: boolean;
     /** The strike is involve throwing a thrown melee weapon or to use the melee usage of a combination weapon */

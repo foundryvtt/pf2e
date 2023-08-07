@@ -293,25 +293,12 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         description: CONFIG.PF2E.traitsDescriptions.attack,
     };
 
-    const labels = [
-        `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`,
-        game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-            value: signedInteger(strike.totalModifier + multipleAttackPenalty.map1),
-            penalty: multipleAttackPenalty.map1,
-        }),
-        game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-            value: signedInteger(strike.totalModifier + multipleAttackPenalty.map2),
-            penalty: multipleAttackPenalty.map2,
-        }),
-    ];
-
     strike.variants = [
         null,
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, "untyped"),
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, "untyped"),
     ].map((map, mapIncreases) => ({
-        label: labels[mapIncreases],
-        roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+        roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | string | null> => {
             const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
             const rollNotes = notes.concat(attackEffects);
 
@@ -319,7 +306,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             // Always add all weapon traits as options
             const context = await actor.getCheckContext({
                 item,
-                viewOnly: params.getFormula ?? false,
+                viewOnly: params.getLabel ?? false,
                 statistic: strike,
                 target: { token: game.user.targets.first() ?? null },
                 targetedDC: "armor",
@@ -342,8 +329,28 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 { weapon: item.name }
             );
 
+            const checkModifier = new CheckModifier(checkName, context.self.statistic ?? strike, otherModifiers);
+            if (params.getLabel) {
+                switch (mapIncreases) {
+                    case 0:
+                        return `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(
+                            checkModifier.totalModifier
+                        )}`;
+                    case 1:
+                        return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                            value: signedInteger(checkModifier.totalModifier),
+                            penalty: multipleAttackPenalty.map1,
+                        });
+                    case 2:
+                        return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                            value: signedInteger(checkModifier.totalModifier),
+                            penalty: multipleAttackPenalty.map2,
+                        });
+                }
+            }
+
             const roll = await CheckPF2e.roll(
-                new CheckModifier(checkName, context.self.statistic ?? strike, otherModifiers),
+                checkModifier,
                 {
                     type: "attack-roll",
                     actor: context.self.actor,
@@ -387,13 +394,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 item,
                 statistic: strike,
                 target: { token: targetToken },
-                viewOnly: params.getFormula ?? false,
+                viewOnly: params.getLabel ?? false,
                 domains,
                 outcome,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
             });
 
-            if (!context.self.item.dealsDamage && !params.getFormula) {
+            if (!context.self.item.dealsDamage && !params.getLabel) {
                 ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                 return null;
             }
@@ -416,7 +423,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 damageContext.options.add(`map:increases:${params.mapIncreases}`);
             }
 
-            if (params.getFormula) damageContext.skipDialog = true;
+            if (params.getLabel) damageContext.skipDialog = true;
 
             const damage = await WeaponDamagePF2e.fromNPCAttack({
                 attack: context.self.item,
@@ -427,7 +434,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             });
             if (!damage) return null;
 
-            if (params.getFormula) {
+            if (params.getLabel) {
                 const formula = damage.damage.formula[outcome];
                 return formula ? new DamageRoll(formula).formula : "";
             } else {

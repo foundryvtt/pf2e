@@ -1513,18 +1513,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { weapon: weapon.name }
         );
 
-        const labels = [
-            `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
-            game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                value: signedInteger(action.totalModifier + multipleAttackPenalty.map1),
-                penalty: multipleAttackPenalty.map1,
-            }),
-            game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                value: signedInteger(action.totalModifier + multipleAttackPenalty.map2),
-                penalty: multipleAttackPenalty.map2,
-            }),
-        ];
-
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, otherModifiers),
@@ -1541,8 +1529,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ];
 
         action.variants = [0, 1, 2].map((mapIncreases) => ({
-            label: labels[mapIncreases],
-            roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+            roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | string | null> => {
                 params.options ??= [];
                 params.consumeAmmo ??= weapon.requiresAmmo;
 
@@ -1560,7 +1547,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     target: { token: game.user.targets.first() ?? null },
                     targetedDC: "armor",
                     options: new Set([...baseOptions, ...params.options, ...action.options]),
-                    viewOnly: params.getFormula,
+                    viewOnly: params.getLabel,
                 });
 
                 // Check whether target is out of maximum range; abort early if so
@@ -1610,12 +1597,27 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }
 
                 const constructModifier = checkModifiers[mapIncreases];
-                const roll = await CheckPF2e.roll(
-                    constructModifier(context.self.statistic ?? action, context.self.modifiers),
-                    checkContext,
-                    params.event,
-                    params.callback
-                );
+                const checkModifier = constructModifier(context.self.statistic ?? action, context.self.modifiers);
+                if (params.getLabel) {
+                    switch (mapIncreases) {
+                        case 0:
+                            return `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(
+                                checkModifier.totalModifier
+                            )}`;
+                        case 1:
+                            return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                                value: signedInteger(checkModifier.totalModifier + multipleAttackPenalty.map1),
+                                penalty: multipleAttackPenalty.map1,
+                            });
+                        case 2:
+                            return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                                value: signedInteger(checkModifier.totalModifier + multipleAttackPenalty.map2),
+                                penalty: multipleAttackPenalty.map2,
+                            });
+                    }
+                }
+
+                const roll = await CheckPF2e.roll(checkModifier, checkContext, params.event, params.callback);
 
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
                     await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: context.options });
@@ -1634,7 +1636,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const context = await this.getDamageRollContext({
                     item: weapon,
-                    viewOnly: params.getFormula ?? false,
+                    viewOnly: params.getLabel ?? false,
                     statistic: action,
                     target: { token: targetToken },
                     domains,
@@ -1643,7 +1645,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 });
 
                 if (!context.self.item.dealsDamage) {
-                    if (!params.getFormula) {
+                    if (!params.getLabel) {
                         ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                         return null;
                     }
@@ -1669,7 +1671,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     damageContext.options.add(`map:increases:${params.mapIncreases}`);
                 }
 
-                if (params.getFormula) damageContext.skipDialog = true;
+                if (params.getLabel) damageContext.skipDialog = true;
 
                 const damage = await WeaponDamagePF2e.calculate({
                     weapon: context.self.item,
@@ -1684,7 +1686,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 // The damage template will include a full list of domains: replace the original, smaller list
                 damageContext.domains = damage.domains;
 
-                if (params.getFormula) {
+                if (params.getLabel) {
                     const formula = damage.damage.formula[outcome];
                     return formula ? new DamageRoll(formula).formula : "";
                 } else {
