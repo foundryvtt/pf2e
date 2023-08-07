@@ -1,7 +1,8 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
 import { isPhysicalData } from "@item/data/helpers.ts";
-import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
 import fs from "fs";
@@ -12,8 +13,8 @@ import systemJSON from "../../static/system.json" assert { type: "json" };
 import templateJSON from "../../static/template.json" assert { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
 import { PackError, getFilesRecursively } from "./helpers.ts";
-import { PackEntry } from "./types.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
+import { PackEntry } from "./types.ts";
 
 declare global {
     interface Global {
@@ -609,7 +610,7 @@ class PackExtractor {
                             items = this.#sortSpells(itemGroup);
                             break;
                         case "action":
-                            items = this.#sortActions(docSource.name, itemGroup);
+                            items = this.#sortAbilities(docSource.name, itemGroup);
                             break;
                         case "lore":
                             items = Array.from(itemGroup).sort((a, b) => a.name.localeCompare(b.name));
@@ -733,47 +734,45 @@ class PackExtractor {
     }
 
     /** Sorts actions by category, only called for NPCs */
-    #sortActions(docName: string, actions: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
-        const notActions: [string, string][] = [
+    #sortAbilities(docName: string, items: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
+        const notAbilities: [string, string][] = [
             ["Innate Spells", "spellcastingEntry"],
             ["Prepared Spells", "spellcastingEntry"],
             ["Ritual Spells", "spellcastingEntry"],
             ["Spontaneous Spells", "spellcastingEntry"],
         ];
-        const actionsMap: Map<string, ItemSourcePF2e[]> = new Map([
+        const abilitiesMap: Map<string, ItemSourcePF2e[]> = new Map([
             ["interaction", []],
             ["defensive", []],
             ["offensive", []],
             ["other", []],
         ]);
 
-        for (const action of Array.from(actions).sort((a, b) => a.name.localeCompare(b.name))) {
-            const actionData = action as ActionItemSource;
-            const notActionMatch = notActions.find((naName) => actionData.name.match(naName[0]));
-            if (notActionMatch) {
+        for (const ability of Array.from(items).sort((a, b) => a.name.localeCompare(b.name))) {
+            const notAbilityMatch = notAbilities.find((naName) => ability.name.match(naName[0]));
+            if (notAbilityMatch) {
                 console.log(
-                    `Error in ${docName}: ${notActionMatch[0]} has type action but should be type ${notActionMatch[1]}!`
+                    `Error in ${docName}: ${notAbilityMatch[0]} has type action but should be type ${notAbilityMatch[1]}!`
                 );
             }
-            if (!actionData.system.category) {
+            if (!itemIsOfType(ability, "action")) continue;
+
+            if (!ability.system.category) {
                 if (this.emitWarnings) {
-                    console.log(`Warning in ${docName}: Action item '${actionData.name}' has no category defined!`);
+                    console.log(`Warning in ${docName}: Ability item "${ability.name}" has no category defined!`);
                 }
-                actionsMap.get("other")!.push(actionData);
+                abilitiesMap.get("other")!.push(ability);
             } else {
-                let actionCategory: string = actionData.system.category;
-                if (!actionsMap.has(actionCategory)) {
-                    actionCategory = "other";
-                }
-                actionsMap.get(actionCategory)!.push(actionData);
+                const actionCategory = abilitiesMap.has(ability.system.category) ? ability.system.category : "other";
+                abilitiesMap.get(actionCategory)!.push(ability);
             }
         }
 
-        const sortedInteractions = this.#sortInteractions(docName, actionsMap.get("interaction")!);
-        const sortedDefensive = this.#sortDefensiveActions(docName, actionsMap.get("defensive")!);
-        const sortedOffensive = this.#sortOffensiveActions(docName, actionsMap.get("offensive")!);
+        const sortedInteractions = this.#sortInteractions(docName, abilitiesMap.get("interaction")!);
+        const sortedDefensive = this.#sortDefensiveActions(docName, abilitiesMap.get("defensive")!);
+        const sortedOffensive = this.#sortOffensiveActions(docName, abilitiesMap.get("offensive")!);
 
-        return sortedInteractions.concat(sortedDefensive, sortedOffensive, actionsMap.get("other")!);
+        return sortedInteractions.concat(sortedDefensive, sortedOffensive, abilitiesMap.get("other")!);
     }
 
     #sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {

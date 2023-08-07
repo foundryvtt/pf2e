@@ -1,4 +1,4 @@
-import { addSheetFrequencyListeners } from "@item/action/helpers.ts";
+import { addSheetFrequencyListeners } from "@item/ability/helpers.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
 import { htmlQuery } from "@util";
 import Tagify from "@yaireo/tagify";

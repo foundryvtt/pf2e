@@ -1,5 +1,5 @@
 import { CreatureTrait } from "@actor/creature/types.ts";
-import { ActionTrait } from "@item/action/types.ts";
+import { ActionTrait } from "@item/ability/types.ts";
 import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import { NPCAttackTrait } from "@item/melee/data.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";

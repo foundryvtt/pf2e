@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ActionItemSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { AbilityItemSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** actionCategory changed from a value object to just a string */
@@ -13,7 +13,7 @@ export class Migration839ActionCategories extends MigrationBase {
         const system: ActionItemSystemMaybeOld = source.system;
         if (system.actionCategory) {
             const npcCategories = ["offensive", "defensive", "interaction"];
-            const oldValue = (system.actionCategory.value || null) as ActionItemSource["system"]["category"];
+            const oldValue = (system.actionCategory.value || null) as AbilityItemSource["system"]["category"];
             const mustBeNull =
                 oldValue && npcCategories.includes(oldValue) && actorSource && actorSource.type !== "npc";
             system.category = mustBeNull ? null : oldValue;
@@ -23,7 +23,7 @@ export class Migration839ActionCategories extends MigrationBase {
     }
 }
 
-type ActionItemSystemMaybeOld = ActionItemSource["system"] & {
+type ActionItemSystemMaybeOld = AbilityItemSource["system"] & {
     actionCategory?: { value: string };
     "-=actionCategory"?: null;
 };

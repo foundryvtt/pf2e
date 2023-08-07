@@ -1,7 +1,7 @@
 import { ActorPF2e, PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { ItemPF2e } from "@item";
-import { normalizeActionChangeData } from "@item/action/helpers.ts";
+import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { sluggify, tupleHasValue } from "@util";

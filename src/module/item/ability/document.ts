@@ -4,10 +4,10 @@ import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel } from "@util";
-import { ActionItemSource, ActionSystemData } from "./data.ts";
+import { AbilityItemSource, AbilitySystemData } from "./data.ts";
 import { normalizeActionChangeData } from "./helpers.ts";
 
-class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get actionCost(): ActionCost | null {
         const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;
@@ -40,7 +40,7 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     override async getChatData(
-        this: ActionItemPF2e<ActorPF2e>,
+        this: AbilityItemPF2e<ActorPF2e>,
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
@@ -51,7 +51,7 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     protected override async _preCreate(
-        data: PreDocumentId<ActionItemSource>,
+        data: PreDocumentId<AbilityItemSource>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
@@ -75,9 +75,9 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 }
 
-interface ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    readonly _source: ActionItemSource;
-    system: ActionSystemData;
+interface AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: AbilityItemSource;
+    system: AbilitySystemData;
 }
 
-export { ActionItemPF2e };
+export { AbilityItemPF2e };

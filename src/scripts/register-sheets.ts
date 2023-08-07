@@ -5,7 +5,7 @@ import { LootSheetPF2e } from "@actor/loot/sheet.ts";
 import { NPCSheetPF2e, SimpleNPCSheet } from "@actor/npc/sheet.ts";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet.ts";
 import { ItemSheetPF2e } from "@item/sheet/base.ts";
-import { ActionSheetPF2e } from "@item/action/sheet.ts";
+import { ActionSheetPF2e } from "@item/ability/sheet.ts";
 import { AfflictionSheetPF2e } from "@item/affliction/sheet.ts";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet.ts";
 import { ArmorSheetPF2e } from "@item/armor/sheet.ts";
