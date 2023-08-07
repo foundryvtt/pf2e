@@ -416,16 +416,17 @@ class CheckPF2e {
         // Tampering with the old roll is disallowed.
         const unevaluatedNewRoll = oldRoll.clone();
         unevaluatedNewRoll.options.isReroll = true;
-        Hooks.callAll("pf2e.preReroll", [
+        Hooks.callAll(
+            "pf2e.preReroll",
             Roll.fromJSON(JSON.stringify(oldRoll.toJSON())),
             unevaluatedNewRoll,
             heroPoint,
-            keep,
-        ]);
+            keep
+        );
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
         const newRoll = await unevaluatedNewRoll.evaluate({ async: true });
-        Hooks.callAll("pf2e.reroll", [Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep]);
+        Hooks.callAll("pf2e.reroll", Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep);
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
