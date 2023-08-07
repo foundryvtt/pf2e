@@ -81,7 +81,9 @@ export const InlineRollLinks = {
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } = link.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
+                link.dataset;
+
             if (!pf2Check) return;
 
             link.addEventListener("click", async (event) => {
@@ -109,13 +111,9 @@ export const InlineRollLinks = {
                 if (actors.length === 0) return;
 
                 const extraRollOptions = [
-                    ... pf2Traits
-                        ?.split(",")
-                        .map((o) => o.trim()) ?? [],
-                    ... pf2RollOptions
-                        ?.split(",")
-                        .map((o) => o.trim()) ?? [],
-                    ];
+                    ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
+                    ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
+                ];
                 const eventRollParams = eventToRollParams(event);
 
                 switch (pf2Check) {

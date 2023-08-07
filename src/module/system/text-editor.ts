@@ -324,9 +324,9 @@ class TextEditorPF2e extends TextEditor {
             })(),
             // Set action slug, damaging effect for basic saves, and any parameterized options
             extraRollOptions: R.compact([
-                ... (item?.isOfType("action") && item.actionCost) ? [`action:${item?.slug ?? sluggify(item.name)}`] : [],
-                ... (rawParams.basic === "true") ? ["damaging-effect"] : [],
-                ... (rawParams.options?.split(",").map((t) => t.trim()) ?? []),
+                ...(item?.isOfType("action") && item.actionCost ? [`action:${item?.slug ?? sluggify(item.name)}`] : []),
+                ...(rawParams.basic === "true" ? ["damaging-effect"] : []),
+                ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
             ]).sort(),
         };
         if (rawParams.dc) params.dc = rawParams.dc;
