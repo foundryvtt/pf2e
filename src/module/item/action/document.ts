@@ -1,10 +1,11 @@
-import { ItemPF2e } from "@item/base.ts";
-import { ActionItemSource, ActionSystemData } from "./data.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel } from "@util";
-import { ActorPF2e } from "@actor";
+import { ActionItemSource, ActionSystemData } from "./data.ts";
+import { normalizeActionChangeData } from "./helpers.ts";
 
 class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get actionCost(): ActionCost | null {
@@ -69,16 +70,7 @@ class ActionItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
-        // Normalize action data
-        if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
-            const actionType = changed.system?.actionType?.value ?? this.system.actionType.value;
-            const actionCount = Number(changed.system?.actions?.value ?? this.system.actions.value);
-            changed.system = mergeObject(changed.system, {
-                actionType: { value: actionType },
-                actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
-            });
-        }
-
+        normalizeActionChangeData(this, changed);
         return super._preUpdate(changed, options, user);
     }
 }
