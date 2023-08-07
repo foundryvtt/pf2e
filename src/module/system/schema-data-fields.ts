@@ -57,12 +57,25 @@ class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaFie
     }
 }
 
+/** A `StringField` that does not cast the source value into a string */
+class StrictStringField<
+    TSourceProp extends string,
+    TModelProp = TSourceProp,
+    TRequired extends boolean = false,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = boolean
+> extends fields.StringField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): unknown {
+        return value;
+    }
+}
+
 /** A sluggified string field */
 class SlugField<
     TRequired extends boolean = true,
     TNullable extends boolean = boolean,
     THasInitial extends boolean = boolean
-> extends fields.StringField<string, string, TRequired, TNullable, THasInitial> {
+> extends StrictStringField<string, string, TRequired, TNullable, THasInitial> {
     constructor(options: SlugFieldOptions<TRequired, TNullable, THasInitial> = {}) {
         options.blank = false;
         options.camel ??= null;
@@ -88,7 +101,7 @@ interface SlugField<
     TRequired extends boolean = true,
     TNullable extends boolean = boolean,
     THasInitial extends boolean = boolean
-> extends StringField<string, string, TRequired, TNullable, THasInitial> {
+> extends StrictStringField<string, string, TRequired, TNullable, THasInitial> {
     options: SlugFieldOptions<TRequired, TNullable, THasInitial>;
 }
 
@@ -266,4 +279,4 @@ class RecordField<
     }
 }
 
-export { LaxSchemaField, PredicateField, RecordField, SlugField, StrictSchemaField };
+export { LaxSchemaField, PredicateField, RecordField, SlugField, StrictSchemaField, StrictStringField };
