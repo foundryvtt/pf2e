@@ -144,6 +144,14 @@ declare global {
         protected _activateFilePicker(button: JQuery | HTMLElement): void;
 
         /**
+         * Determine the configuration options used to initialize a FilePicker instance within this FormApplication.
+         * Subclasses can extend this method to customize the behavior of pickers within their form.
+         * @param event The initiating mouse click event which opens the picker
+         * @returns Options passed to the FilePicker constructor
+         */
+        protected _getFilePickerOptions(event: PointerEvent): FilePickerOptions;
+
+        /**
          * Submit the contents of a Form Application, processing its content as defined by the Application
          * @param [options] Options passed to the _onSubmit event handler
          * @returns Return a self-reference for convenient method chaining

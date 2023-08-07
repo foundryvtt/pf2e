@@ -193,4 +193,6 @@ declare interface FilePickerOptions extends ApplicationOptions {
     displayMode?: FilePickerDisplayMode;
     /** Display the tile size configuration. */
     tileSize?: boolean;
+    /** Redirect to the root directory rather than starting in the source directory of one of these files. */
+    redirectToRoot?: (ImageFilePath | VideoFilePath)[];
 }

@@ -127,7 +127,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
     }
 
-    static override getDefaultArtwork(actorData: PreDocumentId<foundry.documents.ActorSource>): {
+    static override getDefaultArtwork(
+        actorData: foundry.documents.ActorSource | PreDocumentId<foundry.documents.ActorSource>
+    ): {
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
