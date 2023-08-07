@@ -6,7 +6,7 @@ import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, Mod
 import type { TokenEffect } from "@actor/token-effect.ts";
 import { MovementType } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/action/index.ts";
+import { ActionTrait } from "@item/ability/index.ts";
 import { ConditionSource, EffectSource } from "@item/data/index.ts";
 import { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";

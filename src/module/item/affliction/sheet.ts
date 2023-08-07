@@ -1,5 +1,5 @@
 import { AfflictionPF2e, ConditionPF2e, EffectPF2e, ItemPF2e } from "@item";
-import { ActionTrait } from "@item/action/types.ts";
+import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSheetPF2e } from "@item/sheet/base.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { ConditionManager } from "@system/conditions/index.ts";

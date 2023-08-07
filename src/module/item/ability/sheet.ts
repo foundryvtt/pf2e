@@ -1,9 +1,9 @@
-import { ActionItemPF2e } from "@item/action/document.ts";
+import { AbilityItemPF2e } from "@item/ability/document.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import { addSheetFrequencyListeners } from "./helpers.ts";
 
-export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
+export class ActionSheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ActionSheetData> {
         const data = await super.getData(options);
 
@@ -38,7 +38,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
     }
 }
 
-interface ActionSheetData extends ItemSheetDataPF2e<ActionItemPF2e> {
+interface ActionSheetData extends ItemSheetDataPF2e<AbilityItemPF2e> {
     categories: ConfigPF2e["PF2E"]["actionCategories"];
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];

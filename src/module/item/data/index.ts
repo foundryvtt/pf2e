@@ -1,4 +1,4 @@
-import type { ActionItemSource } from "@item/action/data.ts";
+import type { AbilityItemSource } from "@item/ability/data.ts";
 import type { AfflictionSource } from "@item/affliction/data.ts";
 import type { AncestrySource } from "@item/ancestry/data.ts";
 import type { ArmorSource } from "@item/armor/data.ts";
@@ -59,7 +59,7 @@ type PhysicalItemSource =
 
 type ItemSourcePF2e =
     | PhysicalItemSource
-    | ActionItemSource
+    | AbilityItemSource
     | AfflictionSource
     | AncestrySource
     | BackgroundSource
@@ -96,7 +96,7 @@ interface TraitChatData {
 }
 
 export {
-    ActionItemSource,
+    AbilityItemSource,
     AncestrySource,
     ArmorSource,
     BackgroundSource,

@@ -1,18 +1,18 @@
 import { htmlQuery } from "@util";
-import { ActionSystemData } from "./data.ts";
+import { AbilitySystemData } from "./data.ts";
 import { FrequencySource } from "@item/data/base.ts";
 import { ItemPF2e } from "@item";
 
 interface SourceWithActionData {
     system: {
-        actionType: ActionSystemData["actionType"];
-        actions: ActionSystemData["actions"];
+        actionType: AbilitySystemData["actionType"];
+        actions: AbilitySystemData["actions"];
     };
 }
 
 interface SourceWithFrequencyData {
     system: {
-        frequency?: ActionSystemData["frequency"];
+        frequency?: AbilitySystemData["frequency"];
     };
 }
 

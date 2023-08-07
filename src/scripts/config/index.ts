@@ -4,7 +4,7 @@ import { Alignment } from "@actor/creature/types.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { AttributeString } from "@actor/types.ts";
 import {
-    ActionItemPF2e,
+    AbilityItemPF2e,
     AfflictionPF2e,
     AncestryPF2e,
     ArmorPF2e,
@@ -1334,7 +1334,7 @@ export const PF2ECONFIG = {
 
     Item: {
         documentClasses: {
-            action: ActionItemPF2e,
+            action: AbilityItemPF2e,
             affliction: AfflictionPF2e,
             ancestry: AncestryPF2e,
             armor: ArmorPF2e,

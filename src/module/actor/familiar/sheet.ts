@@ -3,7 +3,7 @@ import { CharacterPF2e } from "@actor";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { FamiliarPF2e } from "@actor/familiar/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { ActionItemPF2e } from "@item";
+import { AbilityItemPF2e } from "@item";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 
 /**
@@ -84,6 +84,6 @@ interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetDa
     size: string;
     familiarAbilities: {
         value: number;
-        items: ActionItemPF2e[];
+        items: AbilityItemPF2e[];
     };
 }
