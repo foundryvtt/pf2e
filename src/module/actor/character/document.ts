@@ -1516,16 +1516,19 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { weapon: weapon.name }
         );
 
+        // Defer in case total modifier is recalulated with a different result later
         const labels = [
-            `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
-            game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                value: signedInteger(action.totalModifier + multipleAttackPenalty.map1),
-                penalty: multipleAttackPenalty.map1,
-            }),
-            game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                value: signedInteger(action.totalModifier + multipleAttackPenalty.map2),
-                penalty: multipleAttackPenalty.map2,
-            }),
+            () => `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
+            () =>
+                game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map1),
+                    penalty: multipleAttackPenalty.map1,
+                }),
+            () =>
+                game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map2),
+                    penalty: multipleAttackPenalty.map2,
+                }),
         ];
 
         const checkModifiers = [
@@ -1544,7 +1547,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ];
 
         action.variants = [0, 1, 2].map((mapIncreases) => ({
-            label: labels[mapIncreases],
+            get label(): string {
+                return labels[mapIncreases]();
+            },
             roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                 params.options ??= [];
                 params.consumeAmmo ??= weapon.requiresAmmo;
