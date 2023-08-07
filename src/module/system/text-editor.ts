@@ -316,22 +316,18 @@ class TextEditorPF2e extends TextEditor {
                     traits.push(...itemTraits);
                 }
 
-                // Set action slug as a roll option
-                if (item?.isOfType("action") && item.actionCost) {
-                    const slug = item?.slug ?? sluggify(item.name);
-                    const actionName = `action:${slug}`;
-                    traits.push(actionName);
-                }
-
-                // Add traits for basic checks
-                if (rawParams.basic === "true") traits.push("damaging-effect");
-
                 // Add param traits
                 if (rawParams.traits) traits.push(...rawParams.traits.split(",").map((trait) => trait.trim()));
 
                 // Deduplicate traits
                 return Array.from(new Set(traits));
             })(),
+            // Set action slug, damaging effect for basic saves, and any parameterized options
+            extraRollOptions: R.compact([
+                ... (item?.isOfType("action") && item.actionCost) ? [`action:${item?.slug ?? sluggify(item.name)}`] : [],
+                ... (rawParams.basic === "true") ? ["damaging-effect"] : [],
+                ... (rawParams.options?.split(",").map((t) => t.trim()) ?? []),
+            ]).sort(),
         };
         if (rawParams.dc) params.dc = rawParams.dc;
         if (rawParams.defense) params.defense = rawParams.defense;
@@ -410,6 +406,7 @@ class TextEditorPF2e extends TextEditor {
         anchor.append(icon);
 
         anchor.dataset.pf2Traits = params.traits.toString();
+        anchor.dataset.pf2RollOptions = params.extraRollOptions.toString();
         const name = params.name ?? item?.name ?? params.type;
         anchor.dataset.pf2RepostFlavor = name;
         const role = params.showDC ?? "owner";
@@ -749,6 +746,7 @@ interface CheckLinkParams {
     basic: boolean;
     adjustment?: string;
     traits: string[];
+    extraRollOptions: string[];
     name?: string;
     showDC?: string;
     immutable?: string;
