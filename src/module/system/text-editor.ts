@@ -117,11 +117,13 @@ class TextEditorPF2e extends TextEditor {
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
             const traits = anchor.dataset.pf2Traits?.split(",") ?? [];
+            const extraRollOptions = anchor.dataset.pf2RollOptions?.split(",") ?? [];
             const result = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event),
                 actor,
                 item,
                 traits,
+                extraRollOptions,
             });
             if (result) {
                 await DamagePF2e.roll(result.template, result.context);
@@ -314,22 +316,18 @@ class TextEditorPF2e extends TextEditor {
                     traits.push(...itemTraits);
                 }
 
-                // Set action slug as a roll option
-                if (item?.isOfType("action") && item.actionCost) {
-                    const slug = item?.slug ?? sluggify(item.name);
-                    const actionName = `action:${slug}`;
-                    traits.push(actionName);
-                }
-
-                // Add traits for basic checks
-                if (rawParams.basic === "true") traits.push("damaging-effect");
-
                 // Add param traits
                 if (rawParams.traits) traits.push(...rawParams.traits.split(",").map((trait) => trait.trim()));
 
                 // Deduplicate traits
                 return Array.from(new Set(traits));
             })(),
+            // Set action slug, damaging effect for basic saves, and any parameterized options
+            extraRollOptions: R.compact([
+                ...(item?.isOfType("action") && item.actionCost ? [`action:${item?.slug ?? sluggify(item.name)}`] : []),
+                ...(rawParams.basic === "true" ? ["damaging-effect"] : []),
+                ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
+            ]).sort(),
         };
         if (rawParams.dc) params.dc = rawParams.dc;
         if (rawParams.defense) params.defense = rawParams.defense;
@@ -408,6 +406,7 @@ class TextEditorPF2e extends TextEditor {
         anchor.append(icon);
 
         anchor.dataset.pf2Traits = params.traits.toString();
+        anchor.dataset.pf2RollOptions = params.extraRollOptions.toString();
         const name = params.name ?? item?.name ?? params.type;
         anchor.dataset.pf2RepostFlavor = name;
         const role = params.showDC ?? "owner";
@@ -513,16 +512,20 @@ class TextEditorPF2e extends TextEditor {
         const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
         const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
 
-        const rollOptions = ((): string[] => {
+        const traits = ((): string[] => {
             const fromParams = params.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
             const fromItem = item?.system.traits?.value ?? [];
             return params.overrideTraits === "true" ? fromParams : R.uniq([...fromParams, ...fromItem]);
         })().sort();
+
+        const extraRollOptions = R.compact(params.options?.split(",").map((t) => t.trim()) ?? []).sort();
+
         const result = await augmentInlineDamageRoll(params.formula, {
             skipDialog: true,
             actor,
             item,
-            traits: rollOptions,
+            traits,
+            extraRollOptions,
         });
 
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
@@ -534,7 +537,8 @@ class TextEditorPF2e extends TextEditor {
                 tooltip: roll.formula,
                 damageRoll: params.formula,
                 pf2BaseFormula: result ? params.formula : null,
-                pf2Traits: rollOptions.toString() || null,
+                pf2Traits: traits.toString() || null,
+                pf2RollOptions: extraRollOptions.toString() || null,
                 pf2ItemId: item?.id,
             },
         });
@@ -619,9 +623,10 @@ async function augmentInlineDamageRoll(
         actor?: ActorPF2e | null;
         item?: ItemPF2e | null;
         traits?: string[];
+        extraRollOptions?: string[];
     }
 ): Promise<{ template: InlineDamageTemplate; context: DamageRollContext } | null> {
-    const { name, actor, item, traits } = args;
+    const { name, actor, item, traits, extraRollOptions } = args;
 
     try {
         const rollData: Record<string, unknown> = item?.getRollData() ?? actor?.getRollData() ?? {};
@@ -639,6 +644,7 @@ async function augmentInlineDamageRoll(
             ...(actor?.getRollOptions(domains) ?? []),
             ...(item?.getRollOptions("item") ?? []),
             ...(traits ?? []),
+            ...(extraRollOptions ?? []),
         ]);
 
         // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
@@ -740,6 +746,7 @@ interface CheckLinkParams {
     basic: boolean;
     adjustment?: string;
     traits: string[];
+    extraRollOptions: string[];
     name?: string;
     showDC?: string;
     immutable?: string;

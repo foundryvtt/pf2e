@@ -74,6 +74,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         return {
             ...super.defineSchema(),
             radius: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+            level: new ResolvableValueField({ required: false, nullable: true, initial: null }),
             traits: new fields.ArrayField(auraTraitField, { required: true, nullable: false, initial: [] }),
             effects: new fields.ArrayField(effectSchemaField, { required: false, nullable: false, initial: [] }),
             colors: new fields.SchemaField(
@@ -92,10 +93,16 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         const radius = Math.clamped(Number(this.resolveValue(this.radius)), 5, 240);
 
         if (Number.isInteger(radius) && radius > 0 && radius % 5 === 0) {
+            const level = this.resolveValue(this.level);
             const data = {
                 slug: this.slug,
-                level: this.item.system.level?.value ?? null,
                 radius,
+                level:
+                    typeof level === "number"
+                        ? Math.trunc(level)
+                        : this.item.isOfType("effect")
+                        ? this.item.level
+                        : null,
                 effects: this.#processEffects(),
                 traits: this.traits,
                 colors: this.colors,
@@ -122,7 +129,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         return this.effects.map((e) => ({
             ...e,
             uuid: this.resolveInjectedProperties(e.uuid),
-            level: this.item.system.level?.value ?? null,
             save: null,
         }));
     }
@@ -136,6 +142,8 @@ interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromSch
 type AuraSchema = RuleElementSchema & {
     /** The radius of the order in feet, or a string that will resolve to one */
     radius: ResolvableValueField<true, false, false>;
+    /** An optional level for the aura, to be used to set the level of the effects it transmits */
+    level: ResolvableValueField<false, true, true>;
     /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
     traits: ArrayField<
         StringField<EffectTrait, EffectTrait, true, false, false>,

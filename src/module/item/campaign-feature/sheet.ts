@@ -1,7 +1,7 @@
+import { addSheetFrequencyListeners } from "@item/ability/helpers.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
 import { htmlQuery } from "@util";
 import Tagify from "@yaireo/tagify";
-import { FrequencySource } from "@item/data/base.ts";
 import { CampaignFeaturePF2e } from "./document.ts";
 import { KINGMAKER_CATEGORIES } from "./values.ts";
 
@@ -30,6 +30,7 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
+        addSheetFrequencyListeners(this.item, html);
 
         const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
         if (prerequisites) {
@@ -37,15 +38,6 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
                 editTags: 1,
             });
         }
-
-        htmlQuery(html, "a[data-action=frequency-add]")?.addEventListener("click", () => {
-            const frequency: FrequencySource = { max: 1, per: "day" };
-            this.item.update({ system: { frequency } });
-        });
-
-        htmlQuery(html, "a[data-action=frequency-delete]")?.addEventListener("click", () => {
-            this.item.update({ "system.-=frequency": null });
-        });
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

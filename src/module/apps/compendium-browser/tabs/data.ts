@@ -1,6 +1,6 @@
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { HazardTrait } from "@actor/hazard/types.ts";
-import { ActionTrait } from "@item/action/index.ts";
+import { ActionTrait } from "@item/ability/index.ts";
 import { FeatTrait } from "@item/feat/types.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
 import { SearchResult } from "minisearch";

@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
+import * as R from "remeda";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
@@ -110,7 +111,8 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
             const splashDamage = instance.componentTotal("splash");
             const splashWeakness = splashDamage ? weaknesses.find((w) => w.type === "splash-damage") ?? null : null;
-            const highestWeakness = [...mainWeaknesses, splashWeakness].reduce(
+            const precisionWeakness = precisionDamage > 0 ? weaknesses.find((r) => r.type === "precision") : null;
+            const highestWeakness = R.compact([...mainWeaknesses, precisionWeakness, splashWeakness]).reduce(
                 (highest: WeaknessData | null, w) =>
                     w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
                 null
@@ -133,6 +135,18 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     value: r.getDoubledValue(formalDescription),
                     ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
                 }));
+            const precisionResistance = ((): { label: string; value: number; ignored: boolean } | null => {
+                const resistance = precisionDamage > 0 ? resistances.find((r) => r.type === "precision") : null;
+                return resistance
+                    ? {
+                          label: resistance.applicationLabel,
+                          value: Math.min(resistance.value, precisionDamage),
+                          ignored: false,
+                      }
+                    : null;
+            })();
+            if (precisionResistance) applicableResistances.push(precisionResistance);
+
             const highestResistance = applicableResistances
                 .filter((r) => !r.ignored)
                 .reduce(

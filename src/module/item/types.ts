@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import * as ItemInstance from "@item";
 
 interface ItemInstances<TParent extends ActorPF2e | null> {
-    action: ItemInstance.ActionItemPF2e<TParent>;
+    action: ItemInstance.AbilityItemPF2e<TParent>;
     affliction: ItemInstance.AfflictionPF2e<TParent>;
     ancestry: ItemInstance.AncestryPF2e<TParent>;
     armor: ItemInstance.ArmorPF2e<TParent>;

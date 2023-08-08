@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { ActionTrait } from "@item/action/types.ts";
+import { ActionTrait } from "@item/ability/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -81,7 +81,9 @@ export const InlineRollLinks = {
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller } = link.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
+                link.dataset;
+
             if (!pf2Check) return;
 
             link.addEventListener("click", async (event) => {
@@ -108,11 +110,10 @@ export const InlineRollLinks = {
 
                 if (actors.length === 0) return;
 
-                const extraRollOptions =
-                    pf2Traits
-                        ?.split(",")
-                        .map((o) => o.trim())
-                        .filter((o) => !!o) ?? [];
+                const extraRollOptions = [
+                    ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
+                    ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
+                ];
                 const eventRollParams = eventToRollParams(event);
 
                 switch (pf2Check) {
