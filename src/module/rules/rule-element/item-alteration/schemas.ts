@@ -218,6 +218,27 @@ const ITEM_ALTERATION_VALIDATORS = {
             choices: RARITIES,
         } as const),
     }),
+    "frequency-max": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["action", "feat"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
+        }),
+        value: new fields.NumberField({ required: true, integer: true, nullable: false, positive: true } as const),
+    }),
+    "frequency-per": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["action", "feat"] }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["downgrade", "override", "upgrade"] as const,
+        }),
+        value: new fields.StringField({
+            required: true,
+            nullable: false,
+            choices: () => Object.keys(CONFIG.PF2E.frequencies),
+            initial: undefined,
+        } as const),
+    }),
 };
 
 interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<AlterationSchema>>
