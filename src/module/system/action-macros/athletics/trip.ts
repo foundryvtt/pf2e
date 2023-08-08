@@ -66,8 +66,7 @@ function trip(options: SkillActionOptions): void {
         traits: ["attack"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.reflex,
+        difficultyClass: options.difficultyClass ?? "reflex",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "success"),
@@ -93,7 +92,7 @@ class TripAction extends SingleCheckAction {
         super({
             cost: 1,
             description: "PF2E.Actions.Trip.Description",
-            difficultyClass: "saves.reflex",
+            difficultyClass: "reflex",
             name: "PF2E.Actions.Trip.Title",
             notes: [
                 { outcome: ["criticalSuccess"], text: "PF2E.Actions.Trip.Notes.criticalSuccess" },

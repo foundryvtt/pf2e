@@ -15,8 +15,7 @@ function tumbleThrough(options: SkillActionOptions): void {
         traits: ["move"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.reflex,
+        difficultyClass: options.difficultyClass ?? "reflex",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
@@ -30,7 +29,7 @@ function tumbleThrough(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
-    difficultyClass: "saves.reflex",
+    difficultyClass: "reflex",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },

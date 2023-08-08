@@ -403,7 +403,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             const isTargetedCheck =
                 (this.type === "spell-attack-roll" && item?.isOfType("spell")) ||
                 (["check", "perception-check", "skill-check"].includes(this.type) &&
-                    !!(args.dc?.statistic || args.dc?.slug) &&
+                    !!(args.dc && (args.dc?.slug || "statistic" in args.dc)) &&
                     (!item || item.isOfType("action", "weapon")));
 
             return isValidAttacker && isTargetedCheck
@@ -413,13 +413,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                       statistic: this,
                       target: targetToken,
                       targetedDC: args.dc?.slug ?? "armor",
-                      options: new Set(),
+                      options: new Set(args.extraRollOptions ?? []),
                   })
                 : null;
         })();
 
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
-        const dc = args.dc ?? rollContext?.dc ?? null;
+        const dc = args.dc && "value" in args.dc ? args.dc : rollContext?.dc ?? null;
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers = this.type === "flat-check" ? [] : [...(args.modifiers ?? [])];
@@ -599,6 +599,10 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
     }
 }
 
+interface CheckDCReference {
+    slug: string;
+}
+
 interface StatisticRollParameters {
     /** What token to use for the roll itself. Defaults to the actor's token */
     token?: TokenDocumentPF2e;
@@ -609,7 +613,7 @@ interface StatisticRollParameters {
     /** Optional origin for the roll: only one of target and origin may be provided */
     origin?: ActorPF2e | null;
     /** Optional DC data for the roll */
-    dc?: CheckDC | null;
+    dc?: CheckDC | CheckDCReference | null;
     /** Optional override for the check modifier label */
     label?: string;
     /** Optional override for the dialog's title. Defaults to label */
@@ -646,6 +650,7 @@ interface RollOptionConfig {
 export * from "./data.ts";
 export {
     BaseStatistic,
+    CheckDCReference,
     RollOptionConfig,
     Statistic,
     StatisticCheck,

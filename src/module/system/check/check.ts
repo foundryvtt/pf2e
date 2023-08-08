@@ -536,7 +536,8 @@ class CheckPF2e {
 
         const { dc } = degree;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
-        const customLabel = needsDCParam ? `<dc>${dc.label}: {dc}</dc>` : dc.label ?? null;
+        const customLabel =
+            needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : dc.label ?? null;
 
         const targetActor = await (async (): Promise<ActorPF2e | null> => {
             if (!target?.actor) return null;

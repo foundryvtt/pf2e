@@ -35,8 +35,7 @@ export function whirlingThrow(options: SkillActionOptions): void {
         traits: ["monk"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.fortitude,
+        difficultyClass: options.difficultyClass ?? "fortitude",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.WhirlingThrow", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.WhirlingThrow", "success"),

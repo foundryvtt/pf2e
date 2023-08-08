@@ -1,5 +1,3 @@
-import { StatisticModifier } from "@actor/modifiers.ts";
-import { DCSlug } from "@actor/types.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { CheckRoll } from "./check/roll.ts";
 import { PredicatePF2e } from "./predication.ts";
@@ -150,8 +148,8 @@ interface DegreeOfSuccessAdjustment {
 }
 
 interface CheckDC {
-    slug?: DCSlug | null;
-    statistic?: StatisticDifficultyClass | StatisticModifier | null;
+    slug?: string | null;
+    statistic?: StatisticDifficultyClass | null;
     label?: string;
     scope?: "attack" | "check";
     value: number;

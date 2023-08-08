@@ -31,8 +31,7 @@ export function perform(options: { variant: PerformVariant } & SkillActionOption
         traits: ["concentrate", ...traits].sort(),
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "success"),

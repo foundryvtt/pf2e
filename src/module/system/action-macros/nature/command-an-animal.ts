@@ -15,8 +15,7 @@ function commandAnAnimal(options: SkillActionOptions): void {
         traits: ["auditory", "concentrate"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.will,
+        difficultyClass: options.difficultyClass ?? "will",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.note(selector, PREFIX, "failure"),
@@ -31,7 +30,7 @@ function commandAnAnimal(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
-    difficultyClass: "saves.will",
+    difficultyClass: "will",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },

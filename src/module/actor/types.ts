@@ -149,7 +149,7 @@ interface CheckContextParams<
     TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
     TItem extends AttackItem | null = AttackItem | null
 > extends RollContextParams<TStatistic, TItem> {
-    targetedDC: DCSlug;
+    targetedDC: string;
 }
 
 interface DamageRollContextParams<

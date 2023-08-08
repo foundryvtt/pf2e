@@ -27,8 +27,7 @@ export function shove(options: SkillActionOptions): void {
         traits: ["attack"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.fortitude,
+        difficultyClass: options.difficultyClass ?? "fortitude",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "success"),

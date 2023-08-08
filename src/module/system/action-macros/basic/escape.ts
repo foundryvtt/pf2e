@@ -15,14 +15,12 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     data: CheckContextData<ItemType>
 ) {
     const actionRollOptions = ["action:escape", "action:escape:unarmed"];
-    const { actor, rollOptions } = opts.buildContext({
+    const { rollOptions } = opts.buildContext({
         actor: opts.actor,
-        rollOptions: {
-            contextual: ["attack-roll", ...actionRollOptions],
-            generic: actionRollOptions,
-        },
+        rollOptions: actionRollOptions,
         target: opts.target,
     });
+    const { actor } = opts;
     const strikes = (() => {
         if (actor instanceof CharacterPF2e) {
             return actor.system.actions.filter((strike) =>
@@ -57,18 +55,15 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         .filter((slug) => slug !== "unarmed")
         .map((slug) => {
             const actionRollOptions = ["action:escape", `action:escape:${slug}`];
-            const { checkType, property } = ActionMacroHelpers.resolveStat(slug);
-            const { actor, rollOptions } = opts.buildContext({
+            const { property } = ActionMacroHelpers.resolveStat(slug);
+            const { rollOptions } = opts.buildContext({
                 actor: opts.actor,
-                rollOptions: {
-                    contextual: [checkType, ...actionRollOptions],
-                    generic: actionRollOptions,
-                },
+                rollOptions: actionRollOptions,
                 target: opts.target,
             });
             const statistic = getProperty(opts.actor, property) as StatisticModifier & { rank?: number };
             return {
-                actor,
+                actor: opts.actor,
                 rollOptions,
                 statistic: new StatisticModifier(
                     statistic.slug,
@@ -88,7 +83,6 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     if (highest) {
         const { checkType, stat: slug, subtitle } = ActionMacroHelpers.resolveStat(highest.statistic.slug);
         return {
-            actor: highest.actor,
             modifiers: data.modifiers,
             rollOptions: highest.rollOptions,
             slug,
@@ -112,8 +106,7 @@ function escape(options: SkillActionOptions): void {
         traits: ["attack"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.skills.athletics,
+        difficultyClass: options.difficultyClass ?? "athletics",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Escape", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Escape", "success"),
@@ -143,7 +136,7 @@ class EscapeAction extends SingleCheckAction {
         super({
             cost: 1,
             description: "PF2E.Actions.Escape.Description",
-            difficultyClass: "skills.athletics",
+            difficultyClass: "athletics",
             name: "PF2E.Actions.Escape.Title",
             notes: [
                 { outcome: ["criticalSuccess"], text: "PF2E.Actions.Escape.Notes.criticalSuccess" },

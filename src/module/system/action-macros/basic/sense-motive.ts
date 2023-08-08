@@ -13,8 +13,7 @@ function senseMotive(options: SkillActionOptions): void {
         traits: ["concentrate", "secret"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.skills.deception,
+        difficultyClass: options.difficultyClass ?? "deception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "success"),
@@ -30,7 +29,7 @@ function senseMotive(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: "PF2E.Actions.SenseMotive.Description",
-    difficultyClass: "skills.deception",
+    difficultyClass: "deception",
     name: "PF2E.Actions.SenseMotive.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.SenseMotive.Notes.criticalSuccess" },

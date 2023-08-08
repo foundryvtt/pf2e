@@ -1,5 +1,6 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { DCSlug } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -19,15 +20,11 @@ class CheckContextError extends Error {
 interface BuildCheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     actor: ActorPF2e;
     item?: ItemType;
-    rollOptions: {
-        contextual: string[];
-        generic: string[];
-    };
+    rollOptions: string[];
     target?: ActorPF2e | null;
 }
 
 interface BuildCheckContextResult<ItemType extends ItemPF2e<ActorPF2e>> {
-    actor: ActorPF2e;
     item?: ItemType;
     rollOptions: string[];
     target?: ActorPF2e | null;
@@ -44,17 +41,17 @@ interface CheckContextData<ItemType extends ItemPF2e<ActorPF2e>> {
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
+    target?: ActorPF2e | null;
 }
 
 interface CheckContext<ItemType extends ItemPF2e<ActorPF2e>> {
-    actor: ActorPF2e;
+    type: CheckType;
     item?: ItemType;
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
     statistic: Statistic | (StatisticModifier & { rank?: number });
     subtitle: string;
-    type: CheckType;
 }
 
 interface CheckResultCallback {
@@ -75,8 +72,11 @@ interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     item?: (actor: ActorPF2e) => ItemType | undefined;
     traits: string[];
     event?: JQuery.TriggeredEvent | Event | null;
-    difficultyClass?: CheckDC;
-    difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic | null;
+    /**
+     * A DC can be represented as a preassembled `CheckDC` object, a slug referencing a `Statistic`, or a function that
+     * returns a `CheckDC` or `null`.
+     */
+    difficultyClass?: UnresolvedCheckDC;
     extraNotes?: (selector: string) => RollNotePF2e[];
     callback?: (result: CheckResultCallback) => void;
     createMessage?: boolean;
@@ -84,6 +84,8 @@ interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     weaponTraitWithPenalty?: WeaponTrait;
     target?: () => { token: TokenDocumentPF2e; actor: ActorPF2e } | null;
 }
+
+type UnresolvedCheckDC = CheckDC | DCSlug | ((actor: ActorPF2e | null) => CheckDC | null);
 
 interface ActionDefaultOptions {
     event?: JQuery.TriggeredEvent | Event | null;
@@ -99,6 +101,7 @@ interface SkillActionOptions extends ActionDefaultOptions {
 }
 
 export {
+    ActionDefaultOptions,
     ActionGlyph,
     CheckContext,
     CheckContextData,
@@ -106,6 +109,6 @@ export {
     CheckContextOptions,
     CheckResultCallback,
     SimpleRollActionCheckOptions,
-    ActionDefaultOptions,
     SkillActionOptions,
+    UnresolvedCheckDC,
 };
