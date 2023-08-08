@@ -733,7 +733,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             quantity?.addEventListener("change", async () => {
                 const itemUUID = element.dataset.itemId ?? "";
-                debugger;
                 const formula = this.knownFormulas[itemUUID];
                 const minBatchSize = formula.minimumBatchSize;
                 const newValue = Number(quantity.value) || minBatchSize;
