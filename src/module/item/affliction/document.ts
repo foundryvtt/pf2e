@@ -10,7 +10,13 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
+import {
+    AfflictionDuration,
+    AfflictionFlags,
+    AfflictionOnset,
+    AfflictionSource,
+    AfflictionSystemData,
+} from "./data.ts";
 
 /** Condition types that don't need a duration to eventually disappear. These remain even when the affliction ends */
 const EXPIRING_CONDITIONS: Set<ConditionSlug> = new Set([
@@ -63,6 +69,22 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         await this.update({ system: { stage } });
+    }
+
+    get onsetDuration(): number {
+        const value = this.totalDuration(this.system.onset);
+        return value === Infinity ? 0 : value;
+    }
+
+    totalDuration(duration: AfflictionDuration | AfflictionOnset | undefined): number {
+        if (!duration) {
+            return 0;
+        }
+        if (["unlimited"].includes(duration.unit)) {
+            return Infinity;
+        } else {
+            return duration.value * (AbstractEffectPF2e.DURATION_UNITS[duration.unit] ?? 0);
+        }
     }
 
     override prepareBaseData(): void {
@@ -196,8 +218,11 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }))
         );
 
-        // Create the message in the chat
-        await this.createStageMessage();
+        // Skip create message if there is onset
+        if (!this.system.onset) {
+            // Create the message in the chat
+            await this.createStageMessage();
+        }
     }
 
     override getLinkedItems(): ItemPF2e<ActorPF2e>[] {
@@ -223,6 +248,20 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const { template, context } = damage;
             await DamagePF2e.roll(template, context);
         }
+    }
+
+    /** Set the start time and initiative roll of a newly created effect */
+    protected override async _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        if (this.isOwned) {
+            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+            this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
+        }
+
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
@@ -277,6 +316,16 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             } else {
                 this.increase();
             }
+        }
+    }
+
+    override prepareActorData(): void {
+        super.prepareActorData();
+        const actor = this.actor;
+        if (!actor) throw ErrorPF2e("prepareActorData called from unembedded item");
+
+        if (this.system.onset) {
+            actor.rollOptions.all[`self:${this.type}:${this.rollOptionSlug}:onset`] = true;
         }
     }
 }
