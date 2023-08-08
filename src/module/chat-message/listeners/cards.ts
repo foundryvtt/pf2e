@@ -76,6 +76,11 @@ class ChatCards {
                     return;
                 case "spell-save":
                     return this.#rollActorSaves({ event, button, actor, item });
+                case "affliction-save":
+                    if (item?.isOfType("affliction")) {
+                        item.rollRecovery();
+                    }
+                    return;
                 case "spell-counteract":
                     spell?.rollCounteract(event);
                     return;

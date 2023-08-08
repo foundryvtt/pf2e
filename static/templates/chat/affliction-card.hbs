@@ -7,4 +7,9 @@
     <div class="card-content">
         {{{item.description}}}
     </div>
+    {{#if actor}}
+        <section class="card-buttons">
+            <button type="button" data-action="affliction-save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}">{{localize "PF2E.SaveDCLabel" dc=data.save.value type=(lookup (lookup actor.saves data.save.type) 'label') }}</button>
+        </section>
+    {{/if}}
 </div>
