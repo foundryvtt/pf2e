@@ -63,7 +63,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     protected readonly actorConfigClass = CharacterConfig;
 
     /** A cache of this PC's known formulas, for use by sheet callbacks */
-    #knownFormulas: Record<string, CraftingFormula> = {};
+    private knownFormulas: Record<string, CraftingFormula> = {};
 
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
@@ -208,7 +208,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             entries: await this.#prepareCraftingEntries(craftingFormulas),
         };
 
-        this.#knownFormulas = Object.values(formulasByLevel)
+        this.knownFormulas = Object.values(formulasByLevel)
             .flat()
             .reduce((result: Record<string, CraftingFormula>, entry) => {
                 entry.batchSize = this.#formulaQuantities[entry.uuid] ?? entry.batchSize;
@@ -733,7 +733,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             quantity?.addEventListener("change", async () => {
                 const itemUUID = element.dataset.itemId ?? "";
-                const formula = this.#knownFormulas[itemUUID];
+                debugger;
+                const formula = this.knownFormulas[itemUUID];
                 const minBatchSize = formula.minimumBatchSize;
                 const newValue = Number(quantity.value) || minBatchSize;
                 if (newValue < 1) return;
@@ -757,7 +758,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 button.addEventListener("click", async () => {
                     if (!quantity) return;
                     const itemUUID = element.dataset.itemId ?? "";
-                    const formula = this.#knownFormulas[itemUUID];
+                    const formula = this.knownFormulas[itemUUID];
                     const minBatchSize = formula.minimumBatchSize;
                     const step = button.dataset.action === "increase-quantity" ? minBatchSize : -minBatchSize;
                     const newValue = (Number(quantity.value) || step) + step;
@@ -781,7 +782,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             craftButton?.addEventListener("click", async (event) => {
                 const { itemUuid, free, prepared } = craftButton.dataset;
                 const itemQuantity = Number(quantity?.value) || 1;
-                const formula = this.#knownFormulas[itemUuid ?? ""];
+                const formula = this.knownFormulas[itemUuid ?? ""];
                 if (!formula) return;
 
                 if (prepared === "true") {
@@ -842,7 +843,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (!itemUuid) return;
 
                 // Render confirmation modal dialog
-                const name = this.#knownFormulas[itemUuid]?.name;
+                const name = this.knownFormulas[itemUuid]?.name;
                 const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.RemoveFormulaDialogQuestion", {
                     name,
                 })}</p>`;
@@ -865,7 +866,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
 
                 // Render confirmation modal dialog
-                const name = this.#knownFormulas[itemUuid]?.name;
+                const name = this.knownFormulas[itemUuid]?.name;
                 const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", {
                     name,
                 })}</p>`;
@@ -1136,7 +1137,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
             const uuid = dropData.pf2e.itemUuid;
             if (typeof uuid === "string") {
-                const formula = this.#knownFormulas[uuid];
+                const formula = this.knownFormulas[uuid];
                 // Sort existing formulas
                 if (formula) {
                     const targetUuid = htmlClosest(event.target, "li.formula-item")?.dataset.itemId ?? "";
@@ -1157,7 +1158,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         if (sourceFormula.uuid === targetUuid) return;
 
         const sourceLevel = sourceFormula.level;
-        const targetLevel = this.#knownFormulas[targetUuid].level;
+        const targetLevel = this.knownFormulas[targetUuid].level;
 
         // Do not allow sorting with different formula level outside of a crafting entry
         if (!entrySelector && sourceLevel !== targetLevel) {
