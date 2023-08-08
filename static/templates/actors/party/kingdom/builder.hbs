@@ -28,7 +28,7 @@
             <div class="ability-builder">
                 <header class="row">
                     <div class="row-heading">
-                        <h3>{{localize "PF2E.Actor.Character.AbilityBuilder.Title"}}</h3>
+                        <h3>{{localize "PF2E.Kingmaker.KingdomBuilder.AssignBoostsHeader"}}</h3>
                     </div>
                     <div class="abilities">
                         {{#each abilities as |ability|}}
@@ -117,7 +117,7 @@
                         {{/each}}
                         <div class="complete">
                             <button class="complete" type="button" data-action="complete" {{disabled (not finished)}}>
-                                {{localize "PF2E.Actor.Character.AbilityBuilder.Complete"}}
+                                {{localize "PF2E.Kingmaker.KingdomBuilder.Complete"}}
                             </button>
                         </div>
                     </div>
@@ -194,7 +194,7 @@
                     {{#if object}}
                         {{object.name}}
                     {{else}}
-                        {{localize "PF2E.Actor.Character.AbilityBuilder.NotSelected"}}
+                        {{localize "PF2E.Kingmaker.KingdomBuilder.NotSelected"}}
                     {{/if}}
                 </div>
             </div>
@@ -238,9 +238,9 @@
             {{#if (eq number "second")}}
                 x2
             {{else if (eq type "flaw")}}
-                {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
+                {{localize "PF2E.Kingmaker.KingdomBuilder.Flaw"}}
             {{else}}
-                {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}
+                {{localize "PF2E.Kingmaker.KingdomBuilder.Boost"}}
             {{/if}}
         </button>
     {{/inline}}

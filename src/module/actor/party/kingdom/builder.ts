@@ -25,7 +25,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
         return {
             ...super.defaultOptions,
             classes: ["sheet", "kingdom-builder"],
-            title: game.i18n.localize("PF2E.AbilityScoresHeader"),
+            title: game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.Title"),
             template: "systems/pf2e/templates/actors/party/kingdom/builder.hbs",
             width: 560,
             height: "auto",
