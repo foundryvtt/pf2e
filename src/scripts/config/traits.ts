@@ -993,7 +993,7 @@ const traitDescriptions = {
     common: "PF2E.TraitDescriptionCommon",
     companion: "PF2E.TraitDescriptionCompanion",
     complex: "PF2E.TraitDescriptionComplex",
-    composite: "TraitDescriptionComposite",
+    composite: "PF2E.TraitDescriptionComposite",
     composition: "PF2E.TraitDescriptionComposition",
     concealable: "PF2E.TraitDescriptionConcealable",
     concentrate: "PF2E.TraitDescriptionConcentrate",
