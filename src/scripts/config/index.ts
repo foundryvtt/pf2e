@@ -1129,6 +1129,7 @@ export const PF2ECONFIG = {
         shisk: "PF2E.LanguageShisk",
         shoanti: "PF2E.LanguageShoanti",
         shoony: "PF2E.LanguageShoony",
+        shory: "PF2E.LanguageShory",
         skald: "PF2E.LanguageSkald",
         sphinx: "PF2E.LanguageSphinx",
         strix: "PF2E.LanguageStrix",
