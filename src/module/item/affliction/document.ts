@@ -4,9 +4,9 @@ import { UserPF2e } from "@module/user/index.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { AfflictionDamageTemplate, BaseDamageData, DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ErrorPF2e } from "@util";
 import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
-import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 
 class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     constructor(source: object, context?: DocumentConstructionContext<TParent>) {
@@ -21,7 +21,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return {
             type: "counter",
             value: this.stage,
-            max: Object.keys(this.system.stages).length || 1,
+            max: this.maxStage,
             label,
         };
     }
@@ -30,11 +30,14 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return this.system.stage;
     }
 
-    override async increase(): Promise<void> {
-        const maxStage = Object.keys(this.system.stages).length || 1;
-        if (this.stage === maxStage) return;
+    get maxStage(): number {
+        return Object.keys(this.system.stages).length || 1;
+    }
 
-        const stage = Math.min(maxStage, this.system.stage + 1);
+    override async increase(): Promise<void> {
+        if (this.stage === this.maxStage) return;
+
+        const stage = Math.min(this.maxStage, this.system.stage + 1);
         await this.update({ system: { stage } });
     }
 
@@ -50,8 +53,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const maxStage = Object.keys(this.system.stages).length || 1;
-        this.system.stage = Math.clamped(this.system.stage, 1, maxStage);
+        this.system.stage = Math.clamped(this.system.stage, 1, this.maxStage);
 
         // Set certain defaults
         for (const stage of Object.values(this.system.stages)) {
@@ -163,20 +165,17 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     async rollRecovery(): Promise<void> {
         if (!this.actor) return;
 
-        const saves = this?.actor?.saves;
-        if (saves) {
-            const stat = saves[this.system.save.type];
-            if (stat) {
-                const result = await stat.roll({
-                    dc: { value: this.system.save.value },
-                    extraRollOptions: this.getRollOptions("item"),
-                });
+        const save = this.actor.saves?.[this.system.save.type];
+        if (save) {
+            const result = await save.roll({
+                dc: { value: this.system.save.value },
+                extraRollOptions: this.getRollOptions("item"),
+            });
 
-                if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
-                    this.decrease();
-                } else {
-                    this.increase();
-                }
+            if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
+                this.decrease();
+            } else {
+                this.increase();
             }
         }
     }
