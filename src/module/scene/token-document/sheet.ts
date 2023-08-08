@@ -1,10 +1,13 @@
-import { VehiclePF2e } from "@actor";
+import { ActorPF2e, VehiclePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import { TokenDocumentPF2e } from "./index.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
-    override get template(): string {
-        return "systems/pf2e/templates/scene/token/sheet.hbs";
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            template: "systems/pf2e/templates/scene/token/sheet.hbs",
+        };
     }
 
     /** Get this token's dimensions were they linked to its actor's size */
@@ -26,6 +29,13 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
             sizeLinkable: !!this.actor && !["hazard", "loot"].includes(this.actor.type),
             linkToSizeTitle: this.token.flags.pf2e.linkToActorSize ? "Unlink" : "Link",
             autoscaleTitle: this.token.flags.pf2e.autoscale ? "Unlink" : "Link",
+        };
+    }
+
+    protected override _getFilePickerOptions(event: PointerEvent): FilePickerOptions {
+        return {
+            ...super._getFilePickerOptions(event),
+            redirectToRoot: this.actor ? [ActorPF2e.getDefaultArtwork(this.actor.toObject()).texture.src] : [],
         };
     }
 
