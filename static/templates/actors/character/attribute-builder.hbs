@@ -13,7 +13,7 @@
             </div>
         </header>
 
-        <!-- ancestry boosts -->
+        <!-- ANCESTRY BOOSTS -->
         <section class="row{{#if manual}} not-eligible{{/if}}" data-section="ancestry">
             {{#if ancestryBoosts}}
                 <div class="row-heading">
@@ -54,7 +54,7 @@
             </div>
         </section>
 
-        <!-- ancestry voluntary flaw -->
+        <!-- ANCESTRY VOLUNTARY FLAWS -->
         <section class="row{{#if manual}} not-eligible{{/if}} voluntary-flaw-row" data-section="voluntary">
             {{#if ancestry}}
                 <div class="row-heading">
@@ -76,7 +76,7 @@
 
         <hr />
 
-        <!-- background boosts -->
+        <!-- BACKGROUND BOOSTS -->
         <section class="row{{#if manual}} not-eligible{{/if}}" data-section="background">
             {{#if backgroundBoosts}}
                 <div class="row-heading" data-tooltip-content="#{{actor.id}}-background-tooltip">
@@ -116,11 +116,11 @@
 
         <hr />
 
-        <!-- class boosts -->
+        <!-- CLASS BOOSTS -->
         <section class="row{{#if manual}} not-eligible{{/if}}">
             {{#if class}}
                 <div class="row-heading">
-                    <img class="" src="{{class.img}}" title="{{ancestry.name}}" width="32" height="32" loading="lazy"/>
+                    <img class="" src="{{class.img}}" title="{{ancestry.name}}" width="32" height="32" loading="lazy" />
                     <div>
                         <div class="title">{{localize "PF2E.Class"}}</div>
                         <div class="description">{{class.name}}</div>
@@ -163,20 +163,25 @@
         </div>
 
         {{#each levelBoosts as |boosts|}}
-            <section class="row{{#if ../manual}} not-eligible{{/if}}{{#if (not boosts.eligible)}} not-eligible{{/if}}" data-level="{{boosts.level}}">
+            <section
+                class="row{{#if ../manual}} not-eligible{{/if}}{{#if (not boosts.eligible)}} not-eligible{{/if}}"
+                {{#if boosts.isApex}}data-section="apex"{{else}}data-level="{{boosts.level}}"{{/if~}}
+            >
                 <div class="row-heading">
                     {{#if remaining}}<div class="remaining extra">{{remaining}}</div>{{/if}}
                     <div class="label">
                         <div class="description">
-                            {{#if (eq boosts.minLevel boosts.level)}}
+                            {{~#if (eq boosts.level 17)~}}
+                                {{localize "PF2E.TraitApex"}}
+                            {{~else if (eq boosts.minLevel boosts.level)~}}
                                 {{localize "PF2E.LevelN" level=boosts.level}}
-                            {{else}}
+                            {{~else~}}
                                 {{localize "PF2E.LevelRange" minLevel=boosts.minLevel level=boosts.level}}
-                            {{/if}}
+                            {{~/if~}}
                         </div>
                     </div>
                 </div>
-                {{> attributeRow buttons=boosts.buttons}}
+                {{> attributeRow buttons=boosts.buttons isApex=boosts.isApex}}
             </section>
         {{/each}}
 
@@ -196,7 +201,7 @@
                     <div class="row-column"{{#if attribute.partial}} title="{{localize "PF2E.Actor.Character.AttributeBuilder.HasPartial"}}"{{/if}}>
                         {{#if ../manual}}
                             <button type="button" data-action="class-key-attribute" data-key="{{lookup ../attributes key}}" data-attribute="{{key}}"
-                                class="boost{{#if (eq ../manualKeyAbility key)}} selected{{/if}}"
+                                class="boost{{#if (eq ../manualKeyAttribute key)}} selected{{/if}}"
                                 tabindex="-1"
                             >
                                 <i class="fa-solid fa-fw fa-key"></i>
@@ -232,12 +237,13 @@
     {{#if buttons}}
         <div class="attributes">
             {{#each buttons as |state|}}
-                <div class="row-column" data-attribute="{{state.ability}}">
+                <div class="row-column">
                     {{#if flaw}}
-                        {{> boostButton type="flaw" button=state.flaw}}
-                    {{/if}}
-                    {{#if boost}}
-                        {{> boostButton type="boost" button=state.boost}}
+                        {{> boostButton type="flaw" attribute=state.ability button=state.flaw}}
+                    {{else if ../isApex}}
+                        {{> boostButton type="apex" attribute=state.ability button=state.boost}}
+                    {{else}}
+                        {{> boostButton type="boost" attribute=state.ability button=state.boost}}
                     {{/if}}
                 </div>
             {{/each}}
@@ -260,6 +266,7 @@
     {{#*inline "boostButtonSingle"}}
         <button
             type="button"
+            data-attribute="{{attribute}}"
             data-action="{{type}}"
             class="tooltip boost-button {{type}} {{number}}{{#if button.selected}} selected{{#if button.partial}} partial{{/if}}{{/if}}{{#if button.locked}} locked{{/if}}"
             {{disabled (and button.disabled (not button.selected))}}
@@ -273,6 +280,8 @@
                 <span>
                     {{~#if button.partial~}}
                         {{localize "PF2E.Actor.Character.AttributeBuilder.Partial"}}
+                    {{~else if (eq type "apex")~}}
+                        {{localize "PF2E.Actor.Character.AttributeBuilder.Increase"}}
                     {{~else~}}
                         {{localize "PF2E.Actor.Character.AttributeBuilder.Boost"}}
                     {{~/if~}}
