@@ -255,7 +255,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         // Compute commodity max values
         for (const value of Object.values(this.resources.commodities)) {
             value.max = sizeData.storage;
-            value.gathered = value.sites + 2 * value.resourceSites;
         }
 
         // Calculate the control dc, used for skill checks

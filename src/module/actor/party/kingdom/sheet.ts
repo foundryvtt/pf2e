@@ -1,27 +1,37 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
+import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { ValueAndMax } from "@module/data.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    fontAwesomeIcon,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
+    setHasElement,
+    tupleHasValue,
+} from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "../document.ts";
 import { KingdomBuilder } from "./builder.ts";
-import {
-    KingdomAbilityData,
-    KingdomCommodityData,
-    KingdomData,
-    KingdomLeadershipData,
-    KingdomSource,
-} from "./types.ts";
 import { Kingdom } from "./model.ts";
-import { KINGDOM_ABILITIES, KINGDOM_ABILITY_LABELS, KINGDOM_LEADERSHIP, KINGDOM_RUIN_LABELS } from "./values.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
-import { MODIFIER_TYPES } from "@actor/modifiers.ts";
+import { KingdomAbilityData, KingdomData, KingdomLeadershipData, KingdomSource } from "./types.ts";
+import {
+    KINGDOM_ABILITIES,
+    KINGDOM_ABILITY_LABELS,
+    KINGDOM_COMMODITIES,
+    KINGDOM_LEADERSHIP,
+    KINGDOM_RUIN_LABELS,
+} from "./values.ts";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic"];
@@ -84,6 +94,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     ruinLabel: game.i18n.localize(KINGDOM_RUIN_LABELS[slug]),
                 };
             }),
+            commodities: KINGDOM_COMMODITIES.map((type) => ({
+                ...kingdom.resources.commodities[type],
+                type,
+                label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.Commodity.${type}`),
+                workSites: objectHasKey(kingdom.resources.workSites, type) ? kingdom.resources.workSites[type] : null,
+            })),
+            resourceDice: {
+                ...kingdom.resources.dice,
+                icon: fontAwesomeIcon(`dice-d${kingdom.resources.dice.faces}`).outerHTML,
+            },
             leadership: KINGDOM_LEADERSHIP.map((slug) => {
                 const data = this.kingdom.leadership[slug];
                 const label = game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${slug}`);
@@ -98,16 +118,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             })),
             skills: R.sortBy(Object.values(this.kingdom.skills), (s) => s.label),
             feats: [kingdom.feats, kingdom.bonusFeats],
-            resources: {
-                dice: {
-                    ...kingdom.resources.dice,
-                    icon: fontAwesomeIcon(`dice-d${kingdom.resources.dice.faces}`).outerHTML,
-                },
-                commodities: Object.entries(kingdom.resources.commodities).map(([type, data]) => {
-                    const label = game.i18n.localize(`PF2E.Kingmaker.Kingdom.Commodity.${type}`);
-                    return { ...data, type, label };
-                }),
-            },
             actionFilterChoices: createSheetTags(CONFIG.PF2E.kingmakerTraits, KINGDOM_TRAITS),
         };
     }
@@ -340,15 +350,20 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
         label: string;
         ruinLabel: string;
     })[];
+    commodities: CommoditySheetData[];
+    resourceDice: KingdomData["resources"]["dice"] & { icon: string };
     leadership: (KingdomLeadershipData & { actor: ActorPF2e | null; img: string; slug: string; label: string })[];
     actions: { item: CampaignFeaturePF2e; traits: SheetOptions }[];
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
-    resources: {
-        dice: KingdomData["resources"]["dice"] & { icon: string };
-        commodities: (KingdomCommodityData & { type: string; label: string })[];
-    };
     actionFilterChoices: SheetOptions;
+}
+
+interface CommoditySheetData extends ValueAndMax {
+    type: string;
+    label: string;
+    /** Worksite data (if it exists for the commodity type) */
+    workSites: Kingdom["resources"]["workSites"]["ore"] | null;
 }
 
 export { KingdomSheetPF2e };

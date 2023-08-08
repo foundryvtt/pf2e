@@ -39,27 +39,28 @@
         <div class="resource-data">
             <section class="resource-dice">
                 {{localize "PF2E.Kingmaker.Kingdom.Resources.Dice"}}
-                <span class="rollable">{{{resources.dice.icon}}} {{resources.dice.number}}d{{resources.dice.faces}}</span>
-                <label>{{localize "PF2E.Bonus"}} <input type="number" value="{{resources.dice.bonus}}" name="resources.dice.bonus"/></label>
-                <label>{{localize "PF2E.Kingmaker.Penalty"}} <input type="number" value="{{resources.dice.penalty}}" name="resources.dice.penalty"/></label>
+                <span class="rollable">{{{resourceDice.icon}}} {{resourceDice.number}}d{{resourceDice.faces}}</span>
+                <label>{{localize "PF2E.Bonus"}} <input type="number" value="{{resourceDice.bonus}}" name="resources.dice.bonus"/></label>
+                <label>{{localize "PF2E.Kingmaker.Penalty"}} <input type="number" value="{{resourceDice.penalty}}" name="resources.dice.penalty"/></label>
             </section>
             <div class="commodities">
-                {{#each resources.commodities as |commodity|}}
+                {{#each commodities as |commodity|}}
                     <section class="commodity">
                         <span class="type">{{commodity.label}}</span>
                         <div class="value-max">
-                            <input type="number" value="{{commodity.value}}" name="resources.commodities.{{type}}.value" />
+                            <input type="number" value="{{commodity.value}}" name="resources.commodities.{{commodity.type}}.value" />
                             / {{commodity.max}}
                         </div>
-                        <label>
-                            {{localize "PF2E.Kingmaker.Kingdom.Resources.WorkSites"}}
-                            <input type="number" value="{{commodity.sites}}" name="resources.commodities.{{type}}.sites" />
-                        </label>
-                        <label>
-                            {{localize "PF2E.Kingmaker.Kingdom.Resources.ResourceWorkSites"}}
-                            <input type="number" value="{{commodity.resourceSites}}" name="resources.commodities.{{type}}.resourceSites" />
-                        </label>
-
+                        {{#with commodity.workSites}}
+                            <label>
+                                {{localize "PF2E.Kingmaker.Kingdom.Resources.WorkSites"}}
+                                <input type="number" value="{{regular}}" name="resources.workSites.{{commodity.type}}.regular" />
+                            </label>
+                            <label>
+                                {{localize "PF2E.Kingmaker.Kingdom.Resources.ResourceWorkSites"}}
+                                <input type="number" value="{{resource}}" name="resources.workSites.{{commodity.type}}.resource" />
+                            </label>
+                        {{/with}}
                     </section>
                 {{/each}}
             </div>

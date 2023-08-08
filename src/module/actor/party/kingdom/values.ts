@@ -32,7 +32,7 @@ const KINGDOM_LEADERSHIP = [
     "warden",
 ] as const;
 
-const KINGDOM_COMMODITIES = ["food", "lumber", "luxuries", "ore", "stone"] as const;
+const KINGDOM_COMMODITIES = ["food", "luxuries", "lumber", "ore", "stone"] as const;
 
 const KINGDOM_SKILLS = [
     "agriculture",
