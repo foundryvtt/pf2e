@@ -23,7 +23,7 @@ import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import type { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, localizer, setHasElement } from "@util";
+import { ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -197,13 +197,32 @@ abstract class CreaturePF2e<
               }, heldShields.slice(-1)[0]);
     }
 
+    /** Retrieve percpetion and spellcasting statistics */
     override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
-        return slug === "perception"
-            ? this.perception
-            : this.spellcasting.contents.flatMap((sc) => sc.statistic ?? []).find((s) => s.slug === slug) ??
-                  super.getStatistic(slug);
+        if (slug === "perception") return this.perception;
+        if (tupleHasValue(["spell", "spell-attack"], slug)) {
+            return (
+                this.spellcasting.contents
+                    .flatMap((sc) => sc.statistic ?? [])
+                    .sort((a, b) => b.mod - a.mod)
+                    .shift() ?? null
+            );
+        }
+        if (slug === "spell-dc") {
+            return (
+                this.spellcasting.contents
+                    .flatMap((sc) => sc.statistic ?? [])
+                    .sort((a, b) => b.dc.value - a.dc.value)
+                    .shift() ?? null
+            );
+        }
+
+        return (
+            this.spellcasting.contents.flatMap((sc) => sc.statistic ?? []).find((s) => s.slug === slug) ??
+            super.getStatistic(slug)
+        );
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {

@@ -15,15 +15,14 @@ import {
     ensureProficiencyOption,
 } from "@actor/modifiers.ts";
 import {
-    AttributeString,
     AttackItem,
+    AttributeString,
     CheckContext,
     CheckContextParams,
     MovementType,
     RollContext,
     RollContextParams,
     SaveType,
-    SkillLongForm,
 } from "@actor/types.ts";
 import {
     ATTRIBUTE_ABBREVIATIONS,
@@ -74,7 +73,15 @@ import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
-import { ErrorPF2e, objectHasKey, signedInteger, sluggify, sortedStringify, traitSlugToObject } from "@util";
+import {
+    ErrorPF2e,
+    setHasElement,
+    signedInteger,
+    sluggify,
+    sortedStringify,
+    traitSlugToObject,
+    tupleHasValue,
+} from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
@@ -103,7 +110,13 @@ import {
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
-import { CharacterHitPointsSummary, CharacterSkill, CharacterSkills, DexterityModifierCapData } from "./types.ts";
+import {
+    CharacterHitPointsSummary,
+    CharacterSkill,
+    CharacterSkills,
+    DexterityModifierCapData,
+    GuaranteedGetStatisticSlug,
+} from "./types.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
 
 class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
@@ -183,12 +196,27 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return deepClone(this.system.resources.heroPoints);
     }
 
-    /** Retrieve lore skills, class statistics, and spellcasting */
-    override getStatistic(slug: SaveType | SkillLongForm | "perception" | "classDC" | MagicTradition): Statistic;
+    /** Retrieve lore skills, class statistics, and tradition-specific spellcasting */
+    override getStatistic(slug: GuaranteedGetStatisticSlug): Statistic;
     override getStatistic(slug: string): Statistic | null;
     override getStatistic(slug: string): Statistic | null {
-        if (slug === "classDC") return this.classDC;
-        if (objectHasKey(this.traditions, slug)) return this.traditions[slug];
+        if (tupleHasValue(["class", "class-dc", "classDC"], slug)) return this.classDC;
+        if (setHasElement(MAGIC_TRADITIONS, slug)) return this.traditions[slug];
+        if (slug === "class-spell") {
+            const highestClass = Object.values(this.classDCs)
+                .sort((a, b) => b.mod - a.mod)
+                .shift();
+            const highestSpell = this.spellcasting.contents
+                .flatMap((s) => s.statistic ?? [])
+                .sort((a, b) => b.mod - a.mod)
+                .shift();
+            return (
+                R.compact([highestClass, highestSpell])
+                    .sort((a, b) => b.mod - a.mod)
+                    .shift() ?? null
+            );
+        }
+
         return this.classDCs[slug] ?? super.getStatistic(slug);
     }
 
