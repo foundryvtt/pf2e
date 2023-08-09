@@ -87,7 +87,6 @@ class ChatCards {
                     button.disabled = true;
                     await canvas.scene?.deleteEmbeddedDocuments("MeasuredTemplate", templateIds);
                     button.disabled = false;
-                    button.style.display = "none";
                     return;
                 }
                 case "spell-variant": {
