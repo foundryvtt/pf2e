@@ -57,7 +57,7 @@ class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaFie
     }
 }
 
-/** A `StringField` that does not cast the source value into a string */
+/** A `StringField` that does not cast the source value */
 class StrictStringField<
     TSourceProp extends string,
     TModelProp = TSourceProp,
@@ -67,6 +67,71 @@ class StrictStringField<
 > extends fields.StringField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     protected override _cast(value: unknown): unknown {
         return value;
+    }
+}
+
+/** A `BooleanField` that does not cast the source value */
+class StrictBooleanField<
+    TSourceProp extends boolean = boolean,
+    TModelProp = TSourceProp,
+    TRequired extends boolean = false,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true
+> extends fields.BooleanField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): unknown {
+        return value;
+    }
+}
+
+class DataUnionField<
+    TField extends
+        | StrictBooleanField<boolean, boolean>
+        | StrictStringField<string, string>
+        | PredicateField<boolean, boolean, boolean>,
+    TRequired extends boolean = boolean,
+    TNullable extends boolean = boolean,
+    THasInitial extends boolean = boolean
+> extends fields.DataField<
+    TField extends DataField<infer TSourceProp> ? TSourceProp : never,
+    TField extends DataField<infer _TSourceProp, infer TModelProp> ? TModelProp : never,
+    TRequired,
+    TNullable,
+    THasInitial
+> {
+    fields: TField[];
+
+    constructor(
+        fields: TField[],
+        options: DataFieldOptions<
+            TField extends DataField<infer TSourceProp> ? TSourceProp : never,
+            TRequired,
+            TNullable,
+            THasInitial
+        >
+    ) {
+        super(options);
+        this.fields = fields;
+    }
+
+    protected override _cast(value?: unknown): unknown {
+        if (typeof value === "string") value = value.trim();
+        return value;
+    }
+
+    override validate(
+        value: unknown,
+        options?: DataFieldValidationOptions | undefined
+    ): void | DataModelValidationFailure {
+        const { DataModelValidationFailure } = foundry.data.validation;
+        for (const field of this.fields) {
+            if (field.validate(value, options) instanceof DataModelValidationFailure) {
+                continue;
+            } else {
+                return;
+            }
+        }
+
+        return new DataModelValidationFailure({ invalidValue: value, message: "Invalid!" });
     }
 }
 
@@ -279,4 +344,13 @@ class RecordField<
     }
 }
 
-export { LaxSchemaField, PredicateField, RecordField, SlugField, StrictSchemaField, StrictStringField };
+export {
+    DataUnionField,
+    LaxSchemaField,
+    PredicateField,
+    RecordField,
+    SlugField,
+    StrictBooleanField,
+    StrictSchemaField,
+    StrictStringField,
+};

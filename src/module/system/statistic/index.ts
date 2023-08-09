@@ -527,7 +527,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         );
 
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
-            await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions: options });
+            await rule.afterRoll?.({ roll, statistic: this.parent, selectors: domains, domains, rollOptions: options });
         }
 
         return roll;
