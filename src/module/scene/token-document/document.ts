@@ -423,7 +423,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         super._onRelatedUpdate(update, options);
 
         const initializeVision =
-            this.sight.enabled && Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
+            !!this.scene?.isView &&
+            this.sight.enabled &&
+            Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
         if (initializeVision) canvas.perception.update({ initializeVision }, true);
 
         const preUpdate = this.toObject(false);
@@ -433,16 +435,17 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
         const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
+        if (this.scene?.isView && Object.keys(changes).length > 0) {
+            this.object?._onUpdate(changes, {}, game.user.id);
+        }
+
         // Assess the full diff using `diffObject`: additions, removals, and changes
         const aurasChanged = ((): boolean => {
+            if (!this.scene?.isInFocus) return false;
             const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
             const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
             return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
         })();
-
-        if (Object.keys(changes).length > 0) {
-            this.object?._onUpdate(changes, {}, game.user.id);
-        }
 
         if (aurasChanged || "width" in changes || "height" in changes) {
             this.scene?.checkAuras?.();
