@@ -266,6 +266,14 @@ export function registerSettings(): void {
     });
     WorldClockSettings.registerSettings();
 
+    game.settings.register("pf2e", "activeParty", {
+        name: "Active Party",
+        config: false,
+        type: String,
+        default: "",
+        onChange: () => ui.actors.render(true),
+    });
+
     game.settings.register("pf2e", "campaignType", {
         name: "PF2E.SETTINGS.CampaignType.Name",
         hint: "PF2E.SETTINGS.CampaignType.Hint",

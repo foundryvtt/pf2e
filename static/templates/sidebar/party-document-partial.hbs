@@ -1,11 +1,44 @@
 <ol class="party-list">
-{{#each parties as |party|}}
-    <li class="party flexcol {{#unless (lookup @root.extraFolders party.id)}}collapsed{{/unless}}" data-entry-id="{{party.id}}" data-document-id="{{party.id}}">
-        <header class="directory-item party-header flexrow" data-entry-id="{{party.id}}" data-document-id="{{party.id}}">
+    {{> party party=activeParty}}
+    {{#if placePartiesInSubfolder}}
+        <li class="folder-like flexcol {{#unless (lookup @root.extraFolders "otherParties")}}collapsed{{/unless}}" data-entry-id="otherParties">
+            <header class="directory-item flexrow" data-entry-id="otherParties" data-action="toggle-extra-folder">
+                <i class="icon fa-solid fa-folder-open"></i>
+                <h3 class="noborder">
+                    {{localize "PF2E.Actor.Party.Sidebar.OtherParties"}}
+                </h3>
+                <div class="controls">
+                    <a class="create-button" data-action="create-party">
+                        <i class="fa-solid fa-users"></i>
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                </div>
+            </header>
+            <ol class="subdirectory">
+                {{#each parties as |party|}}
+                    {{> party party=party}}
+                {{/each}}
+            </ol>
+        </li>
+    {{else}}
+        {{#each parties as |party|}}
+            {{> party party=party}}
+        {{/each}}
+    {{/if}}
+</ol>
+
+{{#*inline "party"}}
+    <li class="party folder-like flexcol {{#unless (lookup @root.extraFolders party.id)}}collapsed{{/unless}} {{#if party.active}}active{{/if}}" data-entry-id="{{party.id}}" data-document-id="{{party.id}}">
+        <header class="directory-item party-header flexrow" data-entry-id="{{party.id}}" data-document-id="{{party.id}}" data-action="toggle-extra-folder">
             <!-- Drag Preview only -->
             <img src="{{party.img}}" class="hidden">
-            <i class="fas fa-fw fa-users" data-action="open-sheet"></i>
-            <h3 class="noborder">{{party.name}}</h3>
+            <i class="icon fas fa-fw fa-users" data-action="open-sheet"></i>
+            <h3 class="noborder">
+                {{party.name}}
+                {{#unless party.active}}
+                    <a class="activate-party" data-action="activate-party"><i class="fa-regular fa-star"></i></a>
+                {{/unless}}
+            </h3>
             <div class="controls">
                 <a class="create-button" data-action="create-member">
                     <i class="fa-solid fa-user"></i>
@@ -18,7 +51,9 @@
             {{#each party.members}}
             {{> (lookup @root "entryPartial")}}
             {{/each~}}
+            {{#unless party.members}}
+                <li class="blank" data-entry-id="">No Members</li>
+            {{/unless}}
         </ol>
     </li>
-{{/each}}
-</ol>
+{{/inline}}

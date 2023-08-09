@@ -1,6 +1,6 @@
-import { CharacterPF2e, CreaturePF2e, PartyPF2e } from "@actor";
-import { ActorPF2e } from "@actor/base.ts";
-import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, sortBy } from "@util";
+import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
+import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import * as R from "remeda";
 
 /** Extend ActorDirectory to show more information */
 class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
@@ -24,12 +24,16 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     }
 
     override async getData(): Promise<object> {
-        const parties = this.documents
-            .filter((a): a is PartyPF2e<null> => a instanceof PartyPF2e)
-            .sort(sortBy((p) => p.sort));
+        const activeParty = game.actors.party;
+        const parties = R.sortBy(
+            this.documents.filter((a): a is PartyPF2e<null> => a instanceof PartyPF2e && a !== activeParty),
+            (p) => p.sort
+        );
         return {
             ...(await super.getData()),
+            activeParty,
             parties,
+            placePartiesInSubfolder: parties.length > 1,
             extraFolders: this.extraFolders,
         };
     }
@@ -46,21 +50,20 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             }
         }
 
-        // Implements folder-like collapse/expand functionality for parties.
-        for (const partyEl of htmlQueryAll(html, ".party-header")) {
-            partyEl.addEventListener("click", (event) => {
+        // Implements folder-like collapse/expand functionality for folder-likes.
+        for (const folderHeaderEl of htmlQueryAll(html, ".folder-like > header")) {
+            folderHeaderEl.addEventListener("click", (event) => {
                 // If this is a controls element, stop propogation and don't open/collapse the sheet
                 if (htmlClosest(event.target, "a")?.closest(".controls")) {
                     event.stopPropagation();
                     return;
                 }
 
-                const folderEl = htmlClosest(event.target, ".party");
-                const documentId = htmlClosest(event.target, "[data-document-id]")?.dataset.documentId ?? "";
-                const party = game.actors.get(documentId);
-                if (party && folderEl) {
-                    this.extraFolders[documentId] = folderEl.classList.contains("collapsed");
-                    folderEl.classList.toggle("collapsed");
+                const folderEl = htmlClosest(event.target, ".folder-like");
+                const entryId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId ?? "";
+                if (folderEl && entryId) {
+                    this.extraFolders[entryId] = folderEl.classList.contains("collapsed");
+                    folderEl.classList.toggle("collapsed", !this.extraFolders[entryId]);
                     if (this.popOut) this.setPosition();
                 }
             });
@@ -86,7 +89,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 if (!(party instanceof PartyPF2e)) return;
 
                 const button = event.currentTarget as HTMLElement;
-                const actor = await CharacterPF2e.createDialog(
+                const actor = await ActorPF2e.createDialog(
                     {},
                     {
                         width: 320,
@@ -97,9 +100,37 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 );
 
                 // If the actor was created, add as a member and force the party folder open
-                if (actor) {
+                if (actor?.isOfType("creature")) {
                     this.extraFolders[party.id] = true;
                     await party.addMembers(actor);
+                }
+            });
+        }
+
+        // Register event to create a new party
+        for (const element of htmlQueryAll(html, "[data-action=create-party]")) {
+            element.addEventListener("click", async (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const actor = await PartyPF2e.create({ type: "party", name: "New Party" });
+                actor?.sheet.render(true);
+
+                const header = htmlClosest(element, ".folder-like");
+                const entryId = header?.dataset.entryId;
+                if (entryId) {
+                    this.extraFolders[entryId] = true;
+                    this.render();
+                }
+            });
+        }
+
+        for (const element of htmlQueryAll(html, "[data-action=activate-party]")) {
+            element.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const documentId = htmlClosest(element, "[data-document-id]")?.dataset.documentId ?? "";
+                if (game.actors.has(documentId)) {
+                    game.settings.set("pf2e", "activeParty", documentId);
                 }
             });
         }
@@ -111,22 +142,29 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void {
         super._onSearchFilter(event, query, rgx, html);
 
-        const partyElements = htmlQueryAll(html, ".party");
-        for (const partyEl of partyElements) {
-            const hasMatch = query !== "" && htmlQueryAll(html, ".actor").some((li) => li.style.display !== "none");
+        const folderLikes = htmlQueryAll(html, ".folder-like");
+        for (const folderLike of folderLikes) {
+            const hasMatch =
+                query !== "" && htmlQueryAll(folderLike, ".actor").some((li) => li.style.display !== "none");
             if (hasMatch) {
-                partyEl.style.display = "flex";
-                partyEl.classList.remove("collapsed");
-                const partyHeader = htmlQuery(partyEl, ".party-header");
-                if (partyHeader) partyHeader.style.display = "flex";
+                folderLike.style.display = "flex";
+                folderLike.classList.remove("collapsed");
+                const folderLikeHeader = htmlQuery(folderLike, ":scope > header");
+                if (folderLikeHeader) folderLikeHeader.style.display = "flex";
             } else {
-                const partyId = partyEl.dataset.entryId ?? "";
-                partyEl.classList.toggle("collapsed", !this.extraFolders[partyId]);
+                const entryId = folderLike.dataset.entryId ?? "";
+                folderLike.classList.toggle("collapsed", !this.extraFolders[entryId]);
             }
         }
     }
 
     protected override _onDragStart(event: ElementDragEvent): void {
+        // Prevent drag drop for the other parties folder
+        if (event.target.dataset.entryId === "otherParties") {
+            event.preventDefault();
+            return;
+        }
+
         super._onDragStart(event);
 
         // Add additional party metadata to the drag event
@@ -205,13 +243,13 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
 
     protected override _contextMenu($html: JQuery<HTMLElement>): void {
         super._contextMenu($html);
-        ContextMenu.create(this, $html, ".party .party-header", this._getEntryContextOptions());
+        ContextMenu.create(this, $html, ".party .party-header", this._getPartyContextOptions());
     }
 
     protected override _getEntryContextOptions(): EntryContextOption[] {
         const options = super._getEntryContextOptions();
         options.push({
-            name: "Remove Member",
+            name: "PF2E.Actor.Party.Sidebar.RemoveMember",
             icon: '<i class="fas fa-bus"></i>',
             condition: ($li) => $li.closest(".party").length > 0 && !$li.closest(".party-header").length,
             callback: ($li) => {
@@ -226,6 +264,16 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         });
 
         return options;
+    }
+
+    protected _getPartyContextOptions(): EntryContextOption[] {
+        const allOptions = super._getEntryContextOptions();
+        const relevantNames = ["SIDEBAR.CharArt", "SIDEBAR.TokenArt", "OWNERSHIP.Configure", "SIDEBAR.Delete"];
+        const relevantOptions = allOptions.filter((o) => relevantNames.includes(o.name));
+        if (relevantOptions.length !== relevantNames.length) {
+            console.error("PF2E System | Failed to extract all sidebar options from the base options");
+        }
+        return relevantOptions;
     }
 
     /** Append a button to open the bestiary browser for GMs */
