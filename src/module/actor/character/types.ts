@@ -1,5 +1,6 @@
 import { HitPointsSummary } from "@actor/base.ts";
-import { AttributeString, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, SaveType, SkillLongForm } from "@actor/types.ts";
+import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { Statistic } from "@system/statistic/index.ts";
 
@@ -20,4 +21,21 @@ interface DexterityModifierCapData {
     source: string;
 }
 
-export { CharacterHitPointsSummary, CharacterSkill, CharacterSkills, DexterityModifierCapData };
+/** Slugs guaranteed to return a `Statistic` when passed to `CharacterPF2e#getStatistic` */
+type GuaranteedGetStatisticSlug =
+    | SaveType
+    | SkillLongForm
+    | "perception"
+    | "class-spell"
+    | "class"
+    | "class-dc"
+    | "classDC"
+    | MagicTradition;
+
+export {
+    CharacterHitPointsSummary,
+    CharacterSkill,
+    CharacterSkills,
+    DexterityModifierCapData,
+    GuaranteedGetStatisticSlug,
+};
