@@ -24,7 +24,47 @@
         "level": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "predicate": [
+                    "parent:badge:value:2"
+                ],
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Fatigued"
+            },
+            {
+                "predicate": [
+                    "parent:badge:value:3"
+                ],
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            },
+            {
+                "predicate": [
+                    "parent:badge:value:3"
+                ],
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Fatigued"
+            }
+        ],
         "source": {
             "value": "Pathfinder Dark Archive"
         },
