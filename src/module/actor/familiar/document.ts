@@ -1,7 +1,7 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { createEncounterRollOptions } from "@actor/helpers.ts";
+import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, ModifierType, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
@@ -132,6 +132,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // Hit Points
         const hitPoints = new HitPointsStatistic(this, { baseMax: level * 5 });
         this.system.attributes.hp = hitPoints.getTraceData();
+        setHitPointsRollOptions(this);
 
         // Armor Class
         if (master) {

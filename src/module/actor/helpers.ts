@@ -129,6 +129,15 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
     }
 }
 
+/**  Set a roll option for HP remaining and percentage remaining */
+function setHitPointsRollOptions(actor: ActorPF2e): void {
+    const hp = actor.hitPoints;
+    if (!hp) return;
+    actor.flags.pf2e.rollOptions.all[`hp-remaining:${hp.value}`] = true;
+    const percentRemaining = Math.floor((hp.value / hp.max) * 100);
+    actor.flags.pf2e.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+}
+
 /** Find the lowest multiple attack penalty for an attack with a given item */
 function calculateMAPs(
     item: ItemPF2e,
@@ -522,5 +531,6 @@ export {
     isReallyPC,
     migrateActorSource,
     resetActors,
+    setHitPointsRollOptions,
     strikeFromMeleeItem,
 };

@@ -4,7 +4,7 @@ import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { calculateMAPs } from "@actor/helpers.ts";
+import { calculateMAPs, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
@@ -593,12 +593,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-
             systemData.attributes.hp = stat;
 
-            // Set a roll option for HP percentage
-            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
-            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+            setHitPointsRollOptions(this);
         }
 
         this.prepareFeats();

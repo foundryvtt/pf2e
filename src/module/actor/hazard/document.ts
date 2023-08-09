@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { InitiativeData } from "@actor/data/base.ts";
-import { strikeFromMeleeItem } from "@actor/helpers.ts";
+import { ImmunityData } from "@actor/data/iwr.ts";
+import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
@@ -15,7 +16,6 @@ import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data.ts";
-import { ImmunityData } from "@actor/data/iwr.ts";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     declare skills: { stealth: Statistic };
@@ -101,6 +101,8 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         const { system } = this;
 
         this.prepareSynthetics();
+
+        setHitPointsRollOptions(this);
 
         // Stealth, which is the only skill hazards have
         this.skills = {
