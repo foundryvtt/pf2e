@@ -21,6 +21,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare members: CreaturePF2e[];
     declare campaign: PartyCampaign | null;
 
+    get active(): boolean {
+        return game.actors.party === this;
+    }
+
     get baseAllowedItemTypes(): (ItemType | "physical")[] {
         return ["physical"];
     }
