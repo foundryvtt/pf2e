@@ -1,7 +1,7 @@
 import { CreaturePF2e } from "@actor";
 import { Abilities, CreatureSkills } from "@actor/creature/data.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { strikeFromMeleeItem } from "@actor/helpers.ts";
+import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
@@ -223,13 +223,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     .filter((m) => m.enabled)
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
             ].join(", ");
-
             system.attributes.hp = stat;
-
-            // Set a roll option for HP percentage
-            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
-            this.rollOptions.all[`hp-remaining:${stat.value}`] = true;
-            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+            setHitPointsRollOptions(this);
         }
 
         // Speeds

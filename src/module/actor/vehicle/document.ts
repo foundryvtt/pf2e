@@ -1,3 +1,4 @@
+import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
 import { ItemType } from "@item/data/index.ts";
@@ -87,10 +88,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         const { attributes } = this;
         const hitPoints = new HitPointsStatistic(this, { baseMax: attributes.hp.max });
         attributes.hp = mergeObject(hitPoints.getTraceData(), { brokenThreshold: Math.floor(hitPoints.max / 2) });
-        // Set a roll option for HP percentage
-        this.rollOptions.all[`hp-remaining:${hitPoints.value}`] = true;
-        const percentRemaining = Math.floor((hitPoints.value / hitPoints.max) * 100);
-        this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+        setHitPointsRollOptions(this);
 
         // Prepare AC
         const armorStatistic = new ArmorStatistic(this, {
