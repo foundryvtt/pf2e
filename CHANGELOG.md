@@ -1,3 +1,28 @@
+## 5.3.2
+
+### Bugfixes
+
+-   (stwlam) Fix display of battle form attack modifiers on PC sheet
+-   (stwlam) Fix issue causing auras to stop transmitting effects when multiple scenes have tokens for same actors
+
+### Data Updates
+
+-   (Abaddon) Fix major vigilant eye description
+-   (Abaddon) Fix greater clockwork shield description
+-   (chrpow) Remove reference to _scorching ray_ from _blazing bolt_'s description
+-   (chrpow) Remove Persistence of Memory ability from Shadow King's statblock
+-   (chrpow) Add duration and traditions to One with Stone
+-   (chrpow) Add Shory Language from Stolen Fate Player's Guide
+-   (chrpow) Fix localization of Composite trait
+-   (SpartanCPA) Fix action type of "Too Angry to Die"
+-   (stwlam) Add Swallow-Spike armor property runes
+-   (stwlam) Add Versatile Poison trait
+-   (stwlam) Force attribute modifier of Spellshot class DC to be intelligence
+-   (Tikael) Fix immunities of Choking Tethers hazard
+-   (Tikael) Add area to Grasping Grave focus spell
+-   (Tikael) Add spell DC to Obrousian
+-   (Tikael) Fix inline damage of Eldritch Flare
+
 ## 5.3.1
 
 ### System Improvements
