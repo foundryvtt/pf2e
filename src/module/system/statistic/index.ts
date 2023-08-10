@@ -54,25 +54,26 @@ abstract class BaseStatistic {
     label: string;
     /** Original construction arguments */
     protected data: StatisticData;
-    /** Penalties, bonuses, and actual modifiers comprising a total modifier value */
-    modifiers: ModifierPF2e[];
     /** String category identifiers: used to retrieve modifiers and other synthetics as well as create roll options  */
     domains: string[];
+    /** Penalties, bonuses, and actual modifiers comprising a total modifier value */
+    modifiers: ModifierPF2e[];
 
     constructor(actor: ActorPF2e, data: BaseStatisticData) {
         this.actor = actor;
         this.slug = data.slug;
         this.label = game.i18n.localize(data.label);
-        this.modifiers = [...(data.modifiers ??= [])];
-        this.domains = [...(data.domains ??= [])];
         this.data = { ...data };
+        this.domains = [...(data.domains ??= [])];
+        const modifiers = [data.modifiers ?? [], extractModifiers(this.actor.synthetics, this.domains)].flat();
+        this.modifiers = new StatisticModifier("", modifiers).modifiers.map((m) => m.clone());
 
         if (this.domains.length > 0) {
-            this.modifiers.push(...extractModifiers(this.actor.synthetics, this.domains));
-
             // Test the gathered modifiers if there are any domains
             const options = this.createRollOptions();
-            this.modifiers = this.modifiers.map((mod) => mod.clone({ test: options }));
+            for (const modifier of this.modifiers) {
+                modifier.test(options);
+            }
         }
     }
 
