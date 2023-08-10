@@ -83,7 +83,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
     }
 
     /** Internal function to recursively extract terms from a parsed DamageInstance's head term */
-    function extractTermsFromExpression(
+    function recursiveExtractTerms(
         expression: RollTerm,
         { category = null }: { category?: DamageCategoryUnique | null } = {}
     ): DamagePartialWithCategory[] {
@@ -94,19 +94,17 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
 
         // Recurse trivially for groupings
         if (expression instanceof Grouping) {
-            return extractTermsFromExpression(expression.term, { category });
+            return recursiveExtractTerms(expression.term, { category });
         }
 
         // Handle Die and Intermediate Die terms
         if (expression instanceof Die) {
             return [{ dice: R.pick(expression, ["number", "faces"]), modifier: 0, category }];
         } else if (expression instanceof IntermediateDie) {
-            if (!expression.number.isDeterministic || !expression.faces.isDeterministic) {
+            if (typeof expression.number !== "number" || typeof expression.faces !== "number") {
                 throw ErrorPF2e("Unable to parse DamageRoll with non-deterministic intermediate expressions.");
             }
-            const number = DamageInstance.getValue(expression.number, "expected");
-            const faces = DamageInstance.getValue(expression.faces, "expected");
-            return [{ dice: { faces, number }, modifier: 0, category }];
+            return [{ dice: { number: expression.number, faces: expression.faces }, modifier: 0, category }];
         }
 
         // Resolve deterministic expressions and terms normally, everything is allowed
@@ -122,8 +120,8 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
                 throw ErrorPF2e(`Cannot use ${operator} on non-deterministic artithmetic terms`);
             }
 
-            const leftTerms = extractTermsFromExpression(expression.operands[0], { category });
-            const rightTerms = extractTermsFromExpression(expression.operands[1], { category });
+            const leftTerms = recursiveExtractTerms(expression.operands[0], { category });
+            const rightTerms = recursiveExtractTerms(expression.operands[1], { category });
 
             // Flip right side terms if subtraction
             if (operator === "-") {
@@ -149,7 +147,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
 
     return roll.instances.flatMap((instance): BaseDamageData[] => {
         const category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
-        const terms = extractTermsFromExpression(instance.head, { category });
+        const terms = recursiveExtractTerms(instance.head, { category });
         return Object.values(R.groupBy(terms, (t) => t.category ?? "")).map((terms) => {
             const category = instance.persistent ? "persistent" : terms[0].category;
             return { damageType: instance.type, category, terms: terms.map((t) => R.omit(t, ["category"])) };
