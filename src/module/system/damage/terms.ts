@@ -243,8 +243,8 @@ class Grouping extends RollTerm<GroupingData> {
 
     /** Show a simplified expression if it is known that order of operations won't be lost */
     get expression(): string {
-        return this.isDeterministic
-            ? this.total!.toString()
+        return this.isDeterministic && typeof this.total === "number"
+            ? this.total.toString()
             : this.term instanceof DiceTerm
             ? this.term.expression
             : `(${this.term.expression})`;
@@ -339,9 +339,23 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
         ): NumericTerm | MathTerm | Grouping => {
             const TermCls = CONFIG.Dice.termTypes[termData.class ?? "NumericTerm"];
             const term = TermCls.fromData(termData);
-            if (term instanceof Grouping) term.isIntermediate = true;
+            if (term instanceof NumericTerm) return term;
 
-            return term as NumericTerm | MathTerm | Grouping;
+            // Immediately evaluate deterministic number or faces
+            if (term.isDeterministic) return new NumericTerm({ number: Roll.safeEval(term.formula) });
+
+            // User is up to something weird
+            if (term instanceof Grouping) {
+                term.isIntermediate = true;
+                return term;
+            }
+
+            // User is up to something _really_ weird
+            if (!(term instanceof MathTerm)) {
+                console.warn(`Unexpected term type: ${term.constructor.name}`);
+            }
+
+            return term as MathTerm;
         };
 
         this.die = data.die ? (Die.fromData({ ...data.die, class: "Die" }) as Evaluated<Die>) : null;
@@ -356,7 +370,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     }
 
     override get total(): number | undefined {
-        return this.die?.total;
+        return this.isDeterministic ? Number(this.number.total) * Number(this.faces.total) : this.die?.total;
     }
 
     get dice(): [Evaluated<Die>] | never[] {
@@ -364,7 +378,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     }
 
     override get isDeterministic(): boolean {
-        return this.number.isDeterministic && this.faces.isDeterministic;
+        return this.number.total === 0 || this.faces.total === 0 || this.faces.total === 1;
     }
 
     get minimumValue(): number {
@@ -386,7 +400,8 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
             : NaN;
     }
 
-    protected override async _evaluate(): Promise<Evaluated<this>> {
+    protected override async _evaluate(): Promise<Evaluated<this>>;
+    protected override async _evaluate(): Promise<this> {
         await this.number.evaluate({ async: true });
         this.number = NumericTerm.fromData({ class: "NumericTerm", number: this.number.total! } as NumericTermData);
         await this.faces.evaluate({ async: true });
@@ -399,7 +414,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
         }).evaluate({ async: true });
         this._evaluated = true;
 
-        return this as Evaluated<this>;
+        return this;
     }
 
     override toJSON(): IntermediateDieData {
