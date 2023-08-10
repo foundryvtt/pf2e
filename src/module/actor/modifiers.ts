@@ -456,19 +456,19 @@ class StatisticModifier {
         this.slug = slug;
 
         // De-duplication. Prefer higher valued
-        const seen = modifiers.reduce((result, modifier) => {
+        const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
             if (!(modifier.slug in result) || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
                 result[modifier.slug] = modifier;
             }
             return result;
-        }, {} as Record<string, ModifierPF2e>);
+        }, {});
         this._modifiers = Object.values(seen);
 
         this.calculateTotal(rollOptions);
     }
 
-    /** Get the list of all modifiers in this collection (as a read-only list). */
-    get modifiers(): readonly ModifierPF2e[] {
+    /** Get the list of all modifiers in this collection */
+    get modifiers(): ModifierPF2e[] {
         return [...this._modifiers];
     }
 
