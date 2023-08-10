@@ -270,14 +270,17 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             const saferEval = (formula: string): number => {
                 try {
                     // If any resolvables were not provided for this formula, return the default value
-                    const unresolveds = formula.match(/@[a-z]+/gi) ?? [];
-                    // Allow failure of "@target" with no warning
+                    const unresolveds = formula.match(/@[a-z.]+/gi) ?? [];
+                    // Allow failure of "@target" and "@actor.conditions" with no warning
                     if (unresolveds.length > 0) {
-                        if (!unresolveds.every((u) => u === "@target")) {
-                            this.ignored = true;
-                            if (warn) this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
+                        const shouldWarn =
+                            warn &&
+                            !unresolveds.every((u) => u.startsWith("@target.") || u.startsWith("@actor.conditions."));
+                        this.ignored = true;
+                        if (shouldWarn) {
+                            this.failValidation(`Failed to resolve all components of formula, "${formula}"`);
                         }
-                        return 0;
+                        return Number(defaultValue);
                     }
                     return Roll.safeEval(formula);
                 } catch {
