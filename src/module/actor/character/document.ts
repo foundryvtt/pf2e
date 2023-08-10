@@ -1648,7 +1648,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 );
 
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: context.options });
+                    await rule.afterRoll?.({
+                        roll,
+                        statistic: context.self.statistic,
+                        selectors,
+                        domains: selectors,
+                        rollOptions: context.options,
+                    });
                 }
 
                 return roll;

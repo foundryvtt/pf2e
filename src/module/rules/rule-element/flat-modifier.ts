@@ -2,10 +2,12 @@ import { DeferredValueParams, MODIFIER_TYPES, ModifierPF2e, ModifierType } from 
 import { AttributeString } from "@actor/types.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import { objectHasKey, sluggify } from "@util";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { Statistic } from "@system/statistic/index.ts";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -39,6 +41,10 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
         if (this.force && this.type === "untyped") {
             this.failValidation("A forced bonus or penalty must have a type");
+        }
+
+        if (this.removeAfterRoll && !this.item.isOfType("effect")) {
+            this.failValidation("  removeAfterRoll: may only be used with effects");
         }
     }
 
@@ -77,6 +83,23 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
             }),
             critical: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             value: new ResolvableValueField({ required: false, nullable: false, initial: undefined }),
+            removeAfterRoll: new DataUnionField(
+                [
+                    new StrictStringField<"if-enabled", "if-enabled">({
+                        required: false,
+                        nullable: false,
+                        choices: ["if-enabled"],
+                        initial: undefined,
+                    }),
+                    new StrictBooleanField<boolean, boolean>({
+                        required: false,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                    new PredicateField({ required: false, nullable: false, initial: undefined }),
+                ],
+                { required: false, nullable: false, initial: undefined }
+            ),
         };
     }
 
@@ -143,6 +166,24 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
             modifiers.push(construct);
         }
     }
+
+    /** Remove this rule element's parent item after a roll */
+    override async afterRoll({ statistic, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+        if (this.ignored || !this.removeAfterRoll || !this.item.isOfType("effect")) {
+            return;
+        }
+
+        if (this.removeAfterRoll === true) {
+            await this.item.delete();
+        } else if (this.removeAfterRoll === "if-enabled") {
+            const modifiers = statistic instanceof Statistic ? statistic.check.modifiers : statistic.modifiers;
+            if (modifiers.some((m) => m.rule === this && m.enabled)) {
+                await this.item.delete();
+            }
+        } else if (this.removeAfterRoll.test(rollOptions)) {
+            await this.item.delete();
+        }
+    }
 }
 
 interface FlatModifierRuleElement
@@ -172,7 +213,18 @@ type FlatModifierSchema = RuleElementSchema & {
     damageCategory: StringField<DamageCategoryUnique, DamageCategoryUnique, false, false, false>;
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
     critical: BooleanField<boolean, boolean, false, true, false>;
+    /** The numeric value of the modifier */
     value: ResolvableValueField<false, false, false>;
+    /**
+     * Remove the parent item (must be an effect) after a roll:
+     * The value may be a boolean, "if-enabled", or a predicate to be tested against the roll options from the roll.
+     */
+    removeAfterRoll: DataUnionField<
+        StrictStringField<"if-enabled"> | StrictBooleanField | PredicateField<false, false, false>,
+        false,
+        false,
+        false
+    >;
 };
 
 interface FlatModifierSource extends RuleElementSource {
@@ -186,7 +238,6 @@ interface FlatModifierSource extends RuleElementSource {
     damageCategory?: unknown;
     critical?: unknown;
     hideIfDisabled?: unknown;
-    fromEquipment?: unknown;
 }
 
 export { FlatModifierRuleElement, FlatModifierSource };

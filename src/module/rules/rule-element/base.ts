@@ -1,12 +1,13 @@
 import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import { isObject, tupleHasValue } from "@util";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
@@ -477,6 +478,7 @@ namespace RuleElementPF2e {
     export interface AfterRollParams {
         roll: Rolled<CheckRoll> | null;
         selectors: string[];
+        statistic: Statistic | StatisticModifier;
         domains: string[];
         rollOptions: Set<string>;
     }
