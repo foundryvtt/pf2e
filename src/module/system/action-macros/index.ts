@@ -22,6 +22,7 @@ import { interact } from "./basic/interact.ts";
 import { leap } from "./basic/leap.ts";
 import { ready } from "./basic/ready.ts";
 import { release } from "./basic/release.ts";
+import { reposition } from "./basic/reposition.ts";
 import * as seek from "./basic/seek.ts";
 import * as senseMotive from "./basic/sense-motive.ts";
 import { stand } from "./basic/stand.ts";
@@ -92,6 +93,7 @@ export const ActionMacros = {
     grapple,
     highJump,
     longJump,
+    reposition,
     shove,
     swim,
     trip: trip.legacy,
