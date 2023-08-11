@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ConditionPF2e, ItemPF2e } from "@item";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ConditionManager } from "@system/conditions/manager.ts";
@@ -10,13 +11,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import {
-    AfflictionDuration,
-    AfflictionFlags,
-    AfflictionOnset,
-    AfflictionSource,
-    AfflictionSystemData,
-} from "./data.ts";
+import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
 
 /** Condition types that don't need a duration to eventually disappear. These remain even when the affliction ends */
 const EXPIRING_CONDITIONS: Set<ConditionSlug> = new Set([
@@ -72,19 +67,10 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     get onsetDuration(): number {
-        const value = this.totalDuration(this.system.onset);
-        return value === Infinity ? 0 : value;
-    }
-
-    totalDuration(duration: AfflictionDuration | AfflictionOnset | undefined): number {
-        if (!duration) {
+        if (!this.system.onset) {
             return 0;
         }
-        if (["unlimited"].includes(duration.unit)) {
-            return Infinity;
-        } else {
-            return duration.value * (AbstractEffectPF2e.DURATION_UNITS[duration.unit] ?? 0);
-        }
+        return this.system.onset.value * (DURATION_UNITS[this.system.onset.unit] ?? 0);
     }
 
     override prepareBaseData(): void {

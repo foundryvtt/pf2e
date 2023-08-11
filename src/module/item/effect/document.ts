@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { EffectBadge } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
+import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
@@ -26,7 +27,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         if (["unlimited", "encounter"].includes(duration.unit)) {
             return Infinity;
         } else {
-            return duration.value * (AbstractEffectPF2e.DURATION_UNITS[duration.unit] ?? 0);
+            return duration.value * (DURATION_UNITS[duration.unit] ?? 0);
         }
     }
 

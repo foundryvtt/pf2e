@@ -9,14 +9,6 @@ import { EffectBadge } from "./data.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    /** Duration units for affliction and effect */
-    static DURATION_UNITS: Readonly<Record<string, number>> = {
-        rounds: 6,
-        minutes: 60,
-        hours: 3600,
-        days: 86400,
-    };
-
     /** A normalized version of the slug that shows in roll options, removing certain prefixes */
     declare rollOptionSlug: string;
 
