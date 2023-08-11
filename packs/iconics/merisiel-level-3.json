@@ -449,13 +449,8 @@
                     }
                 },
                 "keyAbility": {
-                    "selected": "dex",
                     "value": [
-                        "cha",
-                        "dex",
-                        "int",
-                        "str",
-                        "wis"
+                        "dex"
                     ]
                 },
                 "perception": 2,
@@ -553,371 +548,6 @@
                 }
             },
             "type": "class"
-        },
-        {
-            "_id": "MYT2W89ULR6dn9Ol",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.uGuCGQvUmioFV2Bd"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "thief": {
-                            "id": "NKnc8RS06lmbaAFp",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
-            "name": "Rogue's Racket",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8s5KrVHx1fNMO85a",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "level 1 Rogue feature",
-                            "predicate": [
-                                "item:trait:rogue",
-                                "item:level:1"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Eldritch Trickster"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Mastermind"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Ruffian"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Scoundrel"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Thief"
-                            }
-                        ],
-                        "flag": "roguesRacket",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Rogue.Racket.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Thief"
-                    },
-                    {
-                        "flag": "thief",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.roguesRacket}"
-                    }
-                ],
-                "slug": "rogues-racket",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "hP6ar2mDLQXWyHJ5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.j1JE61quDxdge4mg"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/sneak-attack.webp",
-            "name": "Sneak Attack",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>When your enemy can't properly defend itself, you take advantage to deal extra damage. If you Strike a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon attack, or a ranged unarmed attack, you deal an extra 1d6 precision damage. For a ranged attack with a thrown melee weapon, that weapon must also be agile or finesse.</p>\n<p>As your rogue level increases, so does the number of damage dice for your sneak attack. Increase the number of dice by one at 5th, 11th, and 17th levels.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8s5KrVHx1fNMO85a",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.sneakAttackDamage.number",
-                        "predicate": [
-                            "class:rogue"
-                        ],
-                        "value": "ternary(lt(@actor.level, 5), 1, ternary(lt(@actor.level, 11), 2, ternary(lt(@actor.level, 17), 3, 4)))"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.sneakAttackDamage.faces",
-                        "predicate": [
-                            "class:rogue"
-                        ],
-                        "value": 6
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
-                        "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard",
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse",
-                                    {
-                                        "and": [
-                                            "item:ranged",
-                                            {
-                                                "not": "item:thrown-melee"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "WkFhOx2qpzj0Oh22",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.w6rMqmGzhUahdnA7"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/surprice-attack.webp",
-            "name": "Surprise Attack",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are off-guard to you.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "8s5KrVHx1fNMO85a",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "encounter:round:1",
-                            {
-                                "lt": [
-                                    "self:participant:initiative:rank",
-                                    "target:participant:initiative:rank"
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "self:participant:initiative:stat:deception",
-                                    "self:participant:initiative:stat:stealth"
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": "surprise-attack",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "lnSWrji63353p5I2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
-            "name": "Deny Advantage",
-            "sort": 900,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p><strong>Barbarian</strong> Your foes struggle to pass your defenses. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<hr />\n<p><strong>Rogue</strong> As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "8s5KrVHx1fNMO85a",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.offGuardable",
-                        "value": "@actor.level"
-                    }
-                ],
-                "slug": "deny-advantage",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "barbarian",
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "NKnc8RS06lmbaAFp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.wAh2riuFRzz0edPl"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "MYT2W89ULR6dn9Ol",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/thief.webp",
-            "name": "Thief",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows and escaping via rooftops, or a safecracker breaking into carefully guarded vaults. You might even work as a consultant, testing clients' defenses by trying to steal something precious.</p>\n<p>When a fight breaks out, you prefer swift, lightweight weapons, and you strike where it hurts. When you attack with a finesse melee weapon, you can add your Dexterity modifier to damage rolls instead of your Strength modifier.</p>\n<p>You are trained in Thievery.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "ability": "dex",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:melee",
-                            "item:trait:finesse",
-                            {
-                                "not": "item:category:unarmed"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "type": "ability"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.skills.thi.rank",
-                        "value": 1
-                    }
-                ],
-                "slug": "thief",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "09MfXQoeeQE8KQIW",
@@ -3310,6 +2940,371 @@
                 }
             },
             "type": "equipment"
+        },
+        {
+            "_id": "0ZdBG8SeexZFigZ0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.uGuCGQvUmioFV2Bd"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "thief": {
+                            "id": "i8oHDM8NvpgMD4RP",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/rogues-racket.webp",
+            "name": "Rogue's Racket",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8s5KrVHx1fNMO85a",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "label": "level 1 Rogue feature",
+                            "predicate": [
+                                "item:trait:rogue",
+                                "item:level:1"
+                            ]
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Eldritch Trickster"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Mastermind"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Ruffian"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Scoundrel"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.Item.Thief"
+                            }
+                        ],
+                        "flag": "roguesRacket",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Rogue.Racket.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Thief"
+                    },
+                    {
+                        "flag": "thief",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.roguesRacket}"
+                    }
+                ],
+                "slug": "rogues-racket",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "O6H37HCWW52HEJDK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.j1JE61quDxdge4mg"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/sneak-attack.webp",
+            "name": "Sneak Attack",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>When your enemy can't properly defend itself, you take advantage to deal extra damage. If you Strike a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon attack, or a ranged unarmed attack, you deal an extra 1d6 precision damage. For a ranged attack with a thrown melee weapon, that weapon must also be agile or finesse.</p>\n<p>As your rogue level increases, so does the number of damage dice for your sneak attack. Increase the number of dice by one at 5th, 11th, and 17th levels.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8s5KrVHx1fNMO85a",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.sneakAttackDamage.number",
+                        "predicate": [
+                            "class:rogue"
+                        ],
+                        "value": "ternary(lt(@actor.level, 5), 1, ternary(lt(@actor.level, 11), 2, ternary(lt(@actor.level, 17), 3, 4)))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.sneakAttackDamage.faces",
+                        "predicate": [
+                            "class:rogue"
+                        ],
+                        "value": 6
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": "@actor.flags.pf2e.sneakAttackDamage.number",
+                        "dieSize": "d{actor|flags.pf2e.sneakAttackDamage.faces}",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "wXxxxUixsMFpX98n",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.w6rMqmGzhUahdnA7"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/surprice-attack.webp",
+            "name": "Surprise Attack",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are off-guard to you.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "8s5KrVHx1fNMO85a",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "self:participant:initiative:stat:deception",
+                                    "self:participant:initiative:stat:stealth"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": "surprise-attack",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "BvrhD9RwszUOPxYq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+            "name": "Deny Advantage",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Barbarian</strong> Your foes struggle to pass your defenses. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<hr />\n<p><strong>Rogue</strong> As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "8s5KrVHx1fNMO85a",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.offGuardable",
+                        "value": "@actor.level"
+                    }
+                ],
+                "slug": "deny-advantage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian",
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "i8oHDM8NvpgMD4RP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.wAh2riuFRzz0edPl"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "0ZdBG8SeexZFigZ0",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/thief.webp",
+            "name": "Thief",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows and escaping via rooftops, or a safecracker breaking into carefully guarded vaults. You might even work as a consultant, testing clients' defenses by trying to steal something precious.</p>\n<p>When a fight breaks out, you prefer swift, lightweight weapons, and you strike where it hurts. When you attack with a finesse melee weapon, you can add your Dexterity modifier to damage rolls instead of your Strength modifier.</p>\n<p>You are trained in Thievery.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "ability": "dex",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:melee",
+                            "item:trait:finesse",
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "type": "ability"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.thi.rank",
+                        "value": 1
+                    }
+                ],
+                "slug": "thief",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Merisiel (Level 3)",
@@ -3414,6 +3409,7 @@
                 "value": 0
             }
         },
+        "exploration": [],
         "martial": {},
         "pfs": {
             "characterNumber": null,
