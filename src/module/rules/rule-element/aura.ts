@@ -3,6 +3,7 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import { EffectTrait } from "@item/abstract-effect/data.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import type {
     ArrayField,
     BooleanField,
@@ -84,6 +85,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 },
                 { required: false, nullable: true, initial: null }
             ),
+            mergeExisting: new fields.BooleanField({ required: false, nullable: false, initial: true }),
         };
     }
 
@@ -120,7 +122,21 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 }
             }
 
-            this.actor.auras.set(this.slug, data);
+            const existing = this.actor.auras.get(this.slug);
+            if (existing && this.mergeExisting) {
+                existing.traits = R.uniq([...existing.traits, ...data.traits]).sort();
+                if (data.colors) existing.colors = mergeObject(existing.colors ?? {}, data.colors);
+                for (const effect of data.effects) {
+                    const existingIndex = existing.effects.findIndex((e) => e.uuid === effect.uuid);
+                    if (existingIndex !== -1) {
+                        existing.effects.splice(existingIndex, 1, effect);
+                    } else {
+                        existing.effects.push(effect);
+                    }
+                }
+            } else {
+                this.actor.auras.set(this.slug, data);
+            }
         }
     }
 
@@ -166,17 +182,12 @@ type AuraSchema = RuleElementSchema & {
      * Custom border and fill colors for the aura: if omitted, the border color will be black, and the fill color the
      * user's assigned color
      */
-    colors: SchemaField<
-        {
-            border: ColorField<false, true, true>;
-            fill: ColorField<false, true, true>;
-        },
-        AuraColors,
-        AuraColors,
-        false,
-        true,
-        true
-    >;
+    colors: SchemaField<{ border: ColorField; fill: ColorField }, AuraColors, AuraColors, false, true, true>;
+    /**
+     * If another aura with the same slug is already being emitted, merge this aura's data in with the other's,
+     * combining traits and effects as well as merging `colors` data.
+     */
+    mergeExisting: BooleanField<boolean, boolean, false, false, true>;
 };
 
 type AuraEffectSchema = {
