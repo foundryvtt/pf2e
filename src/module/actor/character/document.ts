@@ -351,6 +351,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
         const existingBoosts = systemData.build?.attributes?.boosts;
+        const isABP = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this);
+
         systemData.build = {
             attributes: {
                 manual: manualAttributes,
@@ -369,6 +371,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 flaws: {
                     ancestry: [],
                 },
+                apex: isABP ? systemData.build?.attributes?.apex ?? null : null,
             },
         };
 
@@ -779,6 +782,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     const ability = this.system.abilities[abbrev];
                     ability.mod -= 1;
                 }
+            }
+
+            // Apply Attribute Apex increase: property already nulled out if ABP is disabled
+            if (build.attributes.apex && this.level >= 17) {
+                const attribute = this.system.abilities[build.attributes.apex];
+                attribute.mod = Math.max(attribute.mod + 1, 4);
             }
         }
 

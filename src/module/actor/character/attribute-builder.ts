@@ -10,9 +10,12 @@ import * as R from "remeda";
 class AttributeBuilder extends Application {
     actor: CharacterPF2e;
 
+    #abpEnabled: boolean;
+
     constructor(actor: CharacterPF2e) {
         super();
         this.actor = actor;
+        this.#abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(actor);
         actor.apps[this.appId] = this;
     }
 
@@ -200,8 +203,11 @@ class AttributeBuilder extends Application {
     #calculateLeveledBoosts(): LevelBoostData[] {
         const build = this.actor.system.build.attributes;
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
-        const boostIsPartial = (attribute: AttributeString, level = 0): boolean => {
-            if (level < 5 || build.manual) return false;
+
+        const boostIsPartial = (attribute: AttributeString, level: number, isApex: boolean): boolean => {
+            if (level < 5 || build.manual || isApex) {
+                return false;
+            }
             const boosts = R.compact([
                 build.boosts.ancestry.find((a) => a === attribute),
                 build.boosts.background.find((a) => a === attribute),
@@ -219,22 +225,26 @@ class AttributeBuilder extends Application {
             return netBoosts >= 5 ? cssClasses[netBoosts % 2] : false;
         };
 
-        return ([1, 5, 10, 15, 20] as const).map((level): LevelBoostData => {
-            const remaining = build.allowedBoosts[level] - build.boosts[level].length;
+        return ([1, 5, 10, 15, 17, 20] as const).flatMap((level): LevelBoostData | never[] => {
+            // Although the Attribute Apex increase from ABP isn't a boost, display it between level-15 and -20 boosts
+            const isApex = level === 17;
+            if (isApex && !this.#abpEnabled) return [];
+
+            const remaining = isApex ? Number(!build.apex) : build.allowedBoosts[level] - build.boosts[level].length;
             const buttons = this.#createButtons();
             for (const attribute of ATTRIBUTE_ABBREVIATIONS) {
-                const selected = build.boosts[level].includes(attribute);
-                const partial = selected && boostIsPartial(attribute, level);
+                const selected = isApex ? build.apex === attribute : build.boosts[level].includes(attribute);
+                const partial = selected && boostIsPartial(attribute, level, isApex);
                 buttons[attribute].boost = {
                     selected,
                     partial,
                     disabled: !remaining,
                 };
             }
-            const eligible = build.allowedBoosts[level] > 0;
-            const minLevel = isGradual ? Math.max(1, level - 3) : level;
+            const eligible = isApex ? this.actor.level >= 17 : build.allowedBoosts[level] > 0;
+            const minLevel = isGradual && !isApex ? Math.max(1, level - 3) : level;
 
-            return { buttons, remaining, level, eligible, minLevel };
+            return { buttons, remaining, level, eligible, minLevel, isApex };
         });
     }
 
@@ -334,7 +344,7 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "[data-section=ancestry] .boost")) {
             button.addEventListener("click", async () => {
                 const ancestry = actor.ancestry;
-                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                const attribute = button.dataset.attribute;
                 if (!ancestry || !setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                     return;
                 }
@@ -369,7 +379,7 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "[data-section=voluntary] .boost-button")) {
             button.addEventListener("click", () => {
                 const ancestry = actor.ancestry;
-                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                const attribute = button.dataset.attribute;
                 if (!ancestry || !setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                     return;
                 }
@@ -405,7 +415,7 @@ class AttributeBuilder extends Application {
 
         for (const button of htmlQueryAll(html, "[data-section=background] .boost")) {
             button.addEventListener("click", () => {
-                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                const attribute = button.dataset.attribute;
                 if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                     return;
                 }
@@ -449,7 +459,7 @@ class AttributeBuilder extends Application {
         for (const button of htmlQueryAll(html, "[data-level] .boost")) {
             button.addEventListener("click", () => {
                 const level = Number(htmlClosest(button, "[data-level]")?.dataset.level);
-                const attribute = htmlClosest(button, "[data-attribute]")?.dataset.attribute;
+                const attribute = button.dataset.attribute;
                 if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute) || !tupleHasValue([1, 5, 10, 15, 20], level)) {
                     return;
                 }
@@ -463,6 +473,20 @@ class AttributeBuilder extends Application {
                 }
 
                 actor.update({ "system.build": buildSource });
+            });
+        }
+
+        for (const button of htmlQueryAll(html, "button[data-action=apex]")) {
+            button.addEventListener("click", () => {
+                const attribute = button.dataset.attribute;
+                if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
+                    throw ErrorPF2e(`Unrecognized attribute abbreviation: ${attribute}`);
+                }
+
+                const current = this.actor.system.build.attributes.apex;
+                actor.update({
+                    [`system.build.attributes.apex`]: this.#abpEnabled && attribute !== current ? attribute : null,
+                });
             });
         }
 
@@ -507,6 +531,7 @@ interface BuilderButton {
 interface BoostFlawRow {
     buttons: Record<AttributeString, BoostFlawState>;
     remaining: number;
+    isApex?: boolean;
 }
 
 interface AncestryBoosts extends BoostFlawRow {

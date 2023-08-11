@@ -189,12 +189,15 @@ interface AttributeBoostsSource {
     manual: boolean;
 
     boosts: {
-        1: AttributeString[];
-        5: AttributeString[];
-        10: AttributeString[];
-        15: AttributeString[];
-        20: AttributeString[];
+        1?: AttributeString[];
+        5?: AttributeString[];
+        10?: AttributeString[];
+        15?: AttributeString[];
+        20?: AttributeString[];
     };
+
+    /** Attribute Apex increase from Automatic Bonus Progression */
+    apex?: AttributeString | null;
 }
 
 interface CharacterResourcesSource {
@@ -278,7 +281,7 @@ interface AttributeBoosts extends AttributeBoostsSource {
     /** Key ability score options drawn from class and class features */
     keyOptions: AttributeString[];
 
-    boosts: AttributeBoostsSource["boosts"] & {
+    boosts: Required<AttributeBoostsSource["boosts"]> & {
         ancestry: AttributeString[];
         background: AttributeString[];
         class: AttributeString | null;
@@ -296,6 +299,8 @@ interface AttributeBoosts extends AttributeBoostsSource {
     flaws: {
         ancestry: AttributeString[];
     };
+
+    apex: AttributeString | null;
 }
 
 type CharacterAbilities = Record<AttributeString, CharacterAbilityData>;
