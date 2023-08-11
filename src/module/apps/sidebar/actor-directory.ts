@@ -210,18 +210,22 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     /** Inject parties without having to alter a core template */
     protected override async _renderInner(data: object): Promise<JQuery> {
         const $element = await super._renderInner(data);
-        const partyHTML = await renderTemplate("systems/pf2e/templates/sidebar/party-document-partial.hbs", data);
-        $element.find(".directory-list").prepend(partyHTML);
 
-        // Inject any additional data for specific party implementations
-        for (const header of htmlQueryAll($element.get(0), ".party")) {
-            const party = game.actors.get(header.dataset.documentId ?? "");
-            if (!(party instanceof PartyPF2e)) continue;
+        // Add parties to sidebar (if any exist)
+        if (game.actors.some((a) => a.isOfType("party"))) {
+            const partyHTML = await renderTemplate("systems/pf2e/templates/sidebar/party-document-partial.hbs", data);
+            $element.find(".directory-list").prepend(partyHTML);
 
-            if (party.campaign?.createSidebarButtons) {
-                const sidebarButtons = party.campaign.createSidebarButtons();
-                if (sidebarButtons) {
-                    header.querySelector(".controls")?.prepend(...sidebarButtons);
+            // Inject any additional data for specific party implementations
+            for (const header of htmlQueryAll($element.get(0), ".party")) {
+                const party = game.actors.get(header.dataset.documentId ?? "");
+                if (!(party instanceof PartyPF2e)) continue;
+
+                if (party.campaign?.createSidebarButtons) {
+                    const sidebarButtons = party.campaign.createSidebarButtons();
+                    if (sidebarButtons) {
+                        header.querySelector(".controls")?.prepend(...sidebarButtons);
+                    }
                 }
             }
         }
