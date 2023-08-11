@@ -6,7 +6,7 @@
         "baseItem": null,
         "containerId": null,
         "description": {
-            "value": "<p>This blue cloak is surprisingly light for its length and seems to catch wind bursts in its tail, flying out behind the wearer while cushioning falls and easing jumps. The sides of the cloak are slightly weighted, making it easy to grab ahold of when it fills with air. This cloak grants you a +1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Leap] and a +1 item bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] or Maneuver in Flight.</p>\n<hr />\n<p><strong>Activate—Fall Gently</strong> <span class=\"pf2-icon\">R</span> (concentrate, air)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You're falling</p>\n<hr />\n<p><strong>Effect</strong> The cloak catches the air and you grab onto its edges, utilizing the draft to guide you to safety. Treat your fall as 30 feet shorter and glide to a space of your choice at the bottom of your fall, which must be within 20 feet of where you would've landed</p>"
+            "value": "<p>This blue cloak is surprisingly light for its length and seems to catch wind bursts in its tail, flying out behind the wearer while cushioning falls and easing jumps. The sides of the cloak are slightly weighted, making it easy to grab ahold of when it fills with air. This cloak grants you a +1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Leap] and a +1 item bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] or @UUID[Compendium.pf2e.actionspf2e.Item.Maneuver in Flight].</p>\n<hr />\n<p><strong>Activate—Fall Gently</strong> <span class=\"pf2-icon\">R</span> (concentrate, air)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You're falling</p>\n<hr />\n<p><strong>Effect</strong> The cloak catches the air and you grab onto its edges, utilizing the draft to guide you to safety. Treat your fall as 30 feet shorter and glide to a space of your choice at the bottom of your fall, which must be within 20 feet of where you would've landed</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -40,16 +40,21 @@
                 "predicate": [
                     "action:leap"
                 ],
-                "selector": "Athletics",
+                "selector": "athletics",
                 "type": "item",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:balance"
+                    {
+                        "or": [
+                            "action:balance",
+                            "action:maneuver-in-flight"
+                        ]
+                    }
                 ],
-                "selector": "Acrobatics",
+                "selector": "acrobatics",
                 "type": "item",
                 "value": 1
             }
