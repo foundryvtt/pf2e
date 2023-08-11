@@ -300,7 +300,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Equipment Browser
         for (const link of htmlQueryAll(html, ".inventory-browse")) {
-            link.addEventListener("click", () => this.#onClickBrowseEquipmentCompendia(link));
+            link.addEventListener("click", () => this.#onClickBrowseEquipment(link));
         }
 
         /* -------------------------------------------- */
@@ -877,19 +877,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }).render(true);
     }
 
-    async #onClickBrowseEquipmentCompendia(element: HTMLElement): Promise<void> {
-        const maxLevel = Number(element.dataset.level) || this.actor.level;
+    async #onClickBrowseEquipment(element: HTMLElement): Promise<void> {
         const checkboxesFilterCodes = (element.dataset.filter ?? "")
             .split(",")
             .filter((s) => !!s)
             .map((s) => s.trim());
 
-        const eqTab = game.pf2e.compendiumBrowser.tabs.equipment;
-        const filter = await eqTab.getFilterData();
+        const tab = game.pf2e.compendiumBrowser.tabs.equipment;
+        const filter = await tab.getFilterData();
         const { checkboxes } = filter;
-        const { level } = filter.sliders;
-        level.values.max = Math.min(maxLevel, level.values.upperLimit);
-        level.isExpanded = level.values.max !== level.values.upperLimit;
 
         for (const filterCode of checkboxesFilterCodes) {
             const splitValues = filterCode.split("-");
@@ -907,7 +903,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         }
 
-        eqTab.open(filter);
+        tab.open(filter);
     }
 
     protected override _canDragStart(selector: string): boolean {
