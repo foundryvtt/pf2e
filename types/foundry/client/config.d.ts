@@ -20,7 +20,7 @@ declare global {
         TTokenDocument extends TokenDocument<TScene | null>,
         TWallDocument extends WallDocument<TScene | null>,
         TScene extends Scene,
-        TUser extends User,
+        TUser extends User<Actor<null>>,
         TEffectsCanvasGroup extends EffectsCanvasGroup
     > {
         /** Configure debugging flags to display additional information */

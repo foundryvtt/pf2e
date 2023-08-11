@@ -14,13 +14,15 @@
     }
 
     .party-list {
+        position: relative;
         flex: 0 1 auto;
         margin: 0;
         padding: 0;
+        margin-bottom: 0.25rem;
     }
 
-    .party {
-        .party-header {
+    .folder-like {
+        & > header {
             background: rgba(255, 255, 255, 0.2);
             border-top: 1px solid var(--color-border-dark);
             border-bottom: 1px solid var(--color-border-dark);
@@ -30,7 +32,7 @@
             display: flex;
             align-items: center;
 
-            .fa-fw {
+            .icon, .controls .fa-fw {
                 cursor: pointer;
                 flex: 0 0 auto;
                 margin-right: 10px;
@@ -38,11 +40,17 @@
             }
 
             h3 {
+                align-items: baseline;
+                display: flex;
                 flex: 1;
                 margin: 0;
                 overflow: hidden;
                 white-space: nowrap;
                 font-size: var(--font-size-16);
+
+                > a, i {
+                    margin-left: 4px;
+                }
             }
 
             .controls {
@@ -69,8 +77,12 @@
         }
 
         &.collapsed {
-            .party-header {
+            & > header {
                 background: rgba(0, 0, 0, 0.5);
+            }
+
+            .fa-folder-open::before {
+                content: "\f07b";
             }
 
             .subdirectory {
@@ -79,5 +91,28 @@
         }
     }
 
+    .subdirectory .folder-like {
+        border-left: 1px solid var(--color-border-dark-1);
+    }
 
+    .party {
+        &:not(.active) .party-header {
+            padding: 2px 6px;
+            & > *:not(nav) {
+                opacity: 0.85;
+            }
+        }
+
+        .activate-party:hover i {
+            font-weight: 900; // effectively fa-solid
+        }
+
+        &.active .party-header {
+            background: var(--primary);
+        }
+
+        .blank {
+            padding: 6px 12px;
+        }
+    }
 }

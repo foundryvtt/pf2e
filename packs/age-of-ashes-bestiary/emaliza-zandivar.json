@@ -2259,7 +2259,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes [[/r 2d12[persistent,force]]] damage. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is [[/r 4d12[persistent,force]]] damage.</p>"
+                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes @Damage[2d12[persistent,force]] damage. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is @Damage[4d12[persistent,force]] damage.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4055,7 +4055,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]. On a critical success, the target also takes [[/r 1[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases to [[/r 2[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 3[persistent,acid]]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 4[persistent,acid]]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 5[persistent,acid]]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]. On a critical success, the target also takes @Damage[1[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases to @Damage[2[persistent,acid]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[3[persistent,acid]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[4[persistent,acid]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[5[persistent,acid]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
                 },
                 "duration": {
                     "value": ""
@@ -5578,14 +5578,14 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "add",
-                        "path": "system.abilities.dex.value",
-                        "value": 2
+                        "path": "system.abilities.dex.mod",
+                        "value": 1
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.abilities.dex.value",
-                        "value": 18
+                        "path": "system.abilities.dex.mod",
+                        "value": 4
                     }
                 ],
                 "size": "med",
@@ -5922,6 +5922,11 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Emaliza hasn't acted yet on this turn</p>\n<hr />\n<p><strong>Effect</strong> Emaliza can cast one prepared spell she has already cast today without spending a spell slot.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -5958,6 +5963,11 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> Emaliza Casts a Spell</p>\n<hr />\n<p><strong>Effect</strong> Emaliza's magic creates a small defensive aura around her. She gains 20 temporary Hit Points and resistance 20 to either acid, cold, electricity, or fire damage. The defensive aura remains until the beginning of her next turn.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
                 },
                 "requirements": {
                     "value": ""
@@ -6266,10 +6276,10 @@
                     "common",
                     "draconic",
                     "dwarven",
+                    "infernal",
                     "kelish",
                     "osiriani",
-                    "ignan",
-                    "infernal",
+                    "pyric",
                     "undercommon"
                 ]
             },

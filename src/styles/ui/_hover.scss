@@ -207,68 +207,6 @@
                             width: min-content;
                             padding-top: 2px;
                         }
-
-                        .remove-modifier {
-                            grid-area: close;
-                            font-size: 0.8rem;
-                            cursor: pointer;
-                        }
-
-                        &.add-modifier {
-                            border-top: 1px solid var(--sidebar-title);
-                            padding-top: 5px;
-                            grid:
-                                'value name name' 1fr
-                                'type type btn' 1fr
-                                /42px 1fr 1fr;
-                            font-size: 0.8rem;
-                            gap: 0.25rem 0.5rem;
-                            align-items: baseline;
-
-                            .add-modifier-value {
-                                grid-area: value;
-                                font-size: 1rem;
-                                text-align: right;
-                                display: grid;
-                                grid:
-                                    'input plus' 1fr
-                                    'input minus' 1fr
-                                    /1fr 10px;
-                                column-gap: 4px;
-                                align-items: center;
-
-                                input {
-                                    grid-area: input;
-                                }
-
-                                .fas {
-                                    font-size: var(--font-size-9);
-                                    cursor: pointer;
-                                    margin-top: 2px;
-
-                                    &.fa-plus-circle {
-                                        grid-area: plus;
-                                    }
-
-                                    &.fa-minus-circle {
-                                        grid-area: minus;
-                                    }
-                                }
-                            }
-
-                            .add-modifier-name {
-                                grid-area: name;
-                            }
-
-                            .add-modifier-submit {
-                                @include micro;
-                                grid-area: btn;
-                                white-space: nowrap;
-                                line-height: 1.5;
-                                background-color: black;
-                                color: var(--tertiary);
-                            }
-                        }
                     }
 
                     .disabled {
@@ -279,6 +217,70 @@
                         }
                         .label {
                             text-decoration: line-through;
+                        }
+                    }
+                }
+
+                &.modifiers-tooltip {
+                    .remove-modifier {
+                        grid-area: close;
+                        font-size: 0.8rem;
+                        cursor: pointer;
+                    }
+
+                    .add-modifier {
+                        border-top: 1px solid var(--sidebar-title);
+                        padding-top: 5px;
+                        grid:
+                            'value name name' 1fr
+                            'type type btn' 1fr
+                            /42px 1fr 1fr;
+                        font-size: 0.8rem;
+                        gap: 0.25rem 0.5rem;
+                        align-items: baseline;
+
+                        .add-modifier-value {
+                            grid-area: value;
+                            font-size: 1rem;
+                            text-align: right;
+                            display: grid;
+                            grid:
+                                'input plus' 1fr
+                                'input minus' 1fr
+                                /1fr 10px;
+                            column-gap: 4px;
+                            align-items: center;
+
+                            input {
+                                grid-area: input;
+                            }
+
+                            .fa-solid {
+                                margin-top: 2px;
+                                font-size: var(--font-size-9);
+                                cursor: pointer;
+
+                                &.fa-plus-circle {
+                                    grid-area: plus;
+                                }
+
+                                &.fa-minus-circle {
+                                    grid-area: minus;
+                                }
+                            }
+                        }
+
+                        .add-modifier-name {
+                            grid-area: name;
+                        }
+
+                        .add-modifier-submit {
+                            @include micro;
+                            grid-area: btn;
+                            white-space: nowrap;
+                            line-height: 1.5;
+                            background-color: black;
+                            color: var(--tertiary);
                         }
                     }
                 }

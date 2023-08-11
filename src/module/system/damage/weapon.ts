@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import { DamageDiceOverride, DamageDicePF2e, ModifierPF2e, PROFICIENCY_RANK_OPTION } from "@actor/modifiers.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
 import { getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
@@ -160,7 +160,7 @@ class WeaponDamagePF2e {
         });
         const modifiersAndSelectors = modifiers
             .concat(fromDamageSelector)
-            .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
+            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability")
             .map((modifier) => {
                 const selectors = this.#getSelectors(weapon, modifier.ability, proficiencyRank);
                 return { modifier, selectors };
@@ -604,7 +604,7 @@ class WeaponDamagePF2e {
 
     static #getSelectors(
         weapon: WeaponPF2e | MeleePF2e,
-        ability: AbilityString | null,
+        ability: AttributeString | null,
         proficiencyRank: number
     ): string[] {
         const selectors = [

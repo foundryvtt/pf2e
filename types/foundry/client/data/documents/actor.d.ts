@@ -155,6 +155,17 @@ declare global {
             user: User
         ): Promise<boolean | void>;
 
+        /**
+         * When an Actor is being created, apply default token configuration settings to its prototype token.
+         * @param data    Data explicitly provided to the creation workflow
+         * @param options Options which configure creation
+         * @param [options.fromCompendium] Does this creation workflow originate via compendium import?
+         */
+        protected _applyDefaultTokenSettings(
+            data: PreDocumentId<this["_source"]>,
+            options?: { fromCompendium?: boolean }
+        ): DeepPartial<this["_source"]>;
+
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentUpdateContext<TParent>,

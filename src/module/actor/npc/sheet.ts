@@ -5,14 +5,15 @@ import { CreatureSheetData } from "@actor/creature/types.ts";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
-import { AbilityString, MovementType } from "@actor/types.ts";
-import { ABILITY_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
+import { AttributeString, MovementType } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
     getActionGlyph,
     getActionIcon,
+    htmlClosest,
     htmlQuery,
     htmlQueryAll,
     localizeList,
@@ -83,13 +84,13 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         return sheetData as NPCSheetData<TActor>;
     }
 
-    #prepareAbilities(abilities: Abilities): void {
-        for (const key of ABILITY_ABBREVIATIONS) {
-            interface SheetAbilityData extends AbilityData {
+    #prepareAbilities(attributes: Abilities): void {
+        for (const key of ATTRIBUTE_ABBREVIATIONS) {
+            interface SheetAttributeData extends AbilityData {
                 localizedCode?: string;
                 localizedName?: string;
             }
-            const data: SheetAbilityData = abilities[key];
+            const data: SheetAttributeData = attributes[key];
             const localizedCode = game.i18n.localize(`PF2E.AbilityId.${key}`);
             const nameKey = CONFIG.PF2E.abilities[key];
             const localizedName = game.i18n.localize(nameKey);
@@ -176,7 +177,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         if (attribute) {
             if (attribute === "perception") {
                 await this.actor.perception.roll(eventToRollParams(event));
-            } else if (setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+            } else if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
                 this.#rollAbility(event, attribute);
             }
         } else if (skill) {
@@ -192,7 +193,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         }
     }
 
-    async #rollAbility(event: MouseEvent, abilityId: AbilityString): Promise<void> {
+    async #rollAbility(event: MouseEvent, abilityId: AttributeString): Promise<void> {
         const bonus = this.actor.system.abilities[abilityId].mod;
         const parts = ["@bonus"];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
@@ -473,10 +474,12 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         });
 
         // Handle spellcastingEntry attack and DC updates
-        $html
-            .find(".spellcasting-entry")
-            .find<HTMLInputElement | HTMLSelectElement>(".attack-input, .dc-input, .ability-score select")
-            .on("change", (event) => this.#onChangeSpellcastingEntry(event));
+        const selector = [".attack-input", ".dc-input", ".key-attribute select"]
+            .map((s) => `.spellcasting-entry ${s}`)
+            .join(", ");
+        for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selector)) {
+            element.addEventListener("change", (event) => this.#onChangeSpellcastingEntry(element, event));
+        }
 
         $html.find(".item-control[data-action=generate-attack]").on("click", async (event) => {
             const { actor } = this;
@@ -507,18 +510,16 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         });
     }
 
-    async #onChangeSpellcastingEntry(event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>): Promise<void> {
+    async #onChangeSpellcastingEntry(element: HTMLInputElement | HTMLSelectElement, event: Event): Promise<void> {
         event.preventDefault();
-
-        const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
-        const itemId = $input.closest(".spellcasting-entry").attr("data-container-id") ?? "";
-        const key = $input.attr("data-base-property")?.replace(/data\.items\.\d+\./, "") ?? "";
+        const itemId = htmlClosest(element, ".spellcasting-entry")?.dataset.containerId ?? "";
+        const key = element.dataset.baseProperty?.replace(/data\.items\.\d+\./, "") ?? "";
         const value =
-            $input.hasClass("focus-points") || $input.hasClass("focus-pool")
-                ? Math.min(Number($input.val()), 3)
-                : $input.is("select")
-                ? String($input.val())
-                : Number($input.val());
+            element.classList.contains("focus-points") || element.classList.contains("focus-pool")
+                ? Math.min(Number(element.value) || 0, 3)
+                : element.nodeName === "SELECT"
+                ? element.value
+                : Number(element.value) || 0;
         await this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [key]: value }]);
     }
 

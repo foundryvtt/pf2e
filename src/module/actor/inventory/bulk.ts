@@ -18,9 +18,9 @@ export class InventoryBulk {
             actor.size
         );
 
-        const strengthModifier = actor.isOfType("character", "npc") ? actor.abilities.str.mod : Infinity;
-
-        const [bonusBulkLimit, bonusEncumbranceBulk] = actor.isOfType("character")
+        const actorIsPCOrNPC = actor.isOfType("character", "npc");
+        const strengthModifier = actorIsPCOrNPC ? actor.abilities.str.mod : Infinity;
+        const [bonusBulkLimit, bonusEncumbranceBulk] = actorIsPCOrNPC
             ? [actor.attributes.bonusLimitBulk, actor.attributes.bonusEncumbranceBulk]
             : [0, 0];
 

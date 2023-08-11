@@ -1,8 +1,9 @@
 import { ZeroToFour } from "@module/data.ts";
 import * as R from "remeda";
-import { ArrayField, StringField } from "types/foundry/common/data/fields.js";
+import type { ArrayField, StringField } from "types/foundry/common/data/fields.js";
 import { KingdomAbility } from "./types.ts";
 import { KINGDOM_ABILITIES, KINGDOM_COMMODITIES, KINGDOM_LEADERSHIP, KINGDOM_SKILLS } from "./values.ts";
+import { RawModifier } from "@actor/modifiers.ts";
 
 const { fields } = foundry.data;
 
@@ -82,24 +83,38 @@ const KINGDOM_RESOURCES_SCHEMA = {
     commodities: new fields.SchemaField(
         R.mapToObj(KINGDOM_COMMODITIES, (type) => {
             const schema = new fields.SchemaField({
-                value: new fields.NumberField<number, number, true>({ required: true, initial: 0 }),
-                max: new fields.NumberField<number, number, true>({ required: true, initial: 0 }),
-                sites: new fields.NumberField<number, number, true, false>({
+                value: new fields.NumberField<number, number, true, false>({
+                    required: true,
+                    nullable: false,
+                    initial: 0,
+                }),
+                max: new fields.NumberField<number, number, true, false>({
+                    required: true,
+                    nullable: false,
+                    initial: 0,
+                }),
+            });
+
+            return [type, schema];
+        })
+    ),
+    /** Worksites by commodity type, for the commodities that can have work sites */
+    workSites: new fields.SchemaField(
+        R.mapToObj(["lumber", "ore", "stone"], (type) => {
+            const schema = new fields.SchemaField({
+                /** The number of regular non-resource work sites */
+                regular: new fields.NumberField<number, number, true, false>({
                     required: true,
                     nullable: false,
                     min: 0,
                     initial: 0,
                 }),
-                resourceSites: new fields.NumberField<number, number, true, false>({
+                /** The number of worksites that are on resource hexes (these) */
+                resource: new fields.NumberField<number, number, true, false>({
                     required: true,
                     nullable: false,
                     min: 0,
                     initial: 0,
-                }),
-                gathered: new fields.NumberField<number, number, true, false>({
-                    initial: 0,
-                    required: true,
-                    nullable: false,
                 }),
             });
 
@@ -178,6 +193,8 @@ const KINGDOM_SCHEMA = {
             return [ability, schema];
         })
     ),
+    build: new fields.SchemaField(KINGDOM_BUILD_SCHEMA),
+    customModifiers: new fields.ObjectField<Record<string, RawModifier[]>>({ initial: {} }),
     leadership: new fields.SchemaField(
         R.mapToObj(KINGDOM_LEADERSHIP, (role) => {
             const schema = new fields.SchemaField({
@@ -193,7 +210,6 @@ const KINGDOM_SCHEMA = {
             return [role, schema];
         })
     ),
-    build: new fields.SchemaField(KINGDOM_BUILD_SCHEMA),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
 };
 

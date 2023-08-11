@@ -112,8 +112,8 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         // Add base key ability options
 
-        build.abilities.keyOptions = [...this.system.keyAbility.value];
-        build.abilities.boosts.class = this.system.keyAbility.selected;
+        build.attributes.keyOptions = [...this.system.keyAbility.value];
+        build.attributes.boosts.class = this.system.keyAbility.selected;
 
         attributes.classhp = this.hpPerLevel;
 
@@ -122,7 +122,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         // Override the actor's key ability score if it's set
         details.keyability.value =
-            (build.abilities.manual ? details.keyability.value : build.abilities.boosts.class) ?? "str";
+            (build.attributes.manual ? details.keyability.value : build.attributes.boosts.class) ?? "str";
 
         // Set class DC
         type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;

@@ -7,7 +7,13 @@
         </div>
         <div class="details">
             <div class="title">
-                <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
+                <input
+                    name="name"
+                    class="name"
+                    type="text"
+                    value="{{actor.name}}"
+                    placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"
+                    {{disabled (not @root.options.editable)}}/>
                 <label>{{localize "TYPES.Actor.party"}}</label>
             </div>
         </div>
@@ -17,8 +23,8 @@
         {{#unless restricted}}
             <a data-tab="overview">{{localize "PF2E.Actor.Party.Tabs.Overview"}}</a>
         {{/unless}}
-        <a data-tab="inventory">{{localize "PF2E.Actor.Party.Tabs.Inventory"}}</a>
         <a data-tab="exploration">{{localize "PF2E.Actor.Party.Tabs.Exploration"}}</a>
+        <a data-tab="inventory">{{localize "PF2E.Actor.Party.Tabs.Inventory"}}</a>
         {{#if orphaned}}
             <a data-tab="orphaned">{{localize "PF2E.Actor.Party.Tabs.Orphaned"}}</a>
         {{/if}}
@@ -29,6 +35,9 @@
             <div class="tab" data-tab="overview" data-region="overview"></div>
         {{/unless}}
 
+        <div class="tab" data-tab="exploration" data-region="exploration">
+        </div>
+
         <div class="tab" data-tab="inventory">
             <aside class="sidebar">
                 <section data-region="inventoryMembers">
@@ -38,9 +47,6 @@
                 {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
                 {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
             </section>
-        </div>
-
-        <div class="tab" data-tab="exploration" data-region="exploration">
         </div>
 
         {{#if orphaned}}

@@ -27,6 +27,24 @@ describe("Predication with string atomics returns correct results", () => {
 });
 
 describe("Predication with numeric-comparison atomics returns correct results", () => {
+    test("simple greater-than", () => {
+        const predicate = new PredicatePF2e({ gt: ["foo", 2] });
+        expect(predicate.test(["foo:1"])).toEqual(false);
+        expect(predicate.test(["foo:2"])).toEqual(false);
+        expect(predicate.test(["foo:3"])).toEqual(true);
+        expect(predicate.test(["foo"])).toEqual(false);
+        expect(predicate.test([])).toEqual(false);
+    });
+
+    test("simple less-than", () => {
+        const predicate = new PredicatePF2e({ lt: ["foo", 2] });
+        expect(predicate.test(["foo:1"])).toEqual(true);
+        expect(predicate.test(["foo:2"])).toEqual(false);
+        expect(predicate.test(["foo:3"])).toEqual(false);
+        expect(predicate.test(["foo"])).toEqual(false);
+        expect(predicate.test([])).toEqual(false);
+    });
+
     test("greater-than, less-than", () => {
         const predicate = new PredicatePF2e({ gt: ["foo", 2] }, { lt: ["bar", 2] });
         expect(predicate.test(["foo:1", "bar:3"])).toEqual(false);
@@ -56,6 +74,15 @@ describe("Predication with numeric-comparison atomics returns correct results", 
         expect(predicate.test(["self:level:1", "target:level:1"])).toEqual(true);
         expect(predicate.test(["self:level:1", "target:level:2"])).toEqual(true);
         expect(predicate.test(["self:level:2", "target:level:1"])).toEqual(false);
+    });
+
+    test("less-than-or-equal-to without matching value pair", () => {
+        const predicate = new PredicatePF2e({ lte: ["self:level", "target:level"] });
+        expect(predicate.test([])).toEqual(false);
+        expect(predicate.test(["self:level:1"])).toEqual(false);
+        expect(predicate.test(["self:level:1", "foo:2"])).toEqual(false);
+        expect(predicate.test(["self:level:1", "target:lebel:2"])).toEqual(false);
+        expect(predicate.test(["self:level:1", "target:level:2"])).toEqual(true);
     });
 });
 
@@ -209,7 +236,7 @@ describe("Predication with exclusive disjunction returns correct results", () =>
 });
 
 describe("Predication with material conditional and negation return correct results", () => {
-    test("material conditional with the `all` quantifier", () => {
+    test("simple material conditional", () => {
         const predicate = new PredicatePF2e({ if: "foo", then: "bar" });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test(["foo", "bar"])).toEqual(true);
@@ -218,7 +245,7 @@ describe("Predication with material conditional and negation return correct resu
         expect(predicate.test([])).toEqual(true);
     });
 
-    test("material conditional and negation with the `all` quantifier", () => {
+    test("material conditional and negation", () => {
         const predicate = new PredicatePF2e({ if: "foo", then: { not: "bar" } });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(false);

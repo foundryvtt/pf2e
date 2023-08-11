@@ -1333,7 +1333,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and [[/r 1[bleed]]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
+                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and @Damage[1[bleed]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
                 },
                 "duration": {
                     "value": ""
@@ -1862,7 +1862,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and @Damage[1d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2467,6 +2467,11 @@
                 "category": "defensive",
                 "description": {
                     "value": "<p>While holding the shadow crystal, Aydrian Thrune receives the following benefits. She gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Darkvision] and can cast <em>shadow step</em> once per day. Additionally, if she dies, is dying, or someone else holds the shadow crystal, it shatters, dealing @Damage[4d6[negative]] damage in a @Template[type:burst|distance:5] @Check[type:reflex|dc:19|basic:true] save</p>\n<hr />\n<p><strong>Shadow Step</strong></p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">1</span> (conjuration, occult, shadow, teleportation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Aydrian Thrune is in dim light or darkness</p>\n<hr />\n<p><strong>Effect</strong> Aydrian teleports up to 30 feet. The destination must be in dim light or darkness and must be within her line of sight and line of effect.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
                 },
                 "requirements": {
                     "value": ""

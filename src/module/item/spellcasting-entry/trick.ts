@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AbilityString, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, SkillLongForm } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -34,10 +34,10 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     statistic: Statistic;
 
-    attribute: AbilityString;
+    attribute: AttributeString;
 
     /** @deprecated */
-    get ability(): AbilityString {
+    get ability(): AttributeString {
         foundry.utils.logCompatibilityWarning(
             "`TrickMagicItemEntry#ability` is deprecated. Use `TrickMagicItemEntry#attribute` instead.",
             { since: "5.3.0", until: "6.0.0" }
@@ -55,23 +55,21 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         this.skill = skill;
         this.id = `trick-${this.skill}`;
 
-        const { abilities } = actor;
-        const { ability } = (["int", "wis", "cha"] as const)
-            .map((ability) => {
-                return { ability, value: abilities[ability].value };
-            })
+        const attributes = actor.abilities;
+        const { attribute } = (["int", "wis", "cha"] as const)
+            .map((attribute) => ({ attribute, mod: attributes[attribute].mod }))
             .reduce((highest, next) => {
-                if (next.value > highest.value) {
+                if (next.mod > highest.mod) {
                     return next;
                 } else {
                     return highest;
                 }
             });
 
-        this.attribute = ability;
+        this.attribute = attribute;
         const tradition = (this.tradition = TrickMagicTradition[skill]);
 
-        const selectors = [`${ability}-based`, "all", "spell-attack-dc"];
+        const selectors = [`${attribute}-based`, "all", "spell-attack-dc"];
         const attackSelectors = [
             `${tradition}-spell-attack`,
             "spell-attack",
@@ -87,7 +85,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
-            ability,
+            ability: attribute,
             rank: trickRank || "untrained-level",
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,

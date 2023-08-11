@@ -1,0 +1,15 @@
+<div class="pf2e chat-card item-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <header class="card-header flexrow">
+        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
+        <h3>{{item.name}}</h3>
+    </header>
+
+    <div class="card-content">
+        {{{item.description}}}
+    </div>
+    {{#if actor}}
+        <section class="card-buttons">
+            <button type="button" data-action="affliction-save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}">{{localize "PF2E.SaveDCLabel" dc=data.save.value type=(lookup (lookup actor.saves data.save.type) 'label') }}</button>
+        </section>
+    {{/if}}
+</div>

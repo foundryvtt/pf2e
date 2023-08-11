@@ -1,3 +1,5 @@
+import type BaseUser from "../documents/user.d.ts";
+
 /**
  * An interface shared by both the client and server-side which defines how creation, update, and deletion operations are transacted.
  */
@@ -16,14 +18,14 @@ export default abstract class DatabaseBackend<TDocument extends foundry.abstract
     get(
         documentClass: ConstructorOf<TDocument>,
         context: Partial<DatabaseBackendGetContext>,
-        user?: User
+        user?: BaseUser
     ): Promise<TDocument[]>;
 
     /** Get primary Document instances */
     protected abstract _getDocuments(
         documentClass: ConstructorOf<TDocument>,
         request: DatabaseBackendGetContext,
-        user: User
+        user: BaseUser
     ): Promise<(DeepPartial<TDocument["_source"][]> & CompendiumIndexData) | TDocument[]>;
 
     /* -------------------------------------------- */

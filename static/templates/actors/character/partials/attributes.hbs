@@ -1,0 +1,14 @@
+<ol class="attribute-modifiers">
+    {{#each data.abilities as |attribute key|}}
+        <li class="attribute {{#if (eq ../actor.keyAttribute key)}}key{{/if}}" data-attribute="{{key}}">
+            <label for="{{@root.actor.uuid}}-{{key}}-attribute-score" class="details-label attribute-name">{{localize attribute.label}}</label>
+            <h2 class="attribute-id" title="{{localize "PF2E.AbilityTitle"}}">
+                {{localize (concat "PF2E.AbilityId." key)}}
+                {{#if (eq ../data.details.keyability.value key)}}<i class="fa-solid fa-key key-attribute"></i>{{/if}}
+            </h2>
+            <h3 class="attribute-mod" title="{{localize "PF2E.ModifierTitle"}}">
+                {{numberFormat attribute.mod decimals=0 sign=true}}
+            </h3>
+        </li>
+    {{/each}}
+</ol>

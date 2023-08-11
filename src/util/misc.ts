@@ -54,12 +54,10 @@ function mapValues<K extends string | number | symbol, V, R>(
     }, {} as Record<K, R>);
 }
 
-type Optional<T> = T | null | undefined;
-
 /**
  * Returns true if the string is null, undefined or only consists of 1..n spaces
  */
-function isBlank(text: Optional<string>): text is null | undefined | "" {
+function isBlank(text: Maybe<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
@@ -446,13 +444,12 @@ function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePat
 }
 
 export {
-    configFromLocalization,
     ErrorPF2e,
     Fraction,
-    Optional,
     SlugCamel,
     addSign,
     applyNTimes,
+    configFromLocalization,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,

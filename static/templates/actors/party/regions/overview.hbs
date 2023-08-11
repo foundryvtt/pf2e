@@ -5,11 +5,14 @@
         </div>
     {{/unless}}
 
-    {{#if members}}
+    {{#with overviewSummary}}
         <section class="summary">
             <nav>
                 <button type="button" data-action="change-view" data-view="languages">
                     {{localize "PF2E.Actor.Party.Languages"}}
+                </button>
+                <button type="button" data-action="change-view" data-view="skills">
+                    {{localize "PF2E.Actor.Party.Skills"}}
                 </button>
                 <button type="button" data-action="change-view" data-view="rk">
                     {{localize "PF2E.RecallKnowledge.Label"}}
@@ -25,28 +28,37 @@
                     </li>
                 {{/each}}
             </ul>
+            <div class="skills" data-view="skills">
+                {{#each skills as |skill|}}
+                    {{> skillTag skill=skill}}
+                {{/each}}
+            </div>
             <div class="skills" data-view="rk">
-                {{#each knowledge as |skill|}}
-                    <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
-                        {{skill.label}} {{numberFormat skill.mod sign=true}}
-                    </span>
+                {{#each knowledge as |section|}}
+                    <div class="skills">
+                        {{#each section as |skill|}}
+                            {{> skillTag skill=skill}}
+                        {{/each}}
+                    </div>
                 {{/each}}
             </div>
         </section>
-    {{/if}}
+    {{/with}}
 
     {{#each members as |member|}}
-        <section class="member" data-actor-uuid="{{member.actor.uuid}}">
+        <section class="member {{#unless member.limited}}readonly{{/unless}}" data-actor-uuid="{{member.actor.uuid}}">
             <div class="portrait">
                 <a data-action="open-sheet"><img src="{{member.actor.img}}" /></a>
                 <div class="health-bar">
-                    {{#with member.actor.attributes.hp as |hp|}}
-                        {{#if hp.temp}}
-                            <div class="temp bar" style="width: {{percentage hp.temp hp.max}}%;"></div>
+                    <div class="health-bar">
+                        {{#if member.hp.temp}}
+                            <div class="temp bar" style="width: {{percentage member.hp.temp member.hp.max}}%;"></div>
                         {{/if}}
-                        <div class="bar" style="width: {{percentage hp.value hp.max}}%;"></div>
-                        <span><i class="fas fa-heart"></i> {{hp.value}} / {{hp.max}}</span>
-                    {{/with}}
+                        <div class="bar" style="width: {{percentage member.hp.value member.hp.max}}%;"></div>
+                        {{#if member.hp.showValue}}
+                            <span><i class="fas fa-heart"></i> {{member.hp.value}} / {{member.hp.max}}</span>
+                        {{/if}}
+                    </div>
                 </div>
             </div>
             <div class="data">
@@ -71,7 +83,7 @@
                         {{/if}}
                     {{/if}}
                     {{#if member.heroPoints}}
-                        <a class="hero-points" data-action="adjust-hero-points">
+                        <a class="hero-points {{#unless member.owner}}readonly{{/unless}}" data-action="adjust-hero-points">
                             {{#times member.heroPoints.max}}
                                 {{#if (gt member.heroPoints.value this)}}
                                     <img src="/systems/pf2e/dice/basic/heads.webp" />
@@ -120,17 +132,29 @@
 
                 <div class="skills">
                     {{#with member.actor.perception as |perception|}}
-                        <button type="button" class="perception tag-light rollable" {{#if perception.rank}}data-rank="{{perception.rank}}"{{/if}} {{#if @root.user.isGM}}data-action="roll" data-statistic="perception" data-secret="true"{{/if}}>
+                        <button
+                            type="button"
+                            class="perception tag-light rollable {{#unless @root.user.isGM}}readonly{{/unless}}"
+                            {{#if perception.rank}}data-rank="{{perception.rank}}"{{/if}}
+                            {{#if @root.user.isGM}}
+                                data-action="roll"
+                                data-statistic="perception"
+                                data-secret="true"
+                            {{/if}}>
                             {{perception.label}} {{numberFormat perception.mod sign=true}}
                         </button>
                     {{/with}}
                     {{#each member.bestSkills as |skill|}}
-                        <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
-                            {{skill.label}} {{numberFormat skill.mod sign=true}}
-                        </span>
+                        {{> skillTag skill=skill}}
                     {{/each}}
                 </div>
             </div>
         </section>
     {{/each}}
 </div>
+
+{{#*inline "skillTag"}}
+    <span class="tag-light" data-slug="{{skill.slug}}" {{#if skill.rank}}data-rank="{{skill.rank}}"{{/if}}>
+        {{skill.label}} {{numberFormat skill.mod sign=true}}
+    </span>
+{{/inline}}

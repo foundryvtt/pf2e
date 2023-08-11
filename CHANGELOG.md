@@ -1,3 +1,126 @@
+## 5.3.2
+
+### Bugfixes
+
+-   (stwlam) Fix display of battle form attack modifiers on PC sheet
+-   (stwlam) Fix issue causing auras to stop transmitting effects when multiple scenes have tokens for same actors
+
+### Data Updates
+
+-   (Abaddon) Fix major vigilant eye description
+-   (Abaddon) Fix greater clockwork shield description
+-   (chrpow) Remove reference to _scorching ray_ from _blazing bolt_'s description
+-   (chrpow) Remove Persistence of Memory ability from Shadow King's statblock
+-   (chrpow) Add duration and traditions to One with Stone
+-   (chrpow) Add Shory Language from Stolen Fate Player's Guide
+-   (chrpow) Fix localization of Composite trait
+-   (SpartanCPA) Fix action type of "Too Angry to Die"
+-   (stwlam) Add Swallow-Spike armor property runes
+-   (stwlam) Add Versatile Poison trait
+-   (stwlam) Force attribute modifier of Spellshot class DC to be intelligence
+-   (Tikael) Fix immunities of Choking Tethers hazard
+-   (Tikael) Add area to Grasping Grave focus spell
+-   (Tikael) Add spell DC to Obrousian
+-   (Tikael) Fix inline damage of Eldritch Flare
+
+## 5.3.1
+
+### System Improvements
+
+-   (Supe) Support more formulas using math terms in @Damage
+-   (stwlam) Show GMs remaster changes journal entry once on startup
+
+### Bugfixes
+
+-   (Kim) Fix issue preventing some adventure reimports
+-   (stwlam) Fix attribute boost buttons sometimes not reflecting being clicked
+-   (stwlam) Respect `overrideTraits` (and its absence) in @Damage expressions
+-   (Supe) Add "damage" selector to @Damage
+-   (Supe) Handle top-level math terms and subtraction in @Damage
+-   (Supe) Assume actor is level 1 in @Damage instead of skipping
+-   (Surge) Display vehicle source in description tab
+
+### Data Updates
+
+-   (Abaddon) Fix Bravery Baldric descriptions
+-   (Abaddon) Fix Spiderfoot Brew item variants
+-   (abrault) Fix spell-save button in chat cards
+-   (dellatorreadrian) Fix searching actions in Compendium Browser using text and type at the same time
+-   (Roxim) Add automation for Martial Performance feat
+-   (stwlam) Migrate bracketed AE-likes modifying ability scores (used by Companion Compendia eidolons)
+-   (Tikael) Add _Translate_ to list of renamed spells
+-   (Tikael) Automate Bristle's inline damage increase
+-   (Tikael) Change the Kinetic Gate feature to be renamed with selected choices
+-   (Tikael) Fix broken links in remaster journal, add language changes
+-   (Tikael) Move more inline rolls to the new damage format
+-   (Tikael) Backfill frequencies for most NPC actions
+-   (TMun) Add knockdown to cinder wolf strikes from PFS 1-14
+
+## 5.3.0
+
+### Highlights
+
+-   Rage of Elements content is in. As usual with data entry from larger volumes, this is the initial pass, to be followed up with QA and automation passes.
+-   A new syntax for inline rolls, `@Damage`, has been added. This has additional features & options compared to basic Foundry `/roll` expressions, such as support for pulling in modifiers and additional damage dice.
+
+### New Features
+
+-   (Supe) Add @Damage inline rolls
+
+### System Improvements
+
+-   (stwlam) Remove ability scores, rename "ability modifiers" to "attribute modifiers"
+-   (stwlam) Add "Clear Placed Templates" button to area-effect spell cards
+-   (stwlam) Add support for thrown weapons with reload values of 0
+
+### Bugfixes
+
+-   (stwlam) Fix issue causing repeating-weapon magazines to be consumed too quickly
+-   (stwlam) Fix check for Deny Advantage
+-   (stwlam) Fix issue causing some rule elements that check effect origins to not function at key points
+-   (stwlam) Initialize apply homebrew elements early enough for utilization by rule elements
+-   (stwlam) Fix numeric predication comparisons when no right-hand operands are found
+-   (Supe) Fix elite/weak adjustment for cantrips
+-   (Supe) Fix issue causing CPUs to be pegged while collecting information to present choice set dialogs
+
+### Data Updates
+
+-   (Abaddon) Fix Game Hunter Dedication prerequisite
+-   (Dire Weasel, Dogstarrb, Roxim, SpartanCPA, Tikael, TMun) Add content from _Rage of Elements_
+-   (Dire Weasel) Add rule elements to Aquatic Ambush creature ability
+-   (Dire Weasel) Add effect for Replenishment of War
+-   (Dire Weasel) Add spell effect for False Life
+-   (Dire Weasel) Add swim speed to Drowned Mummy
+-   (Dire Weasel) Brush up Effect: Dragon Turtle Scale and Effect: Bronze Bull Pendant
+-   (Dire Weasel) Fix action cost and traits of Focusing Hum
+-   (Dire Weasel) Fix copies of Ferocity missing death note
+-   (Dire Weasel) Set the ability on the NPCs casting statistic
+-   (Drental) Add effect for Root Magic feat
+-   (hotdog) Add images to several weapons missing them
+-   (n1xx1) Fix title case of at-will and constant spells
+-   (redeux) Add missing attribute boosts for 4 iconic PCs
+-   (SpartanCPA) Remove Spell School traits from Bestiary Glossary items
+-   (SpartanCPA) Update Glossary Abilities to @Damage
+-   (stwlam) Add critical specialization to Inventor Weapon Expertise (when attacking with a weapon innovation)
+-   (stwlam) Have Godless Helaing feat add 5 additional healing received when called for
+-   (stwlam) Add status penalty to healing received in Life curse effect
+-   (stwlam) Limit moderate life curse effects to PCs with Oracle class
+-   (stwlam) Migrate in-universe languages renamed in Rage of Elements
+-   (stwlam) Rename all uses/mentions of "flat-footed" to "off-guard"
+-   (Surge) Add missed vehicles from G&G and SoT
+-   (Surge) Fix display of saving throws on sheets of vehicles with broken condition
+-   (Tikael) Add new Player Core preview spells, alter existing spells
+-   (Tikael) Add journal entry explaining system handling of remaster changes
+-   (Tikael) Add Scions of Domora archetype journal entry
+-   (Tikael) Change many compendiums item descriptions to utilize new inline @Damage syntax
+-   (Tikael) Change cooldown wording on several abilities to recharge
+-   (Tikael) Change harrow court items to class or spell DC
+-   (Tikael) Improve automation of Flame Wisp
+-   (Tikael) Remove penalty for amphibious and aquatic unarmed strikes underwater
+-   (Tikael) Remove some duplicate PFS actors
+-   (TMun) Add PFS 4-99 errata
+-   (TMun) Correct the price of Starsong Nectar from _Treasure Vault_
+
 ## 5.2.3
 
 ### Bugfixes

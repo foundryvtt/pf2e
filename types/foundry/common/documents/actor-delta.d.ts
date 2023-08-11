@@ -1,7 +1,7 @@
-import { TombstoneData } from "@common/data/data.js";
 import type * as abstract from "../abstract/module.d.ts";
+import type { TombstoneData } from "../data/data.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import type { BaseActiveEffect, BaseActor, BaseItem, BaseToken, ItemSource } from "./module.d.ts";
+import type { BaseActiveEffect, BaseActor, BaseItem, ItemSource } from "./module.d.ts";
 
 /**
  * The Document definition for an ActorDelta.
@@ -11,7 +11,7 @@ import type { BaseActiveEffect, BaseActor, BaseItem, BaseToken, ItemSource } fro
  * @param data    Initial data used to construct the ActorDelta.
  * @param context Construction context options.
  */
-export default class BaseActorDelta<TParent extends BaseToken | null> extends abstract.Document<
+export default class BaseActorDelta<TParent extends abstract.Document | null> extends abstract.Document<
     TParent,
     ActorDeltaSchema
 > {
@@ -24,7 +24,7 @@ export default class BaseActorDelta<TParent extends BaseToken | null> extends ab
     static override defineSchema(): ActorDeltaSchema;
 }
 
-export default interface BaseActorDelta<TParent extends BaseToken | null>
+export default interface BaseActorDelta<TParent extends abstract.Document | null>
     extends abstract.Document<TParent, ActorDeltaSchema>,
         ModelPropsFromSchema<ActorDeltaSchema> {
     readonly _source: ActorDeltaSource;

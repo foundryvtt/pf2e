@@ -885,7 +885,7 @@
                         "predicate": [
                             "class:alchemist"
                         ],
-                        "value": "@actor.level  + floor((@actor.abilities.int.value - 10) / 2)"
+                        "value": "@actor.level + @actor.abilities.int.mod"
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -1244,7 +1244,7 @@
                     "value": [
                         "common",
                         "gnomish",
-                        "sylvan"
+                        "fey"
                     ]
                 },
                 "reach": 5,
@@ -4562,7 +4562,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and @Damage[1d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4934,7 +4934,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(3d6+6)[healing]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -5046,7 +5046,6 @@
         "name": "Jubilost"
     },
     "system": {
-        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -5072,7 +5071,7 @@
             }
         },
         "build": {
-            "abilities": {
+            "attributes": {
                 "boosts": {
                     "1": [
                         "int",
@@ -5315,9 +5314,9 @@
                     "draconic",
                     "elven",
                     "hallit",
-                    "ignan",
                     "jotun",
-                    "kelish"
+                    "kelish",
+                    "pyric"
                 ]
             },
             "senses": [],

@@ -21,7 +21,7 @@ declare global {
         TItem extends Item<null>,
         TMacro extends Macro,
         TScene extends Scene,
-        TUser extends User
+        TUser extends User<TActor>
     > {
         /**
          * The named view which is currently active.

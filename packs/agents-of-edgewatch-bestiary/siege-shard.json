@@ -138,7 +138,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You merge with an adjacent block of stone with enough volume to fit you and your worn and held possessions. You must touch the stone when you Cast the Spell. You can hear, but not see, what's going on outside the stone, and you can cast spells while in the stone as long as they don't require line of effect beyond the stone.</p>\n<p>Significant physical damage to the stone while you are inside it expels you and deals 10d6 damage to you. Passwall expels you without dealing damage and ends meld into stone. You can Dismiss this spell.</p>"
+                    "value": "<p>You merge with an adjacent block of stone with enough volume to fit you and your worn and held possessions. You must touch the stone when you Cast the Spell. You can hear, but not see, what's going on outside the stone, and you can cast spells while in the stone as long as they don't require line of effect beyond the stone.</p>\n<p>Significant physical damage to the stone while you are inside it expels you and deals 10d6 damage to you. Passwall expels you without dealing damage and ends <em>one with stone</em>. You can Dismiss this spell.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -767,7 +767,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>While a siege shard is embedded within a structure while using <em>@UUID[Compendium.pf2e.spells-srd.Item.Meld into Stone]</em>, the structure and all objects within it take twice as long to repair.</p>"
+                    "value": "<p>While a siege shard is embedded within a structure while using <em>@UUID[Compendium.pf2e.spells-srd.Item.One with Stone]</em>, the structure and all objects within it take twice as long to repair.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -806,6 +806,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The siege shard emits a disorienting psychic blast. All creatures within a 15 feet emanation take @Damage[4d6[mental]] damage (@Check[type:will|dc:20|basic:true] save).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
                 },
                 "requirements": {
                     "value": ""

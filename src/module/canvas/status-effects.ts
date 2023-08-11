@@ -97,7 +97,7 @@ export class StatusEffects {
     }
 
     static async onRenderTokenHUD(html: HTMLElement, tokenData: TokenHUDData): Promise<void> {
-        const token = canvas.tokens.get(tokenData._id);
+        const token = canvas.tokens.get(tokenData._id ?? "");
         if (!token) return;
 
         const iconGrid = html.querySelector<HTMLElement>(".status-effects");

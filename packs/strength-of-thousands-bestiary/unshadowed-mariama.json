@@ -1259,7 +1259,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes [[/r 2d12[persistent,force]]] damage. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is [[/r 4d12[persistent,force]]] damage.</p>"
+                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes @Damage[2d12[persistent,force]] damage. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is @Damage[4d12[persistent,force]] damage.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4376,6 +4376,11 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Mariama ties her fate with that of another creature within 30 feet. The creature must attempt a @Check[type:will|dc:40] save. Regardless of the result of its save, the creature is temporarily immune for 1 day.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The two fates are bound. Whenever Mariama takes damage, the creature takes damage of the same type equal to half the damage Mariama took (@Check[type:fortitude|dc:37|basic:true]). Immunities, resistances, and weaknesses still apply as normal. The creature can attempt to sever the bond by spending an action, which has the concentrate trait, to attempt another @Check[type:will|dc:40] save. On a success, the bond is severed, and the effect ends. The bond also ends when Mariama falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or if she actively ends the effect herself as a free action.</p>\n<p><strong>Failure</strong> As success, but the creature takes damage equal to the full amount Mariama took. Severing the bond requires a 2-action activity, which has the concentrate trait.</p>\n<p><strong>Critical Failure</strong> As failure, but @Check[type:fortitude|dc:40|basic:true]. Severing the bond requires a 3-action activity, which has the concentrate trait.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -4412,7 +4417,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Mariama can create immense blisters on a creature's shadow, which immediately burst, dealing @Damage[20d6[acid]] damage. She targets a creature within 60 feet that is casting a shadow, which must attempt a @Check[type:will|dc:37] save. Mariama can't use Rupture Shadow again for [[/r 1d4 #Recharge Rupture Shadow]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and becomes temporarily immune for 1 day.</p>\n<p><strong>Success</strong> The target takes half damage. The bursting shadow deals 5 acid splash damage to all creatures within 5 feet of the target.</p>\n<p><strong>Failure</strong> The target takes full damage, and the bursting shadow deals 10 acid splash damage.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, the bursting shadow deals 20 acid splash damage, and the target also takes [[/r 4d6[persistent,acid]]] damage.</p>"
+                    "value": "<p>Mariama can create immense blisters on a creature's shadow, which immediately burst, dealing @Damage[20d6[acid]] damage. She targets a creature within 60 feet that is casting a shadow, which must attempt a @Check[type:will|dc:37] save. Mariama can't use Rupture Shadow again for [[/r 1d4 #Recharge Rupture Shadow]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and becomes temporarily immune for 1 day.</p>\n<p><strong>Success</strong> The target takes half damage. The bursting shadow deals 5 acid splash damage to all creatures within 5 feet of the target.</p>\n<p><strong>Failure</strong> The target takes full damage, and the bursting shadow deals 10 acid splash damage.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, the bursting shadow deals 20 acid splash damage, and the target also takes @Damage[4d6[persistent,acid]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4679,8 +4684,8 @@
                 "value": [
                     "common",
                     "dwarven",
-                    "gnoll",
-                    "sylvan"
+                    "fey",
+                    "gnoll"
                 ]
             },
             "rarity": "unique",

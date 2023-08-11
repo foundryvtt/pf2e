@@ -286,7 +286,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r 1d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage].</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[1d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage].</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1341,7 +1341,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You surround a foe in a swirling storm of violent winds, roiling clouds, and crackling lightning. The storm deals 1d12 electricity damage. The target must attempt a basic Reflex save. On a failure, the target also is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for 1 round and takes [[/r 1[persistent,electricity]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d12, and the persistent electricity damage on a failure increases by 1.</p>"
+                    "value": "<p>You surround a foe in a swirling storm of violent winds, roiling clouds, and crackling lightning. The storm deals 1d12 electricity damage. The target must attempt a basic Reflex save. On a failure, the target also is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for 1 round and takes @Damage[1[persistent,electricity]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d12, and the persistent electricity damage on a failure increases by 1.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2250,6 +2250,11 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The Rain-Scribe must be in natural terrain.</p>\n<hr />\n<p><strong>Effect</strong> The Rain-Scribe shifts their coloration and the coloration of their gear to match the surroundings and then immediately @UUID[Compendium.pf2e.actionspf2e.Item.Sneak]{Sneaks}, even while being observed. The Rain-Scribe must end their movement concealed or behind cover to remain hidden or undetected.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
                 },
                 "requirements": {
                     "value": ""

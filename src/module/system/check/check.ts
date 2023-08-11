@@ -389,7 +389,7 @@ class CheckPF2e {
                 const heroPointCount = actor.heroPoints.value;
                 if (heroPointCount) {
                     await actor.update({
-                        "system.resources.heroPoints.value": Math.clamped(heroPointCount - 1, 0, 3),
+                        "system.resources.heroPoints.value": Math.clamped(heroPointCount - 1, 0, actor.heroPoints.max),
                     });
                     rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: actor.name });
                 } else {
@@ -416,16 +416,17 @@ class CheckPF2e {
         // Tampering with the old roll is disallowed.
         const unevaluatedNewRoll = oldRoll.clone();
         unevaluatedNewRoll.options.isReroll = true;
-        Hooks.callAll("pf2e.preReroll", [
+        Hooks.callAll(
+            "pf2e.preReroll",
             Roll.fromJSON(JSON.stringify(oldRoll.toJSON())),
             unevaluatedNewRoll,
             heroPoint,
-            keep,
-        ]);
+            keep
+        );
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
         const newRoll = await unevaluatedNewRoll.evaluate({ async: true });
-        Hooks.callAll("pf2e.reroll", [Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep]);
+        Hooks.callAll("pf2e.reroll", Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep);
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;

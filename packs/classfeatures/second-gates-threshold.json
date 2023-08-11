@@ -1,0 +1,249 @@
+{
+    "_id": "N5Gnf73TvuO6Reoj",
+    "img": "systems/pf2e/icons/spells/elemental-zone.webp",
+    "name": "Second Gate's Threshold",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You reach a new milestone in your odyssey to become in tune with your kinetic gate and must decide how to expand the gate's power. At 5th level and every 4 levels thereafter, you choose to either expand the portal or fork the path.</p>\n<ul>\n<li><strong>Expand the Portal</strong>: Your gate attunes more precisely to one of your elements. Gain an impulse feat of your level or lower for one of your kinetic elements; if you have more than one element, you can choose a composite impulse. You also gain a gate junction for one of your kinetic elements. If you have no valid options for the feat-typically because you have one kinetic element and devoted your class feats to gaining that element's impulses-you can instead select any kineticist class feat of your level or lower for which you meet the prerequisites.</li>\n<li><strong>Fork the Path</strong>: Your gate reaches to another elemental plane. Add a new element of your choice to your kinetic elements. Gain an impulse feat of your level or lower with the trait of that element. You can't select a composite impulse feat with this feat selection. </li>\n</ul>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal",
+                        "value": "expand"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.ForkThePath",
+                        "value": "fork"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Threshold",
+                "rollOption": "kinetic-gate:second-threshold"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:air"
+                            }
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:earth"
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:metal"
+                            }
+                        ],
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:water"
+                            }
+                        ],
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:wood"
+                            }
+                        ],
+                        "value": "wood"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:second-threshold:fork"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                "rollOption": "kinetic-gate"
+            },
+            {
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        {
+                            "lte": [
+                                "item:level",
+                                9
+                            ]
+                        },
+                        "item:trait:impulse"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulse",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulse}"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            "kinetic-gate:air"
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            "kinetic-gate:earth"
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            "kinetic-gate:fire"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            "kinetic-gate:metal"
+                        ],
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            "kinetic-gate:water"
+                        ],
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            "kinetic-gate:wood"
+                        ],
+                        "value": "wood"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:second-threshold:expand"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.ExpandElement"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.AuraJunction",
+                        "predicate": [
+                            {
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:aura"
+                            }
+                        ],
+                        "value": "aura"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.CriticalBlast",
+                        "predicate": [
+                            {
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:critical"
+                            }
+                        ],
+                        "value": "critical"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ElementalResistance",
+                        "predicate": [
+                            {
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:resistance"
+                            }
+                        ],
+                        "value": "resistance"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ImpulseJunction",
+                        "predicate": [
+                            {
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:impulse"
+                            }
+                        ],
+                        "value": "impulse"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.SkillJunction",
+                        "predicate": [
+                            {
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:skill"
+                            }
+                        ],
+                        "value": "skill"
+                    }
+                ],
+                "flag": "junction",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:second-threshold:expand"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Junction"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kineticist"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -546,7 +546,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aquatic-ambush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "aquatic-ambush"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": "aquatic-ambush",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -883,8 +901,8 @@
                 "custom": "Telepathy 30 feet",
                 "selected": [],
                 "value": [
-                    "aquan",
-                    "necril"
+                    "necril",
+                    "thalassic"
                 ]
             },
             "rarity": "rare",

@@ -21,6 +21,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare members: CreaturePF2e[];
     declare campaign: PartyCampaign | null;
 
+    get active(): boolean {
+        return game.actors.party === this;
+    }
+
     get baseAllowedItemTypes(): (ItemType | "physical")[] {
         return ["physical"];
     }
@@ -108,24 +112,24 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override prepareDerivedData(): void {
         // Compute travel speed. Creature travel speed isn't implemented yet
-        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.value));
-        this.attributes.speed = { value: travelSpeed };
+        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
+        this.attributes.speed = { total: travelSpeed };
     }
 
     async addMembers(...membersToAdd: CreaturePF2e[]): Promise<void> {
         const existing = this.system.details.members.filter((d) => this.members.some((m) => m.uuid === d.uuid));
-
         const existingUUIDs = new Set(existing.map((data) => data.uuid));
         const newMembers = membersToAdd.filter((a) => !existingUUIDs.has(a.uuid));
-        const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
-        await this.update({ system: { details: { members } } });
 
-        // Remove all members from their original folder
+        // Remove all members from their original folder first
         for (const member of newMembers) {
             if (member.folder) {
                 await member.update({ folder: null });
             }
         }
+
+        const members: MemberData[] = [...existing, ...newMembers.map((m) => ({ uuid: m.uuid }))];
+        await this.update({ system: { details: { members } } });
 
         await resetActors(newMembers);
     }
@@ -208,6 +212,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         resetActors(removedCreatures);
+
+        // Update the actor directory if this included campaign changes
+        if (game.ready && !!changed.system?.campaign && game.actors.get(this.id) === (this as ActorPF2e)) {
+            ui.actors.render();
+        }
     }
 
     /** Overriden to inform creatures the party is defunct */
@@ -223,7 +232,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
 interface PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: PartySource;
-    readonly abilities?: never;
     system: PartySystemData;
 }
 

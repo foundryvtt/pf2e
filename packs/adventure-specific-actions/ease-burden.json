@@ -1,0 +1,99 @@
+{
+    "_id": "Oko8SYegarqBkxhM",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Ease Burden",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Aspect</strong> earth</p>\n<p>Your relic draws strength from the earth underfoot to lighten your load. As long as your relic is on your person and you are standing on the ground, you can carry 1 more Bulk than normal before becoming encumbered, and you increase your maximum Bulk by 2. At 6th level and every 4 levels thereafter, increase the Bulk you can carry before becoming encumbered by 1 and your maximum Bulk by 2.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.bonusEncumbranceBulk",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 13,
+                            "start": 10,
+                            "value": 3
+                        },
+                        {
+                            "end": 17,
+                            "start": 14,
+                            "value": 4
+                        },
+                        {
+                            "start": 18,
+                            "value": 5
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.bonusLimitBulk",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": 2
+                        },
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": 4
+                        },
+                        {
+                            "end": 13,
+                            "start": 10,
+                            "value": 6
+                        },
+                        {
+                            "end": 17,
+                            "start": 14,
+                            "value": 8
+                        },
+                        {
+                            "start": 18,
+                            "value": 10
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "traits": {
+            "value": [
+                "earth",
+                "transmutation"
+            ]
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "type": "action"
+}

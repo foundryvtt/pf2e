@@ -83,7 +83,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
     }
 
     /** Internal function to recursively extract terms from a parsed DamageInstance's head term */
-    function extractTermsFromExpression(
+    function recursiveExtractTerms(
         expression: RollTerm,
         { category = null }: { category?: DamageCategoryUnique | null } = {}
     ): DamagePartialWithCategory[] {
@@ -92,53 +92,62 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
             ? expression.options.flavor
             : category;
 
+        // Recurse trivially for groupings
+        if (expression instanceof Grouping) {
+            return recursiveExtractTerms(expression.term, { category });
+        }
+
+        // Handle Die and Intermediate Die terms
         if (expression instanceof Die) {
             return [{ dice: R.pick(expression, ["number", "faces"]), modifier: 0, category }];
         } else if (expression instanceof IntermediateDie) {
-            if (!expression.number.isDeterministic || !expression.faces.isDeterministic) {
+            if (typeof expression.number !== "number" || typeof expression.faces !== "number") {
                 throw ErrorPF2e("Unable to parse DamageRoll with non-deterministic intermediate expressions.");
             }
-            const number = expression.number.evaluate({ async: false }).total;
-            const faces = expression.faces.evaluate({ async: false }).total;
-            return [{ dice: { faces, number }, modifier: 0, category }];
-        } else if (expression instanceof NumericTerm) {
-            return [{ dice: null, modifier: expression.number, category }];
-        } else if (expression instanceof Grouping) {
-            return extractTermsFromExpression(expression.term, { category });
-        } else if (!(expression instanceof ArithmeticExpression)) {
-            throw ErrorPF2e("Unrecognized roll term type " + expression.constructor.name);
+            return [{ dice: { number: expression.number, faces: expression.faces }, modifier: 0, category }];
         }
 
-        const left = expression.operands[0];
-        const right = expression.operands[1];
-        const operator = expression.operator;
+        // Resolve deterministic expressions and terms normally, everything is allowed
+        // This handles NumericTerm, and ArithmeticTerm and MathTerm that don't have dice
+        if (expression.isDeterministic) {
+            return [{ dice: null, modifier: DamageInstance.getValue(expression, "expected"), category }];
+        }
 
-        const leftTerms = extractTermsFromExpression(left, { category });
-        const rightTerms = extractTermsFromExpression(right, { category });
-
-        // Special case: allow * and / to work modifiers
-        if (operator === "*" || operator === "/") {
-            const firstLeft = leftTerms[0];
-            const firstRight = rightTerms[0];
-            if (leftTerms.length !== 1 || rightTerms.length !== 1 || firstLeft.dice || firstRight.dice) {
-                throw ErrorPF2e(`Cannot use ${operator} on non-simple terms`);
+        // Non-deterministic ArithmeticExpression
+        if (expression instanceof ArithmeticExpression) {
+            const operator = expression.operator;
+            if (operator === "*" || operator === "/") {
+                throw ErrorPF2e(`Cannot use ${operator} on non-deterministic artithmetic terms`);
             }
 
-            const firstMod = firstLeft.modifier ?? 0;
-            const secondMod = firstRight.modifier ?? 0;
-            return [{ dice: null, modifier: operator === "*" ? firstMod * secondMod : firstMod / secondMod, category }];
+            const leftTerms = recursiveExtractTerms(expression.operands[0], { category });
+            const rightTerms = recursiveExtractTerms(expression.operands[1], { category });
+
+            // Flip right side terms if subtraction
+            if (operator === "-") {
+                for (const term of rightTerms) {
+                    if (term.dice) term.dice.number *= -1;
+                    term.modifier *= -1;
+                }
+            }
+
+            const groups = R.groupBy([...leftTerms, ...rightTerms], (t) => t.category ?? "");
+            return Object.values(groups).flatMap((terms) => {
+                const category = terms[0].category;
+                return combinePartialTerms(terms).map((t): DamagePartialWithCategory => ({ ...t, category }));
+            });
         }
 
-        const groups = R.groupBy([...leftTerms, ...rightTerms], (t) => t.category ?? "");
-        return Object.values(groups).flatMap((terms) => {
-            const category = terms[0].category;
-            return combinePartialTerms(terms).map((t): DamagePartialWithCategory => ({ ...t, category }));
-        });
+        // At this point its an error, but we need to report what type it is
+        if (!expression.isDeterministic) {
+            throw ErrorPF2e(`Unable to parse DamageRoll with non-deterministic ${expression.constructor.name}.`);
+        }
+        throw ErrorPF2e("Unrecognized roll term type " + expression.constructor.name);
     }
 
     return roll.instances.flatMap((instance): BaseDamageData[] => {
         const category = setHasElement(DAMAGE_CATEGORIES_UNIQUE, instance.category) ? instance.category : null;
-        const terms = extractTermsFromExpression(instance.head, { category });
+        const terms = recursiveExtractTerms(instance.head, { category });
         return Object.values(R.groupBy(terms, (t) => t.category ?? "")).map((terms) => {
             const category = instance.persistent ? "persistent" : terms[0].category;
             return { damageType: instance.type, category, terms: terms.map((t) => R.omit(t, ["category"])) };

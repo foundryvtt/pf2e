@@ -1,10 +1,11 @@
-import * as R from "remeda";
 import { CharacterPF2e } from "@actor";
+import { CreatureSheetData } from "@actor/creature/index.ts";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { FamiliarPF2e } from "@actor/familiar/index.ts";
+import { AbilityItemPF2e } from "@item";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { ActionItemPF2e } from "@item";
-import { CreatureSheetData } from "@actor/creature/index.ts";
+import { htmlQuery } from "@util";
+import * as R from "remeda";
 
 /**
  * @category Actor
@@ -65,14 +66,14 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("[data-action=perception-check]").on("click", (event) => {
+        htmlQuery(html, ".rollable[data-action=perception-check]")?.addEventListener("click", (event) => {
             this.actor.perception.roll(eventToRollParams(event));
         });
 
-        $html.find("[data-attack-roll] *").on("click", (event) => {
-            const options = this.actor.getRollOptions(["all", "attack"]);
-            this.actor.system.attack.roll({ event, options });
+        htmlQuery(html, ".rollable[data-attack-roll]")?.addEventListener("click", (event) => {
+            this.actor.system.attack.roll(eventToRollParams(event));
         });
     }
 }
@@ -84,6 +85,6 @@ interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetDa
     size: string;
     familiarAbilities: {
         value: number;
-        items: ActionItemPF2e[];
+        items: AbilityItemPF2e[];
     };
 }

@@ -10,6 +10,13 @@ export default class BaseItem<TParent extends BaseActor | null> extends Document
     /** The default icon used for newly created Item documents */
     static DEFAULT_ICON: ImageFilePath;
 
+    /**
+     * Determine default artwork based on the provided item data.
+     * @param The source item data.
+     * @returns Candidate item image.
+     */
+    static getDefaultArtwork(itemData: ItemSource): { img: ImageFilePath };
+
     static override get metadata(): ItemMetadata;
 
     /** A Collection of ActiveEffect embedded Documents */

@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -44,7 +44,7 @@ interface BaseRawModifier {
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type?: ModifierType;
     /** If the type is "ability", this should be set to a particular ability */
-    ability?: AbilityString | null;
+    ability?: AttributeString | null;
     /** Numeric adjustments to apply */
     adjustments?: ModifierAdjustment[];
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
@@ -115,7 +115,7 @@ class ModifierPF2e implements RawModifier {
     #originalValue: number;
 
     type: ModifierType;
-    ability: AbilityString | null;
+    ability: AttributeString | null;
     adjustments: ModifierAdjustment[];
     force: boolean;
     enabled: boolean;
@@ -282,7 +282,7 @@ type ModifierOrderedParams = [
  */
 function createAbilityModifier({ actor, ability, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
     const withAbilityBased = domains.includes(`${ability}-based`) ? domains : [...domains, `${ability}-based`];
-    const modifierValue = Math.floor((actor.abilities[ability].value - 10) / 2);
+    const modifierValue = actor.abilities[ability].mod;
     const cappedValue = Math.min(modifierValue, max ?? modifierValue);
 
     return new ModifierPF2e({
@@ -297,7 +297,7 @@ function createAbilityModifier({ actor, ability, domains, max }: CreateAbilityMo
 
 interface CreateAbilityModifierParams {
     actor: CharacterPF2e | NPCPF2e;
-    ability: AbilityString;
+    ability: AttributeString;
     domains: string[];
     /** An optional maximum for this ability modifier */
     max?: number;
@@ -456,19 +456,19 @@ class StatisticModifier {
         this.slug = slug;
 
         // De-duplication. Prefer higher valued
-        const seen = modifiers.reduce((result, modifier) => {
+        const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
             if (!(modifier.slug in result) || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
                 result[modifier.slug] = modifier;
             }
             return result;
-        }, {} as Record<string, ModifierPF2e>);
+        }, {});
         this._modifiers = Object.values(seen);
 
         this.calculateTotal(rollOptions);
     }
 
-    /** Get the list of all modifiers in this collection (as a read-only list). */
-    get modifiers(): readonly ModifierPF2e[] {
+    /** Get the list of all modifiers in this collection */
+    get modifiers(): ModifierPF2e[] {
         return [...this._modifiers];
     }
 

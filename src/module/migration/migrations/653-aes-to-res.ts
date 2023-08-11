@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ClassSource, ItemSourcePF2e } from "@item/data/index.ts";
 import type { EffectChangeData } from "types/foundry/common/documents/active-effect.d.ts";
 import { MigrationBase } from "../base.ts";
@@ -30,7 +30,7 @@ export class Migration653AEstoREs extends MigrationBase {
     }
 
     #fixClassKeyAbilities(classSource: ClassSource): void {
-        type MaybeOldKeyAbility = { value: AbilityString[] | { value: AbilityString }[] };
+        type MaybeOldKeyAbility = { value: AttributeString[] | { value: AttributeString }[] };
         const keyAbility: MaybeOldKeyAbility = classSource.system.keyAbility;
         keyAbility.value = keyAbility.value.map((value) => (typeof value === "string" ? value : value.value));
     }

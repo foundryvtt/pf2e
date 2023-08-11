@@ -2,8 +2,9 @@ import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, 
 import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import { Alignment } from "@actor/creature/types.ts";
 import { ActorType } from "@actor/data/index.ts";
+import { AttributeString } from "@actor/types.ts";
 import {
-    ActionItemPF2e,
+    AbilityItemPF2e,
     AfflictionPF2e,
     AncestryPF2e,
     ArmorPF2e,
@@ -22,8 +23,8 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
-    SpellcastingEntryPF2e,
     SpellPF2e,
+    SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
@@ -67,7 +68,6 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits.ts";
-import { AbilityString } from "@actor/types.ts";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -81,7 +81,7 @@ const actorTypes: Record<ActorType, string> = {
     vehicle: "TYPES.Actor.vehicle",
 };
 
-const abilities: Record<AbilityString, string> = {
+const abilities: Record<AttributeString, string> = {
     str: "PF2E.AbilityStr",
     dex: "PF2E.AbilityDex",
     con: "PF2E.AbilityCon",
@@ -434,12 +434,14 @@ export const PF2ECONFIG = {
         greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
         greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
         greaterStanching: "PF2E.ArmorPropertyRuneGreaterStanching",
+        greaterSwallowSpike: "PF2E.ArmorPropertyRuneGreaterSwallowSpike",
         greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
         implacable: "PF2E.ArmorPropertyRuneImplacable",
         invisibility: "PF2E.ArmorPropertyRuneInvisibility",
         majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
         majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
         majorStanching: "PF2E.ArmorPropertyRuneMajorStanching",
+        majorSwallowSpike: "PF2E.ArmorPropertyRuneMajorSwallowSpike",
         moderateDread: "PF2E.ArmorPropertyRuneModerateDread",
         ready: "PF2E.ArmorPropertyRuneReady",
         rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
@@ -448,6 +450,7 @@ export const PF2ECONFIG = {
         slick: "PF2E.ArmorPropertyRuneSlick",
         soaring: "PF2E.ArmorPropertyRuneSoaring",
         stanching: "PF2E.ArmorPropertyRuneStanching",
+        swallowSpike: "PF2E.ArmorPropertyRuneSwallowSpike",
         trueStanching: "PF2E.ArmorPropertyRuneTrueStanching",
         winged: "PF2E.ArmorPropertyRuneWinged",
     },
@@ -1054,7 +1057,6 @@ export const PF2ECONFIG = {
         halfling: "PF2E.LanguageHalfling",
         jotun: "PF2E.LanguageJotun",
         orcish: "PF2E.LanguageOrcish",
-        sylvan: "PF2E.LanguageSylvan",
         undercommon: "PF2E.LanguageUndercommon",
         ysoki: "PF2E.LanguageYsoki",
         abyssal: "PF2E.LanguageAbyssal",
@@ -1067,9 +1069,7 @@ export const PF2ECONFIG = {
         "ancient-osiriani": "PF2E.LanguageAncientOsiriani",
         anugobu: "PF2E.LanguageAnugobu",
         arcadian: "PF2E.LanguageArcadian",
-        aquan: "PF2E.LanguageAquan",
         arboreal: "PF2E.LanguageArboreal",
-        auran: "PF2E.LanguageAuran",
         boggard: "PF2E.LanguageBoggard",
         calda: "PF2E.LanguageCalda",
         caligni: "PF2E.LanguageCaligni",
@@ -1093,7 +1093,6 @@ export const PF2ECONFIG = {
         hallit: "PF2E.LanguageHallit",
         hwan: "PF2E.LanguageHwan",
         iblydan: "PF2E.LanguageIblydan",
-        ignan: "PF2E.LanguageIgnan",
         ikeshti: "PF2E.LanguageIkeshti",
         immolis: "PF2E.LanguageImmolis",
         infernal: "PF2E.LanguageInfernal",
@@ -1133,15 +1132,15 @@ export const PF2ECONFIG = {
         shisk: "PF2E.LanguageShisk",
         shoanti: "PF2E.LanguageShoanti",
         shoony: "PF2E.LanguageShoony",
+        shory: "PF2E.LanguageShory",
         skald: "PF2E.LanguageSkald",
         sphinx: "PF2E.LanguageSphinx",
         strix: "PF2E.LanguageStrix",
-        susurran: "PF2E.LanguageSusurran",
+        sussuran: "PF2E.LanguageSussuran",
         taldane: "PF2E.LanguageTaldane",
         talican: "PF2E.LanguageTalican",
         tekritanin: "PF2E.LanguageTekritanin",
         tengu: "PF2E.LanguageTengu",
-        terran: "PF2E.LanguageTerran",
         thalassic: "PF2E.LanguageThalassic",
         thassilonian: "PF2E.LanguageThassilonian",
         tien: "PF2E.LanguageTien",
@@ -1339,7 +1338,7 @@ export const PF2ECONFIG = {
 
     Item: {
         documentClasses: {
-            action: ActionItemPF2e,
+            action: AbilityItemPF2e,
             affliction: AfflictionPF2e,
             ancestry: AncestryPF2e,
             armor: ArmorPF2e,

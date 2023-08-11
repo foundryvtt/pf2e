@@ -1354,7 +1354,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes [[/r 2d12[persistent,force]]] damage. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is 4d12.</p>"
+                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes @Damage[2d12[persistent,force]] damage. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is 4d12.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2255,7 +2255,12 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The norn produces a golden thread linked to the fate of a creature within 100 feet of her, then snips it short with her shears. The target takes [[/r 100[negative]]] damage (@Check[type:fortitude|dc:42|basic:true] save). If the target is reduced to 0 Hit Points from this damage, the thread is completely severed and the creature dies immediately. A creature slain by Snip Thread can't be restored to life except by <em>@UUID[Compendium.pf2e.spells-srd.Item.Miracle]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, or similarly powerful magic; or by divine intervention. Regardless of the outcome of their saving throw, a creature targeted by Snip Thread then becomes temporarily immune for 24 hours. The norn can't use Snip Thread again for [[/br 1d4 #Recharge Snip Thread]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The norn produces a golden thread linked to the fate of a creature within 100 feet of her, then snips it short with her shears. The target takes @Damage[100[negative]] damage (@Check[type:fortitude|dc:42|basic:true] save). If the target is reduced to 0 Hit Points from this damage, the thread is completely severed and the creature dies immediately. A creature slain by Snip Thread can't be restored to life except by <em>@UUID[Compendium.pf2e.spells-srd.Item.Miracle]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, or similarly powerful magic; or by divine intervention. Regardless of the outcome of their saving throw, a creature targeted by Snip Thread then becomes temporarily immune for 24 hours. The norn can't use Snip Thread again for [[/br 1d4 #Recharge Snip Thread]]{1d4 rounds}.</p>"
+                },
+                "frequency": {
+                    "max": 3,
+                    "per": "day",
+                    "value": 3
                 },
                 "requirements": {
                     "value": ""
@@ -2298,6 +2303,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> The norn critically fails a check or a creature critically hits the norn</p>\n<hr />\n<p><strong>Effect</strong> The norn lightly frays the golden thread of fate she holds, tampering with the fate at hand. If the triggering check was the norn's critical failure, she gets a failure instead. If the triggering check was a critical hit on the norn, it becomes a hit.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
                 },
                 "requirements": {
                     "value": ""
@@ -2619,8 +2628,8 @@
                 "selected": [],
                 "value": [
                     "common",
-                    "jotun",
-                    "sylvan"
+                    "fey",
+                    "jotun"
                 ]
             },
             "rarity": "unique",

@@ -904,6 +904,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> The forest dragon is targeted with a water spell or effect</p>\n<hr />\n<p><strong>Effect</strong> The forest dragon gains [[/r 35 #Temporary Hit Points]]{35 temporary Hit Points}.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -1128,6 +1132,11 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon draws moisture from the living creatures surrounding them, using the energy to heal their own wounds. Each living creature in a @Template[type:emanation|distance:30] takes @Damage[7d10[negative]] damage (@Check[type:fortitude|dc:34|basic:true] save). Creatures made entirely of water and plant creatures use the outcome one degree of success worse than they rolled. The dragon regains Hit Points equal to half of the highest damage a single creature takes from this effect.</p>\n<p>In addition, all non-creature plant life in the area withers and dies, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. Water is also consumed in the same way, typically lowering any standing body of water fully within the area by 1 foot.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -1168,7 +1177,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When casting <em>@UUID[Compendium.pf2e.spells-srd.Item.Tree Shape]</em>, a forest dragon can become a tree of the same size and age as themself.</p>"
+                    "value": "<p>When casting <em>@UUID[Compendium.pf2e.spells-srd.Item.One with Plants]</em>, a forest dragon can become a tree of the same size and age as themself.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1605,7 +1614,7 @@
                 "value": [
                     "common",
                     "draconic",
-                    "sylvan"
+                    "fey"
                 ]
             },
             "rarity": "uncommon",

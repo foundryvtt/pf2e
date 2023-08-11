@@ -64,7 +64,7 @@ declare global {
         TItem extends Item<null>,
         TMacro extends Macro,
         TScene extends Scene,
-        TUser extends User
+        TUser extends UserPF2e
     > {
         pf2e: {
             actions: Record<string, Function>;
@@ -199,6 +199,7 @@ declare global {
         get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
+        get(module: "pf2e", setting: "activeParty"): string;
         get(module: "pf2e", setting: "campaignFeats"): boolean;
         get(module: "pf2e", setting: "campaignFeatSections"): FeatGroupOptions[];
         get(module: "pf2e", setting: "campaignType"): string;
@@ -218,6 +219,7 @@ declare global {
         get(module: "pf2e", setting: "gmVision"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "nathMode"): boolean;
+        get(module: "pf2e", setting: "seenRemasterJournalEntry"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "totmToggles"): boolean;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;

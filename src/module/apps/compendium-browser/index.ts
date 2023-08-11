@@ -1,5 +1,5 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
-import { ActionCategory, ActionTrait } from "@item/action/index.ts";
+import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import { UserPF2e } from "@module/user/document.ts";

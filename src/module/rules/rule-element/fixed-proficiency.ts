@@ -1,8 +1,8 @@
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { AbilityString } from "@actor/types.ts";
-import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
+import { AttributeString } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { setHasElement, sluggify } from "@util";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
@@ -21,7 +21,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false }),
             value: new ResolvableValueField({ required: true, initial: undefined }),
-            ability: new fields.StringField({ required: true, choices: [...ABILITY_ABBREVIATIONS] }),
+            ability: new fields.StringField({ required: true, choices: [...ATTRIBUTE_ABBREVIATIONS] }),
         };
     }
 
@@ -42,7 +42,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
             label: this.label,
             modifier: proficiencyBonus + abilityModifier,
         });
-        const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
+        const modifiers = (this.actor.synthetics.modifiers[selector] ??= []);
         modifiers.push(() => modifier);
     }
 
@@ -75,7 +75,7 @@ interface FixedProficiencyRuleElement
 type FixedProficiencyRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;
     value: ResolvableValueField<true, false, false>;
-    ability: StringField<AbilityString, AbilityString, true, false, false>;
+    ability: StringField<AttributeString, AttributeString, true, false, false>;
 };
 
 export { FixedProficiencyRuleElement };

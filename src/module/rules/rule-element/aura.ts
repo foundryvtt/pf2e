@@ -3,6 +3,7 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import { EffectTrait } from "@item/abstract-effect/data.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import type {
     ArrayField,
     BooleanField,
@@ -74,6 +75,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         return {
             ...super.defineSchema(),
             radius: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
+            level: new ResolvableValueField({ required: false, nullable: true, initial: null }),
             traits: new fields.ArrayField(auraTraitField, { required: true, nullable: false, initial: [] }),
             effects: new fields.ArrayField(effectSchemaField, { required: false, nullable: false, initial: [] }),
             colors: new fields.SchemaField(
@@ -83,6 +85,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 },
                 { required: false, nullable: true, initial: null }
             ),
+            mergeExisting: new fields.BooleanField({ required: false, nullable: false, initial: true }),
         };
     }
 
@@ -92,10 +95,16 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         const radius = Math.clamped(Number(this.resolveValue(this.radius)), 5, 240);
 
         if (Number.isInteger(radius) && radius > 0 && radius % 5 === 0) {
+            const level = this.resolveValue(this.level);
             const data = {
                 slug: this.slug,
-                level: this.item.system.level?.value ?? null,
                 radius,
+                level:
+                    typeof level === "number"
+                        ? Math.trunc(level)
+                        : this.item.isOfType("effect")
+                        ? this.item.level
+                        : null,
                 effects: this.#processEffects(),
                 traits: this.traits,
                 colors: this.colors,
@@ -113,7 +122,21 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 }
             }
 
-            this.actor.auras.set(this.slug, data);
+            const existing = this.actor.auras.get(this.slug);
+            if (existing && this.mergeExisting) {
+                existing.traits = R.uniq([...existing.traits, ...data.traits]).sort();
+                if (data.colors) existing.colors = mergeObject(existing.colors ?? {}, data.colors);
+                for (const effect of data.effects) {
+                    const existingIndex = existing.effects.findIndex((e) => e.uuid === effect.uuid);
+                    if (existingIndex !== -1) {
+                        existing.effects.splice(existingIndex, 1, effect);
+                    } else {
+                        existing.effects.push(effect);
+                    }
+                }
+            } else {
+                this.actor.auras.set(this.slug, data);
+            }
         }
     }
 
@@ -122,7 +145,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         return this.effects.map((e) => ({
             ...e,
             uuid: this.resolveInjectedProperties(e.uuid),
-            level: this.item.system.level?.value ?? null,
             save: null,
         }));
     }
@@ -136,6 +158,8 @@ interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromSch
 type AuraSchema = RuleElementSchema & {
     /** The radius of the order in feet, or a string that will resolve to one */
     radius: ResolvableValueField<true, false, false>;
+    /** An optional level for the aura, to be used to set the level of the effects it transmits */
+    level: ResolvableValueField<false, true, true>;
     /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
     traits: ArrayField<
         StringField<EffectTrait, EffectTrait, true, false, false>,
@@ -158,17 +182,12 @@ type AuraSchema = RuleElementSchema & {
      * Custom border and fill colors for the aura: if omitted, the border color will be black, and the fill color the
      * user's assigned color
      */
-    colors: SchemaField<
-        {
-            border: ColorField<false, true, true>;
-            fill: ColorField<false, true, true>;
-        },
-        AuraColors,
-        AuraColors,
-        false,
-        true,
-        true
-    >;
+    colors: SchemaField<{ border: ColorField; fill: ColorField }, AuraColors, AuraColors, false, true, true>;
+    /**
+     * If another aura with the same slug is already being emitted, merge this aura's data in with the other's,
+     * combining traits and effects as well as merging `colors` data.
+     */
+    mergeExisting: BooleanField<boolean, boolean, false, false, true>;
 };
 
 type AuraEffectSchema = {

@@ -311,15 +311,15 @@
         }
     }
 
-    .ability-scores {
+    .attribute-modifiers {
         @include p-reset;
         display: grid;
+        gap: 12px;
         grid: 1fr / repeat(6, 1fr);
         justify-content: center;
         list-style: none;
-        gap: 12px;
 
-        .ability {
+        .attribute {
             display: grid;
             grid:
                 "prefix" auto
@@ -330,71 +330,46 @@
             column-gap: 10px;
             align-items: center;
             &:focus-within {
-                .ability-id {
+                .attribute-id {
                     filter: opacity(1);
                 }
             }
 
             &.key {
-                .ability-id, .ability-mod {
+                .attribute-id, .attribute-mod {
                     color: var(--secondary);
                 }
             }
 
 
-            .ability-name {
+            .attribute-name {
+                color: rgba(68, 55, 48, 1);
                 grid-area: label;
                 margin: 0;
-                text-align: center;
-                padding: 2px;
-                color: rgba(68, 55, 48, 1);
                 opacity: 0.4;
-            }
-            .ability-id {
-                text-transform: capitalize;
-                grid-area: prefix;
-                font: 400 22px var(--serif-condensed);
-                color: var(--primary);
+                padding: 2px;
                 text-align: center;
+            }
+
+            .attribute-id {
                 @include p-reset;
                 border: none;
+                color: var(--primary);
+                font: 400 22px var(--serif-condensed);
+                grid-area: prefix;
                 position: relative;
+                text-align: center;
+                text-transform: capitalize;
 
-                i.fas {
+                > i.key-attribute {
                     position: absolute;
                     font-size: var(--font-size-12);
                     bottom: 4px;
                     left: 2px;
                 }
             }
-            .ability-score {
-                grid-area: score;
-                display: flex;
-                border-radius: 0;
-                font-size: 0;
-                border: 1px solid #D3CCBC;
-                background: rgba(211, 204, 188, 0.2);
-                margin-top: 4px;
-                height: 30px;
-                align-items: center;
-                justify-content: center;
-                input {
-                    width: 100%;
-                    font-size: var(--font-size-16);
-                    line-height: 16px;
-                    border: none;
-                    text-align: center;
-                    padding: 0;
-                    background: transparent;
-                }
-                div {
-                    text-align: center;
-                    font-size: var(--font-size-16);
-                    line-height: 16px;
-                    height: 16px;
-                }
-            }
-            h3.ability-mod {
+
+            h3.attribute-mod {
                 @include flex-center;
                 @include frame-elegant;
                 grid-area: mod;

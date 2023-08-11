@@ -1,10 +1,12 @@
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { setHitPointsRollOptions } from "@actor/helpers.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
 import { ItemType } from "@item/data/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
+import { HitPointsStatistic } from "@system/statistic/hit-points.ts";
 import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
 import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
@@ -67,17 +69,15 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         super.prepareDerivedData();
         this.prepareSynthetics();
 
-        const { modifierAdjustments, statisticsModifiers } = this.synthetics;
-
         // If broken, inject some synthetics first
         if (this.hasCondition("broken")) {
             for (const selector of ["ac", "saving-throw"]) {
-                const modifiers = (statisticsModifiers[selector] ??= []);
+                const modifiers = (this.synthetics.modifiers[selector] ??= []);
                 const brokenModifier = new ModifierPF2e({
                     slug: "broken",
                     label: "PF2E.ConditionTypeBroken",
                     modifier: -2,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, [selector], "broken"),
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, [selector], "broken"),
                 });
 
                 modifiers.push(() => brokenModifier);
@@ -85,40 +85,10 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         }
 
         // Hit Points
-        {
-            const system = this.system;
-            const base = system.attributes.hp.max;
-            const modifiers: ModifierPF2e[] = [
-                extractModifiers(this.synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
-                extractModifiers(this.synthetics, ["hp-per-level"], {
-                    test: this.getRollOptions(["hp-per-level"]),
-                }).map((modifier) => {
-                    modifier.modifier *= this.level;
-                    return modifier;
-                }),
-            ].flat();
-
-            const hpData = deepClone(system.attributes.hp);
-            const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
-            stat.max = stat.max + stat.totalModifier;
-            stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
-            stat.breakdown = [
-                game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
-                ...stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
-            ].join(", ");
-
-            system.attributes.hp = stat;
-
-            // Set a roll option for HP percentage
-            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
-            this.rollOptions.all[`hp-remaining:${stat.value}`] = true;
-            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
-
-            // Broken threshold is based on the maximum health
-            system.attributes.hp.brokenThreshold = Math.floor(system.attributes.hp.max / 2);
-        }
+        const { attributes } = this;
+        const hitPoints = new HitPointsStatistic(this, { baseMax: attributes.hp.max });
+        attributes.hp = mergeObject(hitPoints.getTraceData(), { brokenThreshold: Math.floor(hitPoints.max / 2) });
+        setHitPointsRollOptions(this);
 
         // Prepare AC
         const armorStatistic = new ArmorStatistic(this, {
@@ -127,7 +97,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
                     slug: "base",
                     label: "PF2E.ModifierTitle",
                     modifier: this.system.attributes.ac.value - 10,
-                    adjustments: extractModifierAdjustments(modifierAdjustments, ["all", "ac"], "base"),
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, ["all", "ac"], "base"),
                 }),
             ],
         });
@@ -195,7 +165,6 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
 interface VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: VehicleSource;
-    readonly abilities?: never;
     system: VehicleSystemData;
 
     get hitPoints(): HitPointsSummary;

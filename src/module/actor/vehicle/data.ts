@@ -2,14 +2,15 @@ import {
     ActorAttributes,
     ActorAttributesSource,
     ActorDetailsSource,
+    ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
-    ActorTraitsData,
+    ActorTraitsSource,
     BaseActorSourcePF2e,
-    HitPointsStatistic,
 } from "@actor/data/base.ts";
 import { ImmunitySource } from "@actor/data/iwr.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { Rarity, Size } from "@module/data.ts";
 import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
 import { VehicleTrait } from "./types.ts";
@@ -24,7 +25,7 @@ interface VehicleSystemSource extends ActorSystemSource {
         fortitude: VehicleFortitudeSaveData;
     };
 
-    traits: VehicleTraitsData;
+    traits: VehicleTraitsSource;
 }
 
 interface VehicleAttributesSource extends ActorAttributesSource {
@@ -53,9 +54,16 @@ interface VehicleDetailsSource extends ActorDetailsSource {
     speed: number;
 }
 
+interface VehicleTraitsSource extends ActorTraitsSource<VehicleTrait> {
+    rarity: Rarity;
+    size: { value: Size };
+    languages?: never;
+}
+
 /** The system-level data of vehicle actors. */
-interface VehicleSystemData extends VehicleSystemSource, Omit<ActorSystemData, "attributes" | "details" | "traits"> {
+interface VehicleSystemData extends VehicleSystemSource, Omit<ActorSystemData, "details"> {
     attributes: VehicleAttributes;
+    traits: VehicleTraits;
 }
 
 interface VehicleAttributes extends Omit<VehicleAttributesSource, AttributesSourceOmission>, ActorAttributes {
@@ -66,8 +74,7 @@ interface VehicleAttributes extends Omit<VehicleAttributesSource, AttributesSour
 }
 type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 
-interface VehicleHitPoints extends HitPointsStatistic {
-    negativeHealing: false;
+interface VehicleHitPoints extends ActorHitPoints {
     brokenThreshold: number;
 }
 
@@ -75,8 +82,7 @@ interface VehicleFortitudeSaveData extends StatisticTraceData {
     saveDetail: string;
 }
 
-interface VehicleTraitsData extends ActorTraitsData<VehicleTrait> {
-    rarity: keyof ConfigPF2e["PF2E"]["rarityTraits"];
+interface VehicleTraits extends VehicleTraitsSource {
     size: ActorSizePF2e;
 }
 

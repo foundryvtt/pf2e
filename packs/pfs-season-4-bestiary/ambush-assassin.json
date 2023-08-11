@@ -675,7 +675,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -729,9 +729,14 @@
             "type": "consumable"
         },
         {
-            "_id": "SJ7vgCLVP54MCqjB",
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/spear-frog-poison.webp",
-            "name": "Sleep Poison",
+            "_id": "5cEHgioKhOR2jdeu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/lethargy-poison.webp",
+            "name": "Lethargy Poison",
             "sort": 900000,
             "system": {
                 "autoDestroy": {
@@ -748,13 +753,13 @@
                 "consume": {
                     "value": ""
                 },
-                "containerId": "null",
+                "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by drow and others who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> slowed 1 (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/br 1d4 #hours]]{1d4 hours}).</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -765,7 +770,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 1
+                    "value": 2
                 },
                 "negateBulk": {
                     "value": "0"
@@ -778,24 +783,26 @@
                 },
                 "price": {
                     "value": {
-                        "cp": 1
+                        "gp": 7
                     }
                 },
                 "quantity": 2,
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "lethargy-poison",
                 "source": {
-                    "value": "Pathfinder Gamemastery Guide"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
-                    "rarity": "common",
+                    "rarity": "uncommon",
                     "value": [
                         "alchemical",
                         "consumable",
+                        "incapacitation",
                         "injury",
-                        "poison"
+                        "poison",
+                        "sleep"
                     ]
                 },
                 "usage": {
@@ -1591,7 +1598,7 @@
             "level": {
                 "value": 8
             },
-            "privateNotes": "",
+            "privateNotes": "<p>\"Sleep poison\" changed to \"Lethargy poison\" per Shay on org play server</p>",
             "publicNotes": "<p>Assassins commit murder, either for pay or due to their belief in a cause, such as a religion or a political movement. Some assassins work alone and choose their own victims. Others are members of assassins' guilds, organizations that accept contracts to kill in return for money, favors, or both.</p>\n<hr />\n<p>Some criminals are the desperate who have no option but to break the law to survive, while others choose a life of crime for thrills, forming gangs or underworld guilds that specialize in certain illegal ventures.</p>",
             "source": {
                 "value": "Pathfinder Society Scenario #4-99: Blessings of the Forest"

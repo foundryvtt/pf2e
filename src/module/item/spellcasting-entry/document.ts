@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
@@ -25,12 +25,12 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     /** Spellcasting attack and dc data created during actor preparation */
     declare statistic: Statistic;
 
-    get attribute(): AbilityString {
+    get attribute(): AttributeString {
         return this.system.ability.value || "cha";
     }
 
     /** @deprecated */
-    get ability(): AbilityString {
+    get ability(): AttributeString {
         foundry.utils.logCompatibilityWarning(
             "`SpellcastingEntryPF2e#ability` is deprecated. Use `SpellcastingEntryPF2e#attribute` instead.",
             { since: "5.3.0", until: "6.0.0" }

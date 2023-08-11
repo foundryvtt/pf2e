@@ -10,9 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration830BarbarianRework } from "@module/migration/migrations/830-condense-instincts.ts";
-import { Migration831ClericDoctrines } from "@module/migration/migrations/831-cleric-doctrines.ts";
-import { Migration832ChoiceSetFlags } from "@module/migration/migrations/832-choice-set-flags.ts";
 import { Migration833AddRogueToysFixPrecision } from "@module/migration/migrations/833-add-rogue-toys-fix-precision.ts";
 import { Migration834FeatCategories } from "@module/migration/migrations/834-feat-categories.ts";
 import { Migration835InitiativeLongform } from "@module/migration/migrations/835-initiative-longform.ts";
@@ -28,6 +25,9 @@ import { Migration848NumericArmorProperties } from "@module/migration/migrations
 import { Migration849DeleteBrokenThreshold } from "@module/migration/migrations/849-delete-broken-threshold.ts";
 import { Migration850FlatFootedToOffGuard } from "@module/migration/migrations/850-flat-footed-to-off-guard.ts";
 import { Migration851JustInnovationId } from "@module/migration/migrations/851-just-innovation-id.ts";
+import { Migration852AbilityScoresToModifiers } from "@module/migration/migrations/852-ability-scores-to-modifiers.ts";
+import { Migration853RemasterLanguages } from "@module/migration/migrations/853-remaster-languages.ts";
+import { Migration854BracketedAbilityScoresToModifiers } from "@module/migration/migrations/854-bracketed-ability-scores-to-modifiers.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -38,9 +38,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration830BarbarianRework(),
-    new Migration831ClericDoctrines(),
-    new Migration832ChoiceSetFlags(),
     new Migration833AddRogueToysFixPrecision(),
     new Migration834FeatCategories(),
     new Migration835InitiativeLongform(),
@@ -56,6 +53,9 @@ const migrations: MigrationBase[] = [
     new Migration849DeleteBrokenThreshold(),
     new Migration850FlatFootedToOffGuard(),
     new Migration851JustInnovationId(),
+    new Migration852AbilityScoresToModifiers(),
+    new Migration853RemasterLanguages(),
+    new Migration854BracketedAbilityScoresToModifiers(),
 ];
 
 global.deepClone = <T>(original: T): T => {

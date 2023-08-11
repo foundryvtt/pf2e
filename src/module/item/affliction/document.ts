@@ -1,18 +1,41 @@
 import { ActorPF2e } from "@actor";
+import { ConditionPF2e, ItemPF2e } from "@item";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { ConditionSlug } from "@item/condition/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
-import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
-import { AfflictionDamageTemplate, DamagePF2e, DamageRollContext, BaseDamageData } from "@system/damage/index.ts";
+import { ConditionManager } from "@system/conditions/manager.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
+import { AfflictionDamageTemplate, BaseDamageData, DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
+import { ErrorPF2e } from "@util";
+import * as R from "remeda";
+import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
+
+/** Condition types that don't need a duration to eventually disappear. These remain even when the affliction ends */
+const EXPIRING_CONDITIONS: Set<ConditionSlug> = new Set([
+    "frightened",
+    "sickened",
+    "drained",
+    "doomed",
+    "stunned",
+    "unconscious",
+]);
 
 class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
+    constructor(source: object, context?: DocumentConstructionContext<TParent>) {
+        super(source, context);
+        if (BUILD_MODE === "production") {
+            throw ErrorPF2e("Affliction items are not available in production builds");
+        }
+    }
+
     override get badge(): EffectBadge {
         const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
         return {
             type: "counter",
             value: this.stage,
-            max: Object.keys(this.system.stages).length || 1,
+            max: this.maxStage,
             label,
         };
     }
@@ -21,11 +44,14 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return this.system.stage;
     }
 
-    override async increase(): Promise<void> {
-        const maxStage = Object.keys(this.system.stages).length || 1;
-        if (this.stage === maxStage) return;
+    get maxStage(): number {
+        return Object.keys(this.system.stages).length || 1;
+    }
 
-        const stage = Math.min(maxStage, this.system.stage + 1);
+    override async increase(): Promise<void> {
+        if (this.stage === this.maxStage) return;
+
+        const stage = Math.min(this.maxStage, this.system.stage + 1);
         await this.update({ system: { stage } });
     }
 
@@ -41,8 +67,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const maxStage = Object.keys(this.system.stages).length || 1;
-        this.system.stage = Math.clamped(this.system.stage, 1, maxStage);
+        this.system.stage = Math.clamped(this.system.stage, 1, this.maxStage);
 
         // Set certain defaults
         for (const stage of Object.values(this.system.stages)) {
@@ -102,6 +127,90 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return null;
     }
 
+    /** Run all updates that need to occur whenever the stage changes */
+    protected async handleStageChange(): Promise<void> {
+        const actor = this.actor;
+        if (!actor) return;
+
+        // Remove linked items first
+        const itemsToDelete = this.getLinkedItems().map((i) => i.id);
+        await actor.deleteEmbeddedDocuments("Item", itemsToDelete);
+
+        const currentStage = Object.values(this.system.stages).at(this.stage - 1);
+        if (!currentStage) return;
+
+        // Get all conditions we need to add or update
+        const conditionsToAdd: ConditionPF2e[] = [];
+        const conditionsToUpdate: Record<string, { value: number; linked: boolean }> = {};
+        for (const data of Object.values(currentStage.conditions ?? {})) {
+            const value = data.value ?? 1;
+
+            // Try to get an existing one to update first. This occurs for unlinked OR auto-expiring ones that linger
+            const existing = (() => {
+                const allExisting = actor.conditions.bySlug(data.slug, { temporary: false });
+                const byAffliction = allExisting.find((i) => i.appliedBy === this);
+                if (byAffliction) return byAffliction;
+
+                if (!data.linked) {
+                    return R.maxBy(
+                        allExisting.filter((i) => !i.appliedBy && !i.isLocked),
+                        (c) => (c.active ? Infinity : c.value ?? 0)
+                    );
+                }
+
+                return null;
+            })();
+
+            // There is no need to create a new condition if one exists, perform an update instead
+            if (existing) {
+                if (existing.system.value.isValued) {
+                    conditionsToUpdate[existing.id] = { value, linked: !!data.linked };
+                }
+                continue;
+            }
+
+            // This is a new condition, set some flags
+            const condition = ConditionManager.getCondition(data.slug);
+            condition.updateSource({ "flags.pf2e.grantedBy.id": this.id });
+            if (data.linked) {
+                condition.updateSource({ "system.references.parent.id": this.id });
+            }
+            if (condition.system.value.isValued && value > 1) {
+                condition.updateSource({ "system.value.value": data.value });
+            }
+            conditionsToAdd.push(condition);
+        }
+
+        // Insert new conditions
+        const additions = conditionsToAdd.map((c) => c.toObject());
+        await actor.createEmbeddedDocuments("Item", additions);
+
+        // Perform updates on existing ones to update their values
+        await actor.updateEmbeddedDocuments(
+            "Item",
+            Object.entries(conditionsToUpdate).map(([_id, data]) => ({
+                _id,
+                "system.value.value": data.value,
+                "flags.pf2e.grantedBy.id": this.id,
+                ...(data.linked ? { "system.references.parent.id": this.id } : {}),
+            }))
+        );
+
+        // Create the message in the chat
+        await this.createStageMessage();
+    }
+
+    override getLinkedItems(): ItemPF2e<ActorPF2e>[] {
+        if (!this.actor) return [];
+        return this.actor.items.filter(
+            (i) =>
+                i.isOfType("condition") &&
+                !EXPIRING_CONDITIONS.has(i.slug) &&
+                i.flags.pf2e.grantedBy?.id === this.id &&
+                i.system.references.parent?.id === this.id
+        );
+    }
+
     async createStageMessage(): Promise<void> {
         const actor = this.actor;
         if (!actor) return;
@@ -135,7 +244,9 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         userId: string
     ): void {
         super._onCreate(data, options, userId);
-        this.createStageMessage();
+        if (game.user === this.actor?.primaryUpdater) {
+            this.handleStageChange();
+        }
     }
 
     override _onUpdate(
@@ -147,7 +258,25 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
         // If the stage changed, perform stage change events
         if (changed.system?.stage && game.user === this.actor?.primaryUpdater) {
-            this.createStageMessage();
+            this.handleStageChange();
+        }
+    }
+
+    async rollRecovery(): Promise<void> {
+        if (!this.actor) return;
+
+        const save = this.actor.saves?.[this.system.save.type];
+        if (save) {
+            const result = await save.roll({
+                dc: { value: this.system.save.value },
+                extraRollOptions: this.getRollOptions("item"),
+            });
+
+            if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
+                this.decrease();
+            } else {
+                this.increase();
+            }
         }
     }
 }

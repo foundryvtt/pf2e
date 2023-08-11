@@ -243,11 +243,11 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                                 const shieldName = document.createElement("span");
                                 shieldName.classList.add("label");
                                 shieldName.innerHTML = shield.name;
+
                                 const hardness = document.createElement("span");
                                 hardness.classList.add("tag");
-                                hardness.innerHTML = `${game.i18n.localize("PF2E.ShieldHardnessLabel")}: ${
-                                    shield.hardness
-                                }`;
+                                const hardnessLabel = game.i18n.localize("PF2E.ShieldHardnessLabel");
+                                hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
                                 const itemLi = document.createElement("li");
                                 itemLi.classList.add("item");
                                 itemLi.append(input, shieldName, hardness);
@@ -302,7 +302,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const canHeroPointReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            const actor = message.actor;
+            const { actor } = message;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 

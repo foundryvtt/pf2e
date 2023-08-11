@@ -5,10 +5,9 @@ import {
     CreatureSystemSource,
     CreatureTraitsData,
 } from "@actor/creature/data.ts";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
-import { Rollable } from "@actor/data/base.ts";
-import { StatisticModifier } from "@actor/modifiers.ts";
-import { AbilityString } from "@actor/types.ts";
+import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { AttributeString } from "@actor/types.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
@@ -21,7 +20,7 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     attributes: FamiliarAttributesSource;
     master: {
         id: string | null;
-        ability: AbilityString | null;
+        ability: AttributeString | null;
     };
 
     customModifiers?: never;
@@ -41,11 +40,11 @@ interface FamiliarSystemData
         };
     };
     actions?: never;
-    attack: StatisticModifier & Rollable;
+    attack: Statistic;
     attributes: FamiliarAttributes;
     master: {
         id: string | null;
-        ability: AbilityString | null;
+        ability: AttributeString | null;
     };
     traits: FamiliarTraitsData;
 }

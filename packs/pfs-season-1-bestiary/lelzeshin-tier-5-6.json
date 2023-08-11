@@ -147,7 +147,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and @Damage[1d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -739,6 +739,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> Lelzeshin can use this reaction once per day.</p>\n<p><strong>Trigger</strong> An attack from an attacker he can see would be a critical success against Lelzeshin</p>\n<hr />\n<p><strong>Effect</strong> Lelzeshin teleports to one of the mirrored walls, emerging adjacent to it.</p>\n<p>Meanwhile, a duplicate briefly remains, seemingly frozen in place for a second, before detonating as the critical hit connects with it. Each creature adjacent to his original location takes @Damage[6d6[slashing]] damage (@Check[type:reflex|dc:25|basic:true]), and these adjacent squares becomes difficult terrain.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -1258,8 +1262,8 @@
                 "selected": [],
                 "value": [
                     "common",
-                    "mwangi",
-                    "sylvan"
+                    "fey",
+                    "mwangi"
                 ]
             },
             "rarity": "unique",

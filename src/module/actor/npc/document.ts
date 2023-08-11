@@ -1,10 +1,10 @@
 import { CreaturePF2e } from "@actor";
 import { Abilities, CreatureSkills } from "@actor/creature/data.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { strikeFromMeleeItem } from "@actor/helpers.ts";
+import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { AbilityString, SaveType } from "@actor/types.ts";
+import { AttributeString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
@@ -32,7 +32,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return this._source.system.details.level.value;
     }
 
-    /** This NPC's ability scores */
+    /** This NPC's attribute modifiers */
     override get abilities(): Abilities {
         return deepClone(this.system.abilities);
     }
@@ -146,6 +146,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
+        attributes.bonusEncumbranceBulk = attributes.bonusLimitBulk = 0;
 
         // Set default ritual attack and DC values if none are stored */
         this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting ?? {});
@@ -157,9 +158,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
-        const { modifierAdjustments, statisticsModifiers, strikes } = synthetics;
+        const { modifierAdjustments, strikes } = synthetics;
         const itemTypes = this.itemTypes;
         const baseLevel = this.system.details.level.base;
+        this.synthetics.modifiers.hp ??= [];
 
         if (this.isElite) {
             modifierAdjustments.all.push({
@@ -167,8 +169,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base + 2,
                 test: () => true,
             });
-            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
-            statisticsModifiers.hp.push(
+            this.synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
@@ -182,8 +183,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base - 2,
                 test: () => true,
             });
-            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
-            statisticsModifiers.hp.push(
+            this.synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",
@@ -194,10 +194,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
         system.details.level.base = baseLevel;
 
-        // Compute 10+mod ability scores from ability modifiers
         for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Number(ability.mod) || 0;
-            ability.value = ability.mod * 2 + 10;
+            ability.mod = Math.trunc(Number(ability.mod)) || 0;
         }
 
         // Hit Points
@@ -225,13 +223,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     .filter((m) => m.enabled)
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
             ].join(", ");
-
             system.attributes.hp = stat;
-
-            // Set a roll option for HP percentage
-            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
-            this.rollOptions.all[`hp-remaining:${stat.value}`] = true;
-            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+            setHitPointsRollOptions(this);
         }
 
         // Speeds
@@ -324,6 +317,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
                 slug: sluggify(`${entry.name}-spellcasting`),
+                ability: entry.attribute,
                 label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
@@ -397,7 +391,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         function createTrace(stat: Statistic, item?: LorePF2e<NPCPF2e>) {
             const { ability, shortForm } = objectHasKey(SKILL_EXPANDED, stat.slug)
                 ? SKILL_EXPANDED[stat.slug]
-                : { ability: "int" as AbilityString, shortForm: stat.slug };
+                : { ability: "int" as AttributeString, shortForm: stat.slug };
             system.skills[shortForm] = {
                 ...stat.getTraceData(),
                 base: item?.system.mod.value,

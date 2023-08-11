@@ -1,6 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { Alignment } from "@actor/creature/types.ts";
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base.ts";
 import { BaseWeaponType } from "@item/weapon/types.ts";
 import { DeityDomain } from "./types.ts";
@@ -18,7 +18,7 @@ interface DeitySystemSource extends ItemSystemSource {
         alternate: DeityDomain[];
     };
     font: DivineFonts;
-    ability: AbilityString[];
+    ability: AttributeString[];
     skill: SkillAbbreviation | null;
     weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;

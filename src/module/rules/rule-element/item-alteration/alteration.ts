@@ -1,14 +1,17 @@
 import type { ActorPF2e } from "@actor";
 import { type ItemPF2e, type PhysicalItemPF2e } from "@item";
 import { PersistentSourceData } from "@item/condition/data.ts";
+import { FrequencyInterval } from "@item/data/base.ts";
 import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { isObject } from "@util";
+import { isObject, objectHasKey } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
+import { Duration } from "luxon";
 
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
@@ -21,6 +24,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "pd-recovery-dc",
         "persistent-damage",
         "rarity",
+        "frequency-max",
+        "frequency-per",
     ] as const;
 
     static override defineSchema(): ItemAlterationSchema {
@@ -180,6 +185,28 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 }
                 return;
             }
+            case "frequency-max": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data) || !data.item.system.frequency) return;
+                const frequency = data.item.system.frequency;
+                const newValue = AELikeRuleElement.getNewValue(this.mode, frequency.max, data.alteration.value);
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                frequency.max = newValue;
+                frequency.value = Math.clamped(frequency.value ?? newValue, 0, newValue);
+                return;
+            }
+            case "frequency-per": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data) || !data.item.system.frequency) return;
+                const newValue = this.#getNewInterval(this.mode, data.item.system.frequency.per, data.alteration.value);
+                if (newValue instanceof DataModelValidationFailure) {
+                    throw newValue.asError();
+                }
+                data.item.system.frequency.per = newValue;
+                return;
+            }
         }
     }
 
@@ -195,6 +222,31 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 shieldData.brokenThreshold = Math.floor(item.system.hp.max / 2);
             }
         }
+    }
+
+    /** Handle alterations for frequency intervals, which are luxon durations */
+    #getNewInterval(
+        mode: "upgrade" | "downgrade" | "override" | string,
+        current: FrequencyInterval,
+        newValue: string
+    ): FrequencyInterval | DataModelValidationFailure {
+        const { DataModelValidationFailure } = foundry.data.validation;
+        if (!objectHasKey(CONFIG.PF2E.frequencies, newValue)) {
+            return new DataModelValidationFailure({ invalidValue: current, fallback: false });
+        }
+        if (mode === "override") return newValue;
+
+        function getDuration(key: FrequencyInterval) {
+            if (key === "turn" || key === "round") return Duration.fromISO("PT6S");
+            if (key === "day") return Duration.fromISO("PT24H");
+            return Duration.fromISO(key);
+        }
+
+        const newIsLonger =
+            (newValue === "round" && current === "turn") ||
+            (newValue === "PT24H" && current === "day") ||
+            getDuration(newValue) > getDuration(current);
+        return (mode === "upgrade" && newIsLonger) || (mode === "downgrade" && !newIsLonger) ? newValue : current;
     }
 }
 

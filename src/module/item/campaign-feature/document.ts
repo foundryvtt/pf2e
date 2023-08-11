@@ -1,9 +1,10 @@
 import { ActorPF2e, PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
+import { ItemPF2e } from "@item";
+import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { sluggify, tupleHasValue } from "@util";
-import { ItemPF2e } from "../index.ts";
 import { CampaignFeatureSource, CampaignFeatureSystemData, CampaignFeatureSystemSource } from "./data.ts";
 import { BehaviorType, KingmakerCategory, KingmakerTrait } from "./types.ts";
 import { CategoryData, KINGDOM_CATEGORY_DATA, KINGMAKER_CATEGORY_TYPES } from "./values.ts";
@@ -121,14 +122,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         }
 
         // Normalize action data
-        if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
-            const actionType = changed.system?.actionType?.value ?? this.system.actionType.value;
-            const actionCount = Number(changed.system?.actions?.value ?? this.system.actions.value);
-            changed.system = mergeObject(changed.system, {
-                actionType: { value: actionType },
-                actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
-            });
-        }
+        normalizeActionChangeData(this, changed);
 
         // Delete level if optional for the category type
         if (changed.system && changed.system.category) {

@@ -1,0 +1,44 @@
+{
+    "_id": "IySCRGYxxLFDlIZI",
+    "img": "systems/pf2e/icons/spells/cleansing-flames.webp",
+    "name": "Effect: Roast",
+    "system": {
+        "description": {
+            "value": "<p>Creatures who have been Roasted take a –2 circumstance penalty to Fortitude saves against Serve.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:serve"
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

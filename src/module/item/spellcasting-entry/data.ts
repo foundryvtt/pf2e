@@ -1,4 +1,4 @@
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data.ts";
@@ -37,7 +37,7 @@ interface SpellSlotData {
 }
 
 interface SpellcastingEntrySystemSource extends ItemSystemSource {
-    ability: { value: AbilityString | "" };
+    ability: { value: AttributeString | "" };
     spelldc: {
         value: number;
         dc: number;

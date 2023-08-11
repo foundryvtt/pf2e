@@ -27,11 +27,18 @@
         },
         "rules": [
             {
+                "key": "FlatModifier",
+                "selector": "healing-received",
+                "type": "status",
+                "value": "-max(floor(@actor.level/2),1)"
+            },
+            {
                 "key": "DamageDice",
                 "override": {
                     "dieSize": "d12"
                 },
                 "predicate": [
+                    "class:oracle",
                     "item:slug:heal",
                     {
                         "gte": [
@@ -49,6 +56,7 @@
                 "label": "PF2E.OracleCurses.Life.ToggleLabel",
                 "option": "all-living-targets",
                 "predicate": [
+                    "class:oracle",
                     {
                         "gte": [
                             "parent:badge:value",

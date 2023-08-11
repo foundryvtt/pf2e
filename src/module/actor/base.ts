@@ -15,7 +15,7 @@ import {
     UnaffectedType,
 } from "@actor/types.ts";
 import { AbstractEffectPF2e, ArmorPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { ActionTrait } from "@item/action/types.ts";
+import { ActionTrait } from "@item/ability/types.ts";
 import { AfflictionSource } from "@item/affliction/index.ts";
 import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
@@ -127,6 +127,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
     }
 
+    static override getDefaultArtwork(
+        actorData: foundry.documents.ActorSource | PreDocumentId<foundry.documents.ActorSource>
+    ): {
+        img: ImageFilePath;
+        texture: { src: ImageFilePath | VideoFilePath };
+    } {
+        const img: ImageFilePath = `systems/pf2e/icons/default-icons/${actorData.type}.svg`;
+        return { img, texture: { src: img } };
+    }
+
     /** Cache the return data before passing it to the caller */
     override get itemTypes(): EmbeddedItemInstances<this> {
         return (this._itemTypes ??= super.itemTypes as EmbeddedItemInstances<this>);
@@ -163,6 +173,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .sort((a, b) => (a.id > b.id ? 1 : -1))
             .shift();
         return firstUpdater ?? null;
+    }
+
+    get abilities(): Abilities | null {
+        return null;
     }
 
     /** Shortcut to system-data attributes */
@@ -350,7 +364,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return this.skills[slug] ?? null;
         }
 
-        return null;
+        return this.synthetics.statistics.get(slug) ?? null;
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */
@@ -423,7 +437,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 };
 
                 const source = mergeObject(effect.toObject(), { flags });
-                source.system.level.value = data.level ?? aura.level ?? source.system.level.value;
+                source.system.level.value = aura.level ?? source.system.level.value;
                 source.system.duration.unit = "unlimited";
                 source.system.duration.expiry = null;
                 // Only transfer traits from the aura if the effect lacks its own
@@ -593,6 +607,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
             modifierAdjustments: { all: [], damage: [] },
+            modifiers: { all: [], damage: [] },
             movementTypes: {},
             multipleAttackPenalties: {},
             ephemeralEffects: {},
@@ -600,7 +615,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             rollSubstitutions: {},
             rollTwice: {},
             senses: [],
-            statisticsModifiers: { all: [], damage: [] },
+            statistics: new Map(),
             strikeAdjustments: [],
             strikes: new Map(),
             striking: {},
@@ -919,10 +934,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             isMelee &&
             typeof reach === "number" &&
             params.statistic instanceof StatisticModifier &&
-            targetToken &&
+            targetToken?.actor &&
             selfToken?.isFlanking(targetToken, { reach })
         );
-        if (isFlankingStrike && params.target?.token?.actor && isOffGuardFromFlanking(params.target.token.actor)) {
+        if (isFlankingStrike && isOffGuardFromFlanking(targetToken.actor, selfActor)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             targetEphemeralEffects.push(condition.toObject());
@@ -1723,39 +1738,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
-    /**
-     * Work around upstream issue in which drag previews are included in the return array
-     * https://github.com/foundryvtt/foundryvtt/issues/9817
-     */
-    override getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
-    override getActiveTokens(
-        linked?: boolean | undefined,
-        document?: undefined
-    ): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
-    override getActiveTokens(
-        linked?: boolean,
-        document?: boolean
-    ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
-    override getActiveTokens(
-        linked?: boolean,
-        document?: boolean | undefined
-    ): Token<TokenDocument<Scene>>[] | TokenDocument<Scene>[] {
-        if (!canvas.ready || game.release.build > 306) {
-            return super.getActiveTokens(linked, document);
-        }
-
-        const tokens = super.getActiveTokens(linked, document);
-        const sceneTokens: Set<TokenDocument<Scene>> = new Set(canvas.scene?.tokens.contents ?? []);
-        for (const token of [...tokens]) {
-            const document = "document" in token ? token.document : token;
-            if (!sceneTokens.has(document)) {
-                tokens.splice((tokens as unknown[]).indexOf(token), 1);
-            }
-        }
-
-        return tokens;
-    }
-
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
         const processed = await preImportJSON(this, json);
@@ -1763,22 +1745,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override async _preCreate(
+    protected override _applyDefaultTokenSettings(
         data: PreDocumentId<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
-        user: UserPF2e
-    ): Promise<boolean | void> {
-        // Set default portrait and token images
-        this._source.prototypeToken = mergeObject(this._source.prototypeToken ?? {}, { texture: {} });
-        if (this._source.img === ActorPF2e.DEFAULT_ICON) {
-            this._source.img =
-                this._source.prototypeToken.texture.src = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        options?: { fromCompendium?: boolean }
+    ): DeepPartial<this["_source"]> {
+        const diff = super._applyDefaultTokenSettings(data, options);
+        if (this._source.prototypeToken.texture.src === CONST.DEFAULT_TOKEN) {
+            this._source.prototypeToken.texture.src = ActorPF2e.getDefaultArtwork(data).texture.src;
         }
 
-        return super._preCreate(data, options, user);
+        return diff;
     }
 
     protected override async _preUpdate(
@@ -1869,7 +1848,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     flags: ActorFlagsPF2e;
     readonly _source: ActorSourcePF2e;
-    readonly abilities?: Abilities;
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e<this>>;
     readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e<this>>;
     system: ActorSystemData;
@@ -1879,6 +1857,19 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     get sheet(): ActorSheetPF2e<this>;
 
     update(data: DocumentUpdateData<this>, options?: ActorUpdateContext<TParent>): Promise<this>;
+
+    getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
+    getActiveTokens(linked?: boolean | undefined, document?: undefined): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+    getActiveTokens(
+        linked?: boolean,
+        document?: boolean
+    ): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+
+    _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void>;
 
     /** See implementation in class */
     createEmbeddedDocuments(

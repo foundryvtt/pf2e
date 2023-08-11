@@ -1,4 +1,4 @@
-import { PredicateField } from "@system/schema-data-fields.ts";
+import { PredicateField, StrictStringField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, sluggify } from "@util";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
@@ -83,7 +83,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                         blank: false,
                         initial: undefined,
                     }),
-                    value: new fields.StringField({
+                    value: new StrictStringField({
                         required: true,
                         nullable: false,
                         blank: false,

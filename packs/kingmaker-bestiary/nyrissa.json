@@ -4319,7 +4319,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You merge with an adjacent block of stone with enough volume to fit you and your worn and held possessions. You must touch the stone when you Cast the Spell. You can hear, but not see, what's going on outside the stone, and you can cast spells while in the stone as long as they don't require line of effect beyond the stone.</p>\n<p>Significant physical damage to the stone while you are inside it expels you and deals 10d6 damage to you. Passwall expels you without dealing damage and ends meld into stone. You can Dismiss this spell.</p>"
+                    "value": "<p>You merge with an adjacent block of stone with enough volume to fit you and your worn and held possessions. You must touch the stone when you Cast the Spell. You can hear, but not see, what's going on outside the stone, and you can cast spells while in the stone as long as they don't require line of effect beyond the stone.</p>\n<p>Significant physical damage to the stone while you are inside it expels you and deals 10d6 damage to you. Passwall expels you without dealing damage and ends <em>one with stone</em>. You can Dismiss this spell.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -7158,14 +7158,14 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "add",
-                        "path": "system.abilities.dex.value",
-                        "value": 2
+                        "path": "system.abilities.dex.mod",
+                        "value": 1
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.abilities.dex.value",
-                        "value": 18
+                        "path": "system.abilities.dex.mod",
+                        "value": 4
                     }
                 ],
                 "size": "med",
@@ -8030,6 +8030,11 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> three times per day;</p>\n<p><strong>Requirement</strong> Nyrissa hasn't used Quickened Casting since the start of her previous turn</p>\n<p><strong>Effect</strong> If Nyrissa's next action is to cast an arcane spontaneous spell that is 8th level or lower, reduce the number of actions to cast it by 1 (minimum 1 action).</p>"
                 },
+                "frequency": {
+                    "max": 3,
+                    "per": "day",
+                    "value": 3
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -8063,6 +8068,10 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Requirement</strong> Nyrissa is located in the twenty-foot diameter central area of one of the four Fables (areas M7a- M7d of the House at the Edge of Time)</p>\n<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Effect</strong> Nyrissa Strides a minimum distance of ten feet, after which the reality of the demiplane folds around her in a tangle of vines and flowers. She then teleports from her current Fable to one of the other three of her choice, appearing in a square of her choosing within the central twenty feet of the chosen Fable.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
                 },
                 "requirements": {
                     "value": ""
@@ -8434,11 +8443,11 @@
                     "common",
                     "draconic",
                     "elven",
+                    "fey",
                     "gnomish",
                     "hallit",
                     "jotun",
-                    "skald",
-                    "sylvan"
+                    "skald"
                 ]
             },
             "rarity": "unique",

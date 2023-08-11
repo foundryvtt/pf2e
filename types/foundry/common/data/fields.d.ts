@@ -368,7 +368,7 @@ export class BooleanField<
 > extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     protected static override get _defaults(): BooleanFieldOptions<boolean, boolean, boolean, boolean>;
 
-    protected override _cast(value: unknown): boolean;
+    protected override _cast(value: unknown): unknown;
 
     protected override _validateType(value: unknown): value is boolean;
 }
@@ -451,7 +451,7 @@ export class StringField<
         options?: CleanFieldOptions
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
-    protected override _cast(value: unknown): TSourceProp;
+    protected override _cast(value: unknown): unknown;
 
     protected override _validateSpecial(value: unknown): boolean | void;
 
@@ -493,14 +493,6 @@ export class ObjectField<
         options?: DataFieldValidationOptions
     ): DataModelValidationFailure | boolean | void;
 }
-
-export type FlagField<
-    TSourceProp extends { [K in string]?: Record<string, unknown> } = { [K in string]?: Record<string, unknown> },
-    TModelProp = TSourceProp,
-    TRequired extends boolean = false,
-    TNullable extends boolean = false,
-    THasInitial extends boolean = true
-> = ObjectField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial>;
 
 type ArrayFieldOptions<
     TSourceProp extends unknown[],
@@ -644,7 +636,8 @@ export class EmbeddedDataField<
 
     override initialize(
         value: MaybeSchemaProp<TModelProp["schema"]["fields"], TRequired, TNullable, THasInitial>,
-        model: ConstructorOf<abstract.DataModel>
+        model: ConstructorOf<abstract.DataModel>,
+        options?: object
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     override toObject(
@@ -1040,6 +1033,6 @@ declare global {
     type HexColorString = `#${string}`;
     type AudioFilePath = `${string}.${AudioFileExtension}`;
     type ImageFilePath = `${string}.${ImageFileExtension}`;
-    type VideoFilePath = `${string}.${VideoFileExtension}` | ImageFilePath;
+    type VideoFilePath = `${string}.${VideoFileExtension}`;
     type FilePath = AudioFilePath | ImageFilePath | VideoFilePath;
 }

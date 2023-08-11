@@ -55,6 +55,7 @@ interface HazardSystemData extends Omit<HazardSystemSource, "attributes">, Omit<
 interface HazardTraitsSource extends ActorTraitsSource<HazardTrait> {
     size: { value: Size };
     rarity: Rarity;
+    languages?: never;
 }
 
 interface HazardTraitsData extends HazardTraitsSource {

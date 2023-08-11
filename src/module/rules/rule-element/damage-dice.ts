@@ -59,9 +59,10 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             // warning.
             const testPassed =
                 this.predicate.length === 0 ||
-                this.resolveInjectedProperties(this.predicate).test(
-                    params.test ?? this.actor.getRollOptions(["damage"])
-                );
+                this.resolveInjectedProperties(this.predicate).test([
+                    ...(params.test ?? this.actor.getRollOptions(["damage"])),
+                    ...this.item.getRollOptions("parent"),
+                ]);
             const resolveOptions = { ...params, warn: testPassed };
 
             const diceNumber = Number(this.resolveValue(this.diceNumber, 0, resolveOptions)) || 0;

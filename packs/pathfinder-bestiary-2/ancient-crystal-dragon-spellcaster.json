@@ -1986,7 +1986,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You merge with an adjacent block of stone with enough volume to fit you and your worn and held possessions. You must touch the stone when you Cast the Spell. You can hear, but not see, what's going on outside the stone, and you can cast spells while in the stone as long as they don't require line of effect beyond the stone.</p>\n<p>Significant physical damage to the stone while you are inside it expels you and deals 10d6 damage to you. Passwall expels you without dealing damage and ends meld into stone. You can Dismiss this spell.</p>"
+                    "value": "<p>You merge with an adjacent block of stone with enough volume to fit you and your worn and held possessions. You must touch the stone when you Cast the Spell. You can hear, but not see, what's going on outside the stone, and you can cast spells while in the stone as long as they don't require line of effect beyond the stone.</p>\n<p>Significant physical damage to the stone while you are inside it expels you and deals 10d6 damage to you. Passwall expels you without dealing damage and ends <em>one with stone</em>. You can Dismiss this spell.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -4283,6 +4283,11 @@
                 "description": {
                     "value": "<p><strong>Trigger</strong> The crystal dragon damages a creature made of flesh with a jaws Strike</p>\n<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon embeds transformative crystals in the creature's flesh. The creature must attempt a @Check[type:fortitude|dc:37] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as portions of its flesh turn crystalline.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and must attempt a Fortitude save at the end of each of its turns; this ongoing save has the incapacitation trait. On a failed save, the slowed condition value increases by 1 (or by 2 on a critical failure). A successful save reduces the slowed condition value by 1. A creature unable to act due to the slowed condition from Crystallize Flesh is @UUID[Compendium.pf2e.conditionitems.Item.Petrified] permanently, transforming into a crystalline statue. The effect ends if the creature is petrified or the slowed condition is removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is initially @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
                 },
+                "frequency": {
+                    "max": 3,
+                    "per": "day",
+                    "value": 3
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -4590,7 +4595,7 @@
                     "celestial",
                     "common",
                     "draconic",
-                    "terran",
+                    "petran",
                     "undercommon"
                 ]
             },

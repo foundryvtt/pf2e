@@ -234,7 +234,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(2d8+5)[healing]]{2d8+5 Hit Points}.</p>"
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -594,6 +594,11 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> She wields hatchets in each hand</p>\n<hr />\n<p><strong>Effect</strong> She attacks with both hatchets, making two Strikes at the same target. Apply her multiple attack penalty to each Strike normally.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -637,7 +642,7 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "selector": "damage",
+                        "selector": "strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
                     }

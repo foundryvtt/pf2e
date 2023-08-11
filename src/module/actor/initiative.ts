@@ -4,7 +4,7 @@ import { ActorPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { Statistic, StatisticData, StatisticRollParameters, StatisticTraceData } from "@system/statistic/index.ts";
-import { AbilityString } from "./types.ts";
+import { AttributeString } from "./types.ts";
 
 interface InitiativeRollResult {
     combatant: CombatantPF2e<EncounterPF2e>;
@@ -12,6 +12,7 @@ interface InitiativeRollResult {
 }
 
 interface InitiativeRollParams extends StatisticRollParameters {
+    combatant?: CombatantPF2e<EncounterPF2e>;
     /** Whether the encounter tracker should be updated with the roll result */
     updateTracker?: boolean;
 }
@@ -21,8 +22,17 @@ class ActorInitiative {
     actor: ActorPF2e;
     statistic: Statistic;
 
-    get ability(): AbilityString | null {
+    get attribute(): AttributeString | null {
         return this.statistic.ability;
+    }
+
+    /** @deprecated */
+    get ability(): AttributeString | null {
+        foundry.utils.logCompatibilityWarning(
+            "`ActorInitiative#ability` is deprecated. Use `ActorInitiative#attribute` instead.",
+            { since: "5.3.0", until: "6.0.0" }
+        );
+        return this.attribute;
     }
 
     constructor(actor: ActorPF2e) {
@@ -52,7 +62,8 @@ class ActorInitiative {
 
     async roll(args: InitiativeRollParams = {}): Promise<InitiativeRollResult | null> {
         // Get or create the combatant
-        const combatant = await CombatantPF2e.fromActor(this.actor, false);
+        const combatant =
+            args.combatant?.actor === this.actor ? args.combatant : await CombatantPF2e.fromActor(this.actor, false);
         if (!combatant) return null;
 
         if (combatant.hidden) {

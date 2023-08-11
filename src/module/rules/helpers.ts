@@ -18,13 +18,13 @@ import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElement
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
-    synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "statisticsModifiers">,
+    synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "modifiers">,
     selectors: string[],
     options: DeferredValueParams = {}
 ): ModifierPF2e[] {
-    const { modifierAdjustments, statisticsModifiers } = synthetics;
+    const { modifierAdjustments, modifiers: syntheticModifiers } = synthetics;
     const modifiers = Array.from(new Set(selectors))
-        .flatMap((s) => statisticsModifiers[s] ?? [])
+        .flatMap((s) => syntheticModifiers[s] ?? [])
         .flatMap((d) => d(options) ?? []);
     for (const modifier of modifiers) {
         modifier.adjustments = extractModifierAdjustments(modifierAdjustments, selectors, modifier.slug);

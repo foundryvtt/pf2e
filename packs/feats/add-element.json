@@ -1,0 +1,118 @@
+{
+    "_id": "s1eEtrNBBHpXJlEz",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Add Element",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Choose a second kinetic element to add to the one you already have. You gain an impulse feat for that element. For the purpose of meeting its prerequisites, your kineticist level is equal to half your level. If you gain more kineticist feats, you can select hybrid impulses that have both your elements, as normal for a kineticist.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Advanced Element Control"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:air"
+                            }
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:earth"
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:metal"
+                            }
+                        ],
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:water"
+                            }
+                        ],
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            {
+                                "not": "kinetic-gate:wood"
+                            }
+                        ],
+                        "value": "wood"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                "rollOption": "kinetic-gate"
+            },
+            {
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        {
+                            "lte": [
+                                "item:level",
+                                5
+                            ]
+                        },
+                        "item:trait:impulse"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulse",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,79 @@
+{
+    "_id": "pGZqqxYzZpe3iaiS",
+    "img": "systems/pf2e/icons/equipment/treasure/gems/moderate-semiprecious-stones/chrysoprase.webp",
+    "name": "Aeon Stone (Olivine Pendeloque)",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>An <em>olivine pendeloque aeon stone</em> imparts the calmness of still earth and a solidity of thought, granting you a +2 item bonus to saving throws against effects that cause the @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] conditions.</p>\n<p><strong>Activate—Still Earth</strong> <span class=\"pf2-icon\">R</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You become confused, frightened, or stupefied</p>\n<hr />\n<p><strong>Effect</strong> The stone suppresses the triggering effect for 1 minute, but the calming urges impose a –1 status penalty to your attack rolls.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 14
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 1200
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex",
+                    "will"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "earth",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

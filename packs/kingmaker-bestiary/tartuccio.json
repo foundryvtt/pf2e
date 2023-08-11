@@ -1419,7 +1419,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and [[/r 1d4[persistent,mental]]]. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Mental Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and Persistent Damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the target recovers from being Sickened, the Persistent Damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the Persistent Damage by 1d4.</p>"
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and @Damage[1d4[persistent,mental]]. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Mental Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and Persistent Damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the target recovers from being Sickened, the Persistent Damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the Persistent Damage by 1d4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2315,7 +2315,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per week</p>\n<p><strong>Effect</strong> By performing a ten-minute long incantation, Tartuccio takes on the appearance of any uniquely-appearing Small humanoid. He can't disguise himself as a specific individual. This doesn't change his Speed or his attack and damage modifiers with his Strikes. He can do this again to resume his true form, and must do so before he uses the ability again to assume a different appearance. He reverts to his true form if he is slain.</p>"
+                    "value": "<p><strong>Frequency</strong> once per week</p>\n<hr />\n<p><strong>Effect</strong> By performing a ten-minute long incantation, Tartuccio takes on the appearance of any uniquely-appearing Small humanoid. He can't disguise himself as a specific individual. This doesn't change his Speed or his attack and damage modifiers with his Strikes. He can do this again to resume his true form, and must do so before he uses the ability again to assume a different appearance. He reverts to his true form if he is slain.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1W"
                 },
                 "requirements": {
                     "value": ""
@@ -2354,7 +2358,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Tartuccio is in Tartuk's form</p>\n<p><strong>Trigger</strong> A Sootscale kobold causes Tartuccio harm.</p>\n<p><strong>Effect</strong> Tartuccio (as Tartuk) can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the kobold who harmed him with a short warning such as \"Old Sharptooth will punish you for your transgressions!\" He gains a +2 circumstance bonus on the Intimidate check to do so.</p>"
+                    "value": "<p><strong>Requirement</strong> Tartuccio is in Tartuk's form</p>\n<p><strong>Trigger</strong> A Sootscale kobold causes Tartuccio harm.</p>\n<hr />\n<p><strong>Effect</strong> Tartuccio (as Tartuk) can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the kobold who harmed him with a short warning such as \"Old Sharptooth will punish you for your transgressions!\" He gains a +2 circumstance bonus on the Intimidate check to do so.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2692,9 +2696,9 @@
                 "value": [
                     "common",
                     "draconic",
+                    "fey",
                     "gnomish",
-                    "hallit",
-                    "sylvan"
+                    "hallit"
                 ]
             },
             "rarity": "unique",

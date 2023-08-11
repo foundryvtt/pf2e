@@ -2618,7 +2618,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]{1 splash acid damage}. On a critical success, the target also takes [[/r 1[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases to [[/r 2[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 3[persistent,acid]]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 4[persistent,acid]]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 5[persistent,acid]]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]{1 splash acid damage}. On a critical success, the target also takes @Damage[1[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases to @Damage[2[persistent,acid]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[3[persistent,acid]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[4[persistent,acid]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[5[persistent,acid]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4373,6 +4373,11 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> 7 times per day</p>\n<p><strong>Requirements</strong> Grabble hasn't acted yet on this turn</p>\n<hr />\n<p><strong>Effect</strong> Grabble can cast one prepared spell he has already cast today without spending a spell slot. He must still Cast the Spell and meet the spell's other requirements. He can do this once per day for each of the spell levels he can cast.</p>"
                 },
+                "frequency": {
+                    "max": 7,
+                    "per": "day",
+                    "value": 7
+                },
                 "requirements": {
                     "value": ""
                 },
@@ -4409,6 +4414,11 @@
                 "category": "offensive",
                 "description": {
                     "value": "<p><strong>Frequency</strong> 3 times per day</p>\n<hr />\n<p><strong>Effect</strong> If Grabble's next action is to cast a cantrip or a spell that is 6th level or lower and deals acid, cold, electricity, or fire damage, the spell deals poison damage rather than its normal damage type and gains the poison trait.</p>"
+                },
+                "frequency": {
+                    "max": 3,
+                    "per": "day",
+                    "value": 3
                 },
                 "requirements": {
                     "value": ""

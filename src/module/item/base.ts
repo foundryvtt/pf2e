@@ -31,6 +31,10 @@ import { ItemInstances } from "./types.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
+        return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
+    }
+
     /** Prepared rule elements from this item */
     declare rules: RuleElementPF2e[];
 
@@ -227,9 +231,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.parent && !this.parent.flags?.pf2e) return;
 
         super.prepareData();
-
-        // Refresh the Item Directory if this item isn't embedded
-        if (!this.isOwned && game.ready) ui.items.render();
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -613,11 +614,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
-        // Set default icon
-        if (this._source.img === ItemPF2e.DEFAULT_ICON) {
-            this._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
-        }
-
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const clone = this.actor.clone({
@@ -697,6 +693,18 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const updateKeys = Object.keys(actorUpdates);
         if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
             this.actor.update(actorUpdates);
+        }
+    }
+
+    /** Refresh the Item Directory if this item isn't embedded */
+    protected override _onUpdate(
+        data: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        userId: string
+    ): void {
+        super._onUpdate(data, options, userId);
+        if (game.ready && game.items.get(this.id) === this) {
+            ui.items.render();
         }
     }
 

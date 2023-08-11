@@ -361,6 +361,14 @@ class DamageInstance extends AbstractDamageRoll {
     static getValue(term: RollTerm, type: "minimum" | "maximum" | "expected" = "expected"): number {
         if (term instanceof NumericTerm) return term.number;
 
+        if (term instanceof MathTerm) {
+            try {
+                return Roll.safeEval(term.formula);
+            } catch {
+                return 0;
+            }
+        }
+
         switch (type) {
             case "minimum":
                 if (term instanceof Die) {

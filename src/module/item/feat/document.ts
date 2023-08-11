@@ -1,12 +1,12 @@
 import { ActorPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
+import { HeritagePF2e, ItemPF2e } from "@item";
+import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
-import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel, sluggify } from "@util";
 import * as R from "remeda";
-import { HeritagePF2e, ItemPF2e } from "../index.ts";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 import { FeatCategory, FeatTrait } from "./types.ts";
@@ -123,8 +123,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Add key ability options to parent's list
         if (actor.isOfType("character") && subfeatures.keyOptions.length > 0) {
-            actor.system.build.abilities.keyOptions = R.uniq([
-                ...actor.system.build.abilities.keyOptions,
+            actor.system.build.attributes.keyOptions = R.uniq([
+                ...actor.system.build.attributes.keyOptions,
                 ...subfeatures.keyOptions,
             ]);
         }
@@ -191,19 +191,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // Normalize action data
-        if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
-            const actionType = changed.system?.actionType?.value ?? this.system.actionType.value;
-            const actionCount = Number(changed.system?.actions?.value ?? this.system.actions.value);
-            changed.system = mergeObject(changed.system, {
-                actionType: { value: actionType },
-                actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
-            });
-        }
-
-        const actionCount = changed.system?.actions;
-        if (actionCount) {
-            actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
-        }
+        normalizeActionChangeData(this, changed);
 
         // Ensure onlyLevel1 and takeMultiple are consistent
         const traits = changed.system?.traits?.value;

@@ -1,8 +1,8 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
-import { ActionCategory, ActionTrait } from "@item/action/index.ts";
+import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/data/values.ts";
@@ -51,7 +51,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Ability Scores
         if (sheetData.data.abilities) {
-            for (const key of ABILITY_ABBREVIATIONS) {
+            for (const key of ATTRIBUTE_ABBREVIATIONS) {
                 sheetData.data.abilities[key].label = CONFIG.PF2E.abilities[key];
             }
         }

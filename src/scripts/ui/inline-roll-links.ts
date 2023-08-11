@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { ActionTrait } from "@item/action/types.ts";
+import { ActionTrait } from "@item/ability/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -53,8 +53,7 @@ export const InlineRollLinks = {
         }
     },
 
-    listen: ($html: HTMLElement | JQuery, foundryDoc: ClientDocument | null = null): void => {
-        const html = $html instanceof HTMLElement ? $html : $html[0]!;
+    listen: (html: HTMLElement, foundryDoc: ClientDocument | null = null): void => {
         foundryDoc ??= resolveDocument(html, foundryDoc);
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => ["A", "SPAN"].includes(l.nodeName));
@@ -82,7 +81,9 @@ export const InlineRollLinks = {
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller } = link.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
+                link.dataset;
+
             if (!pf2Check) return;
 
             link.addEventListener("click", async (event) => {
@@ -109,10 +110,10 @@ export const InlineRollLinks = {
 
                 if (actors.length === 0) return;
 
-                const parsedTraits = pf2Traits
-                    ?.split(",")
-                    .map((trait) => trait.trim())
-                    .filter((trait) => !!trait);
+                const extraRollOptions = [
+                    ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
+                    ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
+                ];
                 const eventRollParams = eventToRollParams(event);
 
                 switch (pf2Check) {
@@ -127,11 +128,18 @@ export const InlineRollLinks = {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
                                 : null;
-                            flatCheck.roll({ ...eventRollParams, extraRollOptions: parsedTraits, dc });
+                            flatCheck.roll({ ...eventRollParams, extraRollOptions, dc });
                         }
                         break;
                     }
                     default: {
+                        const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
+
+                        // Get actual traits for display in chat cards
+                        const traits = isSavingThrow
+                            ? []
+                            : extraRollOptions.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
+
                         for (const actor of actors) {
                             const statistic = ((): Statistic | null => {
                                 if (pf2Check in CONFIG.PF2E.magicTraditions) {
@@ -143,7 +151,17 @@ export const InlineRollLinks = {
                                             .shift() ?? null;
                                     if (bestSpellcasting) return bestSpellcasting;
                                 }
-                                return actor.getStatistic(pf2Check);
+                                const bySlug = actor.getStatistic(pf2Check);
+                                // Frame the statistic as an attack-roll stat if the action includes the "attack" trait
+                                // and the check is otherwise unclassified.
+                                return bySlug?.check.type === "check" && traits.includes("attack")
+                                    ? bySlug.extend({
+                                          check: {
+                                              type: "attack-roll",
+                                              domains: ["attack", "attack-roll", `${pf2Check}-attack-roll`],
+                                          },
+                                      })
+                                    : bySlug;
                             })();
                             if (!statistic) {
                                 console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check}`).message);
@@ -176,8 +194,6 @@ export const InlineRollLinks = {
                                 return null;
                             })();
 
-                            const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
-
                             // Retrieve the item if:
                             // (2) The item is an action or,
                             // (1) The check is a saving throw and the item is not a weapon.
@@ -195,14 +211,10 @@ export const InlineRollLinks = {
                                     ? itemFromDoc
                                     : null;
                             })();
-                            // Get actual traits and include as such
-                            const traits = isSavingThrow
-                                ? []
-                                : parsedTraits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
 
                             const args: StatisticRollParameters = {
                                 ...eventRollParams,
-                                extraRollOptions: parsedTraits,
+                                extraRollOptions,
                                 origin: isSavingThrow && parent instanceof ActorPF2e ? parent : null,
                                 dc,
                                 target: !isSavingThrow && dc?.statistic ? targetActor : null,
@@ -216,6 +228,8 @@ export const InlineRollLinks = {
                                 const subtitleLocKey =
                                     pf2Check in CONFIG.PF2E.magicTraditions
                                         ? "PF2E.ActionsCheck.spell"
+                                        : statistic.check.type === "attack-roll"
+                                        ? "PF2E.ActionsCheck.x-attack-roll"
                                         : "PF2E.ActionsCheck.x";
                                 args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                                     glyph: getActionGlyph(item.actionCost),

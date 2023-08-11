@@ -67,26 +67,26 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "add",
-                        "path": "system.abilities.str.value",
-                        "value": 4
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.abilities.dex.value",
-                        "value": 6
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.abilities.con.value",
+                        "path": "system.abilities.str.mod",
                         "value": 2
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "add",
-                        "path": "system.abilities.wis.value",
-                        "value": 4
+                        "path": "system.abilities.dex.mod",
+                        "value": 3
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.con.mod",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.wis.mod",
+                        "value": 2
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -253,8 +253,8 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "add",
-                        "path": "system.abilities.int.value",
-                        "value": -8
+                        "path": "system.abilities.int.mod",
+                        "value": -4
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -266,22 +266,22 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "add",
-                        "path": "system.abilities.int.value",
-                        "phase": "beforeDerived",
-                        "predicate": [
-                            "self:specialized"
-                        ],
-                        "value": 4
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.abilities.dex.value",
+                        "path": "system.abilities.int.mod",
                         "phase": "beforeDerived",
                         "predicate": [
                             "self:specialized"
                         ],
                         "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.dex.mod",
+                        "phase": "beforeDerived",
+                        "predicate": [
+                            "self:specialized"
+                        ],
+                        "value": 1
                     },
                     {
                         "add": [
@@ -367,7 +367,6 @@
     ],
     "name": "Precious",
     "system": {
-        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,

@@ -13,7 +13,7 @@ import { StatisticCheck } from "@system/statistic/index.ts";
 import { StrikeData, TraitViewData } from "./data/base.ts";
 import { ModifierPF2e } from "./modifiers.ts";
 import {
-    ABILITY_ABBREVIATIONS,
+    ATTRIBUTE_ABBREVIATIONS,
     DC_SLUGS,
     MOVEMENT_TYPES,
     SAVE_TYPES,
@@ -37,7 +37,7 @@ interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
 type EmbeddedItemInstances<TParent extends ActorPF2e> = {
     [K in keyof ItemInstances<TParent>]: ItemInstances<TParent>[K][];
 };
-type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
+type AttributeString = SetElement<typeof ATTRIBUTE_ABBREVIATIONS>;
 
 interface ActorDimensions {
     length: number;
@@ -67,7 +67,6 @@ interface AuraData {
 
 interface AuraEffectData {
     uuid: string;
-    level: number | null;
     affects: "allies" | "enemies" | "all";
     events: ("enter" | "turn-start" | "turn-end")[];
     save: {
@@ -190,7 +189,7 @@ type UnaffectedType = SetElement<typeof UNAFFECTED_TYPES>;
 type IWRType = ImmunityType | WeaknessType | ResistanceType;
 
 export {
-    AbilityString,
+    AttributeString,
     ActorAlliance,
     ActorDimensions,
     ActorInstances,

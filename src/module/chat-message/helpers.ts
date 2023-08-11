@@ -97,7 +97,7 @@ async function applyDamageFromMessage({
                 damage -= rolls.map((roll) => roll.total).reduce((previous, current) => previous + current);
             }
 
-            const modifiers = (contextClone.synthetics.statisticsModifiers["healing-received"] ?? [])
+            const modifiers = (contextClone.synthetics.modifiers["healing-received"] ?? [])
                 .map((deferred) => deferred())
                 .filter((modifier): modifier is ModifierPF2e => modifier instanceof ModifierPF2e)
                 .filter((modifier) => !!modifier.modifier)

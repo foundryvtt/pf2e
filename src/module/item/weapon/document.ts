@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { AbilityString } from "@actor/types.ts";
-import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
+import { AttributeString } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
@@ -77,7 +77,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** The default ability used in attack rolls */
-    get defaultAbility(): AbilityString {
+    get defaultAbility(): AttributeString {
         return this.system.ability ?? (this.isRanged ? "dex" : "str");
     }
 
@@ -287,7 +287,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
-        if (!setHasElement(ABILITY_ABBREVIATIONS, systemData.ability)) {
+        if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, systemData.ability)) {
             systemData.ability = null;
         }
 

@@ -81,7 +81,7 @@ class MetagameSettings extends SettingsMenuPF2e {
     /** Hide "metagame_showPartyStats" setting in production builds until party actor is released */
     override async getData(): Promise<MenuTemplateData> {
         const data = await super.getData();
-        if (BUILD_MODE === "production") {
+        if (BUILD_MODE === "production" && !game.actors.some((a) => a.type === "party")) {
             delete data.settings.showPartyStats;
         }
         return data;

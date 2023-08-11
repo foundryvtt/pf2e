@@ -56,7 +56,10 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     /** Is this condition locked in place by another? */
     override get isLocked(): boolean {
-        if (this.system.references.parent?.id || super.isLocked) return true;
+        const parentId = this.system.references.parent?.id ?? "";
+        if (this.actor?.items.has(parentId) || this.actor?.conditions.has(parentId) || super.isLocked) {
+            return true;
+        }
 
         const granterId = this.flags.pf2e.grantedBy?.id ?? "";
         const granter = this.actor?.items.get(granterId) ?? this.actor?.conditions.get(granterId);

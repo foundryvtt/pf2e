@@ -1,18 +1,18 @@
 import {
     AbilityBasedStatistic,
     ActorAttributes,
+    ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
     ActorTraitsData,
     ActorTraitsSource,
     BaseActorSourcePF2e,
-    HitPointsStatistic,
     StrikeData,
 } from "@actor/data/base.ts";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type {
-    AbilityString,
     ActorAlliance,
+    AttributeString,
     MovementType,
     SaveType,
     SkillAbbreviation,
@@ -110,13 +110,11 @@ interface SenseData {
 
 /** Data describing the value & modifier for a base ability score. */
 interface AbilityData {
-    /** The ability score: computed from the mod for npcs automatically. */
-    value: number;
-    /** The modifier for this ability; computed from the value for characters automatically. */
+    /** The modifier for this ability */
     mod: number;
 }
 
-type Abilities = Record<AbilityString, AbilityData>;
+type Abilities = Record<AttributeString, AbilityData>;
 
 /** A type representing the possible ability strings. */
 type Language = keyof ConfigPF2e["PF2E"]["languages"];
@@ -137,7 +135,7 @@ type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 interface CreatureAttributes extends ActorAttributes {
-    hp: HitPointsStatistic;
+    hp: ActorHitPoints;
     ac: { value: number };
     hardness?: { value: number };
     perception: CreaturePerception;

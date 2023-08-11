@@ -206,7 +206,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aquatic-ambush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "aquatic-ambush"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": "aquatic-ambush",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -238,7 +256,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirement</strong> An enemy is under a fear effect or @UUID[Compendium.pf2e.conditionitems.Item.Dying] within 15 feet of the will-o'-wisp.</p>\n<hr />\n<p><strong>Effect</strong> The will-o'wisp feeds on the creature's terror. It regains @Damage[2d4[healing]] Hit Points, and if it has Gone Dark, its glow reignites.</p>\n<p>A will-o'-wisp can take this action only once per round.</p>"
+                    "value": "<p><strong>Requirement</strong> An enemy is under a fear effect or @UUID[Compendium.pf2e.conditionitems.Item.Dying] within 15 feet of the will-o'-wisp.</p>\n<hr />\n<p><strong>Effect</strong> The will-o'wisp feeds on the creature's terror. It regains [[/r 2d4[healing]]] Hit Points, and if it has Gone Dark, its glow reignites.</p>\n<p>A will-o'-wisp can take this action only once per round.</p>"
                 },
                 "requirements": {
                     "value": ""

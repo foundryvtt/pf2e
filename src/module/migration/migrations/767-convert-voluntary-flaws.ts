@@ -1,4 +1,4 @@
-import { AbilityString } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { AncestrySystemData } from "@item/ancestry/data.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { MigrationBase } from "../base.ts";
@@ -12,10 +12,10 @@ export class Migration767ConvertVoluntaryFlaws extends MigrationBase {
         const system: AncestrySystemDataMaybeOld = source.system;
         const oldFlaws = Object.values(system.voluntaryFlaws ?? {})
             .map((b) => b.selected)
-            .filter((a): a is AbilityString => !!a);
+            .filter((a): a is AttributeString => !!a);
         const oldBoosts = Object.values(system.voluntaryBoosts ?? {})
             .map((b) => b.selected)
-            .filter((a): a is AbilityString => !!a);
+            .filter((a): a is AttributeString => !!a);
 
         if (oldBoosts.length || oldFlaws.length) {
             system.voluntary = {
@@ -37,8 +37,8 @@ export class Migration767ConvertVoluntaryFlaws extends MigrationBase {
 }
 
 interface DatumOld {
-    value: AbilityString[];
-    selected: AbilityString | null;
+    value: AttributeString[];
+    selected: AttributeString | null;
 }
 
 interface AncestrySystemDataMaybeOld extends AncestrySystemData {
@@ -47,7 +47,7 @@ interface AncestrySystemDataMaybeOld extends AncestrySystemData {
     "-=voluntaryBoosts"?: null;
     "-=voluntaryFlaws"?: null;
     voluntary?: {
-        flaws: AbilityString[];
-        boost?: AbilityString | null;
+        flaws: AttributeString[];
+        boost?: AttributeString | null;
     };
 }

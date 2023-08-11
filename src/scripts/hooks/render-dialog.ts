@@ -6,14 +6,14 @@ import { localizer } from "@util";
 export const RenderDialog = {
     listen: (): void => {
         Hooks.on("renderDialog", (_dialog, $html) => {
+            const html = $html[0];
             // For macros and modules
-            InlineRollLinks.listen($html);
+            InlineRollLinks.listen(html);
 
             // Break up the item document dialog into option groups
             // The class we're checking for is injected by the item document's createDialog() method
-            const element = $html[0];
-            if (element.classList.contains("dialog-item-create")) {
-                const select = element.querySelector<HTMLSelectElement>("select[name=type]");
+            if (html.classList.contains("dialog-item-create")) {
+                const select = html.querySelector<HTMLSelectElement>("select[name=type]");
                 const localize = localizer("PF2E.Item.CreationDialog.Categories");
                 if (select) {
                     select.append(extractOptGroup(select, localize("Physical"), [...PHYSICAL_ITEM_TYPES, "kit"]));

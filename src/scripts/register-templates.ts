@@ -9,12 +9,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/dice/damage-tooltip.hbs",
 
         // PC Sheet Tooltips and Section Partials
-        "systems/pf2e/templates/actors/character/partials/abilities.hbs",
+        "systems/pf2e/templates/actors/character/partials/attributes.hbs",
         "systems/pf2e/templates/actors/character/partials/background.hbs",
         "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
         "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",
-        "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/character/partials/traits.hbs",
 
         // PC Sheet Sidebar
@@ -49,12 +48,13 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/party/kingdom/advancement.hbs",
 
         // Shared Actor Sheet Partials
+        "systems/pf2e/templates/actors/partials/carry-type.hbs",
         "systems/pf2e/templates/actors/partials/coinage.hbs",
+        "systems/pf2e/templates/actors/partials/dying-pips.hbs",
+        "systems/pf2e/templates/actors/partials/effects.hbs",
         "systems/pf2e/templates/actors/partials/inventory.hbs",
         "systems/pf2e/templates/actors/partials/item-line.hbs",
-        "systems/pf2e/templates/actors/partials/carry-type.hbs",
-        "systems/pf2e/templates/actors/partials/effects.hbs",
-        "systems/pf2e/templates/actors/partials/dying-pips.hbs",
+        "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/partials/toggles.hbs",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.hbs",
         "systems/pf2e/templates/actors/crafting-entry-list.hbs",

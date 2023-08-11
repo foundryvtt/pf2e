@@ -266,6 +266,14 @@ export function registerSettings(): void {
     });
     WorldClockSettings.registerSettings();
 
+    game.settings.register("pf2e", "activeParty", {
+        name: "Active Party",
+        config: false,
+        type: String,
+        default: "",
+        onChange: () => ui.actors.render(true),
+    });
+
     game.settings.register("pf2e", "campaignType", {
         name: "PF2E.SETTINGS.CampaignType.Name",
         hint: "PF2E.SETTINGS.CampaignType.Hint",
@@ -287,6 +295,7 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
+        onChange: () => resetActors(),
     });
 
     // Secret for now until the user side is complete and a UI is built
@@ -296,6 +305,7 @@ export function registerSettings(): void {
         config: false,
         default: [],
         type: Array,
+        onChange: () => resetActors(),
     });
 
     // This only exists to not break existing macros (yet). We'll keep it for a few versions
@@ -319,6 +329,15 @@ export function registerSettings(): void {
             CONFIG.Canvas.darknessColor = color;
             canvas.colorManager.initialize();
         },
+    });
+
+    // Show the GM information about the remaster
+    game.settings.register("pf2e", "seenRemasterJournalEntry", {
+        name: "Seen Remaster journal entry?",
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
     });
 
     if (BUILD_MODE === "production") {

@@ -1,5 +1,5 @@
-import { AbilityString } from "@actor/types.ts";
-import { ABILITY_ABBREVIATIONS } from "@actor/values.ts";
+import { AttributeString } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { setHasElement, sluggify } from "@util";
@@ -12,7 +12,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
     private abilityModPattern = /@abilities\.([a-z]{3})\.mod\b/;
 
     private abbreviationMap = new Map(
-        Array.from(ABILITY_ABBREVIATIONS).map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a])
+        Array.from(ATTRIBUTE_ABBREVIATIONS).map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a])
     );
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
@@ -22,10 +22,10 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
                 typeof rule.key === "string" &&
                 rule.key.endsWith("FlatModifier") &&
                 rule.type === "ability" &&
-                !setHasElement(ABILITY_ABBREVIATIONS, rule.ability)
+                !setHasElement(ATTRIBUTE_ABBREVIATIONS, rule.ability)
             ) {
                 const abilityFromValue = (this.abilityModPattern.exec(String(rule.value))?.[1] ??
-                    null) as AbilityString | null;
+                    null) as AttributeString | null;
                 rule.ability = abilityFromValue ?? this.abbreviationMap.get(String(rule.label ?? "")) ?? "str";
                 if (typeof rule.value === "string" && rule.value.startsWith("@") && rule.value.endsWith(".mod")) {
                     delete rule.value;
@@ -51,5 +51,5 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
 interface MaybeFlatAbilityRule extends RuleElementSource {
     selector?: string;
     type?: string;
-    ability?: AbilityString;
+    ability?: AttributeString;
 }

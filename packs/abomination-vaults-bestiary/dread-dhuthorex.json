@@ -803,7 +803,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aquatic-ambush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "aquatic-ambush"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": "aquatic-ambush",
                 "source": {
                     "value": "Pathfinder Bestiary"
@@ -835,7 +853,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A dread dhuthorex deals [[/r 8[piercing]]] damage to its target if its jaws Strike is a failure (but not a critical failure).</p>"
+                    "value": "<p>A dread dhuthorex deals @Damage[8[piercing]] damage to its target if its jaws Strike is a failure (but not a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""

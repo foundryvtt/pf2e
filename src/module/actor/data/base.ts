@@ -3,7 +3,7 @@ import { DexterityModifierCapData } from "@actor/character/types.ts";
 import { Abilities } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
-import { AbilityString, ActorAlliance, SkillLongForm } from "@actor/types.ts";
+import { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
 import { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
@@ -157,7 +157,7 @@ interface AbilityBasedStatistic {
     /** Describes how the value was computed. */
     breakdown: string;
     /** The ability which this save scales off of. */
-    ability?: AbilityString;
+    ability?: AttributeString;
 }
 
 /** A roll function which can be called to roll a given skill. */

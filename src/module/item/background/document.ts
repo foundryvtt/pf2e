@@ -35,7 +35,7 @@ class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const boosts = Object.values(this.system.boosts);
         for (const boost of boosts) {
             if (boost.selected) {
-                build.abilities.boosts.background.push(boost.selected);
+                build.attributes.boosts.background.push(boost.selected);
             }
         }
 

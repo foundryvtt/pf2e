@@ -486,7 +486,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and @Damage[1d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -834,7 +834,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A yaganty who is doused with water or otherwise has their candle fingers extinguished takes [[/r 3d6[persistent,mental]]], becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and screams in agony until they reignite their candles (typically by casting <em>@UUID[Compendium.pf2e.spells-srd.Item.Produce Flame]</em> and lighting their fingers with an Interact action).</p>"
+                    "value": "<p>A yaganty who is doused with water or otherwise has their candle fingers extinguished takes @Damage[3d6[persistent,mental]], becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and screams in agony until they reignite their candles (typically by casting <em>@UUID[Compendium.pf2e.spells-srd.Item.Produce Flame]</em> and lighting their fingers with an Interact action).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -871,7 +871,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The yaganty whips a stream of scalding wax in a @Template[type:line|distance:30]. Each glob deals [[/r 1d6[persistent,fire]]] damage. An affected creature or adjacent ally can remove one glob of wax by spending an Interact action to scrape it off. The yaganty can't use Fling Wax again for [[/br 1d4 #Recharge Fling Wax]]{1d4 rounds}. Creatures in the area must attempt a @Check[type:reflex|dc:27|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is splattered with [[/r 1d2+1]]{1d2+1 globs of wax}.</p>\n<p><strong>Failure</strong> The creature is splattered with [[/r 1d4+2]]{1d4+2 globs of wax}.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until it removes the globs of wax.</p>"
+                    "value": "<p>The yaganty whips a stream of scalding wax in a @Template[type:line|distance:30]. Each glob deals @Damage[1d6[persistent,fire]] damage. An affected creature or adjacent ally can remove one glob of wax by spending an Interact action to scrape it off. The yaganty can't use Fling Wax again for [[/br 1d4 #Recharge Fling Wax]]{1d4 rounds}. Creatures in the area must attempt a @Check[type:reflex|dc:27|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is splattered with [[/r 1d2+1]]{1d2+1 globs of wax}.</p>\n<p><strong>Failure</strong> The creature is splattered with [[/r 1d4+2]]{1d4+2 globs of wax}.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until it removes the globs of wax.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1131,8 +1131,8 @@
                 "selected": [],
                 "value": [
                     "common",
-                    "infernal",
-                    "sylvan"
+                    "fey",
+                    "infernal"
                 ]
             },
             "rarity": "uncommon",

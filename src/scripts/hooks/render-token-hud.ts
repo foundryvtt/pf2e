@@ -9,7 +9,7 @@ export const RenderTokenHUD = {
             const html = $html[0];
             game.pf2e.StatusEffects.onRenderTokenHUD(html, data);
 
-            const token = canvas.scene?.tokens.get(data._id)?.object;
+            const token = canvas.scene?.tokens.get(data._id ?? "")?.object;
             RenderTokenHUD.addClownCarButton(html, token);
         });
     },

@@ -2,7 +2,7 @@ import { ActorSheetPF2e } from "../sheet/base.ts";
 import { VehiclePF2e } from "@actor/vehicle/index.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { ActionItemPF2e } from "@item";
+import { AbilityItemPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -40,12 +40,14 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<"action" | "reaction" | "free", { label: string; actions: RawObject<ActionItemPF2e>[] }> =
-            {
-                action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
-                reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
-                free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
-            };
+        const actions: Record<
+            "action" | "reaction" | "free",
+            { label: string; actions: RawObject<AbilityItemPF2e>[] }
+        > = {
+            action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
+            reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
+            free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
+        };
 
         // Actions
         for (const item of this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort)) {

@@ -5,13 +5,10 @@ declare global {
      * The client-side User document which extends the common BaseUser model.
      * Each User document contains UserData which defines its data schema.
      *
-     * @extends documents.BaseUser
-     * @mixes ClientDocumentMixin
-     *
-     * @see {@link documents.Users}             The world-level collection of User documents
-     * @see {@link applications.UserConfig}     The User configuration application
+     * @see {@link Users}       The world-level collection of User documents
+     * @see {@link UserConfig} The User configuration application
      */
-    class User extends ClientBaseUser {
+    class User<TCharacter extends Actor<null> = Actor<null>> extends ClientBaseUser<TCharacter> {
         constructor(data: PreCreate<foundry.documents.UserSource>, context?: DocumentConstructionContext<null>);
 
         /** Track whether the user is currently active in the game */
@@ -92,10 +89,6 @@ declare global {
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
     }
 
-    interface User extends ClientBaseUser {
-        character: Actor<null> | null;
-    }
-
     interface UserActivity {
         cursor?: object;
         focus?: boolean;
@@ -105,7 +98,7 @@ declare global {
         target?: string[];
     }
 
-    type Active<TUser extends User> = TUser & {
+    type Active<TUser extends User<Actor<null>>> = TUser & {
         color: HexColorString;
         border: HexColorString;
     };

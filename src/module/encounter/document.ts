@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
 import { resetActors } from "@actor/helpers.ts";
@@ -81,15 +81,14 @@ class EncounterPF2e extends Combat {
         const rollMode = options.messageOptions?.rollMode ?? options.rollMode;
         if (options.secret) extraRollOptions.push("secret");
 
-        const combatants: { id: string; actor: ActorPF2e | null }[] = ids.flatMap(
-            (id) => this.combatants.get(id) ?? []
-        );
-        const fightyCombatants = combatants.filter((c): c is { id: string; actor: ActorPF2e } => !!c.actor?.initiative);
+        const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []);
+        const fightyCombatants = combatants.filter((c) => !!c.actor?.initiative);
         const rollResults = await Promise.all(
             fightyCombatants.map(async (combatant): Promise<InitiativeRollResult | null> => {
                 return (
-                    combatant.actor.initiative?.roll({
+                    combatant.actor?.initiative?.roll({
                         ...options,
+                        combatant,
                         extraRollOptions,
                         updateTracker: false,
                         rollMode,
@@ -270,7 +269,7 @@ class EncounterPF2e extends Combat {
      * https://github.com/foundryvtt/foundryvtt/issues/9718
      */
     protected override async _manageTurnEvents(adjustedTurn?: number): Promise<void> {
-        if (this.previous || game.release.build >= 307) {
+        if (this.previous || game.release.build >= 308) {
             return super._manageTurnEvents(adjustedTurn);
         }
     }

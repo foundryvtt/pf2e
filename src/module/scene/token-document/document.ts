@@ -81,18 +81,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.parent;
     }
 
-    /** Workaround for https://github.com/foundryvtt/foundryvtt/issues/9467 */
-    protected override _initializeSource(
-        data: Record<string, unknown>,
-        options?: DocumentConstructionContext<TParent>
-    ): this["_source"] {
-        data.delta ??= {};
-        return super._initializeSource(data, options);
-    }
-
     protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
         this.auras = new Map();
+
         this._source.flags.pf2e ??= {};
         this._source.flags.pf2e.linkToActorSize ??= true;
         this._source.flags.pf2e.autoscale = this._source.flags.pf2e.linkToActorSize
@@ -300,7 +292,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Always override token images if in Nath mode
         if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(token.texture.src)) {
-            token.texture.src = ((): VideoFilePath => {
+            token.texture.src = ((): ImageFilePath | VideoFilePath => {
                 switch (actor.alliance) {
                     case "party":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
@@ -431,7 +423,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         super._onRelatedUpdate(update, options);
 
         const initializeVision =
-            this.sight.enabled && Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
+            !!this.scene?.isView &&
+            this.sight.enabled &&
+            Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
         if (initializeVision) canvas.perception.update({ initializeVision }, true);
 
         const preUpdate = this.toObject(false);
@@ -441,19 +435,20 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
         const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
+        if (this.scene?.isView && Object.keys(changes).length > 0) {
+            this.object?._onUpdate(changes, {}, game.user.id);
+        }
+
         // Assess the full diff using `diffObject`: additions, removals, and changes
         const aurasChanged = ((): boolean => {
+            if (!this.scene?.isInFocus) return false;
             const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
             const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
             return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
         })();
 
-        if (Object.keys(changes).length > 0) {
-            this.object?._onUpdate(changes, {}, game.user.id);
-        }
-
         if (aurasChanged || "width" in changes || "height" in changes) {
-            this.scene?.checkAuras();
+            this.scene?.checkAuras?.();
         }
     }
 
@@ -481,8 +476,6 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
     delta: ActorDeltaPF2e<this> | null;
-
-    overlayEffect: ImageFilePath;
 }
 
 export { TokenDocumentPF2e };
