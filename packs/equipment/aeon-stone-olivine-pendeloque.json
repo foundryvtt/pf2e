@@ -37,13 +37,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "or": [
-                        "confused",
-                        "frightened",
-                        "stupefied"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
                 "selector": [
                     "fortitude",
                     "reflex",
