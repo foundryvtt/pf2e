@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ConditionPF2e, ItemPF2e } from "@item";
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts";
+import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ConditionManager } from "@system/conditions/manager.ts";
@@ -63,6 +64,13 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         await this.update({ system: { stage } });
+    }
+
+    get onsetDuration(): number {
+        if (!this.system.onset) {
+            return 0;
+        }
+        return this.system.onset.value * (DURATION_UNITS[this.system.onset.unit] ?? 0);
     }
 
     override prepareBaseData(): void {
@@ -196,8 +204,10 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }))
         );
 
-        // Create the message in the chat
-        await this.createStageMessage();
+        // Show message if there is no onset
+        if (!this.system.onset) {
+            await this.createStageMessage();
+        }
     }
 
     override getLinkedItems(): ItemPF2e<ActorPF2e>[] {
@@ -223,6 +233,20 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const { template, context } = damage;
             await DamagePF2e.roll(template, context);
         }
+    }
+
+    /** Set the start time and initiative roll of a newly created effect */
+    protected override async _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        if (this.isOwned) {
+            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+            this._source.system.start = { value: game.time.worldTime + this.onsetDuration, initiative };
+        }
+
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
@@ -277,6 +301,16 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             } else {
                 this.increase();
             }
+        }
+    }
+
+    override prepareActorData(): void {
+        super.prepareActorData();
+        const actor = this.actor;
+        if (!actor) throw ErrorPF2e("prepareActorData called from unembedded item");
+
+        if (this.system.onset) {
+            actor.rollOptions.all[`self:${this.type}:${this.rollOptionSlug}:onset`] = true;
         }
     }
 }

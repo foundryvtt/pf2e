@@ -31,10 +31,10 @@ interface AfflictionSystemSource extends AbstractEffectSystemSource {
     stage: number;
     stages: Record<string, AfflictionStageData>;
     onset?: AfflictionOnset;
-    duration: {
+    duration: AfflictionDuration;
+    start: {
         value: number;
-        unit: TimeUnit | "unlimited";
-        expiry?: null;
+        initiative: number | null;
     };
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
@@ -61,6 +61,12 @@ interface AfflictionStageData {
     effects: AfflictionEffectData[];
 }
 
+interface AfflictionDuration {
+    value: number;
+    unit: TimeUnit | "unlimited";
+    expiry: AfflictionExpiryType | null;
+}
+
 interface AfflictionConditionData {
     slug: ConditionSlug;
     value?: number;
@@ -72,7 +78,11 @@ interface AfflictionEffectData {
     uuid: ItemUUID;
 }
 
+type AfflictionExpiryType = "turn-end";
+
 export {
+    AfflictionExpiryType,
+    AfflictionDuration,
     AfflictionConditionData,
     AfflictionDamage,
     AfflictionFlags,
