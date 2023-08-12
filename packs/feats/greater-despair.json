@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You increase the frequency of Mummy's Despair to once per 10 minutes instead of once per hour. A creature that critically fails its Will saving throw is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round instead of @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. Mummy's Despair gains the incapacitation trait.</p>"
+            "value": "<p>You increase the frequency of @UUID[Compendium.pf2e.feats-srd.Item.Mummy's Despair] to once per 10 minutes instead of once per hour. A creature that critically fails its Will saving throw is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round instead of @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. Mummy's Despair gains the incapacitation trait.</p>"
         },
         "level": {
             "value": 12
@@ -23,7 +23,18 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:mummys-despair"
+                ],
+                "property": "frequency-per",
+                "value": "PT10M"
+            }
+        ],
         "source": {
             "value": "Pathfinder Book of the Dead"
         },
