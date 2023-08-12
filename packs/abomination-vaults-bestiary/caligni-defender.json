@@ -1193,12 +1193,28 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When adjacent to one or more defenders they can see, the defender deals an additional [[/r {2d6}]]{2d6 damage} with their Strikes.</p>"
+                    "value": "<p>When adjacent to one or more defenders they can see, the defender deals an additional 2d6 damage with their Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "shoulder-to-shoulder-active"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "shoulder-to-shoulder-active",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
