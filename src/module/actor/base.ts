@@ -109,6 +109,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** A collection of this actor's conditions */
     declare conditions: ActorConditions<this>;
 
+    declare perception?: Statistic;
+
     /** Skill checks for the actor if supported by the actor type */
     declare skills?: Partial<CreatureSkills>;
 
@@ -809,7 +811,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   ]
                 : [null, null];
 
-        const selfOptions = this.getRollOptions(params.domains ?? []);
+        const selfOptions = [...this.getRollOptions(params.domains ?? []), ...params.options];
 
         // Get ephemeral effects from the target that affect this actor while attacking
         const originEphemeralEffects = await extractEphemeralEffects({
@@ -949,20 +951,27 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             : (params.target?.actor ?? targetToken?.actor)?.getContextualClone(
                   [
                       ...selfActor.getSelfRollOptions("origin"),
+                      ...params.options,
                       ...itemOptions,
                       ...(originDistance ? [originDistance] : []),
                   ],
                   targetEphemeralEffects
               ) ?? null;
 
-        const rollOptions = new Set([
-            ...params.options,
-            ...selfOptions,
-            ...(targetActor ? getTargetRollOptions(targetActor) : targetRollOptions),
-            ...itemOptions,
-            // Backward compatibility for predication looking for an "attack" trait by its lonesome
-            "attack",
-        ]);
+        const isAttack =
+            params.statistic instanceof StatisticModifier ||
+            (params.statistic instanceof Statistic &&
+                ["attack-roll", "spell-attack-roll"].includes(params.statistic.check.type));
+        const rollOptions = new Set(
+            R.compact([
+                ...params.options,
+                ...selfOptions,
+                ...(targetActor ? getTargetRollOptions(targetActor) : targetRollOptions),
+                ...itemOptions,
+                // Backward compatibility for predication looking for an "attack" trait by its lonesome
+                isAttack ? "attack" : null,
+            ]).sort()
+        );
 
         if (targetDistance) rollOptions.add(targetDistance);
         const rangeIncrement = selfItem ? getRangeIncrement(selfItem, distance) : null;

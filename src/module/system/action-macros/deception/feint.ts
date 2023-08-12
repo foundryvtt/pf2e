@@ -12,8 +12,7 @@ export function feint(options: SkillActionOptions): void {
         traits: ["mental"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "success"),

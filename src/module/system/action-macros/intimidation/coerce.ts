@@ -13,8 +13,7 @@ function coerce(options: SkillActionOptions): void {
         traits: ["auditory", "concentrate", "emotion", "exploration", "linguistic", "mental"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.will,
+        difficultyClass: options.difficultyClass ?? "will",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Coerce", "success"),
@@ -29,7 +28,7 @@ function coerce(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.Coerce.Description",
-    difficultyClass: "saves.will",
+    difficultyClass: "will",
     name: "PF2E.Actions.Coerce.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.Coerce.Notes.criticalSuccess" },

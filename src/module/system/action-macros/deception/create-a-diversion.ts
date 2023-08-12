@@ -44,8 +44,7 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         traits,
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),

@@ -32,8 +32,7 @@ export function arcaneSlam(options: SkillActionOptions): void {
         traits: ["automaton"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.fortitude,
+        difficultyClass: options.difficultyClass ?? "fortitude",
         extraNotes: (selector: string) => {
             const notes = [
                 ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "criticalSuccess"),

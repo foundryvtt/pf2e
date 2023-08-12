@@ -1,15 +1,18 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { Statistic } from "@system/statistic/index.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
-import { CreaturePF2e } from "@module/actor/index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ActorPF2e } from "@module/actor/index.ts";
+import { CheckDC } from "@system/degree-of-success.ts";
+import { Statistic } from "@system/statistic/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.AdministerFirstAid";
 
 const ADMINISTER_FIRST_AID_VARIANTS = ["stabilize", "stop-bleeding"] as const;
 type AdministerFirstAidVariant = (typeof ADMINISTER_FIRST_AID_VARIANTS)[number];
 
-function stabilizeDifficultyClass(target: CreaturePF2e) {
+function stabilizeDifficultyClass(target: ActorPF2e): CheckDC | null {
+    if (!target?.isOfType("creature")) return null;
+
     const { dying } = target.attributes;
     if (!dying?.value) {
         throw new Error(game.i18n.localize(`${PREFIX}.Warning.TargetNotDying`));
@@ -19,11 +22,12 @@ function stabilizeDifficultyClass(target: CreaturePF2e) {
         label: "PF2E.ModifierTitle",
         modifier: 5 + dying.recoveryDC + dying.value - 10,
     });
+
     return new Statistic(target, {
         slug: "administer-first-aid",
         label: `${PREFIX}.Stabilize.Title`,
         dc: { label: `${PREFIX}.Stabilize.DifficultyClass.Label`, modifiers: [dcModifier] },
-    });
+    }).dc;
 }
 
 function administerFirstAid(options: { variant: AdministerFirstAidVariant } & SkillActionOptions): void {
@@ -68,21 +72,22 @@ function administerFirstAid(options: { variant: AdministerFirstAidVariant } & Sk
         traits: ["manipulate"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => {
-            if (variant === "stabilize" && target) {
-                try {
-                    return stabilizeDifficultyClass(target);
-                } catch (error) {
-                    if (error instanceof Error) {
-                        ui.notifications.warn(error.message);
-                    } else {
-                        throw error;
+        difficultyClass:
+            options.difficultyClass ??
+            ((target) => {
+                if (variant === "stabilize" && target) {
+                    try {
+                        return stabilizeDifficultyClass(target);
+                    } catch (error) {
+                        if (error instanceof Error) {
+                            ui.notifications.warn(error.message);
+                        } else {
+                            throw error;
+                        }
                     }
                 }
-            }
-            return null;
-        },
+                return null;
+            }),
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, notes.success, ["success", "criticalSuccess"]),
             ActionMacroHelpers.outcomesNote(selector, notes.criticalFailure, ["criticalFailure"]),
@@ -91,12 +96,6 @@ function administerFirstAid(options: { variant: AdministerFirstAidVariant } & Sk
         ui.notifications.error(error.message);
         throw error;
     });
-}
-
-class StabilizeActionVariant extends SingleCheckActionVariant {
-    protected override difficultyClassWithTarget(target: CreaturePF2e): Statistic | null {
-        return stabilizeDifficultyClass(target);
-    }
 }
 
 class AdministerFirstAidAction extends SingleCheckAction {
@@ -130,15 +129,8 @@ class AdministerFirstAidAction extends SingleCheckAction {
             ],
         });
     }
-
-    protected override toActionVariant(data?: SingleCheckActionVariantData): SingleCheckActionVariant {
-        if (data?.slug === "stabilize") {
-            return new StabilizeActionVariant(this, data);
-        }
-        return super.toActionVariant(data);
-    }
 }
 
 const action = new AdministerFirstAidAction();
 
-export { administerFirstAid as legacy, action };
+export { action, administerFirstAid as legacy };

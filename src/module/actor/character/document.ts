@@ -12,7 +12,6 @@ import {
     StatisticModifier,
     createAbilityModifier,
     createProficiencyModifier,
-    ensureProficiencyOption,
 } from "@actor/modifiers.ts";
 import {
     AttackItem,
@@ -1307,23 +1306,27 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
-        weaponRollOptions.push(`item:proficiency:rank:${proficiencyRank}`);
         modifiers.push(createProficiencyModifier({ actor: this, rank: proficiencyRank, domains: baseSelectors }));
 
         const baseOptions = new Set([
-            ...this.getRollOptions(baseSelectors),
+            `item:proficiency:rank:${proficiencyRank}`,
             ...weaponTraits, // always add weapon traits as options
-            ...weaponRollOptions,
             meleeOrRanged,
         ]);
-        ensureProficiencyOption(baseOptions, proficiencyRank);
+
+        // Roll options used only in the initial stage of building the strike action
+        const initialRollOptions = new Set([
+            ...baseOptions,
+            ...this.getRollOptions(baseSelectors),
+            ...weaponRollOptions,
+        ]);
 
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
             const options = { resolvables: { weapon } };
             const abilityModifier = [...modifiers, ...extractModifiers(synthetics, baseSelectors, options)]
                 .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability")
-                .flatMap((modifier) => (modifier.predicate.test(baseOptions) ? modifier : []))
+                .flatMap((modifier) => (modifier.predicate.test(initialRollOptions) ? modifier : []))
                 .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
 
             if (!abilityModifier) {
@@ -1359,7 +1362,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const weaponPotency = (() => {
             const potency = selectors
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
-                .filter((wp) => wp.predicate.test(baseOptions));
+                .filter((wp) => wp.predicate.test(initialRollOptions));
 
             if (weapon.system.runes.potency) {
                 potency.push({
@@ -1392,7 +1395,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
 
         // Multiple attack penalty
-        const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: baseOptions });
+        const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
 
         const auxiliaryActions: WeaponAuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);

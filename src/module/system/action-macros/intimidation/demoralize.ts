@@ -21,8 +21,7 @@ function demoralize(options: SkillActionOptions): void {
         traits: ["auditory", "concentrate", "emotion", "fear", "mental"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.will,
+        difficultyClass: options.difficultyClass ?? "will",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Demoralize", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Demoralize", "success"),
@@ -35,7 +34,7 @@ function demoralize(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.Demoralize.Description",
-    difficultyClass: "saves.will",
+    difficultyClass: "will",
     modifiers: [
         {
             label: "PF2E.Actions.Demoralize.Unintelligible",

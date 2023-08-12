@@ -12,8 +12,7 @@ export function bonMot(options: SkillActionOptions): void {
         traits: ["auditory", "concentrate", "emotion", "linguistic", "mental"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.will,
+        difficultyClass: options.difficultyClass ?? "will",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.BonMot", "success"),

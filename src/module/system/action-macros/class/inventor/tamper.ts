@@ -12,8 +12,7 @@ export function tamper(options: SkillActionOptions): void {
         traits: ["inventor", "manipulate"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.saves.reflex,
+        difficultyClass: options.difficultyClass ?? "reflex",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "success"),

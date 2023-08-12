@@ -15,8 +15,7 @@ function hide(options: SkillActionOptions): void {
         traits: ["secret"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
         ],

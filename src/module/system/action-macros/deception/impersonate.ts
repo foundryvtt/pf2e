@@ -14,8 +14,7 @@ export function impersonate(options: SkillActionOptions): void {
         traits: ["concentrate", "exploration", "manipulate", "secret"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.perception,
+        difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.note(selector, PREFIX, "failure"),
