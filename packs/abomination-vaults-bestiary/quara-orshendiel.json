@@ -1682,12 +1682,28 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Quara Strides or Steps, then Strikes. This Strike deals an additional [[/r {3d6}]]{3d6 damage}.</p>"
+                    "value": "<p>Quara Strides or Steps, then Strikes. This Strike deals an additional 3d6 damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "skirmishing-dash-active"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "skirmishing-dash-active",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
