@@ -1171,6 +1171,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         slug: "thundering",
         traits: ["evocation", "magical", "sonic"],
     },
+    underwater: {
+        level: 3,
+        name: "PF2E.WeaponPropertyRune.underwater.Name",
+        price: 50,
+        rarity: "common",
+        slug: "underwater",
+        traits: ["magical", "water"],
+    },
     unholy: {
         damage: {
             dice: [
