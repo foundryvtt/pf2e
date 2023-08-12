@@ -577,7 +577,17 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "selector": "{item|id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -586,7 +596,7 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "deadly-d8",
+                        "deadly-d10",
                         "evil",
                         "fire",
                         "forceful",
