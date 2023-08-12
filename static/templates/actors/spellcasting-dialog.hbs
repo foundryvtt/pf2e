@@ -3,7 +3,7 @@
         <div class="form-group">
             <label>{{localize "PF2E.SpellcastingTypeLabel"}}</label>
             <select name="system.prepared.value" {{disabled object.id}}>
-                {{#select data.prepared.value}}
+                {{#select system.prepared.value}}
                     {{#each spellcastingTypes as |label mode|}}
                         <option value="{{mode}}">{{localize label}}</option>
                     {{/each}}
@@ -13,14 +13,14 @@
         {{#if object.isPrepared}}
             <div class="form-group">
                 <label>{{localize "PF2E.SpellFlexibleLabel"}}</label>
-                <input name="system.prepared.flexible" type="checkbox" {{checked data.prepared.flexible}}/>
+                <input name="system.prepared.flexible" type="checkbox" {{checked system.prepared.flexible}}/>
             </div>
         {{/if}}
-        {{#if (eq data.prepared.value "items")}}
+        {{#if (eq system.prepared.value "items")}}
             <div class="form-group">
                 <label>{{localize "PF2E.Actor.Creature.Spellcasting.MagicItemTypesLabel"}}</label>
                 <select name="system.prepared.validItems">
-                    {{#select data.prepared.validItems}}
+                    {{#select system.prepared.validItems}}
                         <option>{{localize "PF2E.Actor.Creature.Spellcasting.ValidItemTypes.All"}}</option>
                         <option value="scroll">{{localize "PF2E.Actor.Creature.Spellcasting.ValidItemTypes.Scroll"}}</option>
                     {{/select}}
@@ -33,8 +33,8 @@
             <div class="form-group">
                 <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
                 <select name="system.tradition.value">
-                    {{#select data.tradition.value}}
-                        {{#if (eq data.prepared.value "items")}}
+                    {{#select system.tradition.value}}
+                        {{#if (eq system.prepared.value "items")}}
                             <option value="">{{localize "PF2E.MagicTraditionUseSpellLabel"}}</option>
                         {{/if}}
                         {{#each magicTraditions as |label mode|}}
@@ -47,36 +47,34 @@
                 <div class="form-group">
                     <label>{{localize "PF2E.ProficiencyLabel"}}</label>
                     <select name="system.proficiency.slug">
-                        {{#select data.proficiency.slug}}
-                            {{#if data.tradition.value}}
+                        {{#select system.proficiency.slug}}
+                            {{#if system.tradition.value}}
                                 <option value="">
-                                    {{localize "PF2E.Actor.Creature.Spellcasting.TraditionSpellcasting" tradition=(localize (lookup @root.magicTraditions data.tradition.value))}}
+                                    {{localize "PF2E.Actor.Creature.Spellcasting.TraditionSpellcasting" tradition=(localize (lookup @root.magicTraditions system.tradition.value))}}
                                 </option>
                             {{/if}}
-                            {{#each classDCs as |classDC|}}
-                                <option value="{{classDC.slug}}">{{localize "PF2E.Actor.Character.ClassDC.LabelSpecific" class=classDC.label}}</option>
+                            {{#each statistics as |statistic|}}
+                                <option value="{{statistic.slug}}">{{statistic.label}}</option>
                             {{/each}}
                         {{/select}}
                     </select>
                 </div>
             {{/if}}
-            {{#if hasAbility}}
-                <div class="form-group">
-                    <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
-                    <select name="system.ability.value">
-                        {{#select data.ability.value}}
-                            {{#each abilities as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
-            {{/if}}
+            <div class="form-group">
+                <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
+                <select name="system.ability.value" {{disabled (not isAttributeConfigurable)}}>
+                    {{#select selectedAttribute}}
+                        {{#each attributes as |label key|}}
+                            <option value="{{key}}">{{localize label}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
             {{#if (eq actor.type "npc")}}
                 <div class="form-group">
                     <label>{{localize "PF2E.SpellcastingSettings.AutoHeightenLabel"}}</label>
                     <select name="system.autoHeightenLevel.value" data-dtype="Number">
-                        {{#select data.autoHeightenLevel.value}}
+                        {{#select system.autoHeightenLevel.value}}
                             <option>{{localize "PF2E.SpellcastingSettings.AutoHeightenDefault"}}</option>
                             {{#times 10}}
                                 <option value="{{add this 1}}">{{localize "PF2E.SpellLevel" level=(ordinal (add this 1))}}</option>

@@ -177,6 +177,8 @@ interface NPCAttributes
 
     /** A fake class DC (set to a level-based DC) for use with critical specialization effects that require it */
     classDC: { value: number };
+    /** The best spell DC */
+    spellDC: { value: number } | null;
     /** And a fake class-or-spell DC to go along with it */
     classOrSpellDC: { value: number };
 

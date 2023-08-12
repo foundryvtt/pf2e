@@ -15,6 +15,7 @@ import {
     SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
 } from "./types.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
@@ -134,6 +135,91 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             const proficiency = actor.system.proficiencies.traditions[tradition];
             const rank = this.system.proficiency.value;
             proficiency.rank = Math.max(rank, proficiency.rank) as OneToFour;
+        }
+    }
+
+    /** Prepares the statistic for this spellcasting entry */
+    prepareStatistic(): void {
+        const actor = this.actor;
+        if (!actor) return;
+        const { attribute, tradition } = this;
+
+        const slug = this.slug ?? sluggify(`${this.name}-spellcasting`);
+        const baseDomains = ["all", `${attribute}-based`, "spell-attack-dc"];
+        const checkDomains = [
+            `${tradition}-spell-attack`,
+            "spell-attack",
+            "spell-attack-roll",
+            "attack",
+            "attack-roll",
+        ];
+        const dcDomains = [`${tradition}-spell-dc`, "spell-dc"];
+
+        // Prepare casting entry based on actor type
+        // Characters prepare spellcasting by extending a statistic.
+        // NPCs prepare spellcasting with explicit values.
+        if (actor.isOfType("character")) {
+            // Innate casting entries match the highest proficiency
+            if (this.isInnate) {
+                const allRanks = Object.values(actor.traditions).map((t) => t.rank ?? 0);
+                this.system.proficiency.value = Math.max(1, this.rank, ...allRanks) as ZeroToFour;
+            }
+
+            // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
+            const baseStat = actor.getStatistic(this.system.proficiency.slug);
+            if (!baseStat) return;
+
+            this.system.ability.value = baseStat.ability ?? this.system.ability.value;
+            this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ZeroToFour;
+            this.statistic = baseStat.extend({
+                slug,
+                ability: this.attribute,
+                rank: this.rank,
+                rollOptions: this.getRollOptions("spellcasting"),
+                domains: baseDomains,
+                check: {
+                    type: "spell-attack-roll",
+                    domains: checkDomains,
+                },
+                dc: { domains: dcDomains },
+            });
+        } else if (actor.isOfType("npc")) {
+            // Check and save modifier
+            const adjustment = actor.isElite ? 2 : actor.isWeak ? -2 : 0;
+            const baseMod = Number(this.system?.spelldc?.value ?? 0) + adjustment;
+            const baseDC = Number(this.system?.spelldc?.dc ?? 0) + adjustment;
+
+            // Assign statistic data to the spellcasting entry
+            this.statistic = new Statistic(actor, {
+                slug,
+                ability: this.attribute,
+                label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
+                domains: baseDomains,
+                rollOptions: this.getRollOptions("spellcasting"),
+                check: {
+                    type: "spell-attack-roll",
+                    domains: checkDomains,
+                    modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, "untyped")],
+                },
+                dc: {
+                    domains: dcDomains,
+                    modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, "untyped")],
+                },
+            });
+        } else {
+            throw ErrorPF2e(`Actor type ${actor.type} does not support spellcasting entries`);
+        }
+
+        // Check if the new statistic exceeds the current actor best spell dc
+        const stat = actor.isOfType("npc")
+            ? { value: this.statistic.dc.value }
+            : { value: this.statistic.dc.value, rank: this.statistic.rank ?? 0 };
+        const attributes = actor.system.attributes;
+        if (stat.value > attributes.classOrSpellDC.value) {
+            attributes.classOrSpellDC = stat;
+        }
+        if (!attributes.spellDC || stat.value > attributes.spellDC.value) {
+            attributes.spellDC = stat;
         }
     }
 
