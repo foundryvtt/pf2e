@@ -34,10 +34,26 @@ interface AbilitySystemSource extends ItemSystemSource {
     deathNote: boolean;
     frequency?: FrequencySource;
     level?: never;
+
+    /** A self-applied effect for simple actions */
+    selfEffect?: SelfEffectReferenceSource | null;
+}
+
+interface SelfEffectReferenceSource {
+    uuid: ItemUUID;
+    name: string;
 }
 
 interface AbilitySystemData extends AbilitySystemSource, Omit<ItemSystemData, "level" | "traits"> {
     frequency?: Frequency;
+    /** A self-applied effect for simple actions */
+    selfEffect: SelfEffectReference | null;
 }
 
-export { AbilityItemSource, AbilitySystemData, AbilityTraits };
+interface SelfEffectReference extends SelfEffectReferenceSource {
+    uuid: ItemUUID;
+    name: string;
+    img?: ImageFilePath;
+}
+
+export { AbilityItemSource, AbilitySystemData, AbilityTraits, SelfEffectReference, SelfEffectReferenceSource };
