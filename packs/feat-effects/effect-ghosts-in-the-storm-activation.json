@@ -1,0 +1,49 @@
+{
+    "_id": "Sb3ZdFs61atILypS",
+    "img": "systems/pf2e/icons/spells/lightning-storm.webp",
+    "name": "Effect: Ghosts in the Storm (Activation)",
+    "system": {
+        "description": {
+            "value": "<p>The creature is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and its Strikes gain the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Shock]</em> rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "shock"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
