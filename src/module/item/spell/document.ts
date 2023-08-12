@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
-import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
@@ -117,6 +117,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null {
         const spellcastingId = this.system.location.value;
+        if (this.trickMagicEntry) return this.trickMagicEntry;
         return (this.actor?.spellcasting.find((e) => e.id === spellcastingId) ?? null) as BaseSpellcastingEntry<
             NonNullable<TParent>
         > | null;
@@ -139,7 +140,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get attribute(): AttributeString {
-        return this.spellcasting?.attribute ?? this.trickMagicEntry?.attribute ?? "cha";
+        return this.spellcasting?.attribute ?? "cha";
     }
 
     /** @deprecated */
@@ -597,7 +598,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const messageSource = message.toObject();
         const flags = messageSource.flags.pf2e;
-        const entry = this.trickMagicEntry ?? this.spellcasting;
+        const entry = this.spellcasting;
 
         if (entry?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
@@ -664,16 +665,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const options = { ...htmlOptions, rollData };
         const description = await TextEditor.enrichHTML(this.description, { ...options, async: true });
 
-        const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
-        if (!spellcasting && !trickData) {
+        if (!spellcasting) {
             console.warn(
                 `PF2e System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
             );
             return { ...systemData };
         }
 
-        const statistic = trickData?.statistic ?? spellcasting?.statistic;
+        const statistic = spellcasting?.statistic;
         if (!statistic && !this.isRitual) {
             console.warn(
                 `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
@@ -770,11 +770,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         attackNumber = 1,
         context: StatisticRollParameters = {}
     ): Promise<void> {
-        // Prepare roll data
-        const trickMagicEntry = this.trickMagicEntry;
-        const spellcastingEntry = this.spellcasting;
-        const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
-
+        const statistic = this.spellcasting?.statistic;
         if (statistic) {
             await statistic.check.roll({ ...eventToRollParams(event), ...context, item: this, attackNumber });
         } else {
@@ -817,9 +813,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         event = event instanceof Event ? event : event?.originalEvent;
         if (!this.actor?.isOfType("character", "npc")) return null;
 
-        const spellcastingEntry = this.trickMagicEntry ?? this.spellcasting;
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            throw ErrorPF2e("Spell points to location that is not a spellcasting type");
+        const statistic = this.spellcasting?.statistic;
+        if (!statistic) {
+            console.warn(
+                `PF2e System | Spell ${this.name} is missing a statistic to counteract with (${this.id}) on actor ${this.actor.name}`
+            );
+            return null;
         }
 
         const domain = "counteract-check";
@@ -843,7 +842,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         ];
 
         const traits = this.system.traits.value;
-        const { check } = spellcastingEntry.statistic.extend({ domains: [domain], rollOptions: traits });
+        const { check } = statistic.extend({ domains: [domain], rollOptions: traits });
 
         return check.roll({
             ...eventToRollParams(event),
