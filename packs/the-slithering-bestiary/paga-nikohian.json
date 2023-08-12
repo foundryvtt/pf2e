@@ -3096,12 +3096,12 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "action:seek",
-                            "target:within-30-feet",
+                            "self:action:slug:seek",
+                            "target:distance:30",
                             {
                                 "or": [
-                                    "target:hidden",
-                                    "target:undetected"
+                                    "target:condition:hidden",
+                                    "target:condition:undetected"
                                 ]
                             }
                         ],

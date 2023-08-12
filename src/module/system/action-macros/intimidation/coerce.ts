@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function coerce(options: SkillActionOptions): void {
     const slug = options?.skill ?? "intimidation";
-    const rollOptions = ["action:coerce"];
+    const rollOptions = ["self:action:slug:coerce"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -36,7 +36,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: "PF2E.Actions.Coerce.Notes.failure" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.Coerce.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:coerce"],
+    rollOptions: ["self:action:slug:coerce"],
     slug: "coerce",
     statistic: "intimidation",
     traits: ["auditory", "concentrate", "emotion", "exploration", "linguistic", "mental"],

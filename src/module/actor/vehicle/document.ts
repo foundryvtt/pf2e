@@ -127,9 +127,8 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
             label: CONFIG.PF2E.saves.fortitude,
             modifiers,
             domains,
-            check: {
-                type: "saving-throw",
-            },
+            check: { type: "saving-throw" },
+            dc: { domains: ["save-dc", "fortitude-dc"] },
         });
 
         this.saves = { fortitude };

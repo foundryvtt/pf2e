@@ -21,7 +21,7 @@ export function perform(options: { variant: PerformVariant } & SkillActionOption
         return;
     }
     const slug = options?.skill ?? "performance";
-    const rollOptions = ["action:perform", `action:perform:${options.variant}`];
+    const rollOptions = ["self:action:slug:perform", `action:perform:${options.variant}`];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

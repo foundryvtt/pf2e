@@ -4,7 +4,7 @@ const PREFIX = "PF2E.Actions.Impersonate";
 
 export function impersonate(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
-    const rollOptions = ["action:impersonate"];
+    const rollOptions = ["self:action:slug:impersonate"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

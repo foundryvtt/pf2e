@@ -2,7 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 export function bonMot(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
-    const rollOptions = ["action:bon-mot"];
+    const rollOptions = ["self:action:slug:bon-mot"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

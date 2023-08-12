@@ -2,7 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 export function swim(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
-    const rollOptions = ["action:swim"];
+    const rollOptions = ["self:action:slug:swim"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

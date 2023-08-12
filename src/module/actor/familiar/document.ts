@@ -158,6 +158,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 domains: selectors,
                 modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
                 check: { type: "saving-throw" },
+                dc: { domains: ["save-dc", `${saveType}-dc`] },
             });
 
             return { ...partialSaves, [saveType]: stat };

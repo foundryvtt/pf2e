@@ -2,7 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 export function forceOpen(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
-    const rollOptions = ["action:force-open"];
+    const rollOptions = ["self:action:slug:force-open"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

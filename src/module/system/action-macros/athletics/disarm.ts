@@ -4,7 +4,7 @@ import { WeaponPF2e } from "@item";
 
 export function disarm(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
-    const rollOptions = ["action:disarm"];
+    const rollOptions = ["self:action:slug:disarm"];
     ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",

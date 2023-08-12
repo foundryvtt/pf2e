@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.Sneak";
 
 function sneak(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
-    const rollOptions = ["action:sneak"];
+    const rollOptions = ["self:action:slug:sneak"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -37,7 +37,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:sneak"],
+    rollOptions: ["self:action:slug:sneak"],
     slug: "sneak",
     statistic: "stealth",
     traits: ["move", "secret"],

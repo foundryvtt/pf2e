@@ -39,7 +39,7 @@ export async function craft(options: CraftActionOptions): Promise<void> {
     const free = !!options.free;
 
     const slug = options?.skill ?? "crafting";
-    const rollOptions = ["action:craft"];
+    const rollOptions = ["self:action:slug:craft"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

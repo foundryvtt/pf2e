@@ -874,6 +874,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 modifiers,
                 domains: selectors,
                 check: { type: "saving-throw" },
+                dc: { domains: ["save-dc", `${saveType}-dc`] },
             });
 
             saves[saveType] = stat;
@@ -1252,6 +1253,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const baseOptions = new Set([
             `item:proficiency:rank:${proficiencyRank}`,
+            ...(weapon.system.options?.value ?? []),
             ...weaponTraits, // always add weapon traits as options
             meleeOrRanged,
         ]);
@@ -1434,7 +1436,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             item: weapon,
             type: "strike" as const,
             ...flavor,
-            options: weapon.system.options?.value ?? [],
             traits: [],
             weaponTraits: Array.from(weaponTraits)
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
@@ -1548,7 +1549,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     statistic: action,
                     target: { token: game.user.targets.first() ?? null },
                     targetedDC: "armor",
-                    options: new Set([...baseOptions, ...params.options, ...action.options]),
+                    options: new Set([...baseOptions, ...params.options, "self:action:slug:strike"]),
                     viewOnly: params.getFormula,
                 });
 
@@ -1634,7 +1635,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     target: { token: targetToken },
                     domains,
                     outcome: method === "damage" ? "success" : "criticalSuccess",
-                    options: new Set([...params.options, ...baseOptions, ...action.options]),
+                    options: new Set([...params.options, ...baseOptions, "self:action:slug:strike"]),
                 });
 
                 if (!context.self.item.dealsDamage) {

@@ -2,7 +2,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 export function makeAnImpression(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
-    const rollOptions = ["action:make-an-impression"];
+    const rollOptions = ["self:action:slug:make-an-impression"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

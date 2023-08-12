@@ -11,7 +11,7 @@ function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e)
 
 export function whirlingThrow(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
-    const rollOptions = ["action:whirling-throw"];
+    const rollOptions = ["self:action:slug:whirling-throw"];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",

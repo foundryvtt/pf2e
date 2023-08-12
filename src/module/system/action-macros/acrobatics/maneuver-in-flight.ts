@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.ManeuverInFlight";
 
 async function maneuverInFlight(options: SkillActionOptions): Promise<void> {
     const slug = options?.skill ?? "acrobatics";
-    const rollOptions = ["action:maneuver-in-flight"];
+    const rollOptions = ["self:action:slug:maneuver-in-flight"];
     const modifiers = options?.modifiers;
 
     return ActionMacroHelpers.simpleRollActionCheck({
@@ -37,7 +37,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:maneuver-in-flight"],
+    rollOptions: ["self:action:slug:maneuver-in-flight"],
     slug: "maneuver-in-flight",
     statistic: "acrobatics",
     traits: ["move"],

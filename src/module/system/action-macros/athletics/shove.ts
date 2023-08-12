@@ -4,7 +4,7 @@ import { WeaponPF2e } from "@item";
 
 export function shove(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
-    const rollOptions = ["action:shove"];
+    const rollOptions = ["self:action:slug:shove"];
     ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",

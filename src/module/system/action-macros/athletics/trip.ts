@@ -57,7 +57,7 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
 function trip(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
-    const rollOptions = ["action:trip"];
+    const rollOptions = ["self:action:slug:trip"];
     ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
@@ -99,7 +99,7 @@ class TripAction extends SingleCheckAction {
                 { outcome: ["success"], text: "PF2E.Actions.Trip.Notes.success" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Trip.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:trip"],
+            rollOptions: ["self:action:slug:trip"],
             slug: "trip",
             statistic: "athletics",
             traits: ["attack"],

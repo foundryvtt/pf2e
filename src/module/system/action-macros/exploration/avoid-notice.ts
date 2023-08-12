@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function avoidNotice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
-    const rollOptions = ["action:avoid-notice"];
+    const rollOptions = ["self:action:slug:avoid-notice"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -31,7 +31,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.AvoidNotice.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.AvoidNotice.Notes.success" },
     ],
-    rollOptions: ["action:avoid-notice"],
+    rollOptions: ["self:action:slug:avoid-notice"],
     slug: "avoid-notice",
     statistic: "stealth",
     traits: ["exploration"],

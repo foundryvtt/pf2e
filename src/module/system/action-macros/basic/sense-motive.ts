@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function senseMotive(options: SkillActionOptions): void {
     const slug = options?.skill ?? "perception";
-    const rollOptions = ["action:sense-motive"];
+    const rollOptions = ["self:action:slug:sense-motive"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -37,7 +37,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: "PF2E.Actions.SenseMotive.Notes.failure" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.SenseMotive.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:sense-motive"],
+    rollOptions: ["self:action:slug:sense-motive"],
     slug: "sense-motive",
     statistic: "perception",
     traits: ["concentrate", "secret"],

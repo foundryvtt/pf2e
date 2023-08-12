@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.Hide";
 
 function hide(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
-    const rollOptions = ["action:hide"];
+    const rollOptions = ["self:action:slug:hide"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -31,7 +31,7 @@ const action = new SingleCheckAction({
     difficultyClass: "perception",
     name: `${PREFIX}.Title`,
     notes: [{ outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` }],
-    rollOptions: ["action:hide"],
+    rollOptions: ["self:action:slug:hide"],
     slug: "hide",
     statistic: "stealth",
     traits: ["secret"],

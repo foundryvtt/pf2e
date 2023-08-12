@@ -12,7 +12,7 @@ function senseDirection(options: SkillActionOptions): void {
         }),
     ].concat(options?.modifiers ?? []);
     const slug = options?.skill ?? "survival";
-    const rollOptions = ["action:sense-direction"];
+    const rollOptions = ["self:action:slug:sense-direction"];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph,
@@ -47,7 +47,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.SenseDirection.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.SenseDirection.Notes.success" },
     ],
-    rollOptions: ["action:sense-direction"],
+    rollOptions: ["self:action:slug:sense-direction"],
     slug: "sense-direction",
     statistic: "survival",
     traits: ["exploration", "secret"],

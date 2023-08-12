@@ -92,7 +92,7 @@ interface CalculateIncomeParams {
 function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams): void {
     const dc = calculateDC(level, { proficiencyWithoutLevel: isProficiencyWithoutLevel() });
     const options = new Set(actor.getRollOptions(["all", "skill-check", skill.slug]));
-    options.add("action:earn-income");
+    options.add("self:action:slug:earn-income");
 
     game.pf2e.Check.roll(
         new game.pf2e.CheckModifier(`Earn Income: ${skill.label}`, skill, []),

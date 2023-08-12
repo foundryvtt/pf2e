@@ -17,11 +17,11 @@ function subsist(options: SkillActionOptions): void {
         new ModifierPF2e({
             label: "PF2E.Actions.Subsist.AfterExplorationPenalty",
             modifier: -5,
-            predicate: ["action:subsist:after-exploration"],
+            predicate: ["self:action:slug:subsist:after-exploration"],
         }),
     ].concat(options?.modifiers ?? []);
     const { skill: slug } = options;
-    const rollOptions = ["action:subsist", `action:subsist:${slug}`];
+    const rollOptions = ["self:action:slug:subsist", `action:subsist:${slug}`];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph,
@@ -65,7 +65,7 @@ class SubsistAction extends SingleCheckAction {
                 {
                     label: "PF2E.Actions.Subsist.AfterExplorationPenalty",
                     modifier: -5,
-                    predicate: ["action:subsist:after-exploration"],
+                    predicate: ["self:action:slug:subsist:after-exploration"],
                 },
             ],
             name: "PF2E.Actions.Subsist.Title",
@@ -75,7 +75,7 @@ class SubsistAction extends SingleCheckAction {
                 { outcome: ["failure"], text: "PF2E.Actions.Subsist.Notes.failure" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Subsist.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:subsist"],
+            rollOptions: ["self:action:slug:subsist"],
             slug: "subsist",
             statistic: "",
             traits: ["downtime"],

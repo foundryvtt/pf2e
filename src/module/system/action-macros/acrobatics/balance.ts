@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.Balance";
 
 function balance(options: SkillActionOptions): void {
     const slug = options?.skill ?? "acrobatics";
-    const rollOptions = ["action:balance"];
+    const rollOptions = ["self:action:slug:balance"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -38,7 +38,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:balance"],
+    rollOptions: ["self:action:slug:balance"],
     slug: "balance",
     statistic: "acrobatics",
     traits: ["move"],

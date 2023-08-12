@@ -46,7 +46,7 @@ class AidAction extends SingleCheckAction {
                     title: "PF2E.Check.Result.Degree.Check.success",
                 },
             ],
-            rollOptions: ["action:aid"],
+            rollOptions: ["self:action:slug:aid"],
             slug: "aid",
             statistic: "",
         });

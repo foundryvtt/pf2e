@@ -41,7 +41,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
     const targetItemOptions = Array.from(item?.traits ?? []).map((trait) => `target:trait:${trait}`);
 
     const slug = options?.skill ?? "crafting";
-    const rollOptions = ["action:repair", ...targetItemOptions];
+    const rollOptions = ["self:action:slug:repair", ...targetItemOptions];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function pickALock(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
-    const rollOptions = ["action:pick-a-lock"];
+    const rollOptions = ["self:action:slug:pick-a-lock"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -34,7 +34,7 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: "PF2E.Actions.PickALock.Notes.success" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.PickALock.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:pick-a-lock"],
+    rollOptions: ["self:action:slug:pick-a-lock"],
     slug: "pick-a-lock",
     statistic: "thievery",
     traits: ["manipulate"],

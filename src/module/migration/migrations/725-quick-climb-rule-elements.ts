@@ -18,7 +18,7 @@ export class Migration725QuickClimbREs extends MigrationBase {
         {
             key: "Note",
             predicate: {
-                all: ["action:climb"],
+                all: ["self:action:slug:climb"],
             },
             selector: "athletics",
             text: '<p class="compact-text"><strong>{item|name}</strong> You move 5 more feet on a success, and 10 more feet on a critical success.</p>',

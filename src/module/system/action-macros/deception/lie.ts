@@ -4,7 +4,7 @@ const PREFIX = "PF2E.Actions.Lie";
 
 export function lie(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
-    const rollOptions = ["action:lie"];
+    const rollOptions = ["self:action:slug:lie"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

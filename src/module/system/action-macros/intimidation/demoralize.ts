@@ -4,12 +4,12 @@ import { ModifierPF2e } from "@actor/modifiers.js";
 
 function demoralize(options: SkillActionOptions): void {
     const slug = options?.skill ?? "intimidation";
-    const rollOptions = ["action:demoralize"];
+    const rollOptions = ["self:action:slug:demoralize"];
     const modifiers = [
         new ModifierPF2e({
             label: "PF2E.Actions.Demoralize.Unintelligible",
             modifier: -4,
-            predicate: ["action:demoralize:unintelligible"],
+            predicate: ["self:action:slug:demoralize:unintelligible"],
             type: "circumstance",
         }),
     ].concat(options?.modifiers ?? []);
@@ -39,7 +39,7 @@ const action = new SingleCheckAction({
         {
             label: "PF2E.Actions.Demoralize.Unintelligible",
             modifier: -4,
-            predicate: ["action:demoralize:unintelligible"],
+            predicate: ["self:action:slug:demoralize:unintelligible"],
             type: "circumstance",
         },
     ],
@@ -48,7 +48,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.Demoralize.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.Demoralize.Notes.success" },
     ],
-    rollOptions: ["action:demoralize"],
+    rollOptions: ["self:action:slug:demoralize"],
     slug: "demoralize",
     statistic: "intimidation",
     traits: ["auditory", "concentrate", "emotion", "fear", "mental"],

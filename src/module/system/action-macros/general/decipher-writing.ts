@@ -13,7 +13,7 @@ function decipherWriting(options: SkillActionOptions): void {
         return;
     }
     const { skill: slug } = options;
-    const rollOptions = ["action:decipher-writing", `action:decipher-writing:${slug}`];
+    const rollOptions = ["self:action:slug:decipher-writing", `self:action:variant:${slug}`];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -43,7 +43,7 @@ class DecipherWritingActionVariant extends SingleCheckActionVariant {
         if (!options?.statistic) {
             throw new Error(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
         }
-        const rollOption = `action:decipher-writing:${options.statistic}`;
+        const rollOption = `self:action:variant:${options.statistic}`;
         options.rollOptions ??= [];
         if (!options.rollOptions.includes(rollOption)) {
             options.rollOptions.push(rollOption);
@@ -63,7 +63,7 @@ class DecipherWritingAction extends SingleCheckAction {
                 { outcome: ["failure"], text: "PF2E.Actions.DecipherWriting.Notes.failure" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.DecipherWriting.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:decipher-writing"],
+            rollOptions: ["self:action:slug:decipher-writing"],
             slug: "decipher-writing",
             statistic: "",
             traits: ["concentrate", "exploration", "secret"],

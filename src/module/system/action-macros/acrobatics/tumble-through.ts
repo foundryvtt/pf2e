@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.TumbleThrough";
 
 function tumbleThrough(options: SkillActionOptions): void {
     const slug = options?.skill ?? "acrobatics";
-    const rollOptions = ["action:tumble-through"];
+    const rollOptions = ["self:action:slug:tumble-through"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -35,7 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
         { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
     ],
-    rollOptions: ["action:tumble-through"],
+    rollOptions: ["self:action:slug:tumble-through"],
     slug: "tumble-through",
     statistic: "acrobatics",
     traits: ["move"],

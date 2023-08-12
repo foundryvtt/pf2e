@@ -167,9 +167,8 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                     new ModifierPF2e("PF2E.BaseModifier", base, "untyped"),
                     ...extractModifiers(this.synthetics, selectors),
                 ],
-                check: {
-                    type: "saving-throw",
-                },
+                check: { type: "saving-throw" },
+                dc: { domains: ["save-dc", `${saveType}-dc`] },
             });
 
             mergeObject(this.system.saves[saveType], stat.getTraceData());

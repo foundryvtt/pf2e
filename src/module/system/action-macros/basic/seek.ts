@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function seek(options: SkillActionOptions): void {
     const slug = options?.skill ?? "perception";
-    const rollOptions = ["action:seek"];
+    const rollOptions = ["self:action:slug:seek"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -32,7 +32,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.Seek.Notes.criticalSuccess" },
         { outcome: ["success"], text: "PF2E.Actions.Seek.Notes.success" },
     ],
-    rollOptions: ["action:seek"],
+    rollOptions: ["self:action:slug:seek"],
     slug: "seek",
     statistic: "perception",
     traits: ["concentrate", "secret"],

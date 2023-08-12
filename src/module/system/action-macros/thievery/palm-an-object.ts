@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.PalmAnObject";
 
 function palmAnObject(options: SkillActionOptions): void {
     const slug = options?.skill ?? "thievery";
-    const rollOptions = ["action:palm-an-object"];
+    const rollOptions = ["self:action:slug:palm-an-object"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -35,7 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
         { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
     ],
-    rollOptions: ["action:palm-an-object"],
+    rollOptions: ["self:action:slug:palm-an-object"],
     slug: "palm-an-object",
     statistic: "thievery",
     traits: ["manipulate"],

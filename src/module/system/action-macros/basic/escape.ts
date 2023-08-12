@@ -14,7 +14,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
     data: CheckContextData<ItemType>
 ) {
-    const actionRollOptions = ["action:escape", "action:escape:unarmed"];
+    const actionRollOptions = ["self:action:slug:escape", "self:action:variant:unarmed"];
     const { rollOptions } = opts.buildContext({
         actor: opts.actor,
         rollOptions: actionRollOptions,
@@ -54,7 +54,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     const alternatives = candidates
         .filter((slug) => slug !== "unarmed")
         .map((slug) => {
-            const actionRollOptions = ["action:escape", `action:escape:${slug}`];
+            const actionRollOptions = ["self:action:slug:escape", `self:action:variant:${slug}`];
             const { property } = ActionMacroHelpers.resolveStat(slug);
             const { rollOptions } = opts.buildContext({
                 actor: opts.actor,
@@ -97,7 +97,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
 function escape(options: SkillActionOptions): void {
     const slug = options?.skill ?? "";
     const modifiers = options?.modifiers;
-    const rollOptions = ["action:escape"];
+    const rollOptions = ["self:action:slug:escape"];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         checkContext: (opts) => escapeCheckContext(opts, { modifiers, rollOptions, slug }),
@@ -143,7 +143,7 @@ class EscapeAction extends SingleCheckAction {
                 { outcome: ["success"], text: "PF2E.Actions.Escape.Notes.success" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Escape.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:escape"],
+            rollOptions: ["self:action:slug:escape"],
             slug: "escape",
             statistic: "unarmed",
             traits: ["attack"],

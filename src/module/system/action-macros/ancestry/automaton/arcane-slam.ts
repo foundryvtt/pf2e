@@ -7,7 +7,7 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 export function arcaneSlam(options: SkillActionOptions): void {
     const { actor: target, token } = ActionMacroHelpers.target();
     const slug = options?.skill ?? "acrobatics";
-    const rollOptions = ["action:arcane-slam"];
+    const rollOptions = ["self:action:slug:arcane-slam"];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "D",

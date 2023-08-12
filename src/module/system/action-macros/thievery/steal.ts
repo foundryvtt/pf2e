@@ -9,11 +9,11 @@ function steal(options: SkillActionOptions): void {
         new ModifierPF2e({
             label: "PF2E.Actions.Steal.Pocketed",
             modifier: -5,
-            predicate: ["action:steal:pocketed"],
+            predicate: ["self:action:slug:steal:pocketed"],
         }),
     ].concat(options?.modifiers ?? []);
     const slug = options?.skill ?? "thievery";
-    const rollOptions = ["action:steal"];
+    const rollOptions = ["self:action:slug:steal"];
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
@@ -37,13 +37,13 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
-    modifiers: [{ label: "PF2E.Actions.Steal.Pocketed", modifier: -5, predicate: ["action:steal:pocketed"] }],
+    modifiers: [{ label: "PF2E.Actions.Steal.Pocketed", modifier: -5, predicate: ["self:action:slug:steal:pocketed"] }],
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
         { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
     ],
-    rollOptions: ["action:steal"],
+    rollOptions: ["self:action:slug:steal"],
     slug: "steal",
     statistic: "thievery",
     traits: ["manipulate"],

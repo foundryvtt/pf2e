@@ -88,7 +88,14 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
                 all: [
                     "class:investigator",
                     "devise-a-stratagem",
-                    { or: ["action:disarm", "action:grapple", "action:shove", "action:trip"] },
+                    {
+                        or: [
+                            "self:action:slug:disarm",
+                            "self:action:slug:grapple",
+                            "self:action:slug:shove",
+                            "self:action:slug:trip",
+                        ],
+                    },
                 ],
                 any: [
                     "weapon:trait:agile",

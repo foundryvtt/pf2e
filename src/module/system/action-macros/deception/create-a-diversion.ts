@@ -34,7 +34,7 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         }
     })();
     const slug = options?.skill ?? "deception";
-    const rollOptions = ["action:create-a-diversion", `action:create-a-diversion:${variant}`];
+    const rollOptions = ["self:action:slug:create-a-diversion", `self:action:variant:${variant}`];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

@@ -58,7 +58,7 @@ export class TrickMagicItemPopup {
     #handleTrickItem(skill: TrickMagicItemSkill): void {
         const stat = this.actor.skills[skill];
         stat.check.roll({
-            extraRollOptions: ["action:trick-magic-item"],
+            extraRollOptions: ["self:action:slug:trick-magic-item"],
             dc: { value: this.checkDC[skill] ?? 0 },
             item: this.item,
         });

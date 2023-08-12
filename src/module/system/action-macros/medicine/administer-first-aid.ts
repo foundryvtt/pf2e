@@ -62,7 +62,7 @@ function administerFirstAid(options: { variant: AdministerFirstAidVariant } & Sk
         }
     })();
     const slug = options?.skill ?? "medicine";
-    const rollOptions = ["action:administer-first-aid", `action:administer-first-aid:${variant}`];
+    const rollOptions = ["self:action:slug:administer-first-aid", `action:administer-first-aid:${variant}`];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,

@@ -114,7 +114,7 @@ async function treat(
     const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus;
 
     const rollOptions = actor.getRollOptions(["all", "skill-check", "medicine"]);
-    rollOptions.push("action:treat-wounds");
+    rollOptions.push("self:action:slug:treat-wounds");
     if (riskySurgery) rollOptions.push("risky-surgery");
     const dc: CheckDC = { value: dcValue, visible: true };
     const increaseDoS = (locKey: string): DegreeOfSuccessAdjustment => ({

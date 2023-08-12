@@ -3,7 +3,7 @@ import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function track(options: SkillActionOptions): void {
     const slug = options?.skill ?? "survival";
-    const rollOptions = ["action:track"];
+    const rollOptions = ["self:action:slug:track"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -33,7 +33,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: "PF2E.Actions.Track.Notes.failure" },
         { outcome: ["criticalFailure"], text: "PF2E.Actions.Track.Notes.criticalFailure" },
     ],
-    rollOptions: ["action:track"],
+    rollOptions: ["self:action:slug:track"],
     slug: "track",
     statistic: "survival",
     traits: ["concentrate", "exploration", "move"],

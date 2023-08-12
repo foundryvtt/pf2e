@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.CommandAnAnimal";
 
 function commandAnAnimal(options: SkillActionOptions): void {
     const slug = options?.skill ?? "nature";
-    const rollOptions = ["action:command-an-animal"];
+    const rollOptions = ["self:action:slug:command-an-animal"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -37,7 +37,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:command-an-animal"],
+    rollOptions: ["self:action:slug:command-an-animal"],
     slug: "command-an-animal",
     statistic: "nature",
     traits: ["auditory", "concentrate"],

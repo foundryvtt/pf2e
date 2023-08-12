@@ -311,9 +311,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                 ],
-                check: {
-                    type: "saving-throw",
-                },
+                check: { type: "saving-throw" },
+                dc: { domains: ["save-dc", `${saveType}-dc`] },
             });
 
             saves[saveType] = stat;

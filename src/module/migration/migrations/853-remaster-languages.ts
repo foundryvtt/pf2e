@@ -3,7 +3,7 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import { recursiveReplaceString } from "@util";
 
-/** Change languages renamed in Rage of Elements  */
+/** Change languages renamed in Rage of Elements */
 export class Migration853RemasterLanguages extends MigrationBase {
     static override version = 0.853;
 

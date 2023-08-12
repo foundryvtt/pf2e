@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.ConcealAnObject";
 
 function concealAnObject(options: SkillActionOptions): Promise<void> {
     const slug = options?.skill ?? "stealth";
-    const rollOptions = ["action:conceal-an-object"];
+    const rollOptions = ["self:action:slug:conceal-an-object"];
     const modifiers = options?.modifiers;
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -35,7 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
         { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
     ],
-    rollOptions: ["action:conceal-an-object"],
+    rollOptions: ["self:action:slug:conceal-an-object"],
     slug: "conceal-an-object",
     statistic: "stealth",
     traits: ["manipulate", "secret"],

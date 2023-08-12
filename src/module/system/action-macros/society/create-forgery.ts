@@ -91,12 +91,12 @@ function createForgery(options: SkillActionOptions): Promise<void> {
         new ModifierPF2e({
             label: "PF2E.Actions.CreateForgery.UnspecificHandwriting",
             modifier: 4,
-            predicate: ["action:create-forgery:unspecific-handwriting"],
+            predicate: ["self:action:slug:create-forgery:unspecific-handwriting"],
             type: "circumstance",
         }),
     ].concat(options?.modifiers ?? []);
     const slug = options?.skill ?? "society";
-    const rollOptions = ["action:create-forgery"];
+    const rollOptions = ["self:action:slug:create-forgery"];
     return ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph,
@@ -140,7 +140,7 @@ class CreateForgeryAction extends SingleCheckAction {
                 {
                     label: "PF2E.Actions.CreateForgery.UnspecificHandwriting",
                     modifier: 4,
-                    predicate: ["action:create-forgery:unspecific-handwriting"],
+                    predicate: ["self:action:slug:create-forgery:unspecific-handwriting"],
                     type: "circumstance",
                 },
             ],
@@ -151,7 +151,7 @@ class CreateForgeryAction extends SingleCheckAction {
                 { outcome: ["failure"], text: "PF2E.Actions.CreateForgery.Notes.failure" },
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.CreateForgery.Notes.criticalFailure" },
             ],
-            rollOptions: ["action:create-forgery"],
+            rollOptions: ["self:action:slug:create-forgery"],
             slug: "create-forgery",
             statistic: "society",
             traits: ["downtime", "secret"],

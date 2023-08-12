@@ -16,7 +16,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     const encouragingWordsMacro = async (DC: number, bonus: number, dip: Statistic) => {
         dip.roll({
             dc: { value: DC },
-            extraRollOptions: ["action:encouraging-words"],
+            extraRollOptions: ["self:action:slug:encourage-words"],
             callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
                 const degreeOfSuccess = Number(roll.options.degreeOfSuccess) || 0;

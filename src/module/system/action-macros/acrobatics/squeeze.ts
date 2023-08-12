@@ -5,7 +5,7 @@ const PREFIX = "PF2E.Actions.Squeeze";
 
 function squeeze(options: SkillActionOptions): void {
     const slug = options?.skill ?? "acrobatics";
-    const rollOptions = ["action:squeeze"];
+    const rollOptions = ["self:action:slug:squeeze"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -35,7 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
-    rollOptions: ["action:squeeze"],
+    rollOptions: ["self:action:slug:squeeze"],
     slug: "squeeze",
     statistic: "acrobatics",
     traits: ["exploration", "move"],

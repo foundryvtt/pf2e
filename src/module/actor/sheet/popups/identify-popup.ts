@@ -66,9 +66,9 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
                 });
 
             const actionOption = item.isMagical
-                ? "action:identify-magic"
+                ? "self:action:slug:identify-magic"
                 : item.isAlchemical
-                ? "action:identify-alchemy"
+                ? "self:action:slug:identify-alchemy"
                 : null;
 
             const content = await renderTemplate("systems/pf2e/templates/actors/identify-item-chat-skill-checks.hbs", {

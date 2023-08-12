@@ -224,8 +224,6 @@ interface StrikeData extends StatisticModifier {
     success: string;
     /** Any traits this strike has. */
     traits: TraitViewData[];
-    /** Any options always applied to this strike. */
-    options: string[];
     /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
     ready: boolean;
     /** Alias for `attack`. */

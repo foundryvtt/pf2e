@@ -4,7 +4,7 @@ const PREFIX = "PF2E.Actions.LongJump";
 
 export function longJump(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
-    const rollOptions = ["action:stride", "action:leap", "action:long-jump"];
+    const rollOptions = ["self:action:slug:stride", "self:action:slug:leap", "self:action:slug:long-jump"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
