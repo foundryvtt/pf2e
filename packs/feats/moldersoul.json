@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your connection to elemental wood asserts itself in the form of decay, like forgotten logs left to rot and the char that remains after a forest fire, cycles of devastation clearing away what was to make room for the next generation of life. You gain the Decompose action.</p>\n<p><strong>Decompose</strong><span class=\"pf2-icon\">2</span> (primal, void)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Void energy seeps out of you, decaying everything within a @Template[type:emanation|distance:5] and causing plants and foliage to age and decompose. Natural difficult terrain is destroyed, and creatures in the area with the plant or wood trait take @Damage[1d6[negative]] damage with a basic Fortitude save against your class DC or spell DC, whichever is higher.</p>"
+            "value": "<p>Your connection to elemental wood asserts itself in the form of decay, like forgotten logs left to rot and the char that remains after a forest fire, cycles of devastation clearing away what was to make room for the next generation of life. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Decompose] action.</p>"
         },
         "frequency": {
             "max": 1,
@@ -23,7 +23,13 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Decompose"
+            }
+        ],
         "source": {
             "value": "Pathfinder Rage of Elements"
         },
