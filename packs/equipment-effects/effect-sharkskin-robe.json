@@ -1,0 +1,44 @@
+{
+    "_id": "KC8mrGFXs5hIhjXt",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Sharkskin Robe",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sharkskin Robe]</p>\n<p>For 1 minute, any time you make a Strike, your weapon or unarmed attack gains the benefit of the <em>underwater</em> weapon property rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:type:weapon"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "underwater"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
