@@ -86,6 +86,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "spellStoring",
     "swarming",
     "thundering",
+    "underwater",
     "unholy",
     "vorpal",
     "wounding",
