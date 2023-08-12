@@ -2973,7 +2973,7 @@
                             "success"
                         ],
                         "predicate": [
-                            "action:balance",
+                            "self:action:slug:balance",
                             "on-ground"
                         ],
                         "selector": "acrobatics",
@@ -2992,12 +2992,12 @@
                             "on-ground",
                             {
                                 "or": [
-                                    "action:shove",
-                                    "action:trip"
+                                    "origin:action:slug:shove",
+                                    "origin:action:slug:trip"
                                 ]
                             }
                         ],
-                        "selector": "fortitude",
+                        "selector": "fortitude-dc",
                         "type": "circumstance",
                         "value": 3
                     },
@@ -3007,12 +3007,12 @@
                             "on-ground",
                             {
                                 "or": [
-                                    "action:shove",
-                                    "action:trip"
+                                    "origin:action:slug:shove",
+                                    "origin:action:slug:trip"
                                 ]
                             }
                         ],
-                        "selector": "reflex",
+                        "selector": "reflex-dc",
                         "type": "circumstance",
                         "value": 3
                     }

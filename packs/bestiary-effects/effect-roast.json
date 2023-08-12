@@ -4,7 +4,7 @@
     "name": "Effect: Roast",
     "system": {
         "description": {
-            "value": "<p>Creatures who have been Roasted take a –2 circumstance penalty to Fortitude saves against Serve.</p>"
+            "value": "<p>Creatures who have been Roasted take a -2 circumstance penalty to Fortitude saves against Serve.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,7 +19,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:serve"
+                    "origin:action:slug:serve"
                 ],
                 "selector": "fortitude",
                 "type": "circumstance",

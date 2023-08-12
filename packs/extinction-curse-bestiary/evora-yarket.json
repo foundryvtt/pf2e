@@ -54,7 +54,7 @@
                         "key": "FlatModifier",
                         "label": "Bullhook (Command an Animal)",
                         "predicate": [
-                            "action:command-an-animal"
+                            "self:action:slug:command-an-animal"
                         ],
                         "selector": "nature",
                         "type": "item",
@@ -388,12 +388,12 @@
                             "mountain-stance",
                             {
                                 "or": [
-                                    "action:shove",
-                                    "action:trip"
+                                    "origin:action:slug:shove",
+                                    "origin:action:slug:trip"
                                 ]
                             }
                         ],
-                        "selector": "saving-throw",
+                        "selector": "save-dc",
                         "type": "circumstance",
                         "value": 2
                     }

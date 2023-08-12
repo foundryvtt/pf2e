@@ -188,7 +188,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Climb",
                         "predicate": [
-                            "action:climb"
+                            "self:action:slug:climb"
                         ],
                         "selector": "athletics",
                         "value": 2
@@ -201,7 +201,7 @@
                 "variants": {
                     "0": {
                         "label": "+7 to Climb",
-                        "options": "action:climb"
+                        "options": "self:action:slug:climb"
                     }
                 }
             },
@@ -230,8 +230,8 @@
                             "terrain:tree",
                             {
                                 "or": [
-                                    "action:hide",
-                                    "action:sneak"
+                                    "self:action:slug:hide",
+                                    "self:action:slug:sneak"
                                 ]
                             }
                         ],
@@ -246,7 +246,7 @@
                 "variants": {
                     "0": {
                         "label": "+7 to Hide and Sneak while in a tree",
-                        "options": "action:hide,action:sneak,terrain:tree"
+                        "options": "self:action:slug:hide,self:action:slug:sneak,terrain:tree"
                     }
                 }
             },

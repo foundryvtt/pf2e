@@ -148,12 +148,12 @@
                         "predicate": [
                             {
                                 "or": [
-                                    "action:grapple",
-                                    "action:shove"
+                                    "origin:action:slug:grapple",
+                                    "origin:action:slug:shove"
                                 ]
                             }
                         ],
-                        "selector": "fortitude",
+                        "selector": "fortitude-dc",
                         "type": "untyped",
                         "value": 2
                     }
@@ -266,7 +266,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Escape",
                         "predicate": [
-                            "action:escape"
+                            "self:action:slug:escape"
                         ],
                         "selector": "acrobatics",
                         "type": "untyped",
@@ -280,7 +280,7 @@
                 "variants": {
                     "0": {
                         "label": "+7 to escape",
-                        "options": "action:escape"
+                        "options": "self:action:slug:escape"
                     }
                 }
             },

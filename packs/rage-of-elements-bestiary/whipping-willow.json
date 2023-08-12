@@ -177,7 +177,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The whipping willow attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] all creatures within a @Template[type:cone|distance:15], making a single @Check[type:athletics|traits:action:trip] check against all targets' Reflex DCs.</p>"
+                    "value": "<p>The whipping willow attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] all creatures within a @Template[type:cone|distance:15], making a single @Check[type:athletics|traits:self:action:slug:trip] check against all targets' Reflex DCs.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -218,8 +218,8 @@
                         "predicate": [
                             {
                                 "or": [
-                                    "action:trip",
-                                    "action:grapple"
+                                    "self:action:slug:trip",
+                                    "self:action:slug:grapple"
                                 ]
                             }
                         ],
@@ -234,7 +234,7 @@
                 "variants": {
                     "0": {
                         "label": "+15 to Trip or Grapple",
-                        "options": "action:trip,action:grapple"
+                        "options": "self:action:slug:trip,self:action:slug:grapple"
                     }
                 }
             },

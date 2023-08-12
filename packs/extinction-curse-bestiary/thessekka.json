@@ -777,7 +777,7 @@
                         "label": "Alchemist Goggles (craft alchemical items)",
                         "predicate": [
                             "alchemical",
-                            "action:craft"
+                            "self:action:slug:craft"
                         ],
                         "selector": "crafting",
                         "type": "item",
@@ -2029,7 +2029,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Thessekka turns her own body into solid stone like a statue and immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Petrified]. Any creature grappled or restrained by her becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]; to get free, the creature must damage the statue enough to break it or succeed at a @Check[type:acrobatics|dc:36|name:Escape Stone Throes|traits:action:escape] check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. The only action Thessekka can take while petrified is to use Stone Throes again to end the effect.</p>"
+                    "value": "<p>Thessekka turns her own body into solid stone like a statue and immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Petrified]. Any creature grappled or restrained by her becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]; to get free, the creature must damage the statue enough to break it or succeed at a @Check[type:acrobatics|dc:36|name:Escape Stone Throes|traits:self:action:slug:escape] check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. The only action Thessekka can take while petrified is to use Stone Throes again to end the effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2163,7 +2163,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.CraftAlchemical",
                         "predicate": [
-                            "action:craft:alchemical"
+                            "self:action:slug:craft:alchemical"
                         ],
                         "selector": "crafting",
                         "value": 2
@@ -2176,7 +2176,7 @@
                 "variants": {
                     "0": {
                         "label": "+30 to Craft alchemical items",
-                        "options": "action:craft:alchemical"
+                        "options": "self:action:slug:craft:alchemical"
                     }
                 }
             },

@@ -31,7 +31,7 @@
                 "key": "FlatModifier",
                 "label": "Exhort the Faithful (Request members of your faith)",
                 "predicate": [
-                    "action:request",
+                    "self:action:slug:request",
                     "member-of-your-faith"
                 ],
                 "selector": "diplomacy",
@@ -42,7 +42,7 @@
                 "key": "FlatModifier",
                 "label": "Exhort the Faithful (Coerce members of your faith)",
                 "predicate": [
-                    "action:coerce",
+                    "self:action:slug:coerce",
                     "member-of-your-faith"
                 ],
                 "selector": "intimidation",
@@ -56,8 +56,8 @@
                     "member-of-your-faith",
                     {
                         "or": [
-                            "action:request",
-                            "action:coerce"
+                            "self:action:slug:request",
+                            "self:action:slug:coerce"
                         ]
                     }
                 ],

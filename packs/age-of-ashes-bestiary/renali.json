@@ -1265,7 +1265,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Climb",
                         "predicate": [
-                            "action:climb",
+                            "self:action:slug:climb",
                             {
                                 "or": [
                                     "self:form:true",
@@ -1284,7 +1284,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 to Climb in True Form or Spider Form",
-                        "options": "action:climb,self:form:true,self:form:spider"
+                        "options": "self:action:slug:climb,self:form:true,self:form:spider"
                     }
                 }
             },
@@ -1310,7 +1310,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Weave",
                         "predicate": [
-                            "action:craft:weave"
+                            "self:action:slug:craft:weave"
                         ],
                         "selector": "crafting",
                         "value": 4
@@ -1323,7 +1323,7 @@
                 "variants": {
                     "0": {
                         "label": "+14 Weaving",
-                        "options": "action:craft:weave"
+                        "options": "self:action:slug:craft:weave"
                     }
                 }
             },

@@ -155,12 +155,12 @@
                         "predicate": [
                             {
                                 "or": [
-                                    "action:grapple",
-                                    "action:shove"
+                                    "origin:action:slug:grapple",
+                                    "origin:action:slug:shove"
                                 ]
                             }
                         ],
-                        "selector": "saving-throw",
+                        "selector": "save-dc",
                         "value": 2
                     }
                 ],
@@ -195,7 +195,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The slurk extrudes a slippery grease from its ventral glands to coat the floor under it and in a @Template[type:emanation|distance:5], turning the affected area into uneven ground for 10 minutes, after which it dries to a putrid crust. The DC to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] across the slime is @Check[type:acrobatics|dc:18|traits:action:balance,move].</p>"
+                    "value": "<p>The slurk extrudes a slippery grease from its ventral glands to coat the floor under it and in a @Template[type:emanation|distance:5], turning the affected area into uneven ground for 10 minutes, after which it dries to a putrid crust. The DC to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] across the slime is @Check[type:acrobatics|dc:18|traits:self:action:slug:balance,move].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -275,7 +275,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Escape",
                         "predicate": [
-                            "action:escape"
+                            "self:action:slug:escape"
                         ],
                         "selector": "acrobatics",
                         "value": 2
@@ -288,7 +288,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 to Escape",
-                        "options": "action:escape"
+                        "options": "self:action:slug:escape"
                     }
                 }
             },

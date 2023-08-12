@@ -13,10 +13,10 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         return ui.notifications.error(localize("BadArgs"));
     }
 
-    const encouragingWordsMacro = async (DC: number, bonus: number, dip: Statistic) => {
-        dip.roll({
+    const encouragingWordsMacro = async (DC: number, bonus: number, diplomacy: Statistic) => {
+        diplomacy.roll({
             dc: { value: DC },
-            extraRollOptions: ["self:action:slug:encourage-words"],
+            extraRollOptions: ["self:action:slug:encouraging-words"],
             callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
                 const degreeOfSuccess = Number(roll.options.degreeOfSuccess) || 0;

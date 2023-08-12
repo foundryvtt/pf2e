@@ -186,7 +186,7 @@
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Escape",
                         "predicate": [
-                            "action:escape"
+                            "self:action:slug:escape"
                         ],
                         "selector": "acrobatics",
                         "value": 2
@@ -199,7 +199,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 to Escape",
-                        "options": "action:escape"
+                        "options": "self:action:slug:escape"
                     }
                 }
             },
@@ -227,8 +227,8 @@
                         "predicate": [
                             {
                                 "or": [
-                                    "action:high-jump",
-                                    "action:long-jump"
+                                    "self:action:slug:high-jump",
+                                    "self:action:slug:long-jump"
                                 ]
                             }
                         ],
@@ -243,7 +243,7 @@
                 "variants": {
                     "0": {
                         "label": "+4 to High Jump or Long Jump",
-                        "options": "action:high-jump, action:long-jump"
+                        "options": "self:action:slug:high-jump, self:action:slug:long-jump"
                     }
                 }
             },
