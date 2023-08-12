@@ -669,6 +669,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             rule.afterPrepareData?.();
         }
 
+        // Create Spellcasting entries, which may extend Statistic REs
+        for (const entry of this.itemTypes.spellcastingEntry) {
+            entry.prepareStatistic();
+        }
+
         // IWR rule elements were only just processed: set the actor to not off-guardable if immune to the condition
         if (this.attributes.flanking.offGuardable && this.isImmuneTo("off-guard")) {
             this.attributes.flanking.offGuardable = false;

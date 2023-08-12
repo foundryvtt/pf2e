@@ -139,6 +139,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
+        attributes.spellDC = null;
         attributes.classDC = ((): { value: number } => {
             const proficiencyWithoutLevel =
                 game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
@@ -146,6 +147,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
+        attributes.classOrSpellDC = { value: attributes.classDC.value };
         attributes.bonusEncumbranceBulk = attributes.bonusLimitBulk = 0;
 
         // Set default ritual attack and DC values if none are stored */
@@ -159,7 +161,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
         const { modifierAdjustments, strikes } = synthetics;
-        const itemTypes = this.itemTypes;
         const baseLevel = this.system.details.level.base;
         this.synthetics.modifiers.hp ??= [];
 
@@ -279,65 +280,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         for (const item of [...this.itemTypes.melee, ...generatedMelee]) {
             system.actions.push(strikeFromMeleeItem(item));
         }
-
-        // Spellcasting Entries
-        for (const entry of itemTypes.spellcastingEntry) {
-            const { attribute, tradition } = entry;
-
-            // There are still some bestiary entries where these values are strings
-            entry.system.spelldc.dc = Number(entry.system.spelldc.dc);
-            entry.system.spelldc.value = Number(entry.system.spelldc.value);
-            // Modifier adjustments aren't implemented in `Statistic` yet
-            if (this.isElite) {
-                entry.system.spelldc.dc += 2;
-                entry.system.spelldc.value += 2;
-            } else if (this.isWeak) {
-                entry.system.spelldc.dc -= 2;
-                entry.system.spelldc.value -= 2;
-            }
-
-            const baseSelectors = ["all", `${attribute}-based`, "spell-attack-dc"];
-            const attackSelectors = [
-                `${tradition}-spell-attack`,
-                "spell-attack",
-                "spell-attack-roll",
-                "attack",
-                "attack-roll",
-            ];
-            const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
-
-            // Check Modifiers, calculate using the user configured value
-            const baseMod = Number(entry.system?.spelldc?.value ?? 0);
-            const attackModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseMod, "untyped")];
-
-            // Save Modifiers, reverse engineer using the user configured value - 10
-            const baseDC = Number(entry.system?.spelldc?.dc ?? 0);
-            const saveModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, "untyped")];
-
-            // Assign statistic data to the spellcasting entry
-            entry.statistic = new Statistic(this, {
-                slug: sluggify(`${entry.name}-spellcasting`),
-                ability: entry.attribute,
-                label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
-                domains: baseSelectors,
-                rollOptions: entry.getRollOptions("spellcasting"),
-                check: {
-                    type: "spell-attack-roll",
-                    modifiers: attackModifiers,
-                    domains: attackSelectors,
-                },
-                dc: {
-                    modifiers: saveModifiers,
-                    domains: saveSelectors,
-                },
-            });
-        }
-
-        // A class-or-spell DC to go alongside the fake class DC
-        this.system.attributes.classOrSpellDC = ((): { value: number } => {
-            const spellDCs = this.itemTypes.spellcastingEntry.map((e) => e.system.spelldc.dc);
-            return { value: Math.max(...spellDCs, this.system.attributes.classDC.value) };
-        })();
 
         // Initiative
         this.initiative = new ActorInitiative(this);
