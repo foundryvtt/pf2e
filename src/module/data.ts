@@ -46,6 +46,7 @@ type OneToThree = Exclude<ZeroToThree, 0>;
 type TwoToThree = Exclude<OneToThree, 1>;
 type ZeroToFour = ZeroToThree | 4;
 type OneToFour = Exclude<ZeroToFour, 0>;
+type TwoToFour = Exclude<OneToFour, 1>;
 type ZeroToFive = ZeroToFour | 5;
 type OneToFive = OneToThree | Extract<ZeroToFive, 4 | 5>;
 type ZeroToTen = ZeroToFive | 6 | 7 | 8 | 9 | 10;
@@ -151,6 +152,7 @@ export {
     SIZE_SLUGS,
     Size,
     TraitsWithRarity,
+    TwoToFour,
     TwoToThree,
     TypeAndValue,
     ValueAndMax,

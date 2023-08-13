@@ -1,5 +1,5 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
-import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
+import { CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -77,6 +77,7 @@ import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
+    BasePreparedSystemData,
     BaseWeaponProficiencyKey,
     CharacterAbilities,
     CharacterAttributes,
@@ -320,7 +321,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
         flags.pf2e.showBasicUnarmed ??= true;
 
-        // Build selections: boosts and skill trainings
+        // Build selections: boosts and skill increases
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
         const boostLevels = [1, 5, 10, 15, 20] as const;
         const allowedBoosts = boostLevels.reduce((result, level) => {
@@ -341,9 +342,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
         ]);
 
-        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
-        const existingBoosts = systemData.build?.attributes?.boosts;
+        const systemData: BasePreparedSystemData = this.system;
+        const existingBoosts = systemData.build.attributes.boosts;
         const isABP = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this);
+
+        const manualSkills = Object.keys(systemData.skills ?? {}).length > 0;
 
         systemData.build = {
             attributes: {
@@ -353,17 +356,22 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     ancestry: [],
                     background: [],
                     class: null,
-                    1: existingBoosts?.[1]?.slice(0, allowedBoosts[1]) ?? [],
-                    5: existingBoosts?.[5]?.slice(0, allowedBoosts[5]) ?? [],
-                    10: existingBoosts?.[10]?.slice(0, allowedBoosts[10]) ?? [],
-                    15: existingBoosts?.[15]?.slice(0, allowedBoosts[15]) ?? [],
-                    20: existingBoosts?.[20]?.slice(0, allowedBoosts[20]) ?? [],
+                    1: existingBoosts[1]?.slice(0, allowedBoosts[1]) ?? [],
+                    5: existingBoosts[5]?.slice(0, allowedBoosts[5]) ?? [],
+                    10: existingBoosts[10]?.slice(0, allowedBoosts[10]) ?? [],
+                    15: existingBoosts[15]?.slice(0, allowedBoosts[15]) ?? [],
+                    20: existingBoosts[20]?.slice(0, allowedBoosts[20]) ?? [],
                 },
                 allowedBoosts,
                 flaws: {
                     ancestry: [],
                 },
                 apex: isABP ? systemData.build?.attributes?.apex ?? null : null,
+            },
+            skills: {
+                manual: manualSkills,
+                increases: { heritage: [], background: [], class: [], feats: [] },
+                selections: manualSkills ? [] : systemData.build.skills.selections,
             },
         };
 

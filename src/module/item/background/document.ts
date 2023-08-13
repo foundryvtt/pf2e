@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { OneToFour } from "@module/data.ts";
 import { BackgroundSource, BackgroundSystemData } from "./data.ts";
 
 class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
@@ -39,12 +39,12 @@ class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }
         }
 
-        const { trainedSkills } = this.system;
-        if (trainedSkills.value.length === 1) {
-            const key = trainedSkills.value[0];
-            const skill = this.actor.system.skills[key];
-            skill.rank = Math.max(skill.rank, 1) as OneToFour;
-        }
+        build.skills.increases.background = this.system.trainedSkills.value.map((s) => ({
+            item: this,
+            skill: SKILL_DICTIONARY[s],
+            rank: 1,
+            onConflict: "reallocate",
+        }));
     }
 }
 

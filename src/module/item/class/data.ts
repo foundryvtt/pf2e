@@ -1,4 +1,4 @@
-import { AttributeString, SaveType } from "@actor/types.ts";
+import { AttributeString, SaveType, SkillAbbreviation } from "@actor/types.ts";
 import { ABCSystemSource } from "@item/abc/data.ts";
 import { BaseItemSourcePF2e, ItemTraits } from "@item/data/base.ts";
 import { ZeroToFour } from "@module/data.ts";
@@ -15,7 +15,7 @@ interface ClassSystemSource extends ABCSystemSource {
     attacks: ClassAttackProficiencies;
     defenses: ClassDefenseProficiencies;
     trainedSkills: {
-        value: string[];
+        value: SkillAbbreviation[];
         additional: number;
     };
     classDC: ZeroToFour;

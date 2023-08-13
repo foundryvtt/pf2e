@@ -2,7 +2,7 @@ import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
 import { FeatSlotLevel } from "@actor/character/feats.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
@@ -114,6 +114,26 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         build.attributes.keyOptions = [...this.system.keyAbility.value];
         build.attributes.boosts.class = this.system.keyAbility.selected;
+        build.skills.increases.class.push(
+            ...this.system.trainedSkills.value.map(
+                (s) =>
+                    ({
+                        item: this,
+                        skill: SKILL_DICTIONARY[s],
+                        rank: 1,
+                        onConflict: "reallocate",
+                    } as const)
+            ),
+            ...[...Array(this.system.trainedSkills.additional)].map(
+                () =>
+                    ({
+                        item: this,
+                        skill: null,
+                        rank: 1,
+                        onConflict: "reallocate",
+                    } as const)
+            )
+        );
 
         attributes.classhp = this.hpPerLevel;
 

@@ -464,7 +464,7 @@ class AttributeBuilder extends Application {
                     return;
                 }
 
-                const buildSource = mergeObject(actor.toObject().system.build ?? {}, { attributes: { boosts: {} } });
+                const buildSource = actor.toObject().system.build;
                 const boosts = (buildSource.attributes.boosts[level] ??= []);
                 if (boosts.includes(attribute)) {
                     boosts.splice(boosts.indexOf(attribute), 1);

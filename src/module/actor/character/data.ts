@@ -16,6 +16,7 @@ import {
     SkillData,
 } from "@actor/creature/data.ts";
 import {
+    Abilities,
     Alignment,
     CreatureInitiativeSource,
     CreatureSpeeds,
@@ -33,8 +34,8 @@ import {
     StrikeData,
     TraitViewData,
 } from "@actor/data/base.ts";
-import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
-import { FeatPF2e, ItemPF2e, WeaponPF2e } from "@item";
+import { AttributeString, MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
+import { BackgroundPF2e, ClassPF2e, FeatPF2e, HeritagePF2e, ItemPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
@@ -42,7 +43,7 @@ import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { OneToFour, TwoToFour, ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
@@ -80,7 +81,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
     attributes: CharacterAttributesSource;
     details: CharacterDetailsSource;
     traits: CharacterTraitsSource;
-    build?: CharacterBuildSource;
+    build: CharacterBuildSource;
     martial?: Record<string, { rank: number } | undefined>;
     saves?: Record<SaveType, { rank: number } | undefined>;
     resources: CharacterResourcesSource;
@@ -181,13 +182,11 @@ interface CharacterDetailsSource {
 }
 
 interface CharacterBuildSource {
-    attributes?: AttributeBoostsSource;
+    attributes: AttributeBoostsSource;
+    skills: CharacterSkillBuildSource;
 }
 
 interface AttributeBoostsSource {
-    /** Whether this PC's ability scores are being manually entered (aka custom) */
-    manual: boolean;
-
     boosts: {
         1?: AttributeString[];
         5?: AttributeString[];
@@ -198,6 +197,21 @@ interface AttributeBoostsSource {
 
     /** Attribute Apex increase from Automatic Bonus Progression */
     apex?: AttributeString | null;
+}
+
+interface CharacterSkillBuildSource {
+    selections: SkillIncreaseSelection[];
+}
+
+interface SkillIncreaseSelection {
+    /** The ID of the item that provided the increase */
+    itemId: string;
+    /** The skill being increased */
+    skill: SkillLongForm;
+    /** The proficiency rank this increased improved the skill to */
+    rank: OneToFour;
+    /** The original skill from which this increase was reallocated */
+    original: SkillLongForm | null;
 }
 
 interface CharacterResourcesSource {
@@ -272,12 +286,16 @@ interface CharacterAbilityData extends AbilityData {
 
 interface CharacterBuildData {
     attributes: AttributeBoosts;
+    skills: CharacterSkillBuildData;
 }
 
 /**
  * Prepared system data for character ability scores. This is injected by ABC classes to complete it.
  */
 interface AttributeBoosts extends AttributeBoostsSource {
+    /** Whether this PC's attribute modifiers are being manually entered */
+    manual: boolean;
+
     /** Key ability score options drawn from class and class features */
     keyOptions: AttributeString[];
 
@@ -301,6 +319,25 @@ interface AttributeBoosts extends AttributeBoostsSource {
     };
 
     apex: AttributeString | null;
+}
+
+interface CharacterSkillBuildData extends CharacterSkillBuildSource {
+    manual: boolean;
+    increases: SkillIncreases;
+}
+
+interface SkillIncreases {
+    heritage: SkillIncrease<HeritagePF2e<ActorPF2e>>[];
+    background: SkillIncrease<BackgroundPF2e<ActorPF2e>>[];
+    class: SkillIncrease<ClassPF2e<ActorPF2e>>[];
+    feats: SkillIncrease<FeatPF2e<ActorPF2e>>[];
+}
+
+interface SkillIncrease<TItem extends ItemPF2e<ActorPF2e>>
+    extends Omit<SkillIncreaseSelection, "itemId" | "original" | "skill"> {
+    item: TItem;
+    skill: SkillLongForm | null;
+    onConflict: "reallocate" | "do-nothing" | TwoToFour;
 }
 
 type CharacterAbilities = Record<AttributeString, CharacterAbilityData>;
@@ -526,13 +563,37 @@ interface BonusFeat<T extends FeatLike = FeatPF2e> {
     feat: T;
 }
 
+/** A mixed source-prepared state found in `CharacterPF2e#prepareBaseData` */
+type BasePreparedSystemData = Omit<DeepPartial<CharacterSystemData>, "build"> & {
+    abilities: Abilities;
+    build: CharacterBuildSource & {
+        attributes: {
+            manual?: boolean;
+            keyOptions?: AttributeString[];
+            boosts: {
+                ancestry?: AttributeString[];
+                background?: AttributeString[];
+                class?: AttributeString | null;
+            };
+            allowedBoosts?: Record<1 | 5 | 10 | 15 | 20, number>;
+            flaws?: { ancestry?: AttributeString[] };
+        };
+        skills: {
+            manual?: boolean;
+            increases?: CharacterSystemData["build"]["skills"]["increases"];
+        };
+    };
+};
+
 export {
+    BasePreparedSystemData,
     BaseWeaponProficiencyKey,
     BonusFeat,
     CategoryProficiencies,
     CharacterAbilities,
     CharacterAttributes,
     CharacterAttributesSource,
+    CharacterBuildSource,
     CharacterDetails,
     CharacterDetailsSource,
     CharacterFlags,
@@ -554,6 +615,7 @@ export {
     MartialProficiencies,
     MartialProficiency,
     MartialProficiencyKey,
+    SkillIncrease,
     SlottedFeat,
     WeaponGroupProficiencyKey,
 };
