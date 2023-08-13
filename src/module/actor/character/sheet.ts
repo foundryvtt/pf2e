@@ -68,7 +68,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
 
-    #attributeBuilder?: AttributeBuilder;
+    #attributeBuilder: AttributeBuilder | null = null;
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
@@ -90,6 +90,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CharacterSheetData<TActor>;
+        const { actor } = this;
 
         // Martial Proficiencies
         const proficiencies = Object.entries(sheetData.data.martial);
@@ -122,20 +123,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             proficiency.label = game.i18n.localize(label);
             const rank = proficiency.rank ?? 0;
-            proficiency.value = createProficiencyModifier({ actor: this.actor, rank, domains: [] }).modifier;
+            proficiency.value = createProficiencyModifier({ actor, rank, domains: [] }).modifier;
         }
 
         // A(H)BCD
-        sheetData.ancestry = this.actor.ancestry;
-        sheetData.heritage = this.actor.heritage;
-        sheetData.background = this.actor.background;
-        sheetData.class = this.actor.class;
-        sheetData.deity = this.actor.deity;
+        sheetData.ancestry = actor.ancestry;
+        sheetData.heritage = actor.heritage;
+        sheetData.background = actor.background;
+        sheetData.class = actor.class;
+        sheetData.deity = actor.deity;
 
         // Update hero points label
         sheetData.data.resources.heroPoints.hover = game.i18n.format(
-            this.actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
-            this.actor.heroPoints
+            actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
+            actor.heroPoints
         );
 
         // Class DCs
@@ -185,20 +186,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         // Is the character's key ability score overridden by an Active Effect?
-        sheetData.data.details.keyability.singleOption = this.actor.class?.system.keyAbility.value.length === 1;
+        sheetData.data.details.keyability.singleOption = actor.class?.system.keyAbility.value.length === 1;
 
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.actions = this.#prepareActions();
-        sheetData.feats = [...this.actor.feats, this.actor.feats.unorganized];
+        sheetData.feats = [...actor.feats, actor.feats.unorganized];
 
-        const craftingFormulas = await this.actor.getCraftingFormulas();
+        const craftingFormulas = await actor.getCraftingFormulas();
         const formulasByLevel = R.groupBy(craftingFormulas, (f) => f.level);
-        const flags = this.actor.flags.pf2e;
+        const flags = actor.flags.pf2e;
         const hasQuickAlchemy = !!(
-            this.actor.rollOptions.all["feature:quick-alchemy"] || this.actor.rollOptions.all["feat:quick-alchemy"]
+            actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
         );
 
         sheetData.crafting = {
@@ -216,7 +217,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 return result;
             }, {});
 
-        sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(this.actor);
+        sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
 
         // Sort attack/defense proficiencies
         const combatProficiencies: MartialProficiencies = sheetData.data.martial;
@@ -249,17 +250,17 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
         // Show hints for some things being modified
-        const baseData = this.actor.toObject();
+        const baseData = actor.toObject();
         sheetData.adjustedBonusEncumbranceBulk =
-            this.actor.attributes.bonusEncumbranceBulk !== baseData.system.attributes.bonusEncumbranceBulk;
+            actor.attributes.bonusEncumbranceBulk !== baseData.system.attributes.bonusEncumbranceBulk;
         sheetData.adjustedBonusLimitBulk =
-            this.actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
+            actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
 
-        sheetData.tabVisibility = deepClone(this.actor.flags.pf2e.sheetTabs);
+        sheetData.tabVisibility = deepClone(actor.flags.pf2e.sheetTabs);
 
         // Enrich content
-        const rollData = this.actor.getRollData();
-        const { biography } = this.actor.system.details;
+        const rollData = actor.getRollData();
+        const { biography } = actor.system.details;
         sheetData.enrichedContent.appearance = await TextEditor.enrichHTML(biography.appearance, {
             rollData,
             async: true,
@@ -322,7 +323,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Prepares all ability type items that create an action in the sheet */
     #prepareActions(): CharacterSheetData["actions"] {
-        const actor = this.actor;
+        const { actor } = this;
         const result: CharacterSheetData["actions"] = {
             combat: {
                 action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
