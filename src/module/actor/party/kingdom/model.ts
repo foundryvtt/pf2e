@@ -89,7 +89,8 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             icon.appendChild(fontAwesomeIcon("plus"));
         }
 
-        icon.addEventListener("click", () => {
+        icon.addEventListener("click", (event) => {
+            event.stopPropagation();
             if (this.active) {
                 new KingdomSheetPF2e(this.actor).render(true);
             } else {
