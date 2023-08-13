@@ -179,7 +179,7 @@ class EncounterPF2e extends Combat {
             (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
         );
         for (const sheet of pcSheets) {
-            sheet.enableInitiativeButton();
+            sheet.toggleInitiativeLink();
         }
     }
 
@@ -238,7 +238,7 @@ class EncounterPF2e extends Combat {
         });
     }
 
-    /** Disable the initiative button on PC sheets if this was the only encounter */
+    /** Disable the initiative link on PC sheets if this was the only encounter */
     protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void {
         super._onDelete(options, userId);
 
@@ -253,7 +253,7 @@ class EncounterPF2e extends Combat {
                 (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
             );
             for (const sheet of pcSheets) {
-                sheet.disableInitiativeButton();
+                sheet.toggleInitiativeLink();
             }
         }
 
