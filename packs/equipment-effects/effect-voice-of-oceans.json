@@ -1,0 +1,41 @@
+{
+    "_id": "pDErD7SHcOxYAbqf",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Voice of Oceans",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Conch of Otherworldly Seas]</p>\n<p>You hold the horn to your ear and can understand and speak Thalassic as long as it remains there.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.traits.languages.value",
+                "value": "thalassic"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
