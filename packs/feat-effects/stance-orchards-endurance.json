@@ -1,0 +1,58 @@
+{
+    "_id": "YNoBbHUu7enOSKyv",
+    "img": "systems/pf2e/icons/spells/one-with-the-land.webp",
+    "name": "Stance: Orchard's Endurance",
+    "system": {
+        "description": {
+            "value": "<p>Patches of bark appear on the skin of you and your nearby allies. You and your allies in your kinetic aura gain resistance 5 to bludgeoning and piercing damage. In addition, you and your affected allies roll flat checks to recover from persistent damage twice and take the higher result; this is a fortune effect.</p>\n<hr />\n<p><strong>Level (+4)</strong> The resistance increases by 2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Orchard's Endurance"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:effect:kinetic-aura"
+                ],
+                "radius": "{actor|flags.pf2e.kineticist.auraRadius}",
+                "slug": "kinetic-aura",
+                "traits": [
+                    "kineticist",
+                    "primal",
+                    "plant",
+                    "wood"
+                ]
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

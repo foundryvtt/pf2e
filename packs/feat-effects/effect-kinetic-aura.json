@@ -1,0 +1,132 @@
+{
+    "_id": "pLurcSPQb2gjAzoP",
+    "img": "systems/pf2e/icons/spells/cone-of-cold.webp",
+    "name": "Effect: Kinetic Aura",
+    "system": {
+        "description": {
+            "value": "<p>You activate your kinetic aura.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AreaSize5",
+                        "predicate": [
+                            "feat:aura-shaping"
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.AreaSize10",
+                        "value": 10
+                    },
+                    {
+                        "label": "PF2E.AreaSize15",
+                        "predicate": [
+                            "feat:aura-shaping"
+                        ],
+                        "value": 15
+                    },
+                    {
+                        "label": "PF2E.AreaSize20",
+                        "predicate": [
+                            "feat:aura-shaping"
+                        ],
+                        "value": 20
+                    },
+                    {
+                        "label": "PF2E.AreaSize25",
+                        "predicate": [
+                            "feat:aura-shaping",
+                            {
+                                "gte": [
+                                    "self:level",
+                                    15
+                                ]
+                            }
+                        ],
+                        "value": 25
+                    },
+                    {
+                        "label": "PF2E.AreaSize30",
+                        "predicate": [
+                            "feat:aura-shaping",
+                            {
+                                "gte": [
+                                    "self:level",
+                                    20
+                                ]
+                            }
+                        ],
+                        "value": 30
+                    }
+                ],
+                "flag": "auraRadius",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.AuraSize"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "predicate": [
+                            "junction:wood:aura"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Wood Aura Junction"
+                    },
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "includeSelf": false,
+                        "predicate": [
+                            "junction:air:aura"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Air Aura Junction"
+                    }
+                ],
+                "key": "Aura",
+                "radius": "{item|flags.pf2e.rulesSelections.auraRadius}",
+                "slug": "kinetic-aura",
+                "traits": [
+                    "kineticist",
+                    "primal"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.auraRadius",
+                "value": "{item|flags.pf2e.rulesSelections.auraRadius}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

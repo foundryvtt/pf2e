@@ -1,0 +1,49 @@
+{
+    "_id": "FHBYfq3w7ddLvzrK",
+    "img": "systems/pf2e/icons/spells/shape-wood.webp",
+    "name": "Effect: Orchard's Endurance",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance to bludgeoning and piercing damage. In addition, you roll flat checks to recover from persistent damage twice and take the higher result; this is a fortune effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "bludgeoning",
+                    "piercing"
+                ],
+                "value": "ternary(gte(@item.origin.level,18),7,5)"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "pd-recovery-check"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "bWvOkRT3alzllsiG",
+    "img": "systems/pf2e/icons/spells/entropic-wheel.webp",
+    "name": "Effect: Kindle Inner Flames",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains a status bonus to Reflex saves and Acrobatics checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "reflex",
+                    "acrobatics"
+                ],
+                "type": "status",
+                "value": "ternary(gte(@item.origin.level,12), 2, 1)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
