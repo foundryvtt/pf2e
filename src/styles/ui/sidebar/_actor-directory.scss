@@ -13,57 +13,54 @@
         }
     }
 
-    .party-list {
-        position: relative;
-        flex: 0 1 auto;
-        margin: 0;
+    ol.party-list {
+        list-style-type: none;
+        margin: 0 0 0.25rem 0;
         padding: 0;
-        margin-bottom: 0.25rem;
+        position: relative;
     }
 
-    .folder-like {
+    li.folder-like {
+        border-top: none;
+        border-bottom: none;
+
         & > header {
-            background: rgba(255, 255, 255, 0.2);
-            border-top: 1px solid var(--color-border-dark);
             border-bottom: 1px solid var(--color-border-dark);
+            border-top: 1px solid var(--color-border-dark);
+            display: flex;
             line-height: 1.5rem;
             padding: 6px;
 
-            display: flex;
-            align-items: center;
-
-            .icon, .controls .fa-fw {
+            .icon {
                 cursor: pointer;
-                flex: 0 0 auto;
-                margin-right: 10px;
                 font-size: var(--font-size-16);
+            }
+
+
+            .left-control > i {
+                margin: 0 0.5em 0 0.25em;
+                text-align: center;
             }
 
             h3 {
-                align-items: baseline;
-                display: flex;
+                display: block;
                 flex: 1;
-                margin: 0;
-                overflow: hidden;
-                white-space: nowrap;
                 font-size: var(--font-size-16);
-
-                > a, i {
-                    margin-left: 4px;
-                }
+                margin: 0;
+                padding-left: 1px;
             }
 
-            .controls {
-                flex: 0;
-                display: flex;
-                font-size: var(--font-size-14);
-            }
-
-            .create-button {
+            a.create-button {
+                flex: 0 0 20px;
+                margin-left: 3px;
                 position: relative;
                 text-align: center;
-                width: 20px;
-                .fa-plus {
+
+                &:hover i.fa-plus {
+                    color: var(--color-text-hyperlink);
+                }
+
+                i.fa-plus {
                     position: absolute;
                     top: -2px;
                     right: -2px;
@@ -77,8 +74,8 @@
         }
 
         &.collapsed {
-            & > header {
-                background: rgba(0, 0, 0, 0.5);
+            i.folder {
+                margin-right: 2px;
             }
 
             .fa-folder-open::before {
@@ -89,14 +86,44 @@
                 display: none;
             }
         }
+
+        &.droptarget > header h3 {
+            text-shadow: 1px 1px 3px var(--color-shadow-dark);
+            font-size: 1.2em;
+
+            i {
+                text-shadow: 0 0 4px var(--color-shadow-primary);
+                transform: scale(1.2);
+            }
+        }
+
+        &.other-parties {
+            > header {
+                background: var(--primary-dark);
+
+                h3 {
+                    i {
+                        margin-right: 6px;
+                    }
+                }
+            }
+
+            &.collapsed > header h3 i {
+                margin-right: 8px;
+            }
+        }
     }
 
     .subdirectory .folder-like {
         border-left: 1px solid var(--color-border-dark-1);
+
+        > header {
+            background: var(--primary-darker);
+        }
     }
 
     .party {
-        &:not(.active) .party-header {
+        &:not(.activated) .party-header {
             padding: 2px 6px;
             & > *:not(nav) {
                 opacity: 0.85;
@@ -107,12 +134,12 @@
             font-weight: 900; // effectively fa-solid
         }
 
-        &.active .party-header {
+        &.activated .party-header {
             background: var(--primary);
         }
 
         .blank {
-            padding: 6px 12px;
+            padding: 0 0.5rem;
         }
     }
 }

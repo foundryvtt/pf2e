@@ -10,7 +10,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     extraFolders: Record<string, boolean> = {};
 
     /** If we are currently dragging a party. Needed because dragenter/dragover doesn't contain the drag source. */
-    draggingParty = false;
+    #draggingParty = false;
 
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
@@ -51,40 +51,42 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         }
 
         // Implements folder-like collapse/expand functionality for folder-likes.
-        for (const folderHeaderEl of htmlQueryAll(html, ".folder-like > header")) {
-            folderHeaderEl.addEventListener("click", (event) => {
-                // If this is a controls element, stop propogation and don't open/collapse the sheet
-                if (htmlClosest(event.target, "a")?.closest(".controls")) {
-                    event.stopPropagation();
-                    return;
-                }
+        for (const folderLike of htmlQueryAll(html, ".folder-like")) {
+            const header = htmlQuery(folderLike, ":scope > header");
+            if (!header) continue;
 
+            for (const eventType of ["dragenter", "dragleave", "dragend"] as const) {
+                folderLike.addEventListener(eventType, (event) => {
+                    this.#onDragHighlightFolderLike(folderLike, event);
+                });
+            }
+
+            header.addEventListener("click", (event) => {
                 const folderEl = htmlClosest(event.target, ".folder-like");
                 const entryId = htmlClosest(event.target, "[data-entry-id]")?.dataset.entryId ?? "";
                 if (folderEl && entryId) {
+                    event.stopPropagation();
                     this.extraFolders[entryId] = folderEl.classList.contains("collapsed");
                     folderEl.classList.toggle("collapsed", !this.extraFolders[entryId]);
                     if (this.popOut) this.setPosition();
                 }
             });
-        }
 
-        // Alternative open sheet button (used by parties)
-        for (const openSheetEl of htmlQueryAll(html, "[data-action=open-sheet]")) {
-            openSheetEl.addEventListener("click", (event) => {
+            // Alternative open sheet button (used by parties)
+            const openSheetLink = htmlQuery(header, "a[data-action=open-sheet]");
+            openSheetLink?.addEventListener("click", (event) => {
                 event.stopPropagation();
-                const documentId = htmlClosest(openSheetEl, "[data-document-id]")?.dataset.documentId;
+                const documentId = htmlClosest(openSheetLink, "[data-document-id]")?.dataset.documentId;
                 const document = game.actors.get(documentId ?? "");
                 document?.sheet.render(true);
             });
-        }
 
-        // Register event to create an actor as a new party member
-        for (const element of htmlQueryAll(html, "[data-action=create-member]")) {
-            element.addEventListener("click", async (event) => {
+            // Register event to create an actor as a new party member
+            const createMemberLink = htmlQuery(header, "a[data-action=create-member]");
+            createMemberLink?.addEventListener("click", async (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                const documentId = htmlClosest(element, "[data-document-id]")?.dataset.documentId;
+                const documentId = htmlClosest(createMemberLink, "[data-document-id]")?.dataset.documentId;
                 const party = game.actors.get(documentId ?? "");
                 if (!(party instanceof PartyPF2e)) return;
 
@@ -105,30 +107,26 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                     await party.addMembers(actor);
                 }
             });
-        }
 
-        // Register event to create a new party
-        for (const element of htmlQueryAll(html, "[data-action=create-party]")) {
-            element.addEventListener("click", async (event) => {
-                event.preventDefault();
+            // Register event to create a new party
+            const createPartyLink = htmlQuery(header, "a[data-action=create-party]");
+            createPartyLink?.addEventListener("click", async (event) => {
                 event.stopPropagation();
                 const actor = await PartyPF2e.create({ type: "party", name: "New Party" });
                 actor?.sheet.render(true);
 
-                const header = htmlClosest(element, ".folder-like");
+                const header = htmlClosest(createPartyLink, ".folder-like");
                 const entryId = header?.dataset.entryId;
                 if (entryId) {
                     this.extraFolders[entryId] = true;
                     this.render();
                 }
             });
-        }
 
-        for (const element of htmlQueryAll(html, "[data-action=activate-party]")) {
-            element.addEventListener("click", (event) => {
-                event.preventDefault();
+            const activatePartyLink = htmlQuery(header, "a[data-action=activate-party]");
+            activatePartyLink?.addEventListener("click", (event) => {
                 event.stopPropagation();
-                const documentId = htmlClosest(element, "[data-document-id]")?.dataset.documentId ?? "";
+                const documentId = htmlClosest(activatePartyLink, "[data-document-id]")?.dataset.documentId ?? "";
                 if (game.actors.has(documentId)) {
                     game.settings.set("pf2e", "activeParty", documentId);
                 }
@@ -147,10 +145,10 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             const hasMatch =
                 query !== "" && htmlQueryAll(folderLike, ".actor").some((li) => li.style.display !== "none");
             if (hasMatch) {
-                folderLike.style.display = "flex";
+                folderLike.removeAttribute("style");
                 folderLike.classList.remove("collapsed");
                 const folderLikeHeader = htmlQuery(folderLike, ":scope > header");
-                if (folderLikeHeader) folderLikeHeader.style.display = "flex";
+                if (folderLikeHeader) folderLikeHeader.removeAttribute("style");
             } else {
                 const entryId = folderLike.dataset.entryId ?? "";
                 folderLike.classList.toggle("collapsed", !this.extraFolders[entryId]);
@@ -172,21 +170,33 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         if (fromParty) {
             const data: ActorSidebarDropData = JSON.parse(event.dataTransfer.getData("text/plain"));
             data.fromParty = fromParty;
-            this.draggingParty = fromUuidSync(data.uuid as ActorUUID) instanceof PartyPF2e;
+            this.#draggingParty = fromUuidSync(data.uuid as ActorUUID) instanceof PartyPF2e;
             event.dataTransfer.setData("text/plain", JSON.stringify(data));
         } else {
-            this.draggingParty = false;
+            this.#draggingParty = false;
         }
     }
 
     /** Overriden to prevent highlighting of certain types of draggeed data (such as parties) */
     protected override _onDragHighlight(event: DragEvent): void {
-        if (event.type === "dragenter" && this.draggingParty) {
-            event.stopPropagation();
-            return;
+        if (event.type === "dragenter" && this.#draggingParty) {
+            return event.stopPropagation();
         }
 
         super._onDragHighlight(event);
+    }
+
+    #onDragHighlightFolderLike(folderLike: HTMLElement, event: DragEvent): void {
+        event.stopPropagation();
+        if (this.#draggingParty) return;
+
+        // Remove current drop target
+        if (event.type === "dragleave") {
+            const element = document.elementFromPoint(event.clientX, event.clientY);
+            if (element?.closest(".folder-like") === folderLike) return;
+        }
+
+        folderLike?.classList.toggle("droptarget", event.type === "dragenter");
     }
 
     protected override async _handleDroppedEntry(target: HTMLElement, data: ActorSidebarDropData): Promise<void> {
@@ -219,14 +229,8 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             // Inject any additional data for specific party implementations
             for (const header of htmlQueryAll($element.get(0), ".party")) {
                 const party = game.actors.get(header.dataset.documentId ?? "");
-                if (!(party instanceof PartyPF2e)) continue;
-
-                if (party.campaign?.createSidebarButtons) {
-                    const sidebarButtons = party.campaign.createSidebarButtons();
-                    if (sidebarButtons) {
-                        header.querySelector(".controls")?.prepend(...sidebarButtons);
-                    }
-                }
+                const sidebarButtons = party?.isOfType("party") ? party.campaign?.createSidebarButtons?.() ?? [] : [];
+                header.querySelector("a[data-action=create-member")?.before(...sidebarButtons);
             }
         }
 
