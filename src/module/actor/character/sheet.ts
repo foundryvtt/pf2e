@@ -68,8 +68,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
 
-    #attributeBuilder: AttributeBuilder | null = null;
-
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
@@ -521,8 +519,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
 
             htmlQuery(mainPanel, "button[data-action=edit-attribute-modifiers]")?.addEventListener("click", () => {
-                (this.#attributeBuilder ??= new AttributeBuilder(this.actor)).render(true);
-                this.actor.apps[this.#attributeBuilder.appId] = this.#attributeBuilder;
+                const builder =
+                    Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
+                    new AttributeBuilder(this.actor);
+                builder.render(true);
             });
         }
 
