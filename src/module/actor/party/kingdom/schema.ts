@@ -132,7 +132,12 @@ const KINGDOM_SCHEMA = {
     }),
 
     name: new fields.StringField<string, string, true, false>({ required: true, nullable: false, initial: "" }),
-    img: new fields.StringField({ required: true, nullable: false }),
+    img: new fields.FilePathField<ImageFilePath, ImageFilePath, true, false>({
+        categories: ["IMAGE"],
+        required: true,
+        nullable: false,
+        initial: "systems/pf2e/icons/default-icons/kingdom.svg",
+    }),
     capital: new fields.StringField({ initial: "", required: true }),
     size: new fields.NumberField<number, number, true, false>({ initial: 1, min: 1, required: true, nullable: false }),
     level: new fields.NumberField<number, number, true, false>({
