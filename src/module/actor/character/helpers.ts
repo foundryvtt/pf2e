@@ -53,6 +53,7 @@ class PCStrikeAttackTraits extends StrikeAttackTraits {
             const unannotatedTrait = this.getUnannotatedTrait(trait);
             switch (unannotatedTrait) {
                 case "kickback": {
+                    // (pre-remaster language)
                     // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
                     // 14 or more Strength ignore the penalty."
                     return new ModifierPF2e({
@@ -60,7 +61,7 @@ class PCStrikeAttackTraits extends StrikeAttackTraits {
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: -2,
                         type: "circumstance",
-                        predicate: new PredicatePF2e({ lt: ["ability:str:score", 14] }),
+                        predicate: new PredicatePF2e({ lt: ["attribute:str:mod", 2] }),
                         adjustments: extractModifierAdjustments(synthetics, domains, unannotatedTrait),
                     });
                 }
