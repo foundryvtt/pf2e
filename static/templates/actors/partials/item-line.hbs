@@ -47,7 +47,7 @@
         {{#if editable}}
             <div class="item-controls">
                 {{#if (and canBeEquipped isInvestable)}}
-                    <a class="item-control item-toggle-invest{{#if item.isInvested}} active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-gem fa-1x fa-fw"></i></a>
+                    <a class="item-control toggle-invested{{#if item.isInvested}} active{{/if}}" data-action="toggle-invested" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-gem fa-1x fa-fw"></i></a>
                 {{/if}}
                 {{#if (or (eq @root.actor.type "character") (eq @root.actor.type "npc"))}}
                     {{> "systems/pf2e/templates/actors/partials/carry-type.hbs" item=item}}
