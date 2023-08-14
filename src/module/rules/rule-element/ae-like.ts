@@ -101,7 +101,9 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     protected applyAELike(rollOptions?: Set<string>): void {
         // Convert long-form skill slugs in paths to short forms
         const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
-        if (!this.#pathIsValid(path)) return this.warn("path");
+        if (!this.#pathIsValid(path)) {
+            return this.failValidation(`Invalid path "${path}"`);
+        }
 
         rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions()) : new Set();
         if (!this.test(rollOptions)) return;
