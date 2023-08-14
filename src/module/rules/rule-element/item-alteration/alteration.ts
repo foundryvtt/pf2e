@@ -149,6 +149,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                         throw newValue.asError();
                     }
                     hp.max = Math.max(Math.trunc(newValue), 1);
+                    if ("brokenThreshold" in hp) {
+                        hp.brokenThreshold = Math.floor(hp.max / 2);
+                    }
                     this.#adjustCreatureShieldData(data.item);
                 }
                 return;
