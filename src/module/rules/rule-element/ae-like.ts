@@ -102,7 +102,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         // Convert long-form skill slugs in paths to short forms
         const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
         if (!this.#pathIsValid(path)) {
-            return this.failValidation(`Invalid path "${path}"`);
+            return this.failValidation(`no data found at or near "${path}"`);
         }
 
         rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions()) : new Set();
