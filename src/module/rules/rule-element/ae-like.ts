@@ -101,7 +101,9 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     protected applyAELike(rollOptions?: Set<string>): void {
         // Convert long-form skill slugs in paths to short forms
         const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
-        if (!this.#pathIsValid(path)) return this.warn("path");
+        if (!this.#pathIsValid(path)) {
+            return this.failValidation(`no data found at or near "${path}"`);
+        }
 
         rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions()) : new Set();
         if (!this.test(rollOptions)) return;
@@ -128,7 +130,11 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 setProperty(actor, path, newValue);
                 this.#logChange(change);
             } catch (error) {
-                console.warn(error);
+                if (error instanceof Error) {
+                    this.failValidation(error.message);
+                } else {
+                    console.warn(error);
+                }
             }
         }
     }
@@ -224,10 +230,6 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         const { autoChanges } = this.actor.system;
         const entries = (autoChanges[this.path] ??= []);
         entries.push({ mode, level, value, source: this.item.name });
-    }
-
-    protected warn(property: string): void {
-        this.failValidation(`"${property}" property is invalid`);
     }
 }
 
