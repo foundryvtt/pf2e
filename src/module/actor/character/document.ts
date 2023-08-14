@@ -13,16 +13,7 @@ import {
     createAbilityModifier,
     createProficiencyModifier,
 } from "@actor/modifiers.ts";
-import {
-    AttackItem,
-    AttributeString,
-    CheckContext,
-    CheckContextParams,
-    MovementType,
-    RollContext,
-    RollContextParams,
-    SaveType,
-} from "@actor/types.ts";
+import { AttackItem, AttributeString, MovementType, RollContext, RollContextParams, SaveType } from "@actor/types.ts";
 import {
     ATTRIBUTE_ABBREVIATIONS,
     SAVE_TYPES,
@@ -1339,6 +1330,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Everything from relevant synthetics
         modifiers.push(
+            ...PCStrikeAttackTraits.createAttackModifiers({ weapon, domains: selectors }),
             ...extractModifiers(synthetics, selectors, { injectables: { weapon }, resolvables: { weapon } })
         );
 
@@ -1723,23 +1715,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const context = await super.getRollContext(params);
         if (params.statistic instanceof StatisticModifier && context.self.item?.isOfType("weapon")) {
             PCStrikeAttackTraits.adjustWeapon(context.self.item);
-        }
-
-        return context;
-    }
-
-    /** Create attack-roll modifiers from weapon traits */
-    override getCheckContext<TStatistic extends StatisticCheck | StrikeData, TItem extends AttackItem | null>(
-        params: CheckContextParams<TStatistic, TItem>
-    ): Promise<CheckContext<this, TStatistic, TItem>>;
-    override async getCheckContext(params: CheckContextParams): Promise<CheckContext<this>> {
-        const context = await super.getCheckContext(params);
-        if (params.statistic instanceof StatisticModifier && context.self.item?.isOfType("weapon")) {
-            const fromTraits = PCStrikeAttackTraits.createAttackModifiers({
-                weapon: context.self.item,
-                domains: params.domains,
-            });
-            context.self.modifiers.push(...fromTraits);
         }
 
         return context;
