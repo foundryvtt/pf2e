@@ -386,19 +386,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return craftingEntries;
     }
 
-    /** Disable the initiative button located on the sidebar */
-    disableInitiativeButton(): void {
-        this.element
-            .find(".sidebar a.roll-init")
-            .addClass("disabled")
-            .attr({ title: game.i18n.localize("PF2E.Encounter.NoActiveEncounter") });
-    }
-
-    /** Enable the initiative button located on the sidebar */
-    enableInitiativeButton(): void {
-        this.element.find(".sidebar a.roll-init").removeClass("disabled").removeAttr("title");
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -407,21 +394,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         super.activateListeners($html);
         const html = $html[0];
 
-        // Initiative button
-        if (game.combat) {
-            this.enableInitiativeButton();
-        } else {
-            this.disableInitiativeButton();
-        }
+        // Toggle the availability of the roll-initiative link
+        this.toggleInitiativeLink();
 
         // Recheck for the presence of an encounter in case the button state has somehow fallen out of sync
-        $html.find(".roll-init").on("mouseenter", (event) => {
-            const $target = $(event.currentTarget);
-            if ($target.hasClass("disabled") && game.combat) {
-                this.enableInitiativeButton();
-            } else if (!$target.hasClass("disabled") && !game.combat) {
-                this.disableInitiativeButton();
-            }
+        const rollInitiativeLink = htmlQuery(html, "aside a[data-action=roll-initiative]");
+        rollInitiativeLink?.addEventListener("mouseenter", () => {
+            this.toggleInitiativeLink();
         });
 
         // Adjust Hero Points
@@ -1079,6 +1058,25 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
         const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
         return typeof categoryId === "string" ? { slotId, categoryId } : null;
+    }
+
+    /** Toggle availability of the roll-initiative link on the sidebar */
+    toggleInitiativeLink(link?: HTMLElement | null): void {
+        link ??= htmlQuery(this.element.get(0), "aside a[data-action=roll-initiative]");
+        if (!link) return;
+
+        const alreadyRolled =
+            game.combat && typeof game.combat.combatants.find((c) => c.actor === this.actor)?.initiative === "number";
+        const canRoll = !!(this.isEditable && game.combat && !alreadyRolled);
+
+        if (canRoll) {
+            link.classList.remove("disabled");
+            link.removeAttribute("title");
+        } else {
+            link.classList.add("disabled");
+            const reason = !game.combat ? "NoActiveEncounter" : alreadyRolled ? "AlreadyRolled" : null;
+            if (reason) link.title = game.i18n.format(`PF2E.Encounter.${reason}`, { actor: this.actor.name });
+        }
     }
 
     protected override async _onDropItem(
