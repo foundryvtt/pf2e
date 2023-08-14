@@ -646,7 +646,6 @@ class DamageDicePF2e {
 
         this.diceNumber = params.diceNumber ?? 0;
         this.dieSize = params.dieSize ?? null;
-        this.critical = params.critical ?? null;
         this.damageType = params.damageType ?? null;
         this.category = params.category ?? null;
         this.override = params.override ?? null;
@@ -657,6 +656,7 @@ class DamageDicePF2e {
             : this.damageType === "bleed"
             ? "persistent"
             : null;
+        this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
 
         this.predicate =
             params.predicate instanceof PredicatePF2e ? params.predicate : new PredicatePF2e(params.predicate ?? []);
