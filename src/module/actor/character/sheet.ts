@@ -457,7 +457,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // MAIN
 
         const mainPanel = htmlQuery(html, ".tab[data-tab=character]");
-        if (!mainPanel) throw ErrorPF2e("Unexpected failure finding actions panel");
+        if (!mainPanel) throw ErrorPF2e("Unexpected failure finding main panel");
 
         // Ancestry/Heritage/Class/Background/Deity context menu
         if (this.isEditable) {
@@ -635,13 +635,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
         }
 
-        // Toggle invested state
-        $html.find(".item-toggle-invest").on("click", (event) => {
-            const f = $(event.currentTarget);
-            const itemId = f.parents(".item").attr("data-item-id") ?? "";
-            this.actor.toggleInvested(itemId);
-        });
-
         $html.find("i.fa-info-circle.small[title]").tooltipster({
             maxWidth: 275,
             position: "right",
@@ -687,8 +680,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
 
+        // INVENTORY
+        this.#activateInventoryListeners(html);
+
         // SPELLCASTING
-        const castingPanel = htmlQuery(html, ".tab.spellcasting");
+        const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
 
         // Focus pool pips
         const focusPips = htmlQueryAll(castingPanel, ".focus-pool");
@@ -931,6 +927,19 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
             link.addEventListener("click", () => this.#onClickBrowseFeats(link));
         }
+    }
+
+    #activateInventoryListeners(html: HTMLElement): void {
+        const panel = htmlQuery(html, ".tab[data-tab=inventory]");
+        if (!panel) return;
+
+        // Toggle invested state
+        const inventory = htmlQuery(panel, ".inventory-pane");
+        inventory?.addEventListener("click", (event) => {
+            const link = htmlClosest(event.target, "a[data-action=toggle-invested]");
+            const itemId = htmlClosest(link, ".item")?.dataset.itemId;
+            if (itemId) this.actor.toggleInvested(itemId);
+        });
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
