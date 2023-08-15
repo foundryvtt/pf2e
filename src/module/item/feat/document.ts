@@ -145,7 +145,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     override async getChatData(
         this: FeatPF2e<ActorPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichmentOptions = {}
     ): Promise<ItemSummaryData> {
         const levelLabel = game.i18n.format("PF2E.LevelN", { level: this.level });
         const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);

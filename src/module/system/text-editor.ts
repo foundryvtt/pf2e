@@ -27,14 +27,14 @@ const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 class TextEditorPF2e extends TextEditor {
     static override enrichHTML(
         content: string | null,
-        options: EnrichHTMLOptionsPF2e & { async: true }
+        options: EnrichmentOptionsPF2e & { async: true }
     ): Promise<string>;
-    static override enrichHTML(content: string | null, options: EnrichHTMLOptionsPF2e & { async: false }): string;
-    static override enrichHTML(content: string | null, options: EnrichHTMLOptionsPF2e): string | Promise<string>;
+    static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e & { async: false }): string;
+    static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e): string | Promise<string>;
     static override enrichHTML(
         this: typeof TextEditor,
         content: string | null,
-        options: EnrichHTMLOptionsPF2e = {}
+        options: EnrichmentOptionsPF2e = {}
     ): string | Promise<string> {
         if (content?.startsWith("<p>@Localize")) {
             // Remove tags
@@ -136,7 +136,7 @@ class TextEditorPF2e extends TextEditor {
         return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
     }
 
-    static processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
+    static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
         const $html = $("<div>").html(content);
         const document = options.rollData?.actor ?? null;
         UserVisibilityPF2e.process($html, { document });
@@ -146,7 +146,7 @@ class TextEditorPF2e extends TextEditor {
 
     static async enrichString(
         data: RegExpMatchArray,
-        options: EnrichHTMLOptionsPF2e = {}
+        options: EnrichmentOptionsPF2e = {}
     ): Promise<HTMLElement | null> {
         if (data.length < 4) return null;
         const item = options.rollData?.item ?? null;
@@ -199,7 +199,7 @@ class TextEditorPF2e extends TextEditor {
         return span;
     }
 
-    static async #localize(paramString: string, options: EnrichHTMLOptionsPF2e): Promise<HTMLElement | null> {
+    static async #localize(paramString: string, options: EnrichmentOptionsPF2e): Promise<HTMLElement | null> {
         const content = game.i18n.localize(paramString);
         if (content === paramString) {
             ui.notifications.error(`Failed to localize ${paramString}!`);
@@ -713,7 +713,7 @@ async function augmentInlineDamageRoll(
     }
 }
 
-interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
+interface EnrichmentOptionsPF2e extends EnrichmentOptions {
     rollData?: RollDataPF2e;
 }
 
@@ -753,4 +753,4 @@ interface CheckLinkParams {
     roller?: string;
 }
 
-export { EnrichHTMLOptionsPF2e, TextEditorPF2e };
+export { EnrichmentOptionsPF2e, TextEditorPF2e };

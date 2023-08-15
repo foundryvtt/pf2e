@@ -9,5 +9,4 @@ import "./searchfilter.d.ts";
 import "./settings.d.ts";
 import "./socket.d.ts";
 import "./sorting.d.ts";
-import "./text-editor.d.ts";
 import "./video.d.ts";
