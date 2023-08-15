@@ -1404,6 +1404,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
 interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
+    render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this | Promise<this>;
 }
 
 export { ActorSheetPF2e };

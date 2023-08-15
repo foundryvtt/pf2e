@@ -2,6 +2,8 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Language } from "@actor/creature/index.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
+import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
+import { SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
@@ -9,12 +11,11 @@ import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
-import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -52,6 +53,30 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     override get isLootSheet(): boolean {
         return this.actor.canUserModify(game.user, "update");
+    }
+
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        if (game.user.isGM) {
+            buttons.unshift({
+                label: "JOURNAL.ActionShow",
+                class: "show-sheet",
+                icon: "fas fa-eye",
+                onclick: () => {
+                    const users = game.users.filter((u) => !u.isSelf);
+                    game.socket.emit("system.pf2e", {
+                        request: "showSheet",
+                        users: users.map((u) => u.uuid),
+                        document: this.actor.uuid,
+                        options: {
+                            tab: this._tabs[0].active,
+                        },
+                    } satisfies SocketMessage);
+                },
+            });
+        }
+
+        return buttons;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<PartySheetData> {

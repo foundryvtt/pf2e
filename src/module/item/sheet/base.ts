@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data/index.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
     createSheetTags,

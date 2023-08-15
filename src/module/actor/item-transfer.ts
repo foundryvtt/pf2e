@@ -1,5 +1,6 @@
 import { PhysicalItemPF2e } from "@item";
 import { UserPF2e } from "@module/user/index.ts";
+import { SocketMessage } from "@scripts/socket.ts";
 import { ErrorPF2e, localizer } from "@util";
 import { ActorPF2e } from "./index.ts";
 
@@ -45,7 +46,7 @@ export class ItemTransfer implements ItemTransferData {
         }
 
         console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster.name}`);
-        game.socket.emit("system.pf2e", { request: "itemTransfer", data: this });
+        game.socket.emit("system.pf2e", { request: "itemTransfer", data: this } satisfies SocketMessage);
     }
 
     // Only a GM can call this method, or else Foundry will block it (or would if we didn't first)

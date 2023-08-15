@@ -1,5 +1,7 @@
+import { ActorPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
+import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemType } from "@item/data/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, objectHasKey, setHasElement } from "@util";
@@ -7,6 +9,9 @@ import * as R from "remeda";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomBuilder } from "./builder.ts";
+import { resolveKingdomBoosts } from "./helpers.ts";
+import { KINGDOM_SCHEMA } from "./schema.ts";
+import { KingdomSheetPF2e } from "./sheet.ts";
 import {
     KingdomCHG,
     KingdomGovernment,
@@ -15,8 +20,6 @@ import {
     KingdomSkill,
     KingdomSource,
 } from "./types.ts";
-import { resolveKingdomBoosts } from "./helpers.ts";
-import { KINGDOM_SCHEMA } from "./schema.ts";
 import {
     CONTROL_DC_BY_LEVEL,
     KINGDOM_ABILITIES,
@@ -29,9 +32,6 @@ import {
     KINGDOM_SKILL_LABELS,
     VACANCY_PENALTIES,
 } from "./values.ts";
-import { CampaignFeaturePF2e, ItemPF2e } from "@item";
-import { KingdomSheetPF2e } from "./sheet.ts";
-import { ActorPF2e } from "@actor";
 
 const { DataModel } = foundry.abstract;
 
@@ -91,11 +91,8 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
         icon.addEventListener("click", (event) => {
             event.stopPropagation();
-            if (this.active) {
-                new KingdomSheetPF2e(this.actor).render(true);
-            } else {
-                new KingdomBuilder(this).render(true);
-            }
+            const type = this.active ? null : "builder";
+            this.renderSheet({ type });
         });
         return [icon];
     }
@@ -380,6 +377,14 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         }
 
         return null;
+    }
+
+    renderSheet(options: { tab?: string; type?: "builder" | null } = {}): void {
+        if (options.type === "builder") {
+            new KingdomBuilder(this).render(true);
+        } else {
+            new KingdomSheetPF2e(this.actor).render(true, { tab: options.tab });
+        }
     }
 }
 
