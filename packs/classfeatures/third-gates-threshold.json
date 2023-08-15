@@ -92,35 +92,13 @@
                         "value": "wood"
                     }
                 ],
+                "flag": "elementFork",
                 "key": "ChoiceSet",
                 "predicate": [
                     "kinetic-gate:third-threshold:fork"
                 ],
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
                 "rollOption": "kinetic-gate"
-            },
-            {
-                "choices": {
-                    "filter": [
-                        "item:rarity:common",
-                        {
-                            "lte": [
-                                "item:level",
-                                13
-                            ]
-                        },
-                        "item:trait:impulse"
-                    ],
-                    "itemType": "feat"
-                },
-                "flag": "impulse",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
-            },
-            {
-                "allowDuplicate": false,
-                "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.impulse}"
             },
             {
                 "choices": [
@@ -233,6 +211,243 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}"
+            },
+            {
+                "adjustName": "false",
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        {
+                            "lte": [
+                                "item:level",
+                                13
+                            ]
+                        },
+                        "item:trait:impulse",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        {
+                                            "not": "item:trait:composite"
+                                        },
+                                        "item:trait:air",
+                                        "kinetic-gate:air"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "not": "item:trait:composite"
+                                        },
+                                        "item:trait:earth",
+                                        "kinetic-gate:earth"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "not": "item:trait:composite"
+                                        },
+                                        "item:trait:fire",
+                                        "kinetic-gate:fire"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "not": "item:trait:composite"
+                                        },
+                                        "item:trait:metal",
+                                        "kinetic-gate:metal"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "not": "item:trait:composite"
+                                        },
+                                        "item:trait:water",
+                                        "kinetic-gate:water"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "not": "item:trait:composite"
+                                        },
+                                        "item:trait:wood",
+                                        "kinetic-gate:wood"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:air",
+                                        "kinetic-gate:air",
+                                        "item:trait:earth",
+                                        "kinetic-gate:earth"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:air",
+                                        "kinetic-gate:air",
+                                        "item:trait:fire",
+                                        "kinetic-gate:fire"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:air",
+                                        "kinetic-gate:air",
+                                        "item:trait:metal",
+                                        "kinetic-gate:metal"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:air",
+                                        "kinetic-gate:air",
+                                        "item:trait:water",
+                                        "kinetic-gate:water"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:air",
+                                        "kinetic-gate:air",
+                                        "item:trait:wood",
+                                        "kinetic-gate:wood"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:fire",
+                                        "kinetic-gate:fire",
+                                        "item:trait:earth",
+                                        "kinetic-gate:earth"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:fire",
+                                        "kinetic-gate:fire",
+                                        "item:trait:metal",
+                                        "kinetic-gate:metal"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:fire",
+                                        "kinetic-gate:fire",
+                                        "item:trait:water",
+                                        "kinetic-gate:water"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:fire",
+                                        "kinetic-gate:fire",
+                                        "item:trait:wood",
+                                        "kinetic-gate:wood"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:earth",
+                                        "kinetic-gate:earth",
+                                        "item:trait:metal",
+                                        "kinetic-gate:metal"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:earth",
+                                        "kinetic-gate:earth",
+                                        "item:trait:water",
+                                        "kinetic-gate:water"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:earth",
+                                        "kinetic-gate:earth",
+                                        "item:trait:wood",
+                                        "kinetic-gate:wood"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:metal",
+                                        "kinetic-gate:metal",
+                                        "item:trait:water",
+                                        "kinetic-gate:water"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:composite",
+                                        "item:trait:metal",
+                                        "kinetic-gate:metal",
+                                        "item:trait:wood",
+                                        "kinetic-gate:wood"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseOne",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:third-threshold:expand"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
+            },
+            {
+                "adjustName": "false",
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        "item:level:13",
+                        "item:trait:impulse",
+                        "item:trait:{item|flags.pf2e.rulesSelections.elementFork}",
+                        {
+                            "not": "item:trait:composite"
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:third-threshold:fork"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             }
         ],
         "source": {
