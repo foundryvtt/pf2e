@@ -428,7 +428,12 @@
                 "choices": {
                     "filter": [
                         "item:rarity:common",
-                        "item:level:13",
+                        {
+                            "lte": [
+                                "item:level",
+                                13
+                            ]
+                        },
                         "item:trait:impulse",
                         "item:trait:{item|flags.pf2e.rulesSelections.elementFork}",
                         {
