@@ -494,7 +494,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.system.location.value ||= null;
 
         // Show all traditions as traits if there is no actor
-        if (!this.actor) {
+        if (!this.isEmbedded) {
             this.system.traits.value.push(...this.system.traditions.value);
         }
 
