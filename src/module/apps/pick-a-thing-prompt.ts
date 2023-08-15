@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication.ts";
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
 
 /** Prompt the user to pick from a number of options */
 abstract class PickAThingPrompt<T> extends Application {
     protected item: ItemPF2e<ActorPF2e>;
 
-    private resolve?: (value: PickableThing<T> | null) => void;
+    #resolve?: (value: PickableThing<T> | null) => void;
 
     protected selection: PickableThing<T> | null = null;
 
@@ -62,14 +62,12 @@ abstract class PickAThingPrompt<T> extends Application {
             : this.choices.at(Number(selectedIndex)) ?? null;
     }
 
-    abstract override get template(): string;
-
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
     async resolveSelection(): Promise<PickableThing<T> | null> {
         this.choices = this.getChoices();
         this.render(true);
         return new Promise((resolve) => {
-            this.resolve = resolve;
+            this.#resolve = resolve;
         });
     }
 
@@ -86,14 +84,14 @@ abstract class PickAThingPrompt<T> extends Application {
     override activateListeners($html: JQuery): void {
         const html = $html[0];
 
-        html.querySelectorAll<HTMLElement>("a[data-choice], button[type=button]").forEach((element) => {
+        for (const element of htmlQueryAll(html, "a[data-choice], button[type=button]")) {
             element.addEventListener("click", (event) => {
                 this.selection = this.getSelection(event) ?? null;
                 this.close();
             });
-        });
+        }
 
-        const select = html.querySelector<HTMLInputElement>("input[data-tagify-select]");
+        const select = htmlQuery<HTMLInputElement>(html, "input[data-tagify-select]");
         if (!select) return;
 
         this.selectMenu = new Tagify(select, {
@@ -116,24 +114,27 @@ abstract class PickAThingPrompt<T> extends Application {
     }
 
     /** Close the dialog, applying the effect with configured target or warning the user that something went wrong. */
-    override async close({ force = false } = {}): Promise<void> {
-        this.element.find("button, select").css({ pointerEvents: "none" });
-        if (!this.selection) {
-            if (force) {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
-                        actor: this.actor.name,
-                        item: this.item.name,
-                    })
-                );
-            } else if (!this.allowNoSelection) {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name })
-                );
-            }
+    override async close(options?: { force?: boolean }): Promise<void> {
+        for (const element of htmlQueryAll(this.element[0], "button, select")) {
+            element.style.pointerEvents = "none";
         }
-        this.resolve?.(this.selection);
-        await super.close({ force });
+
+        if (this.choices.length === 0) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
+                    actor: this.actor.name,
+                    item: this.item.name,
+                })
+            );
+        } else if (!this.selection && !this.allowNoSelection) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name })
+            );
+        }
+
+        this.#resolve?.(this.selection);
+
+        return super.close(options);
     }
 }
 
