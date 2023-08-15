@@ -79,7 +79,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override async getChatData(
         this: ConsumablePF2e<ActorPF2e>,
-        htmlOptions: EnrichHTMLOptions = {},
+        htmlOptions: EnrichmentOptions = {},
         rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);

@@ -38,9 +38,19 @@ declare global {
          * @param [options.rollData]       The data object providing context for inline rolls
          * @return The enriched HTML content
          */
-        static enrichHTML(content: string | null, options: EnrichHTMLOptions & { async: true }): Promise<string>;
-        static enrichHTML(content: string | null, options: EnrichHTMLOptions & { async: false }): string;
-        static enrichHTML(content: string | null, options: EnrichHTMLOptions): string | Promise<string>;
+        static enrichHTML(content: string | null, options: EnrichmentOptions & { async: false }): string;
+        static enrichHTML(content: string | null, options: EnrichmentOptions & { async: true }): Promise<string>;
+        static enrichHTML(content: string | null, options: EnrichmentOptions): string | Promise<string>;
+
+        /**
+         * Convert text of the form @UUID[uuid]{name} to anchor elements.
+         * @param text      The existing text content
+         * @param [options] Options provided to customize text enrichment
+         * @param [options.async]      Whether to resolve UUIDs asynchronously
+         * @param [options.relativeTo] A document to resolve relative UUIDs against.
+         * @returns Whether any content links were replaced and the text nodes need to be updated.
+         */
+        static _enrichContentLinks(text: Text[], options?: EnrichmentOptions): boolean | Promise<boolean>;
 
         /**
          * Preview an HTML fragment by constructing a substring of a given length from its inner text.
@@ -93,18 +103,18 @@ declare global {
 
         /**
          * Create a dynamic document link from a regular expression match
-         * @param match  The full matched string
-         * @param type   The matched document type or "Compendium"
-         * @param target The requested match target (_id or name)
-         * @param name   A customized or over-ridden display name for the link
-         * @return An HTML element for the document link
+         * @param match     The regular expression match
+         * @param [options] Additional options to configure enrichment behaviour
+         * @param [options.async=false] If asynchronous evaluation is enabled, fromUuid will be
+         *                              called, allowing comprehensive UUID lookup, otherwise fromUuidSync will be used.
+         * @param [options.relativeTo]  A document to resolve relative UUIDs against.
+         * @returns An HTML element for the document link, returned as a Promise if async was true and the message
+         *          contained a UUID link.
          */
         protected static _createContentLink(
-            match: string,
-            type: string,
-            target: string,
-            name: string
-        ): HTMLAnchorElement;
+            match: RegExpMatchArray,
+            options?: { async?: boolean; relativeTo?: ClientDocument }
+        ): HTMLAnchorElement | Promise<HTMLAnchorElement>;
 
         /**
          * Replace a hyperlink-like string with an actual HTML &lt;a> tag
@@ -175,7 +185,7 @@ declare global {
         static getContentLink(event: ElementDragEvent): Promise<string | null>;
     }
 
-    interface EnrichHTMLOptions {
+    interface EnrichmentOptions {
         async?: boolean;
         secrets?: boolean;
         documents?: boolean;

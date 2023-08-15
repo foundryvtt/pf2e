@@ -1,6 +1,7 @@
 import "./context.d.ts";
 import "./dialog.d.ts";
 import "./drag-drop.d.ts";
+import "./editor.d.ts";
 import "./filepicker.d.ts";
 import "./notifications.d.ts";
 import "./tabs.d.ts";

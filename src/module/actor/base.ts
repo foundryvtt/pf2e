@@ -41,7 +41,7 @@ import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { ArmorStatistic } from "@system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { EnrichHTMLOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
+import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { ActorConditions } from "./conditions.ts";
@@ -1610,7 +1610,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** This allows @actor.level and such to work for macros and inline rolls */
-    override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
+    override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
         const rollData = { actor: this };
         for (const prop of ["abilities", "attributes", "details", "skills", "saves"] as const) {
             Object.defineProperty(rollData, prop, {

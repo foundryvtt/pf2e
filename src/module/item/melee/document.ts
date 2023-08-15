@@ -194,7 +194,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async getChatData(
         this: MeleePF2e<ActorPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichmentOptions = {}
     ): Promise<ItemSummaryData & { map2: string; map3: string } & Omit<MeleeSystemData, "traits">> {
         const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);

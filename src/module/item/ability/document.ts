@@ -41,7 +41,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
     override async getChatData(
         this: AbilityItemPF2e<ActorPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichmentOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);

@@ -7,7 +7,7 @@ import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { UserPF2e } from "@module/user/document.ts";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -155,7 +155,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return options;
     }
 
-    override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
+    override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
         const actorRollData = this.actor?.getRollData() ?? { actor: null };
         return { ...actorRollData, item: this };
     }
@@ -337,7 +337,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Currently renders description text using enrichHTML.
      */
     protected async processChatData<T extends ItemSummaryData>(
-        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         data: T
     ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
@@ -356,7 +356,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     async getChatData(
-        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         _rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);

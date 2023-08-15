@@ -28,7 +28,7 @@ import {
 } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, localizer, ordinal, setHasElement, traitSlugToObject } from "@util";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
@@ -194,7 +194,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override getRollData(
         rollOptions: { castLevel?: number | string } = {}
-    ): NonNullable<EnrichHTMLOptions["rollData"]> {
+    ): NonNullable<EnrichmentOptions["rollData"]> {
         const spellLevel = Number(rollOptions?.castLevel) || null;
         const castLevel = Math.max(this.baseRank, spellLevel || this.rank);
 
@@ -637,7 +637,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async getChatData(
         this: SpellPF2e<ActorPF2e>,
-        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {}
     ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
