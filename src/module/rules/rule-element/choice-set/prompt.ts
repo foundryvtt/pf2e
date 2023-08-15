@@ -77,7 +77,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         }
 
         // Exit early if there are no valid choices
-        if (this.choices.length === 0 && !this.containsItems) {
+        if (this.choices.length === 0 && !this.allowedDrops) {
             await this.close({ force: true });
             return null;
         }
