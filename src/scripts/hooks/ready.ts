@@ -9,6 +9,7 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { activateSocketListener } from "@scripts/socket.ts";
 import { storeInitialWorldVersions } from "@scripts/store-versions.ts";
 import { extendDragData } from "@scripts/system/dragstart-handler.ts";
+import { htmlQueryAll } from "@util";
 import * as R from "remeda";
 
 export const Ready = {
@@ -74,8 +75,8 @@ export const Ready = {
             });
 
             // Update chat messages to add set-as-initiative buttons to skill checks
-            for (const li of document.querySelectorAll<HTMLLIElement>("#chat-log > li")) {
-                SetAsInitiative.listen($(li));
+            for (const li of htmlQueryAll(document.body, "#chat-log > li.message")) {
+                SetAsInitiative.listen(li);
             }
 
             activateSocketListener();
