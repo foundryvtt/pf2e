@@ -22,7 +22,7 @@ class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema> 
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
+        if (!this.test()) return;
 
         const { weaponPotency } = this.actor.synthetics;
         const selector = this.resolveInjectedProperties(this.selector);
