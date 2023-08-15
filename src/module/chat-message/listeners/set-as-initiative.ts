@@ -3,9 +3,7 @@ import { fontAwesomeIcon } from "@util";
 
 /** Add a button to set a check roll as the roller's initiative */
 export const SetAsInitiative = {
-    listen: ($li: JQuery): void => {
-        const li = $li[0];
-
+    listen: (li: HTMLElement): void => {
         const message = game.messages.get(li.dataset.messageId ?? "", { strict: true });
         const { context } = message.flags.pf2e;
         if (
