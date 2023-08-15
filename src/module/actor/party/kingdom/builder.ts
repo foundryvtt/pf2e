@@ -1,4 +1,5 @@
 import { BoostFlawState } from "@actor/character/attribute-builder.ts";
+import { SocketMessage } from "@scripts/socket.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "../document.ts";
@@ -60,6 +61,31 @@ class KingdomBuilder extends FormApplication<Kingdom> {
 
     override get isEditable(): boolean {
         return this.actor.isOwner;
+    }
+
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        if (game.user.isGM) {
+            buttons.unshift({
+                label: "JOURNAL.ActionShow",
+                class: "show-sheet",
+                icon: "fas fa-eye",
+                onclick: () => {
+                    const users = game.users.filter((u) => !u.isSelf);
+                    game.socket.emit("system.pf2e", {
+                        request: "showSheet",
+                        users: users.map((u) => u.uuid),
+                        document: this.actor.uuid,
+                        options: {
+                            campaign: "builder",
+                            tab: this._tabs[0].active,
+                        },
+                    } satisfies SocketMessage);
+                },
+            });
+        }
+
+        return buttons;
     }
 
     override async getData(): Promise<KingdomBuilderSheetData> {

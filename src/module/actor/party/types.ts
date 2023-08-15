@@ -21,6 +21,8 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     getStatistic?(slug: string): Statistic | null;
     /** Additional data for inline rolls */
     getRollData?(): Record<string, unknown>;
+    /** Renders the sheet associateed with this campaign, if available */
+    renderSheet?(options?: { tab?: string; type?: string | null }): void;
 }
 
 export { PartyCampaign, PartyUpdateContext };

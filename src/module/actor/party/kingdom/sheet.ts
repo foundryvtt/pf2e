@@ -9,6 +9,7 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
@@ -76,6 +77,31 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 },
             ],
         };
+    }
+
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        if (game.user.isGM) {
+            buttons.unshift({
+                label: "JOURNAL.ActionShow",
+                class: "show-sheet",
+                icon: "fas fa-eye",
+                onclick: () => {
+                    const users = game.users.filter((u) => !u.isSelf);
+                    game.socket.emit("system.pf2e", {
+                        request: "showSheet",
+                        users: users.map((u) => u.uuid),
+                        document: this.actor.uuid,
+                        options: {
+                            campaign: true,
+                            tab: this._tabs[0].active,
+                        },
+                    } satisfies SocketMessage);
+                },
+            });
+        }
+
+        return buttons;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<KingdomSheetData> {
