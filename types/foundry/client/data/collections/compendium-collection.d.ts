@@ -216,15 +216,15 @@ declare global {
     interface ResolvedUUID {
         uuid: string;
         /** The parent collection. */
-        collection?: DocumentCollection<ClientDocument>;
+        collection?: DocumentCollection<ClientDocument> | undefined;
         /** The parent document. */
-        documentId?: string;
+        documentId?: string | undefined;
         /** The parent document type. */
-        documentType?: CompendiumDocumentType;
+        documentType?: string;
         /** An already-resolved document. */
         doc?: ClientDocument | null;
         /** Any remaining Embedded Document parts. */
-        embedded?: string[];
+        embedded: string[];
     }
 
     /**
