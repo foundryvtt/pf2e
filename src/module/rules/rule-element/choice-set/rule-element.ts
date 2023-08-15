@@ -98,6 +98,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     override async preCreate({
         itemSource,
         ruleSource,
+        pendingItems,
     }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
         if (this.selection === null && isObject(this.choices) && "query" in this.choices) {
             this.failValidation("As of FVTT version 11, choice set queries are no longer supported.");
@@ -124,7 +125,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.#setDefaultFlag(ruleSource);
 
-        const inflatedChoices = await this.inflateChoices(rollOptions);
+        const inflatedChoices = await this.inflateChoices(rollOptions, pendingItems);
 
         const selection =
             this.#getPreselection() ??
@@ -188,8 +189,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     /**
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
+     * @param rollOptions  A set of actor roll options to for use in predicate testing
+     * @param pendingItems Items passed to #queryCompendium for checking max takability of feats
+     * @returns The array of choices to present to the user
      */
-    async inflateChoices(rollOptions: Set<string>): Promise<PickableThing[]> {
+    async inflateChoices(
+        rollOptions: Set<string>,
+        pendingItems: PreCreate<ItemSourcePF2e>[]
+    ): Promise<PickableThing[]> {
         const choices: PickableThing<string | number | object>[] = Array.isArray(this.choices)
             ? this.#choicesFromArray(this.choices, rollOptions) // Static choices from RE constructor data
             : isObject(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
@@ -201,7 +208,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                       rollOptions
                   )
                 : "filter" in this.choices && Array.isArray(this.choices.filter)
-                ? await this.queryCompendium(this.choices, rollOptions)
+                ? await this.queryCompendium(this.choices, rollOptions, pendingItems)
                 : []
             : typeof this.choices === "string"
             ? this.#choicesFromPath(this.choices)
@@ -235,7 +242,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 img: c.img,
             }));
 
-            // Only sort if the choices were generated via NeDB query or actor data
+            // Only sort if the choices were generated via compendium query or actor data
             if (!Array.isArray(this.choices)) {
                 choiceData.sort((a, b) => a.label.localeCompare(b.label));
             }
@@ -315,10 +322,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             }));
     }
 
-    /** Perform an NeDB query against the system feats compendium (or a different one if specified) */
+    /** Perform a query via predicate testing against compendium items */
     async queryCompendium(
         choices: ChoiceSetPackQuery,
-        actorRollOptions: Set<string>
+        actorRollOptions: Set<string>,
+        pendingItems: PreCreate<ItemSourcePF2e>[]
     ): Promise<PickableThing<string>[]> {
         const filter = Array.isArray(choices.filter)
             ? new PredicatePF2e(this.resolveInjectedProperties(choices.filter))
@@ -377,6 +385,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const existing: Map<string, number> = new Map();
         for (const feat of this.actor.itemTypes.feat) {
             const slug = feat.slug ?? sluggify(feat.name);
+            existing.set(slug, (existing.get(slug) ?? 0) + 1);
+        }
+        for (const featSource of pendingItems.filter((i) => i.type === "feat")) {
+            const slug = featSource.system?.slug ?? sluggify(featSource.name);
             existing.set(slug, (existing.get(slug) ?? 0) + 1);
         }
 
