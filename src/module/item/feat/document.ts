@@ -4,6 +4,7 @@ import { HeritagePF2e, ItemPF2e } from "@item";
 import { normalizeActionChangeData } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
+import { Rarity } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel, sluggify } from "@util";
 import * as R from "remeda";
@@ -25,6 +26,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     get traits(): Set<FeatTrait> {
         return new Set(this.system.traits.value);
+    }
+
+    get rarity(): Rarity {
+        return this.system.traits.rarity;
     }
 
     get actionCost(): ActionCost | null {
@@ -156,6 +161,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return R.compact([
             ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
             `${prefix}:category:${this.category}`,
+            this.isFeat ? `${prefix}:rarity:${this.rarity}` : null,
             this.frequency ? `${prefix}:frequency:limited` : null,
         ]);
     }
