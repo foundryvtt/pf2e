@@ -14,10 +14,10 @@ type MaybeHTML = Maybe<Document | Element | EventTarget>;
  * @param [options.children=[]] A list of child elements as well as strings that will be converted to text nodes
  * @returns The HTML element with all options applied
  */
-function createHTMLElement(
-    nodeName: keyof HTMLElementTagNameMap,
+function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
+    nodeName: K,
     { classes = [], dataset = {}, children = [] }: CreateHTMLElementOptions = {}
-): HTMLElement {
+): HTMLElementTagNameMap[K] {
     const element = document.createElement(nodeName);
     element.classList.add(...classes);
 
