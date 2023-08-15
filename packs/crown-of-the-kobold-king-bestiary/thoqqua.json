@@ -12,20 +12,22 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "Critical Ignition",
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "critical-ignition"
+                    ]
                 },
                 "bonus": {
                     "value": 9
                 },
                 "damageRolls": {
-                    "hElHuwSNrBYPqxJl": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "uhON52aQ61DIP6C3": {
+                    "0": {
                         "damage": "1d8+3",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -139,14 +141,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "beak-damage"
                     }
                 ],
                 "slug": null,
@@ -164,10 +165,67 @@
             "type": "action"
         },
         {
+            "_id": "0CUb4PmdjlimqtBK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Starving",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A thoqqua feeds on a combination of raw stone, ore, and heat. When denied these nourishments, a thoqqua won't perish from starvation, but it does grow less armored as it's forced to absorb and weaken its armored body plates. A starved thoqqua's Armor Class is reduced by 2, but it gains a +1 circumstance bonus on all attack rolls.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "starving",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "starving"
+                        ],
+                        "selector": "ac",
+                        "value": -2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "starving"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "yqXTeloQUuSzZT3Y",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -190,7 +248,7 @@
             "_id": "TNjnQXGsv85PdNMG",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
