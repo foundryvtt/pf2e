@@ -629,8 +629,11 @@ async function augmentInlineDamageRoll(
     const { name, actor, item, traits, extraRollOptions } = args;
 
     try {
+        // Retrieve roll data. If there is no actor, determine a reasonable "min level" for formula display
         const rollData: Record<string, unknown> = item?.getRollData() ?? actor?.getRollData() ?? {};
-        rollData.actor ??= { level: 1 };
+        rollData.actor ??= { level: (item && "level" in item ? item.level : null) ?? 1 };
+
+        // Extract terms from formula
         const base = extractBaseDamage(new DamageRoll(baseFormula, rollData));
 
         const domains = R.compact([
