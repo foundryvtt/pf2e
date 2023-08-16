@@ -140,6 +140,61 @@
                 "predicate": [
                     "kinetic-gate:initial:single-gate"
                 ]
+            },
+            {
+                "adjustName": "false",
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        "item:level:1",
+                        "item:trait:impulse",
+                        "item:trait:{item|flags.pf2e.rulesSelections.elementOne}"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
+            },
+            {
+                "adjustName": "false",
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        "item:level:1",
+                        "item:trait:impulse",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:trait:{item|flags.pf2e.rulesSelections.elementOne}",
+                                        "kinetic-gate:initial:single-gate"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:trait:{item|flags.pf2e.rulesSelections.elementTwo}",
+                                        "kinetic-gate:initial:dual-gate"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             }
         ],
         "source": {
