@@ -24,6 +24,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     ItemPF2e<ActorPF2e>,
     TSchema
 > {
+    protected declare static _schema: LaxSchemaField<RuleElementSchema> | undefined;
+
     sourceIndex: number | null;
 
     protected suppressWarnings: boolean;
@@ -453,8 +455,6 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace RuleElementPF2e {
-    export let _schema: LaxSchemaField<RuleElementSchema> | undefined;
-
     export interface PreCreateParams<T extends RuleElementSource = RuleElementSource> {
         /** The source partial of the rule element's parent item to be created */
         itemSource: ItemSourcePF2e;
