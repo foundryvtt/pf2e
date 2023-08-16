@@ -12,6 +12,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
+    createHTMLElement,
     fontAwesomeIcon,
     htmlQuery,
     htmlQueryAll,
@@ -346,8 +347,7 @@ class CheckPF2e {
             }
         })();
 
-        const traitsAndProperties = document.createElement("div");
-        traitsAndProperties.className = "tags";
+        const traitsAndProperties = createHTMLElement("div", { classes: ["tags", "traits"] });
         if (itemTraits.length === 0 && properties.length === 0) {
             traitsAndProperties.append(...traits);
         } else {
@@ -364,9 +364,10 @@ class CheckPF2e {
                 return toTagElement({ name: modifier.slug, label }, "transparent");
             });
         const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));
-        const modifiersAndExtras = document.createElement("div");
-        modifiersAndExtras.className = "tags";
-        modifiersAndExtras.append(...modifiers, ...tagsFromOptions);
+        const modifiersAndExtras = createHTMLElement("div", {
+            classes: ["tags", "modifiers"],
+            children: [...modifiers, ...tagsFromOptions],
+        });
 
         return [traitsAndProperties, document.createElement("hr"), modifiersAndExtras];
     }
