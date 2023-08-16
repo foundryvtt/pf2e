@@ -311,7 +311,7 @@
         }
     }
 
-    .attribute-modifiers {
+    .attributes {
         @include p-reset;
         display: grid;
         gap: 12px;
@@ -322,54 +322,54 @@
         .attribute {
             display: grid;
             grid:
-                "prefix" auto
+                "abbrev" auto
                 "mod" 1fr
-                "score" auto
                 "label" auto
                 / 1fr;
             column-gap: 10px;
             align-items: center;
             &:focus-within {
-                .attribute-id {
+                .abbreviation {
                     filter: opacity(1);
                 }
             }
 
             &.key {
-                .attribute-id, .attribute-mod {
+                .abbreviation, .modifier {
                     color: var(--secondary);
                 }
             }
 
-
-            .attribute-name {
-                color: rgba(68, 55, 48, 1);
-                grid-area: label;
-                margin: 0;
-                opacity: 0.4;
-                padding: 2px;
-                text-align: center;
-            }
-
-            .attribute-id {
+            .abbreviation {
                 @include p-reset;
                 border: none;
                 color: var(--primary);
                 font: 400 22px var(--serif-condensed);
-                grid-area: prefix;
+                grid-area: abbrev;
                 position: relative;
                 text-align: center;
                 text-transform: capitalize;
 
-                > i.key-attribute {
+                i.key, i.apex {
+                    bottom: 4px;
                     position: absolute;
                     font-size: var(--font-size-12);
-                    bottom: 4px;
+                }
+
+                i.key {
                     left: 2px;
+                }
+
+                i.apex {
+                    right: 2px;
+
+                    &.unselected:not(:hover) {
+                        opacity: 0.75;
+                    }
                 }
             }
 
-            h3.attribute-mod {
+            h3.modifier {
                 @include flex-center;
                 @include frame-elegant;
                 grid-area: mod;
@@ -379,6 +379,15 @@
                 height: 46px;
                 margin: 0;
                 padding-right: 4px;
+            }
+
+            .label {
+                color: rgba(68, 55, 48, 1);
+                grid-area: label;
+                margin: 0;
+                opacity: 0.4;
+                padding: 2px;
+                text-align: center;
             }
         }
     }

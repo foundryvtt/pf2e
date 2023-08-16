@@ -3,7 +3,8 @@ import { CreatureSheetData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { SaveType } from "@actor/types.ts";
+import { AttributeString, SaveType } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, FeatPF2e, HeritagePF2e, ItemPF2e, LorePF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
@@ -186,6 +187,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             primary: primaryClassDC,
             perDCDetails: classDCs.length > 1 || !primaryClassDC,
         };
+
+        // Acquire all unselected apex attribute options
+        const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(actor);
+        sheetData.apexAttributeOptions = abpEnabled
+            ? []
+            : this.actor.itemTypes.equipment.flatMap((e) =>
+                  e.system.apex?.selected === false &&
+                  e.isInvested &&
+                  e.system.apex.attribute !== actor.system.build.attributes.apex
+                      ? e.system.apex.attribute
+                      : []
+              );
 
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
@@ -540,6 +553,23 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     new AttributeBuilder(this.actor);
                 builder.render(true);
             });
+
+            for (const link of htmlQueryAll(mainPanel, "a[data-action=apex-attribute]")) {
+                link.addEventListener("click", () => {
+                    if (game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this.actor)) {
+                        return;
+                    }
+                    const attribute = htmlClosest(link, "[data-attribute]")?.dataset.attribute;
+                    if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
+                        const apexItems = this.actor.itemTypes.equipment.filter((e) => e.system.apex);
+                        const selection = apexItems.find((e) => e.isInvested && e.system.apex?.attribute === attribute);
+                        this.actor.updateEmbeddedDocuments(
+                            "Item",
+                            apexItems.map((e) => ({ _id: e.id, "system.apex.selected": e === selection }))
+                        );
+                    }
+                });
+            }
         }
 
         // ACTIONS
@@ -1363,6 +1393,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
         /** Show class label and individual modifier lists for each class DC */
         perDCDetails: boolean;
     };
+    apexAttributeOptions: AttributeString[];
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     deity: DeityPF2e<CharacterPF2e> | null;

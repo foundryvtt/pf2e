@@ -10,9 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration833AddRogueToysFixPrecision } from "@module/migration/migrations/833-add-rogue-toys-fix-precision.ts";
-import { Migration834FeatCategories } from "@module/migration/migrations/834-feat-categories.ts";
-import { Migration835InitiativeLongform } from "@module/migration/migrations/835-initiative-longform.ts";
 import { Migration836EnergizingConsolidation } from "@module/migration/migrations/836-energizing-consolidation.ts";
 import { Migration837MoveHazardBookSources } from "@module/migration/migrations/837-move-hazard-book-source.ts";
 import { Migration838StrikeAttackRollSelector } from "@module/migration/migrations/838-strike-attack-roll-selector.ts";
@@ -28,6 +25,7 @@ import { Migration851JustInnovationId } from "@module/migration/migrations/851-j
 import { Migration852AbilityScoresToModifiers } from "@module/migration/migrations/852-ability-scores-to-modifiers.ts";
 import { Migration853RemasterLanguages } from "@module/migration/migrations/853-remaster-languages.ts";
 import { Migration854BracketedAbilityScoresToModifiers } from "@module/migration/migrations/854-bracketed-ability-scores-to-modifiers.ts";
+import { Migration855ApexEquipmentSystemData } from "@module/migration/migrations/855-apex-equipment-system-data.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -38,9 +36,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration833AddRogueToysFixPrecision(),
-    new Migration834FeatCategories(),
-    new Migration835InitiativeLongform(),
     new Migration836EnergizingConsolidation(),
     new Migration837MoveHazardBookSources(),
     new Migration838StrikeAttackRollSelector(),
@@ -56,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration852AbilityScoresToModifiers(),
     new Migration853RemasterLanguages(),
     new Migration854BracketedAbilityScoresToModifiers(),
+    new Migration855ApexEquipmentSystemData(),
 ];
 
 global.deepClone = <T>(original: T): T => {

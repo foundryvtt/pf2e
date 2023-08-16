@@ -1,14 +1,23 @@
-<ol class="attribute-modifiers">
-    {{#each data.abilities as |attribute key|}}
-        <li class="attribute {{#if (eq ../actor.keyAttribute key)}}key{{/if}}" data-attribute="{{key}}">
-            <label for="{{@root.actor.uuid}}-{{key}}-attribute-score" class="details-label attribute-name">{{localize attribute.label}}</label>
-            <h2 class="attribute-id" title="{{localize "PF2E.AbilityTitle"}}">
-                {{localize (concat "PF2E.AbilityId." key)}}
-                {{#if (eq ../data.details.keyability.value key)}}<i class="fa-solid fa-key key-attribute"></i>{{/if}}
+<ol class="attributes">
+    {{#each data.abilities as |attribute abbrev|}}
+        <li class="attribute {{#if (eq ../actor.keyAttribute abbrev)}}key{{/if}}" data-attribute="{{abbrev}}">
+            <h2 class="abbreviation">
+                {{#if (eq ../data.details.keyability.value abbrev)}}
+                    <i class="key fa-solid fa-key" title="{{localize "PF2E.Actor.Character.Attribute.Key"}}"></i>
+                {{/if}}
+                <span title="{{localize attribute.label}}">{{localize (concat "PF2E.AbilityId." abbrev)}}</span>
+                {{#if (eq ../data.build.attributes.apex abbrev)}}
+                    <i class="apex fa-solid fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                {{else if (and ../editable (includes ../apexAttributeOptions abbrev))}}
+                    <a data-action="apex-attribute">
+                        <i class="apex unselected fa-regular fa-circle-a" title="{{localize "PF2E.Actor.Character.Attribute.Apex"}}"></i>
+                    </a>
+                {{/if}}
             </h2>
-            <h3 class="attribute-mod" title="{{localize "PF2E.ModifierTitle"}}">
+            <h3 class="modifier" title="{{localize "PF2E.ModifierTitle"}}">
                 {{numberFormat attribute.mod decimals=0 sign=true}}
             </h3>
+            <div class="label details-label">{{localize attribute.label}}</div>
         </li>
     {{/each}}
 </ol>
