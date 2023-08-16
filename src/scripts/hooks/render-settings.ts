@@ -1,5 +1,5 @@
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
-import { ErrorPF2e, fontAwesomeIcon } from "@util";
+import { ErrorPF2e, createHTMLElement, fontAwesomeIcon } from "@util";
 
 /** Attach system buttons and other knickknacks to the settings sidebar */
 export const RenderSettings = {
@@ -38,32 +38,41 @@ export const RenderSettings = {
             systemInfo.append(...links);
             systemRow?.after(systemInfo);
 
-            if (!game.user.hasRole("GAMEMASTER")) return;
+            // Add PF2e section (which has license and troubleshooting)
+            const header = createHTMLElement("h2", { children: ["Pathfinder 2e"] });
+            const pf2eSettings = createHTMLElement("div");
+            html.querySelector("#settings-documentation")?.after(header, pf2eSettings);
 
-            // Paizo License and Migration Troubleshooting
-            const license = document.createElement("div");
-            license.id = "pf2e-license";
+            // Paizo License and remaster information
             const licenseButton = document.createElement("button");
             licenseButton.type = "button";
             licenseButton.append(fontAwesomeIcon("balance-scale"), game.i18n.localize("PF2E.LicenseViewer.Label"));
             licenseButton.addEventListener("click", () => {
                 game.pf2e.licenseViewer.render(true);
             });
-            license.append(licenseButton);
 
-            const troubleshooting = document.createElement("div");
-            troubleshooting.id = "pf2e-troubleshooting";
-            const shootButton = document.createElement("button");
-            shootButton.type = "button";
-            shootButton.append(fontAwesomeIcon("wrench"), game.i18n.localize("PF2E.Migrations.Troubleshooting"));
-            shootButton.addEventListener("click", () => {
-                new MigrationSummary({ troubleshoot: true }).render(true);
+            const remasterButton = document.createElement("button");
+            remasterButton.type = "button";
+            remasterButton.append(fontAwesomeIcon("rocket"), game.i18n.localize("PF2E.SETTINGS.Sidebar.Remaster"));
+            remasterButton.addEventListener("click", () => {
+                fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2").then((entry) => {
+                    entry?.sheet.render(true);
+                });
             });
-            troubleshooting.append(shootButton);
 
-            const header = document.createElement("h2");
-            header.innerText = "Pathfinder 2e";
-            html.querySelector("#settings-documentation")?.after(header, license, troubleshooting);
+            pf2eSettings.append(licenseButton, remasterButton);
+
+            // Migration Troubleshooting (if GM)
+            if (game.user.isGM) {
+                const shootButton = document.createElement("button");
+                shootButton.type = "button";
+                shootButton.append(fontAwesomeIcon("wrench"), game.i18n.localize("PF2E.Migrations.Troubleshooting"));
+                shootButton.addEventListener("click", () => {
+                    new MigrationSummary({ troubleshoot: true }).render(true);
+                });
+
+                pf2eSettings.append(shootButton);
+            }
         });
     },
 };
