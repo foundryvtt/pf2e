@@ -606,7 +606,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     protected override async _preCreate(
@@ -614,6 +614,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
+        // Sort traits
+        this._source.system.traits?.value?.sort();
+
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const clone = this.actor.clone({
@@ -648,6 +651,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Normalize the slug, setting to `null` if empty
         if (typeof changed.system?.slug === "string") {
             changed.system.slug = sluggify(changed.system.slug) || null;
+        }
+
+        // Sort traits
+        if (Array.isArray(changed.system?.traits?.value)) {
+            changed.system?.traits?.value.sort();
         }
 
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
