@@ -1,6 +1,10 @@
 {{> "systems/pf2e/templates/items/partials/ability-activation.hbs"}}
 
+{{#unless (eq item.system.actionType.value "passive")}}
+    {{> "systems/pf2e/templates/items/partials/self-applied-effect.hbs"}}
+{{/unless}}
+
 <div class="form-group">
-    <label>{{localize "PF2E.ActionDeathNoteLabel"}}</label>
-    <input type="checkbox" name="system.deathNote" {{checked data.deathNote}} data-dtype="Boolean"/>
+    <label for="{{item.uuid}}-death-note">{{localize "PF2E.ActionDeathNoteLabel"}}</label>
+    <input type="checkbox" name="system.deathNote" id="{{item.uuid}}-death-note" {{checked data.deathNote}} />
 </div>

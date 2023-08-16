@@ -114,6 +114,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         this.system.subfeatures = mergeObject({ keyOptions: [] }, this.system.subfeatures ?? {});
+
+        this.system.selfEffect ??= null;
+        // Self effects are only usable with actions
+        if (this.system.actionType.value === "passive") {
+            this.system.selfEffect = null;
+        }
     }
 
     /** Set a self roll option for this feat(ure) */

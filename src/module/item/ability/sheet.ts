@@ -1,14 +1,22 @@
 import { AbilityItemPF2e } from "@item/ability/document.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
-import { addSheetFrequencyListeners } from "./helpers.ts";
+import { addActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
+import { SelfEffectReference } from "./index.ts";
 
 export class ActionSheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
+        };
+    }
+
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ActionSheetData> {
-        const data = await super.getData(options);
+        const sheetData = await super.getData(options);
 
         return {
-            ...data,
+            ...sheetData,
             hasSidebar: true,
             categories: CONFIG.PF2E.actionCategories,
             actionTypes: CONFIG.PF2E.actionTypes,
@@ -17,24 +25,24 @@ export class ActionSheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
             frequencies: CONFIG.PF2E.frequencies,
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
+            selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
         };
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
+        if (!this.isEditable) return;
+
         const html = $html[0];
-        addSheetFrequencyListeners(this.item, html);
+        addActionSheetListeners(this.item, html);
     }
 
-    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
-        const data = super._getSubmitData(updateData);
-
-        // Convert empty string category to null
-        if (data["system.category"] === "") {
-            data["system.category"] = null;
-        }
-
-        return data;
+    override async _onDrop(event: ElementDragEvent): Promise<void> {
+        return handleSelfEffectDrop(this, event);
     }
 }
 
@@ -46,4 +54,5 @@ interface ActionSheetData extends ItemSheetDataPF2e<AbilityItemPF2e> {
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
     skills: ConfigPF2e["PF2E"]["skillList"];
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
+    selfEffect: SelfEffectReference | { name: string; empty: true };
 }

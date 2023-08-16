@@ -100,8 +100,8 @@
                 <div class="tab item-details" data-tab="details">
                     {{> (detailsTemplate)}}
                     <div class="form-group">
-                        <label>{{localize "PF2E.Source.Label"}}</label>
-                        <input type="text" name="system.source.value" value="{{data.source.value}}" />
+                        <label for="{{item.uuid}}-source">{{localize "PF2E.Source.Label"}}</label>
+                        <input type="text" name="system.source.value" id="{{item.uuid}}-source" value="{{data.source.value}}" />
                     </div>
                 </div>
             {{/if}}
