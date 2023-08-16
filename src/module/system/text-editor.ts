@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { StrikeSelf } from "@actor/types.ts";
 import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
@@ -9,6 +10,7 @@ import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rul
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, localizer, objectHasKey, sluggify } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
 import { createDamageFormula } from "./damage/formula.ts";
@@ -17,9 +19,9 @@ import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { CreateDamageFormulaParams, DamageRollContext, InlineDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
-import { StrikeSelf } from "@actor/types.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
+const superEnrichContentLinks = TextEditor._enrichContentLinks;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
 const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 
@@ -46,6 +48,25 @@ class TextEditorPF2e extends TextEditor {
         }
 
         return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
+    }
+
+    /**
+     * Upstream retrieves documents from UUID links sequentially, which has a noticable load time with text containing
+     * many links: retrieve every linked document at once beforehand with the faster `UUIDUtils.fromUUIDs` system helper
+     * so that subsequent calls to `fromUuid` finds all documents in caches.
+     */
+    static override _enrichContentLinks(text: Text[], options?: EnrichmentOptions): boolean | Promise<boolean> {
+        if (options?.async) {
+            const documentTypes = [...CONST.DOCUMENT_LINK_TYPES, "Compendium", "UUID"];
+            const pattern = new RegExp(`@(${documentTypes.join("|")})\\[([^#\\]]+)(?:#([^\\]]+))?](?:{([^}]+)})?`, "g");
+            const uuids = text
+                .map((t) => Array.from((t.textContent ?? "").matchAll(pattern)))
+                .flat(2)
+                .filter((m) => UUIDUtils.isCompendiumUUID(m));
+            return UUIDUtils.fromUUIDs(uuids).then(() => superEnrichContentLinks.apply(this, [text, options]));
+        }
+
+        return superEnrichContentLinks.apply(this, [text, options]);
     }
 
     /** Replace core static method to conditionally handle parsing of inline damage rolls */

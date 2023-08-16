@@ -27,6 +27,10 @@ class UUIDUtils {
         return typeof uuid === "string" && foundry.utils.parseUuid(uuid).documentType === "Item";
     }
 
+    static isCompendiumUUID(uuid: unknown): uuid is CompendiumUUID {
+        return typeof uuid === "string" && foundry.utils.parseUuid(uuid).collection instanceof CompendiumCollection;
+    }
+
     static isTokenUUID(uuid: unknown): uuid is TokenDocumentUUID {
         return typeof uuid === "string" && foundry.utils.parseUuid(uuid).documentType === "Token";
     }
