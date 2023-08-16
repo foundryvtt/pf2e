@@ -23,14 +23,16 @@
         <section class="feat-section" data-category-id="{{section.id}}">
             <h3 class="header">
                 {{localize section.label}}
-                <button
-                    type="button"
-                    class="feat-browse"
-                    data-type="feat"
-                    data-filter="{{section.featFilter}},conjunction-or"
-                >
-                    <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
-                </button>
+                {{#if section.featFilter}}
+                    <button
+                        type="button"
+                        class="feat-browse"
+                        data-type="feat"
+                        data-filter="{{section.featFilter}},conjunction-or"
+                    >
+                        <i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                    </button>
+                {{/if}}
             </h3>
             <ol class="actions-list directory-list">
                 {{#each section.feats as |featSlot|}}

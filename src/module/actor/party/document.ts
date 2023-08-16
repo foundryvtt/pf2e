@@ -83,6 +83,12 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         for (const member of this.members) {
             member?.parties.add(this);
         }
+    }
+
+    override prepareDerivedData(): void {
+        // Compute travel speed. Creature travel speed isn't implemented yet
+        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
+        this.attributes.speed = { total: travelSpeed };
 
         // Bind campaign data, though only kingmaker is supported (and hardcoded).
         // This will need to be expanded to allow modules to add to the list
@@ -108,12 +114,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         } else {
             this.campaign = null;
         }
-    }
-
-    override prepareDerivedData(): void {
-        // Compute travel speed. Creature travel speed isn't implemented yet
-        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
-        this.attributes.speed = { total: travelSpeed };
     }
 
     async addMembers(...membersToAdd: CreaturePF2e[]): Promise<void> {

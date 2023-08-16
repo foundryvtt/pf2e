@@ -38,6 +38,7 @@ const { DataModel } = foundry.abstract;
 /** Model for the Kingmaker campaign data type, which represents a Kingdom */
 class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampaign {
     declare nationType: KingdomNationType;
+    declare features: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
     declare feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
     declare bonusFeats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
     declare skills: Record<KingdomSkill, Statistic>;
@@ -73,9 +74,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     override _initialize(options?: Record<string, unknown>): void {
         super._initialize(options);
-        this.prepareAbilityScores();
         this.prepareData();
-        this.prepareFeats();
     }
 
     /** Creates sidebar buttons to inject into the chat message sidebar */
@@ -136,9 +135,15 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     async update(data: DeepPartial<KingdomSource> & Record<string, unknown>): Promise<void> {
         await this.actor.update({ "system.campaign": data });
+
+        if (data.level) {
+            await this.updateFeatures(data.level);
+        }
     }
 
-    private prepareAbilityScores(): void {
+    prepareData(): void {
+        const { synthetics } = this.actor;
+
         // Calculate Ability Boosts (if calculated automatically)
         if (!this.build.manual) {
             for (const ability of KINGDOM_ABILITIES) {
@@ -175,10 +180,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         for (const ability of KINGDOM_ABILITIES) {
             this.abilities[ability].mod = (this.abilities[ability].value - 10) / 2;
         }
-    }
-
-    private prepareData(): void {
-        const { synthetics } = this.actor;
 
         // Bless raw custom modifiers as `ModifierPF2e`s
         const customModifiers = (this.customModifiers ??= {});
@@ -289,32 +290,46 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
             return [skill, statistic];
         });
-    }
 
-    private prepareFeats(): void {
-        const { actor } = this;
-
+        // Create feat groups
         const evenLevels = new Array(this.level)
             .fill(0)
             .map((_, idx) => idx + 1)
             .filter((idx) => idx % 2 === 0);
-
-        this.feats = new FeatGroup(actor, {
+        this.features = new FeatGroup(this.actor, {
+            id: "features",
+            label: "Kingdom Features",
+            level: this.level,
+        });
+        this.feats = new FeatGroup(this.actor, {
             id: "kingdom",
             label: "Kingdom Feats",
             slots: evenLevels,
             featFilter: ["traits-kingdom"],
             level: this.level,
         });
-
-        this.bonusFeats = new FeatGroup(actor, {
+        this.bonusFeats = new FeatGroup(this.actor, {
             id: "bonus",
             label: "PF2E.FeatBonusHeader",
             featFilter: ["traits-kingdom"],
             level: this.level,
         });
 
-        for (const feat of this.actor.itemTypes.campaignFeature.filter((f) => f.isFeat)) {
+        // Assign feats and features
+        const allFeatures = this.actor.itemTypes.campaignFeature;
+        const features = R.sortBy(
+            allFeatures.filter((f) => f.isFeature),
+            (f) => f.level ?? 1,
+            (f) => f.name
+        );
+        const feats = R.sortBy(
+            allFeatures.filter((f) => f.isFeat),
+            (f) => f.sort
+        );
+        for (const feature of features) {
+            this.features.assignFeat(feature);
+        }
+        for (const feat of feats) {
             if (!this.feats.assignFeat(feat)) {
                 this.bonusFeats.assignFeat(feat);
             }
@@ -330,6 +345,9 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         if (!pack) {
             throw ErrorPF2e("Could not load kingdom features compendium");
         }
+
+        // Add any relevant kingdom features first
+        await this.updateFeatures(this.level);
 
         const documents = (await pack.getDocuments({ type: "campaignFeature" }))
             .filter((d): d is CampaignFeaturePF2e<null> => d instanceof ItemPF2e && d.isOfType("campaignFeature"))
@@ -369,6 +387,31 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
         await this.actor.updateEmbeddedDocuments("Item", updateData);
         await this.actor.createEmbeddedDocuments("Item", createData);
+    }
+
+    /** Adds/removes kingdom features as appropriate. Private instead of # because # explodes */
+    private async updateFeatures(level: number): Promise<void> {
+        const existingFeatures = this.actor.itemTypes.campaignFeature.filter((f) => f.isFeature);
+        const featuresToDelete = existingFeatures.filter((f) => (f.level ?? 0) > level).map((f) => f.id);
+
+        const featuresToAdd = await (async () => {
+            const pack = game.packs.get("pf2e.kingmaker-features");
+            if (!pack) {
+                console.error("PF2E System | Could not load kingdom features compendium");
+                return [];
+            }
+
+            const documents = (await pack.getDocuments({ type: "campaignFeature" }))
+                .filter((d): d is CampaignFeaturePF2e<null> => d instanceof ItemPF2e && d.isOfType("campaignFeature"))
+                .filter((d) => d.system.category === "kingdom-feature")
+                .filter((d) => level >= (d.level ?? 0));
+            return documents
+                .filter((d) => !this.actor.items.some((i) => i.sourceId === d.uuid))
+                .map((i) => i.toObject());
+        })();
+
+        await this.actor.deleteEmbeddedDocuments("Item", featuresToDelete);
+        await this.actor.createEmbeddedDocuments("Item", featuresToAdd);
     }
 
     getStatistic(slug: string): Statistic | null {
