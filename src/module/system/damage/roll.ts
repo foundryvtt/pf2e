@@ -5,7 +5,7 @@ import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, tupleHasValue } from "@util";
 import type Peggy from "peggy";
-import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers.ts";
+import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
 import { DAMAGE_TYPE_ICONS } from "./values.ts";
@@ -353,8 +353,10 @@ class DamageInstance extends AbstractDamageRoll {
         for (const term of data.terms) {
             DamageRoll.classifyDice(term);
         }
+        const roll = super.fromData(data);
+        roll.terms = roll.terms.map((t) => simplifyTerm(t));
 
-        return super.fromData(data);
+        return roll;
     }
 
     /** Get the expected, minimum, or maximum value of a term */
