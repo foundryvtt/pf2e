@@ -1,0 +1,40 @@
+{
+    "_id": "DdqWMj7cuf4S1bgr",
+    "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
+    "name": "Spell Effect: Frostbite",
+    "system": {
+        "description": {
+            "value": "<p>The target gains weakness to bludgeoning equal to the spell rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "bludgeoning",
+                "value": "@item.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Player Core"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
