@@ -1,5 +1,13 @@
 .item-summary {
+    @include journal-styling;
     overflow: hidden;
+
+    // Normalize styling of visible-to-all tag elements
+    span[data-visibility=all] {
+        display: inline-block;
+        line-height: 1em;
+        padding: 2px 1px 1px;
+    }
 
     .item-buttons button {
         background-color: var(--primary);
