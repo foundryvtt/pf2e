@@ -51,9 +51,7 @@ interface AbilitySystemData extends AbilitySystemSource, Omit<ItemSystemData, "l
 }
 
 interface SelfEffectReference extends SelfEffectReferenceSource {
-    uuid: ItemUUID;
-    name: string;
-    img?: ImageFilePath;
+    img?: Maybe<ImageFilePath>;
 }
 
 export { AbilityItemSource, AbilitySystemData, AbilityTraits, SelfEffectReference, SelfEffectReferenceSource };
