@@ -27,21 +27,14 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     override prepareSiblingData(this: EquipmentPF2e<ActorPF2e>): void {
         super.prepareSiblingData();
 
-        // Ensure that there is only one selected apex item
+        // Ensure that there is only one selected apex item, and all others are set to false
         if (!this.system.apex) return;
-        const otherApexItems = this.actor.itemTypes.equipment.filter(
-            (e) => e.system.apex && e.isInvested && e !== this
-        );
-        if (this.system.apex.selected) {
-            for (const item of otherApexItems) {
-                item.system.apex!.selected = false;
-            }
-        } else if (
-            !this.system.apex.selected &&
-            this.isInvested &&
-            otherApexItems.every((e) => !e.system.apex!.selected)
-        ) {
+        const otherApexData = this.actor.itemTypes.equipment.flatMap((e) => (e === this ? [] : e.system.apex ?? []));
+        if (this.system.apex.selected || (this.isInvested && otherApexData.every((d) => !d.selected))) {
             this.system.apex.selected = true;
+            for (const data of otherApexData) {
+                data.selected = false;
+            }
         }
     }
 
