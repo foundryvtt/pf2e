@@ -66,8 +66,8 @@ export { Migration666UsageAndStowingContainers } from "./666-usage-and-stowing-c
 export { Migration667HPSubProperties } from "./667-hp-subproperties.ts";
 export { Migration668ArmorSpeedPenalty } from "./668-armor-speed-penalty.ts";
 export { Migration669NPCAttackEffects } from "./669-npc-attack-effects.ts";
-export { Migration670NoCustomTrait } from "./670-no-custom-trait.ts";
 export { Migration670AncestryVision } from "./670-ancestry-vision.ts";
+export { Migration670NoCustomTrait } from "./670-no-custom-trait.ts";
 export { Migration671NoPCItemsOnNonPCs } from "./671-no-pc-items-on-non-pcs.ts";
 export { Migration672RemoveNPCBaseProperties } from "./672-remove-npc-base-properties.ts";
 export { Migration673RemoveBulwarkREs } from "./673-remove-bulwark-res.ts";
@@ -252,3 +252,4 @@ export { Migration851JustInnovationId } from "./851-just-innovation-id.ts";
 export { Migration852AbilityScoresToModifiers } from "./852-ability-scores-to-modifiers.ts";
 export { Migration853RemasterLanguages } from "./853-remaster-languages.ts";
 export { Migration854BracketedAbilityScoresToModifiers } from "./854-bracketed-ability-scores-to-modifiers.ts";
+export { Migration855ApexEquipmentSystemData } from "./855-apex-equipment-system-data.ts";

@@ -530,6 +530,7 @@ export {
     BaseWeaponProficiencyKey,
     BonusFeat,
     CategoryProficiencies,
+    CharacterAbilities,
     CharacterAttributes,
     CharacterAttributesSource,
     CharacterDetails,

@@ -101,7 +101,7 @@ export function registerHandlebarsHelpers(): void {
         return new CoinsPF2e(value);
     });
 
-    Handlebars.registerHelper("contains", (arr: unknown, element: unknown): boolean => {
+    Handlebars.registerHelper("includes", (arr: unknown, element: unknown): boolean => {
         return Array.isArray(arr) && arr.includes(element);
     });
 }
