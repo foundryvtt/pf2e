@@ -60,7 +60,7 @@ export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("actionGlyph", (value, options: Handlebars.HelperOptions): string | null => {
         const glyph = getActionGlyph(value ?? "");
         if (glyph) {
-            return `<span class="activity-icon">${glyph}</span>`;
+            return `<span class="action-glyph">${glyph}</span>`;
         } else if (options?.hash.fallback) {
             return Handlebars.escapeExpression(value);
         }
