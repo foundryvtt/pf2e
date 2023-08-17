@@ -79,7 +79,9 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
      */
     get expression(): string {
         // If this expression is deterministic, return the total as the expression
-        if (this.isDeterministic) return this.total!.toString();
+        if (this.isDeterministic && typeof this.total === "number" && !Number.isNaN(this.total)) {
+            return this.total.toString();
+        }
         const { operator, operands } = this;
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
     }
@@ -243,9 +245,9 @@ class Grouping extends RollTerm<GroupingData> {
 
     /** Show a simplified expression if it is known that order of operations won't be lost */
     get expression(): string {
-        return this.isDeterministic && typeof this.total === "number"
+        return this.isDeterministic && typeof this.total === "number" && !Number.isNaN(this.total)
             ? this.total.toString()
-            : this.term instanceof DiceTerm
+            : this.term instanceof DiceTerm || this.term instanceof MathTerm
             ? this.term.expression
             : `(${this.term.expression})`;
     }
