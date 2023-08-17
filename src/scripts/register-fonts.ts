@@ -33,15 +33,9 @@ export function registerFonts(): void {
     };
 
     // Pathfinder action glyphs
-    CONFIG.fontDefinitions["Pathfinder 2e Actions"] = {
-        editor: false,
-        fonts: [{ urls: ["systems/pf2e/fonts/pathfinder-2e-actions.woff2"] }],
-    };
-
-    // Legacy glyphs
     CONFIG.fontDefinitions["Pathfinder2eActions"] = {
         editor: false,
-        fonts: [{ urls: ["systems/pf2e/fonts/Pathfinder2eActions.ttf"] }],
+        fonts: [{ urls: ["systems/pf2e/fonts/pathfinder-2e-actions.woff2"] }],
     };
 
     CONFIG.fontDefinitions["Roboto"] = {
