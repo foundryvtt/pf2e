@@ -1,5 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData } from "@actor/creature/index.ts";
+import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { SaveType } from "@actor/types.ts";
@@ -136,6 +137,32 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
             actor.heroPoints
         );
+
+        // Indicate whether the PC has all attribute boosts allocated
+        sheetData.attributeBoostsAllocated = ((): boolean => {
+            const { build } = sheetData.data;
+            if (build.attributes.manual || !isReallyPC(actor)) {
+                return true;
+            }
+
+            const keyAttributeSelected =
+                !sheetData.class || build.attributes.keyOptions.includes(sheetData.data.details.keyability.value);
+            const ancestryBoostsSelected = Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
+                (b) => b.value.length === 0 || !!b.selected
+            );
+            const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
+                (b) => b.value.length === 0 || !!b.selected
+            );
+
+            return (
+                ancestryBoostsSelected &&
+                backgroundBoostsSelected &&
+                keyAttributeSelected &&
+                ([1, 5, 10, 15, 20] as const).filter(
+                    (l) => build.attributes.allowedBoosts[l] > build.attributes.boosts[l].length
+                ).length === 0
+            );
+        })();
 
         // Class DCs
         const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
@@ -497,7 +524,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
             }
 
-            htmlQuery(mainPanel, "button[data-action=edit-attribute-modifiers]")?.addEventListener("click", () => {
+            htmlQuery(mainPanel, "button[data-action=edit-attribute-boosts]")?.addEventListener("click", () => {
                 const builder =
                     Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
                     new AttributeBuilder(this.actor);
@@ -1317,6 +1344,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     background: BackgroundPF2e<CharacterPF2e> | null;
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
+    attributeBoostsAllocated: boolean;
     class: ClassPF2e<CharacterPF2e> | null;
     classDCs: {
         dcs: ClassDCSheetData[];
