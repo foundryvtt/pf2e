@@ -1336,9 +1336,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...extractModifiers(synthetics, selectors, { injectables: { weapon }, resolvables: { weapon } })
         );
 
-        // Multiple attack penalty
-        const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
-
         const auxiliaryActions: WeaponAuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
 
@@ -1492,18 +1489,21 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { weapon: weapon.name }
         );
 
+        // Multiple attack penalty
+        const maps = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
+
         // Defer in case total modifier is recalulated with a different result later
         const labels = [
             () => `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
             () =>
                 game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map1),
-                    penalty: multipleAttackPenalty.map1,
+                    value: signedInteger(action.totalModifier + maps.map1),
+                    penalty: maps.map1,
                 }),
             () =>
                 game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map2),
-                    penalty: multipleAttackPenalty.map2,
+                    value: signedInteger(action.totalModifier + maps.map2),
+                    penalty: maps.map2,
                 }),
         ];
 
@@ -1513,12 +1513,22 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, "untyped"),
+                    new ModifierPF2e({
+                        slug: maps.slug,
+                        label: maps.label,
+                        modifier: maps.map1,
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, maps.slug),
+                    }),
                 ]),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, "untyped"),
+                    new ModifierPF2e({
+                        slug: maps.slug,
+                        label: maps.label,
+                        modifier: maps.map2,
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, maps.slug),
+                    }),
                 ]),
         ];
 
