@@ -270,9 +270,9 @@
 {{~#*inline "abcItem"~}}
     <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
-        <div class="name">
+        <a class="name">
             {{item.name}}{{#if item.fromWorld}}<i class="fa fa-globe" title="{{localize "PF2E.Item.WorldItemWarning"}}"></i>{{/if}}
-        </div>
+        </a>
         <input type="number" class="level" value="{{item.level}}" name="system.items.{{i}}.level" />
         <input value="{{item.uuid}}" name="system.items.{{i}}.uuid" type="hidden" data-dtype="String" />
         <input value="{{item.name}}" name="system.items.{{i}}.name" type="hidden" data-dtype="String" />
