@@ -10,6 +10,7 @@ import {
     CheckModifier,
     ModifierPF2e,
     StatisticModifier,
+    adjustModifiers,
     createAbilityModifier,
     createProficiencyModifier,
 } from "@actor/modifiers.ts";
@@ -1334,9 +1335,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...extractModifiers(synthetics, selectors, { injectables: { weapon }, resolvables: { weapon } })
         );
 
-        // Multiple attack penalty
-        const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
-
         const auxiliaryActions: WeaponAuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
 
@@ -1490,34 +1488,41 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { weapon: weapon.name }
         );
 
+        // Multiple attack penalty
+        const maps = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
+        const createMapModifier = (prop: "map1" | "map2") => {
+            return new ModifierPF2e({
+                slug: maps.slug,
+                label: maps.label,
+                modifier: maps[prop],
+                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, maps.slug),
+            });
+        };
+
+        const createMapLabel = (prop: "map1" | "map2") => {
+            const modifier = createMapModifier(prop);
+            adjustModifiers([modifier], new Set(rollOptions));
+            const penalty = modifier.ignored ? 0 : modifier.value;
+            return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                value: signedInteger(action.totalModifier + penalty),
+                penalty,
+            });
+        };
+
         // Defer in case total modifier is recalulated with a different result later
         const labels = [
             () => `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
-            () =>
-                game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map1),
-                    penalty: multipleAttackPenalty.map1,
-                }),
-            () =>
-                game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map2),
-                    penalty: multipleAttackPenalty.map2,
-                }),
+            () => createMapLabel("map1"),
+            () => createMapLabel("map2"),
         ];
 
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, otherModifiers),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, statistic, [
-                    ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, "untyped"),
-                ]),
+                new CheckModifier(checkName, statistic, [...otherModifiers, createMapModifier("map1")]),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, statistic, [
-                    ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, "untyped"),
-                ]),
+                new CheckModifier(checkName, statistic, [...otherModifiers, createMapModifier("map2")]),
         ];
 
         action.variants = [0, 1, 2].map((mapIncreases) => ({
