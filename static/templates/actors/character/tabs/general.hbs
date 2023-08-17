@@ -69,7 +69,9 @@
     </section>
 
     <h3 class="header">{{localize "PF2E.Actor.Creature.AttributeModifiers"}}
-        <button type="button" data-action="edit-attribute-modifiers"><i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}</button>
+        <button type="button"{{#unless attributeBoostsAllocated}} class="has-unallocated"{{/unless}} data-action="edit-attribute-boosts">
+            <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
+        </button>
     </h3>
     <section class="character-attributes">
         {{> "systems/pf2e/templates/actors/character/partials/attributes.hbs"}}
