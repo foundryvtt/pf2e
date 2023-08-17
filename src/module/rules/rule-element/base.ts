@@ -50,7 +50,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         if (!validActorType) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
             const actorType = game.i18n.localize(`TYPES.Actor.${item.actor.type}`);
-            console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
+            const { name, uuid } = item;
+            console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType} on item ${name} (${uuid})`);
             source.ignored = true;
         }
 
