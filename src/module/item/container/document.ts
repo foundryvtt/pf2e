@@ -55,7 +55,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     override async getChatData(
         this: ContainerPF2e<TParent>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichmentOptions = {}
     ): Promise<ItemSummaryData> {
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),

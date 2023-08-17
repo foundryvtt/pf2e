@@ -114,6 +114,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         this.system.subfeatures = mergeObject({ keyOptions: [] }, this.system.subfeatures ?? {});
+
+        this.system.selfEffect ??= null;
+        // Self effects are only usable with actions
+        if (this.system.actionType.value === "passive") {
+            this.system.selfEffect = null;
+        }
     }
 
     /** Set a self roll option for this feat(ure) */
@@ -145,7 +151,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     override async getChatData(
         this: FeatPF2e<ActorPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichmentOptions = {}
     ): Promise<ItemSummaryData> {
         const levelLabel = game.i18n.format("PF2E.LevelN", { level: this.level });
         const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);

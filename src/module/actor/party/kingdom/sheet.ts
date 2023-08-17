@@ -143,7 +143,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 traits: createSheetTags(CONFIG.PF2E.kingmakerTraits, item.system.traits.value),
             })),
             skills: R.sortBy(Object.values(this.kingdom.skills), (s) => s.label),
-            feats: [kingdom.feats, kingdom.bonusFeats],
+            feats: [kingdom.features, kingdom.feats, kingdom.bonusFeats],
             actionFilterChoices: createSheetTags(CONFIG.PF2E.kingmakerTraits, KINGDOM_TRAITS),
         };
     }

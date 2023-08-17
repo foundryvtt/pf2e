@@ -69,6 +69,7 @@ nav.sheet-navigation {
         .controls {
             display: flex;
         }
+
         button {
             background: transparent;
             border-radius: 2px 2px 0 0;
@@ -84,6 +85,10 @@ nav.sheet-navigation {
             outline: none;
             text-transform: uppercase;
             width: auto;
+
+            &.has-unallocated {
+                @include requires-user-attention;
+            }
         }
     }
 

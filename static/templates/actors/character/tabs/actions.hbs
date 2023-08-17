@@ -79,7 +79,7 @@
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
                                     {{#each action.auxiliaryActions as |aux aid|}}
                                         <button type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
-                                            <span class="activity-icon">{{aux.glyph}}</span>
+                                            <span class="action-glyph">{{aux.glyph}}</span>
                                             <span>{{aux.label}}</span>
                                             {{#if aux.options}}
                                             <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
@@ -126,7 +126,7 @@
                         {{/each}}
                     </ol>
 
-                    {{#each actions.combat as |section sid|}}
+                    {{#each actions.encounter as |section sid|}}
                         <h3 class="header">
                             {{section.label}}
                             {{#if @root.options.editable}}
@@ -223,7 +223,7 @@
             <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
-                <span class="activity-icon">{{../glyph}}</span>
+                <span class="action-glyph">{{../glyph}}</span>
                 {{variant.label}}
             </button>
         {{/each}}

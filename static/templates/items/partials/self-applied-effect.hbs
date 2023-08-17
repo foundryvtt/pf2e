@@ -1,0 +1,15 @@
+<div class="form-group">
+    <span>{{localize "PF2E.Item.Action.SelfAppliedEffect.Label"}}</span>
+    <div class="drop-zone{{#if selfEffect.empty}} empty{{/if}}" data-drop-zone="self-applied-effect">
+        {{#if selfEffect.empty}}
+            <picture class="icon-placeholder"></picture>
+        {{else}}
+            <img src="{{data.selfEffect.img}}" />
+        {{/if}}
+        <span class="name">{{selfEffect.name}}</span>
+        {{#unless selfEffect.empty}}
+            <a class="delete" data-action="delete-effect" title="{{localize "PF2E.Item.Action.SelfAppliedEffect.Delete"}}"><i class="fa-solid fa-trash"></i></a>
+        {{/unless}}
+    </div>
+    <p class="hint">{{localize "PF2E.Item.Action.SelfAppliedEffect.Hint"}}</p>
+</div>

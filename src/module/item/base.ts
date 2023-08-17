@@ -7,7 +7,7 @@ import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { UserPF2e } from "@module/user/document.ts";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor.ts";
+import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -155,7 +155,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return options;
     }
 
-    override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
+    override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
         const actorRollData = this.actor?.getRollData() ?? { actor: null };
         return { ...actorRollData, item: this };
     }
@@ -337,7 +337,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Currently renders description text using enrichHTML.
      */
     protected async processChatData<T extends ItemSummaryData>(
-        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         data: T
     ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
@@ -356,7 +356,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     async getChatData(
-        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        htmlOptions: EnrichmentOptionsPF2e = {},
         _rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
@@ -606,7 +606,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     protected override async _preCreate(
@@ -614,6 +614,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
+        // Sort traits
+        this._source.system.traits?.value?.sort();
+
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const clone = this.actor.clone({
@@ -648,6 +651,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Normalize the slug, setting to `null` if empty
         if (typeof changed.system?.slug === "string") {
             changed.system.slug = sluggify(changed.system.slug) || null;
+        }
+
+        // Sort traits
+        if (Array.isArray(changed.system?.traits?.value)) {
+            changed.system?.traits?.value.sort();
         }
 
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max

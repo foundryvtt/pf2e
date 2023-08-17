@@ -1,0 +1,445 @@
+{
+    "_id": "z6ppbqLxzV2yoVV8",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Ymyfol20UnWVcHuI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Barbed Leg",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "dYHFQi25UUBqt7xL": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sPfCyRn0o0sRXKlN",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Proboscis",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "blood-drain"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "o96GV3DVCeyhLtNh": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "proboscis",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "W2qV9PChutivsHc1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4xn9bn5In5HIaYR9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vEyz9WFKuVGAis7v",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blood-Crazed",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>If the bloodseeker starts its turn within 60 feet of a creature with bleed damage, it must attempt a @Check[type:flat|dc:11]. On a failure, the bloodseeker attempts to move adjacent to the bleeding creature and Strike it with its proboscis. The bloodseeker gains a +4 circumstance bonus to attack rolls against this target.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "blood-crazed"
+                        ],
+                        "selector": "proboscis-attack",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blood-crazed",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RGwgSEeTEr7iYrqm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blood Drain",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The bloodseeker's last action was a successful Strike with its proboscis against a target with blood</p>\n<hr />\n<p><strong>Effect</strong> The bloodseeker sucks blood from that target, dealing @Damage[2d4] damage, and the bloodseeker gains temporary Hit Points equal to the damage dealt. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kA1uqsPiPU9CkkBK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hkifEl5vZ28XXEAJ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "G9I4mwAQcFDUuff1",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Giant Bloodseeker",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 25,
+                "temp": 0,
+                "value": 25
+            },
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 10
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 10
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The Court of Ether breeds bloodseekers to enormous sizes to serve as cavalry mounts for their non‑winged warriors. These bloodseekers serve as capable mounts—at least until they detect the scent of blood.</p>\n<hr />\n<p>Decades ago, the Court of Ether bred bloodseekers as show animals, thinking them adorably ugly. Generations later, the insects have become giantic. Visitors to the Court are impressed by how the bloodseekers to hover in place, fly through hoops, and only drink the blood of specific creatures.</p>\n<h2>Bloodseeker Breeds</h2>\n<p>While the giant bloodseeker has the most notoriety for its size and use as a cavalry mount, other breeds have been created by determined ranchers. These including the longhaired bloodseeker, bloodseeker retriever, and the difficult-tocontain burrowing bloodseeker. Each of these recognized breeds can be submitted to the annual Court of Ether Bloodseeker Show, where breeders enter their prized, expensive, and well-trained bloodseekers in hopes of gaining the elusive \"Best in Show\" award.</p>",
+            "source": {
+                "value": "Pathfinder #194: Cult of the Cave Worm"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision, scent (imprecise) 60 feet"
+            },
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

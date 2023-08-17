@@ -168,6 +168,9 @@ declare global {
          */
         static create(formula: string, data?: Record<string, unknown>, options?: RollOptions): Roll;
 
+        /** Get the default configured Roll class. */
+        static get defaultImplementation(): typeof Roll;
+
         /**
          * Transform an array of RollTerm objects into a cleaned string formula representation.
          * @param terms An array of terms to represent as a formula

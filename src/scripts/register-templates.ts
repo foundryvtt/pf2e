@@ -127,6 +127,7 @@ export function registerTemplates(): void {
         // Item Sheet Partials (sub-partials)
         "systems/pf2e/templates/items/partials/ability-activation.hbs",
         "systems/pf2e/templates/items/partials/duration.hbs",
+        "systems/pf2e/templates/items/partials/self-applied-effect.hbs",
 
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.hbs",

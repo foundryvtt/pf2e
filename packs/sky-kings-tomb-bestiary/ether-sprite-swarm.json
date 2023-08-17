@@ -1,0 +1,552 @@
+{
+    "_id": "U2UxLnrZ7wbtOftk",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "LI23hAnAKr1BVEkv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jA0X2ETjZLCA7syg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Natural Glow",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An ether sprite sheds light as a torch. The sprite can suppress this glow by spending a single action with the concentrate trait.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Natural Glow",
+                        "option": "natural-glow",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "natural-glow"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "luminosity": 0.4,
+                            "shadows": 0.2
+                        }
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "light",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "67nUdre1kAywwu4k",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rowdy Clamor",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. The sprite swarm creates a din by laughing, taunting, and insulting nearby creatures. Creatures in the area are @UUID[Compendium.pf2e.conditionitems.Item.Deafened].</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "rowdy-clamor",
+                        "traits": [
+                            "auditory",
+                            "aura"
+                        ]
+                    }
+                ],
+                "slug": "rowdy-clamor",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "aura"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bSuCnxiHPE0rNI7X",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Luminous Pattern",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sprites glow brightly, flying in a shifting pattern of light. All creatures within 20 feet become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute (@Check[type:will|dc:16] negates).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XOHMB0h6W5pdtGvU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spark Bombardment",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sprites hurl luminous sparks at a creature within 20 feet dealing @Damage[5d4[fire]] damage (@Check[type:reflex|dc:20|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KseRebMdColpYzyT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swarm Steal",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sprites rummage through the possessions of a single creature within its space, attempting a @Check[type:thievery|defense:reflex] check against the creature's Reflex DC. On a success, the sprites take one item of negligible or light bulk that the creature is carrying but not holding or readied. On a critical success, the item can be one that is held or readied, such as a weapon or potion</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c1Jygrl4Be38P8nY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swarming Needles",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sprites numerous rapiers deal @Damage[2d6[piercing]] damage to each enemy in the swarm's space (@Check[type:reflex|dc:20|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NNiPctn4XicxW88k",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "OXfeLuctIvrU92Xg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Diplomacy",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Q3pdeoVgdTCdrnvd",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Performance",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "h0cf60LQMqGYApXM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "kXLuPKS7oTTSX9xK",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Thievery",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Ether Sprite Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": -2
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "swarm-mind"
+                }
+            ],
+            "initiative": {
+                "statistic": "perception"
+            },
+            "perception": {
+                "value": 9
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 3
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 6
+                },
+                {
+                    "exceptions": [],
+                    "type": "cold-iron",
+                    "value": 3
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>One ether sprite is quite enough for most, and can be tiresome for even the fey. When a group of them get together, it's outright bedlam.</p>\n<hr />\n<p>The fey of the Ether Court in the Darklands have evolved somewhat differently from the First World kin that exiled them, becoming more cruel and less mischievous than is typical for their kind.</p>\n<h2>Sprite Collections</h2>\n<p>Ether sprites have a reputation for being thieves. In truth, they're generally curious about the world and simply have a tendency to walk away with objects that don't belong to them, not understanding the concept of ownership. As a result, ether sprites tend to have small interesting objects in their possession, such as talismans or gemstones.</p>",
+            "source": {
+                "value": "Pathfinder #194: Cult of the Cave Worm"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "traits": {
+            "languages": {
+                "custom": "",
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "low-light vision"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fey",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

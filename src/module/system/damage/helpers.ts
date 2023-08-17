@@ -1,4 +1,7 @@
+import { DamageDicePF2e } from "@actor/modifiers.ts";
 import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
+import * as R from "remeda";
+import { combinePartialTerms } from "./formula.ts";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";
 import {
@@ -10,9 +13,6 @@ import {
     DamageType,
 } from "./types.ts";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES_TUPLE } from "./values.ts";
-import { DamageDicePF2e } from "@actor/modifiers.ts";
-import * as R from "remeda";
-import { combinePartialTerms } from "./formula.ts";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
@@ -189,6 +189,42 @@ function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm
     ].flat();
 }
 
+/**
+ * Create or retrieve a simplified term from a more-complex one, given that it can be done without information loss.
+ * @returns A simplified term, if possible, or otherwise the original
+ */
+function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
+    // `IntermediateDie`s typically resolve themselves to `Die`s immediately upon construction.
+    if (term instanceof IntermediateDie) {
+        return term.die ?? term;
+    }
+    if (!term.isDeterministic || term instanceof NumericTerm) {
+        return term;
+    }
+    // Skip a deterministic `ArithmeticExpression` if at least one operand has its own `options`.
+    if (term instanceof ArithmeticExpression && term.operands.some((o) => Object.keys(o.options).length > 0)) {
+        return term;
+    }
+
+    try {
+        const total = term.total ?? Roll.defaultImplementation.safeEval(term.expression);
+        if (typeof total !== "number" || Number.isNaN(total)) {
+            throw Error(`Unable to evaluate deterministic term: ${term.expression}`);
+        }
+        return NumericTerm.fromData({
+            class: "NumericTerm",
+            number: total,
+            evaluated: term._evaluated,
+            options: term.options,
+        });
+    } catch (error) {
+        if (BUILD_MODE === "development" && error instanceof Error) {
+            console.error(error.message);
+        }
+        return term;
+    }
+}
+
 /** Check whether a roll has dice terms associated with a damage roll */
 function looksLikeDamageRoll(roll: Roll): boolean {
     const { dice } = roll;
@@ -245,4 +281,5 @@ export {
     markAsCrit,
     nextDamageDieSize,
     renderComponentDamage,
+    simplifyTerm,
 };

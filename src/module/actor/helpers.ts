@@ -22,7 +22,7 @@ import { ErrorPF2e, getActionGlyph, getActionIcon, signedInteger, sluggify } fro
 import { StrikeAttackTraits } from "./creature/helpers.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier } from "./modifiers.ts";
+import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
 import { AttackItem } from "./types.ts";
 import { ANIMAL_COMPANION_SOURCE_IDS, CONSTRUCT_COMPANION_SOURCE_IDS } from "./values.ts";
@@ -149,10 +149,38 @@ function calculateMAPs(
     const fromSynthetics = domains
         .flatMap((d) => maps[d] ?? [])
         .filter((p) => p.predicate?.test(optionSet) ?? true)
-        .map((p): MAPData => ({ label: p.label, map1: p.penalty, map2: p.penalty * 2 }));
+        .map((p): MAPData => ({ slug: baseMap.slug, label: p.label, map1: p.penalty, map2: p.penalty * 2 }));
 
     // Find lowest multiple attack penalty: penalties are negative, so actually looking for the highest value
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
+}
+
+function calculateBaseMAP(item: ItemPF2e): MAPData {
+    const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
+
+    if (item.isOfType("melee", "weapon")) {
+        // calculate multiple attack penalty tiers
+        const alternateMAP = item.isOfType("weapon") ? item.system.MAP.value : null;
+        switch (alternateMAP) {
+            case "1":
+                return { ...slugAndLabel, map1: -1, map2: -2 };
+            case "2":
+                return { ...slugAndLabel, map1: -2, map2: -4 };
+            case "3":
+                return { ...slugAndLabel, map1: -3, map2: -6 };
+            case "4":
+                return { ...slugAndLabel, map1: -4, map2: -8 };
+            case "5":
+                return { ...slugAndLabel, map1: -5, map2: -10 };
+            default: {
+                return item.traits.has("agile")
+                    ? { ...slugAndLabel, map1: -4, map2: -8 }
+                    : { ...slugAndLabel, map1: -5, map2: -10 };
+            }
+        }
+    }
+
+    return { ...slugAndLabel, map1: -5, map2: -10 };
 }
 
 /** Create roll options pertaining to the active encounter and the actor's participant */
@@ -295,30 +323,37 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
         .join(", ");
 
-    const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
     const attackTrait = {
         name: "attack",
         label: CONFIG.PF2E.featTraits.attack,
         description: CONFIG.PF2E.traitsDescriptions.attack,
     };
 
+    // Multiple attack penalty
+    const maps = calculateMAPs(item, { domains, options: baseOptions });
+    const createMapModifier = (prop: "map1" | "map2") => {
+        return new ModifierPF2e({
+            slug: maps.slug,
+            label: maps.label,
+            modifier: maps[prop],
+            adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, maps.slug),
+        });
+    };
+
     const labels = [
         `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`,
-        game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-            value: signedInteger(strike.totalModifier + multipleAttackPenalty.map1),
-            penalty: multipleAttackPenalty.map1,
-        }),
-        game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-            value: signedInteger(strike.totalModifier + multipleAttackPenalty.map2),
-            penalty: multipleAttackPenalty.map2,
+        ...(["map1", "map2"] as const).map((prop) => {
+            const modifier = createMapModifier(prop);
+            adjustModifiers([modifier], new Set(baseOptions));
+            const penalty = modifier.ignored ? 0 : modifier.value;
+            return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                value: signedInteger(strike.totalModifier + penalty),
+                penalty,
+            });
         }),
     ];
 
-    strike.variants = [
-        null,
-        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, "untyped"),
-        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, "untyped"),
-    ].map((map, mapIncreases) => ({
+    strike.variants = [null, ...(["map1", "map2"] as const).map(createMapModifier)].map((map, mapIncreases) => ({
         label: labels[mapIncreases],
         roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
             const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
@@ -451,31 +486,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     return strike;
 }
 
-function calculateBaseMAP(item: ItemPF2e): MAPData {
-    if (item.isOfType("melee", "weapon")) {
-        // calculate multiple attack penalty tiers
-        const alternateMAP = item.isOfType("weapon") ? item.system.MAP.value : null;
-        switch (alternateMAP) {
-            case "1":
-                return { label: "PF2E.MultipleAttackPenalty", map1: -1, map2: -2 };
-            case "2":
-                return { label: "PF2E.MultipleAttackPenalty", map1: -2, map2: -4 };
-            case "3":
-                return { label: "PF2E.MultipleAttackPenalty", map1: -3, map2: -6 };
-            case "4":
-                return { label: "PF2E.MultipleAttackPenalty", map1: -4, map2: -8 };
-            case "5":
-                return { label: "PF2E.MultipleAttackPenalty", map1: -5, map2: -10 };
-            default: {
-                return item.traits.has("agile")
-                    ? { label: "PF2E.MultipleAttackPenalty", map1: -4, map2: -8 }
-                    : { label: "PF2E.MultipleAttackPenalty", map1: -5, map2: -10 };
-            }
-        }
-    }
-    return { label: "PF2E.MultipleAttackPenalty", map1: -5, map2: -10 };
-}
-
 /** Get the range increment of a target for a given weapon */
 function getRangeIncrement(attackItem: AttackItem, distance: number | null): number | null {
     if (attackItem.isOfType("spell")) return null;
@@ -517,6 +527,7 @@ function isReallyPC(actor: ActorPF2e): boolean {
 }
 
 interface MAPData {
+    slug: "multiple-attack-penalty";
     label: string;
     map1: number;
     map2: number;

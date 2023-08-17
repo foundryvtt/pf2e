@@ -1,5 +1,5 @@
 import { isObject, tupleHasValue } from "@util";
-import { isSystemDamageTerm, markAsCrit, renderComponentDamage } from "./helpers.ts";
+import { isSystemDamageTerm, markAsCrit, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { DamageInstance } from "./roll.ts";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
@@ -17,7 +17,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
                 CONFIG.Dice.termTypes[datum.class ?? ""] ??
                 Object.values(CONFIG.Dice.terms).find((t) => t.name === datum.class) ??
                 Die;
-            return TermCls.fromData(datum);
+            return simplifyTerm(TermCls.fromData(datum));
         }) as [RollTerm, RollTerm];
 
         if (
@@ -79,7 +79,9 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
      */
     get expression(): string {
         // If this expression is deterministic, return the total as the expression
-        if (this.isDeterministic) return this.total!.toString();
+        if (this.isDeterministic && typeof this.total === "number" && !Number.isNaN(this.total)) {
+            return this.total.toString();
+        }
         const { operator, operands } = this;
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
     }
@@ -208,7 +210,7 @@ class Grouping extends RollTerm<GroupingData> {
             CONFIG.Dice.termTypes[termData.term.class ?? ""] ??
             Object.values(CONFIG.Dice.terms).find((t) => t.name === termData.term.class) ??
             NumericTerm;
-        const childTerm = TermCls.fromData(termData.term);
+        const childTerm = simplifyTerm(TermCls.fromData(termData.term));
 
         // Remove redundant groupings
         if (childTerm instanceof Grouping) {
@@ -243,9 +245,9 @@ class Grouping extends RollTerm<GroupingData> {
 
     /** Show a simplified expression if it is known that order of operations won't be lost */
     get expression(): string {
-        return this.isDeterministic && typeof this.total === "number"
+        return this.isDeterministic && typeof this.total === "number" && !Number.isNaN(this.total)
             ? this.total.toString()
-            : this.term instanceof DiceTerm
+            : this.term instanceof DiceTerm || this.term instanceof MathTerm
             ? this.term.expression
             : `(${this.term.expression})`;
     }
@@ -344,7 +346,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
             if (typeof termData === "number") return termData;
 
             const TermCls = CONFIG.Dice.termTypes[termData.class ?? "NumericTerm"];
-            const term = TermCls.fromData(termData);
+            const term = simplifyTerm(TermCls.fromData(termData));
             if (term instanceof NumericTerm) return term.number;
 
             // Immediately evaluate deterministic number or faces

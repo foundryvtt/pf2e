@@ -1,4 +1,5 @@
-import { addSheetFrequencyListeners } from "@item/ability/helpers.ts";
+import { addActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "@item/ability/helpers.ts";
+import { SelfEffectReference } from "@item/ability/index.ts";
 import { FeatPF2e } from "@item/feat/document.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
 import { htmlQuery, tagify } from "@util";
@@ -6,6 +7,13 @@ import Tagify from "@yaireo/tagify";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
+        };
+    }
+
     override get validTraits(): Record<string, string> {
         return CONFIG.PF2E.featTraits;
     }
@@ -29,23 +37,26 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
             hasLineageTrait,
             canHaveKeyOptions: featCanHaveKeyOptions(this.item),
+            selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
         };
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
-        addSheetFrequencyListeners(this.item, html);
+        addActionSheetListeners(this.item, html);
 
         const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
         if (prerequisites) {
-            new Tagify(prerequisites, {
-                editTags: 1,
-            });
+            new Tagify(prerequisites, { editTags: 1 });
         }
 
         const keyOptionsInput = htmlQuery<HTMLInputElement>(html, 'input[name="system.subfeatures.keyOptions"]');
         tagify(keyOptionsInput, { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
+    }
+
+    override async _onDrop(event: ElementDragEvent): Promise<void> {
+        return handleSelfEffectDrop(this, event);
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -80,6 +91,7 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
     canHaveKeyOptions: boolean;
+    selfEffect: SelfEffectReference | { name: string; empty: true };
 }
 
 export { FeatSheetPF2e };

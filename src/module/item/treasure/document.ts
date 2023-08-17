@@ -31,7 +31,7 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
     override async getChatData(
         this: TreasurePF2e<ActorPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
+        htmlOptions: EnrichmentOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData({});

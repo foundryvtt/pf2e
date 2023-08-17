@@ -1,8 +1,10 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData } from "@actor/creature/index.ts";
+import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { SaveType } from "@actor/types.ts";
+import { AttributeString, SaveType } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, FeatPF2e, HeritagePF2e, ItemPF2e, LorePF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
@@ -22,6 +24,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
+    getActionGlyph,
     getActionIcon,
     htmlClosest,
     htmlQuery,
@@ -137,6 +140,32 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             actor.heroPoints
         );
 
+        // Indicate whether the PC has all attribute boosts allocated
+        sheetData.attributeBoostsAllocated = ((): boolean => {
+            const { build } = sheetData.data;
+            if (build.attributes.manual || !isReallyPC(actor)) {
+                return true;
+            }
+
+            const keyAttributeSelected =
+                !sheetData.class || build.attributes.keyOptions.includes(sheetData.data.details.keyability.value);
+            const ancestryBoostsSelected = Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
+                (b) => b.value.length === 0 || !!b.selected
+            );
+            const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
+                (b) => b.value.length === 0 || !!b.selected
+            );
+
+            return (
+                ancestryBoostsSelected &&
+                backgroundBoostsSelected &&
+                keyAttributeSelected &&
+                ([1, 5, 10, 15, 20] as const).filter(
+                    (l) => build.attributes.allowedBoosts[l] > build.attributes.boosts[l].length
+                ).length === 0
+            );
+        })();
+
         // Class DCs
         const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
         const classDCs = allClassDCs
@@ -158,6 +187,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             primary: primaryClassDC,
             perDCDetails: classDCs.length > 1 || !primaryClassDC,
         };
+
+        // Acquire all unselected apex attribute options
+        const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(actor);
+        sheetData.apexAttributeOptions = abpEnabled
+            ? []
+            : this.actor.itemTypes.equipment.flatMap((e) =>
+                  e.system.apex?.selected === false &&
+                  e.isInvested &&
+                  e.system.apex.attribute !== actor.system.build.attributes.apex
+                      ? e.system.apex.attribute
+                      : []
+              );
 
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
@@ -190,7 +231,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
-        sheetData.actions = this.#prepareActions();
+        sheetData.actions = this.#prepareAbilities();
         sheetData.feats = [...actor.feats, actor.feats.unorganized];
 
         const craftingFormulas = await actor.getCraftingFormulas();
@@ -319,11 +360,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         actorData.lores = lores;
     }
 
-    /** Prepares all ability type items that create an action in the sheet */
-    #prepareActions(): CharacterSheetData["actions"] {
+    /** Prepares all ability-type items that create an action in the sheet */
+    #prepareAbilities(): CharacterSheetData["actions"] {
         const { actor } = this;
         const result: CharacterSheetData["actions"] = {
-            combat: {
+            encounter: {
                 action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
                 reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
                 free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
@@ -342,8 +383,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const action: ActionSheetData = {
                 ...R.pick(item, ["id", "name", "actionCost", "frequency"]),
                 img: getActionIcon(item.actionCost),
+                glyph: getActionGlyph(item.actionCost),
                 traits: createSheetTags(traitDescriptions, traits),
                 feat: item.isOfType("feat") ? item : null,
+                hasEffect: !!item.system.selfEffect,
             };
 
             if (traits.includes("exploration")) {
@@ -353,10 +396,17 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             } else if (traits.includes("downtime")) {
                 result.downtime.push(action);
             } else {
-                const category = result.combat[item.actionCost?.type ?? "free"];
+                const category = result.encounter[item.actionCost?.type ?? "free"];
                 category?.actions.push(action);
             }
         }
+
+        for (const list of ["action", "reaction", "free"] as const) {
+            result.encounter[list].actions.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+        }
+        result.exploration.active.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+        result.exploration.other.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+        result.downtime.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
 
         return result;
     }
@@ -497,12 +547,29 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
             }
 
-            htmlQuery(mainPanel, "button[data-action=edit-attribute-modifiers]")?.addEventListener("click", () => {
+            htmlQuery(mainPanel, "button[data-action=edit-attribute-boosts]")?.addEventListener("click", () => {
                 const builder =
                     Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
                     new AttributeBuilder(this.actor);
                 builder.render(true);
             });
+
+            for (const link of htmlQueryAll(mainPanel, "a[data-action=apex-attribute]")) {
+                link.addEventListener("click", () => {
+                    if (game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this.actor)) {
+                        return;
+                    }
+                    const attribute = htmlClosest(link, "[data-attribute]")?.dataset.attribute;
+                    if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
+                        const apexItems = this.actor.itemTypes.equipment.filter((e) => e.system.apex);
+                        const selection = apexItems.find((e) => e.isInvested && e.system.apex?.attribute === attribute);
+                        this.actor.updateEmbeddedDocuments(
+                            "Item",
+                            apexItems.map((e) => ({ _id: e.id, "system.apex.selected": e === selection }))
+                        );
+                    }
+                });
+            }
         }
 
         // ACTIONS
@@ -1317,6 +1384,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     background: BackgroundPF2e<CharacterPF2e> | null;
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
+    attributeBoostsAllocated: boolean;
     class: ClassPF2e<CharacterPF2e> | null;
     classDCs: {
         dcs: ClassDCSheetData[];
@@ -1325,6 +1393,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
         /** Show class label and individual modifier lists for each class DC */
         perDCDetails: boolean;
     };
+    apexAttributeOptions: AttributeString[];
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     deity: DeityPF2e<CharacterPF2e> | null;
@@ -1338,7 +1407,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     spellcastingEntries: SpellcastingSheetData[];
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
-        combat: Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
+        encounter: Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
         exploration: {
             active: ActionSheetData[];
             other: ActionSheetData[];
@@ -1352,6 +1421,7 @@ interface ActionSheetData {
     id: string;
     name: string;
     img: string;
+    glyph: string | null;
     actionCost: ActionCost | null;
     frequency: Frequency | null;
     feat: FeatPF2e | null;
@@ -1359,6 +1429,7 @@ interface ActionSheetData {
     exploration?: {
         active: boolean;
     };
+    hasEffect: boolean;
 }
 
 interface ClassDCSheetData extends ClassDCData {

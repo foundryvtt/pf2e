@@ -10,6 +10,7 @@ import {
     CheckModifier,
     ModifierPF2e,
     StatisticModifier,
+    adjustModifiers,
     createAbilityModifier,
     createProficiencyModifier,
 } from "@actor/modifiers.ts";
@@ -39,7 +40,7 @@ import { ItemType, PhysicalItemSource } from "@item/data/index.ts";
 import { getPropertyRuneStrikeAdjustments, getResilientBonus } from "@item/physical/runes.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
+import { WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
@@ -77,6 +78,7 @@ import * as R from "remeda";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
+    CharacterAbilities,
     CharacterAttributes,
     CharacterFlags,
     CharacterProficiency,
@@ -155,7 +157,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** This PC's ability scores */
-    override get abilities(): Abilities {
+    override get abilities(): CharacterAbilities {
         return deepClone(this.system.abilities);
     }
 
@@ -489,8 +491,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
-        for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.trunc(ability.mod) || 0;
+        for (const attribute of Object.values(this.system.abilities)) {
+            attribute.mod = Math.trunc(attribute.mod) || 0;
         }
 
         this.setNumericRollOptions();
@@ -498,8 +500,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /**
-     * Immediately after boosts from this PC's ancestry, background, and class have been acquired, set ability scores
-     * according to them.
+     * Immediately after boosts from this PC's ancestry, background, and class have been acquired, set attribute
+     * modifiers according to them.
      */
     override prepareDataFromItems(): void {
         super.prepareDataFromItems();
@@ -723,7 +725,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
 
             // Apply Attribute Apex increase: property already nulled out if ABP is disabled
-            if (build.attributes.apex && this.level >= 17) {
+            const isABP = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this);
+            if (build.attributes.apex && (!isABP || this.level >= 17)) {
                 const attribute = this.system.abilities[build.attributes.apex];
                 attribute.mod = Math.max(attribute.mod + 1, 4);
             }
@@ -1096,7 +1099,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Add a basic unarmed strike
         const basicUnarmed = includeBasicUnarmed
             ? ((): WeaponPF2e<this> => {
-                  const source: PreCreate<WeaponSource> & { system: { damage?: Partial<WeaponDamage> } } = {
+                  const source: PreCreate<WeaponSource> = {
                       _id: "xxPF2ExUNARMEDxx",
                       name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                       type: "weapon",
@@ -1106,7 +1109,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                           category: "unarmed",
                           baseItem: null,
                           bonus: { value: 0 },
-                          damage: { dice: 1, die: "d4", damageType: "bludgeoning" },
+                          damage: { dice: 1, die: "d4", damageType: "bludgeoning" } as const,
                           equipped: {
                               carryType: "worn",
                               inSlot: true,
@@ -1334,9 +1337,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...extractModifiers(synthetics, selectors, { injectables: { weapon }, resolvables: { weapon } })
         );
 
-        // Multiple attack penalty
-        const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
-
         const auxiliaryActions: WeaponAuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
 
@@ -1490,34 +1490,41 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             { weapon: weapon.name }
         );
 
+        // Multiple attack penalty
+        const maps = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
+        const createMapModifier = (prop: "map1" | "map2") => {
+            return new ModifierPF2e({
+                slug: maps.slug,
+                label: maps.label,
+                modifier: maps[prop],
+                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, maps.slug),
+            });
+        };
+
+        const createMapLabel = (prop: "map1" | "map2") => {
+            const modifier = createMapModifier(prop);
+            adjustModifiers([modifier], new Set(rollOptions));
+            const penalty = modifier.ignored ? 0 : modifier.value;
+            return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                value: signedInteger(action.totalModifier + penalty),
+                penalty,
+            });
+        };
+
         // Defer in case total modifier is recalulated with a different result later
         const labels = [
             () => `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
-            () =>
-                game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map1),
-                    penalty: multipleAttackPenalty.map1,
-                }),
-            () =>
-                game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                    value: signedInteger(action.totalModifier + multipleAttackPenalty.map2),
-                    penalty: multipleAttackPenalty.map2,
-                }),
+            () => createMapLabel("map1"),
+            () => createMapLabel("map2"),
         ];
 
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, statistic, otherModifiers),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, statistic, [
-                    ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, "untyped"),
-                ]),
+                new CheckModifier(checkName, statistic, [...otherModifiers, createMapModifier("map1")]),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, statistic, [
-                    ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, "untyped"),
-                ]),
+                new CheckModifier(checkName, statistic, [...otherModifiers, createMapModifier("map2")]),
         ];
 
         action.variants = [0, 1, 2].map((mapIncreases) => ({

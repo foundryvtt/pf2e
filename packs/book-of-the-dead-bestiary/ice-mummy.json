@@ -477,7 +477,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>This affliction can't be reduced below stage 1, nor can damage from it be healed, until successfully treated with <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> or a similar effect. The affliction can then be removed as normal for a disease. A creature killed by cold rot turns to ice crystals and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round, then carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> [[/r {5d6[negative],2d6[cold]}]]{5d6 negative damage plus 2d6 cold damage} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>"
+                    "value": "<p>This affliction can't be reduced below stage 1, nor can damage from it be healed, until successfully treated with <em>@UUID[Compendium.pf2e.spells-srd.Item.Remove Curse]</em> or a similar effect. The affliction can then be removed as normal for a disease. A creature killed by cold rot turns to ice crystals and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round, then carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[5d6[negative],2d6[cold]]{5d6 negative damage plus 2d6 cold damage} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -517,7 +517,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ice mummy exhales a @Template[type:cone|distance:60] of razor-sharp ice that deals [[/r {5d6[cold],4d6[slashing]}]]{5d6 cold and 4d6 slashing damage} (@Check[type:reflex|dc:26|basic:true]).</p>\n<p>The ice mummy can't use Frozen Breath again for [[/br 1d4 #Recharge Frozen Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The ice mummy exhales a @Template[type:cone|distance:60] of razor-sharp ice that deals @Damage[5d6[cold],4d6[slashing]]{5d6 cold and 4d6 slashing damage} (@Check[type:reflex|dc:26|basic:true]).</p>\n<p>The ice mummy can't use Frozen Breath again for [[/br 1d4 #Recharge Frozen Breath]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

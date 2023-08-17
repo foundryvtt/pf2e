@@ -10,6 +10,10 @@
         flex-wrap: nowrap;
     }
 
+    &.action form {
+        @import "ability-sheet";
+    }
+
     &.affliction form {
         @import "affliction-sheet";
     }
@@ -242,12 +246,7 @@
             }
 
             .editor {
-                --space-s: 0.25em;
-                --space-m: 0.5em;
-                --space-l: 1em;
-                --space-xl: 1.5em;
-                --radius: 3px;
-                @include tinymce-system-specific;
+                @include journal-styling;
             }
 
             .item-description {

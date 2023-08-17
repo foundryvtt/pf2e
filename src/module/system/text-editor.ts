@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { StrikeSelf } from "@actor/types.ts";
 import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
@@ -9,6 +10,7 @@ import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rul
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, localizer, objectHasKey, sluggify } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
 import { createDamageFormula } from "./damage/formula.ts";
@@ -17,9 +19,9 @@ import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { CreateDamageFormulaParams, DamageRollContext, InlineDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
-import { StrikeSelf } from "@actor/types.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
+const superEnrichContentLinks = TextEditor._enrichContentLinks;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
 const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 
@@ -27,14 +29,14 @@ const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 class TextEditorPF2e extends TextEditor {
     static override enrichHTML(
         content: string | null,
-        options: EnrichHTMLOptionsPF2e & { async: true }
+        options: EnrichmentOptionsPF2e & { async: true }
     ): Promise<string>;
-    static override enrichHTML(content: string | null, options: EnrichHTMLOptionsPF2e & { async: false }): string;
-    static override enrichHTML(content: string | null, options: EnrichHTMLOptionsPF2e): string | Promise<string>;
+    static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e & { async: false }): string;
+    static override enrichHTML(content: string | null, options: EnrichmentOptionsPF2e): string | Promise<string>;
     static override enrichHTML(
         this: typeof TextEditor,
         content: string | null,
-        options: EnrichHTMLOptionsPF2e = {}
+        options: EnrichmentOptionsPF2e = {}
     ): string | Promise<string> {
         if (content?.startsWith("<p>@Localize")) {
             // Remove tags
@@ -46,6 +48,25 @@ class TextEditorPF2e extends TextEditor {
         }
 
         return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
+    }
+
+    /**
+     * Upstream retrieves documents from UUID links sequentially, which has a noticable load time with text containing
+     * many links: retrieve every linked document at once beforehand with the faster `UUIDUtils.fromUUIDs` system helper
+     * so that subsequent calls to `fromUuid` finds all documents in caches.
+     */
+    static override _enrichContentLinks(text: Text[], options?: EnrichmentOptions): boolean | Promise<boolean> {
+        if (options?.async) {
+            const documentTypes = [...CONST.DOCUMENT_LINK_TYPES, "Compendium", "UUID"];
+            const pattern = new RegExp(`@(${documentTypes.join("|")})\\[([^#\\]]+)(?:#([^\\]]+))?](?:{([^}]+)})?`, "g");
+            const uuids = text
+                .map((t) => Array.from((t.textContent ?? "").matchAll(pattern)))
+                .flat(2)
+                .filter((m) => UUIDUtils.isCompendiumUUID(m));
+            return UUIDUtils.fromUUIDs(uuids).then(() => superEnrichContentLinks.apply(this, [text, options]));
+        }
+
+        return superEnrichContentLinks.apply(this, [text, options]);
     }
 
     /** Replace core static method to conditionally handle parsing of inline damage rolls */
@@ -136,7 +157,7 @@ class TextEditorPF2e extends TextEditor {
         return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
     }
 
-    static processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
+    static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
         const $html = $("<div>").html(content);
         const document = options.rollData?.actor ?? null;
         UserVisibilityPF2e.process($html, { document });
@@ -146,7 +167,7 @@ class TextEditorPF2e extends TextEditor {
 
     static async enrichString(
         data: RegExpMatchArray,
-        options: EnrichHTMLOptionsPF2e = {}
+        options: EnrichmentOptionsPF2e = {}
     ): Promise<HTMLElement | null> {
         if (data.length < 4) return null;
         const item = options.rollData?.item ?? null;
@@ -199,7 +220,7 @@ class TextEditorPF2e extends TextEditor {
         return span;
     }
 
-    static async #localize(paramString: string, options: EnrichHTMLOptionsPF2e): Promise<HTMLElement | null> {
+    static async #localize(paramString: string, options: EnrichmentOptionsPF2e): Promise<HTMLElement | null> {
         const content = game.i18n.localize(paramString);
         if (content === paramString) {
             ui.notifications.error(`Failed to localize ${paramString}!`);
@@ -629,8 +650,11 @@ async function augmentInlineDamageRoll(
     const { name, actor, item, traits, extraRollOptions } = args;
 
     try {
+        // Retrieve roll data. If there is no actor, determine a reasonable "min level" for formula display
         const rollData: Record<string, unknown> = item?.getRollData() ?? actor?.getRollData() ?? {};
-        rollData.actor ??= { level: 1 };
+        rollData.actor ??= { level: (item && "level" in item ? item.level : null) ?? 1 };
+
+        // Extract terms from formula
         const base = extractBaseDamage(new DamageRoll(baseFormula, rollData));
 
         const domains = R.compact([
@@ -713,7 +737,7 @@ async function augmentInlineDamageRoll(
     }
 }
 
-interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
+interface EnrichmentOptionsPF2e extends EnrichmentOptions {
     rollData?: RollDataPF2e;
 }
 
@@ -753,4 +777,4 @@ interface CheckLinkParams {
     roller?: string;
 }
 
-export { EnrichHTMLOptionsPF2e, TextEditorPF2e };
+export { EnrichmentOptionsPF2e, TextEditorPF2e };
