@@ -23,6 +23,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
+    getActionGlyph,
     getActionIcon,
     htmlClosest,
     htmlQuery,
@@ -217,7 +218,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
-        sheetData.actions = this.#prepareActions();
+        sheetData.actions = this.#prepareAbilities();
         sheetData.feats = [...actor.feats, actor.feats.unorganized];
 
         const craftingFormulas = await actor.getCraftingFormulas();
@@ -346,11 +347,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         actorData.lores = lores;
     }
 
-    /** Prepares all ability type items that create an action in the sheet */
-    #prepareActions(): CharacterSheetData["actions"] {
+    /** Prepares all ability-type items that create an action in the sheet */
+    #prepareAbilities(): CharacterSheetData["actions"] {
         const { actor } = this;
         const result: CharacterSheetData["actions"] = {
-            combat: {
+            encounter: {
                 action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
                 reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
                 free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
@@ -369,8 +370,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const action: ActionSheetData = {
                 ...R.pick(item, ["id", "name", "actionCost", "frequency"]),
                 img: getActionIcon(item.actionCost),
+                glyph: getActionGlyph(item.actionCost),
                 traits: createSheetTags(traitDescriptions, traits),
                 feat: item.isOfType("feat") ? item : null,
+                hasEffect: !!item.system.selfEffect,
             };
 
             if (traits.includes("exploration")) {
@@ -380,10 +383,17 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             } else if (traits.includes("downtime")) {
                 result.downtime.push(action);
             } else {
-                const category = result.combat[item.actionCost?.type ?? "free"];
+                const category = result.encounter[item.actionCost?.type ?? "free"];
                 category?.actions.push(action);
             }
         }
+
+        for (const list of ["action", "reaction", "free"] as const) {
+            result.encounter[list].actions.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+        }
+        result.exploration.active.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+        result.exploration.other.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+        result.downtime.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
 
         return result;
     }
@@ -1366,7 +1376,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     spellcastingEntries: SpellcastingSheetData[];
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
-        combat: Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
+        encounter: Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;
         exploration: {
             active: ActionSheetData[];
             other: ActionSheetData[];
@@ -1380,6 +1390,7 @@ interface ActionSheetData {
     id: string;
     name: string;
     img: string;
+    glyph: string | null;
     actionCost: ActionCost | null;
     frequency: Frequency | null;
     feat: FeatPF2e | null;
@@ -1387,6 +1398,7 @@ interface ActionSheetData {
     exploration?: {
         active: boolean;
     };
+    hasEffect: boolean;
 }
 
 interface ClassDCSheetData extends ClassDCData {
