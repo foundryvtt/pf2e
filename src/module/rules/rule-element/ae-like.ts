@@ -70,11 +70,11 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     #pathIsValid(path: string): boolean {
         const actor = this.item.actor;
         return (
-            typeof path === "string" &&
             path.length > 0 &&
-            [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")]
-                .map((p) => this.resolveInjectedProperties(p))
-                .some((path) => getProperty(actor, path) !== undefined)
+            (path.startsWith("flags.") ||
+                [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
+                    (path) => getProperty(actor, path) !== undefined
+                ))
         );
     }
 
@@ -101,6 +101,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     protected applyAELike(rollOptions?: Set<string>): void {
         // Convert long-form skill slugs in paths to short forms
         const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
+        if (this.ignored) return;
         if (!this.#pathIsValid(path)) {
             return this.failValidation(`no data found at or near "${path}"`);
         }
@@ -108,12 +109,9 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions()) : new Set();
         if (!this.test(rollOptions)) return;
 
-        // Do not proceed if injected-property resolution failed
-        if (/\bundefined\b/.test(path)) return;
-
         const { actor } = this;
-        const current: unknown = getProperty(actor, path);
-        const change: unknown = this.resolveValue(this.value);
+        const current = getProperty(actor, path);
+        const change = this.resolveValue(this.value);
         const newValue = AELikeRuleElement.getNewValue(this.mode, current, change);
         if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
             return this.failValidation(newValue.asError().message);
