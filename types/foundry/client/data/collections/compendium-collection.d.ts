@@ -177,14 +177,11 @@ declare global {
     type CompendiumUUID = `Compendium.${string}.${string}` | `Compendium.${string}.${CompendiumDocumentType}.${string}`;
     type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUID;
 
-    function fromUuid(uuid: CompendiumUUID, relative?: CompendiumDocument): Promise<CompendiumDocument | null>;
-    function fromUuid(
-        uuid: TokenDocumentUUID,
-        relative?: foundry.abstract.Document
-    ): Promise<TokenDocument<Scene> | null>;
+    function fromUuid(uuid: CompendiumUUID, relative?: Maybe<ClientDocument>): Promise<CompendiumDocument | null>;
+    function fromUuid(uuid: TokenDocumentUUID, relative?: Maybe<ClientDocument>): Promise<TokenDocument<Scene> | null>;
     function fromUuid<TDocument extends ClientDocument>(
         uuid: string,
-        relative?: foundry.abstract.Document
+        relative?: Maybe<ClientDocument>
     ): Promise<TDocument | null>;
 
     /**
@@ -197,16 +194,13 @@ declare global {
      */
     function fromUuidSync(
         uuid: ItemUUID,
-        relative?: ClientDocument | CompendiumIndexData | null
+        relative?: Maybe<ClientDocument>
     ): Item<Actor<TokenDocument<Scene | null> | null> | null> | CompendiumIndexData | null;
     function fromUuidSync<TDocument extends WorldDocument>(
         uuid: WorldDocumentUUID<TDocument>,
-        relative?: ClientDocument | CompendiumIndexData | null
+        relative?: Maybe<ClientDocument>
     ): TDocument | null;
-    function fromUuidSync(
-        uuid: string,
-        relative?: ClientDocument | CompendiumIndexData | null
-    ): ClientDocument | CompendiumIndexData | null;
+    function fromUuidSync(uuid: string, relative?: Maybe<ClientDocument>): ClientDocument | CompendiumIndexData | null;
 
     /**
      * Parse a UUID into its constituent parts.
