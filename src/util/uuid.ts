@@ -2,8 +2,19 @@ import * as R from "remeda";
 
 class UUIDUtils {
     /** Retrieve multiple documents by UUID */
-    static async fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
-        const documentsAndIndexData = R.uniq(uuids).flatMap((u) => fromUuidSync(u) ?? []);
+    static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<ClientDocument> }): Promise<ClientDocument[]> {
+        const resolvedUUIDs = R.uniq(uuids).flatMap((u) => foundry.utils.parseUuid(u, options).uuid ?? []);
+
+        // These can't be retrieved via `fromUuidSync`: separate and retrieve directly via `fromUuid`
+        const packEmbeddedLinks = resolvedUUIDs.filter((u) => {
+            const parsed = foundry.utils.parseUuid(u, options);
+            return parsed.collection instanceof CompendiumCollection && parsed.embedded.length > 0;
+        });
+        const packEmbeddedDocs = R.compact(await Promise.all(packEmbeddedLinks.map((u) => fromUuid(u))));
+
+        const documentsAndIndexData = R.compact(
+            resolvedUUIDs.filter((u) => !packEmbeddedLinks.includes(u)).map((u) => fromUuidSync(u))
+        );
         const worldDocsAndCacheHits = documentsAndIndexData.filter(
             (d): d is ClientDocument => d instanceof foundry.abstract.Document
         );
@@ -20,7 +31,7 @@ class UUIDUtils {
             )
         ).flat();
 
-        return R.sortBy([...worldDocsAndCacheHits, ...packDocs], (d) => uuids.indexOf(d.uuid));
+        return R.sortBy([...packEmbeddedDocs, ...worldDocsAndCacheHits, ...packDocs], (d) => uuids.indexOf(d.uuid));
     }
 
     static isItemUUID(uuid: unknown): uuid is ItemUUID {
