@@ -43,11 +43,15 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             const remaining = start + duration - game.time.worldTime;
             const result = { remaining, expired: remaining <= 0 };
             const { combatant } = game.combat ?? {};
-            if (remaining === 0 && combatant) {
+            if (remaining === 0 && combatant?.actor) {
                 const startInitiative = this.system.start.initiative ?? 0;
                 const currentInitiative = combatant.initiative ?? 0;
+
+                // A familiar won't be represented in the encounter tracker: use the master in its place
+                const fightyActor = this.actor?.isOfType("familiar") ? this.actor.master ?? this.actor : this.actor;
                 const isEffectTurnStart =
-                    startInitiative === currentInitiative && combatant.actor === (this.origin ?? this.actor);
+                    startInitiative === currentInitiative && combatant.actor === (this.origin ?? fightyActor);
+
                 result.expired = isEffectTurnStart
                     ? this.system.duration.expiry === "turn-start"
                     : currentInitiative < startInitiative;
