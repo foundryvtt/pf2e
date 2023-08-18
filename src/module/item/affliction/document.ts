@@ -49,21 +49,34 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return Object.keys(this.system.stages).length || 1;
     }
 
-    override async increase(): Promise<void> {
-        if (this.stage === this.maxStage) return;
+    override async increase(update: { by: number } = { by: 1 }): Promise<void> {
+        if (this.stage === this.maxStage) {
+            const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+            const stageStart = { value: game.time.worldTime, initiative };
 
-        const stage = Math.min(this.maxStage, this.system.stage + 1);
-        await this.update({ system: { stage } });
+            await this.update({ system: { stageStart } });
+            return;
+        }
+
+        const stage = Math.min(this.maxStage, this.system.stage + (update.by ?? 1));
+
+        const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+        const stageStart = { value: game.time.worldTime, initiative };
+
+        await this.update({ system: { stage, stageStart } });
     }
 
-    override async decrease(): Promise<void> {
-        const stage = this.system.stage - 1;
-        if (stage === 0) {
+    override async decrease(update: { by: number } = { by: 1 }): Promise<void> {
+        const stage = this.system.stage - (update.by ?? 1);
+        if (stage <= 0) {
             await this.delete();
             return;
         }
 
-        await this.update({ system: { stage } });
+        const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
+        const stageStart = { value: game.time.worldTime, initiative };
+
+        await this.update({ system: { stage, stageStart } });
     }
 
     get onsetDuration(): number {
@@ -296,10 +309,14 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 extraRollOptions: this.getRollOptions("item"),
             });
 
-            if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
+            if (result?.degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
+                this.decrease({ by: 2 });
+            } else if (result?.degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
                 this.decrease();
-            } else {
+            } else if (result?.degreeOfSuccess === DegreeOfSuccess.FAILURE) {
                 this.increase();
+            } else {
+                this.increase({ by: 2 });
             }
         }
     }
