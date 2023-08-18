@@ -253,3 +253,4 @@ export { Migration852AbilityScoresToModifiers } from "./852-ability-scores-to-mo
 export { Migration853RemasterLanguages } from "./853-remaster-languages.ts";
 export { Migration854BracketedAbilityScoresToModifiers } from "./854-bracketed-ability-scores-to-modifiers.ts";
 export { Migration855ApexEquipmentSystemData } from "./855-apex-equipment-system-data.ts";
+export { Migration856NoSystemDotCustom } from "./856-no-system-dot-custom.ts";
