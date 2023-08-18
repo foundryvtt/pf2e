@@ -119,6 +119,12 @@ class CombatantPF2e<
         for (const effect of actor.itemTypes.effect) {
             await effect.onTurnStart();
         }
+        // Don't forget about the little buddy
+        if (actor.isOfType("character") && actor.familiar) {
+            for (const effect of actor.familiar.itemTypes.effect) {
+                await effect.onTurnStart();
+            }
+        }
 
         Hooks.callAll("pf2e.startTurn", this, encounter, game.user.id);
     }

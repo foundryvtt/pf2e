@@ -9,7 +9,7 @@ export class EffectTracker {
     /** A separate collection of aura effects, including ones with unlimited duration */
     auraEffects: Collection<EffectPF2e<ActorPF2e>> = new Collection();
 
-    private insert(effect: EffectPF2e<ActorPF2e>, duration: { expired: boolean; remaining: number }): void {
+    #insert(effect: EffectPF2e<ActorPF2e>, duration: { expired: boolean; remaining: number }): void {
         if (this.effects.length === 0) {
             this.effects.push(effect);
         } else {
@@ -60,13 +60,13 @@ export class EffectTracker {
                 const duration = effect.remainingDuration;
                 effect.system.expired = duration.expired;
                 if (this.effects.length === 0 || index < 0) {
-                    this.insert(effect, duration);
+                    this.#insert(effect, duration);
                 } else {
                     const existing = this.effects[index];
                     // compare duration and update if different
                     if (duration.remaining !== existing.remainingDuration.remaining) {
                         this.effects.splice(index, 1);
-                        this.insert(effect, duration);
+                        this.#insert(effect, duration);
                     }
                 }
             }
