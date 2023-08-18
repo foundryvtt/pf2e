@@ -26,6 +26,7 @@ import { Migration852AbilityScoresToModifiers } from "@module/migration/migratio
 import { Migration853RemasterLanguages } from "@module/migration/migrations/853-remaster-languages.ts";
 import { Migration854BracketedAbilityScoresToModifiers } from "@module/migration/migrations/854-bracketed-ability-scores-to-modifiers.ts";
 import { Migration855ApexEquipmentSystemData } from "@module/migration/migrations/855-apex-equipment-system-data.ts";
+import { Migration856NoSystemDotCustom } from "@module/migration/migrations/856-no-system-dot-custom.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration853RemasterLanguages(),
     new Migration854BracketedAbilityScoresToModifiers(),
     new Migration855ApexEquipmentSystemData(),
+    new Migration856NoSystemDotCustom(),
 ];
 
 global.deepClone = <T>(original: T): T => {

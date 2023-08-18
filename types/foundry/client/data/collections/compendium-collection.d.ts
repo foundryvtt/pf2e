@@ -212,7 +212,7 @@ declare global {
     function _parseUuid(uuid: string, relative?: foundry.abstract.Document): ResolvedUUID;
 
     interface ResolvedUUID {
-        uuid: string;
+        uuid?: string;
         /** The parent collection. */
         collection?: DocumentCollection<ClientDocument> | undefined;
         /** The parent document. */
