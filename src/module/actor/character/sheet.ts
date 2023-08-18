@@ -2,10 +2,20 @@ import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, FeatPF2e, HeritagePF2e, ItemPF2e, LorePF2e } from "@item";
+import {
+    AncestryPF2e,
+    BackgroundPF2e,
+    ClassPF2e,
+    DeityPF2e,
+    FeatPF2e,
+    HeritagePF2e,
+    ItemPF2e,
+    LorePF2e,
+    PhysicalItemPF2e,
+} from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
@@ -434,6 +444,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         return craftingEntries;
+    }
+
+    protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
+        const data = super.prepareInventoryItem(item);
+        data.isInvestable = !item.isInContainer && item.isIdentified && item.isInvested !== null;
+
+        // If armor is equipped, and can be invested, hint at the user that it should be invested
+        const invested = this.actor.inventory.invested;
+        const canInvest = invested && invested.value < invested.max;
+        if (item.isOfType("armor") && item.isEquipped && !item.isInvested && data.isInvestable && canInvest) {
+            data.notifyInvestment = true;
+        }
+
+        return data;
     }
 
     /* -------------------------------------------- */

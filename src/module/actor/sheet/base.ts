@@ -158,35 +158,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), type: "backpack", items: [] },
         };
 
-        const actorSize = new ActorSizePF2e({ value: this.actor.size });
-        const createInventoryItem = (item: PhysicalItemPF2e<TActor>): InventoryItem => {
-            const editable = game.user.isGM || item.isIdentified;
-            const heldItems = item.isOfType("backpack") ? item.contents.map((i) => createInventoryItem(i)) : undefined;
-            heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
-
-            const itemSize = new ActorSizePF2e({ value: item.size });
-            const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
-
-            const canBeEquipped = !item.isInContainer;
-
-            return {
-                item,
-                itemSize: sizeDifference !== 0 ? itemSize : null,
-                editable,
-                isContainer: item.isOfType("backpack"),
-                canBeEquipped,
-                isInvestable:
-                    this.actor.isOfType("character") && canBeEquipped && item.isIdentified && item.isInvested !== null,
-                isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
-                hasCharges: item.isOfType("consumable") && item.uses.max > 0,
-                heldItems,
-            };
-        };
-
         for (const item of this.actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
             if (!objectHasKey(sections, item.type) || item.isInContainer) continue;
             const category = item.isOfType("book") ? sections.equipment : sections[item.type];
-            category.items.push(createInventoryItem(item));
+            category.items.push(this.prepareInventoryItem(item));
         }
 
         return {
@@ -196,6 +171,32 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             showIndividualPricing: this.actor.isOfType("loot"),
             hasStowingContainers: this.actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
             invested: this.actor.inventory.invested,
+        };
+    }
+
+    protected prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
+        const editable = game.user.isGM || item.isIdentified;
+        const heldItems = item.isOfType("backpack")
+            ? item.contents.map((i) => this.prepareInventoryItem(i))
+            : undefined;
+        heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
+
+        const actorSize = new ActorSizePF2e({ value: this.actor.size });
+        const itemSize = new ActorSizePF2e({ value: item.size });
+        const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
+
+        const canBeEquipped = !item.isInContainer;
+
+        return {
+            item,
+            itemSize: sizeDifference !== 0 ? itemSize : null,
+            editable,
+            isContainer: item.isOfType("backpack"),
+            canBeEquipped,
+            isInvestable: false,
+            isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
+            hasCharges: item.isOfType("consumable") && item.uses.max > 0,
+            heldItems,
         };
     }
 
