@@ -19,7 +19,354 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:air:skill"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Smuggler"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:earth:skill"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Hefty Hauler"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:fire:skill"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:metal:skill"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Quick Repair"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:water:skill"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Underwater Marauder"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:wood:skill"
+                ],
+                "preselectChoices": {
+                    "terrain": "forest"
+                },
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Terrain Expertise"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ste.rank",
+                "predicate": [
+                    "junction:air:skill"
+                ],
+                "priority": 50,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "predicate": [
+                    "junction:earth:skill"
+                ],
+                "priority": 50,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "predicate": [
+                    "junction:fire:skill"
+                ],
+                "priority": 50,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "predicate": [
+                    "junction:metal:skill"
+                ],
+                "priority": 50,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "predicate": [
+                    "junction:water:skill"
+                ],
+                "priority": 50,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.sur.rank",
+                "predicate": [
+                    "junction:wood:skill"
+                ],
+                "priority": 50,
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:air:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "air",
+                    "electricity"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:earth:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "earth",
+                    "poison"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:fire:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:metal:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "electricity",
+                    "metal"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:water:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "fire",
+                    "water"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:wood:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "poison",
+                    "wood"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:air:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "air",
+                    "electricity"
+                ]
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:earth:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "earth",
+                    "poison"
+                ]
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:fire:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ]
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:metal:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "electricity",
+                    "metal"
+                ]
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:water:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "fire",
+                    "water"
+                ]
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:wood:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "poison",
+                    "wood"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "junction:air:skill",
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,7),3, ternary(gte(@actor.level,0),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "junction:earth:skill",
+                            "junction:water:skill"
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "junction:fire:skill",
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "intimidation",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "junction:metal:skill",
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "crafting",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "junction:wood:skill",
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "survival",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+            }
+        ],
         "source": {
             "value": "Pathfinder Rage of Elements"
         },
