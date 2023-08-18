@@ -49,7 +49,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
         if (!validActorType) {
             const actorType = game.i18n.localize(`TYPES.Actor.${item.actor.type}`);
-            this.failValidation(`This rule element type cannot be applied to a ${actorType}`);
+            this.failValidation(`this rule element type cannot be applied to a ${actorType}`);
             source.ignored = true;
         }
 
