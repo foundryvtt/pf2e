@@ -16,7 +16,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     const encouragingWordsMacro = async (DC: number, bonus: number, dip: Statistic) => {
         dip.roll({
             dc: { value: DC },
-            extraRollOptions: ["action:encourage-words"],
+            extraRollOptions: ["action:encouraging-words"],
             callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
                 const degreeOfSuccess = Number(roll.options.degreeOfSuccess) || 0;
@@ -76,7 +76,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     <hr/>
     <form>
     <div class="form-group">
-    <label>${localize("ContentLabel1")}</label>
+    <label for="dc-type">${localize("ContentLabel1")}</label>
     <select id="dc-type" name="dc-type">
     <option value="1">${localize("ContentOption1")}</option>
     <option value="2">${localize("ContentOption2")}</option>
@@ -87,8 +87,8 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     </form>
     <form>
     <div class="form-group">
-    <label>${localize("ContentLabel2")}</label>
-    <input id="modifier" name="modifier" type="number"/>
+    <label for="modifier">${localize("ContentLabel2")}</label>
+    <input id="modifier" name="modifier" type="number" />
     </div>
     </form>
     `,
