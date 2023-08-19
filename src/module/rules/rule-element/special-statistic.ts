@@ -1,14 +1,14 @@
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { SlugField } from "@system/schema-data-fields.ts";
+import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { setHasElement, tupleHasValue } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "../index.ts";
 import type { RuleElementSchema } from "./data.ts";
-import { Statistic, StatisticData } from "@system/statistic/index.ts";
 
 /** Create a special-purpose statistic for use in checks and as a DC */
-class StatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
+class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
     static override defineSchema(): StatisticRESchema {
         const { fields } = foundry.data;
         return {
@@ -67,7 +67,9 @@ class StatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
     }
 }
 
-interface StatisticRuleElement extends RuleElementPF2e<StatisticRESchema>, ModelPropsFromSchema<StatisticRESchema> {
+interface SpecialStatisticRuleElement
+    extends RuleElementPF2e<StatisticRESchema>,
+        ModelPropsFromSchema<StatisticRESchema> {
     slug: string;
 }
 
@@ -79,4 +81,4 @@ type StatisticRESchema = RuleElementSchema & {
 
 type StatisticType = "simple" | "check" | "attack-roll";
 
-export { StatisticRuleElement };
+export { SpecialStatisticRuleElement };
