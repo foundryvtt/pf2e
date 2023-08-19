@@ -2,6 +2,7 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { isObject, recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 
 /** Convert UUIDs to V11 format */
 export class Migration841V11UUIDFormat extends MigrationBase {
@@ -76,12 +77,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
             return recursiveReplaceString(rule, (s) => this.#replaceUUID(s, "Item"));
         });
 
-        if (
-            source.type === "ancestry" ||
-            source.type === "background" ||
-            source.type === "class" ||
-            source.type === "kit"
-        ) {
+        if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
             const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> }> =
                 source.system.items;
             for (const entry of Object.values(items)) {

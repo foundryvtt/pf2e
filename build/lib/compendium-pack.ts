@@ -321,8 +321,20 @@ class CompendiumPack {
     ): void {
         const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
 
+        // Convert UUIDs found in places particular to certain item types
         if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
             source.system.selfEffect.uuid = CompendiumPack.convertUUID(source.system.selfEffect.uuid, convertOptions);
+        } else if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
+            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> }> =
+                source.system.items;
+            for (const entry of Object.values(items)) {
+                entry.uuid = CompendiumPack.convertUUID(entry.uuid, convertOptions);
+                if (isObject(entry.items)) {
+                    for (const subentry of Object.values(entry.items)) {
+                        subentry.uuid = CompendiumPack.convertUUID(subentry.uuid, convertOptions);
+                    }
+                }
+            }
         }
 
         const hasUUIDChoices = (choices: object | string | undefined): choices is Record<string, { value: string }> =>
