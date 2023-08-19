@@ -13,11 +13,8 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     applications = 0;
 
     constructor(source: AdjustModifierSource, options: RuleElementOptions) {
-        if (source.suppress) {
-            source.mode = "override";
-            source.priority ??= 99; // Try to apply last
-        } else if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
-            source.priority = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
+        if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
+            source.priority ??= AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
         }
 
         super(source, options);

@@ -416,30 +416,6 @@ class WeaponDamagePF2e {
             );
         }
 
-        // Check for weapon specialization
-        const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
-        if (weaponSpecializationDamage > 0) {
-            const has = (slug: string, name: string) =>
-                actor.items.some(
-                    (item) => item.type === "feat" && (item.slug?.startsWith(slug) || item.name.startsWith(name))
-                );
-            if (has("greater-weapon-specialization", "Greater Weapon Specialization")) {
-                modifiers.push(
-                    new ModifierPF2e({
-                        label: "PF2E.GreaterWeaponSpecialization",
-                        modifier: weaponSpecializationDamage * 2,
-                    })
-                );
-            } else if (has("weapon-specialization", "Weapon Specialization")) {
-                modifiers.push(
-                    new ModifierPF2e({
-                        label: "PF2E.WeaponSpecialization",
-                        modifier: weaponSpecializationDamage,
-                    })
-                );
-            }
-        }
-
         // Roll notes
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];

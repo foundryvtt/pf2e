@@ -19,7 +19,46 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.WeaponSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "weapon-specialization",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:3"
+                ],
+                "priority": 0,
+                "selector": "strike-damage",
+                "slug": "weapon-specialization",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:4"
+                ],
+                "priority": 0,
+                "selector": "strike-damage",
+                "slug": "weapon-specialization",
+                "value": 4
+            }
+        ],
         "source": {
             "value": "Pathfinder Dark Archive"
         },
