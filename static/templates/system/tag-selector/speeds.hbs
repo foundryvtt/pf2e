@@ -1,4 +1,4 @@
-<form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
+<form class="window flexcol" autocomplete="off">
     <ol class="trait-list">
         {{#each choices as |choice key|}}
         <li class="trait-item">
@@ -10,5 +10,8 @@
         </li>
         {{/each}}
     </ol>
-    <button class="trait-footer" type="submit"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+
+    <button type="submit" class="trait-footer">
+        <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
+    </button>
 </form>

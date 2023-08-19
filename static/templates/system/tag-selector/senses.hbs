@@ -23,12 +23,15 @@
                     </td>
                     <td>
                         {{#unless (or (eq key "lowLightVision") (eq key "greaterDarkvision") (eq key "darkvision"))}}
-                            <input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="{{PF2E.Sense.NoRangeLimit}}" {{choice.disabled}} />
+                            <input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" min="0" max="1000" {{choice.disabled}} />
                         {{/unless}}
                     </td>
                 </tr>
             {{/each}}
         </tbody>
     </table>
-    <button class="trait-footer" type="submit"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+
+    <button type="submit" class="trait-footer">
+        <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
+    </button>
 </form>

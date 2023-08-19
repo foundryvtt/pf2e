@@ -596,6 +596,7 @@ export interface DocumentMetadata {
     isEmbedded?: boolean;
     isPrimary?: boolean;
     name: string;
+    label: string;
     pack: null;
     permissions: {
         create: MetadataPermission;
