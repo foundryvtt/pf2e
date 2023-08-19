@@ -65,7 +65,7 @@ export class Migration850FlatFootedToOffGuard extends MigrationBase {
     }
 
     override async updateJournalEntry(source: JournalEntrySource): Promise<void> {
-        if (source._id === "6L2eweJuM8W7OCf2" && source.name === "Remaster Changes") return;
+        if (source.name === "Remaster Changes") return;
 
         source.name = source.name.replace(this.#oldNamePattern, this.#newName);
         source.img &&= source.img.replace(this.#imgPattern, "off-guard.webp") as ImageFilePath;
