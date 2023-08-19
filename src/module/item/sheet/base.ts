@@ -487,7 +487,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Hide the sheet-config button unless there is more than one sheet option. */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
-        const hasMultipleSheets = Object.keys(CONFIG.Item.sheetClasses[this.item.type]).length > 1;
+        const hasMultipleSheets =
+            Object.values(CONFIG.Actor.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
         const sheetButton = buttons.find((button) => button.class === "configure-sheet");
         if (!hasMultipleSheets && sheetButton) {
             buttons.splice(buttons.indexOf(sheetButton), 1);
