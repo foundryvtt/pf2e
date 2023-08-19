@@ -171,7 +171,7 @@ class PackExtractor {
 
         for (const source of packSources) {
             // Remove or replace unwanted values from the document source
-            const preparedSource = this.#convertLinks(source, packDirectory);
+            const preparedSource = this.#convertUUIDs(source, packDirectory);
             if ("items" in preparedSource && preparedSource.type === "npc" && !this.disablePresort) {
                 preparedSource.items = this.#sortDataItems(preparedSource);
             } else if (!this.#folderPathMap.get(preparedSource.folder ?? "")) {
@@ -237,19 +237,19 @@ class PackExtractor {
         }
     }
 
-    #convertLinks(docSource: PackEntry, packName: string): PackEntry {
+    #convertUUIDs(docSource: PackEntry, packName: string): PackEntry {
         this.#newDocIdMap[docSource._id!] = docSource.name;
 
         const sanitized = this.#sanitizeDocument(docSource);
         if (isActorSource(sanitized)) {
-            sanitized.items = sanitized.items.map((itemData) => {
-                CompendiumPack.convertRuleUUIDs(itemData, { to: "names", map: this.#idsToNames.Item });
-                return this.#sanitizeDocument(itemData, { isEmbedded: true });
+            sanitized.items = sanitized.items.map((itemSource) => {
+                CompendiumPack.convertUUIDs(itemSource, { to: "names", map: this.#idsToNames.Item });
+                return this.#sanitizeDocument(itemSource, { isEmbedded: true });
             });
         }
 
         if (isItemSource(sanitized)) {
-            CompendiumPack.convertRuleUUIDs(sanitized, { to: "names", map: this.#idsToNames.Item });
+            CompendiumPack.convertUUIDs(sanitized, { to: "names", map: this.#idsToNames.Item });
         }
 
         const docJSON = JSON.stringify(sanitized).replace(/@Compendium\[/g, "@UUID[Compendium.");

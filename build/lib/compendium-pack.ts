@@ -254,7 +254,7 @@ class CompendiumPack {
             for (const item of docSource.items) {
                 item.effects = [];
                 item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
-                CompendiumPack.convertRuleUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+                CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
         }
 
@@ -274,7 +274,7 @@ class CompendiumPack {
             }
 
             // Convert uuids with names in GrantItem REs to well-formedness
-            CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+            CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
         }
 
         const replace = (match: string, packId: string, docType: string, docName: string): string => {
@@ -315,46 +315,21 @@ class CompendiumPack {
     }
 
     /** Convert UUIDs in REs to resemble links by name or back again */
-    static convertRuleUUIDs(
+    static convertUUIDs(
         source: ItemSourcePF2e,
         { to, map }: { to: "ids" | "names"; map: Map<string, Map<string, string>> }
     ): void {
+        const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
+
+        if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
+            source.system.selfEffect.uuid = CompendiumPack.convertUUID(source.system.selfEffect.uuid, convertOptions);
+        }
+
         const hasUUIDChoices = (choices: object | string | undefined): choices is Record<string, { value: string }> =>
             typeof choices === "object" &&
             Object.values(choices ?? {}).every(
                 (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.pf2e.")
             );
-
-        const toNameRef = (uuid: string): string => {
-            const parts = uuid.split(".");
-            const [packId, _docType, docId] = parts.slice(2, 6);
-            const docName = map.get(packId)?.get(docId);
-            if (docName) {
-                return parts.slice(0, 4).concat(docName).join(".");
-            } else {
-                console.debug(`Warning: Unable to find document name corresponding with ${uuid}`);
-                return uuid;
-            }
-        };
-
-        const toIDRef = (uuid: string): string => {
-            const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.([^.]+)\.(.+)$/.exec(uuid);
-            const [, packId, _docType, docName] = match ?? [null, null, null, null];
-            const docId = map.get(packId ?? "")?.get(docName ?? "");
-            if (docName && docId) {
-                return uuid.replace(docName, docId);
-            } else {
-                throw PackError(`Unable to resolve UUID in ${source.name}: ${uuid}`);
-            }
-        };
-
-        const convert = (uuid: string): string => {
-            if (uuid.startsWith("Item.")) {
-                throw PackError(`World-item UUID found: ${uuid}`);
-            }
-            if (!uuid.startsWith("Compendium.pf2e.")) return uuid;
-            return to === "ids" ? toIDRef(uuid) : toNameRef(uuid);
-        };
 
         const rules: REMaybeWithUUIDs[] = source.system.rules;
 
@@ -362,20 +337,52 @@ class CompendiumPack {
             if (rule.key === "Aura" && Array.isArray(rule.effects)) {
                 for (const effect of rule.effects) {
                     if (isObject<{ uuid?: unknown }>(effect) && typeof effect.uuid === "string") {
-                        effect.uuid = convert(effect.uuid);
+                        effect.uuid = this.convertUUID(effect.uuid, convertOptions);
                     }
                 }
             } else if (tupleHasValue(["EphemeralEffect", "GrantItem"], rule.key) && typeof rule.uuid === "string") {
-                rule.uuid = convert(rule.uuid);
+                rule.uuid = this.convertUUID(rule.uuid, convertOptions);
             } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
                 for (const [key, choice] of Object.entries(rule.choices)) {
-                    rule.choices[key].value = convert(choice.value);
+                    rule.choices[key].value = this.convertUUID(choice.value, convertOptions);
                 }
                 if ("selection" in rule && typeof rule.selection === "string") {
-                    rule.selection = convert(rule.selection);
+                    rule.selection = this.convertUUID(rule.selection, convertOptions);
                 }
             }
         }
+    }
+
+    static convertUUID<TUUID extends string>(uuid: TUUID, { to, map }: ConvertUUIDOptions): TUUID {
+        if (uuid.startsWith("Item.")) {
+            throw PackError(`World-item UUID found: ${uuid}`);
+        }
+
+        const toNameRef = (uuid: string): TUUID => {
+            const parts = uuid.split(".");
+            const [packId, _docType, docId] = parts.slice(2, 6);
+            const docName = map.get(packId)?.get(docId);
+            if (docName) {
+                return parts.slice(0, 4).concat(docName).join(".") as TUUID;
+            } else {
+                console.debug(`Warning: Unable to find document name corresponding with ${uuid}`);
+                return uuid as TUUID;
+            }
+        };
+
+        const toIDRef = (uuid: string): TUUID => {
+            const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.([^.]+)\.(.+)$/.exec(uuid);
+            const [, packId, _docType, docName] = match ?? [null, null, null, null];
+            const docId = map.get(packId ?? "")?.get(docName ?? "");
+            if (docName && docId) {
+                return uuid.replace(docName, docId) as TUUID;
+            } else {
+                throw Error("Unable to resolve UUID");
+            }
+        };
+
+        if (!uuid.startsWith("Compendium.pf2e.")) return uuid;
+        return to === "id" ? toIDRef(uuid) : toNameRef(uuid);
     }
 
     async save(asJson?: boolean): Promise<number> {
@@ -454,6 +461,11 @@ class CompendiumPack {
             }
         }
     }
+}
+
+interface ConvertUUIDOptions {
+    to: "id" | "name";
+    map: Map<string, Map<string, string>>;
 }
 
 export { CompendiumPack, PackError, PackMetadata, isItemSource, isActorSource, REMaybeWithUUIDs };
