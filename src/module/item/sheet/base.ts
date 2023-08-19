@@ -488,7 +488,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         const hasMultipleSheets =
-            Object.values(CONFIG.Actor.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
+            Object.values(CONFIG.Item.sheetClasses[this.item.type]).filter((c) => c.canConfigure).length > 1;
         const sheetButton = buttons.find((button) => button.class === "configure-sheet");
         if (!hasMultipleSheets && sheetButton) {
             buttons.splice(buttons.indexOf(sheetButton), 1);
