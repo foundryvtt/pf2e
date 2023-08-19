@@ -13,6 +13,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     applications = 0;
 
     constructor(source: AdjustModifierSource, options: RuleElementOptions) {
+        if (source.suppress) source.mode = "override"; // Allow `suppress` as a shorthand without providing `mode`
         if (objectHasKey(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES, source.mode)) {
             source.priority ??= AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES[source.mode];
         }
