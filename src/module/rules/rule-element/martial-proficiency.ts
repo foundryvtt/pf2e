@@ -33,7 +33,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
     }
 
     constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super({ ...data, priority: 9 }, options);
+        super({ priority: 9, ...data }, options);
 
         this.slug ??= sluggify(this.label);
     }
