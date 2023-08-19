@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { htmlQueryAll } from "@util";
 import { SelectableTagField } from "./index.ts";
 
-interface TagSelectorOptions extends FormApplicationOptions {
+interface TagSelectorOptions extends DocumentSheetOptions {
     /* Show the custom input field (defaults to true) */
     allowCustom?: boolean;
     /** Is the target data property a flat array rather than a values object? */
@@ -12,7 +12,7 @@ interface TagSelectorOptions extends FormApplicationOptions {
     customChoices?: Record<string, string>;
 }
 
-abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends FormApplication<
+abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheet<
     TDocument,
     TagSelectorOptions
 > {
@@ -32,19 +32,28 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends F
     /** Whether the tags are in an object containing a `value` array property or just an array by its lonesome */
     flat: boolean;
 
-    constructor(object: TDocument, options: Partial<TagSelectorOptions> = {}) {
-        super(object, options);
+    constructor(document: TDocument, options: Partial<TagSelectorOptions> = {}) {
+        super(document, options);
         this.flat = options.flat ?? false;
         this.choices = this.#getChoices();
     }
 
     override get id(): string {
-        return `${this.options.id}-${this.object.uuid}`;
+        return `${this.options.id}-${this.document.uuid}`;
+    }
+
+    override get title(): string {
+        return game.i18n.localize(this.options.title || "PF2E.TraitsLabel");
     }
 
     protected abstract get configTypes(): readonly SelectableTagField[];
 
-    protected abstract override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
+    override async getData(options?: Partial<TagSelectorOptions> | undefined): Promise<TagSelectorData<TDocument>> {
+        return {
+            ...(await super.getData(options)),
+            documentType: (this.document.constructor as typeof foundry.abstract.Document).metadata.label,
+        };
+    }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
@@ -62,8 +71,8 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends F
      */
     #getChoices(): Record<string, string> {
         const choices = this.configTypes.reduce(
-            (types, key) => mergeObject(types, CONFIG.PF2E[key]),
-            {} as Record<string, string>
+            (types: Record<string, string>, key) => mergeObject(types, CONFIG.PF2E[key]),
+            {}
         );
         return this.sortChoices(choices);
     }
@@ -80,4 +89,8 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends F
     }
 }
 
-export { BaseTagSelector, TagSelectorOptions };
+interface TagSelectorData<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheetData<TDocument> {
+    documentType: string;
+}
+
+export { BaseTagSelector, TagSelectorData, TagSelectorOptions };

@@ -4,7 +4,7 @@ import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ValuesList } from "@module/data.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
-import { BaseTagSelector } from "./base.ts";
+import { BaseTagSelector, TagSelectorData } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
 /* Basic trait selector options */
@@ -34,9 +34,8 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
 
     protected objectProperty: string;
 
-    constructor(object: TDocument, options: BasicConstructorOptions) {
-        options.title ||= "PF2E.TraitsLabel";
-        super(object, options);
+    constructor(document: TDocument, options: BasicConstructorOptions) {
+        super(document, options);
 
         this.objectProperty = options.objectProperty;
         this.allowCustom = options.allowCustom ?? true;
@@ -50,9 +49,9 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         return this.options.configTypes ?? [];
     }
 
-    override async getData(): Promise<TagSelectorBasicData<TDocument>> {
+    override async getData(options?: Partial<TagSelectorOptions>): Promise<TagSelectorBasicData<TDocument>> {
         const { chosen, custom, flat, disabled } = (() => {
-            const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.object;
+            const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.document;
             // Compare source and prepared properties to determine which tags were automatically selected
             const sourceProperty: unknown = getProperty(document.toObject(), this.objectProperty);
             const preparedProperty: unknown = getProperty(document, this.objectProperty);
@@ -83,7 +82,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         }, {} as Record<string, { label: string; selected: boolean; disabled: boolean }>);
 
         return {
-            ...(await super.getData()),
+            ...(await super.getData(options)),
             choices,
             allowCustom: this.allowCustom && !flat,
             custom,
@@ -106,11 +105,11 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         const { flat } = event.target ? $(event.target).data() : { flat: false };
         const value = this.#getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
-            await this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });
+            return super._updateObject(event, { [this.objectProperty]: { value, custom: formData["custom"] } });
         } else if (flat) {
-            await this.object.update({ [this.objectProperty]: value });
+            return super._updateObject(event, { [this.objectProperty]: value });
         } else {
-            await this.object.update({ [`${this.objectProperty}.value`]: value });
+            return super._updateObject(event, { [`${this.objectProperty}.value`]: value });
         }
     }
 
@@ -152,7 +151,7 @@ interface TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseT
     options: BasicSelectorOptions;
 }
 
-interface TagSelectorBasicData<TDocument extends ActorPF2e | ItemPF2e> extends FormApplicationData<TDocument> {
+interface TagSelectorBasicData<TDocument extends ActorPF2e | ItemPF2e> extends TagSelectorData<TDocument> {
     choices: Record<string, { label: string; selected: boolean; disabled: boolean }>;
     allowCustom: boolean;
     custom: string | null;

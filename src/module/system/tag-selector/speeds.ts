@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ErrorPF2e, htmlQueryAll } from "@util";
-import { BaseTagSelector } from "./base.ts";
+import { BaseTagSelector, TagSelectorData } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
 export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
@@ -19,11 +19,11 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
     }
 
     override async getData(options?: Partial<TagSelectorOptions>): Promise<SpeedSelectorData<TActor>> {
-        if (!this.object.isOfType("creature")) {
+        if (!this.document.isOfType("creature")) {
             throw ErrorPF2e("The Speed selector is usable only with creature-type actors");
         }
 
-        const speeds = this.object.system.attributes.speed.otherSpeeds;
+        const speeds = this.document.system.attributes.speed.otherSpeeds;
         const speedLabels: Record<string, string> = CONFIG.PF2E.speedTypes;
         const choices = Object.keys(this.choices).reduce((accum: Record<string, ChoiceData>, type) => {
             const speed = speeds.find((s) => s.type === type);
@@ -40,7 +40,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
 
         return {
             ...(await super.getData(options)),
-            hasExceptions: this.object.isOfType("npc"),
+            hasExceptions: this.document.isOfType("npc"),
             choices,
         };
     }
@@ -58,7 +58,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         }
     }
 
-    protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         type TagChoice = { type: string; value: number };
         const update = Object.entries(formData).flatMap(([key, value]): TagChoice | never[] => {
             if (!(Array.isArray(value) && value.length === 2)) return [];
@@ -69,11 +69,11 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
             return { type: key, value: Math.max(distance, 5) };
         });
 
-        this.object.update({ [this.objectProperty]: update });
+        return super._updateObject(event, { [this.objectProperty]: update });
     }
 }
 
-interface SpeedSelectorData<TActor extends ActorPF2e> extends FormApplicationData<TActor> {
+interface SpeedSelectorData<TActor extends ActorPF2e> extends TagSelectorData<TActor> {
     hasExceptions: boolean;
     choices: Record<string, ChoiceData>;
 }
