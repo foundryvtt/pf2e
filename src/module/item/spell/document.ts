@@ -579,6 +579,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             options.add(trait);
         }
 
+        // Include spellcasting roll options (if available)
+        const spellcastingOptions = this.spellcasting?.getRollOptions?.("spellcasting") ?? [];
+        for (const option of spellcastingOptions) {
+            options.add(option);
+        }
+
         return super.getRollOptions(prefix).concat([...options]);
     }
 
