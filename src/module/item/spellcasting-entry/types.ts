@@ -27,6 +27,7 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     system?: SpellcastingEntrySystemData;
 
     getSheetData(): Promise<SpellcastingSheetData>;
+    getRollOptions?(prefix: "spellcasting"): string[];
 
     canCast(spell: SpellPF2e, options?: { origin?: PhysicalItemPF2e }): boolean;
 
