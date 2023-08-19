@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Accessing a wider realm of elemental manifestations, you can make blasts with rare forms of your elements. Add the following damage types to those you can choose for Elemental Blasts of that element:</p>\n<ul>\n<li><strong>air</strong> cold,</li>\n<li><strong>earth</strong> poison,</li>\n<li><strong>fire</strong> cold,</li>\n<li><strong>metal</strong> electricity,</li>\n<li><strong>water</strong> acid,</li>\n<li><strong>wood</strong> poison.</li>\n</ul>"
+            "value": "<p>Accessing a wider realm of elemental manifestations, you can make blasts with rare forms of your elements. Add the following damage types to those you can choose for Elemental Blasts of that element:</p>\n<ul>\n<li><strong>air</strong> cold</li>\n<li><strong>earth</strong> poison</li>\n<li><strong>fire</strong> cold</li>\n<li><strong>metal</strong> electricity</li>\n<li><strong>water</strong> acid</li>\n<li><strong>wood</strong> poison</li>\n</ul>"
         },
         "level": {
             "value": 1
@@ -19,7 +19,98 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elementalBlast",
+                "predicate": [
+                    "kinetic-gate:air"
+                ],
+                "value": {
+                    "damageType": "cold",
+                    "dieFaces": 6,
+                    "label": "Cold (Air)",
+                    "range": 60,
+                    "slug": "air-cold"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elementalBlast",
+                "predicate": [
+                    "kinetic-gate:earth"
+                ],
+                "value": {
+                    "damageType": "poison",
+                    "dieFaces": 8,
+                    "label": "poison (Earth)",
+                    "range": 30,
+                    "slug": "earth-poison"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elementalBlast",
+                "predicate": [
+                    "kinetic-gate:fire"
+                ],
+                "value": {
+                    "damageType": "cold",
+                    "dieFaces": 6,
+                    "label": "cold (Fire)",
+                    "range": 60,
+                    "slug": "cold-fire"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elementalBlast",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ],
+                "value": {
+                    "damageType": "electricity",
+                    "dieFaces": 8,
+                    "label": "Electricity (Metal)",
+                    "range": 30,
+                    "slug": "metal-electricity"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elementalBlast",
+                "predicate": [
+                    "kinetic-gate:water"
+                ],
+                "value": {
+                    "damageType": "acid",
+                    "dieFaces": 8,
+                    "label": "Acid (Water)",
+                    "range": 30,
+                    "slug": "water-acid"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elementalBlast",
+                "predicate": [
+                    "kinetic-gate:wood"
+                ],
+                "value": {
+                    "damageType": "poison",
+                    "dieFaces": 8,
+                    "label": "Poison (Wood)",
+                    "range": 30,
+                    "slug": "wood-poison"
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Rage of Elements"
         },
