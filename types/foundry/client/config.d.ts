@@ -58,6 +58,9 @@ declare global {
                         id: string;
                         cls: typeof ActorSheet;
                         default: boolean;
+                        label: string;
+                        canConfigure: boolean;
+                        canBeDefault: boolean;
                     }
                 >
             >;
@@ -113,6 +116,9 @@ declare global {
                         id: string;
                         cls: typeof ItemSheet;
                         default: boolean;
+                        label: string;
+                        canConfigure: boolean;
+                        canBeDefault: boolean;
                     }
                 >
             >;
