@@ -267,13 +267,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(): Promise<void> {
-        if (!this.isOwned) return ui.notifications.error("This utility may only be used on owned items");
-
-        if (!this.sourceId?.startsWith("Compendium.")) {
-            ui.notifications.warn(`Item "${this.name}" has no compendium source.`);
-            return;
+    async refreshFromCompendium(options: { name?: boolean } = {}): Promise<void> {
+        if (!this.isOwned) {
+            return ui.notifications.error("This utility may only be used on owned items");
         }
+        if (!this.sourceId?.startsWith("Compendium.")) {
+            return ui.notifications.warn(`Item "${this.name}" has no compendium source.`);
+        }
+
+        options.name ??= false;
 
         const currentSource = this.toObject();
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
@@ -291,6 +293,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
         const updates: DocumentUpdateData<this> = { img: updatedImage, system: latestSource.system };
+
+        if (options.name) updates.name = latestSource.name;
 
         if (isPhysicalData(currentSource)) {
             // Preserve container ID
