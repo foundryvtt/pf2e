@@ -4,7 +4,7 @@ import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { calculateMAPs, setHitPointsRollOptions } from "@actor/helpers.ts";
+import { calculateMAPs, isReallyPC, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import {
     CheckModifier,
@@ -785,9 +785,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { synthetics, wornArmor } = this;
 
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
-        this.system.martial["light-barding"].rank = this.traits.has("animal")
-            ? (Math.max(this.system.martial["light-barding"].rank, 1) as ZeroToFour)
-            : 0;
+        this.system.martial["light-barding"].rank ||=
+            this.traits.has("animal") && !isReallyPC(this)
+                ? (Math.max(this.system.martial["light-barding"].rank, 1) as ZeroToFour)
+                : 0;
 
         const modifiers: ModifierPF2e[] = [];
         const dexCapSources: DexterityModifierCapData[] = [
