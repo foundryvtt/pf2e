@@ -31,42 +31,72 @@
                 "toggleable": true
             },
             {
-                "key": "ActiveEffectLike",
+                "itemType": "armor",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "path": "system.attributes.shield.hardness",
-                "phase": "afterDerived",
                 "predicate": [
-                    "defend-against-magic",
-                    "self:effect:arcane-cascade",
-                    "self:shield:raised"
-                ],
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "system.attributes.shield.hardness",
-                "phase": "afterDerived",
-                "predicate": [
-                    "defend-against-magic",
+                    "item:category:shield",
+                    "item:equipped",
+                    {
+                        "or": [
+                            "magical",
+                            "item:type:spell",
+                            "defend-against-magic"
+                        ]
+                    },
                     "self:effect:arcane-cascade",
                     "self:shield:raised",
-                    "feature:weapon-specialization"
+                    {
+                        "not": "feature:weapon-specialization"
+                    }
                 ],
+                "property": "hardness",
                 "value": 1
             },
             {
-                "key": "ActiveEffectLike",
+                "itemType": "armor",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "path": "system.attributes.shield.hardness",
-                "phase": "afterDerived",
                 "predicate": [
-                    "defend-against-magic",
+                    "item:category:shield",
+                    "item:equipped",
+                    {
+                        "or": [
+                            "magical",
+                            "item:type:spell",
+                            "defend-against-magic"
+                        ]
+                    },
+                    "self:effect:arcane-cascade",
+                    "self:shield:raised",
+                    "feature:weapon-specialization",
+                    {
+                        "not": "feature:greater-weapon-specialization"
+                    }
+                ],
+                "property": "hardness",
+                "value": 2
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:category:shield",
+                    "item:equipped",
+                    {
+                        "or": [
+                            "magical",
+                            "spell",
+                            "defend-against-magic"
+                        ]
+                    },
                     "self:effect:arcane-cascade",
                     "self:shield:raised",
                     "feature:greater-weapon-specialization"
                 ],
-                "value": 1
+                "property": "hardness",
+                "value": 3
             },
             {
                 "key": "FlatModifier",
@@ -76,13 +106,19 @@
                     {
                         "or": [
                             "magical",
-                            "spell"
+                            "spell",
+                            "defend-against-magic"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": "@actor.system.attributes.shield.ac"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
             }
         ],
         "source": {
