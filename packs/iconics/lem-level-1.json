@@ -824,6 +824,10 @@
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail a skill check or saving throw.</p>\n<hr />\n<p>Your happy-go-lucky nature makes it seem like misfortune avoids you, and to an extent, that might even be true. You can reroll the triggering check, but you must use the new result, even if it's worse than your first roll.</p>"
                 },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1171,9 +1175,9 @@
                     "rarity": "common",
                     "value": [
                         "cantrip",
+                        "enchantment",
                         "mental",
-                        "nonlethal",
-                        "enchantment"
+                        "nonlethal"
                     ]
                 }
             },
@@ -1217,6 +1221,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1378,8 +1397,8 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "mental",
-                        "enchantment"
+                        "enchantment",
+                        "mental"
                     ]
                 }
             },
@@ -1481,9 +1500,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "light",
                         "cantrip",
-                        "evocation"
+                        "evocation",
+                        "light"
                     ]
                 }
             },
@@ -1802,6 +1821,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1859,9 +1888,9 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
+                        "enchantment",
                         "incapacitation",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -1905,6 +1934,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1964,9 +2003,9 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
+                        "enchantment",
                         "fear",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -3316,8 +3355,8 @@
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": false,
-                    "verbal": false
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -3387,8 +3426,9 @@
                     "value": [
                         "bard",
                         "composition",
-                        "mental",
-                        "enchantment"
+                        "enchantment",
+                        "fortune",
+                        "mental"
                     ]
                 }
             },
@@ -3485,7 +3525,8 @@
                     "rarity": "uncommon",
                     "value": [
                         "bard",
-                        "enchantment"
+                        "enchantment",
+                        "metamagic"
                     ]
                 }
             },
@@ -3873,9 +3914,9 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
+                        "enchantment",
                         "healing",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -4116,6 +4157,7 @@
                 "value": 0
             }
         },
+        "exploration": [],
         "martial": {},
         "pfs": {
             "characterNumber": null,
