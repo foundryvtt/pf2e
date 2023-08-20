@@ -3859,7 +3859,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]. On a critical success, the target also takes @Damage[1[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases to @Damage[2[persistent,acid]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[3[persistent,acid]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[4[persistent,acid]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[5[persistent,acid]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes 1 persistent acid damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the persistent damage increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the persistent damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the persistent damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the persistent damage increases to 5, and the splash damage increases to 4.</p>\n<p>[[/r (ceil(@item.level/2))[persistent,acid]]]{Leveled Persistent Acid Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4023,8 +4023,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "attack",
                         "acid",
+                        "attack",
                         "cantrip",
                         "evocation"
                     ]
@@ -4066,7 +4066,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4105,7 +4105,7 @@
                 },
                 "slug": "detect-magic",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "utility"
@@ -4131,9 +4131,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "detection",
                         "cantrip",
-                        "divination"
+                        "detection"
                     ]
                 }
             },
@@ -4249,8 +4248,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "electricity",
                         "cantrip",
+                        "electricity",
                         "evocation"
                     ]
                 }
@@ -4353,9 +4352,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "light",
                         "cantrip",
-                        "evocation"
+                        "evocation",
+                        "light"
                     ]
                 }
             },
@@ -4369,7 +4368,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
-            "name": "Mage Hand",
+            "name": "Telekinetic Hand",
             "sort": 0,
             "system": {
                 "ability": {
@@ -4392,7 +4391,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+                    "value": "<p>You create a floating, magical hand, either invisible or ghostlike, that grasps the target object and levitates it slowly up to 20 feet in any direction. When you Sustain the spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -4449,9 +4448,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "mage-hand",
+                "slug": "telekinetic-hand",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "utility"
@@ -4474,8 +4473,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -4587,9 +4585,9 @@
                     "value": [
                         "auditory",
                         "cantrip",
+                        "illusion",
                         "linguistic",
-                        "mental",
-                        "illusion"
+                        "mental"
                     ]
                 }
             },
@@ -4706,8 +4704,8 @@
                     "rarity": "common",
                     "value": [
                         "attack",
-                        "cold",
                         "cantrip",
+                        "cold",
                         "evocation"
                     ]
                 }
@@ -4825,8 +4823,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "detection",
                         "cantrip",
+                        "detection",
                         "divination"
                     ]
                 }
@@ -4927,9 +4925,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "abjuration",
                         "cantrip",
-                        "force",
-                        "abjuration"
+                        "force"
                     ]
                 }
             },
@@ -5114,7 +5112,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
-            "name": "Burning Hands",
+            "name": "Breathe Fire",
             "sort": 0,
             "system": {
                 "ability": {
@@ -5139,8 +5137,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "2d6"
@@ -5148,7 +5148,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Gouts of flame rush from your mouth. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -5192,9 +5192,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "burning-hands",
+                "slug": "breathe-fire",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "save"
@@ -5217,8 +5217,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fire",
-                        "evocation"
+                        "fire"
                     ]
                 }
             },
@@ -5320,9 +5319,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "illusion",
                         "incapacitation",
-                        "visual",
-                        "illusion"
+                        "visual"
                     ]
                 }
             },
@@ -5435,7 +5434,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/mage-armor.webp",
-            "name": "Mage Armor",
+            "name": "Mystic Armor",
             "sort": 0,
             "system": {
                 "ability": {
@@ -5458,7 +5457,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mystic Armor]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (6th)</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (8th)</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened (10th)</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>"
+                    "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mystic armor, you use your unarmored proficiency to calculate your AC.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mystic Armor]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (6th)</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (8th)</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened (10th)</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -5495,9 +5494,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "mage-armor",
+                "slug": "mystic-armor",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "utility"
@@ -5514,7 +5513,9 @@
                 "traditions": {
                     "value": [
                         "arcane",
-                        "occult"
+                        "occult",
+                        "divine",
+                        "primal"
                     ]
                 },
                 "traits": {
@@ -5630,8 +5631,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "force",
-                        "evocation"
+                        "evocation",
+                        "force"
                     ]
                 }
             },
@@ -5846,8 +5847,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fortune",
-                        "divination"
+                        "divination",
+                        "fortune"
                     ]
                 }
             },
@@ -5894,7 +5895,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[1d6[persistent,acid]]. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>\n<p>[[/r floor(@item.level/2)d6[persistent,acid]]]{Leveled Persistent Acid Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -6205,7 +6206,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on 1d4). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on 1d6). With only one image, the chances are 1 in 2 (1-3 on 1d6).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>"
+                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on [[/r 1d4]]). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on [[/r 1d6]]). With only one image, the chances are 1 in 2 (1-3 on [[/r 1d6]]).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image]</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -6267,8 +6268,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "visual",
-                        "illusion"
+                        "illusion",
+                        "visual"
                     ]
                 }
             },
@@ -6387,8 +6388,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "fire",
-                        "evocation"
+                        "evocation",
+                        "fire"
                     ]
                 }
             },
@@ -6701,8 +6702,8 @@
                     "rarity": "uncommon",
                     "value": [
                         "attack",
-                        "wizard",
-                        "evocation"
+                        "evocation",
+                        "wizard"
                     ]
                 }
             },
