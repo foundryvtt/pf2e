@@ -697,6 +697,23 @@ abstract class CreaturePF2e<
 
         return super._preUpdate(changed, options, user);
     }
+
+    /** Overriden to notify the party that an update is required */
+    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+        super._onDelete(options, userId);
+
+        for (const party of this.parties) {
+            const updater = party.primaryUpdater;
+            if (game.user === updater) {
+                party.removeMembers(this.uuid);
+            } else if (!updater) {
+                // If there is no updater, we can't update the party, so re-render so it displays correctly.
+                // Future party updates will clean up the stale reference.
+                party.reset();
+                ui.actors.render();
+            }
+        }
+    }
 }
 
 interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
