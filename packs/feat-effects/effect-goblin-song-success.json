@@ -1,10 +1,10 @@
 {
-    "_id": "dTymNXgTtnjqgYP9",
-    "img": "systems/pf2e/icons/spells/agitate.webp",
-    "name": "Effect: Emotional Surge",
+    "_id": "5veOBmMYQxywTudd",
+    "img": "systems/pf2e/icons/spells/unfathomable-song.webp",
+    "name": "Effect: Goblin Song (Success)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Emotional Surge]</p>\n<p>You gain a +2 status bonus to attack rolls and skill checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Goblin Song]</p>\n<p>The creature takes a -1 status penalty to Perception checks and Will saves.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,21 +13,21 @@
             "value": 1
         },
         "level": {
-            "value": 10
+            "value": 1
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "selector": [
-                    "attack",
-                    "skill-check"
+                    "perception",
+                    "will"
                 ],
                 "type": "status",
-                "value": 2
+                "value": -1
             }
         ],
         "source": {
-            "value": "Pathfinder Dark Archive"
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

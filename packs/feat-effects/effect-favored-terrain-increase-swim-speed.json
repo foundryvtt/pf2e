@@ -1,29 +1,26 @@
 {
-    "_id": "bIRIS6mnynr72RDw",
-    "img": "systems/pf2e/icons/spells/unfathomable-song.webp",
-    "name": "Goblin Song (Critical Success)",
+    "_id": "HKPmrxkZwHRND5Um",
+    "img": "systems/pf2e/icons/spells/elemental-form-water.webp",
+    "name": "Effect: Favored Terrain (Increase Swim Speed)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Goblin Song]</p>\n<p>The creature takes a -1 status penalty to Perception checks and Will saves.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Favored Terrain]{Favored Terrain (Aquatic)} if you have the @UUID[Compendium.pf2e.classfeatures.Item.Wild Stride] class feature, and are in aquatic terrain and already have a swimSpeed.</p>\n<p>You gain a +10-foot status bonus to your swim Speed.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
-            "value": 1
+            "value": 11
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": [
-                    "perception",
-                    "will"
-                ],
+                "selector": "swim-speed",
                 "type": "status",
-                "value": -1
+                "value": 10
             }
         ],
         "source": {
