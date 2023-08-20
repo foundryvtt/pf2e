@@ -388,11 +388,25 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 continue;
             }
 
+            if (item.system.selfEffect) {
+                item.system.selfEffect.img ??= fromUuidSync(item.system.selfEffect.uuid)?.img ?? null;
+            }
+
+            const img = ((): ImageFilePath => {
+                const actionIcon = getActionIcon(item.actionCost);
+                const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
+                if (item.isOfType("action") && ![actionIcon, defaultIcon].includes(item.img)) {
+                    return item.img;
+                }
+                return item.system.selfEffect?.img ?? actionIcon;
+            })();
+
             const traits = item.system.traits.value;
             const traitDescriptions = item.isOfType("feat") ? CONFIG.PF2E.featTraits : CONFIG.PF2E.actionTraits;
+
             const action: ActionSheetData = {
                 ...R.pick(item, ["id", "name", "actionCost", "frequency"]),
-                img: getActionIcon(item.actionCost),
+                img,
                 glyph: getActionGlyph(item.actionCost),
                 traits: createSheetTags(traitDescriptions, traits),
                 feat: item.isOfType("feat") ? item : null,
