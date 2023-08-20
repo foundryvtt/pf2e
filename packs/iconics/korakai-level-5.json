@@ -385,7 +385,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -424,7 +424,7 @@
                 },
                 "slug": "detect-magic",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "utility"
@@ -450,9 +450,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "detection",
                         "cantrip",
-                        "divination"
+                        "detection"
                     ]
                 }
             },
@@ -491,6 +490,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d6"
@@ -533,7 +533,7 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "fortitude"
                 },
                 "secondarycasters": {
@@ -568,9 +568,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "positive",
                         "cantrip",
-                        "necromancy"
+                        "necromancy",
+                        "positive"
                     ]
                 }
             },
@@ -774,9 +774,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "light",
                         "cantrip",
-                        "evocation"
+                        "evocation",
+                        "light"
                     ]
                 }
             },
@@ -820,6 +820,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -879,9 +889,9 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
+                        "enchantment",
                         "fear",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -1104,8 +1114,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "electricity",
                         "cantrip",
+                        "electricity",
                         "evocation"
                     ]
                 }
@@ -2770,6 +2780,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "target": {
+                                "value": "up to three weapons, each of which must be wielded by you or a willing ally, or else unattended"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2824,8 +2844,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "positive",
-                        "necromancy"
+                        "necromancy",
+                        "positive"
                     ]
                 }
             },
@@ -2944,8 +2964,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "sonic",
-                        "evocation"
+                        "evocation",
+                        "sonic"
                     ]
                 }
             },
@@ -3049,8 +3069,8 @@
                     "rarity": "common",
                     "value": [
                         "detection",
-                        "mental",
-                        "divination"
+                        "divination",
+                        "mental"
                     ]
                 }
             },
@@ -3164,8 +3184,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "mental",
-                        "enchantment"
+                        "enchantment",
+                        "mental"
                     ]
                 }
             },
@@ -3509,9 +3529,9 @@
                     "value": [
                         "cold",
                         "cursebound",
+                        "evocation",
                         "oracle",
-                        "water",
-                        "evocation"
+                        "water"
                     ]
                 }
             },
@@ -3609,8 +3629,8 @@
                     "rarity": "uncommon",
                     "value": [
                         "cursebound",
-                        "oracle",
-                        "divination"
+                        "divination",
+                        "oracle"
                     ]
                 }
             },
@@ -3830,8 +3850,8 @@
                     "rarity": "common",
                     "value": [
                         "healing",
-                        "positive",
-                        "necromancy"
+                        "necromancy",
+                        "positive"
                     ]
                 }
             },
@@ -4051,8 +4071,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "negative",
-                        "necromancy"
+                        "necromancy",
+                        "negative"
                     ]
                 }
             },
@@ -5038,9 +5058,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "abjuration",
                         "cantrip",
-                        "force",
-                        "abjuration"
+                        "force"
                     ]
                 }
             },
@@ -6091,6 +6111,7 @@
                 "value": 0
             }
         },
+        "exploration": [],
         "martial": {},
         "pfs": {
             "characterNumber": null,
