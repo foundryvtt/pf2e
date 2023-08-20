@@ -1,4 +1,4 @@
-import { addActionSheetListeners } from "@item/ability/helpers.ts";
+import { activateActionSheetListeners } from "@item/ability/helpers.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
 import { htmlQuery } from "@util";
 import Tagify from "@yaireo/tagify";
@@ -30,7 +30,7 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
-        addActionSheetListeners(this.item, html);
+        activateActionSheetListeners(this.item, html);
 
         const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
         if (prerequisites) {

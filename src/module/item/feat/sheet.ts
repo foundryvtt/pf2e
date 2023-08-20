@@ -1,4 +1,8 @@
-import { addActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "@item/ability/helpers.ts";
+import {
+    activateActionSheetListeners,
+    createSelfEffectSheetData,
+    handleSelfEffectDrop,
+} from "@item/ability/helpers.ts";
 import { SelfEffectReference } from "@item/ability/index.ts";
 import { FeatPF2e } from "@item/feat/document.ts";
 import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
@@ -44,7 +48,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
-        addActionSheetListeners(this.item, html);
+        activateActionSheetListeners(this.item, html);
 
         const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
         if (prerequisites) {

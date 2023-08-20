@@ -31,7 +31,7 @@ function normalizeActionChangeData(document: SourceWithActionData, changed: Deep
 }
 
 /** Adds sheet listeners for modifying frequency */
-function addActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, html: HTMLElement): void {
+function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, html: HTMLElement): void {
     htmlQuery(html, "a[data-action=frequency-add]")?.addEventListener("click", () => {
         const frequency: FrequencySource = { max: 1, per: "day" };
         item.update({ system: { frequency } });
@@ -42,6 +42,13 @@ function addActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, html:
     });
 
     if (item.isOfType("action", "feat")) {
+        const openSheetLink = htmlQuery(html, "a[data-action=open-effect-sheet]");
+        openSheetLink?.addEventListener("click", async () => {
+            const uuid = openSheetLink.dataset.uuid ?? "";
+            const item = await fromUuid(uuid);
+            if (item instanceof ItemPF2e) item.sheet.render(true);
+        });
+
         htmlQuery(html, "a[data-action=delete-effect")?.addEventListener("click", () => {
             if (item._source.system.selfEffect) {
                 item.update({ "system.-=selfEffect": null });
@@ -85,4 +92,4 @@ async function handleSelfEffectDrop(sheet: ActionSheetPF2e | FeatSheetPF2e, even
     await sheet.item.update({ "system.selfEffect": { uuid: item.uuid, name: item.name } });
 }
 
-export { addActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop, normalizeActionChangeData };
+export { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop, normalizeActionChangeData };
