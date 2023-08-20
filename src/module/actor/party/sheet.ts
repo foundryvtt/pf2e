@@ -9,13 +9,14 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
-import { createSheetTags } from "@module/sheet/helpers.ts";
+import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -131,7 +132,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 .trim();
         }
 
-        return this.actor.members.map((actor) => {
+        return this.actor.members.map((actor): MemberBreakdown => {
             const observer = actor.testUserPermission(game.user, "OBSERVER");
             const restricted = !(game.settings.get("pf2e", "metagame_showPartyStats") || observer);
             const activities = actor.isOfType("character")
@@ -180,16 +181,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         label: CONFIG.PF2E.senses[r.type] ?? r.type,
                     }));
                 })(),
-                activities: activities.map((action) => ({
-                    id: action.id,
-                    name: action.name,
-                    img: action.img,
-                    traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
-                })),
                 hp: {
                     showValue: observer || !restricted,
                     ...actor.hitPoints,
                 },
+                activities: activities.map((action) => ({
+                    uuid: action.uuid,
+                    name: action.name,
+                    img: action.img,
+                    traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
+                })),
                 restricted,
             };
         });
@@ -299,6 +300,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             openSheetLink.addEventListener("click", async () => actor?.sheet.render(true, { tab }));
         }
 
+        // Control active overview summary
+        this.setSummaryView(this.currentSummaryView);
+        for (const button of htmlQueryAll(html, "[data-action=change-view]")) {
+            button.addEventListener("click", () => {
+                this.setSummaryView(button.dataset.view ?? "languages");
+            });
+        }
+
+        // Add member specific events (such as hero point management)
         for (const memberElem of htmlQueryAll(html, "[data-actor-uuid]")) {
             const actorUUID = memberElem.dataset.actorUuid;
             const actor = this.document.members.find((m) => m.uuid === actorUUID);
@@ -332,13 +342,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             }
         }
 
-        this.setSummaryView(this.currentSummaryView);
-        for (const button of htmlQueryAll(html, "[data-action=change-view]")) {
-            button.addEventListener("click", () => {
-                this.setSummaryView(button.dataset.view ?? "languages");
-            });
-        }
-
         // Mouseover tooltips to show actors that speak the language
         for (const languageTag of htmlQueryAll(html, "[data-language]")) {
             const slug = languageTag.dataset.language as Language;
@@ -365,6 +368,27 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             const content = createHTMLElement("div", { children: labels });
             $(skillTag).tooltipster({ content });
+        }
+
+        // Mouseover tooltip for exploration activities
+        for (const activityElem of htmlQueryAll(html, ".activity[data-activity-uuid]")) {
+            const document = fromUuidSync(activityElem.dataset.activityUuid ?? "");
+            if (!(document instanceof ItemPF2e)) continue;
+
+            const rollData = document.getRollData();
+            (async () => {
+                const content = createHTMLElement("div", { classes: ["item-summary"] });
+                content.innerHTML = await TextEditor.enrichHTML(document.description, { async: true, rollData });
+                InlineRollLinks.listen(content, document);
+                $(activityElem).tooltipster({
+                    contentAsHTML: true,
+                    content,
+                    interactive: true,
+                    maxWidth: 500,
+                    side: "right",
+                    theme: "crb-hover",
+                });
+            })();
         }
 
         htmlQuery(html, "button[data-action=distribute-coins]")?.addEventListener("click", () => {
@@ -504,6 +528,13 @@ interface MemberBreakdown {
     speeds: { label: string; value: number }[];
     senses: { label: string | null; labelFull: string; acuity?: string }[];
     hp: { showValue: boolean; temp: number; value: number; max: number };
+
+    activities: {
+        uuid: string;
+        name: string;
+        img: string;
+        traits: SheetOptions;
+    }[];
 
     /** If true, the current user is restricted from seeing meta details */
     restricted: boolean;

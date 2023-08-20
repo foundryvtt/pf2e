@@ -63,7 +63,7 @@
                     {{#if member.activities}}
                         <div class="activity-entries">
                             {{#each member.activities as |activity|}}
-                                <section class="activity {{#if (eq member.activities.length 1)}}single{{/if}}">
+                                <section class="activity {{#if (eq member.activities.length 1)}}single{{/if}}" data-activity-uuid="{{activity.uuid}}">
                                     <span class="name">{{activity.name}}</span>
                                     <span class="tags">
                                         {{#each traits as |trait|}}
