@@ -51,9 +51,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="{{item.uuid}}-badge-reevaluate">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula"}}</label>
+                <label for="{{item.uuid}}-badge-reevaluate">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.Label"}}</label>
                 <div class="form-fields">
-                    <input id="{{item.uuid}}-badge-reevaluate" type="checkbox" name="system.badge.reevaluate" value="turn-start" {{checked data.badge.reevaluate}} />
+                    <select id="{{item.uuid}}-badge-reevaluate" name="system.badge.reevaluate">
+                        {{#select data.badge.reevaluate}}
+                            <option value="">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.Never"}}</option>
+                            <option value="turn-start">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.TurnStart"}}</option>
+                            <option value="turn-end">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.TurnEnd"}}</option>
+                        {{/select}}
+                    </select>
                 </div>
             </div>
         {{else}}

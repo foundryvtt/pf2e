@@ -150,7 +150,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
 
         const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
-        const reevaluate = badge.reevaluate ? ({ formula: badge.value, event: "turn-start" } as const) : null;
+        const reevaluate = badge.reevaluate ? { formula: badge.value, event: badge.reevaluate } : null;
         const token = actor.getActiveTokens(false, true).shift();
         const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
         roll.toMessage({ flavor: reduceItemName(this.name), speaker });
@@ -229,9 +229,10 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     }
 
     /** If applicable, reevaluate this effect's badge */
-    async onTurnStart(): Promise<void> {
+    async onTurnStartEnd(event: "start" | "end"): Promise<void> {
         const { badge } = this;
-        if (badge?.type === "value" && badge.reevaluate) {
+
+        if (badge?.type === "value" && badge.reevaluate?.event === `turn-${event}`) {
             const newBadge = await this.evaluateFormulaBadge({
                 type: "formula",
                 value: badge.reevaluate.formula,

@@ -44,7 +44,7 @@ type EffectTrait = ActionTrait | SpellTrait;
 interface EffectBadgeValueSource extends EffectBadgeBaseSource {
     type: "value";
     value: number;
-    reevaluate?: { formula: string; event: "turn-start" } | null;
+    reevaluate?: { formula: string; event: "turn-start" | "turn-end" } | null;
 }
 
 interface EffectBadgeValue extends EffectBadgeValueSource, EffectBadgeBase {
@@ -55,7 +55,7 @@ interface EffectBadgeFormulaSource extends EffectBadgeBaseSource {
     type: "formula";
     value: string;
     evaluate?: boolean;
-    reevaluate?: "turn-start" | null;
+    reevaluate?: "turn-start" | "turn-end" | null;
 }
 
 interface EffectBadgeFormula extends EffectBadgeFormulaSource, EffectBadgeBase {}
