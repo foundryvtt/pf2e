@@ -116,13 +116,14 @@ class CombatantPF2e<
         if (Object.keys(actorUpdates).length > 0) {
             await actor.update(actorUpdates);
         }
+
+        // Effect changes on turn start/end
         for (const effect of actor.itemTypes.effect) {
-            await effect.onTurnStart();
+            await effect.onTurnStartEnd("start");
         }
-        // Don't forget about the little buddy
         if (actor.isOfType("character") && actor.familiar) {
             for (const effect of actor.familiar.itemTypes.effect) {
-                await effect.onTurnStart();
+                await effect.onTurnStartEnd("start");
             }
         }
 
@@ -138,6 +139,16 @@ class CombatantPF2e<
         const activeConditions = actor.conditions.active;
         for (const condition of activeConditions) {
             await condition.onEndTurn({ token: this.token });
+        }
+
+        // Effect changes on turn start/end
+        for (const effect of actor.itemTypes.effect) {
+            await effect.onTurnStartEnd("end");
+        }
+        if (actor.isOfType("character") && actor.familiar) {
+            for (const effect of actor.familiar.itemTypes.effect) {
+                await effect.onTurnStartEnd("end");
+            }
         }
 
         await this.update({ "flags.pf2e.roundOfLastTurnEnd": round });
