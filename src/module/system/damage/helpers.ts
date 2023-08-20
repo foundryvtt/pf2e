@@ -58,7 +58,9 @@ function applyDamageDiceOverrides(base: BaseDamageData[], dice: DamageDicePF2e[]
     for (const data of base) {
         for (const adjustment of overrideDice) {
             const die = data.terms?.find((t): t is RequiredNonNullable<DamagePartialTerm, "dice"> => !!t.dice);
-            if (!die) continue;
+            if (!die || (adjustment.damageType && adjustment.damageType !== data.damageType)) {
+                continue;
+            }
 
             die.dice.number = adjustment.override.diceNumber ?? die.dice.number;
             if (adjustment.override.dieSize) {
