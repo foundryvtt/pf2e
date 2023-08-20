@@ -9,7 +9,7 @@ import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
-import { ChatRollDetails } from "./chat-roll-details.ts";
+import { ChatInspectRoll } from "./chat-inspect-roll.ts";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
@@ -175,7 +175,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     async showDetails(): Promise<void> {
         if (!this.flags.pf2e.context) return;
-        new ChatRollDetails(this).render(true);
+        new ChatInspectRoll(this).render(true);
     }
 
     /** Get the token of the speaker if possible */

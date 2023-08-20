@@ -104,4 +104,11 @@ export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("includes", (arr: unknown, element: unknown): boolean => {
         return Array.isArray(arr) && arr.includes(element);
     });
+
+    // Raw blocks are mentioned in handlebars docs but the helper needs to be implemented
+    // https://handlebarsjs.com/guide/expressions.html#escaping-handlebars-expressions
+    // https://stackoverflow.com/questions/33704495/how-to-use-raw-helper-in-a-handlebars-template
+    Handlebars.registerHelper("raw", function (this: unknown, options: Handlebars.HelperOptions): string {
+        return options.fn(this);
+    });
 }

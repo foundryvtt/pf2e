@@ -1,6 +1,6 @@
 import { ItemType } from "@item/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
-import { BaseRawModifier } from "@actor/modifiers.ts";
+import { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { RollNoteSource } from "@module/notes.ts";
 import { CheckRollContext } from "@system/check/index.ts";
@@ -26,7 +26,7 @@ type ChatMessageFlagsPF2e = foundry.documents.ChatMessageFlags & {
         origin?: ItemOriginFlag | null;
         casting?: { id: string; tradition: MagicTradition } | null;
         modifierName?: string;
-        modifiers?: BaseRawModifier[];
+        modifiers?: (BaseRawModifier | DamageDicePF2e)[];
         preformatted?: "flavor" | "content" | "both";
         isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
