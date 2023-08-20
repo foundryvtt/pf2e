@@ -3,10 +3,11 @@
     <div class="drop-zone{{#if selfEffect.empty}} empty{{/if}}" data-drop-zone="self-applied-effect">
         {{#if selfEffect.empty}}
             <picture class="icon-placeholder"></picture>
+            <span class="name">{{selfEffect.name}}</span>
         {{else}}
             <img src="{{data.selfEffect.img}}" />
+            <a class="name" data-action="open-effect-sheet" data-uuid="{{selfEffect.uuid}}">{{selfEffect.name}}</a>
         {{/if}}
-        <span class="name">{{selfEffect.name}}</span>
         {{#unless selfEffect.empty}}
             <a class="delete" data-action="delete-effect" title="{{localize "PF2E.Item.Action.SelfAppliedEffect.Delete"}}"><i class="fa-solid fa-trash"></i></a>
         {{/unless}}

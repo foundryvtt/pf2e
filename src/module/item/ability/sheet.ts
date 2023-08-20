@@ -1,7 +1,7 @@
 import { AbilityItemPF2e } from "@item/ability/document.ts";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
-import { addActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
+import { activateActionSheetListeners, createSelfEffectSheetData, handleSelfEffectDrop } from "./helpers.ts";
 import { SelfEffectReference } from "./index.ts";
 
 export class ActionSheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
@@ -38,7 +38,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
         if (!this.isEditable) return;
 
         const html = $html[0];
-        addActionSheetListeners(this.item, html);
+        activateActionSheetListeners(this.item, html);
     }
 
     override async _onDrop(event: ElementDragEvent): Promise<void> {
