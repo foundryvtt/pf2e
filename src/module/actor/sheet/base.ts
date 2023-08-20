@@ -247,9 +247,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const selector = this.actor.isOfType("loot") ? ".sheet-body" : ".tab[data-tab=inventory]";
             return htmlQuery(html, selector);
         })();
-        if (this._canDragDrop(".item-list")) {
-            this.#activateInventoryDragDrop(inventoryPanel);
-        }
+        this.activateInventoryListeners(inventoryPanel);
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
@@ -295,9 +293,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         for (const link of htmlQueryAll(html, ".item-delete")) {
             link.addEventListener("click", (event) => this.#onClickDeleteItem(event));
         }
-
-        // Inventory
-        this.#activateInventoryListeners(inventoryPanel);
 
         // Equipment Browser
         for (const link of htmlQueryAll(html, ".inventory-browse")) {
@@ -525,7 +520,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** DOM listeners for inventory panel */
-    #activateInventoryListeners(panel: HTMLElement | null): void {
+    protected activateInventoryListeners(panel: HTMLElement | null): void {
+        if (this._canDragDrop(".item-list")) {
+            this.#activateInventoryDragDrop(panel);
+        }
+        if (!this.isEditable) return;
+
         // Links and buttons
         panel?.addEventListener("click", (event) => {
             const link = htmlClosest(event.target, "a[data-action], button[data-action]");

@@ -771,9 +771,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
 
-        // INVENTORY
-        this.#activateInventoryListeners(html);
-
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
 
@@ -1020,12 +1017,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    #activateInventoryListeners(html: HTMLElement): void {
-        const panel = htmlQuery(html, ".tab[data-tab=inventory]");
-        if (!panel) return;
+    protected override activateInventoryListeners(panel: HTMLElement | null): void {
+        super.activateInventoryListeners(panel);
 
         // Toggle invested state
-        const inventory = htmlQuery(panel, ".inventory-pane");
+        const inventory = this.isEditable ? htmlQuery(panel, ".inventory-pane") : null;
         inventory?.addEventListener("click", (event) => {
             const link = htmlClosest(event.target, "a[data-action=toggle-invested]");
             const itemId = htmlClosest(link, ".item")?.dataset.itemId;
