@@ -2,7 +2,6 @@
     padding: 0 0.5rem 2rem 0;
 
     .actions-tabs-wrapper {
-        display: grid;
         justify-items: center;
 
         .action-radio {
@@ -63,24 +62,21 @@
                         display: flex;
                     }
 
-                    &.action {
-                        align-items: center;
-                        display: flex;
-                        flex-wrap: wrap;
-                        padding: 4px;
-                        width: 100%;
-
-                        border-top: 1px solid lighten($alt-color, 40);
+                    &.action, &.strike {
                         $border-color: lighten($alt-color, 40);
                         border: solid transparent;
-                        border-width: 0 0 1px;
                         border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
+                        border-top: 1px solid $border-color;
+                        border-width: 0 0 1px;
+                        padding: 4px;
+                        width: 100%;
 
                         p:empty {
                             display: none;
                         }
 
                         .item-name {
+                            grid-area: icon-name;
                             align-items: center;
                             display: flex;
                             flex: 1;
@@ -89,62 +85,97 @@
                             h4 {
                                 cursor: pointer;
                                 margin: 0;
-
-                                &:hover {
-                                    color: var(--primary);
-                                }
+                                max-width: fit-content;
                             }
 
                             .item-image {
-                                height: 22px;
-                                width: 22px;
-                                color: transparent;
+                                @include flex-center;
                                 background-repeat: no-repeat;
                                 background-size: contain;
-                                margin-right: 8px;
-                                font-size: var(--font-size-18);
-                                @include flex-center;
+                                color: transparent;
                                 cursor: pointer;
+                                font-size: var(--font-size-18);
+                                height: 32px;
+                                margin-right: 8px;
+                                width: 32px;
 
                                 &:hover {
-                                    background: none !important;
+                                    background: none;
                                     color: var(--primary);
                                 }
                             }
 
                             .actions-title {
                                 flex: 1;
+
                                 .action-name {
                                     display: flex;
                                     flex-direction: row;
-                                }
-                                .action-name h4 {
-                                    cursor: pointer;
-                                    &:hover {
-                                        color: var(--primary);
 
-                                        .action-glyph {
-                                            color: var(--body);
+                                    > h4 {
+                                        cursor: pointer;
+                                        &:hover {
+                                            color: var(--primary);
+
+                                            .action-glyph {
+                                                color: var(--body);
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
 
-                        .item-controls {
+                        button.use-action {
+                            align-items: center;
+                            border-radius: 2px;
+                            border: none;
+                            box-shadow: inset 0 0 0 1px rgba(white, 0.3), inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+                            display: flex;
+                            flex: 0;
+                            font: 500 var(--font-size-10) var(--sans-serif);
+                            gap: 0.25em;
+                            height: 1.25rem;
+                            justify-content: space-evenly;
+                            justify-self: end;
+                            letter-spacing: 0.05em;
+                            margin: 0;
+                            max-width: fit-content;
+                            padding: 0.25em 0.5em;
+                            text-rendering: optimizeLegibility;
+                            text-transform: uppercase;
                             white-space: nowrap;
-                            font-size: var(--font-size-11);
+
+                            &:not(:disabled) {
+                                background: var(--bg-dark);
+                                cursor: pointer;
+
+                                &:hover {
+                                    box-shadow: inset 0 0 0 1px rgba(white, 0.15), inset 0 0 0 2px rgba(black, 0.4);
+                                }
+
+                                &:active {
+                                    color: $rank-legendary;
+                                }
+                            }
+                        }
+
+                        .item-controls {
+                            font-size: var(--font-size-12);
+                            grid-area: controls;
+                            white-space: nowrap;
                         }
 
                         .item-summary {
                             flex-basis: 100%;
-                            margin-bottom: 8px;
+                            margin: 0.5rem 0;
 
                             .title,
                             .framing {
                                 color: var(--primary);
-                                @include p-reset;
                                 margin-top: 1em;
+                                margin: 0;
+                                padding: 0;
                             }
 
                             .framing {
@@ -194,7 +225,6 @@
                         .item-summary {
                             @include frame-elegant;
                             padding: 0.5rem 1rem 1rem;
-                            margin-top: 0.75rem;
 
                             dd {
                                 margin: 0;
@@ -206,15 +236,47 @@
                             }
                         }
 
-                        &.expanded {
-                            h4 {
-                                color: var(--primary);
-                                font-weight: 700;
-                            }
-                        }
-
                         &.hidden {
                             display: none;
+                        }
+                    }
+
+                    &.action {
+                        align-items: center;
+                        display: grid;
+                        grid:
+                            "icon    name    tracking controls" auto
+                            "icon    buttons tracking controls" auto
+                            "summary summary summary   summary" auto
+                            / 2.5rem auto 20% 10%;
+
+                        .icon {
+                            align-self: start;
+                            grid-area: icon;
+                            height: 2rem;
+                            width: 2rem;
+                        }
+
+                        .name {
+                            grid-area: name;
+                            margin-bottom: 0.25rem;
+                            text-align: left;
+                        }
+
+                        .button-group {
+                            grid-area: buttons;
+                        }
+
+                        .tracking {
+                            grid-area: tracking;
+                        }
+
+                        .item-controls {
+                            grid-area: controls;
+                        }
+
+                        .item-summary {
+                            grid-area: summary;
                         }
                     }
                 }

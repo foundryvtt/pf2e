@@ -335,15 +335,14 @@ $light-text: #f5efe0;
     }
 
     .controls {
-        font-size: 0.8rem;
-        display: flex;
-        flex-wrap: nowrap;
         align-items: baseline;
+        display: flex;
+        flex: 0;
+        font-size: 0.8rem;
+        gap: 2px;
         margin-left: auto;
-        gap: 1px;
 
         .chat {
-            margin-right: 3px;
             font-size: 0.9em;
         }
         > a.item-control {
@@ -437,11 +436,13 @@ $light-text: #f5efe0;
     }
 
     .actions-list {
-        width: 97%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.1rem 0.25rem;
 
         .action {
             width: 100%;
-            margin-top: 6px;
         }
     }
 

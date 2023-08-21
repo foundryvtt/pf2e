@@ -14,10 +14,16 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
     constructor(protected sheet: Application & { get actor(): TActor }) {}
 
     activateListeners(html: HTMLElement): void {
-        const itemNameElems = htmlQueryAll(html, ".item .item-name h4, .item .melee-name h4, .item .action-name h4");
-        for (const itemNameElem of itemNameElems) {
-            itemNameElem.addEventListener("click", async () => {
-                const element = htmlClosest(itemNameElem, "[data-item-id], .expandable");
+        const selectors = [
+            ".item .item-name h4",
+            ".item .melee-name h4",
+            ".item .action-name h4",
+            "a[data-action=toggle-summary]",
+        ].join(",");
+
+        for (const link of htmlQueryAll(html, selectors)) {
+            link.addEventListener("click", async () => {
+                const element = htmlClosest(link, "[data-item-id], .expandable");
                 if (element) await this.toggleSummary(element);
             });
         }

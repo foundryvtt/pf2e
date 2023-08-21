@@ -18,6 +18,19 @@
                 <div>{{nationTypeLabel}}</div>
             </label>
 
+            <label class="fame">
+                <span>{{localize (concat "PF2E.Kingmaker.Kingdom.Aspiration." kingdom.aspiration)}}</span>
+                <a class="pips {{#unless member.owner}}readonly{{/unless}}" data-action="adjust-fame">
+                    {{#times kingdom.resources.fame.max}}
+                        {{#if (gt @root.kingdom.resources.fame.value this)}}
+                            <i class="fa-solid fa-circle"></i>
+                        {{else}}
+                            <i class="fa-regular fa-circle"></i>
+                        {{/if}}
+                    {{/times}}
+                </a>
+            </label>
+
             <section class="level">
                 <div class="level">
                     <label>{{localize "PF2E.LevelLabel"}}</label>

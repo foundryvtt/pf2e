@@ -1,3 +1,4 @@
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement, RawPredicate } from "@system/predication.ts";
@@ -29,6 +30,18 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
                     : [],
             ].flat()
         );
+    }
+
+    /** Clear predicates in custom modifiers */
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        if ("customModifiers" in source.system) {
+            if (!isObject(source.system.customModifiers)) {
+                source.system.customModifiers = {};
+            }
+            for (const modifier of Object.values(source.system.customModifiers).flat()) {
+                modifier.predicate &&= [];
+            }
+        }
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {

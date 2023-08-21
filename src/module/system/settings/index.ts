@@ -192,6 +192,15 @@ export function registerSettings(): void {
         type: Boolean,
     });
 
+    // Whether the world's first party actor has been created
+    game.settings.register("pf2e", "createdFirstParty", {
+        name: "Created First Party", // Doesn't appear in any UI
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
+    });
+
     game.settings.register("pf2e", "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",

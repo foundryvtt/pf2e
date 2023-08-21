@@ -165,6 +165,18 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             });
         }
 
+        const { fame } = this.kingdom.resources;
+        const famePips = htmlQuery(html, "a[data-action=adjust-fame]");
+        famePips?.addEventListener("click", async () => {
+            const newValue = Math.min(fame.value + 1, fame.max);
+            await this.kingdom.update({ "resources.fame.value": newValue });
+        });
+        famePips?.addEventListener("contextmenu", async (event) => {
+            event.preventDefault();
+            const newValue = Math.max(fame.value - 1, 0);
+            await this.kingdom.update({ "resources.fame.value": newValue });
+        });
+
         // Data binding for leader roles
         for (const leader of htmlQueryAll(html, ".leader[data-role]")) {
             const role = leader.dataset.role;
