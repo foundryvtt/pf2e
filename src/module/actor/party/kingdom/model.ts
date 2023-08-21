@@ -290,7 +290,9 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
             return [skill, statistic];
         });
+    }
 
+    prepareDerivedData(): void {
         // Create feat groups
         const evenLevels = new Array(this.level)
             .fill(0)
