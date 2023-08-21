@@ -23,6 +23,8 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     getRollData?(): Record<string, unknown>;
     /** Renders the sheet associateed with this campaign, if available */
     renderSheet?(options?: { tab?: string; type?: string | null }): void;
+    /** Optional callback (for the actor's prepareDerivedData phase) */
+    prepareDerivedData?(): void;
 }
 
 export { PartyCampaign, PartyUpdateContext };

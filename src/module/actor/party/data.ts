@@ -6,6 +6,7 @@ import {
     ActorSystemSource,
     BaseActorSourcePF2e,
 } from "@actor/data/base.ts";
+import { PartyCampaign } from "./types.ts";
 
 type PartySource = BaseActorSourcePF2e<"party", PartySystemSource>;
 
@@ -37,9 +38,10 @@ interface MemberData {
     uuid: ActorUUID;
 }
 
-interface PartySystemData extends Omit<PartySystemSource, "attributes">, Omit<ActorSystemData, "traits"> {
+interface PartySystemData extends Omit<PartySystemSource, "attributes" | "campaign">, Omit<ActorSystemData, "traits"> {
     attributes: PartyAttributes;
     details: PartyDetails;
+    campaign: PartyCampaign;
 }
 
 interface PartyAttributes

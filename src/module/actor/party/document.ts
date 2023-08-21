@@ -83,12 +83,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         for (const member of this.members) {
             member?.parties.add(this);
         }
-    }
-
-    override prepareDerivedData(): void {
-        // Compute travel speed. Creature travel speed isn't implemented yet
-        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
-        this.attributes.speed = { total: travelSpeed };
 
         // Bind campaign data, though only kingmaker is supported (and hardcoded).
         // This will need to be expanded to allow modules to add to the list
@@ -103,9 +97,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     if (this.campaign?.type === campaignType) {
                         this.campaign.updateSource(this.system.campaign);
                     } else {
-                        const model = (this.campaign = new Kingdom(this.system.campaign, { parent: this }));
-                        this.system.campaign = model._source;
+                        this.campaign = new Kingdom(deepClone(this._source.system.campaign), { parent: this });
                     }
+
+                    this.system.campaign = this.campaign;
                 } catch (err) {
                     console.error(err);
                     this.campaign = new InvalidCampaign(this, { campaignType, reason: "error" });
@@ -114,6 +109,23 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         } else {
             this.campaign = null;
         }
+    }
+
+    /** Run rule elements (which may occur if it contains a kingdom) */
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects?.();
+        }
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        // Compute travel speed. Creature travel speed isn't implemented yet
+        const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
+        this.attributes.speed = { total: travelSpeed };
+
+        this.campaign?.prepareDerivedData?.();
     }
 
     async addMembers(...membersToAdd: CreaturePF2e[]): Promise<void> {
