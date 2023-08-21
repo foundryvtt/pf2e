@@ -1711,7 +1711,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]. On a critical success, the target also takes @Damage[1[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases to @Damage[2[persistent,acid]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[3[persistent,acid]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[4[persistent,acid]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to @Damage[5[persistent,acid]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes 1 persistent acid damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the persistent damage increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the persistent damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the persistent damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the persistent damage increases to 5, and the splash damage increases to 4.</p>\n<p>[[/r (ceil(@item.level/2))[persistent,acid]]]{Leveled Persistent Acid Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1875,8 +1875,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "attack",
                         "acid",
+                        "attack",
                         "cantrip",
                         "evocation"
                     ]
@@ -2097,8 +2097,8 @@
                     "rarity": "common",
                     "value": [
                         "attack",
-                        "cold",
                         "cantrip",
+                        "cold",
                         "evocation"
                     ]
                 }
@@ -2199,10 +2199,10 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "positive",
-                        "healing",
                         "cantrip",
-                        "necromancy"
+                        "healing",
+                        "necromancy",
+                        "positive"
                     ]
                 }
             },
@@ -2216,7 +2216,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/tanglefoot.webp",
-            "name": "Tanglefoot",
+            "name": "Tangle Vine",
             "sort": 0,
             "system": {
                 "ability": {
@@ -2239,7 +2239,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                    "value": "<p>A vine appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack roll against the target.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to remove the penalty and the immobilized condition.</p>\n<p><strong>Success</strong> The target takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2276,9 +2276,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "tanglefoot",
+                "slug": "tangle-vine",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "attack"
@@ -2305,7 +2305,7 @@
                         "attack",
                         "cantrip",
                         "plant",
-                        "conjuration"
+                        "wood"
                     ]
                 }
             },
@@ -2721,8 +2721,8 @@
                     "rarity": "common",
                     "value": [
                         "healing",
-                        "positive",
-                        "necromancy"
+                        "necromancy",
+                        "positive"
                     ]
                 }
             },
@@ -2769,7 +2769,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[1d6[persistent,acid]]. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage] increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>\n<p>[[/r floor(@item.level/2)d6[persistent,acid]]]{Leveled Persistent Acid Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2854,7 +2854,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/entangle.webp",
-            "name": "Entangle",
+            "name": "Entangling Flora",
             "sort": 0,
             "system": {
                 "ability": {
@@ -2881,7 +2881,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p><strong>Area</strong> all squares in a 20-foot burst that contain plants or fungi</p>\n<p>Plants and fungi in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
+                    "value": "<p>Plants and fungi burst out or quickly grow, entangling creatures. All surfaces in the area are difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a –10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round. Creatures can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] to remove these effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Entangling Flora]</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2918,9 +2918,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "entangle",
+                "slug": "entangling-flora",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "save"
@@ -2936,14 +2936,15 @@
                 },
                 "traditions": {
                     "value": [
-                        "primal"
+                        "primal",
+                        "arcane"
                     ]
                 },
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "plant",
-                        "transmutation"
+                        "wood"
                     ]
                 }
             },
@@ -3925,6 +3926,7 @@
                 "value": 0
             }
         },
+        "exploration": [],
         "martial": {},
         "pfs": {
             "characterNumber": null,

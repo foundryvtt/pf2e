@@ -1842,9 +1842,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "light",
                         "cantrip",
-                        "evocation"
+                        "evocation",
+                        "light"
                     ]
                 }
             },
@@ -1888,6 +1888,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1945,9 +1955,9 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
+                        "enchantment",
                         "incapacitation",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -2064,8 +2074,8 @@
                     "rarity": "common",
                     "value": [
                         "cantrip",
-                        "negative",
-                        "necromancy"
+                        "necromancy",
+                        "negative"
                     ]
                 }
             },
@@ -2105,7 +2115,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2144,7 +2154,7 @@
                 },
                 "slug": "detect-magic",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2170,9 +2180,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "detection",
                         "cantrip",
-                        "divination"
+                        "detection"
                     ]
                 }
             },
@@ -2271,8 +2280,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "cantrip",
-                        "abjuration"
+                        "abjuration",
+                        "cantrip"
                     ]
                 }
             },
@@ -2286,7 +2295,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
-            "name": "Mage Hand",
+            "name": "Telekinetic Hand",
             "sort": 600000,
             "system": {
                 "ability": {
@@ -2309,13 +2318,33 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+                    "value": "<p>You create a floating, magical hand, either invisible or ghostlike, that grasps the target object and levitates it slowly up to 20 feet in any direction. When you Sustain the spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
                     "value": "sustained"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 1 or less"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "7": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 2 or less"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -2346,9 +2375,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "mage-hand",
+                "slug": "telekinetic-hand",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Player Core"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2371,8 +2400,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -2743,8 +2771,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "force",
-                        "conjuration"
+                        "conjuration",
+                        "force"
                     ]
                 }
             },
@@ -2788,6 +2816,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -2943,8 +2986,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "mental",
-                        "divination"
+                        "divination",
+                        "mental"
                     ]
                 }
             },
@@ -3209,6 +3252,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "10 objects"
+                            }
+                        },
+                        "6": {
+                            "target": {
+                                "value": "any number of objects"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -3266,8 +3324,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "detection",
                         "cantrip",
+                        "detection",
                         "divination"
                     ]
                 }
@@ -3295,8 +3353,8 @@
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": false,
-                    "verbal": false
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -3577,11 +3635,11 @@
                         "cantrip",
                         "curse",
                         "emotion",
+                        "enchantment",
                         "fear",
                         "hex",
                         "mental",
-                        "witch",
-                        "enchantment"
+                        "witch"
                     ]
                 }
             },
@@ -3677,9 +3735,9 @@
                 "traits": {
                     "rarity": "uncommon",
                     "value": [
-                        "witch",
+                        "abjuration",
                         "hex",
-                        "abjuration"
+                        "witch"
                     ]
                 }
             },
@@ -3775,8 +3833,9 @@
                 "traits": {
                     "rarity": "uncommon",
                     "value": [
-                        "witch",
-                        "enchantment"
+                        "enchantment",
+                        "hex",
+                        "witch"
                     ]
                 }
             },
@@ -4179,9 +4238,9 @@
                     "rarity": "uncommon",
                     "value": [
                         "healing",
-                        "witch",
                         "hex",
-                        "necromancy"
+                        "necromancy",
+                        "witch"
                     ]
                 }
             },
@@ -4383,8 +4442,8 @@
                     "rarity": "common",
                     "value": [
                         "curse",
-                        "misfortune",
-                        "divination"
+                        "divination",
+                        "misfortune"
                     ]
                 }
             },
@@ -4418,7 +4477,17 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "9k8ayqgvgultdghx": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "healing"
+                            },
+                            "value": "2"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You form a spiritual link with another creature, taking in its pain. When you Cast this Spell and at the start of each of your turns, if the target is below maximum Hit Points, it regains 2 Hit Points (or the difference between its current and maximum Hit Points, if that's lower). You lose as many Hit Points as the target regained.</p>\n<p>This is a spiritual transfer, so no effects apply that would increase the Hit Points the target regains or decrease the Hit Points you lose. This transfer also ignores any temporary Hit Points you or the target have. Since this effect doesn't involve positive or negative energy, spirit link works even if you or the target is undead. While the duration persists, you gain no benefit from regeneration or fast healing. You can Dismiss this spell, and if you're ever at 0 Hit Points, spirit link ends automatically.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of Hit Points transferred each time increases by 2.</p>"
@@ -4428,6 +4497,13 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "9k8ayqgvgultdghx": "2"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -4523,8 +4599,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "2d4"
@@ -4532,7 +4610,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and @Damage[1[bleed]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
+                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and 1 persistent bleed damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1.</p>\n<p>[[/r (@item.level)[bleed]]]{Leveled Bleed Damage}</p>"
                 },
                 "duration": {
                     "value": ""
@@ -4601,8 +4679,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "negative",
-                        "necromancy"
+                        "necromancy",
+                        "negative"
                     ]
                 }
             },
@@ -4822,8 +4900,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "visual",
-                        "illusion"
+                        "illusion",
+                        "visual"
                     ]
                 }
             },
@@ -4939,8 +5017,8 @@
                     "rarity": "common",
                     "value": [
                         "death",
-                        "negative",
-                        "necromancy"
+                        "necromancy",
+                        "negative"
                     ]
                 }
             },
@@ -5039,9 +5117,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "enchantment",
                         "incapacitation",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -5278,7 +5356,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on 1d4). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on 1d6). With only one image, the chances are 1 in 2 (1-3 on 1d6).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>"
+                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on [[/r 1d4]]). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on [[/r 1d6]]). With only one image, the chances are 1 in 2 (1-3 on [[/r 1d6]]).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image]</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -5340,8 +5418,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "visual",
-                        "illusion"
+                        "illusion",
+                        "visual"
                     ]
                 }
             },
@@ -5455,8 +5533,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "sonic",
-                        "evocation"
+                        "evocation",
+                        "sonic"
                     ]
                 }
             },
@@ -5500,6 +5578,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "6": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -5656,8 +5744,8 @@
                     "rarity": "common",
                     "value": [
                         "attack",
-                        "force",
-                        "evocation"
+                        "evocation",
+                        "force"
                     ]
                 }
             },
@@ -7049,9 +7137,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "abjuration",
                         "cantrip",
-                        "force",
-                        "abjuration"
+                        "force"
                     ]
                 }
             },
@@ -7167,9 +7255,9 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
+                        "enchantment",
                         "healing",
-                        "mental",
-                        "enchantment"
+                        "mental"
                     ]
                 }
             },
@@ -7415,8 +7503,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "mental",
-                        "enchantment"
+                        "enchantment",
+                        "mental"
                     ]
                 }
             },
@@ -8023,6 +8111,7 @@
                 "value": 0
             }
         },
+        "exploration": [],
         "martial": {},
         "pfs": {
             "characterNumber": null,
