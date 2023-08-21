@@ -167,8 +167,10 @@ class WeaponAuxiliaryAction {
 
     async execute({ selection = null }: { selection?: string | null } = {}): Promise<void> {
         const { actor, weapon } = this;
+
+        let update: Promise<void> | undefined;
         if (typeof this.carryType === "string") {
-            actor.adjustCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
+            update = actor.adjustCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
             const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
             if (!updated) return;
@@ -214,6 +216,10 @@ class WeaponAuxiliaryAction {
             flavor,
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
         });
+
+        if (update) {
+            await update;
+        }
     }
 }
 
