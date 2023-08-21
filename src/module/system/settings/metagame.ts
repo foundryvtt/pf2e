@@ -1,5 +1,5 @@
 import { resetActors } from "@actor/helpers.ts";
-import { MenuTemplateData, SettingsMenuPF2e } from "./menu.ts";
+import { SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
     showDC: {
@@ -76,15 +76,6 @@ class MetagameSettings extends SettingsMenuPF2e {
 
     static override get prefix(): string {
         return `${this.namespace}_`;
-    }
-
-    /** Hide "metagame_showPartyStats" setting in production builds until party actor is released */
-    override async getData(): Promise<MenuTemplateData> {
-        const data = await super.getData();
-        if (BUILD_MODE === "production" && !game.actors.some((a) => a.type === "party")) {
-            delete data.settings.showPartyStats;
-        }
-        return data;
     }
 }
 
