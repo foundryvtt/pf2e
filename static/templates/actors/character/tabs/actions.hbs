@@ -20,7 +20,7 @@
 
                     <ol class="actions-list item-list directory-list strikes-list">
                         {{#each data.actions as |action ai|}}
-                            <li class="item action strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-action-index="{{ai}}">
+                            <li class="item strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-action-index="{{ai}}">
                                 <div class="item-name rollable">
                                     <div class="item-image variant-strike framed" data-action="strike-attack" data-variant-index="0">
                                         <img src="{{action.imageUrl}}"/>
@@ -78,7 +78,7 @@
 
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
                                     {{#each action.auxiliaryActions as |aux aid|}}
-                                        <button type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
+                                        <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
                                             <span class="action-glyph">{{aux.glyph}}</span>
                                             <span>{{aux.label}}</span>
                                             {{#if aux.options}}
@@ -224,7 +224,7 @@
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
                 <span class="action-glyph">{{../glyph}}</span>
-                {{variant.label}}
+                <span>{{variant.label}}</span>
             </button>
         {{/each}}
         {{#if item.dealsDamage}}
@@ -255,35 +255,47 @@
 
 {{#*inline "action"}}
     <li class="action item" data-item-id="{{action.id}}" data-item-summary-id="action-{{action.id}}">
-        <div class="item-name rollable">
-            <div class="item-image">
-                <img src="{{action.img}}"/>
-            </div>
-            <h4>{{action.name}}</h4>
-            {{#if action.frequency}}
-                <div class="action-tracking">
-                    <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value"/>
-                    <span>
-                        /
-                        {{action.frequency.max}}
-                        {{localize "PF2E.Frequency.per"}}
-                        {{localize (lookup @root.frequencies action.frequency.per)}}
-                    </span>
-                </div>
-            {{/if}}
-            {{#if (and action.exploration @root.document.parties.size)}}
-                <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
-                    {{localize "PF2E.Actor.Character.Active"}}
+        <div class="icon item-image framed">
+            <img src="{{action.img}}" />
+            <i class="fa-solid fa-message"></i>
+        </div>
+
+        <h4 class="name"><a data-action="toggle-summary">{{action.name}}</a></h4>
+
+        <div class="button-group">
+            {{#if action.hasEffect}}
+                <button type="button" class="use-action" data-action="use-action">
+                    <span class="action-glyph">{{action.glyph}}</span>
+                    <span>{{localize "PF2E.Action.Use"}}</span>
                 </button>
             {{/if}}
         </div>
-        {{#if @root.options.editable}}
-            <div class="item-controls">
+
+        {{#if action.frequency}}
+            <div class="tracking">
+                <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value"/>
+                <span>
+                    /
+                    {{action.frequency.max}}
+                    {{localize "PF2E.Frequency.per"}}
+                    {{localize (lookup @root.frequencies action.frequency.per)}}
+                </span>
+            </div>
+        {{/if}}
+
+        {{#if (and action.exploration @root.document.parties.size)}}
+            <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
+                {{localize "PF2E.Actor.Character.Active"}}
+            </button>
+        {{/if}}
+
+        <div class="item-controls">
+            {{#if @root.options.editable}}
                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
                 {{#unless action.feat}}
                     <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                 {{/unless}}
-            </div>
-        {{/if}}
+            {{/if}}
+        </div>
     </li>
 {{/inline}}
