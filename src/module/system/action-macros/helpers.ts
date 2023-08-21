@@ -297,7 +297,7 @@ export class ActionMacroHelpers {
             return new ModifierPF2e({
                 slug,
                 type: "item",
-                label: "PF2E.PotencyRuneLabel",
+                label: "PF2E.Item.Weapon.Rune.Potency",
                 modifier: item.system.runes.potency,
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });

@@ -1309,7 +1309,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             if (weapon.system.runes.potency) {
                 potency.push({
-                    label: "PF2E.PotencyRuneLabel",
+                    label: "PF2E.Item.Weapon.Rune.Potency",
                     bonus: weapon.system.runes.potency,
                     type: "item",
                     predicate: new PredicatePF2e(),
