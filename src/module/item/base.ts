@@ -193,12 +193,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 token: this.actor.getActiveTokens(false, true)[0] ?? null,
             }),
             flags: {
-                core: {
-                    canPopout: true,
-                },
-                pf2e: {
-                    origin: this.getOriginData(),
-                },
+                pf2e: { origin: this.getOriginData() },
             },
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
