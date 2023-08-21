@@ -315,9 +315,10 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
 }
 
 /** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
-const NON_DAMAGE_WEAKNESSES: Set<IWRType> = new Set([
+const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "air",
     "earth",
+    "ghost-touch",
     "metal",
     "radiation",
     "salt",
