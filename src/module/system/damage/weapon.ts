@@ -7,12 +7,7 @@ import { NPCAttackDamage } from "@item/melee/data.ts";
 import { getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import {
-    extractDamageSynthetics,
-    extractModifierAdjustments,
-    extractModifiers,
-    extractNotes,
-} from "@module/rules/helpers.ts";
+import { extractDamageSynthetics, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { mapValues, objectHasKey, setHasElement, sluggify } from "@util";
@@ -422,13 +417,7 @@ class WeaponDamagePF2e {
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
 
-        const notes = [
-            runeNotes,
-            extractNotes(actor.synthetics.rollNotes, selectors),
-            critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e),
-        ]
-            .flat()
-            .filter((n) => n.predicate.test(options));
+        const notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
 
         // Accumulate damage-affecting precious materials
         const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.precious?.type)
