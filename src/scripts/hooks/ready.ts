@@ -1,5 +1,6 @@
 import { PartyPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
+import { createFirstParty } from "@actor/party/helpers.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative.ts";
@@ -19,6 +20,12 @@ export const Ready = {
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
+            // Some of game.pf2e must wait until the ready phase
+            SetGamePF2e.onReady();
+
+            // Add Scene Darkness Adjuster to `Scenes` apps list so that it will re-render on scene update
+            game.scenes.apps.push(SceneDarknessAdjuster.instance);
+
             // Determine whether a system migration is required and feasible
             const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
 
@@ -26,6 +33,9 @@ export const Ready = {
             storeInitialWorldVersions().then(async () => {
                 // Ensure only a single GM will run migrations if multiple are logged in
                 if (game.user !== game.users.activeGM) return;
+
+                // 🎉
+                await createFirstParty();
 
                 // Perform migrations, if any
                 const migrationRunner = new MigrationRunner(MigrationList.constructFromVersion(currentVersion));
@@ -84,9 +94,6 @@ export const Ready = {
             // Extend drag data for things such as condition value
             extendDragData();
 
-            // Some of game.pf2e must wait until the ready phase
-            SetGamePF2e.onReady();
-
             // Set darkness color according to GM Vision setting
             if (
                 canvas.ready &&
@@ -98,9 +105,6 @@ export const Ready = {
                 CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
                 canvas.colorManager.initialize();
             }
-
-            // Add Scene Darkness Adjuster to `Scenes` apps list so that it will re-render on scene update
-            game.scenes.apps.push(SceneDarknessAdjuster.instance);
 
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {
