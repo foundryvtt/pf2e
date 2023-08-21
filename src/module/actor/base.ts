@@ -486,9 +486,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             [key: string]: unknown;
         } = {}
     ): Promise<Actor<TokenDocument<Scene | null> | null> | null> {
-        const omittedTypes: ActorType[] = [];
-        if (BUILD_MODE === "production") omittedTypes.push("party");
-
+        const omittedTypes: ActorType[] = []; // still exists, since "army" will be here soon
         const original = game.system.documentTypes.Actor;
         try {
             game.system.documentTypes.Actor = R.difference(original, omittedTypes);
