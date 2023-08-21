@@ -222,7 +222,6 @@ export class DamagePF2e {
                 speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
                 flavor,
                 flags: {
-                    core: { canPopout: true },
                     pf2e: {
                         context: contextFlag,
                         target: targetFlag,

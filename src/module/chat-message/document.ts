@@ -17,7 +17,11 @@ import * as Listeners from "./listeners/index.ts";
 class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
     constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: DocumentConstructionContext<null> = {}) {
-        data.flags = mergeObject(expandObject(data.flags ?? {}), { core: {}, pf2e: {} });
+        const expandedFlags = expandObject<DeepPartial<ChatMessageFlagsPF2e>>(data.flags ?? {});
+        data.flags = mergeObject(expandedFlags, {
+            core: { canPopout: expandedFlags.core?.canPopout ?? true },
+            pf2e: {},
+        });
         super(data, context);
 
         // Backward compatibility for roll messages prior to `rollerId` (user ID) being stored with the roll

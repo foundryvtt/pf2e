@@ -246,10 +246,8 @@ class CheckPF2e {
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
-            const coreFlags: Record<string, unknown> = { canPopout: true };
-            if (context.type === "initiative") coreFlags.initiativeRoll = true;
             const flags = {
-                core: coreFlags,
+                core: context.type === "initiative" ? { initiativeRoll: true } : {},
                 pf2e: {
                     context: contextFlag,
                     unsafe: flavor,

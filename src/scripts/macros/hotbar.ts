@@ -72,9 +72,6 @@ export async function rollActionMacro(itemId: string, _actionIndex: number, acti
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-        flags: {
-            core: { canPopout: true },
-        },
     };
 
     const rollMode = game.settings.get("core", "rollMode");
