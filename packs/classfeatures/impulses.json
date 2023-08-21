@@ -244,6 +244,24 @@
                         "vitality"
                     ]
                 }
+            },
+            {
+                "damageType": "fire",
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "item:trait:impulse",
+                    "junction:fire:impulse"
+                ],
+                "selector": "inline-damage"
             }
         ],
         "source": {
