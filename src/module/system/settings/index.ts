@@ -192,15 +192,6 @@ export function registerSettings(): void {
         type: Boolean,
     });
 
-    // Whether the world's first party actor has been created
-    game.settings.register("pf2e", "createdFirstParty", {
-        name: "Created First Party", // Doesn't appear in any UI
-        scope: "world",
-        config: false,
-        default: false,
-        type: Boolean,
-    });
-
     game.settings.register("pf2e", "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",
@@ -208,14 +199,6 @@ export function registerSettings(): void {
         config: true,
         default: true,
         type: Boolean,
-    });
-
-    game.settings.register("pf2e", "worldSystemVersion", {
-        name: "World System Version",
-        scope: "world",
-        config: false,
-        default: game.system.version,
-        type: String,
     });
 
     game.settings.registerMenu("pf2e", "automation", {
@@ -275,14 +258,6 @@ export function registerSettings(): void {
     });
     WorldClockSettings.registerSettings();
 
-    game.settings.register("pf2e", "activeParty", {
-        name: "Active Party",
-        config: false,
-        type: String,
-        default: "",
-        onChange: () => ui.actors.render(true),
-    });
-
     game.settings.register("pf2e", "campaignType", {
         name: "PF2E.SETTINGS.CampaignType.Name",
         hint: "PF2E.SETTINGS.CampaignType.Hint",
@@ -340,6 +315,40 @@ export function registerSettings(): void {
         },
     });
 
+    registerTrackingSettings();
+
+    if (BUILD_MODE === "production") {
+        registerWorldSchemaVersion();
+    }
+}
+
+/** Registers temporary settings for tracking things like first time launches or active party */
+function registerTrackingSettings(): void {
+    // Whether the world's first party actor has been created
+    game.settings.register("pf2e", "createdFirstParty", {
+        name: "Created First Party", // Doesn't appear in any UI
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
+    });
+
+    game.settings.register("pf2e", "activeParty", {
+        name: "Active Party",
+        config: false,
+        type: String,
+        default: "",
+        onChange: () => ui.actors.render(true),
+    });
+
+    game.settings.register("pf2e", "worldSystemVersion", {
+        name: "World System Version",
+        scope: "world",
+        config: false,
+        default: game.system.version,
+        type: String,
+    });
+
     // Show the GM information about the remaster
     game.settings.register("pf2e", "seenRemasterJournalEntry", {
         name: "Seen Remaster journal entry?",
@@ -348,10 +357,6 @@ export function registerSettings(): void {
         default: false,
         type: Boolean,
     });
-
-    if (BUILD_MODE === "production") {
-        registerWorldSchemaVersion();
-    }
 }
 
 function registerWorldSchemaVersion(): void {
