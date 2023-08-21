@@ -304,7 +304,7 @@ class AttributeBuilder extends Application {
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
             input.addEventListener("focus", () => {
                 if (input.type === "text" && input.dataset.dtype === "Number") {
-                    input.value = input.value.replace(/[+-]/g, "");
+                    input.value = input.value.replace(/[^-.0-9]/g, "");
                     input.type = "number";
                 }
                 input.select();
