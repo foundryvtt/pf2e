@@ -6,7 +6,7 @@ import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { extractDamageSynthetics, extractModifierAdjustments, extractNotes } from "@module/rules/helpers.ts";
+import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, localizer, objectHasKey, sluggify } from "@util";
@@ -698,8 +698,6 @@ async function augmentInlineDamageRoll(
             });
         })();
 
-        const notes = !(actor instanceof ActorPF2e) ? [] : [...extractNotes(actor.synthetics.rollNotes, domains)];
-
         const damage: CreateDamageFormulaParams = {
             base,
             modifiers,
@@ -740,7 +738,7 @@ async function augmentInlineDamageRoll(
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],
             traits: traits?.filter((t) => t in CONFIG.PF2E.actionTraits) ?? [],
-            notes: notes.flat().filter((n) => n.predicate.test(options)),
+            notes: [],
             materials: [],
         };
 
