@@ -77,8 +77,8 @@ const KINGDOM_RESOURCES_SCHEMA = {
         penalty: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 0 }),
     }),
     fame: new fields.SchemaField({
-        value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
-        max: new fields.NumberField({ required: true, nullable: false, initial: 3 }),
+        value: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 0 }),
+        max: new fields.NumberField<number, number, true, false>({ required: true, nullable: false, initial: 3 }),
     }),
     commodities: new fields.SchemaField(
         R.mapToObj(KINGDOM_COMMODITIES, (type) => {

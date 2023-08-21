@@ -59,8 +59,8 @@
         .details {
             display: grid;
             grid-template-areas:
-                "title title level"
-                "capital size level";
+                "title title title level"
+                "capital size fame level";
             grid-template-columns: 1fr auto auto;
             align-items: center;
             gap: 0 4px;
@@ -113,9 +113,20 @@
 
             .size {
                 grid-area: size;
+                margin-left: 1rem;
                 input {
                     width: 3ch;
                     text-align: center;
+                }
+            }
+
+            .fame {
+                align-items: center;
+                display: flex;
+                grid-area: fame;
+                margin-left: 1rem;
+                .pips {
+                    font-size: var(--font-size-14);
                 }
             }
 
