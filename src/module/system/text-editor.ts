@@ -345,7 +345,7 @@ class TextEditorPF2e extends TextEditor {
             })(),
             // Set action slug, damaging effect for basic saves, and any parameterized options
             extraRollOptions: R.compact([
-                ...(item?.isOfType("action") && item.actionCost ? [`action:${item?.slug ?? sluggify(item.name)}`] : []),
+                ...this.#createActionOptions(item),
                 ...(rawParams.basic === "true" ? ["damaging-effect"] : []),
                 ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
             ]).sort(),
@@ -539,7 +539,10 @@ class TextEditorPF2e extends TextEditor {
             return params.overrideTraits === "true" ? fromParams : R.uniq([...fromParams, ...fromItem]);
         })().sort();
 
-        const extraRollOptions = R.compact(params.options?.split(",").map((t) => t.trim()) ?? []).sort();
+        const extraRollOptions = R.compact([
+            ...(params.options?.split(",").map((t) => t.trim()) ?? []),
+            ...this.#createActionOptions(item),
+        ]).sort();
 
         const result = await augmentInlineDamageRoll(params.formula, {
             skipDialog: true,
@@ -565,6 +568,15 @@ class TextEditorPF2e extends TextEditor {
         });
 
         return element;
+    }
+
+    /** Create roll options with information about the action being used */
+    static #createActionOptions(item: Maybe<ItemPF2e>): string[] {
+        if (!item?.isOfType("action", "feat") || !item.actionCost) return [];
+        return R.compact([
+            `action:${item.slug ?? sluggify(item.name)}`,
+            item.actionCost.value ? `action:cost:${item.actionCost.value}` : null,
+        ]);
     }
 }
 
