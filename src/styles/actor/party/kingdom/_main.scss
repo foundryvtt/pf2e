@@ -23,7 +23,7 @@ input[type="text"], input[type="number"] {
             "img label";
         grid-template-columns: auto 1fr;
         grid-template-rows: 1fr auto;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
 
         img {
             @include frame-icon;
@@ -41,6 +41,9 @@ input[type="text"], input[type="number"] {
             line-height: 1.5em;
             height: 1.5em;
             align-self: end;
+
+            display: flex;
+            justify-content: space-between;
         }
         .details {
             grid-area: label;
@@ -63,7 +66,7 @@ input[type="text"], input[type="number"] {
                 font-weight: 500;
             }
         }
-        .vacant {
+        .invested, .vacant {
             input {
                 margin: 0;
                 width: 1em;

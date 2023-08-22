@@ -31,6 +31,7 @@ import {
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
     KINGDOM_LEADERSHIP,
+    KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
 } from "./values.ts";
 
@@ -132,11 +133,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             },
             leadership: KINGDOM_LEADERSHIP.map((slug) => {
                 const data = this.kingdom.leadership[slug];
-                const label = game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${slug}`);
                 const document = fromUuidSync(data.uuid ?? "");
                 const actor = document instanceof ActorPF2e ? document : null;
-                const img = actor?.prototypeToken.texture.src ?? actor?.img ?? ActorPF2e.DEFAULT_ICON;
-                return { ...data, actor, img, slug, label };
+                return {
+                    ...data,
+                    slug,
+                    label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${slug}`),
+                    actor,
+                    img: actor?.prototypeToken.texture.src ?? actor?.img ?? ActorPF2e.DEFAULT_ICON,
+                    abilityLabel: game.i18n.localize(KINGDOM_ABILITY_LABELS[KINGDOM_LEADERSHIP_ABILITIES[slug]]),
+                };
             }),
             actions: R.sortBy(kingdom.activities, (a) => a.name).map((item) => ({
                 item,
@@ -390,11 +396,19 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     })[];
     commodities: CommoditySheetData[];
     resourceDice: KingdomData["resources"]["dice"] & { icon: string };
-    leadership: (KingdomLeadershipData & { actor: ActorPF2e | null; img: string; slug: string; label: string })[];
+    leadership: LeaderSheetData[];
     actions: { item: CampaignFeaturePF2e; traits: SheetOptions }[];
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
     actionFilterChoices: SheetOptions;
+}
+
+interface LeaderSheetData extends KingdomLeadershipData {
+    actor: ActorPF2e | null;
+    img: string;
+    slug: string;
+    label: string;
+    abilityLabel: string;
 }
 
 interface CommoditySheetData extends ValueAndMax {
