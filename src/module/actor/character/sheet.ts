@@ -388,10 +388,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 continue;
             }
 
-            if (item.system.selfEffect) {
-                item.system.selfEffect.img ??= fromUuidSync(item.system.selfEffect.uuid)?.img ?? null;
-            }
-
             const img = ((): ImageFilePath => {
                 const actionIcon = getActionIcon(item.actionCost);
                 const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;

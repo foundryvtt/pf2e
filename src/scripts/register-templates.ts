@@ -48,6 +48,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/party/kingdom/advancement.hbs",
 
         // Shared Actor Sheet Partials
+        "systems/pf2e/templates/actors/partials/action.hbs",
         "systems/pf2e/templates/actors/partials/carry-type.hbs",
         "systems/pf2e/templates/actors/partials/coinage.hbs",
         "systems/pf2e/templates/actors/partials/dying-pips.hbs",
