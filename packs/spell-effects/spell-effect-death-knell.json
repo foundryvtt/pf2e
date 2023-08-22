@@ -1,0 +1,48 @@
+{
+    "_id": "98XT2QUk6wvXIqf7",
+    "img": "systems/pf2e/icons/spells/death-knell.webp",
+    "name": "Spell Effect: Death Knell",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Knell]</em></p>\n<p>You gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
