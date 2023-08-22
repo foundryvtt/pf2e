@@ -461,6 +461,9 @@
                             "cold"
                         ],
                         "key": "FastHealing",
+                        "predicate": [
+                            "mask-of-power"
+                        ],
                         "type": "regeneration",
                         "value": 20
                     }
@@ -538,7 +541,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mask-of-power",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "mask-of-power"
+                        ],
+                        "type": [
+                            "enfeebled",
+                            "slowed"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
