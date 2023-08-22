@@ -356,11 +356,12 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                     fields: [
                         "flags",
                         "system.ancestry",
-                        "system.base",
+                        "system.baseItem",
                         "system.category",
                         "system.group",
                         "system.level",
                         "system.maxTakable",
+                        "system.potencyRune",
                         "system.slug",
                         "system.traits",
                     ],

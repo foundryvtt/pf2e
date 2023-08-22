@@ -177,6 +177,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             magical: this.isMagical,
+            [`rarity:${this.rarity}`]: true,
             uninvested: this.isInvested === false,
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
