@@ -22,7 +22,7 @@ class AttributeBuilder extends Application {
         return {
             ...super.defaultOptions,
             classes: ["attribute-builder"],
-            title: game.i18n.localize("PF2E.Actor.Creature.AttributeModifiers"),
+            title: game.i18n.localize("PF2E.Actor.Character.Attribute.Boosts"),
             template: "systems/pf2e/templates/actors/character/attribute-builder.hbs",
             width: "auto",
             height: "auto",
