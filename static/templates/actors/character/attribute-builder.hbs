@@ -198,7 +198,7 @@
             </div>
             <div class="attributes">
                 {{#each attributeModifiers as |attribute key|}}
-                    <div class="row-column"{{#if attribute.partial}} title="{{localize "PF2E.Actor.Character.AttributeBuilder.HasPartial"}}"{{/if}}>
+                    <div class="row-column">
                         {{#if ../manual}}
                             <button type="button" data-action="class-key-attribute" data-key="{{lookup ../attributes key}}" data-attribute="{{key}}"
                                 class="boost{{#if (eq ../manualKeyAttribute key)}} selected{{/if}}"
@@ -207,12 +207,12 @@
                                 <i class="fa-solid fa-fw fa-key"></i>
                                 <span>{{localize "PF2E.Actor.Character.AttributeBuilder.KeyIcon"}}</span>
                             </button>
-                            <input type="text" data-property="system.abilities.{{key}}.mod" name="system.abilities.{{key}}.mod" value="{{numberFormat attribute.base sign=true}}" data-dtype="Number" placeholder="0">
+                            <input type="text" data-property="system.abilities.{{key}}.mod" name="system.abilities.{{key}}.mod" value="{{attribute.mod}}" data-dtype="Number" placeholder="0" step="0.5">
                         {{else}}
                             <button type="button" class="boost hidden"></button>
-                            <div class="value">{{numberFormat attribute.base sign=true}}{{#if attribute.partial}}*{{/if}}</div>
+                            <div class="value">{{attribute.mod}}</div>
                         {{/if}}
-                        <h4>{{localize (lookup ../attributes key)}}</h4>
+                        <h4>{{localize attribute.label}}</h4>
                     </div>
                 {{/each}}
                 <button class="complete" type="button" data-action="close">{{localize "PF2E.Actor.Character.AttributeBuilder.Complete"}}</button>

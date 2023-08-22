@@ -1,10 +1,9 @@
 import { CharacterPF2e } from "@actor";
-import { Abilities } from "@actor/creature/data.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { maintainFocusInRender } from "@module/sheet/helpers.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, signedInteger, tupleHasValue } from "@util";
+import { ErrorPF2e, addSign, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 
 class AttributeBuilder extends Application {
@@ -46,8 +45,15 @@ class AttributeBuilder extends Application {
             ancestry: actor.ancestry,
             background: actor.background,
             class: actor.class,
-            attributeModifiers: actor.abilities,
-            manualKeyAbility: actor.keyAttribute,
+            attributeModifiers: R.mapValues(actor.abilities, (value, attribute) => {
+                // Allow decimal values in manual mode (to track partial boosts)
+                const mod = build.manual ? actor._source.system.abilities?.[attribute].mod ?? 0 : value.base;
+                return {
+                    mod: addSign(Number(mod.toFixed(1))),
+                    label: CONFIG.PF2E.abilities[attribute],
+                };
+            }),
+            manualKeyAttribute: actor.keyAttribute,
             keyOptions: build.keyOptions,
             ...this.#calculateAncestryBoosts(),
             backgroundBoosts: this.#calculateBackgroundBoosts(),
@@ -294,10 +300,11 @@ class AttributeBuilder extends Application {
 
         $html.find("div.tooltip").tooltipster();
 
+        // Input handling for manual attribute score entry
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
             input.addEventListener("focus", () => {
                 if (input.type === "text" && input.dataset.dtype === "Number") {
-                    input.value = input.value.replace(/\D/g, "");
+                    input.value = input.value.replace(/[^-.0-9]/g, "");
                     input.type = "number";
                 }
                 input.select();
@@ -306,8 +313,8 @@ class AttributeBuilder extends Application {
             input.addEventListener("blur", () => {
                 if (input.type === "number" && input.dataset.dtype === "Number") {
                     input.type = "text";
-                    const newValue = Math.trunc(Math.clamped(Number(input.value) || 0, -5, 10));
-                    input.value = signedInteger(newValue);
+                    const newValue = Math.clamped(Number(input.value) || 0, -5, 10);
+                    input.value = addSign(newValue);
 
                     const propertyPath = input.dataset.property;
                     if (!propertyPath) throw ErrorPF2e("Empty property path");
@@ -499,8 +506,8 @@ class AttributeBuilder extends Application {
 
 interface AttributeBuilderSheetData {
     actor: CharacterPF2e;
-    attributeModifiers: Abilities;
-    manualKeyAbility: AttributeString;
+    attributeModifiers: Record<AttributeString, { label: string; mod: string }>;
+    manualKeyAttribute: AttributeString;
     attributes: Record<AttributeString, string>;
     ancestry: AncestryPF2e<CharacterPF2e> | null;
     background: BackgroundPF2e<CharacterPF2e> | null;
