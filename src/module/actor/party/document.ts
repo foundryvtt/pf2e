@@ -125,6 +125,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
         this.attributes.speed = { total: travelSpeed };
 
+        this.prepareSynthetics();
         this.campaign?.prepareDerivedData?.();
     }
 

@@ -6,8 +6,16 @@
                 <img src="{{leader.img}}"/>
                 <div class="name">
                     {{#if leader.actor}}
-                        {{leader.actor.name}}
-                        <a data-action="remove-leader"><i class="fa-solid fa-times"></i></a>
+                        <span>
+                            {{leader.actor.name}}
+                            {{#if @root.options.editable}}
+                                <a data-action="remove-leader"><i class="fa-solid fa-times"></i></a>
+                            {{/if}}
+                        </span>
+                        <label class="invested" title="{{localize "PF2E.Kingmaker.Kingdom.InvestedBonus" ability=leader.abilityLabel}}">
+                            <input type="checkbox" name="leadership.{{leader.slug}}.invested" {{checked leader.invested}} />
+                            <span>{{localize "PF2E.Kingmaker.Kingdom.Invested"}}</span>
+                        </label>
                     {{else}}
                         {{localize "PF2E.Kingmaker.Kingdom.LeaderMissing"}}
                     {{/if}}
@@ -16,7 +24,7 @@
                     <span class="role">{{label}}</span>
                     {{#if leader.actor.hasPlayerOwner}}
                         <label class="vacant">
-                            <input type="checkbox" name="leadership.{{leader.slug}}.vacant" {{checked leader.vacant}}>
+                            <input type="checkbox" name="leadership.{{leader.slug}}.vacant" {{checked leader.vacant}} />
                             <span>{{localize "PF2E.Kingmaker.Kingdom.Vacant"}}</span>
                             <i class="fas fa-info-circle"></i>
                         </label>

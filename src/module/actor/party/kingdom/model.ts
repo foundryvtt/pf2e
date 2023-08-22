@@ -25,6 +25,7 @@ import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_LEADERSHIP,
+    KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
     KINGDOM_SIZE_DATA,
     KINGDOM_SKILLS,
@@ -249,13 +250,29 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                     modifiers.push(...entries.map((e) => () => new ModifierPF2e(e)));
                 }
             }
+
+            if (data.invested) {
+                const ability = KINGDOM_LEADERSHIP_ABILITIES[role];
+                const modifiers = (synthetics.modifiers[`${ability}-skill-check`] ??= []);
+                modifiers.push(
+                    () =>
+                        new ModifierPF2e({
+                            slug: "invested",
+                            label: "PF2E.Kingmaker.Kingdom.Invested",
+                            type: "status",
+                            modifier: 1,
+                        })
+                );
+            }
         }
 
         // Compute commodity max values
         for (const value of Object.values(this.resources.commodities)) {
             value.max = sizeData.storage;
         }
+    }
 
+    prepareDerivedData(): void {
         // Calculate the control dc, used for skill checks
         const controlMod = CONTROL_DC_BY_LEVEL[Math.clamped(this.level - 1, 0, 19)] - 10;
         this.control = new Statistic(this.actor, {
@@ -270,7 +287,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             const ability = KINGDOM_SKILL_ABILITIES[skill];
             const abilityMod = this.abilities[ability].mod;
             const rank = this.build.skills[skill].rank;
-            const domains = ["kingdom-check", `${ability}-based`, skill];
+            const domains = ["kingdom-check", `${ability}-based`, `${ability}-skill-check`, skill];
             const statistic = new Statistic(this.actor, {
                 slug: skill,
                 rank,
@@ -290,9 +307,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
             return [skill, statistic];
         });
-    }
 
-    prepareDerivedData(): void {
         // Create feat groups
         const evenLevels = new Array(this.level)
             .fill(0)

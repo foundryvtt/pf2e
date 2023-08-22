@@ -32,6 +32,17 @@ const KINGDOM_LEADERSHIP = [
     "warden",
 ] as const;
 
+const KINGDOM_LEADERSHIP_ABILITIES: Record<KingdomLeadershipRole, KingdomAbility> = {
+    ruler: "loyalty",
+    counselor: "culture",
+    general: "stability",
+    emissary: "loyalty",
+    magister: "culture",
+    treasurer: "economy",
+    viceroy: "economy",
+    warden: "stability",
+};
+
 const KINGDOM_COMMODITIES = ["food", "luxuries", "lumber", "ore", "stone"] as const;
 
 const KINGDOM_SKILLS = [
@@ -282,6 +293,7 @@ export {
     KINGDOM_SKILL_ABILITIES,
     KINGDOM_SKILL_LABELS,
     KINGDOM_LEADERSHIP,
+    KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
     VACANCY_PENALTIES,
     getKingdomABCData,

@@ -22,7 +22,30 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "kingdom-check",
+                "slug": "invested",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
+                ],
+                "selector": "kingdom-check",
+                "slug": "invested",
+                "value": 3
+            }
+        ],
         "source": {
             "value": "Pathfinder Kingmaker"
         },
