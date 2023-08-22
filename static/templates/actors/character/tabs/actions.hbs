@@ -79,8 +79,8 @@
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
                                     {{#each action.auxiliaryActions as |aux aid|}}
                                         <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
-                                            <span class="action-glyph">{{aux.glyph}}</span>
                                             <span>{{aux.label}}</span>
+                                            <span class="action-glyph">{{aux.glyph}}</span>
                                             {{#if aux.options}}
                                             <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
                                                 {{#each aux.options as |option|}}
@@ -219,12 +219,16 @@
 
 {{#*inline "attackDamage"}}
     <div class="button-group tags">
-        {{#each variants as |variant vi|}}
-            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
+        {{#each variants as |variant index|}}
+            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
-                {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
-                <span class="action-glyph">{{../glyph}}</span>
-                <span>{{variant.label}}</span>
+                {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
+            >
+                {{#if (eq index 0)}}
+                    <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                    <span class="action-glyph">{{../glyph}}</span>
+                {{/if}}
+                {{variant.label}}
             </button>
         {{/each}}
         {{#if item.dealsDamage}}

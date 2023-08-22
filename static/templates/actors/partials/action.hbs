@@ -9,20 +9,20 @@
     <div class="button-group">
         {{#if action.hasEffect}}
             <button type="button" class="use-action" data-action="use-action">
-                <span class="action-glyph">{{action.glyph}}</span>
                 <span>{{localize "PF2E.Action.Use"}}</span>
+                <span class="action-glyph">{{action.glyph}}</span>
             </button>
         {{/if}}
     </div>
 
     {{#if action.frequency}}
         <div class="tracking">
-            <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value" />
+            <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value" />
             <span>
                     /
-                    {{action.system.frequency.max}}
+                    {{action.frequency.max}}
                     {{localize "PF2E.Frequency.per"}}
-                    {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                    {{localize (lookup @root.frequencies action.frequency.per)}}
                 </span>
             </div>
         {{/if}}

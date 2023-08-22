@@ -1514,7 +1514,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Defer in case total modifier is recalulated with a different result later
         const labels = [
-            () => `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(action.totalModifier)}`,
+            () => signedInteger(action.totalModifier),
             () => createMapLabel("map1"),
             () => createMapLabel("map2"),
         ];
