@@ -90,6 +90,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         options.id ||= this.id;
         options.editable = this.isEditable;
 
+        for (const item of [...this.actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
+            if (item.system.selfEffect) {
+                item.system.selfEffect.img ??= fromUuidSync(item.system.selfEffect.uuid)?.img ?? null;
+            }
+        }
+
         // The Actor and its Items
         const actorData = this.actor.toObject(false) as ActorPF2e;
 

@@ -42,11 +42,18 @@ header.char-header {
     }
 }
 
-.sheet-content > .tab {
+.sheet-body .sheet-content > .tab {
     &:not(.inventory), .inventory .inventory-list {
         @include scrollbar;
         flex-grow: 1;
         overflow: hidden scroll;
+    }
+
+    &.actions {
+        ol.actions-list li.action .icon {
+            height: var(--font-size-18);
+            width: var(--font-size-18);
+        }
     }
 
     &.details {
@@ -111,8 +118,8 @@ header.char-header {
     }
 
     &.effects {
-        @import 'effects';
-        @import 'header';
+        @import "effects";
+        @import "header";
 
         ol.directory-list {
             @include p-reset;

@@ -113,11 +113,15 @@ a.foundry-href {
     border: 1px solid var(--color-border-dark-tertiary);
     box-sizing: border-box;
     color: var(--color-text-dark-primary);
-    font-weight: 500;
     line-height: 1.6em;
     padding: 1px 4px;
     white-space: nowrap;
     word-break: break-all;
+
+    > i.icon {
+        color: var(--color-text-dark-inactive);
+        margin-right: 0.25em;
+    }
 }
 
 /* ----------------------------------------- */
@@ -193,8 +197,6 @@ a.inline-check, span[data-pf2-check] {
     }
 
     > i.icon {
-        color: var(--color-text-dark-inactive);
-
         &:has(+ span.label > :first-child:is([data-visibility="gm"])) {
             margin-right: 0.25em;
         }
@@ -217,6 +219,8 @@ a.inline-check, span[data-pf2-check] {
 
 span[data-pf2-effect-area] {
     @include inline-link;
+    cursor: pointer;
+    padding-right: 0;
 
     &::before {
         color: var(--color-text-dark-inactive);
