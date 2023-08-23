@@ -91,25 +91,27 @@ class KingdomBuilder extends FormApplication<Kingdom> {
     override async getData(): Promise<KingdomBuilderSheetData> {
         const database = getKingdomABCData();
 
+        const getActiveForCategory = (category: KingdomBuildCategory) => {
+            const active = this.kingdom.build[category];
+            return Object.entries(database[category]).find(([_, entry]) => R.equals(active, entry))?.[0] ?? null;
+        };
+
         // Preset selected for exact matches (if unset)
         for (const category of KINGDOM_BUILD_CATEGORIES) {
-            if (this.selected[category]) continue;
-
-            const active = this.kingdom.build[category];
-            for (const [slug, entry] of Object.entries(database[category])) {
-                if (R.equals(active, entry)) {
-                    this.selected[category] = slug;
-                    break;
-                }
-            }
+            this.selected[category] ??= getActiveForCategory(category);
         }
 
         const categories = KINGDOM_BUILD_CATEGORIES.reduce((result, category) => {
             const selected = this.selected[category];
             const entries = database[category];
-            const active = (objectHasKey(entries, selected) ? entries[selected] : null) ?? Object.values(entries)[0];
-            const stale = !R.equals(active, this.kingdom.build[category]);
-            result[category] = { selected, active, stale };
+            const buildEntry =
+                (objectHasKey(entries, selected) ? entries[selected] : null) ?? Object.values(entries)[0];
+            result[category] = {
+                selected,
+                active: getActiveForCategory(category),
+                buildEntry,
+                stale: !R.equals(buildEntry, this.kingdom.build[category]),
+            };
             return result;
         }, {} as Record<KingdomBuildCategory, CategorySheetData>);
 
@@ -305,9 +307,12 @@ interface KingdomBuilderSheetData {
 }
 
 interface CategorySheetData {
+    /** The active build entry slug (the one that's been saved) */
+    active: string | null;
     /** Selected refers to the one the user is viewing. Can be null for custom ones */
     selected: string | null;
-    active?: KingdomCHG;
+    /** The build entry currently being viewed (aka selected) */
+    buildEntry?: KingdomCHG;
     stale: boolean;
 }
 
