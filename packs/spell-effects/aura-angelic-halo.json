@@ -1,0 +1,49 @@
+{
+    "_id": "jPZXZjetdauqYuEH",
+    "img": "systems/pf2e/icons/spells/angelic-halo.webp",
+    "name": "Aura: Angelic Halo",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Angelic Halo].</p>\n<p>You gain an angelic halo with an aura that increases allies' healing from the <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell. Allies in your halo's emanation who are healed by a heal spell gain a status bonus to Hit Points regained equal to double the heal spell's level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Angelic Halo"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 15,
+                "slug": "angelic-halo"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
