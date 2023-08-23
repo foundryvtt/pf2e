@@ -74,7 +74,7 @@
         border: 1px solid var(--tertiary);
         &:disabled {
             background: var(--sub);
-            pointer-events: none;;
+            pointer-events: none;
             opacity: 0.75;
         }
     }
@@ -326,6 +326,12 @@
                     --button-locked-color: #5e0000;
                 }
 
+                &:disabled {
+                    pointer-events: none;
+                    background: rgba(0, 0, 0, 0.04);
+                    opacity: 0.4;
+                }
+
                 &.selected {
                     background: var(--button-color);
                 }
@@ -356,15 +362,6 @@
                 &.hidden {
                     pointer-events: none;
                     visibility: hidden;
-                }
-
-                &:disabled {
-                    background: rgba(0, 0, 0, 0.04);
-                    opacity: 0.4;
-
-                    &:active {
-                        pointer-events: none;
-                    }
                 }
 
                 &.locked {

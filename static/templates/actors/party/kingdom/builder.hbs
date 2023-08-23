@@ -133,14 +133,19 @@
             {{#each choices as |choice slug|}}
                 <div class="choice {{#if (eq slug ../selected)}}selected{{/if}}" data-slug="{{slug}}">
                     <img src="{{choice.img}}" />
-                    <label>{{choice.name}}</label>
+                    <label>
+                        {{choice.name}}
+                        {{#if (eq ../active slug)}}
+                            <i class="fa-solid fa-check-circle"></i>
+                        {{/if}}
+                    </label>
                 </div>
             {{/each}}
         </section>
         <section class="selection">
             <div class="text">
                 <h3>
-                    {{active.name}}
+                    {{buildEntry.name}}
                     {{#if @root.options.editable}}
                         <div class="item-controls">
                             <a data-action="unset" {{disabled (not stale)}}><i class="fas fa-fw fa-redo"></i></a>
@@ -148,14 +153,14 @@
                         </div>
                     {{/if}}
                 </h3>
-                <div class="description"><div class="content">{{active.description}}</div></div>
+                <div class="description"><div class="content">{{buildEntry.description}}</div></div>
             </div>
             <footer>
                 <div class="boosts">
                     <section>
                         <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.BoostsLabel"}}:</strong>
                         <div class="abilities">
-                            {{#each active.boosts as |boost|}}
+                            {{#each buildEntry.boosts as |boost|}}
                                 {{#if (eq boost "free")}}
                                     <span>{{localize "PF2E.Kingmaker.KingdomBuilder.Free"}}</span>
                                 {{else}}
@@ -166,8 +171,8 @@
                     </section>
                     <section>
                         <strong>{{localize "PF2E.Kingmaker.KingdomBuilder.FlawLabel"}}:</strong>
-                        {{#if active.flaw}}
-                            <span>{{localize (lookup @root.abilities active.flaw)}}</span>
+                        {{#if buildEntry.flaw}}
+                            <span>{{localize (lookup @root.abilities buildEntry.flaw)}}</span>
                         {{else}}
                             <span>{{localize "PF2E.Kingmaker.KingdomBuilder.None"}}</span>
                         {{/if}}
