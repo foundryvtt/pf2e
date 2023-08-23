@@ -1,9 +1,10 @@
-{{> systems/pf2e/templates/chat/action/header.hbs glyph=action.typeNumber subtitle=action.subtitle title=action.title}}
+{{> systems/pf2e/templates/chat/action/header.hbs glyph=action.glyph subtitle=action.subtitle title=action.title}}
 {{#if traits}}
     <div class="tags">
         {{#each traits as |trait|}}
-            <span class="tag" title="{{localize trait.description}}">{{localize trait.name}}</span>
+            <span class="tag" data-slug="{{trait.name}}" data-description="{{trait.description}}">{{localize trait.label}}</span>
         {{/each}}
     </div>
 {{/if}}
+
 <hr class="action-divider" />
