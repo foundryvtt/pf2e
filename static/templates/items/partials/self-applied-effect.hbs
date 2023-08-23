@@ -1,6 +1,6 @@
-<div class="form-group">
+<div class="form-group" data-drop-zone="self-applied-effect">
     <span>{{localize "PF2E.Item.Action.SelfAppliedEffect.Label"}}</span>
-    <div class="drop-zone{{#if selfEffect.empty}} empty{{/if}}" data-drop-zone="self-applied-effect">
+    <div class="drop-zone{{#unless selfEffect}} empty{{/unless}}">
         {{#if selfEffect}}
             <img src="{{selfEffect.img}}" />
             <a class="name" data-action="open-effect-sheet" data-uuid="{{selfEffect.uuid}}">{{selfEffect.name}}</a>
