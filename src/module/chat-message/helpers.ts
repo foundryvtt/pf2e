@@ -1,9 +1,17 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { applyStackingRules } from "@actor/modifiers.ts";
 import { AbilityItemPF2e, FeatPF2e } from "@item";
-import { extractEphemeralEffects } from "@module/rules/helpers.ts";
+import { extractDamageDice, extractEphemeralEffects, extractModifiers, extractNotes } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, traitSlugToObject, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    getActionGlyph,
+    htmlQuery,
+    htmlQueryAll,
+    signedInteger,
+    traitSlugToObject,
+    tupleHasValue,
+} from "@util";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
@@ -88,6 +96,7 @@ async function applyDamageFromMessage({
     const originRollOptions = messageRollOptions
         .filter((o) => o.startsWith("self:"))
         .map((o) => o.replace(/^self/, "origin"));
+    const messageItem = message.item;
 
     for (const token of tokens) {
         if (!token.actor) continue;
@@ -115,28 +124,32 @@ async function applyDamageFromMessage({
             ...contextClone.getSelfRollOptions(),
         ]);
 
-        // target-specific healing adjustments
+        // Target-specific damage/healing adjustments
         const outcome = message.flags.pf2e.context?.outcome;
         const breakdown: string[] = [];
         const rolls: Rolled<Roll>[] = [];
         if (typeof damage === "number" && damage < 0) {
             const critical = outcome === "criticalSuccess";
 
-            const damageDice = (contextClone.synthetics.damageDice["healing-received"] ?? [])
-                .map((deferred) => deferred())
-                .filter((dice): dice is DamageDicePF2e => dice instanceof DamageDicePF2e)
-                .filter((dice) => dice.critical === null || dice.critical === critical)
-                .filter((dice) => dice.predicate.test(applicationRollOptions));
+            const resolvables = ((): Record<string, unknown> => {
+                if (messageItem?.isOfType("spell")) return { spell: messageItem };
+                if (messageItem?.isOfType("weapon")) return { weapon: messageItem };
+                return {};
+            })();
+
+            const damageDice = extractDamageDice(contextClone.synthetics.damageDice, [domain], {
+                resolvables,
+                test: applicationRollOptions,
+            }).filter(
+                (d) => (d.critical === null || d.critical === critical) && d.predicate.test(applicationRollOptions)
+            );
+
             for (const dice of damageDice) {
                 const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
                 const roll = await new Roll(formula).evaluate({ async: true });
                 roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
                 await roll.toMessage({
-                    flags: {
-                        pf2e: {
-                            suppressDamageButtons: true,
-                        },
-                    },
+                    flags: { pf2e: { suppressDamageButtons: true } },
                     flavor: dice.label,
                     speaker: ChatMessage.getSpeaker({ token }),
                 });
@@ -147,31 +160,27 @@ async function applyDamageFromMessage({
                 damage -= rolls.map((roll) => roll.total).reduce((previous, current) => previous + current);
             }
 
-            const modifiers = (contextClone.synthetics.modifiers["healing-received"] ?? [])
-                .map((deferred) => deferred())
-                .filter((modifier): modifier is ModifierPF2e => modifier instanceof ModifierPF2e)
-                .filter((modifier) => !!modifier.modifier)
-                .filter((modifier) => modifier.critical === null || modifier.critical === critical)
-                .filter((modifier) => modifier.predicate.test(applicationRollOptions));
+            const modifiers = extractModifiers(contextClone.synthetics, [domain], { resolvables }).filter(
+                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(applicationRollOptions)
+            );
 
             // unlikely to have any typed modifiers, but apply stacking rules just in case even though the context of
             // previously applied modifiers has been lost
             damage -= applyStackingRules(modifiers ?? []);
 
             // target-specific modifiers breakdown
-            breakdown.push(
-                ...modifiers
-                    .filter((modifier) => modifier.enabled)
-                    .map((modifier) => `${modifier.label} ${modifier.modifier < 0 ? "" : "+"}${modifier.modifier}`)
-            );
+            breakdown.push(...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`));
         }
 
         const hasDamage = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
         const notes = (() => {
             if (!hasDamage) return [];
-            return (contextClone.synthetics.rollNotes[domain] ?? [])
-                .filter((note) => !outcome || note.outcome.length === 0 || note.outcome.includes(outcome))
-                .filter((note) => note.predicate.test(applicationRollOptions))
+            return extractNotes(contextClone.synthetics.rollNotes, [domain])
+                .filter(
+                    (n) =>
+                        (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
+                        n.predicate.test(applicationRollOptions)
+                )
                 .map((note) => note.text);
         })();
 
