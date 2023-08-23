@@ -537,6 +537,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
+
+        this.system.selfEffect ??= null;
     }
 
     override prepareSiblingData(this: SpellPF2e<ActorPF2e>): void {

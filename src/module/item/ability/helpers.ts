@@ -1,6 +1,7 @@
 import { EffectPF2e, ItemPF2e } from "@item";
 import { FrequencySource } from "@item/data/base.ts";
 import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
+import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { ErrorPF2e, htmlQuery, isImageFilePath } from "@util";
 import { AbilitySystemData, SelfEffectReference } from "./data.ts";
 import type { ActionSheetPF2e } from "./sheet.ts";
@@ -41,7 +42,7 @@ function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, 
         item.update({ "system.-=frequency": null });
     });
 
-    if (item.isOfType("action", "feat")) {
+    if (item.isOfType("action", "feat", "spell")) {
         htmlQuery(html, "a[data-action=delete-effect]")?.addEventListener("click", () => {
             if (item._source.system.selfEffect) {
                 item.update({ "system.-=selfEffect": null });
@@ -77,8 +78,11 @@ interface SelfEffectSheetReference extends SelfEffectReference {
 }
 
 /** Save data from an effect item dropped on an ability or feat sheet. */
-async function handleSelfEffectDrop(sheet: ActionSheetPF2e | FeatSheetPF2e, event: ElementDragEvent): Promise<void> {
-    if (!sheet.isEditable || sheet.item.system.actionType.value === "passive") {
+async function handleSelfEffectDrop(
+    sheet: ActionSheetPF2e | FeatSheetPF2e | SpellSheetPF2e,
+    event: ElementDragEvent
+): Promise<void> {
+    if (!sheet.isEditable || (!sheet.item.isOfType("spell") && sheet.item.system.actionType.value === "passive")) {
         return;
     }
     const item = await (async (): Promise<ItemPF2e | null> => {

@@ -1,8 +1,13 @@
-import * as R from "remeda";
-import { SpellPF2e, SpellSystemSource } from "@item/spell/index.ts";
-import { ItemSheetPF2e } from "../sheet/base.ts";
-import { ItemSheetDataPF2e } from "../sheet/data-types.ts";
-import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data.ts";
+import { ActorPF2e } from "@actor";
+import {
+    activateActionSheetListeners,
+    createSelfEffectSheetData,
+    handleSelfEffectDrop,
+} from "@item/ability/helpers.ts";
+import { SelfEffectReference } from "@item/ability/index.ts";
+import { OneToTen } from "@module/data.ts";
+import { DamageCategoryUnique } from "@system/damage/types.ts";
+import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
@@ -13,10 +18,11 @@ import {
     tagify,
     tupleHasValue,
 } from "@util";
-import { OneToTen } from "@module/data.ts";
-import { DamageCategoryUnique } from "@system/damage/types.ts";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
-import { ActorPF2e } from "@actor";
+import * as R from "remeda";
+import { ItemSheetPF2e } from "../sheet/base.ts";
+import { ItemSheetDataPF2e } from "../sheet/data-types.ts";
+import { SpellDamage, SpellHeighteningInterval, SpellSystemData, SpellSystemSource } from "./data.ts";
+import { SpellPF2e } from "./document.ts";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
@@ -29,6 +35,16 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [
+                { dropSelector: "[data-drop-zone=self-applied-effect]" },
+                { dragSelector: "[data-variant-id]", dropSelector: "[data-drop-zone=variants]" },
+            ],
+        };
+    }
+
     override get id(): string {
         const baseId = super.id;
         const appliedOverlays = this.item.appliedOverlays;
@@ -89,13 +105,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             heightenIntervals: [1, 2, 3, 4],
             heightenOverlays: this.#prepareHeighteningLevels(),
             canHeighten: this.getAvailableHeightenLevels().length > 0,
-        };
-    }
-
-    static override get defaultOptions(): DocumentSheetOptions {
-        return {
-            ...super.defaultOptions,
-            dragDrop: [{ dragSelector: "[data-variant-id]", dropSelector: "[data-can-drop=true]" }],
+            selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
         };
     }
 
@@ -298,6 +308,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 }).render(true);
             }
         });
+
+        activateActionSheetListeners(this.item, html);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -326,10 +338,16 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
     protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
-        const transferString = event.dataTransfer.getData("text/plain");
-        if (!transferString) return;
 
-        const { action, data } = (JSON.parse(transferString) ?? {}) as { action?: string; data?: { sourceId: string } };
+        if (event.currentTarget.dataset.dropZone === "self-applied-effect") {
+            return handleSelfEffectDrop(this, event);
+        }
+
+        const transferString = event.dataTransfer.getData("text/plain");
+        const { action, data } = (JSON.parse(transferString ?? "{}") ?? {}) as {
+            action?: string;
+            data?: { sourceId: string };
+        };
 
         switch (action) {
             case "sort": {
@@ -459,6 +477,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     heightenIntervals: number[];
     heightenOverlays: SpellSheetHeightenOverlayData[];
     canHeighten: boolean;
+    selfEffect: SelfEffectReference | null;
 }
 
 interface SpellSheetOverlayData {
