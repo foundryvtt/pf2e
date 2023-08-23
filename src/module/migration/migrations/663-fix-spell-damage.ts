@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { SpellSystemData } from "@item/spell/data.ts";
+import { SpellSystemSource } from "@item/spell/data.ts";
 import { DamageType } from "@system/damage/index.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
@@ -22,12 +22,12 @@ function createBasicScaling(interval: number, scaling: string) {
 export class Migration663FixSpellDamage extends MigrationBase {
     static override version = 0.663;
 
-    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
-        if (itemData.type !== "spell") return;
-        if (Object.keys(itemData.system.damage?.value ?? {}).length > 0) return;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type !== "spell") return;
+        if (Object.keys(source.system.damage?.value ?? {}).length > 0) return;
 
-        const itemName = itemData.system.slug ?? sluggify(itemData.name);
-        const systemData: SpellScalingOld = itemData.system;
+        const itemName = source.system.slug ?? sluggify(source.name);
+        const systemData: SpellScalingOld = source.system;
 
         switch (itemName) {
             case "animated-assault":
@@ -63,7 +63,7 @@ export class Migration663FixSpellDamage extends MigrationBase {
     }
 }
 
-interface SpellScalingOld extends SpellSystemData {
+interface SpellScalingOld extends SpellSystemSource {
     scaling?: {
         interval: number;
         damage: Record<string, string>;
