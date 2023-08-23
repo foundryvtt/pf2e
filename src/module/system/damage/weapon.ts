@@ -319,6 +319,27 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Forceful trait
+        if (weaponTraits.includes("forceful") && baseDamage.die) {
+            const mapIncreases: number = (() => {
+                const mapValue = [...options.values()]
+                    .find((o) => o.startsWith("map:increases:"))
+                    ?.replace("map:increases:", "");
+                const result = Math.clamped(Number(mapValue), 0, 2);
+                return !Number.isNaN(result) ? result : 0;
+            })();
+
+            if (mapIncreases) {
+                const modifier = new ModifierPF2e({
+                    slug: "forceful",
+                    label: "PF2E.TraitForceful",
+                    modifier: mapIncreases * baseDamage.dice,
+                    type: "circumstance",
+                });
+                modifiers.push(modifier);
+            }
+        }
+
         // Critical specialization effects
         const critSpecEffect = ((): CritSpecEffect => {
             // If an alternate critical specialization effect is available, apply it only if there is also a
