@@ -325,8 +325,7 @@ class WeaponDamagePF2e {
                 const mapValue = [...options.values()]
                     .find((o) => o.startsWith("map:increases:"))
                     ?.replace("map:increases:", "");
-                const result = Math.clamped(Number(mapValue), 0, 2);
-                return !Number.isNaN(result) ? result : 0;
+                return Math.clamped(Number(mapValue), 0, 2);
             })();
 
             if (mapIncreases) {
