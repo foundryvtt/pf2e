@@ -54,5 +54,5 @@ interface ActionSheetData extends ItemSheetDataPF2e<AbilityItemPF2e> {
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
     skills: ConfigPF2e["PF2E"]["skillList"];
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
-    selfEffect: SelfEffectReference | { name: string; empty: true };
+    selfEffect: SelfEffectReference | null;
 }

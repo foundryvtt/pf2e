@@ -95,7 +95,7 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
     canHaveKeyOptions: boolean;
-    selfEffect: SelfEffectReference | { name: string; empty: true };
+    selfEffect: SelfEffectReference | null;
 }
 
 export { FeatSheetPF2e };
