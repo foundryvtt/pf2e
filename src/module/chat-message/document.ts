@@ -218,7 +218,7 @@ class ChatMessagePF2e extends ChatMessage {
         Listeners.ChatCards.listen(this, html);
         InlineRollLinks.listen(html, this);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
-        Listeners.MessageTooltips.listen($html);
+        Listeners.MessageTooltips.listen(html);
         if (canvas.ready) Listeners.SetAsInitiative.listen(html);
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
