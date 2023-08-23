@@ -445,12 +445,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     createTemplate(message?: ChatMessagePF2e): MeasuredTemplatePF2e {
         const templateConversion = {
             burst: "circle",
+            cone: "cone",
+            cube: "rect",
             emanation: "circle",
             line: "ray",
-            cone: "cone",
             rect: "rect",
             square: "rect",
-            cube: "rect",
         } as const;
 
         const { area } = this.system;
