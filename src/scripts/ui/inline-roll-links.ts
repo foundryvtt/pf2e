@@ -268,11 +268,22 @@ export const InlineRollLinks = {
                 templateData.fillColor ||= game.user.color;
                 templateData.t = templateConversion[pf2EffectArea];
 
-                if (templateData.t === "ray") {
-                    templateData.width =
-                        Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
-                } else if (templateData.t === "cone") {
-                    templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
+                switch (templateData.t) {
+                    case "ray":
+                        templateData.width =
+                            Number(pf2Width) ||
+                            CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
+                        break;
+                    case "cone":
+                        templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
+                        break;
+                    case "rect": {
+                        const distance = templateData.distance ?? 0;
+                        templateData.distance = Math.hypot(distance, distance);
+                        templateData.width = distance;
+                        templateData.direction = 45;
+                        break;
+                    }
                 }
 
                 if (pf2Traits) {

@@ -474,10 +474,20 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             },
         };
 
-        if (areaType === "ray") {
-            templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
-        } else if (areaType === "cone") {
-            templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
+        switch (areaType) {
+            case "ray":
+                templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
+                break;
+            case "cone":
+                templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
+                break;
+            case "rect": {
+                const distance = templateData.distance ?? 0;
+                templateData.distance = Math.hypot(distance, distance);
+                templateData.width = distance;
+                templateData.direction = 45;
+                break;
+            }
         }
 
         const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
