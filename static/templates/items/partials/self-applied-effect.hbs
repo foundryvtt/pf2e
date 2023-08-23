@@ -2,9 +2,16 @@
     <span>{{localize "PF2E.Item.Action.SelfAppliedEffect.Label"}}</span>
     <div class="drop-zone{{#unless selfEffect}} empty{{/unless}}">
         {{#if selfEffect}}
-            <img src="{{selfEffect.img}}" />
-            <a class="name" data-action="open-effect-sheet" data-uuid="{{selfEffect.uuid}}">{{selfEffect.name}}</a>
-            <a class="delete" data-action="delete-effect" title="{{localize "PF2E.Item.Action.SelfAppliedEffect.Delete"}}"><i class="fa-solid fa-trash"></i></a>
+            <a class="content-link" draggable="true" data-tooltip="{{localize "CONTROLS.CommonOpenSheet"}}"
+                data-id="{{selfEffect.id}}"
+                data-type="{{selfEffect.type}}"
+                data-pack="{{selfEffect.pack}}"
+                data-uuid="{{selfEffect.uuid}}"
+            >
+                <img src="{{selfEffect.img}}" />
+                <span class="name">{{selfEffect.name}}</span>
+            </a>
+            <a class="delete" data-action="delete-effect" data-tooltip="{{localize "PF2E.Item.Action.SelfAppliedEffect.Delete"}}"><i class="fa-solid fa-trash"></i></a>
         {{else}}
             <picture class="icon-placeholder"></picture>
             <span class="name">{{localize "PF2E.Item.Action.SelfAppliedEffect.Drop"}}</span>

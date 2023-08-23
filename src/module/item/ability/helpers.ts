@@ -42,13 +42,6 @@ function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, 
     });
 
     if (item.isOfType("action", "feat")) {
-        const openSheetLink = htmlQuery(html, "a[data-action=open-effect-sheet]");
-        openSheetLink?.addEventListener("click", async () => {
-            const uuid = openSheetLink.dataset.uuid ?? "";
-            const item = await fromUuid(uuid);
-            if (item instanceof ItemPF2e) item.sheet.render(true);
-        });
-
         htmlQuery(html, "a[data-action=delete-effect]")?.addEventListener("click", () => {
             if (item._source.system.selfEffect) {
                 item.update({ "system.-=selfEffect": null });
@@ -58,17 +51,29 @@ function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, 
 }
 
 /** Create data for the "self-applied effect" drop zone on an ability or feat sheet. */
-function createSelfEffectSheetData(data: SelfEffectReference | null): SelfEffectReference | null {
-    if (data && !data.img) {
-        type MaybeIndexData = ((ClientDocument | CompendiumIndexData) & { img?: unknown }) | null;
-        const indexEntry: MaybeIndexData = fromUuidSync(data.uuid);
-        if (indexEntry?.name && isImageFilePath(indexEntry.img)) {
-            data.name = indexEntry.name;
-            data.img = indexEntry.img;
-        }
-    }
+function createSelfEffectSheetData(data: SelfEffectReference | null): SelfEffectSheetReference | null {
+    if (!data) return null;
 
-    return data ?? null;
+    type MaybeIndexData = ((ClientDocument | CompendiumIndexData) & { img?: unknown }) | null;
+    const indexEntry: MaybeIndexData = fromUuidSync(data.uuid);
+    if (indexEntry?.name && isImageFilePath(indexEntry.img)) {
+        data.name = indexEntry.name;
+        data.img = indexEntry.img;
+    }
+    const parsedUUID = foundry.utils.parseUuid(data.uuid);
+    const linkData = {
+        id: parsedUUID.documentId ?? null,
+        type: parsedUUID.documentType ?? null,
+        pack: parsedUUID.collection instanceof CompendiumCollection ? parsedUUID.collection.metadata.id : null,
+    };
+
+    return { ...data, ...linkData };
+}
+
+interface SelfEffectSheetReference extends SelfEffectReference {
+    id: string | null;
+    type: string | null;
+    pack: string | null;
 }
 
 /** Save data from an effect item dropped on an ability or feat sheet. */

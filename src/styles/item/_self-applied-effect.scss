@@ -2,19 +2,23 @@
     align-items: center;
     border: 1px solid var(--color-border-light-tertiary);
     display: flex;
-    flex-grow: 3;
     gap: 0.25rem;
-    padding: 2px 4px 2px 2px;
+    max-width: fit-content;
+    padding: 0 4px 0 0;
 
     &.empty {
         font-weight: normal;
+        min-width: 12rem;
+        padding: 4px;
 
         .name {
             font-style: italic;
+            flex: 1;
+            text-align: center;
         }
     }
 
-    picture {
+    picture, img {
         border: 1px solid var(--color-border-dark);
         border-radius: 2px;
         box-sizing: border-box;
@@ -24,13 +28,17 @@
         width: 24px;
     }
 
-    img {
-        height: 24px;
-        width: 24px;
+    a.content-link {
+        align-items: center;
+        border: none;
+        border-right: 1px solid var(--color-border-light-2);
+        display: flex;
+        gap: 0.5em;
+        min-width: 9rem;
+        padding: 4px;
     }
 
     a.delete {
         display: flex;
-        margin-left: auto;
     }
 }
