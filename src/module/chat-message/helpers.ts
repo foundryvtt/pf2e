@@ -46,6 +46,7 @@ async function applyDamageFromMessage({
         if (!messageRollOptions.some((o) => o.startsWith("target"))) {
             messageRollOptions.push(...token.actor.getSelfRollOptions("target"));
         }
+        const domain = multiplier > 0 ? "damage-received" : "healing-received";
         const ephemeralEffects =
             multiplier > 0
                 ? await extractEphemeralEffects({
@@ -53,7 +54,7 @@ async function applyDamageFromMessage({
                       origin: message.actor,
                       target: token.actor,
                       item: message.item,
-                      domains: multiplier > 0 ? ["damage-received"] : ["healing-received"],
+                      domains: [domain],
                       options: messageRollOptions,
                   })
                 : [];
@@ -67,7 +68,6 @@ async function applyDamageFromMessage({
         // target-specific healing adjustments
         const outcome = message.flags.pf2e.context?.outcome;
         const breakdown: string[] = [];
-        const notes: string[] = [];
         const rolls: Rolled<Roll>[] = [];
         if (typeof damage === "number" && damage < 0) {
             const critical = outcome === "criticalSuccess";
@@ -114,13 +114,16 @@ async function applyDamageFromMessage({
                     .filter((modifier) => modifier.enabled)
                     .map((modifier) => `${modifier.label} ${modifier.modifier < 0 ? "" : "+"}${modifier.modifier}`)
             );
+        }
 
-            const rollNotes = (contextClone.synthetics.rollNotes["healing-received"] ?? [])
+        const hasDamage = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
+        const notes = (() => {
+            if (!hasDamage) return [];
+            return (contextClone.synthetics.rollNotes[domain] ?? [])
                 .filter((note) => !outcome || note.outcome.length === 0 || note.outcome.includes(outcome))
                 .filter((note) => note.predicate.test(applicationRollOptions))
                 .map((note) => note.text);
-            notes.push(...rollNotes);
-        }
+        })();
 
         await contextClone.applyDamage({
             damage,
