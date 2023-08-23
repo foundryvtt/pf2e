@@ -247,10 +247,12 @@ export const InlineRollLinks = {
 
         const templateConversion: Record<string, MeasuredTemplateType> = {
             burst: "circle",
+            cone: "cone",
+            cube: "rect",
             emanation: "circle",
             line: "ray",
-            cone: "cone",
             rect: "rect",
+            square: "rect",
         } as const;
 
         for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
