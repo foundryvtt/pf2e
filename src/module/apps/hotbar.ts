@@ -1,5 +1,5 @@
 import { SKILL_ABBREVIATIONS } from "@actor/values.ts";
-import { EffectPF2e, ItemPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
 import { createActionMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
 import { ErrorPF2e, isObject, setHasElement } from "@util";
@@ -34,13 +34,12 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                         ? `Actor.${data.actorId}.Item`
                         : "Item";
                 const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
+                if (!(item instanceof ItemPF2e)) return;
 
-                if (item instanceof EffectPF2e) {
+                if (item.isOfType("condition", "effect")) {
                     return createToggleEffectMacro(item, slot);
-                } else if (item instanceof ItemPF2e) {
-                    return HotbarPF2e.#createItemMacro(item, slot);
                 }
-                return;
+                return HotbarPF2e.#createItemMacro(item, slot);
             }
             case "RollOption": {
                 const item = fromUuidSync(data.uuid ?? "");
