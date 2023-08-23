@@ -121,6 +121,12 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         const rarity = item.system.traits?.rarity;
         const isEffect = item instanceof AbstractEffectPF2e;
+        const selfEffect =
+            item.isOfType("action", "feat") && item.system.selfEffect
+                ? await TextEditor.enrichHTML(`@UUID[${item.system.selfEffect.uuid}]{${item.system.selfEffect.name}}`, {
+                      async: true,
+                  })
+                : null;
 
         const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
             item,
@@ -129,6 +135,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             rarityLabel: rarity && item.isOfType("physical") ? CONFIG.PF2E.rarityTraits[rarity] : null,
             isCreature: item.actor?.isOfType("creature"),
             chatData,
+            selfEffect,
         });
 
         div.innerHTML = summary;
