@@ -1,7 +1,7 @@
 import { PhysicalItemPF2e } from "@item";
 import { UserPF2e } from "@module/user/index.ts";
 import { SocketMessage } from "@scripts/socket.ts";
-import { ErrorPF2e, localizer } from "@util";
+import { ErrorPF2e, getActionGlyph, localizer } from "@util";
 import { ActorPF2e } from "./index.ts";
 
 export interface ItemTransferData {
@@ -325,12 +325,13 @@ export class ItemTransfer implements ItemTransferData {
     }
 
     async #messageFlavor(sourceActor: ActorPF2e, targetActor: ActorPF2e, subtitle: string): Promise<string> {
+        const glyph = getActionGlyph(sourceActor.isOfType("loot") && targetActor.isOfType("loot") ? 2 : 1);
         return await renderTemplate(this.#templatePaths.flavor, {
             action: {
                 title: "PF2E.TraitInteract",
                 subtitle: subtitle,
                 tooltip: "PF2E.TraitInteract",
-                typeNumber: sourceActor.isOfType("loot") && targetActor.isOfType("loot") ? 2 : 1,
+                glyph,
             },
             traits: [
                 {
