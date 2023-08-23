@@ -101,7 +101,12 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
-        // If this is a strike, we usually want the strike's item
+        if (this.flags.pf2e.context?.type === "self-effect") {
+            const item = this.actor?.items.get(this.flags.pf2e.context.item);
+            return item ?? null;
+        }
+
+        // If this is a strike, return the strike's weapon or unarmed attack
         const strike = this._strike;
         if (strike?.item) return strike.item;
 
@@ -194,6 +199,10 @@ class ChatMessagePF2e extends ChatMessage {
         const { actor, item } = this;
         return { ...actor?.getRollData(), ...item?.getRollData() };
     }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
     override async getHTML(): Promise<JQuery> {
         const { actor } = this;

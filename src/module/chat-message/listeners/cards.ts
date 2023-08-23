@@ -11,7 +11,7 @@ import { ChatMessagePF2e } from "../index.ts";
 
 class ChatCards {
     static listen(message: ChatMessagePF2e, html: HTMLElement): void {
-        const selector = [".card-buttons button", ".message-buttons button", "button[data-action=consume]"].join(",");
+        const selector = ["a[data-action], button[data-action]"].join(",");
         for (const button of htmlQueryAll<HTMLButtonElement>(html, selector)) {
             button.addEventListener("click", async (event) => this.#onClickButton({ message, event, html, button }));
         }
@@ -19,7 +19,6 @@ class ChatCards {
 
     static async #onClickButton({ message, event, html, button }: OnClickButtonParams): Promise<void> {
         // Extract card data
-        const card = htmlClosest(button, ".chat-card, .message-buttons");
         const action = button.dataset.action;
 
         // Get the actor and item from the chat message
@@ -148,19 +147,42 @@ class ChatCards {
                     }
                     return;
                 }
+                case "expand-description": {
+                    const { description } = item;
+                    const element = htmlClosest(button, ".description");
+                    if (element) {
+                        element.innerHTML = await TextEditor.enrichHTML(description, {
+                            async: true,
+                            rollData: actor.getRollData(),
+                        });
+                        element.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }
+                    break;
+                }
+                case "apply-effect": {
+                    const target = fromUuidSync(button.dataset.targets ?? "");
+                    const effect =
+                        item.isOfType("action", "feat") && item.system.selfEffect
+                            ? await fromUuid(item.system.selfEffect.uuid)
+                            : null;
+                    if (target instanceof ActorPF2e && effect instanceof ItemPF2e && effect.isOfType("effect")) {
+                        await target.createEmbeddedDocuments("Item", [effect.clone().toObject()]);
+                    }
+                }
             }
         } else if (actor.isOfType("character", "npc")) {
+            const buttonGroup = htmlClosest(button, ".chat-card, .message-buttons");
             const physicalItem = await (async (): Promise<PhysicalItemPF2e | null> => {
-                const itemUuid = card?.dataset.itemUuid ?? "";
+                const itemUuid = buttonGroup?.dataset.itemUuid ?? "";
                 const maybeItem = await fromUuid(itemUuid);
                 return maybeItem instanceof PhysicalItemPF2e ? maybeItem : null;
             })();
-            const quantity = Number(card?.dataset.craftingQuantity) || 1;
+            const quantity = Number(buttonGroup?.dataset.craftingQuantity) || 1;
 
-            if (action === "repair-item" && card) {
-                await onRepairChatCardEvent(event, message, card);
+            if (action === "repair-item" && buttonGroup) {
+                await onRepairChatCardEvent(event, message, buttonGroup);
             } else if (physicalItem && action === "pay-crafting-costs") {
-                const quantity = Number(card?.dataset.craftingQuantity) || 1;
+                const quantity = Number(buttonGroup?.dataset.craftingQuantity) || 1;
                 const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
                 const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {

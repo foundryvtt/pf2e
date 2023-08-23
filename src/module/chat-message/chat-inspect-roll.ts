@@ -23,7 +23,7 @@ class ChatInspectRoll extends Application {
 
     override getData(): ChatRollDetailsData {
         const { context } = this.message.flags.pf2e;
-        const domains = context?.domains.sort();
+        const domains = context?.domains?.sort();
 
         const modifiers = this.prepareModifiers();
 

@@ -1,24 +1,70 @@
-&.emote {
-    > .message-content {
-        font-style: italic;
+&.emote > .message-content {
+    font-style: italic;
 
-        p {
-            &.action-content {
-                display: flex;
-                align-items: center;
-                font-weight: normal;
+    p.action-content {
+        display: flex;
+        align-items: center;
+        font-weight: normal;
 
-                img {
-                    height: 2.33em;
-                    width: 2.33em;
-                    float: left;
-                    margin-right: 0.5em;
+        img {
+            height: 2.33em;
+            width: 2.33em;
+            float: left;
+            margin-right: 0.5em;
+        }
+    }
+
+    hr.action-divider {
+        margin: 0;
+    }
+}
+
+> .message-header .flavor-text h4.action {
+    font-size: var(--font-size-14);
+    font-weight: normal;
+    line-height: 1.5em;
+    margin: 0;
+
+    > strong {
+        font-weight: 600;
+    }
+}
+
+> .message-content {
+    > .description {
+        margin-bottom: 0rem;
+        position: relative;
+
+        .preview {
+            height: 4.5ch;
+            display: block;
+            -webkit-mask-image: linear-gradient(to bottom, black, rgba(black, 0));
+            mask-image: linear-gradient(to bottom, black, rgba(black, 0));
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+
+            &:hover {
+                text-shadow: none;
+
+                + .shadow {
+                    box-shadow: 0 1px 6px var(--color-shadow-primary);
+                    clip-path: polygon(0 0, 100% 0, 100% 200%, 0 200%);
+                    width: 100%;
                 }
             }
         }
 
-        hr.action-divider {
-            margin: 0;
+        .shadow {
+            height: 6px;
+            position: relative;
+            top: -6px;
+            z-index: 1;
         }
+    }
+
+    .message-buttons {
+        display: flex;
+        margin: 0.35em 0 2px;
     }
 }

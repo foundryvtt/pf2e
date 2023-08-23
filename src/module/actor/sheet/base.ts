@@ -11,6 +11,7 @@ import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
@@ -378,6 +379,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
             strike.variants[variantIndex]?.roll({ event, altUsage });
         });
+
+        // Other actions
+        for (const button of htmlQueryAll(html, "button[data-action=use-action]")) {
+            button.addEventListener("click", () => {
+                const itemId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                if (item.isOfType("action", "feat")) {
+                    createSelfEffectMessage(item);
+                }
+            });
+        }
 
         // Set damage-formula tooltips on damage buttons
         const damageButtons = htmlQueryAll<HTMLButtonElement>(

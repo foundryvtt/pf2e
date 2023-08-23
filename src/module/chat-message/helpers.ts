@@ -1,12 +1,62 @@
+import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
+import { AbilityItemPF2e, FeatPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, traitSlugToObject, tupleHasValue } from "@util";
+import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
 
 function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFlag {
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
+}
+
+/** Create a message with collapsed action description and button to apply an effect */
+async function createSelfEffectMessage(
+    item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>
+): Promise<ChatMessagePF2e | undefined> {
+    if (!item.system.selfEffect) {
+        throw ErrorPF2e(
+            [
+                "Only actions with self-applied effects can be passed to `ActorPF2e#useAction`.",
+                "Support will be expanded at a later time.",
+            ].join(" ")
+        );
+    }
+
+    const { actor, actionCost } = item;
+    const token = actor.getActiveTokens(true, true).shift() ?? null;
+
+    const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
+    const flavor = await renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
+        action: {
+            glyph: getActionGlyph(actionCost),
+            title: item.name,
+        },
+        item,
+        traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
+    });
+
+    // Get a preview slice of the message
+    const previewLength = 100;
+    const descriptionPreview = ((): string | null => {
+        if (item.actor.pack) return null;
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = item.description;
+        return tempDiv.innerText.slice(0, previewLength);
+    })();
+    const description = {
+        full: descriptionPreview && descriptionPreview.length < previewLength ? item.description : null,
+        preview: descriptionPreview,
+    };
+    const content = await renderTemplate("systems/pf2e/templates/chat/action/self-effect.hbs", {
+        actor: item.actor,
+        description,
+    });
+    const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", item: item.id } } };
+
+    return ChatMessagePF2e.create({ speaker, flavor, content, flags });
 }
 
 async function applyDamageFromMessage({
@@ -206,4 +256,4 @@ function toggleClearTemplatesButton(message: ChatMessagePF2e | null): void {
     }
 }
 
-export { applyDamageFromMessage, isCheckContextFlag, toggleClearTemplatesButton };
+export { applyDamageFromMessage, createSelfEffectMessage, isCheckContextFlag, toggleClearTemplatesButton };
