@@ -33,7 +33,7 @@
 
     <section class="card-buttons">
         {{#each data.variants as |variant|}}
-            <button type="button" data-action="spell-variant" data-overlay-ids="{{variant.overlayIds}}"{{#if variant.actions}} class="with-image"{{/if}}>
+            <button type="button" data-action="spell-variant" data-visibility="owner" data-overlay-ids="{{variant.overlayIds}}"{{#if variant.actions}} class="with-image"{{/if}}>
                 {{#if variant.actions}}<img src="{{variant.actions}}" />{{/if}}
                 <span>{{variant.name}}</span>
             </button>
@@ -45,33 +45,33 @@
                 <section class="owner-buttons">
                     {{#if data.check}}
                         <div class="spell-attack-buttons">
-                            <button type="button" data-action="spell-attack">{{localize "PF2E.AttackLabel"}}</button>
-                            <button type="button" data-action="spell-attack-2">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map1}}</button>
-                            <button type="button" data-action="spell-attack-3">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map2}}</button>
+                            <button type="button" data-action="spell-attack" data-visibility="owner">{{localize "PF2E.AttackLabel"}}</button>
+                            <button type="button" data-action="spell-attack-2" data-visibility="owner">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map1}}</button>
+                            <button type="button" data-action="spell-attack-3" data-visibility="owner">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map2}}</button>
                         </div>
                     {{/if}}
                     {{#if data.hasDamage}}
                         <div class="spell-button">
-                            <button type="button" data-action="spell-damage">{{data.damageLabel}}</button>
+                            <button type="button" data-action="spell-damage" data-visibility="owner">{{data.damageLabel}}</button>
                         </div>
                     {{/if}}
                     {{#if data.hasCounteractCheck.value}}
                         <div class="spell-button">
-                            <button type="button" data-action="spell-counteract">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
+                            <button type="button" data-action="spell-counteract" data-visibility="owner">{{localize "PF2E.Item.Spell.Counteract.Label"}}</button>
                         </div>
                     {{/if}}
                     {{#if data.area.type}}
                         <div class="spell-button">
-                            <button type="button" data-action="spell-template">
+                            <button type="button" data-action="spell-template" data-visibility="owner">
                                 {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" shape=data.areaType size=data.areaSize unit=data.areaUnit}}
                             </button>
-                            <button class="small hidden" type="button" data-action="spell-template-clear" data-tooltip="{{localize "PF2E.Item.Spell.MeasuredTemplate.Clear"}}">
+                            <button class="small hidden" type="button" data-action="spell-template-clear" data-visibility="owner" data-tooltip="{{localize "PF2E.Item.Spell.MeasuredTemplate.Clear"}}">
                                 <i class="fa-solid fa-fw fa-trash"></i>
                             </button>
                         </div>
                     {{/if}}
                     {{#if item.isVariant}}
-                        <button type="button" data-action="spell-variant" data-original-id="{{item.original.id}}">{{localize "PF2E.Item.Spell.Variants.SelectOtherVariantLabel"}}</button>
+                        <button type="button" data-action="spell-variant" data-visibility="owner" data-original-id="{{item.original.id}}">{{localize "PF2E.Item.Spell.Variants.SelectOtherVariantLabel"}}</button>
                     {{/if}}
                 </section>
             {{/if}}
