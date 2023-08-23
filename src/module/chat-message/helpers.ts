@@ -128,7 +128,7 @@ async function applyDamageFromMessage({
         const outcome = message.flags.pf2e.context?.outcome;
         const breakdown: string[] = [];
         const rolls: Rolled<Roll>[] = [];
-        if (typeof damage === "number" && damage !== 0) {
+        if (typeof damage === "number" && damage < 0) {
             const critical = outcome === "criticalSuccess";
 
             const resolvables = ((): Record<string, unknown> => {
