@@ -1,0 +1,64 @@
+{
+    "_id": "XQpTyjXFYYNexyOk",
+    "img": "icons/tools/scribal/magnifying-glass.webp",
+    "name": "Effect: Devise a Stratagem",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d20"
+        },
+        "description": {
+            "value": "<p>You assess a foe's weaknesses in combat and use them to formulate a plan of attack against your enemy. Choose a creature you can see, and roll a d20. If you Strike the chosen creature later this round, you must use the result of the roll you made to Devise a Stratagem for your Strike's attack roll instead of rolling. You make this substitution only for the first Strike you make against the creature this round, not any subsequent attacks.</p>\n<p>When you make this substitution, you can also add your Intelligence modifier to your attack roll instead of your Strength or Dexterity modifier, provided your Strike uses an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon (which must be agile or finesse if it's a melee weapon with the thrown trait) or @UUID[Compendium.pf2e.equipment-srd.Item.Sap].</p>\n<p>If you're aware that the creature you choose is the subject of a lead you're pursuing, you can use this ability as a free action.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "SubstituteRoll",
+                "selector": "strike-attack-roll",
+                "slug": "devise-a-strategem",
+                "value": "@item.badge.value"
+            },
+            {
+                "key": "SubstituteRoll",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    },
+                    "feat:athletic-strategist"
+                ],
+                "selector": "athletics",
+                "slug": "devise-a-strategem",
+                "value": "@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
