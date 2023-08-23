@@ -1,13 +1,13 @@
 import { ItemSourcePF2e } from "@item/data/index.ts";
-import { SpellSystemData } from "@item/spell/data.ts";
+import { SpellSystemSource } from "@item/spell/data.ts";
 import { MigrationBase } from "../base.ts";
 
 export class Migration744MigrateSpellHeighten extends MigrationBase {
     static override version = 0.744;
 
-    override async updateItem(item: ItemSourcePF2e): Promise<void> {
-        if (item.type !== "spell") return;
-        const system: SpellScalingOld = item.system;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type !== "spell") return;
+        const system: SpellScalingOld = source.system;
         if (system.scaling) {
             system.heightening = {
                 type: "interval",
@@ -20,7 +20,7 @@ export class Migration744MigrateSpellHeighten extends MigrationBase {
     }
 }
 
-interface SpellScalingOld extends SpellSystemData {
+interface SpellScalingOld extends SpellSystemSource {
     scaling?: {
         interval: number;
         damage: Record<string, string>;
