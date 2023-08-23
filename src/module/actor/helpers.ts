@@ -25,7 +25,6 @@ import { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
 import { AttackItem } from "./types.ts";
-import { ANIMAL_COMPANION_SOURCE_IDS, CONSTRUCT_COMPANION_SOURCE_IDS } from "./values.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -518,12 +517,8 @@ function calculateRangePenalty(
 
 /** Whether this actor is of a the "character" type, excluding those from the PF2E Companion Compendia module */
 function isReallyPC(actor: ActorPF2e): boolean {
-    if (!actor.isOfType("character")) return false;
-    const classItemSourceID = actor.class?.sourceId;
-    return !(
-        [...ANIMAL_COMPANION_SOURCE_IDS, ...CONSTRUCT_COMPANION_SOURCE_IDS].includes(classItemSourceID ?? "") ||
-        actor.traits.has("eidolon")
-    );
+    const traits = actor.traits;
+    return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
 }
 
 interface MAPData {

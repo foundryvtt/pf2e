@@ -1,4 +1,3 @@
-import { ANIMAL_COMPANION_SOURCE_IDS } from "@actor/values.ts";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { htmlClosest, pick } from "@util";
@@ -136,12 +135,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const sideBySide =
             this.isAdjacentTo(flankee) &&
             flanking.canGangUp.includes("animal-companion") &&
-            flankingBuddies.some(
-                (b) =>
-                    b.actor?.isOfType("character") &&
-                    ANIMAL_COMPANION_SOURCE_IDS.includes(b.actor.class?.sourceId ?? "") &&
-                    b.isAdjacentTo(flankee)
-            );
+            flankingBuddies.some((b) => {
+                if (!b.actor?.isOfType("character")) return false;
+                const traits = b.actor.traits;
+                return traits.has("minion") && !traits.has("construct") && b.isAdjacentTo(flankee);
+            });
         if (sideBySide) return true;
 
         // Find a flanking buddy opposite this token
