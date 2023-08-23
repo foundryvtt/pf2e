@@ -49,7 +49,7 @@ function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, 
             if (item instanceof ItemPF2e) item.sheet.render(true);
         });
 
-        htmlQuery(html, "a[data-action=delete-effect")?.addEventListener("click", () => {
+        htmlQuery(html, "a[data-action=delete-effect]")?.addEventListener("click", () => {
             if (item._source.system.selfEffect) {
                 item.update({ "system.-=selfEffect": null });
             }
@@ -58,9 +58,7 @@ function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, 
 }
 
 /** Create data for the "self-applied effect" drop zone on an ability or feat sheet. */
-function createSelfEffectSheetData(
-    data: SelfEffectReference | null
-): SelfEffectReference | { name: string; empty: true } {
+function createSelfEffectSheetData(data: SelfEffectReference | null): SelfEffectReference | null {
     if (data && !data.img) {
         type MaybeIndexData = ((ClientDocument | CompendiumIndexData) & { img?: unknown }) | null;
         const indexEntry: MaybeIndexData = fromUuidSync(data.uuid);
@@ -70,7 +68,7 @@ function createSelfEffectSheetData(
         }
     }
 
-    return data ?? { name: "Drop Effect", empty: true };
+    return data ?? null;
 }
 
 /** Save data from an effect item dropped on an ability or feat sheet. */

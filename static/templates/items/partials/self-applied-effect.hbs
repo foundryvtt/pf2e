@@ -1,16 +1,14 @@
 <div class="form-group">
     <span>{{localize "PF2E.Item.Action.SelfAppliedEffect.Label"}}</span>
     <div class="drop-zone{{#if selfEffect.empty}} empty{{/if}}" data-drop-zone="self-applied-effect">
-        {{#if selfEffect.empty}}
-            <picture class="icon-placeholder"></picture>
-            <span class="name">{{selfEffect.name}}</span>
-        {{else}}
-            <img src="{{data.selfEffect.img}}" />
+        {{#if selfEffect}}
+            <img src="{{selfEffect.img}}" />
             <a class="name" data-action="open-effect-sheet" data-uuid="{{selfEffect.uuid}}">{{selfEffect.name}}</a>
-        {{/if}}
-        {{#unless selfEffect.empty}}
             <a class="delete" data-action="delete-effect" title="{{localize "PF2E.Item.Action.SelfAppliedEffect.Delete"}}"><i class="fa-solid fa-trash"></i></a>
-        {{/unless}}
+        {{else}}
+            <picture class="icon-placeholder"></picture>
+            <span class="name">{{localize "PF2E.Item.Action.SelfAppliedEffect.Drop"}}</span>
+        {{/if}}
     </div>
     <p class="hint">{{localize "PF2E.Item.Action.SelfAppliedEffect.Hint"}}</p>
 </div>
