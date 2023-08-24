@@ -9,16 +9,15 @@ import { BaseRollContext } from "@system/rolls.ts";
 
 type RollTwiceOption = "keep-higher" | "keep-lower" | false;
 
-type AttackCheck = "attack-roll" | "spell-attack-roll";
 type CheckType =
+    | "attack-roll"
     | "check"
     | "counteract-check"
+    | "flat-check"
     | "initiative"
-    | "skill-check"
     | "perception-check"
     | "saving-throw"
-    | "flat-check"
-    | AttackCheck;
+    | "skill-check";
 
 interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
@@ -51,4 +50,4 @@ interface CheckRollContext extends BaseRollContext {
     dosAdjustments?: DegreeOfSuccessAdjustment[];
 }
 
-export { AttackCheck, CheckRollContext, CheckType, RollTwiceOption };
+export { CheckRollContext, CheckType, RollTwiceOption };

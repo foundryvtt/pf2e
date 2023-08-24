@@ -314,15 +314,16 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.parent = parent;
         this.type = data.check?.type ?? "check";
         this.label = this.#determineLabel(data);
-        this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
 
+        const domains = new Set(R.compact(["check", data.domains, data.check?.domains].flat()));
         // If this is a flat check, ensure there are no input domains and replace them
-        if (this.type === "flat-check") {
-            if (this.domains.length > 0) {
-                throw ErrorPF2e("Flat checks cannot have associated domains");
-            }
-            this.domains = [`${this.parent.slug}-check`];
+        if (this.type === "flat-check" && domains.size > 0) {
+            throw ErrorPF2e("Flat checks cannot have associated domains");
+        } else if (this.type === "attack-roll") {
+            domains.add("attack");
+            domains.add("attack-roll");
         }
+        this.domains = Array.from(domains).sort();
 
         // Acquire additional adjustments for cloned parent modifiers
         const { modifierAdjustments } = parent.actor.synthetics;
@@ -354,13 +355,15 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const parentLabel = this.parent.label;
         if (data.check?.label) return game.i18n.localize(data.check?.label);
 
+        if (this.domains.includes("spell-attack-roll")) {
+            return game.i18n.format("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
+        }
+
         switch (this.type) {
             case "skill-check":
                 return game.i18n.format("PF2E.SkillCheckWithName", { skillName: parentLabel });
             case "saving-throw":
                 return game.i18n.format("PF2E.SavingThrowWithName", { saveName: parentLabel });
-            case "spell-attack-roll":
-                return game.i18n.format("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
             case "perception-check":
                 return game.i18n.format("PF2E.PerceptionCheck");
             default:
@@ -401,7 +404,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const rollContext = await (() => {
             const isValidAttacker = actor.isOfType("creature", "hazard");
             const isTargetedCheck =
-                (this.type === "spell-attack-roll" && item?.isOfType("spell")) ||
+                (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (["check", "perception-check", "skill-check"].includes(this.type) &&
                     !!(args.dc && (args.dc?.slug || "statistic" in args.dc)) &&
                     (!item || item.isOfType("action", "weapon")));
