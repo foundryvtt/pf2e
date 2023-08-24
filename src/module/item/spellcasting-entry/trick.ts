@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
 import { AttributeString, SkillLongForm } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
+import { MagicTradition } from "@item/spell/types.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 import { ErrorPF2e } from "@util/misc.ts";
-import { MagicTradition } from "@item/spell/types.ts";
+import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 
 const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
 type TrickMagicItemSkill = (typeof TRICK_MAGIC_SKILLS)[number];
@@ -90,7 +90,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,
             check: {
-                type: "spell-attack-roll",
+                type: "attack-roll",
                 modifiers: extractModifiers(actor.synthetics, attackSelectors),
                 domains: attackSelectors,
             },

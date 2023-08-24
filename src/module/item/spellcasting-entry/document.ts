@@ -1,9 +1,10 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data.ts";
+import { OneToFour, OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
@@ -15,7 +16,6 @@ import {
     SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
 } from "./types.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
@@ -178,7 +178,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 rollOptions: this.getRollOptions("spellcasting"),
                 domains: baseDomains,
                 check: {
-                    type: "spell-attack-roll",
+                    type: "attack-roll",
                     domains: checkDomains,
                 },
                 dc: { domains: dcDomains },
@@ -197,7 +197,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 domains: baseDomains,
                 rollOptions: this.getRollOptions("spellcasting"),
                 check: {
-                    type: "spell-attack-roll",
+                    type: "attack-roll",
                     domains: checkDomains,
                     modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, "untyped")],
                 },
