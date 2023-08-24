@@ -49,6 +49,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         for (const slotNumber of [1, 2, 3, 4]) {
             formData[`system.propertyRune${slotNumber}.value`] ||= null;
         }
+        formData["system.usage.value"] = formData["system.category"] === "shield" ? "held-in-one-hand" : "wornarmor";
 
         return super._updateObject(event, formData);
     }
