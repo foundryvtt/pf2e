@@ -9,7 +9,7 @@ import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { ErrorPF2e, getActionGlyph, objectHasKey, pick, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, pick, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
 import type { CharacterPF2e } from "./document.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
@@ -184,17 +184,12 @@ class WeaponAuxiliaryAction {
         const flavorAction = {
             title: `PF2E.Actions.${this.action}.Title`,
             subtitle: `PF2E.Actions.${this.action}.${this.fullPurpose}.Title`,
-            typeNumber: this.glyph,
+            glyph: this.glyph,
         };
 
         const flavor = await renderTemplate(templates.flavor, {
             action: flavorAction,
-            traits: [
-                {
-                    name: CONFIG.PF2E.featTraits.manipulate,
-                    description: CONFIG.PF2E.traitsDescriptions.manipulate,
-                },
-            ],
+            traits: [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
         });
 
         const content = await renderTemplate(templates.content, {
