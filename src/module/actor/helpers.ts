@@ -389,6 +389,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 new CheckModifier(checkName, context.self.statistic ?? strike, otherModifiers),
                 {
                     type: "attack-roll",
+                    identifier: item.id,
+                    action: "strike",
                     actor: context.self.actor,
                     token: context.self.token,
                     item: context.self.item,

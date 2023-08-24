@@ -1217,7 +1217,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
-        const slug = weapon.slug ?? sluggify(weapon.name);
+        const weaponSlug = weapon.slug ?? sluggify(weapon.name);
 
         const weaponSpecificSelectors = [
             weapon.baseType ? `${weapon.baseType}-base-attack-roll` : [],
@@ -1228,8 +1228,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const baseSelectors = [
             ...weaponSpecificSelectors,
             `${weapon.id}-attack`,
-            `${slug}-attack`,
-            `${slug}-attack-roll`,
+            `${weaponSlug}-attack`,
+            `${weaponSlug}-attack-roll`,
             `${unarmedOrWeapon}-attack-roll`,
             `${meleeOrRanged}-attack-roll`,
             "strike-attack-roll",
@@ -1403,7 +1403,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
-        const strikeStat = new StatisticModifier(slug, modifiers, rollOptions);
+        const strikeStat = new StatisticModifier(weaponSlug, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
         const versatileLabel = (damageType: DamageType): string => {
             switch (damageType) {
@@ -1435,7 +1435,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             item: weapon,
             type: "strike" as const,
             ...flavor,
-            options: weapon.system.options?.value ?? [],
+            options: R.compact([weapon.system.options?.value, "action:strike", "self:action:slug:strike"].flat()),
             traits: [],
             weaponTraits: Array.from(weaponTraits)
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
@@ -1579,6 +1579,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const checkContext: CheckRollContext = {
                     type: "attack-roll",
+                    identifier: `${weapon.id}.${weaponSlug}.${meleeOrRanged}`,
+                    action: "strike",
                     actor: context.self.actor,
                     token: context.self.token,
                     target: context.target,

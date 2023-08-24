@@ -22,6 +22,10 @@ type CheckType =
 interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
+    /** A string of some kind to identify the roll: will be included in `CheckRoll#options` */
+    identifier?: Maybe<string>;
+    /** The slug of an action, of which this roll is a workflow component */
+    action?: Maybe<string>;
     /** Targeting data for the check, if applicable */
     target?: RollTarget | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
@@ -38,6 +42,8 @@ interface CheckRollContext extends BaseRollContext {
     dc?: CheckDC | null;
     /** The domains this roll had, for reporting purposes */
     domains?: string[];
+    /** Is this check part of an action that deals damage? */
+    damaging?: boolean;
     /** Is the roll a reroll? */
     isReroll?: boolean;
     /** The number of MAP increases for this roll */

@@ -607,6 +607,8 @@ interface CheckDCReference {
 }
 
 interface StatisticRollParameters {
+    /** A string of some kind to identify the roll: will be included in `CheckRoll#options` */
+    identifier?: Maybe<string>;
     /** What token to use for the roll itself. Defaults to the actor's token */
     token?: TokenDocumentPF2e;
     /** Which attack this is (for the purposes of multiple attack penalty) */

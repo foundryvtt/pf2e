@@ -23,13 +23,6 @@ class ChatMessagePF2e extends ChatMessage {
             pf2e: {},
         });
         super(data, context);
-
-        // Backward compatibility for roll messages prior to `rollerId` (user ID) being stored with the roll
-        for (const roll of this.rolls) {
-            if (roll instanceof CheckRoll) {
-                roll.roller ??= this.user ?? null;
-            }
-        }
     }
 
     /** Is this a damage (or a manually-inputed non-D20) roll? */

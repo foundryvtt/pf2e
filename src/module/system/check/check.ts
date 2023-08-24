@@ -155,10 +155,16 @@ class CheckPF2e {
             return null;
         })();
 
+        const actionSlug = context.action ? sluggify(context.action) || null : null;
+
         const options: CheckRollDataPF2e = {
+            type: context.type,
+            identifier: context.identifier,
+            action: actionSlug,
             rollerId: game.userId,
             isReroll,
             totalModifier: check.totalModifier,
+            damaging: strike?.damaging ?? context.damaging ?? false,
             domains: context.domains,
         };
         if (strike) options.strike = strike;
@@ -226,6 +232,9 @@ class CheckPF2e {
 
         const contextFlag: CheckRollContextFlag = {
             ...context,
+            type: context.type ?? "check",
+            identifier: context.identifier ?? null,
+            action: actionSlug,
             item: undefined,
             dosAdjustments,
             actor: context.actor?.id ?? null,
@@ -237,11 +246,11 @@ class CheckPF2e {
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",
-            type: context.type ?? "check",
             traits: context.traits ?? [],
             substitutions,
             dc: context.dc ? R.omit(context.dc, ["statistic"]) : null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
+            damaging: context.damaging ?? false,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,
             unadjustedOutcome: context.unadjustedOutcome ?? null,
