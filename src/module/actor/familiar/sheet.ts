@@ -4,6 +4,7 @@ import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { FamiliarPF2e } from "@actor/familiar/index.ts";
 import { AbilityItemPF2e } from "@item";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { StatisticTraceData } from "@system/statistic/data.ts";
 import { htmlQuery } from "@util";
 import * as R from "remeda";
 
@@ -30,7 +31,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
     }
 
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
-        const baseData = await super.getData(options);
+        const sheetData = await super.getData(options);
         const familiar = this.actor;
         // Get all potential masters of the familiar
         const masters = game.actors.filter(
@@ -44,19 +45,24 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
 
         // Update save labels
-        if (baseData.data.saves) {
+        if (sheetData.data.saves) {
             for (const key of ["fortitude", "reflex", "will"] as const) {
-                const save = baseData.data.saves[key];
+                const save = sheetData.data.saves[key];
                 save.label = CONFIG.PF2E.saves[key];
             }
         }
 
+        const skills = Object.values(sheetData.data.skills).sort((a, b) =>
+            a.label.localeCompare(b.label, game.i18n.lang)
+        );
+
         return {
-            ...baseData,
+            ...sheetData,
             master: this.actor.master,
             masters,
             abilities,
             size,
+            skills,
             familiarAbilities: {
                 value: familiarAbilities?.value ?? 0,
                 items: R.sortBy(this.actor.itemTypes.action, (a) => a.sort),
@@ -83,6 +89,7 @@ interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetDa
     masters: CharacterPF2e[];
     abilities: ConfigPF2e["PF2E"]["abilities"];
     size: string;
+    skills: StatisticTraceData[];
     familiarAbilities: {
         value: number;
         items: AbilityItemPF2e[];
