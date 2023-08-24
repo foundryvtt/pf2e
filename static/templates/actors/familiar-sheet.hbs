@@ -73,7 +73,7 @@
                                 <div class="value"><i class="fa-solid fa-shield-alt"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
                             </div>
                             {{#each data.saves as |save|}}
-                                <a class="saves save-name rollable" title="{{this.breakdown}}" data-save="{{save.slug}}">
+                                <a class="saves save-name rollable" title="{{save.breakdown}}" data-save="{{save.slug}}">
                                     <div class="name">{{localize save.label}}</div>
                                     <div class="value">{{numberFormat save.value decimals=0 sign=true}}</div>
                                 </a>
@@ -206,29 +206,7 @@
                 <div class="section-body">
                     <ol class="actions-list item-list">
                         {{#each familiarAbilities.items as |action|}}
-                            <li class="item action flexrow" data-item-id="{{action.id}}">
-                                <div class="action-name rollable">
-                                    <h4><a>{{action.name}} {{{actionGlyph action.actionCost}}}</a></h4>
-                                    {{#if action.system.frequency}}
-                                        <section class="action-tracking">
-                                            <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
-                                            <span>
-                                                /
-                                                {{action.system.frequency.max}}
-                                                {{localize "PF2E.Frequency.per"}}
-                                                {{localize (lookup @root.frequencies action.system.frequency.per)}}
-                                            </span>
-                                        </section>
-                                    {{/if}}
-                                </div>
-                                <div class="item-controls">
-                                    <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt"></i></a>
-                                    {{#if @root.options.editable}}
-                                        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                        <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                                    {{/if}}
-                                </div>
-                            </li>
+                            {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=../options.editable}}
                         {{/each}}
                     </ol>
                 </div>
