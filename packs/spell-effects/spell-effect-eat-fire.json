@@ -4,13 +4,13 @@
     "name": "Spell Effect: Eat Fire",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Eat Fire]</em></p>\n<p>You gain resistance to fire damage until the end of the current turn.</p>"
         },
         "duration": {
             "expiry": "turn-end",
             "sustained": false,
             "unit": "rounds",
-            "value": -1
+            "value": 1
         },
         "level": {
             "value": 1
@@ -19,7 +19,7 @@
             {
                 "key": "Resistance",
                 "type": "fire",
-                "value": "5*max(1,floor((@item.level -1)/3)"
+                "value": "5*max(1,floor((@item.level -1)/3))"
             }
         ],
         "source": {
