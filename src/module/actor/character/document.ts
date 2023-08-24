@@ -1716,10 +1716,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Modify this weapon from AdjustStrike rule elements */
-    override getRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
-        params: RollContextParams<TStatistic, TItem>
-    ): Promise<RollContext<this, TStatistic, TItem>>;
-    override async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
+    protected override getRollContext<
+        TStatistic extends StatisticCheck | StrikeData | null,
+        TItem extends AttackItem | null
+    >(params: RollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
+    protected override async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
         const context = await super.getRollContext(params);
         if (params.statistic instanceof StatisticModifier && context.self.item?.isOfType("weapon")) {
             PCStrikeAttackTraits.adjustWeapon(context.self.item);

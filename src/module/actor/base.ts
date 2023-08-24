@@ -802,10 +802,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /*  Rolls                                       */
     /* -------------------------------------------- */
 
-    getRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
+    protected getRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
         params: RollContextParams<TStatistic, TItem>
     ): Promise<RollContext<this, TStatistic, TItem>>;
-    async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
+    protected async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
         const [selfToken, targetToken] =
             canvas.ready && !params.viewOnly
                 ? [
