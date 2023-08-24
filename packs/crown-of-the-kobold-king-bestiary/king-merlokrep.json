@@ -2481,12 +2481,28 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> King Merlokrep is adjacent to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> King Merlokrep whips his fabulous satin cloak into the face of an adjacent creature and attempts an Intimidation check against that creature's Will DC. On a success, the creature is humiliated and distracted by the act and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of King Merlokrep's next turn. King Merlokrep then Strides up to his Speed and gains a +2 circumstance bonus to AC against reactions triggered by this movement. He must end this movement in a space that isn't adjacent to any enemy..</p>"
+                    "value": "<p><strong>Requirements</strong> King Merlokrep is adjacent to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> King Merlokrep whips his fabulous satin cloak into the face of an adjacent creature and attempts an Intimidation check against that creature's Will DC. On a success, the creature is humiliated and distracted by the act and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of King Merlokrep's next turn. King Merlokrep then Strides up to his Speed and gains a +2 circumstance bonus to AC against reactions triggered by this movement. He must end this movement in a space that isn't adjacent to any enemy.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "imperious-retreat",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "imperious-retreat"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
