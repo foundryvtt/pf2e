@@ -75,7 +75,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             ...sheetData,
             languages: createSheetTags(CONFIG.PF2E.languages, actor.system.traits.languages),
             abilities: CONFIG.PF2E.abilities,
-            skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,
             alignments: deepClone(CONFIG.PF2E.alignments),
             rarity: CONFIG.PF2E.rarityTraits,

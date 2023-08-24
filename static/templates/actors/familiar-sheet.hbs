@@ -37,7 +37,7 @@
             <section class="details-section">
                 <div class="hp-section">
                     <div class="label">
-                        <i class="fas fa-heart"></i>
+                        <i class="fa-solid fa-heart"></i>
                         <h4>{{localize "PF2E.HitPointsHeader"}}</h4>
                     </div>
                     <div class="value">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="label">
-                        <i class="fas fa-heart-broken"></i>
+                        <i class="fa-solid fa-heart-broken"></i>
                         <h4>{{localize "PF2E.condition.dying.name"}}</h4>
                     </div>
                     <div class="value dying-section">
@@ -70,12 +70,12 @@
                         <div class="defenses-list">
                             <div class="ac" title="{{data.attributes.ac.breakdown}}">
                                 <div class="name">{{localize "PF2E.ArmorClassShortLabel"}}</div>
-                                <div class="value"><i class="fas fa-shield-alt"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
+                                <div class="value"><i class="fa-solid fa-shield-alt"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
                             </div>
-                            {{#each data.saves}}
-                                <a class="saves save-name rollable" title="{{this.breakdown}}" data-save="{{@key}}">
-                                    <div class="name">{{localize this.label}}</div>
-                                    <div class="value">{{numberFormat this.value decimals=0 sign=true}}</div>
+                            {{#each data.saves as |save|}}
+                                <a class="saves save-name rollable" title="{{this.breakdown}}" data-save="{{save.slug}}">
+                                    <div class="name">{{localize save.label}}</div>
+                                    <div class="value">{{numberFormat save.value decimals=0 sign=true}}</div>
                                 </a>
                             {{/each}}
                         </div>
@@ -102,10 +102,10 @@
                                 </div>
                             </div>
                             <div class="skills-list">
-                                {{#each data.skills}}
-                                    <div class="skill-name rollable" title="{{this.breakdown}}" data-skill="{{@key}}">
-                                        <div class="score">{{numberFormat this.value decimals=0 sign=true}}</div>
-                                        <div class="name">{{localize this.label}}</div>
+                                {{#each skills as |skill|}}
+                                    <div class="skill-name rollable" title="{{skill.breakdown}}" data-skill="{{skill.slug}}">
+                                        <div class="score">{{numberFormat skill.value decimals=0 sign=true}}</div>
+                                        <div class="name">{{skill.label}}</div>
                                     </div>
                                 {{/each}}
                             </div>

@@ -37,7 +37,6 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
     };
     languages: SheetOptions;
     abilities: ConfigPF2e["PF2E"]["abilities"];
-    skills: ConfigPF2e["PF2E"]["skills"];
     actorSizes: ConfigPF2e["PF2E"]["actorSizes"];
     alignments: { [K in Alignment]?: string };
     rarity: ConfigPF2e["PF2E"]["rarityTraits"];
