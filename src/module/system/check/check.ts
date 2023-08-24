@@ -2,7 +2,6 @@ import { ActorPF2e, CharacterPF2e } from "@actor";
 import { StrikeData, TraitViewData } from "@actor/data/base.ts";
 import { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
-import { WeaponPF2e } from "@item";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -277,7 +276,7 @@ class CheckPF2e {
         }
 
         // Consume one unit of the weapon if it has the consumable trait
-        const isConsumableWeapon = item instanceof WeaponPF2e && item.traits.has("consumable");
+        const isConsumableWeapon = item?.isOfType("weapon") && item.traits.has("consumable");
         if (isConsumableWeapon && item.actor.items.has(item.id) && item.quantity > 0) {
             await item.update({ system: { quantity: item.quantity - 1 } });
         }
@@ -306,11 +305,13 @@ class CheckPF2e {
         };
 
         const traits =
-            context.traits
-                ?.map((trait) => {
+            R.uniqBy(
+                context.traits?.map((trait) => {
                     trait.label = game.i18n.localize(trait.label);
                     return trait;
-                })
+                }) ?? [],
+                (t) => t.name
+            )
                 .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                 .map((t) => toTagElement(t)) ?? [];
 
