@@ -313,7 +313,6 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     constructor(parent: TParent, data: StatisticData, config: RollOptionConfig = {}) {
         this.parent = parent;
         this.type = data.check?.type ?? "check";
-        this.label = this.#determineLabel(data);
 
         const domains = new Set(R.compact(["check", data.domains, data.check?.domains].flat()));
         // If this is a flat check, ensure there are no input domains and replace them
@@ -324,6 +323,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             domains.add("attack-roll");
         }
         this.domains = Array.from(domains).sort();
+        this.label = this.#determineLabel(data);
 
         // Acquire additional adjustments for cloned parent modifiers
         const { modifierAdjustments } = parent.actor.synthetics;
