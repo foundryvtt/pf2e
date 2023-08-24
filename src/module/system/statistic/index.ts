@@ -335,14 +335,26 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             return clone;
         });
 
-        const allCheckModifiers = [
+        // Acquire additional adjustments for check-only modifiers using the parent's domains
+        const checkOnlyModifiers = [
             data.check?.modifiers ?? [],
             extractModifiers(parent.actor.synthetics, data.check?.domains ?? []),
-        ].flat();
+        ]
+            .flat()
+            .map((modifier) => {
+                modifier.adjustments.push(
+                    ...extractModifierAdjustments(
+                        parent.actor.synthetics.modifierAdjustments,
+                        parent.domains,
+                        this.parent.slug
+                    )
+                );
+                return modifier;
+            });
         const rollOptions = parent.createRollOptions(this.domains, config);
         this.modifiers = [
             ...parentModifiers,
-            ...allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions })),
+            ...checkOnlyModifiers.map((modifier) => modifier.clone({ test: rollOptions })),
         ];
         this.mod = new StatisticModifier(this.label, this.modifiers, rollOptions).totalModifier;
     }
@@ -568,13 +580,26 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
             return clone;
         });
 
-        // Add all modifiers from all sources together, then test them
-        const allDCModifiers = [
+        // Acquire additional adjustments for DC-only modifiers using the parent's domains
+        const dcOnlyModifiers = [
             data.dc?.modifiers ?? [],
             extractModifiers(parent.actor.synthetics, data.dc?.domains ?? []),
-        ].flat();
+        ]
+            .flat()
+            .map((modifier) => {
+                modifier.adjustments.push(
+                    ...extractModifierAdjustments(
+                        parent.actor.synthetics.modifierAdjustments,
+                        parent.domains,
+                        this.parent.slug
+                    )
+                );
+                return modifier;
+            });
+
+        // Add modifiers from both sources together and test them
         this.modifiers = [
-            ...new StatisticModifier("", [...parentModifiers, ...allDCModifiers.map((m) => m.clone())], this.options)
+            ...new StatisticModifier("", [...parentModifiers, ...dcOnlyModifiers.map((m) => m.clone())], this.options)
                 .modifiers,
         ];
     }
