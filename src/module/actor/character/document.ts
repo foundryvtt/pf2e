@@ -1543,7 +1543,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains: selectors,
                     statistic: action,
                     target: { token: game.user.targets.first() ?? null },
-                    targetedDC: "armor",
+                    defense: "armor",
                     options: new Set([...baseOptions, ...params.options, ...action.options]),
                     viewOnly: params.getFormula,
                 });

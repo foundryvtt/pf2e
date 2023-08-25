@@ -62,7 +62,7 @@ abstract class BaseStatistic {
     constructor(actor: ActorPF2e, data: BaseStatisticData) {
         this.actor = actor;
         this.slug = data.slug;
-        this.label = game.i18n.localize(data.label);
+        this.label = game.i18n.localize(data.label).trim();
         this.data = { ...data };
         this.domains = [...(data.domains ??= [])];
         const modifiers = [data.modifiers ?? [], extractModifiers(this.actor.synthetics, this.domains)].flat();
@@ -427,7 +427,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                       domains,
                       statistic: this,
                       target: targetToken,
-                      targetedDC: args.dc?.slug ?? "armor",
+                      defense: args.dc?.slug ?? "armor",
                       options: new Set(args.extraRollOptions ?? []),
                   })
                 : null;
@@ -526,7 +526,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
             dosAdjustments,
             traits,
-            title: args.title,
+            title: args.title?.trim() || args.label?.trim() || this.label,
             createMessage: args.createMessage ?? true,
         };
 
@@ -536,7 +536,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         const roll = await CheckPF2e.roll(
-            new CheckModifier(args.label || this.label, { modifiers: this.modifiers }, extraModifiers),
+            new CheckModifier(this.parent.slug, { modifiers: this.modifiers }, extraModifiers),
             context,
             null,
             args.callback
