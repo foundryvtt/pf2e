@@ -17,7 +17,7 @@ type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
 interface GetReachParameters {
     action?: "interact" | "attack";
-    weapon?: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e> | null;
+    weapon?: Maybe<WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>>;
 }
 
 interface CreatureUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {

@@ -879,9 +879,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         const itemOptions = selfItem?.getRollOptions("item") ?? [];
-        const isAttackAction = ["attack", "strike-damage", "attack-spell-damage"].some((d) =>
-            params.domains.includes(d)
-        );
+        const isAttackAction = ["attack", "attack-roll", "attack-damage"].some((d) => params.domains.includes(d));
 
         const traitSlugs: ActionTrait[] = [
             isAttackAction ? ("attack" as const) : [],
@@ -932,17 +930,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             ? [params.item.reach, params.item.isMelee]
             : params.item?.isOfType("weapon")
             ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
+            : params.melee
+            ? [this.getReach({ action: "attack" }), true]
             : [null, false];
 
         // Add an epehemeral effect from flanking
-        const isFlankingStrike = !!(
+        const isFlankingAttack = !!(
+            isAttackAction &&
             isMelee &&
             typeof reach === "number" &&
-            params.statistic instanceof StatisticModifier &&
             targetToken?.actor &&
             selfToken?.isFlanking(targetToken, { reach })
         );
-        if (isFlankingStrike && isOffGuardFromFlanking(targetToken.actor, selfActor)) {
+        if (isFlankingAttack && isOffGuardFromFlanking(targetToken.actor, selfActor)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             targetEphemeralEffects.push(condition.toObject());
@@ -961,10 +961,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   targetEphemeralEffects
               ) ?? null;
 
-        const isAttack =
-            params.statistic instanceof StatisticModifier ||
-            (params.statistic instanceof Statistic &&
-                ["attack-roll", "spell-attack-roll"].includes(params.statistic.check.type));
         const rollOptions = new Set(
             R.compact([
                 ...params.options,
@@ -972,7 +968,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ...(targetActor ? getTargetRollOptions(targetActor) : targetRollOptions),
                 ...itemOptions,
                 // Backward compatibility for predication looking for an "attack" trait by its lonesome
-                isAttack ? "attack" : null,
+                isAttackAction ? "attack" : null,
             ]).sort()
         );
 

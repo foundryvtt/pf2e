@@ -267,7 +267,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             "damage",
             "spell-damage",
             `${this.id}-damage`,
-            this.traits.has("attack") ? "attack-spell-damage" : [],
+            this.traits.has("attack") ? ["attack-damage", "attack-spell-damage"] : [],
         ].flat();
 
         const options = new Set([
