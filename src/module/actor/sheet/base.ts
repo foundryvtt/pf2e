@@ -217,17 +217,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         );
     }
 
-    protected getStrikeFromDOM(target: HTMLElement): StrikeData | null {
-        const actionIndex = Number(target.closest<HTMLElement>("[data-action-index]")?.dataset.actionIndex);
-        const rootAction = this.actor.system.actions?.[actionIndex];
-        if (!rootAction) return null;
-
-        const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
-            ? target.dataset.altUsage
-            : null;
+    protected getStrikeFromDOM(button: HTMLElement): StrikeData | null {
+        const actionIndex = Number(htmlClosest(button, "[data-action-index]")?.dataset.actionIndex ?? "NaN");
+        const rootAction = this.actor.system.actions?.at(actionIndex) ?? null;
+        const altUsage = tupleHasValue(["thrown", "melee"], button?.dataset.altUsage) ? button?.dataset.altUsage : null;
 
         return altUsage
-            ? rootAction.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
+            ? rootAction?.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
             : rootAction;
     }
 
@@ -351,34 +347,46 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Strikes
-        const $strikesList = $html.find("ol.strikes-list");
+        for (const strikeElem of htmlQueryAll(html, "ol.strikes-list > li[data-strike]")) {
+            // Attack
+            const attackSelectors = ".item-image[data-action=strike-attack], button[data-action=strike-attack]";
+            for (const button of htmlQueryAll(strikeElem, attackSelectors)) {
+                button.addEventListener("click", async (event) => {
+                    if (!Array.isArray(this.actor.system.actions)) {
+                        throw ErrorPF2e("Strikes are not supported on this actor");
+                    }
 
-        $strikesList.find("button[data-action=strike-damage]").on("click", async (event) => {
-            await this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
-        });
+                    const altUsage = tupleHasValue(["thrown", "melee"] as const, button.dataset.altUsage)
+                        ? button.dataset.altUsage
+                        : null;
 
-        $strikesList.find("button[data-action=strike-critical]").on("click", async (event) => {
-            await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
-        });
-
-        const attackSelectors = ".item-image[data-action=strike-attack], button[data-action=strike-attack]";
-        $strikesList.find(attackSelectors).on("click", (event) => {
-            if (!("actions" in this.actor.system)) {
-                throw ErrorPF2e("Strikes are not supported on this actor");
+                    const strike = this.getStrikeFromDOM(button);
+                    const variantIndex = Number(button.dataset.variantIndex);
+                    await strike?.variants[variantIndex]?.roll({ event, altUsage });
+                });
             }
 
-            const target = event.currentTarget;
-            const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
-                ? target.dataset.altUsage
-                : null;
+            // Damage
+            const damageSelectors = "button[data-action=strike-damage], button[data-action=strike-critical]";
+            for (const button of htmlQueryAll(strikeElem, damageSelectors)) {
+                const strike = this.getStrikeFromDOM(button);
+                const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
+                button.addEventListener("click", async (event) => {
+                    await strike?.[method]?.({ event });
+                });
 
-            const strike = this.getStrikeFromDOM(event.currentTarget);
-            if (!strike) return;
-            const $button = $(event.currentTarget);
-            const variantIndex = Number($button.attr("data-variant-index"));
+                const altUsage = tupleHasValue(["thrown", "melee"], button.dataset.altUsage)
+                    ? button.dataset.altUsage
+                    : null;
 
-            strike.variants[variantIndex]?.roll({ event, altUsage });
-        });
+                // Set damage-formula tooltips
+                strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
+                    if (!formula) return;
+                    button.title = formula.toString();
+                    $(button).tooltipster({ position: "top", theme: "crb-hover" });
+                });
+            }
+        }
 
         // Other actions
         for (const button of htmlQueryAll(html, "button[data-action=use-action]")) {
@@ -388,25 +396,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 if (item.isOfType("action", "feat")) {
                     createSelfEffectMessage(item);
                 }
-            });
-        }
-
-        // Set damage-formula tooltips on damage buttons
-        const damageButtons = htmlQueryAll<HTMLButtonElement>(
-            $strikesList[0],
-            ["button[data-action=strike-damage]", "button[data-action=strike-critical]"].join(",")
-        );
-        for (const button of damageButtons) {
-            const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
-            const altUsage = tupleHasValue(["thrown", "melee"] as const, button.dataset.altUsage)
-                ? button.dataset.altUsage
-                : null;
-
-            const strike = this.getStrikeFromDOM(button);
-            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
-                if (!formula) return;
-                button.title = formula.toString();
-                $(button).tooltipster({ position: "top", theme: "crb-hover" });
             });
         }
 
