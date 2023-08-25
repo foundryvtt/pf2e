@@ -106,20 +106,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command) ? command : "roll";
     }
 
-    /** Upstream method sometimes fails to recognize the top of the chat log as being the highest scroll position. */
-    protected override _onScrollLog(event: JQuery.TriggeredEvent): void {
-        super._onScrollLog(event);
-
-        const log = event.target;
-        if (game.release.build <= 307 && log instanceof HTMLOListElement) {
-            const upstreamScrollPercent = (log.scrollTop + log.clientHeight) / log.scrollHeight;
-            const actualScrollPercent = log.scrollTop / (log.scrollHeight - log.clientHeight);
-            if (upstreamScrollPercent >= 0.01 && actualScrollPercent < 0.001) {
-                this._renderBatch(this.element, CONFIG.ChatMessage.batchSize);
-            }
-        }
-    }
-
     static #messageFromEvent(
         event: Event
     ): { element: HTMLLIElement; message: ChatMessagePF2e } | { element: null; message: null } {
