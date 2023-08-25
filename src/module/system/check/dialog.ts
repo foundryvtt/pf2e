@@ -25,7 +25,19 @@ export class CheckModifiersDialog extends Application {
         resolve: (value: boolean) => void,
         context: CheckRollContext = { options: new Set() }
     ) {
-        super({ title: context?.title || check.slug });
+        // The title often has HTML in it: get the base text
+        const title = ((): string => {
+            const maybeWithHTML = context.title?.trim() || check.slug;
+            if (!maybeWithHTML.includes("<")) return maybeWithHTML.trim();
+
+            const div = document.createElement("div");
+            div.innerHTML = maybeWithHTML;
+            div.querySelector(".action-glyph, .pf2-icon")?.remove();
+
+            return div.innerText.trim();
+        })();
+
+        super({ title });
 
         this.check = check;
         this.resolve = resolve;
