@@ -48,6 +48,7 @@ const damageTypes: Record<DamageType, string> = {
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
     poison: "PF2E.TraitPoison",
+    spirit: "PF2E.TraitSpirit",
     untyped: "PF2E.TraitUntyped",
 };
 

@@ -327,6 +327,19 @@
                     }
                 }
 
+                &.spirit {
+                    border-color: $damage-spirit;
+                    color: color.adjust($damage-spirit, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-spirit, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-spirit;
+                    }
+                }
+
                 .precision, .splash {
                     border-color: inherit;
                     border-width: 1px;
