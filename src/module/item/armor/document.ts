@@ -6,6 +6,7 @@ import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
 import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
+import { UserPF2e } from "@module/user/index.ts";
 
 class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
@@ -248,6 +249,31 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         const itemType = game.i18n.localize(base ?? group ?? fallback);
 
         return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+    }
+
+    protected override async _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        this._source.system.usage.value = this.#usageForCategory(this._source.system.category);
+        return super._preCreate(data, options, user);
+    }
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentUpdateContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        const category = changed.system?.category;
+        if (changed.system && category) {
+            changed.system = mergeObject(changed.system, { usage: { value: this.#usageForCategory(category) } });
+        }
+        return super._preUpdate(changed, options, user);
+    }
+
+    #usageForCategory(category: DeepPartial<ArmorCategory>): string {
+        return category === "shield" ? "held-in-one-hand" : "wornarmor";
     }
 }
 
