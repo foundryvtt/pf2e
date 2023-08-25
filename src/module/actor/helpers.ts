@@ -380,17 +380,18 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             }
 
             const otherModifiers = [map ?? [], context.self.modifiers].flat();
-            const checkName = game.i18n.format(
+            const title = game.i18n.format(
                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
                 { weapon: item.name }
             );
 
             const roll = await CheckPF2e.roll(
-                new CheckModifier(checkName, context.self.statistic ?? strike, otherModifiers),
+                new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers),
                 {
                     type: "attack-roll",
                     identifier: item.id,
                     action: "strike",
+                    title,
                     actor: context.self.actor,
                     token: context.self.token,
                     item: context.self.item,
