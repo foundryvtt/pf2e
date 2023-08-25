@@ -215,13 +215,13 @@ class CheckPF2e {
         const flavor = await (async (): Promise<string> => {
             const result = await this.#createResultFlavor({ degree, target: context.target ?? null });
             const tags = this.#createTagFlavor({ check, context, extraTags });
-            const header = check.slug.startsWith("<h4")
-                ? check.slug
+            const title = (context.title ?? check.slug).trim();
+            const header = title.startsWith("<h4")
+                ? title
                 : ((): HTMLElement => {
-                      const h4 = document.createElement("h4");
-                      h4.classList.add("action");
-                      h4.innerHTML = check.slug;
-                      return h4;
+                      const strong = document.createElement("strong");
+                      strong.innerHTML = title;
+                      return createHTMLElement("h4", { classes: ["action"], children: [strong] });
                   })();
 
             return [header, result ?? [], tags, notesText]

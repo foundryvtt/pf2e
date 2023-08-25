@@ -1486,11 +1486,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
             .join(", ");
 
-        const checkName = game.i18n.format(
-            weapon.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
-            { weapon: weapon.name }
-        );
-
         // Multiple attack penalty
         const maps = calculateMAPs(weapon, { domains: selectors, options: initialRollOptions });
         const createMapModifier = (prop: "map1" | "map2") => {
@@ -1521,11 +1516,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, statistic, otherModifiers),
+                new CheckModifier("strike", statistic, otherModifiers),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, statistic, [...otherModifiers, createMapModifier("map1")]),
+                new CheckModifier("strike-map1", statistic, [...otherModifiers, createMapModifier("map1")]),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(checkName, statistic, [...otherModifiers, createMapModifier("map2")]),
+                new CheckModifier("strike-map2", statistic, [...otherModifiers, createMapModifier("map2")]),
         ];
 
         action.variants = [0, 1, 2].map((mapIncreases) => ({
@@ -1576,11 +1571,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     selectors,
                     context.options
                 );
+                const title = game.i18n.format(
+                    weapon.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
+                    { weapon: weapon.name }
+                );
 
                 const checkContext: CheckRollContext = {
                     type: "attack-roll",
                     identifier: `${weapon.id}.${weaponSlug}.${meleeOrRanged}`,
                     action: "strike",
+                    title,
                     actor: context.self.actor,
                     token: context.self.token,
                     target: context.target,
