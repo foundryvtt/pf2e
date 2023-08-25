@@ -19,26 +19,26 @@
         <div class="tracking">
             <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value" />
             <span>
-                    /
-                    {{action.frequency.max}}
-                    {{localize "PF2E.Frequency.per"}}
-                    {{localize (lookup @root.frequencies action.frequency.per)}}
-                </span>
-            </div>
-        {{/if}}
+                /
+                {{action.frequency.max}}
+                {{localize "PF2E.Frequency.per"}}
+                {{localize (lookup @root.frequencies action.frequency.per)}}
+            </span>
+        </div>
+    {{/if}}
 
-        {{#if (and action.exploration @root.document.parties.size)}}
-            <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
-                {{localize "PF2E.Actor.Character.Active"}}
-            </button>
-        {{/if}}
+    {{#if (and action.exploration @root.document.parties.size)}}
+        <button type="button" class="activate {{#if action.exploration.active}}active{{/if}}" data-action="toggle-exploration">
+            {{localize "PF2E.Actor.Character.Active"}}
+        </button>
+    {{/if}}
 
-        <div class="item-controls">
-            {{#if @root.options.editable}}
-                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                {{#unless action.feat}}
-                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                {{/unless}}
+    <div class="item-controls">
+        {{#if @root.options.editable}}
+            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+            {{#unless action.feat}}
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+            {{/unless}}
         {{/if}}
     </div>
 </li>
