@@ -51,7 +51,10 @@ async function createSelfEffectMessage(
     const descriptionPreview = ((): string | null => {
         if (item.actor.pack) return null;
         const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = item.description;
+        const documentTypes = [...CONST.DOCUMENT_LINK_TYPES, "Compendium", "UUID"];
+        const linkPattern = new RegExp(`@(${documentTypes.join("|")})\\[([^#\\]]+)(?:#([^\\]]+))?](?:{([^}]+)})?`, "g");
+        tempDiv.innerHTML = item.description.replace(linkPattern, (_match, ...args) => args[3]);
+
         return tempDiv.innerText.slice(0, previewLength);
     })();
     const description = {
