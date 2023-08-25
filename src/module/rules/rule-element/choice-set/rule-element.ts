@@ -54,8 +54,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item. If a roll option is specified, assign that as well.
+        this.item.flags.pf2e.rulesSelections[this.flag] = this.selection;
         if (this.selection !== null) {
-            this.item.flags.pf2e.rulesSelections[this.flag] = this.selection;
             this.#setRollOption(this.selection);
         } else if (!this.allowNoSelection && this.test()) {
             // Disable this and all other rule elements on the item until a selection is made
