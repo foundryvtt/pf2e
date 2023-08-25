@@ -265,11 +265,11 @@ class EncounterPF2e extends Combat {
     }
 
     /**
-     * Work around upstream issue present in versions 11.304-11.307
+     * Work around upstream issue present throughout V11
      * https://github.com/foundryvtt/foundryvtt/issues/9718
      */
     protected override async _manageTurnEvents(adjustedTurn?: number): Promise<void> {
-        if (this.previous || game.release.build >= 308) {
+        if (this.previous || game.release.generation > 11) {
             return super._manageTurnEvents(adjustedTurn);
         }
     }
