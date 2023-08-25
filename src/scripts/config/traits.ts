@@ -89,6 +89,7 @@ const elementalTraits = {
     water: "PF2E.TraitWater",
     wood: "PF2E.TraitWood",
 };
+type ElementTrait = keyof typeof elementalTraits;
 
 const energyDamageTypes = {
     acid: "PF2E.TraitAcid",
@@ -1367,6 +1368,7 @@ const kingmakerTraits = {
 };
 
 export {
+    ElementTrait,
     actionTraits,
     alignmentTraits,
     ancestryItemTraits,
