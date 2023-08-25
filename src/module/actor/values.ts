@@ -14,7 +14,16 @@ const WEAKNESS_TYPES = new Set(Object.keys(weaknessTypes)) as Set<WeaknessType>;
 
 const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<ResistanceType>;
 
-const UNAFFECTED_TYPES = new Set(["good", "evil", "lawful", "chaotic", "negative", "positive", "bleed"] as const);
+const UNAFFECTED_TYPES = new Set([
+    "bleed",
+    "good",
+    "evil",
+    "lawful",
+    "chaotic",
+    "negative",
+    "positive",
+    "spirit",
+] as const);
 
 const SKILL_ABBREVIATIONS = new Set([
     "acr",

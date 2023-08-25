@@ -349,6 +349,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             positive: !!this.attributes.hp?.negativeHealing,
             negative: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
             bleed: this.modeOfBeing === "living",
+            spirit: !(
+                (this.modeOfBeing === "undead" && traits.has("mindless")) ||
+                this.itemTypes.effect.some((e) => e.traits.has("possession"))
+            ),
         };
 
         return damageIsApplicable[damageType];

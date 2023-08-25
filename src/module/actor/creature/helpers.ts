@@ -91,6 +91,7 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
             "paralyzed",
             "poison",
             "sickened",
+            "spirit",
             "unconscious",
         ];
         for (const immunityType of constructImmunities) {
