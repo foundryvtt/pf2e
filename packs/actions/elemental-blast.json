@@ -16,7 +16,20 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.TwoActionBonus",
+                "predicate": [
+                    "action:elemental-blast",
+                    "action:cost:2"
+                ],
+                "selector": "damage",
+                "slug": "two-action-elemental-blast",
+                "type": "status",
+                "value": "@actor.abilities.con.mod"
+            }
+        ],
         "source": {
             "value": "Pathfinder Rage of Elements"
         },
