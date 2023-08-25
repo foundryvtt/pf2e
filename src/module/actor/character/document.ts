@@ -1626,7 +1626,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
-                const domains = ["all", `${weapon.id}-damage`, "strike-damage", "damage-roll"];
+                const domains = ["all", `${weapon.id}-damage`, "attack-damage", "strike-damage", "damage-roll"];
                 params.options ??= [];
                 const targetToken = params.target ?? game.user.targets.first() ?? null;
 

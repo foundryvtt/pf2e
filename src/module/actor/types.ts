@@ -143,6 +143,8 @@ interface RollContextParams<
     options: Set<string>;
     /** Whether the request is for display in a sheet view. If so, targets are not considered */
     viewOnly?: boolean;
+    /** A direct way of informing a check is part of a melee action: it is otherwise inferred from the attack item */
+    melee?: boolean;
 }
 
 interface CheckContextParams<
