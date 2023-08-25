@@ -17,7 +17,7 @@ import { createDamageFormula } from "./damage/formula.ts";
 import { applyDamageDiceOverrides, damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageModifierDialog } from "./damage/modifier-dialog.ts";
 import { DamageRoll } from "./damage/roll.ts";
-import { CreateDamageFormulaParams, DamageRollContext, InlineDamageTemplate } from "./damage/types.ts";
+import { CreateDamageFormulaParams, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
@@ -658,7 +658,7 @@ async function augmentInlineDamageRoll(
         traits?: string[];
         extraRollOptions?: string[];
     }
-): Promise<{ template: InlineDamageTemplate; context: DamageRollContext } | null> {
+): Promise<{ template: SimpleDamageTemplate; context: DamageRollContext } | null> {
     const { name, actor, item, traits, extraRollOptions } = args;
 
     try {
@@ -733,7 +733,7 @@ async function augmentInlineDamageRoll(
         const { formula, breakdown } = createDamageFormula(damage);
 
         const roll = new DamageRoll(formula);
-        const template: InlineDamageTemplate = {
+        const template: SimpleDamageTemplate = {
             name: name ?? item?.name ?? actor?.name ?? "",
             damage: { roll, breakdown },
             modifiers: [...modifiers, ...dice],

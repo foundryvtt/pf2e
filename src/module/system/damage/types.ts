@@ -108,9 +108,9 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
 }
 
 type AfflictionDamageTemplate = SpellDamageTemplate;
-type InlineDamageTemplate = SpellDamageTemplate;
+type SimpleDamageTemplate = SpellDamageTemplate;
 
-type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate | InlineDamageTemplate;
+type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate | SimpleDamageTemplate;
 
 export {
     AfflictionDamageTemplate,
@@ -127,8 +127,8 @@ export {
     DamageTemplate,
     DamageType,
     DamageTypeRenderData,
-    InlineDamageTemplate,
     MaterialDamageEffect,
+    SimpleDamageTemplate,
     SpellDamageTemplate,
     WeaponBaseDamageData,
     WeaponDamageTemplate,
