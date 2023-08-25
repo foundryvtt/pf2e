@@ -28,7 +28,7 @@ interface ItemTraits<T extends ItemTrait = ItemTrait> {
 
 interface ItemFlagsPF2e extends foundry.documents.ItemFlags {
     pf2e: {
-        rulesSelections: Record<string, string | number | object>;
+        rulesSelections: Record<string, string | number | object | null>;
         itemGrants: Record<string, ItemGrantData>;
         grantedBy: ItemGrantData | null;
         [key: string]: unknown;
