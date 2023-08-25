@@ -47,6 +47,7 @@ const DAMAGE_TYPES = new Set([
     ...ALIGNMENT_DAMAGE_TYPES,
     "mental",
     "poison",
+    "spirit",
     "untyped", // see https://2e.aonprd.com/Spells.aspx?ID=162
 ] as const);
 
@@ -73,6 +74,7 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Record<DamageType, DamageCategory | null>
 
     mental: null,
     poison: null,
+    spirit: null,
     untyped: null,
 } as const;
 
@@ -95,28 +97,30 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
     positive: "sun",
     slashing: "axe",
     sonic: "waveform-lines",
+    spirit: "ghost",
     untyped: null,
 };
 
 /** Image map for conditions, currently placed here until we get a new set */
 const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
-    piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
-    bludgeoning: "systems/pf2e/icons/equipment/weapons/bola.webp",
-    slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",
-    fire: "icons/magic/fire/flame-burning-creature-skeleton.webp",
     acid: "icons/magic/acid/dissolve-arm-flesh.webp",
+    bludgeoning: "systems/pf2e/icons/equipment/weapons/bola.webp",
+    chaotic: "systems/pf2e/icons/spells/dinosaur-form.webp",
     cold: "icons/magic/water/ice-snowman.webp",
     electricity: "systems/pf2e/icons/spells/chain-lightning.webp",
-    sonic: "systems/pf2e/icons/spells/cry-of-destruction.webp",
-    force: "systems/pf2e/icons/spells/magic-missile.webp",
-    mental: "systems/pf2e/icons/spells/modify-memory.webp",
-    poison: "systems/pf2e/icons/spells/acidic-burst.webp",
-    lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
-    chaotic: "systems/pf2e/icons/spells/dinosaur-form.webp",
-    good: "systems/pf2e/icons/damage/persistent/good.webp",
     evil: "icons/magic/unholy/strike-body-explode-disintegrate.webp",
-    positive: "systems/pf2e/icons/spells/moment-of-renewal.webp",
+    fire: "icons/magic/fire/flame-burning-creature-skeleton.webp",
+    force: "systems/pf2e/icons/spells/magic-missile.webp",
+    good: "systems/pf2e/icons/damage/persistent/good.webp",
+    lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
+    mental: "systems/pf2e/icons/spells/modify-memory.webp",
     negative: "systems/pf2e/icons/spells/grim-tendrils.webp",
+    piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
+    poison: "systems/pf2e/icons/spells/acidic-burst.webp",
+    positive: "systems/pf2e/icons/spells/moment-of-renewal.webp",
+    slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",
+    sonic: "systems/pf2e/icons/spells/cry-of-destruction.webp",
+    spirit: "icons/magic/unholy/hand-claw-fire-blue.webp",
 };
 
 /** Whether and how damage should be included on a critical hit */
