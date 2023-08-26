@@ -91,6 +91,7 @@ abstract class IWRData<TType extends IWRType> {
                             "damage:type:bleed",
                             "damage:type:mental",
                             "damage:type:poison",
+                            "damage:type:spirit",
                             {
                                 and: [
                                     "item:type:condition",
@@ -320,6 +321,7 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "earth",
     "ghost-touch",
     "metal",
+    "plant",
     "radiation",
     "salt",
     "salt-water",

@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { EffectBadge } from "@item/abstract-effect/data.ts";
+import { EffectBadge, EffectTrait } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
 import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { reduceItemName } from "@item/helpers.ts";
@@ -16,6 +16,10 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     get level(): number {
         return this.system.level.value;
+    }
+
+    get traits(): Set<EffectTrait> {
+        return new Set(this.system.traits.value);
     }
 
     get isExpired(): boolean {
