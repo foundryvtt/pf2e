@@ -8,13 +8,14 @@
     margin-bottom: 2px;
     padding-left: 0;
 
-    .tag, .tag option {
+    .tag,
+    .tag option {
         @include micro;
         align-items: center;
         background-color: var(--primary);
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-        color: white;
+        color: var(--text-light);
         display: flex;
         font-weight: 500;
         min-height: 1.5em;
@@ -22,7 +23,7 @@
 
         &.edit-btn {
             align-items: center;
-            background-color: white;
+            background-color: var(--color-bg-option);
             border-radius: 0;
             color: var(--primary);
             display: flex;
@@ -39,22 +40,22 @@
 
         &.tag_secondary {
             background-color: var(--secondary);
-            color: white;
+            color: var(--text-light);
         }
 
         &.tag_tertiary {
             background-color: var(--tertiary);
-            color: white;
+            color: var(--text-light);
         }
 
         &.tag_alt {
             background-color: var(--alt);
-            color: white;
+            color: var(--text-light);
         }
 
         &.tag_material {
             background-color: var(--alt-dark);
-            color: white;
+            color: var(--text-light);
         }
 
         &.tag_transparent {
@@ -71,22 +72,26 @@
             opacity: 0.7;
         }
 
-        &.common, &[value="common"] {
+        &.common,
+        &[value="common"] {
             border-color: var(--color-rarity-common);
             background-color: var(--color-rarity-common);
         }
 
-        &.uncommon, &[value="uncommon"] {
+        &.uncommon,
+        &[value="uncommon"] {
             border-color: var(--color-rarity-uncommon);
             background-color: var(--color-rarity-uncommon);
         }
 
-        &.rare, &[value="rare"] {
+        &.rare,
+        &[value="rare"] {
             border-color: var(--color-rarity-rare);
             background-color: var(--color-rarity-rare);
         }
 
-        &.unique, &[value="unique"] {
+        &.unique,
+        &[value="unique"] {
             border-color: var(--color-rarity-unique);
             background-color: var(--color-rarity-unique);
         }
@@ -95,7 +100,7 @@
 
 li.chat-message .tags .tag {
     height: unset;
-    line-height: 1.65em;
+    line-height: 1.7em;
     min-height: 1em;
 
     &_transparent {
@@ -115,8 +120,11 @@ li.chat-message .tags .tag {
         height: 22px;
     }
 
-    tag, .tag, select.tag {
-        border: 2px solid var(--color-border-trait);
+    tag,
+    .tag,
+    select.tag {
+        border: 0.16em solid var(--color-border-trait);
+        box-shadow: none;
         margin: 0;
         min-height: 22px;
 
@@ -134,7 +142,9 @@ li.chat-message .tags .tag {
         padding: 0 0.09rem 0 0.25rem;
     }
 
-    tag > div, .tag, select {
+    tag > div,
+    .tag,
+    select {
         border-radius: 0;
         display: flex;
         font: 500 var(--font-size-10) var(--sans-serif);
@@ -144,11 +154,16 @@ li.chat-message .tags .tag {
         }
     }
 
+    hr.vr {
+        height: 1.25em;
+        margin: 1px 2px;
+    }
+
     // Tone down disabled effects so we still see trait colors
     &[disabled] {
         filter: none;
         tag > div::before {
-            animation: none!important;
+            animation: none !important;
         }
 
         // There's some css specificity issues that reintroduce margins,
@@ -197,7 +212,7 @@ tags.tags.paizo-style {
     }
 
     // In lieu of remove button
-    tag[readonly=true] {
+    tag[readonly="true"] {
         padding-right: 2px;
     }
 }
@@ -213,7 +228,7 @@ tags.tagify.pf2e-tagify {
     padding: 2px;
 
     &:hover {
-        box-shadow: 0 0 10px #00005a
+        box-shadow: 0 0 10px #00005a;
     }
 
     tag {
@@ -243,7 +258,8 @@ tags.tagify.pf2e-tagify {
 }
 
 // Prevents early word wrap on certain forms
-tags.pf2e-tagify, tags.tags.paizo-style {
+tags.pf2e-tagify,
+tags.tags.paizo-style {
     &.tagify--hasMaxTags > span {
         display: none;
     }
@@ -263,7 +279,7 @@ tags.pf2e-tagify, tags.tags.paizo-style {
     border-radius: 3px;
 
     &-base {
-        color: white;
+        color: var(--text-light);
         background: rgba(0, 0, 0, 0.45);
     }
 
@@ -275,7 +291,7 @@ tags.pf2e-tagify, tags.tags.paizo-style {
 // Ensure shadow fills the whole tag even if it wraps lines
 // Default from tagify module is 1.1em
 .tagify {
-    --tag-inset-shadow-size: 10em
+    --tag-inset-shadow-size: 10em;
 }
 
 // Ensure that remove button doesn't get covered up when window is small

@@ -22,9 +22,13 @@
 /* Typography                                */
 /* ----------------------------------------- */
 
-.pf2e, .app.sheet.actor {
-  font-family: var(--sans-serif);
-    h1, h2, h3, h4 {
+.pf2e,
+.app.sheet.actor {
+    font-family: var(--sans-serif);
+    h1,
+    h2,
+    h3,
+    h4 {
         font-weight: 600;
     }
 }
@@ -44,7 +48,8 @@
     font-family: "Pathfinder2eActions", sans-serif;
 }
 
-section.roll-note, p.compact-text {
+section.roll-note,
+p.compact-text {
     display: inline-block;
     font-weight: normal;
     line-height: 1.4em;
@@ -73,7 +78,11 @@ table.pf2-table {
     color: #191813;
     user-select: text;
 
-    thead, tbody, tr, th, td {
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
         box-sizing: border-box;
         user-select: text;
     }
@@ -86,12 +95,13 @@ table.pf2-table {
     }
 
     th {
-        color: white;
+        color: var(--text-light);
         font-weight: bold;
         background-color: #522e2c;
     }
 
-    th, td {
+    th,
+    td {
         border: solid 1px #808080;
         padding: 6px 15px;
         text-align: center;
@@ -135,7 +145,8 @@ span[data-pf2-action] {
         color: var(--color-text-dark-inactive);
     }
 
-    &:not([data-pf2-glyph])::before, &[data-pf2-glyph=""]::before {
+    &:not([data-pf2-glyph])::before,
+    &[data-pf2-glyph=""]::before {
         display: inline-block;
         height: 15px;
         width: 15px;
@@ -177,7 +188,8 @@ span[data-pf2-action] {
 /* PF2E Check Custom Element                 */
 /* ----------------------------------------- */
 
-a.inline-check, span[data-pf2-check] {
+a.inline-check,
+span[data-pf2-check] {
     @include inline-link;
 
     &:has([data-pf2-repost]) {
@@ -187,7 +199,6 @@ a.inline-check, span[data-pf2-check] {
     &:hover {
         text-shadow: none;
     }
-
 
     &:has(.label:hover, i.fa-dice-d20:hover) {
         text-shadow: 0 0 8px var(--color-shadow-primary);
@@ -256,14 +267,14 @@ i[data-pf2-repost] {
     background: var(--inline-repost-bg);
     color: var(--color-text-dark-inactive);
     border-left: 1px solid var(--color-border-dark-tertiary);
-    background: #FFF9;
+    background: #fff9;
     padding: 2px;
     margin-left: 2px;
     text-shadow: none;
 
     &:hover {
-        color: white;
-        text-shadow: 0px 0px 2px black;
+        color: var(--text-light);
+        text-shadow: 0px 0px 2px var(--text-dark);
     }
 }
 

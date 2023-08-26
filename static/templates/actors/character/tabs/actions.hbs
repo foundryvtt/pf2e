@@ -220,7 +220,7 @@
 {{#*inline "attackDamage"}}
     <div class="button-group tags">
         {{#each variants as |variant index|}}
-            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
+            <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
             >
@@ -243,12 +243,13 @@
                     {{#each versatileOptions as |option|}}
                         <button
                             type="button"
-                            {{#if option.selected}}class="selected"{{/if}}
+                            class="damage color {{option.value}}{{#if option.selected}} selected{{/if}}"
                             data-tooltip="{{localize option.label}}"
                             {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                             value="{{option.value}}"
-                            data-action="toggle-versatile">
-                            <i class="fa-solid fa-{{option.glyph}} fa-fw"></i>
+                            data-action="toggle-versatile"
+                        >
+                            <i class="fa-solid fa-{{option.glyph}} fa-fw icon"></i>
                         </button>
                     {{/each}}
                 </div>
