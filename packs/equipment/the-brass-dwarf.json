@@ -33,7 +33,58 @@
             "value": {}
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HarrowCourt.BrassDwarf.ResistanceLabel",
+                "option": "brass-dwarf-resistance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "selected": false,
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "selected": false,
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "selected": false,
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "selected": true,
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "selected": false,
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "selected": false,
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "selected": false,
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.brassDwarfResistance}",
+                "value": "@actor.level"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder #190: The Choosing"
