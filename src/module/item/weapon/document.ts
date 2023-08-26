@@ -188,12 +188,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
+        const { baseDamage } = this;
         const damage = {
-            category: DamageCategorization.fromDamageType(this.system.damage.damageType),
-            type: this.system.damage.damageType,
+            category: DamageCategorization.fromDamageType(baseDamage.damageType),
+            type: baseDamage.damageType,
             dice: {
-                number: this.system.damage.die ? this.system.damage.dice : 0,
-                faces: Number(this.system.damage.die?.replace(/^d/, "")),
+                number: baseDamage.die ? baseDamage.dice : 0,
+                faces: Number(baseDamage.die?.replace(/^d/, "")),
             },
         };
         const { actor } = this;
