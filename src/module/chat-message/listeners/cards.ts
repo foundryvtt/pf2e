@@ -10,6 +10,8 @@ import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, sluggify, tupleHasValu
 import { ChatMessagePF2e } from "../index.ts";
 
 class ChatCards {
+    static #lastClick = 0;
+
     static listen(message: ChatMessagePF2e, html: HTMLElement): void {
         const selector = ["a[data-action], button[data-action]"].join(",");
         for (const button of htmlQueryAll<HTMLButtonElement>(html, selector)) {
@@ -18,6 +20,12 @@ class ChatCards {
     }
 
     static async #onClickButton({ message, event, html, button }: OnClickButtonParams): Promise<void> {
+        const currentTime = Date.now();
+        if (currentTime - this.#lastClick < 500) {
+            return;
+        }
+        this.#lastClick = currentTime;
+
         // Extract card data
         const action = button.dataset.action;
 
