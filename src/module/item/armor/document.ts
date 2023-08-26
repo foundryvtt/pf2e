@@ -251,15 +251,19 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
+    /** Ensure correct shield/actual-armor usage */
     protected override async _preCreate(
         data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<TParent>,
         user: UserPF2e
     ): Promise<boolean | void> {
-        this._source.system.usage.value = this.#usageForCategory(this._source.system.category);
+        const { category } = this._source.system;
+        this._source.system.usage.value = category === "shield" ? "held-in-one-hand" : "wornarmor";
+
         return super._preCreate(data, options, user);
     }
 
+    /** Ensure correct shield/actual-armor usage */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
@@ -267,13 +271,11 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     ): Promise<boolean | void> {
         const category = changed.system?.category;
         if (changed.system && category) {
-            changed.system = mergeObject(changed.system, { usage: { value: this.#usageForCategory(category) } });
+            const usage = { value: category === "shield" ? "held-in-one-hand" : "wornarmor" };
+            changed.system = mergeObject(changed.system, { usage });
         }
-        return super._preUpdate(changed, options, user);
-    }
 
-    #usageForCategory(category: DeepPartial<ArmorCategory>): string {
-        return category === "shield" ? "held-in-one-hand" : "wornarmor";
+        return super._preUpdate(changed, options, user);
     }
 }
 
