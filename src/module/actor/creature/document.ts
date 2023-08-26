@@ -72,9 +72,12 @@ abstract class CreaturePF2e<
      */
     override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
         const baseReach = this.attributes.reach.base;
+        const weaponReach = weapon?.isOfType("melee") ? weapon.reach : null;
 
         if (action === "interact" || this.type === "familiar") {
             return baseReach;
+        } else if (typeof weaponReach === "number") {
+            return weaponReach;
         } else {
             const attacks: Pick<StrikeData, "item" | "ready">[] = weapon
                 ? [{ item: weapon, ready: true }]

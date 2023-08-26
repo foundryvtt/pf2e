@@ -926,13 +926,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             options: [...params.options, ...itemOptions, ...targetRollOptions],
         });
 
-        const [reach, isMelee] = params.item?.isOfType("melee")
-            ? [params.item.reach, params.item.isMelee]
-            : params.item?.isOfType("weapon")
-            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
-            : params.melee
-            ? [this.getReach({ action: "attack" }), true]
-            : [null, false];
+        const isMelee = !!(params.melee || (selfItem?.isOfType("weapon", "melee") && selfItem.isMelee));
+        const reach =
+            isMelee && selfItem?.isOfType("weapon", "melee")
+                ? this.getReach({ action: "attack", weapon: selfItem })
+                : this.getReach({ action: "attack" });
 
         // Add an epehemeral effect from flanking
         const isFlankingAttack = !!(
@@ -1867,7 +1865,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     update(data: DocumentUpdateData<this>, options?: ActorUpdateContext<TParent>): Promise<this>;
 
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
-    getActiveTokens(linked?: boolean | undefined, document?: undefined): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+    getActiveTokens(linked?: boolean | undefined, document?: false): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
     getActiveTokens(
         linked?: boolean,
         document?: boolean
