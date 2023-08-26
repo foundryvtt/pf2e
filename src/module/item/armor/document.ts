@@ -3,6 +3,7 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { ItemSummaryData } from "@item/data/index.ts";
 import { PhysicalItemHitPoints, PhysicalItemPF2e, getPropertySlots, getResilientBonus } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
 import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
@@ -248,6 +249,33 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         const itemType = game.i18n.localize(base ?? group ?? fallback);
 
         return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+    }
+
+    /** Ensure correct shield/actual-armor usage */
+    protected override async _preCreate(
+        data: PreDocumentId<this["_source"]>,
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        const { category } = this._source.system;
+        this._source.system.usage.value = category === "shield" ? "held-in-one-hand" : "wornarmor";
+
+        return super._preCreate(data, options, user);
+    }
+
+    /** Ensure correct shield/actual-armor usage */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentUpdateContext<TParent>,
+        user: UserPF2e
+    ): Promise<boolean | void> {
+        const category = changed.system?.category;
+        if (changed.system && category) {
+            const usage = { value: category === "shield" ? "held-in-one-hand" : "wornarmor" };
+            changed.system = mergeObject(changed.system, { usage });
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 }
 
