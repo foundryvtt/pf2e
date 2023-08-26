@@ -151,18 +151,9 @@ export const InlineRollLinks = {
                                             .shift() ?? null;
                                     if (bestSpellcasting) return bestSpellcasting;
                                 }
-                                const bySlug = actor.getStatistic(pf2Check);
-                                // Frame the statistic as an attack-roll stat if the action includes the "attack" trait
-                                // and the check is otherwise unclassified.
-                                return bySlug?.check.type === "check" && traits.includes("attack")
-                                    ? bySlug.extend({
-                                          check: {
-                                              type: "attack-roll",
-                                              domains: ["attack", "attack-roll", `${pf2Check}-attack-roll`],
-                                          },
-                                      })
-                                    : bySlug;
+                                return actor.getStatistic(pf2Check);
                             })();
+
                             if (!statistic) {
                                 console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check}`).message);
                                 continue;
