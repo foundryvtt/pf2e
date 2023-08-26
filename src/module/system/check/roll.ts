@@ -21,6 +21,10 @@ class CheckRoll extends Roll {
         return this.options.identifier ?? null;
     }
 
+    get action(): string | null {
+        return this.options.action ?? null;
+    }
+
     get degreeOfSuccess(): DegreeOfSuccessIndex | null {
         return this.options.degreeOfSuccess ?? null;
     }

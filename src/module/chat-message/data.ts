@@ -72,11 +72,13 @@ type ContextFlagOmission =
     | "actor"
     | "altUsage"
     | "createMessage"
+    | "damaging"
     | "dosAdjustments"
     | "item"
     | "mapIncreases"
     | "notes"
     | "options"
+    | "range"
     | "target"
     | "token";
 
