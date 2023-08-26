@@ -463,7 +463,7 @@ class DamageInstance extends AbstractDamageRoll {
 
     override async render(): Promise<string> {
         const span = document.createElement("span");
-        span.classList.add("instance", this.type);
+        span.classList.add(this.type, "damage", "instance", "color");
         span.title = this.typeLabel;
         span.append(this.#renderFormula());
 

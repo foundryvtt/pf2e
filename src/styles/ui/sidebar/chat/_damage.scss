@@ -1,5 +1,3 @@
-@use "sass:color";
-
 .message-content {
     .damage-roll {
         &:not(:first-child) {
@@ -70,277 +68,35 @@
                     }
 
                     .dice {
-                        .part-formula, .part-total {
+                        .part-formula,
+                        .part-total {
                             color: var(--color-text-dark-secondary);
                         }
                     }
 
-                    > header, .dice {
+                    > header,
+                    .dice {
                         padding: 0.2em;
                     }
                 }
             }
 
             .instance {
-                $darker: -12.5%;
-                $transparent: 0.125;
                 white-space: nowrap;
 
-                // Default coloration
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($damage-physical, $transparent);
-                }
-
-                &.acid {
-                    border-color: $damage-acid;
-                    color: color.adjust($damage-acid, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-acid, $transparent);
+                &.tooltip-part {
+                    > header {
+                        // Darken slightly
+                        background: var(--color-bg-bludgeoning);
                     }
 
-                    .icon {
-                        color: $damage-acid;
+                    > .dice {
+                        text-shadow: none;
                     }
                 }
 
-                &.bleed {
-                    border-color: $damage-bleed;
-                    color: color.adjust($damage-bleed, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-bleed, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-bleed;
-                    }
-                }
-
-                &.bludgeoning {
-                    border-color: $damage-physical;
-                    color: color.adjust($damage-physical, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-physical, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-physical;
-                    }
-                }
-
-                &.chaotic {
-                    border-color: $damage-chaotic;
-                    color: color.adjust($damage-chaotic, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-chaotic, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-chaotic;
-                    }
-                }
-
-                &.cold {
-                    border-color: $damage-cold;;
-                    color: color.adjust($damage-cold, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-cold, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-cold;
-                    }
-                }
-
-                &.electricity {
-                    border-color: $damage-electricity;
-                    color: color.adjust($damage-electricity, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-electricity, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-electricity;
-                    }
-                }
-
-                &.evil {
-                    border-color: $damage-evil;
-                    color: color.adjust($damage-evil, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-evil, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-evil;
-                    }
-                }
-
-                &.fire {
-                    border-color: $damage-fire;
-                    color: color.adjust($damage-fire, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-fire, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-fire;
-                    }
-                }
-
-                &.force {
-                    border-color: $damage-force;
-                    color: color.adjust($damage-force, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-force, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-force;
-                    }
-                }
-
-                &.good {
-                    border-color: $damage-good;
-                    color: color.adjust($damage-good, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-good, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-good;
-                    }
-                }
-
-                &.lawful {
-                    border-color: $damage-lawful;
-                    color: color.adjust($damage-lawful, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-lawful, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-lawful;
-                    }
-
-                }
-
-                &.mental {
-                    border-color: $damage-mental;
-                    color: color.adjust($damage-mental, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-mental, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-mental;
-                    }
-                }
-
-                &.negative {
-                    border-color: $damage-negative;
-                    color: $damage-negative;
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-negative, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-negative;
-                    }
-                }
-
-                &.piercing {
-                    border-color: $damage-physical;
-                    color: color.adjust($damage-physical, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-physical, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-physical;
-                    }
-                }
-
-                &.poison {
-                    border-color: $damage-poison;
-                    color: color.adjust($damage-poison, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-poison, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-poison;
-                    }
-                }
-
-                &.positive {
-                    border-color: $damage-positive;
-                    color: color.adjust($damage-positive, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-positive, $transparent);
-                        text-shadow: 1px 1px black;
-                    }
-
-                    .icon {
-                        color: $damage-positive;
-                    }
-                }
-
-                &.slashing {
-                    border-color: $damage-physical;
-                    color: color.adjust($damage-physical, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-physical, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-physical;
-                    }
-                }
-
-                &.sonic {
-                    border-color: $damage-sonic;
-                    color: color.adjust($damage-sonic, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-sonic, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-sonic;
-                    }
-                }
-
-                &.spirit {
-                    border-color: $damage-spirit;
-                    color: color.adjust($damage-spirit, $lightness: $darker);
-
-                    &:not(.tooltip-part), &.tooltip-part > header {
-                        background: rgba($damage-spirit, $transparent);
-                    }
-
-                    .icon {
-                        color: $damage-spirit;
-                    }
-                }
-
-                .precision, .splash {
+                .precision,
+                .splash {
                     border-color: inherit;
                     border-width: 1px;
                     border-style: dotted;
@@ -368,7 +124,6 @@
                         margin-left: 2px;
                         margin-right: 2px;
                     }
-
                 }
 
                 .dice .part-header .part-flavor {
@@ -377,7 +132,6 @@
             }
         }
     }
-
 
     .damage-application {
         display: flex;
