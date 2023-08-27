@@ -6,7 +6,7 @@ import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "../index.ts";
 
 class ChatCards {
@@ -168,6 +168,7 @@ class ChatCards {
                     break;
                 }
                 case "apply-effect": {
+                    button.disabled = true;
                     const target = fromUuidSync(button.dataset.targets ?? "");
                     const effect =
                         item.isOfType("action", "feat") && item.system.selfEffect
@@ -175,6 +176,23 @@ class ChatCards {
                             : null;
                     if (target instanceof ActorPF2e && effect instanceof ItemPF2e && effect.isOfType("effect")) {
                         await target.createEmbeddedDocuments("Item", [effect.clone().toObject()]);
+                        const parsedMessageContent = ((): HTMLElement => {
+                            const container = document.createElement("div");
+                            container.innerHTML = message.content;
+                            return container;
+                        })();
+
+                        // Replace the "Apply Effect" button with a success notice
+                        const buttons = htmlQuery(parsedMessageContent, ".message-buttons");
+                        if (buttons) {
+                            const span = createHTMLElement("span", { classes: ["effect-applied"] });
+                            const anchor = effect.toAnchor();
+                            const locKey = "PF2E.Item.Action.SelfAppliedEffect.Applied";
+                            const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
+                            span.innerHTML = statement;
+                            buttons.replaceChildren(span);
+                            await message.update({ content: parsedMessageContent.innerHTML });
+                        }
                     }
                 }
             }
