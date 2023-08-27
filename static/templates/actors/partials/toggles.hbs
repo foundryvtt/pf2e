@@ -1,12 +1,12 @@
 <div class="actions-options section-body item-list">
     {{#each toggles as |toggle idx|}}
-        {{#if (or (not toggle.scope) (eq toggle.scope "actions-tab"))}}
+        {{#if (eq toggle.placement "actions-tab")}}
             <div
                 class="actions-option{{#unless toggle.alwaysActive}} item{{/unless}}"
                 data-item-id="{{toggle.itemId}}"
                 data-domain="{{toggle.domain}}"
                 data-option="{{toggle.option}}"
-                data-scope="{{toggle.scope}}"
+                data-placement="{{toggle.placement}}"
             >
                 <label>
                     <input type="checkbox"{{#if toggle.alwaysActive}} class="hidden"{{/if}}data-action="toggle-roll-option" {{disabled (or toggle.alwaysActive (not toggle.enabled))}} {{checked toggle.checked}} />

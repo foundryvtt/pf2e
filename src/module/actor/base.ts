@@ -775,7 +775,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 rule.beforePrepareData?.();
             } catch (error) {
                 // Ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+                const ruleName = game.i18n.localize(`PF2E.RuleElement.${rule.key}`);
+                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${ruleName}.`, error);
             }
         }
 
