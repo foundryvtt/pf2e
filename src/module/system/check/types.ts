@@ -43,7 +43,7 @@ interface CheckRollContext extends BaseRollContext {
     /** The domains this roll had, for reporting purposes */
     domains?: string[];
     /** Range data related to the check: if not provided, it is acquired from a weapon or melee item (if any) */
-    range?: { increment?: number; max?: number };
+    range?: { increment?: Maybe<number>; max?: number };
     /** Is this check part of an action that deals damage? */
     damaging?: boolean;
     /** Is the roll a reroll? */

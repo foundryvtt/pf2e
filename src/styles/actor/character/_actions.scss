@@ -2,9 +2,9 @@
     gap: 0.5rem;
     padding: 0;
 
-    .actions-container .actions-tabs-wrapper .actions-panels ol.actions-list.strikes-list {
+    ol.actions-list {
         & + .actions-list {
-            margin-top: 8px;
+            margin-top: 0.5rem;
         }
 
         li.strike {
@@ -58,45 +58,6 @@
                 }
             }
 
-            .versatile-options {
-                align-items: center;
-                display: flex;
-                font-size: var(--font-size-14);
-                gap: 2px;
-                justify-content: center;
-                padding: 0 3px;
-
-                .title {
-                    text-transform: uppercase;
-                }
-
-                button {
-                    align-items: center;
-                    border-width: 1px;
-                    border-style: solid;
-                    box-shadow: inset 0 0 0 1px rgba(black, 0.3), inset 0 0 0 2px rgba(white, 0.2);
-                    display: flex;
-                    justify-content: center;
-                    width: 3ch;
-
-                    &.selected {
-                        background: var(--body);
-
-                        > .icon {
-                            color: var(--bg-dark);
-                        }
-                    }
-
-                    &:hover {
-                        box-shadow: inset 0 0 0 1px rgba(white, 0.15), inset 0 0 0 2px rgba(black, 0.4);
-                    }
-
-                    &:active {
-                        text-shadow: 0 0 1px $rank-legendary;
-                    }
-                }
-            }
-
             .button-group {
                 align-items: center;
                 display: flex;
@@ -122,6 +83,44 @@
                         &:hover {
                             box-shadow: none;
                             text-shadow: 0 0 2px var(--text-light);
+                        }
+                    }
+                }
+
+                .versatile-options {
+                    align-items: center;
+                    display: flex;
+                    font-size: var(--font-size-14);
+                    gap: 2px;
+                    justify-content: center;
+                    padding: 0 3px;
+
+                    .title {
+                        text-transform: uppercase;
+                    }
+
+                    button {
+                        align-items: center;
+                        box-shadow: inset 0 0 0 1px rgba(black, 0.3), inset 0 0 0 2px rgba(white, 0.2);
+                        display: flex;
+                        justify-content: center;
+                        width: 3ch;
+
+                        &.selected {
+                            background: var(--text-dark);
+
+                            > .icon {
+                                color: var(--bg-dark);
+                            }
+                        }
+
+                        &:not(disabled):hover {
+                            box-shadow: inset 0 0 0 1px rgba($rank-legendary, 0.5);
+                            text-shadow: none;
+                        }
+
+                        &:active {
+                            text-shadow: 0 0 1px $rank-legendary;
                         }
                     }
                 }
@@ -174,41 +173,36 @@
             }
 
             .action-name {
-                .item-carry-type {
-                    color: rgba(0, 0, 0, 0.4);
-                    &.active {
-                        color: var(--primary);
-                    }
-                }
+                justify-content: space-between;
             }
 
             &:not(.ready) .auxiliary-actions {
                 justify-content: right;
             }
         }
-    }
 
-    ol.actions-list li.action {
-        .item-image:hover {
-            background: none;
-        }
-
-        .tracking {
-            align-items: center;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            margin-left: auto;
-            margin-right: 1rem;
-
-            input {
-                width: 0;
-                flex: 0 1 4rem;
-                text-align: center;
+        li.action {
+            .item-image:hover {
+                background: none;
             }
 
-            span {
-                white-space: nowrap;
+            .tracking {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                margin-left: auto;
+                margin-right: 1rem;
+
+                input {
+                    width: 0;
+                    flex: 0 1 4rem;
+                    text-align: center;
+                }
+
+                span {
+                    white-space: nowrap;
+                }
             }
         }
     }

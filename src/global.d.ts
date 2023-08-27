@@ -91,17 +91,18 @@ declare global {
             variantRules: {
                 AutomaticBonusProgression: typeof AutomaticBonusProgression;
             };
-            Coins: typeof CoinsPF2e;
-            Dice: typeof DicePF2e;
-            StatusEffects: typeof StatusEffects;
-            ConditionManager: typeof ConditionManager;
-            ModifierType: typeof MODIFIER_TYPE;
-            Modifier: typeof ModifierPF2e;
-            StatisticModifier: typeof StatisticModifier;
-            CheckModifier: typeof CheckModifier;
             Check: typeof CheckPF2e;
-            RuleElements: typeof RuleElements;
+            CheckModifier: typeof CheckModifier;
+            Coins: typeof CoinsPF2e;
+            ConditionManager: typeof ConditionManager;
+            Dice: typeof DicePF2e;
+            ElementalBlast: typeof ElementalBlast;
+            Modifier: typeof ModifierPF2e;
+            ModifierType: typeof MODIFIER_TYPE;
             RuleElement: typeof RuleElementPF2e;
+            RuleElements: typeof RuleElements;
+            StatisticModifier: typeof StatisticModifier;
+            StatusEffects: typeof StatusEffects;
             TextEditor: typeof TextEditorPF2e;
         };
     }

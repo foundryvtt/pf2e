@@ -51,6 +51,7 @@ import {
     consumableTraits,
     creatureTraits,
     damageTraits,
+    elementTraits,
     equipmentTraits,
     featTraits,
     hazardTraits,
@@ -483,6 +484,7 @@ export const PF2ECONFIG = {
     damageTypes,
     damageRollFlavors,
     damageCategories,
+    elementTraits,
     materialDamageEffects,
     resistanceTypes,
 

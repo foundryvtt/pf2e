@@ -11,6 +11,7 @@ export function registerTemplates(): void {
         // PC Sheet Tooltips and Section Partials
         "systems/pf2e/templates/actors/character/partials/attributes.hbs",
         "systems/pf2e/templates/actors/character/partials/background.hbs",
+        "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs",
         "systems/pf2e/templates/actors/character/partials/detail-item.hbs",
         "systems/pf2e/templates/actors/character/partials/feat-slot.hbs",
         "systems/pf2e/templates/actors/character/partials/header.hbs",

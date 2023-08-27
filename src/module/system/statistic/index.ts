@@ -676,7 +676,7 @@ interface StatisticRollParameters {
     /** Indication that the check is associated with a melee action */
     melee?: boolean;
     /** A range that restricts or penalizes a targeted check */
-    range?: Maybe<{ increment?: number; max?: number }>;
+    range?: Maybe<{ increment?: Maybe<number>; max?: number }>;
     /** Whether to create a chat message using the roll (defaults true) */
     createMessage?: boolean;
     /** Callback called when the roll occurs. */

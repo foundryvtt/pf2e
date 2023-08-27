@@ -1,12 +1,24 @@
 import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
+import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
-import { ErrorPF2e, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { CheckRoll } from "@system/check/index.ts";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    objectHasKey,
+    sluggify,
+    tupleHasValue,
+} from "@util";
 import { ChatMessagePF2e } from "../index.ts";
 
 class ChatCards {
@@ -194,9 +206,29 @@ class ChatCards {
                             await message.update({ content: parsedMessageContent.innerHTML });
                         }
                     }
+                    break;
+                }
+                case "elemental-blast-damage": {
+                    if (!actor.isOfType("character")) return;
+                    const roll = message.rolls.find(
+                        (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.action === "elemental-blast"
+                    );
+                    const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
+                    const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
+                        roll?.options.identifier?.split(".") ?? [];
+                    if (objectHasKey(elementTraits, element) && objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                        await new ElementalBlast(actor).damage({
+                            element,
+                            damageType,
+                            melee: meleeOrRanged === "melee",
+                            actionCost: Number(actionCost) || 1,
+                            outcome,
+                            event,
+                        });
+                    }
                 }
             }
-        } else if (actor.isOfType("character", "npc")) {
+        } else if (action && actor.isOfType("character", "npc")) {
             const buttonGroup = htmlClosest(button, ".chat-card, .message-buttons");
             const physicalItem = await (async (): Promise<PhysicalItemPF2e | null> => {
                 const itemUuid = buttonGroup?.dataset.itemUuid ?? "";
@@ -264,7 +296,7 @@ class ChatCards {
                         speaker: { alias: actor.name },
                     });
                 }
-            } else if (physicalItem && action === "receieve-crafting-item") {
+            } else if (action === "receieve-crafting-item" && physicalItem) {
                 if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
                     return craftSpellConsumable(physicalItem, quantity, actor);
                 } else {

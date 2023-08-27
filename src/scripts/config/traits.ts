@@ -6,6 +6,7 @@ import { RANGE_TRAITS } from "@item/data/values.ts";
 import { PreciousMaterialType } from "@item/physical/types.ts";
 import { MagicSchool, MagicTradition } from "@item/spell/types.ts";
 import { OtherWeaponTag } from "@item/weapon/types.ts";
+import * as R from "remeda";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits
@@ -81,7 +82,7 @@ const ancestryItemTraits = {
     undead: "PF2E.TraitUndead",
 };
 
-const elementalTraits = {
+const elementTraits = {
     air: "PF2E.TraitAir",
     earth: "PF2E.TraitEarth",
     fire: "PF2E.TraitFire",
@@ -89,7 +90,7 @@ const elementalTraits = {
     water: "PF2E.TraitWater",
     wood: "PF2E.TraitWood",
 };
-type ElementTrait = keyof typeof elementalTraits;
+type ElementTrait = keyof typeof elementTraits;
 
 const energyDamageTypes = {
     acid: "PF2E.TraitAcid",
@@ -111,7 +112,7 @@ const magicTraditions: Record<MagicTradition, string> = {
 
 const creatureTraits = {
     ...ancestryItemTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     ...magicTraditions,
     aberration: "PF2E.TraitAberration",
@@ -340,7 +341,7 @@ const alignmentTraits: Record<AlignmentTrait, string> = {
 
 const damageTraits = {
     ...alignmentTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
@@ -367,7 +368,7 @@ const spellTraits = {
     ...alignmentTraits,
     ...classTraits,
     ...damageTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...magicSchools,
     ...magicTraditions,
     ...spellOtherTraits,
@@ -376,7 +377,7 @@ const spellTraits = {
 const weaponTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     ...magicSchools,
     ...magicTraditions,
@@ -657,7 +658,7 @@ const featTraits = {
 
 const consumableTraits = {
     ...damageTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...magicSchools,
     ...magicTraditions,
     additive1: "PF2E.TraitAdditive1",
@@ -726,6 +727,18 @@ const actionTraits = {
     ...featTraits,
     ...consumableTraits,
     ...spellTraits,
+    ...R.pick(weaponTraits, [
+        "agile",
+        "propulsive",
+        "backswing",
+        "forceful",
+        "reach",
+        "sweep",
+        "thrown",
+        "volley-20",
+        "volley-30",
+        "volley-50",
+    ]),
     circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
@@ -771,7 +784,7 @@ const vehicleTraits = {
 const equipmentTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...energyDamageTypes,
     ...magicSchools,
     ...magicTraditions,
@@ -864,7 +877,7 @@ const shieldTraits = {
 
 const armorTraits = {
     ...alignmentTraits,
-    ...elementalTraits,
+    ...elementTraits,
     ...magicSchools,
     ...magicTraditions,
     ...shieldTraits,
@@ -1378,7 +1391,7 @@ export {
     consumableTraits,
     creatureTraits,
     damageTraits,
-    elementalTraits,
+    elementTraits,
     energyDamageTypes,
     equipmentTraits,
     featTraits,
