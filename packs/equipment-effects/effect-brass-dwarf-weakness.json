@@ -1,0 +1,85 @@
+{
+    "_id": "Zqs1VvRm5Oq7DwX0",
+    "img": "systems/pf2e/icons/spells/glimpse-weakness.webp",
+    "name": "Effect: Brass Dwarf Weakness",
+    "system": {
+        "description": {
+            "value": "<p>You gain weakness equal to half your level to the previous energy type of <em>The Brass Dwarf</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HarrowCourt.BrassDwarf.WeaknessLabel",
+                "option": "brass-dwarf-weakness",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "selected": false,
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "selected": false,
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "selected": false,
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "selected": true,
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "selected": false,
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "selected": false,
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "selected": false,
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "Weakness",
+                "type": "{item|flags.pf2e.rulesSelections.brassDwarfWeakness}",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #190: The Choosing"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
