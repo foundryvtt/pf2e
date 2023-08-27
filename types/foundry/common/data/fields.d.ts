@@ -168,7 +168,7 @@ export abstract class DataField<
      * @returns A valid initial value
      * @throws An error if there is no valid initial value defined
      */
-    getInitialValue(data: object): unknown;
+    getInitialValue(data?: object): unknown;
 
     /* -------------------------------------------- */
     /*  Field Validation                            */
@@ -423,7 +423,10 @@ interface StringFieldOptions<
     TNullable extends boolean,
     THasInitial extends boolean
 > extends DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> {
-    choices?: readonly TSourceProp[] | Record<TSourceProp, string> | Function;
+    choices?:
+        | readonly TSourceProp[]
+        | Record<TSourceProp, string>
+        | (() => readonly TSourceProp[] | Record<TSourceProp, string>);
     /** [blank=true] Is the string allowed to be blank (empty)? */
     blank?: boolean;
     /** [trim=true]  Should any provided string be trimmed as part of cleaning? */
