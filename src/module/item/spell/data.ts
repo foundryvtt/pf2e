@@ -1,7 +1,8 @@
 import { SaveType } from "@actor/types.ts";
+import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/data.ts";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base.ts";
 import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data.ts";
-import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
+import { DamageCategoryUnique, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
 import { EffectAreaSize, EffectAreaType, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
@@ -58,6 +59,8 @@ interface SpellSystemSource extends ItemSystemSource {
     cost: {
         value: string;
     };
+    /** A self-applied effect for simple actions */
+    selfEffect?: SelfEffectReferenceSource | null;
     hasCounteractCheck: {
         value: boolean;
     };
@@ -74,7 +77,10 @@ interface SpellSystemSource extends ItemSystemSource {
     };
 }
 
-interface SpellSystemData extends SpellSystemSource, Omit<ItemSystemData, "level" | "traits"> {}
+interface SpellSystemData extends SpellSystemSource, Omit<ItemSystemData, "level" | "traits"> {
+    /** A self-applied effect for simple actions */
+    selfEffect: SelfEffectReference | null;
+}
 
 export type SpellTraits = TraitsWithRarity<SpellTrait>;
 
@@ -123,4 +129,4 @@ interface SpellOverlayDamage {
 type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
-export { SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayOverride, SpellOverlayType };
+export { SpellOverlay, SpellOverlayOverride, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource };
