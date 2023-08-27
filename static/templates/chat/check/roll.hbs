@@ -12,11 +12,11 @@
 </div>
 {{#if (and action damaging canRollDamage)}}
     <div class="message-buttons" data-identifier="{{identifier}}">
-        <button type="button" class="success" data-action="{{action}}-damage">
+        <button type="button" class="success" data-action="{{action}}-damage" data-outcome="success">
             {{localize "PF2E.DamageLabel"}}
             {{#if (eq degree 2)}}<i class="fa-solid fa-check fa-fw cue"></i>{{/if}}
         </button>
-        <button type="button" class="critical-success" data-action="{{action}}-critical">
+        <button type="button" class="critical-success" data-action="{{action}}-damage" data-outcome="critical-success">
             {{localize "PF2E.CriticalDamageLabel"}}
             {{#if (eq degree 3)}}<i class="fa-solid fa-check fa-fw cue"></i>{{/if}}
         </button>

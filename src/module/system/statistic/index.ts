@@ -419,7 +419,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (!["flat-check", "saving-throw"].includes(this.type) &&
                     !!(args.dc && (args.dc?.slug || "statistic" in args.dc)) &&
-                    (!item || item.isOfType("action", "weapon")));
+                    (!item || item.isOfType("action", "feat", "weapon")));
 
             return isValidAttacker && isTargetedCheck
                 ? actor.getCheckContext({
@@ -515,12 +515,15 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             actor,
             token,
             item,
+            type: this.type,
+            identifier: args.identifier,
             domains,
             target: rollContext?.target ?? null,
             dc,
             notes,
             options,
-            type: this.type,
+            action: args.action,
+            damaging: args.damaging,
             rollMode,
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
@@ -635,7 +638,9 @@ interface CheckDCReference {
 
 interface StatisticRollParameters {
     /** A string of some kind to identify the roll: will be included in `CheckRoll#options` */
-    identifier?: Maybe<string>;
+    identifier?: string;
+    /** The slug of an action of which this check is a constituent roll */
+    action?: string;
     /** What token to use for the roll itself. Defaults to the actor's token */
     token?: Maybe<TokenDocumentPF2e>;
     /** Which attack this is (for the purposes of multiple attack penalty) */
@@ -666,6 +671,8 @@ interface StatisticRollParameters {
     rollTwice?: RollTwiceOption;
     /** Any traits for the check */
     traits?: (TraitViewData | string)[];
+    /** Whether the check is part of a damaging action */
+    damaging?: boolean;
     /** Indication that the check is associated with a melee action */
     melee?: boolean;
     /** A range that restricts or penalizes a targeted check */

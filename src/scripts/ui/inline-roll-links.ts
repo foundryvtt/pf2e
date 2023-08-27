@@ -197,7 +197,7 @@ export const InlineRollLinks = {
                                         ? foundryDoc.item
                                         : null;
 
-                                return itemFromDoc?.isOfType("action") ||
+                                return itemFromDoc?.isOfType("action", "feat") ||
                                     (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
                                     ? itemFromDoc
                                     : null;
@@ -214,7 +214,7 @@ export const InlineRollLinks = {
                             };
 
                             // Use a special header for checks against defenses
-                            const itemIsEncounterAction = !!(item?.isOfType("action") && item.actionCost);
+                            const itemIsEncounterAction = !!(item?.isOfType("action", "feat") && item.actionCost);
                             if (itemIsEncounterAction && pf2Defense) {
                                 const subtitleLocKey =
                                     pf2Check in CONFIG.PF2E.magicTraditions
