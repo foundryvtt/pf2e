@@ -23,7 +23,7 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
         };
     }
 
-    override _updateObject(formData: Partial<FastHealingSource>): void {
+    override updateObject(formData: Partial<FastHealingSource>): void {
         if (formData.type !== "regeneration") {
             delete formData.deactivatedBy;
         } else {

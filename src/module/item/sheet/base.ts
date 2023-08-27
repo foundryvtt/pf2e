@@ -558,7 +558,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 rules[idx] = mergeObject(rules[idx] ?? {}, value);
 
                 // Call any special handlers in the rule element forms
-                this.ruleElementForms[idx]?._updateObject(rules[idx]);
+                this.ruleElementForms[idx]?.updateObject(rules[idx]);
 
                 // predicate is special cased as always json. Later on extend such parsing to more things
                 const predicateValue = value.predicate;

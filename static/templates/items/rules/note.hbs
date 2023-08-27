@@ -1,20 +1,36 @@
-<div class="details-container-flex-row">
-    <label>
-        {{localize "PF2E.RuleEditor.General.Selector"}}
-        <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
-    </label>
-    <label>
-        {{localize "PF2E.RuleEditor.Note.Hidden"}}
-        <input type="checkbox" class="hidden-value" {{checked (or (eq rule.visibility "gm") (eq rule.visibility "owner"))}}>
-    </label>
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.Note.Title"}}</label>
+    <div class="spaced-fields details-container-flex-row">
+        <input type="text" name="system.rules.{{index}}.title" value="{{rule.title}}" />
+        <label>
+            {{localize "PF2E.RuleEditor.Note.Hidden"}}
+            <input type="checkbox" class="hidden-value" {{checked (eq rule.visibility "gm")}}>
+        </label>
+    </div>
 </div>
-<input type="text" name="system.rules.{{index}}.title" value="{{rule.title}}" placeholder="{{localize "PF2E.RuleEditor.Note.Title"}}"/>
+
+<div class="form-group">
+    <label for="selector" class="short">{{localize "PF2E.RuleEditor.General.Selector"}}</label>
+    <div class="attached-input">
+        <button type="button" class="attachment" data-action="toggle-selector">
+            {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
+        </button>
+        {{#if selectorIsArray}}
+            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON" />
+        {{else}}
+            <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
+        {{/if}}
+    </div>
+</div>
+
 <textarea name="system.rules.{{index}}.text" spellcheck="false" placeholder="{{localize "PF2E.RuleEditor.Note.Text"}}">{{rule.text}}</textarea>
-<div class="labelled-element">
-    {{localize "PF2E.RuleEditor.Note.Outcome"}}
+
+<div class="form-group">
+    <label>{{localize "PF2E.RuleEditor.Note.Outcome"}}</label>
     <input class="pf2e-tagify outcomes" name="system.rules.{{index}}.outcome" value="{{json rule.outcome}}" data-dtype="JSON" />
 </div>
-<label>
-    {{localize "PF2E.RuleEditor.General.Predicate"}}
+
+<div class="form-group">
+    <label>{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
     <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
-</label>
+</div>

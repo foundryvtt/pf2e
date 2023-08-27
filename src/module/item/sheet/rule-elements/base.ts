@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item/base.ts";
 import { RuleElementPF2e, RuleElementSource } from "@module/rules/index.ts";
+import { htmlQuery, tagify } from "@util";
 
 /** Utility function to convert a value to a number if its a valid number */
 function coerceNumber<T extends string | unknown>(value: T): T | number {
@@ -56,8 +57,13 @@ class RuleElementForm<
         this.item.update({ [`system.rules`]: rules });
     }
 
-    activateListeners(_html: HTMLElement): void {}
-    _updateObject(_formData: Partial<Record<string, unknown>>): void {}
+    activateListeners(html: HTMLElement): void {
+        // Tagify selectors lists
+        const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
+        tagify(selectorElement);
+    }
+
+    updateObject(_formData: Record<string, unknown>): void {}
 }
 
 type RuleElementFormSheetData<
