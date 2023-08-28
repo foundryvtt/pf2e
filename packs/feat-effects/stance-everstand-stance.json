@@ -17,13 +17,16 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
+                "itemType": "armor",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "path": "system.attributes.shield.hardness",
-                "phase": "beforeDerived",
                 "predicate": [
-                    "self:shield:equipped"
+                    "item:category:shield",
+                    "item:equipped",
+                    "self:shield:raised"
+                    
                 ],
+                "property": "hardness",
                 "value": 2
             },
             {
@@ -31,14 +34,10 @@
                 "override": {
                     "upgrade": true
                 },
-                "selector": "shield-boss-damage"
-            },
-            {
-                "key": "DamageDice",
-                "override": {
-                    "upgrade": true
-                },
-                "selector": "shield-spikes-damage"
+                "selector": [
+                    "shield-boss-damage",
+                    "shield-spikes-damage"
+                ]
             }
         ],
         "source": {
