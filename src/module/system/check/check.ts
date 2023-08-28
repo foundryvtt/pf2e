@@ -347,11 +347,11 @@ class CheckPF2e {
             })();
             if (maxRange === null && rangeIncrement === null) return [];
 
-            const locKey =
+            const [key, value] =
                 maxRange === rangeIncrement || rangeIncrement === null
-                    ? `PF2E.TraitRange${maxRange}`
-                    : "PF2E.Item.Weapon.RangeIncrementN.Label";
-            const label = game.i18n.format(locKey, { range: rangeIncrement });
+                    ? ["PF2E.Action.Range.MaxN", maxRange]
+                    : ["PF2E.Action.Range.IncrementN", rangeIncrement];
+            const label = game.i18n.format(key, { n: value });
             return [
                 toTagElement(
                     {

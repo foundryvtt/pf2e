@@ -7,6 +7,7 @@ import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
 import { DamageRollContext, DamageTemplate } from "./types.ts";
+import { localizer } from "@util";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -85,11 +86,16 @@ export class DamagePF2e {
                 : "";
 
             const properties = ((): string => {
-                if (item?.isOfType("weapon") && item.isRanged) {
-                    // Show the range increment for ranged weapons
-                    const { rangeIncrement } = item;
-                    const slug = `range-increment-${rangeIncrement}`;
-                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range: rangeIncrement });
+                const localize = localizer("PF2E.Action.Range");
+                const { increment, max } =
+                    context.range ??
+                    (item?.isOfType("weapon") ? { increment: item.rangeIncrement, max: item.maxRange } : {});
+                if (increment || max) {
+                    // Show the range increment or max range as a tag
+                    const [slug, key, value] = increment
+                        ? [`range-increment-${increment}`, "IncrementN", increment]
+                        : [`range-max`, "MaxN", max];
+                    const label = localize(key, { n: value ?? null });
                     return toTags([slug], {
                         labels: { [slug]: label },
                         descriptions: { [slug]: "PF2E.Item.Weapon.RangeIncrementN.Hint" },
