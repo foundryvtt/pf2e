@@ -3155,21 +3155,13 @@
                     {
                         "key": "Note",
                         "outcome": [
-                            "failure",
-                            "criticalFailure"
-                        ],
-                        "selector": "skill-check",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
                             "criticalFailure",
                             "failure"
                         ],
-                        "selector": "saving-throw",
+                        "selector": [
+                            "saving-throw",
+                            "skill-check"
+                        ],
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
                         "visibility": "owner"
