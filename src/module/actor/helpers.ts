@@ -385,8 +385,9 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 { weapon: item.name }
             );
 
+            const check = new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers);
             const roll = await CheckPF2e.roll(
-                new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers),
+                check,
                 {
                     type: "attack-roll",
                     identifier: item.id,
@@ -409,14 +410,16 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 params.event
             );
 
-            for (const rule of actor.rules.filter((r) => !r.ignored)) {
-                await rule.afterRoll?.({
-                    roll,
-                    statistic: context.self.statistic,
-                    selectors: domains,
-                    domains,
-                    rollOptions: context.options,
-                });
+            if (roll) {
+                for (const rule of actor.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({
+                        roll,
+                        check,
+                        selectors: domains,
+                        domains,
+                        rollOptions: context.options,
+                    });
+                }
             }
 
             return roll;

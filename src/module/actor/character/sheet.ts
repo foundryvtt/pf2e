@@ -1114,12 +1114,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             switch (button.dataset.action) {
                 case "roll-attack": {
                     const mapIncreases = Math.clamped(Number(button.dataset.mapIncreases) || 0, 0, 2);
-                    await blast.attack({ mapIncreases, element, damageType, melee });
+                    await blast.attack({ mapIncreases, element, damageType, melee, event });
                     break;
                 }
                 case "roll-damage": {
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
-                    await blast.damage({ element, damageType, melee, outcome });
+                    await blast.damage({ element, damageType, melee, outcome, event });
                     break;
                 }
                 case "set-damage-type": {

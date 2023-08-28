@@ -241,7 +241,7 @@ class ElementalBlast {
             throw ErrorPF2e(`Unrecognized damage type: ${damageType}`);
         }
 
-        const blastData = this.#getBlastConfig(element, damageType);
+        const blastConfig = this.#getBlastConfig(element, damageType);
         const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
         const melee = !!(params.melee ?? true);
 
@@ -251,7 +251,7 @@ class ElementalBlast {
 
         const thisToken = this.actor.getActiveTokens(true, false).shift() ?? null;
         const targetToken = game.user.targets.first() ?? null;
-        if (!params.melee && thisToken && targetToken && thisToken.distanceTo(targetToken) > blastData.range.max) {
+        if (!params.melee && thisToken && targetToken && thisToken.distanceTo(targetToken) > blastConfig.range.max) {
             ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
             return null;
         }
@@ -263,7 +263,7 @@ class ElementalBlast {
         });
 
         return statistic.extend({ check: { domains: [`${actionSlug}-attack-roll`] } }).roll({
-            identifier: `${blastData.element}.${params.damageType}.${meleeOrRanged}.${actionCost}`,
+            identifier: `${blastConfig.element}.${params.damageType}.${meleeOrRanged}.${actionCost}`,
             action: actionSlug,
             attackNumber: mapIncreases + 1,
             target: targetToken?.actor ?? null,
@@ -272,10 +272,11 @@ class ElementalBlast {
             label,
             traits,
             melee,
-            range: melee ? null : blastData.range,
+            range: melee ? null : blastConfig.range,
             damaging: true,
             dc: { slug: "ac" },
             extraRollOptions: [`action:${actionSlug}`, `action:cost:${actionCost}`],
+            ...eventToRollParams(params.event),
         });
     }
 
@@ -287,7 +288,7 @@ class ElementalBlast {
         if (!(item && statistic)) return null;
 
         const melee = !!(params.melee ?? true);
-        const blastData = this.#getBlastConfig(params.element, params.damageType);
+        const blastConfig = this.#getBlastConfig(params.element, params.damageType);
         const outcome = params.outcome ?? "success";
         const meleeOrRanged = melee ? "melee" : "ranged";
         const actionCost = Math.clamped(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
@@ -313,7 +314,7 @@ class ElementalBlast {
             damageType: params.damageType,
             terms: [
                 {
-                    dice: { number: 1, faces: blastData.dieFaces },
+                    dice: { number: 1, faces: blastConfig.dieFaces },
                     modifier: 0,
                 },
             ],
@@ -348,6 +349,7 @@ class ElementalBlast {
             target: context.target,
             outcome,
             options: context.options,
+            range: melee ? null : blastConfig.range,
             domains,
             ...eventToRollParams(params.event),
         };
