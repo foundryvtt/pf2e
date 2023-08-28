@@ -1,6 +1,7 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, sluggify } from "@util";
 import { isObject } from "remeda";
+import DataModel, { _DataModel } from "types/foundry/common/abstract/data.js";
 import type {
     ArrayFieldOptions,
     CleanFieldOptions,
@@ -83,11 +84,27 @@ class StrictBooleanField<
     }
 }
 
+class StrictArrayField<
+    TElementField extends DataField,
+    TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
+    TModelProp extends object = ModelPropFromDataField<TElementField>[],
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true
+> extends fields.ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    /** Don't wrap a non-array in an array */
+    protected override _cast(value: unknown): unknown {
+        return value;
+    }
+
+    /** Parent method assumes array-wrapping: pass through unchanged */
+    protected override _cleanType(value: unknown): unknown {
+        return value ? super._cleanType(value) : value;
+    }
+}
+
 class DataUnionField<
-    TField extends
-        | StrictBooleanField<boolean, boolean>
-        | StrictStringField<string, string>
-        | PredicateField<boolean, boolean, boolean>,
+    TField extends DataField,
     TRequired extends boolean = boolean,
     TNullable extends boolean = boolean,
     THasInitial extends boolean = boolean
@@ -118,6 +135,23 @@ class DataUnionField<
         return value;
     }
 
+    override clean(
+        value: unknown,
+        options?: CleanFieldOptions | undefined
+    ): MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial> {
+        if (Array.isArray(value)) {
+            const arrayField = this.fields.find((f) => f instanceof StrictArrayField);
+            return (arrayField?.clean(value, options) ?? value) as MaybeUnionSchemaProp<
+                TField,
+                TRequired,
+                TNullable,
+                THasInitial
+            >;
+        }
+
+        return super.clean(value, options) as MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial>;
+    }
+
     override validate(
         value: unknown,
         options?: DataFieldValidationOptions | undefined
@@ -131,9 +165,35 @@ class DataUnionField<
             }
         }
 
-        return new DataModelValidationFailure({ invalidValue: value, message: "Invalid!" });
+        return this.fields[0].validate(value, options);
+    }
+
+    override initialize(
+        value: unknown,
+        model?: ConstructorOf<DataModel<_DataModel | null, DataSchema>> | undefined,
+        options?: object | undefined
+    ): MaybeUnionSchemaProp<TField, TRequired, TNullable, THasInitial> {
+        const field = this.fields.find((f) => !f.validate(value));
+        return field?.initialize(value, model, options) as MaybeUnionSchemaProp<
+            TField,
+            TRequired,
+            TNullable,
+            THasInitial
+        >;
     }
 }
+
+type MaybeUnionSchemaProp<
+    TField extends DataField,
+    TRequired extends boolean,
+    TNullable extends boolean,
+    THasInitial extends boolean
+> = MaybeSchemaProp<
+    TField extends DataField<infer _TSourceProp, infer TModelProp, boolean, boolean, boolean> ? TModelProp : never,
+    TRequired,
+    TNullable,
+    THasInitial
+>;
 
 /** A sluggified string field */
 class SlugField<
@@ -205,19 +265,9 @@ class PredicateField<
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends fields.ArrayField<PredicateStatementField, RawPredicate, PredicatePF2e, TRequired, TNullable, THasInitial> {
+> extends StrictArrayField<PredicateStatementField, RawPredicate, PredicatePF2e, TRequired, TNullable, THasInitial> {
     constructor(options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>) {
         super(new PredicateStatementField(), options);
-    }
-
-    /** Don't wrap a non-array in an array */
-    protected override _cast(value: unknown): unknown {
-        return value;
-    }
-
-    /** Parent method assumes array-wrapping: pass through unchanged */
-    protected override _cleanType(value: unknown): unknown {
-        return value;
     }
 
     /** Construct a `PredicatePF2e` from the initialized `PredicateStatement[]` */
@@ -350,6 +400,7 @@ export {
     PredicateField,
     RecordField,
     SlugField,
+    StrictArrayField,
     StrictBooleanField,
     StrictSchemaField,
     StrictStringField,

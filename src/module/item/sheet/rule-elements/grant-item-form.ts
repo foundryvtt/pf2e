@@ -11,7 +11,7 @@ class GrantItemForm extends RuleElementForm<GrantItemSource, GrantItemRuleElemen
         return { ...data, granted, allowDuplicate: !!this.rule.allowDuplicate ?? true };
     }
 
-    override _updateObject(ruleData: DeepPartial<GrantItemSource>): void {
+    override updateObject(ruleData: DeepPartial<GrantItemSource>): void {
         if (typeof ruleData.uuid === "string") {
             ruleData.uuid = ruleData.uuid.trim();
             if (ruleData.uuid === "") delete ruleData.uuid;
