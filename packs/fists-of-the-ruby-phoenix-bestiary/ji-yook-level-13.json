@@ -1072,12 +1072,43 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional @Damage[3d4[electricity]] damage and is pushed back 5 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
+                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional 3d4 electricity damage and is pushed back 10 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 3,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "foxfire-blast"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "foxfire-blast",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "foxfire-blast"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
