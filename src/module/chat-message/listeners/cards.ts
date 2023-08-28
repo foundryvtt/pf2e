@@ -198,8 +198,7 @@ class ChatCards {
                         const buttons = htmlQuery(parsedMessageContent, ".message-buttons");
                         if (buttons) {
                             const span = createHTMLElement("span", { classes: ["effect-applied"] });
-                            const anchor = effect.toAnchor();
-                            anchor.draggable = true;
+                            const anchor = effect.toAnchor({ attrs: { draggable: "true" } });
                             const locKey = "PF2E.Item.Action.SelfAppliedEffect.Applied";
                             const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
                             span.innerHTML = statement;
