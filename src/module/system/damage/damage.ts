@@ -25,10 +25,11 @@ export class DamagePF2e {
             context.secret = true;
         }
 
-        const subtitle =
-            context.sourceType === "attack"
+        const subtitle = outcome
+            ? context.sourceType === "attack"
                 ? game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`)
-                : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
+                : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`)
+            : null;
         let flavor = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
             title: data.name,
             subtitle,
