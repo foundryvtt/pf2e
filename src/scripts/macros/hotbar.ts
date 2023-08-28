@@ -47,11 +47,16 @@ export async function createActionMacro(actionIndex: number, slot: number): Prom
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
 
-export async function rollActionMacro(itemId: string, _actionIndex: number, actionSlug: string): Promise<void> {
+export async function rollActionMacro(
+    itemId: string,
+    _actionIndex: number,
+    actionSlug: string
+): Promise<ChatMessagePF2e | undefined> {
     const speaker = ChatMessage.getSpeaker();
     const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     if (!actor?.isOfType("character", "npc")) {
-        return ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
+        ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
+        return undefined;
     }
 
     const strikes: StrikeData[] = actor.system.actions;
@@ -59,7 +64,8 @@ export async function rollActionMacro(itemId: string, _actionIndex: number, acti
         strikes.find((s) => s.item.id === itemId && s.slug === actionSlug) ??
         strikes.find((s) => s.slug === actionSlug);
     if (!strike) {
-        return ui.notifications.error("PF2E.MacroActionNoActionError", { localize: true });
+        ui.notifications.error("PF2E.MacroActionNoActionError", { localize: true });
+        return undefined;
     }
 
     const templateData = {
@@ -84,7 +90,7 @@ export async function rollActionMacro(itemId: string, _actionIndex: number, acti
         chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
     if (rollMode === "blindroll") chatData.blind = true;
 
-    ChatMessagePF2e.create(chatData);
+    return ChatMessagePF2e.create(chatData);
 }
 
 export async function createSkillMacro(

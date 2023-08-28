@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/data/index.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { ChatMessagePF2e } from "@module/documents.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
@@ -192,18 +192,14 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return [baseOptions, otherOptions].flat().sort();
     }
 
-    override async getChatData(
-        this: MeleePF2e<ActorPF2e>,
-        htmlOptions: EnrichmentOptions = {}
-    ): Promise<ItemSummaryData & { map2: string; map3: string } & Omit<MeleeSystemData, "traits">> {
-        const systemData = this.system;
-        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
-
-        const isAgile = this.traits.has("agile");
-        const map2 = isAgile ? "-4" : "-5";
-        const map3 = isAgile ? "-8" : "-10";
-
-        return this.processChatData(htmlOptions, { ...systemData, traits, map2, map3 });
+    /** Treat this item like a strike in this context and post it as one */
+    override async toMessage(
+        _event?: MouseEvent | JQuery.TriggeredEvent,
+        { create = true }: { create?: boolean } = {}
+    ): Promise<ChatMessagePF2e | undefined> {
+        if (!create) return undefined; // Nothing useful to do
+        const strike = this.actor?.system.actions?.find((s) => s.item === this);
+        return strike ? game.pf2e.rollActionMacro(this.id, 0, strike.slug) : undefined;
     }
 }
 
