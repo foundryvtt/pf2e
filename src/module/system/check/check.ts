@@ -300,13 +300,12 @@ class CheckPF2e {
         }
 
         const toTagElement = (tag: TagObject, cssClass: string | null = null): HTMLElement => {
-            const span = document.createElement("span");
-            span.classList.add("tag");
+            const span = createHTMLElement("span", {
+                classes: ["tag"],
+                children: [tag.label],
+                dataset: { slug: tag.name },
+            });
             if (cssClass) span.classList.add(`tag_${cssClass}`);
-
-            span.innerText = tag.label;
-
-            if (tag.name) span.dataset.slug = tag.name;
             if (tag.description) span.dataset.description = tag.description;
 
             return span;
@@ -364,7 +363,7 @@ class CheckPF2e {
             ];
         })();
 
-        const traitsAndProperties = createHTMLElement("div", { classes: ["tags", "traits"] });
+        const traitsAndProperties = createHTMLElement("div", { classes: ["tags", "traits", "paizo-style"] });
         if (itemTraits.length === 0 && properties.length === 0) {
             traitsAndProperties.append(...traits);
         } else {

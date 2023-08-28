@@ -111,8 +111,8 @@ export class DamagePF2e {
 
             flavor +=
                 otherTags.length > 0
-                    ? `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`
-                    : `<div class="tags">${traits}</div><hr>`;
+                    ? `<div class="tags paizo-style">${traits}<hr class="vr" />${otherTags}</div><hr>`
+                    : `<div class="tags paizo-style">${traits}</div><hr>`;
         }
 
         // Add breakdown to flavor

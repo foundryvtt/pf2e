@@ -98,14 +98,26 @@
     }
 }
 
-li.chat-message .tags .tag {
-    height: unset;
-    line-height: 1.7em;
-    min-height: 1em;
+li.chat-message .tags {
+    .tag {
+        height: unset;
+        line-height: 1.7em;
+        min-height: 1em;
 
-    &_transparent {
-        line-height: 1.25em;
-        padding: 0.1em 0.25em;
+        &_transparent {
+            line-height: 1.25em;
+            padding: 0.1em 0.25em;
+        }
+    }
+
+    &.paizo-style {
+        row-gap: 1px;
+
+        .tag {
+            border-width: 1px;
+            display: inline;
+            outline: 1px solid var(--color-border-trait);
+        }
     }
 }
 
@@ -123,8 +135,9 @@ li.chat-message .tags .tag {
     tag,
     .tag,
     select.tag {
-        border: 0.16em solid var(--color-border-trait);
+        border: 2px solid var(--color-border-trait);
         box-shadow: none;
+        color: white;
         margin: 0;
         min-height: 22px;
 
