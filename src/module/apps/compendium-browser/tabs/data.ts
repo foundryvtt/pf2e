@@ -34,7 +34,7 @@ interface OrderData {
     options: Record<string, string>;
 }
 
-interface RangesData {
+interface RangesInputData {
     changed: boolean;
     isExpanded: boolean;
     values: {
@@ -103,7 +103,7 @@ interface EquipmentFilters extends BaseFilterData {
         traits: MultiselectData<PhysicalItemTrait>;
     };
     ranges: {
-        price: RangesData;
+        price: RangesInputData;
     };
     sliders: {
         level: SliderData;
@@ -172,7 +172,7 @@ export {
     FeatFilters,
     HazardFilters,
     MultiselectData,
-    RangesData,
+    RangesInputData,
     RenderResultListOptions,
     SliderData,
     SpellFilters,

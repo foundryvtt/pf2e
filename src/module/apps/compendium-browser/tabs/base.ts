@@ -2,7 +2,13 @@ import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
-import { BrowserFilter, CheckboxOptions, CompendiumBrowserIndexData, MultiselectData, RangesData } from "./data.ts";
+import {
+    BrowserFilter,
+    CheckboxOptions,
+    CompendiumBrowserIndexData,
+    MultiselectData,
+    RangesInputData,
+} from "./data.ts";
 import { TableResultSource } from "types/foundry/common/documents/table-result.js";
 
 export abstract class CompendiumBrowserTab {
@@ -174,7 +180,7 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Return new range filter values based on input */
-    parseRangeFilterInput(_name: string, lower: string, upper: string): RangesData["values"] {
+    parseRangeFilterInput(_name: string, lower: string, upper: string): RangesInputData["values"] {
         return {
             min: Number(lower) || 0,
             max: Number(upper) || 0,

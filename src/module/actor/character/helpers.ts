@@ -1,6 +1,6 @@
-import { StrikeAttackTraits } from "@actor/creature/helpers.ts";
+import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
+import { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
@@ -10,16 +10,17 @@ import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, pick, setHasElement, traitSlugToObject, tupleHasValue } from "@util";
+import * as R from "remeda";
 import type { CharacterPF2e } from "./document.ts";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
-class PCStrikeAttackTraits extends StrikeAttackTraits {
+class PCAttackTraitHelpers extends AttackTraitHelpers {
     static adjustWeapon(weapon: WeaponPF2e): void {
         const traits = weapon.system.traits.value;
         for (const trait of [...traits]) {
             switch (trait.replace(/-d?\d{1,3}$/, "")) {
                 case "fatal-aim": {
-                    if (weapon.rangeIncrement && weapon.handsHeld === 2) {
+                    if (weapon.range?.increment && weapon.handsHeld === 2) {
                         const fatal = trait.replace("-aim", "");
                         if (objectHasKey(CONFIG.PF2E.weaponTraits, fatal) && !traits.includes(fatal)) {
                             traits.push(fatal);
@@ -42,11 +43,11 @@ class PCStrikeAttackTraits extends StrikeAttackTraits {
         }
     }
 
-    static override createAttackModifiers({ weapon, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
-        const { actor } = weapon;
+    static override createAttackModifiers({ item, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
+        const { actor } = item;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
-        const traitsAndTags = [weapon.system.traits.value, weapon.system.traits.otherTags].flat();
+        const traitsAndTags = R.compact([item.system.traits.value, item.system.traits.otherTags].flat());
         const synthetics = actor.synthetics.modifierAdjustments;
 
         const pcSpecificModifiers = traitsAndTags.flatMap((trait) => {
@@ -80,7 +81,7 @@ class PCStrikeAttackTraits extends StrikeAttackTraits {
             }
         });
 
-        return [...super.createAttackModifiers({ weapon }), ...pcSpecificModifiers];
+        return [...super.createAttackModifiers({ item }), ...pcSpecificModifiers];
     }
 }
 
@@ -237,7 +238,7 @@ function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
 }
 
 interface CreateAttackModifiersParams {
-    weapon: WeaponPF2e;
+    item: AbilityItemPF2e<CharacterPF2e> | WeaponPF2e<CharacterPF2e>;
     domains: string[];
 }
 
@@ -315,7 +316,7 @@ function createPonderousPenalty(actor: CharacterPF2e): ModifierPF2e | null {
 }
 
 export {
-    PCStrikeAttackTraits,
+    PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
     createForceOpenPenalty,
     createHinderingPenalty,

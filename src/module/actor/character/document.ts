@@ -94,7 +94,7 @@ import {
 } from "./data.ts";
 import { CharacterFeats } from "./feats.ts";
 import {
-    PCStrikeAttackTraits,
+    PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
     createForceOpenPenalty,
     createHinderingPenalty,
@@ -1334,7 +1334,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Everything from relevant synthetics
         modifiers.push(
-            ...PCStrikeAttackTraits.createAttackModifiers({ weapon, domains: selectors }),
+            ...PCAttackTraitHelpers.createAttackModifiers({ item: weapon, domains: selectors }),
             ...extractModifiers(synthetics, selectors, { injectables: { weapon }, resolvables: { weapon } })
         );
 
@@ -1550,7 +1550,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 // Check whether target is out of maximum range; abort early if so
                 if (context.self.item.isRanged && typeof context.target?.distance === "number") {
-                    const maxRange = context.self.item.maxRange ?? 10;
+                    const maxRange = context.self.item.range?.max ?? 10;
                     if (context.target.distance > maxRange) {
                         ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
                         return null;
@@ -1722,7 +1722,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     protected override async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
         const context = await super.getRollContext(params);
         if (params.statistic instanceof StatisticModifier && context.self.item?.isOfType("weapon")) {
-            PCStrikeAttackTraits.adjustWeapon(context.self.item);
+            PCAttackTraitHelpers.adjustWeapon(context.self.item);
         }
 
         return context;

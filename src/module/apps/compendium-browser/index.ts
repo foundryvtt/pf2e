@@ -18,7 +18,7 @@ import {
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
-    RangesData,
+    RangesInputData,
     RenderResultListOptions,
     SliderData,
     SpellFilters,
@@ -689,7 +689,7 @@ class CompendiumBrowser extends Application {
             // Toggle visibility of filter container
             const title = container.querySelector<HTMLDivElement>("div.title");
             title?.addEventListener("click", () => {
-                const toggleFilter = (filter: CheckboxData | RangesData | SliderData) => {
+                const toggleFilter = (filter: CheckboxData | RangesInputData | SliderData) => {
                     filter.isExpanded = !filter.isExpanded;
                     const contentElement = title.nextElementSibling;
                     if (contentElement instanceof HTMLElement) {

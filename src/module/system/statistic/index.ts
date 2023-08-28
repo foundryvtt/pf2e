@@ -11,6 +11,7 @@ import {
 } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
+import { RangeData } from "@item/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
@@ -685,7 +686,7 @@ interface StatisticRollParameters {
     /** Indication that the check is associated with a melee action */
     melee?: boolean;
     /** A range that restricts or penalizes a targeted check */
-    range?: Maybe<{ increment?: Maybe<number>; max?: number }>;
+    range?: Maybe<RangeData>;
     /** Whether to create a chat message using the roll (defaults true) */
     createMessage?: boolean;
     /** Callback called when the roll occurs. */

@@ -1,3 +1,4 @@
+import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import { AbilityItemPF2e } from "@item";
@@ -16,7 +17,7 @@ import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, objectHasKey, traitSlugToObject } from "@util";
+import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import * as R from "remeda";
 import type {
     ArrayField,
@@ -98,7 +99,12 @@ class ElementalBlast {
                         positive: true,
                         nullable: false,
                     }),
-                    max: new fields.NumberField({ required: true, integer: true, positive: true, nullable: false }),
+                    max: new fields.NumberField({
+                        required: true,
+                        integer: true,
+                        positive: true,
+                        nullable: false,
+                    }),
                 },
                 { required: false, nullable: true, initial: null }
             ),
@@ -142,7 +148,9 @@ class ElementalBlast {
             const flag = item.flags.pf2e.damageSelections;
             return isObject<Record<string, unknown>>(flag) ? flag : {};
         })();
-        const blasts = Object.values(kineticist.elementalBlast).map((b) => schema.clean(b));
+        const blasts = Object.values(kineticist.elementalBlast)
+            .filter((b: unknown) => isObject(b) && "element" in b)
+            .map((b) => schema.clean(b));
 
         const validationFailures = blasts.flatMap((b) => schema.validate(b) ?? []);
         for (const failure of validationFailures) {
@@ -167,7 +175,7 @@ class ElementalBlast {
             const range = infusion.range?.increment
                 ? {
                       increment: infusion.range.increment,
-                      max: infusion.range.max * 6,
+                      max: infusion.range.increment * 6,
                       label: game.i18n.format("PF2E.Action.Range.IncrementN", { n: infusion.range.increment }),
                   }
                 : {
@@ -191,8 +199,14 @@ class ElementalBlast {
 
     #prepareBlastInfusion(): BlastInfusionData {
         const schema = ElementalBlast.#blastInfusionSchema;
-        const flag = this.item?.flags.pf2e.kineticist ?? {};
-        const infusionData = isObject<{ infusion: unknown }>(flag) && isObject(flag.infusion) ? flag.infusion : {};
+        const flag = this.actor.flags.pf2e.kineticist ?? {};
+        const infusionData =
+            isObject<{ elementalBlast: unknown }>(flag) &&
+            isObject(flag.elementalBlast) &&
+            "infusion" in flag.elementalBlast
+                ? flag.elementalBlast.infusion ?? {}
+                : {};
+
         return schema.clean(infusionData);
     }
 
@@ -210,23 +224,36 @@ class ElementalBlast {
         return config;
     }
 
-    /** Get all elemental-blast traits applicable to an element and damage-type combination. */
-    #getTraits(element: ElementTrait, damageType: DamageType, melee: boolean): ActionTrait[] {
-        const baseTraits = this.item?.system.traits.value ?? [];
-        const infusionTraits = melee ? this.infusion.traits.melee : this.infusion.traits.ranged;
-        return R.uniq(
-            [...baseTraits, ...infusionTraits, element, damageType].filter(
-                (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits
-            )
-        ).sort();
+    #createModifiedItem(
+        config: ElementalBlastConfig,
+        damageType: DamageType,
+        melee: boolean
+    ): AbilityItemPF2e<CharacterPF2e> | null {
+        const { item } = this;
+        if (!item) return null;
+
+        const traits = ((): ActionTrait[] => {
+            const baseTraits = this.item?.system.traits.value ?? [];
+            const infusionTraits = melee ? this.infusion.traits.melee : this.infusion.traits.ranged;
+            return R.uniq(
+                [...baseTraits, ...infusionTraits, config.element, damageType].filter(
+                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits
+                )
+            ).sort();
+        })();
+
+        const clone = item.clone({ system: { traits: { value: traits } } });
+        clone.range = melee ? null : config.range;
+
+        return clone;
     }
 
     /** Make an impulse attack roll as part of an elemental blast. */
     async attack(params: BlastAttackParams): Promise<Rolled<CheckRoll> | null> {
-        const { item, statistic, actionCost } = this;
+        const { statistic, actionCost } = this;
         const actionSlug = "elemental-blast";
         const kineticAura = this.actor.itemTypes.effect.find((e) => e.slug === "effect-kinetic-aura");
-        if (!(statistic && item)) throw ErrorPF2e("Unable to blast");
+        if (!(statistic && this.item)) throw ErrorPF2e("Unable to blast");
         if (!kineticAura) throw ErrorPF2e("No kinetic gate");
 
         const meleeOrRanged = params.melee ? "melee" : "ranged";
@@ -242,12 +269,11 @@ class ElementalBlast {
         }
 
         const blastConfig = this.#getBlastConfig(element, damageType);
-        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
         const melee = !!(params.melee ?? true);
+        const item = this.#createModifiedItem(blastConfig, damageType, melee);
+        if (!item) return null;
 
-        const traits = this.#getTraits(element, damageType, melee).map((t) =>
-            traitSlugToObject(t, CONFIG.PF2E.actionTraits)
-        );
+        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
 
         const thisToken = this.actor.getActiveTokens(true, false).shift() ?? null;
         const targetToken = game.user.targets.first() ?? null;
@@ -261,18 +287,24 @@ class ElementalBlast {
             glyph: actionCost.toString(),
             subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
         });
+        const blastStatistic = statistic.extend({
+            check: {
+                domains: [`${actionSlug}-attack-roll`],
+                modifiers: AttackTraitHelpers.createAttackModifiers({ item }),
+            },
+        });
 
-        return statistic.extend({ check: { domains: [`${actionSlug}-attack-roll`] } }).roll({
+        return blastStatistic.roll({
             identifier: `${blastConfig.element}.${params.damageType}.${meleeOrRanged}.${actionCost}`,
             action: actionSlug,
             attackNumber: mapIncreases + 1,
             target: targetToken?.actor ?? null,
             token: thisToken?.document ?? null,
-            item: this.item,
+            item,
             label,
-            traits,
+            traits: item.system.traits.value,
             melee,
-            range: melee ? null : blastConfig.range,
+            range: item.range,
             damaging: true,
             dc: { slug: "ac" },
             extraRollOptions: [`action:${actionSlug}`, `action:cost:${actionCost}`],
@@ -281,30 +313,33 @@ class ElementalBlast {
     }
 
     /** Make a damage roll as part of an elemental blast. */
-    damage(params: BlastDamageParams & { getFormula: true }): Promise<string>;
-    damage(params: BlastDamageParams): Promise<Rolled<DamageRoll> | null | string>;
-    async damage(params: BlastDamageParams): Promise<Rolled<DamageRoll> | null | string> {
-        const { item, statistic } = this;
-        if (!(item && statistic)) return null;
+    damage(params: BlastDamageParams & { getFormula: true }): Promise<string | null>;
+    damage(params: BlastDamageParams): Promise<Rolled<DamageRoll> | string | null>;
+    async damage(params: BlastDamageParams): Promise<Rolled<DamageRoll> | string | null> {
+        if (!this.statistic) return null;
 
         const melee = !!(params.melee ?? true);
         const blastConfig = this.#getBlastConfig(params.element, params.damageType);
+        if (!blastConfig) return null;
+
+        const item = this.#createModifiedItem(blastConfig, params.damageType, melee);
+        if (!item) return null;
+
         const outcome = params.outcome ?? "success";
         const meleeOrRanged = melee ? "melee" : "ranged";
         const actionCost = Math.clamped(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "impulse-damage", `${actionSlug}-damage`];
         const targetToken = game.user.targets.first() ?? null;
-        const traits = this.#getTraits(params.element, params.damageType, melee);
 
         const context = await this.actor.getDamageRollContext({
             viewOnly: params.getFormula ?? false,
-            statistic: statistic.check,
+            statistic: this.statistic.check,
             target: { token: targetToken },
             domains,
             outcome,
             melee,
-            options: new Set([`action:${actionSlug}`, `action:cost:${actionCost}`, meleeOrRanged, ...traits]),
+            options: new Set([`action:${actionSlug}`, `action:cost:${actionCost}`, meleeOrRanged, ...item.traits]),
         });
 
         const damageSynthetics = extractDamageSynthetics(this.actor, domains, { test: context.options });
@@ -337,7 +372,7 @@ class ElementalBlast {
         const damageTemplate: SimpleDamageTemplate = {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${item.name}`,
             notes: [],
-            traits,
+            traits: item.system.traits.value,
             materials: [],
             modifiers,
             damage: { roll, breakdown: damageData.breakdown },
@@ -349,7 +384,7 @@ class ElementalBlast {
             target: context.target,
             outcome,
             options: context.options,
-            range: melee ? null : blastConfig.range,
+            range: item.range,
             domains,
             ...eventToRollParams(params.event),
         };

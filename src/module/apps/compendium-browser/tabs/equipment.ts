@@ -3,7 +3,7 @@ import { localizer, sluggify } from "@util";
 import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.ts";
-import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data.ts";
+import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
@@ -207,7 +207,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         return true;
     }
 
-    override parseRangeFilterInput(name: string, lower: string, upper: string): RangesData["values"] {
+    override parseRangeFilterInput(name: string, lower: string, upper: string): RangesInputData["values"] {
         if (name === "price") {
             const coins = {
                 cp: this.#localizeCoins("cp"),
