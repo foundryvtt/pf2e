@@ -19,7 +19,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, signedInteger, sluggify } from "@util";
-import { StrikeAttackTraits } from "./creature/helpers.ts";
+import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
@@ -157,7 +157,7 @@ function calculateMAPs(
 function calculateBaseMAP(item: ItemPF2e): MAPData {
     const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
 
-    if (item.isOfType("melee", "weapon")) {
+    if (item.isOfType("action", "melee", "weapon")) {
         // calculate multiple attack penalty tiers
         const alternateMAP = item.isOfType("weapon") ? item.system.MAP.value : null;
         switch (alternateMAP) {
@@ -264,7 +264,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     ];
 
     modifiers.push(...extractModifiers(synthetics, domains));
-    modifiers.push(...StrikeAttackTraits.createAttackModifiers({ weapon: item }));
+    modifiers.push(...AttackTraitHelpers.createAttackModifiers({ item }));
     const notes = extractNotes(synthetics.rollNotes, domains);
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
@@ -372,7 +372,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
             // Check whether target is out of maximum range; abort early if so
             if (context.self.item.isRanged && typeof context.target?.distance === "number") {
-                const maxRange = item.maxRange ?? 10;
+                const maxRange = item.range?.max ?? 10;
                 if (context.target.distance > maxRange) {
                     ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
                     return null;
@@ -495,9 +495,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 function getRangeIncrement(attackItem: AttackItem, distance: number | null): number | null {
     if (attackItem.isOfType("spell")) return null;
 
-    return attackItem.rangeIncrement && typeof distance === "number"
-        ? Math.max(Math.ceil(distance / attackItem.rangeIncrement), 1)
-        : null;
+    const { increment } = attackItem.range ?? {};
+    return increment && typeof distance === "number" ? Math.max(Math.ceil(distance / increment), 1) : null;
 }
 
 /** Determine range penalty for a ranged attack roll */

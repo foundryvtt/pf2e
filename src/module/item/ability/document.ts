@@ -2,12 +2,20 @@ import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { ActionCost, Frequency } from "@item/data/base.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
+import { RangeData } from "@item/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { getActionTypeLabel } from "@util";
 import { AbilityItemSource, AbilitySystemData } from "./data.ts";
 import { normalizeActionChangeData } from "./helpers.ts";
+import { ActionTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    range: RangeData | null = null;
+
+    get traits(): Set<ActionTrait> {
+        return new Set(this.system.traits.value);
+    }
+
     get actionCost(): ActionCost | null {
         const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;

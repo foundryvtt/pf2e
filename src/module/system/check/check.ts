@@ -2,6 +2,7 @@ import { ActorPF2e, CharacterPF2e } from "@actor";
 import { StrikeData, TraitViewData } from "@actor/data/base.ts";
 import { CheckModifier } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
+import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -336,32 +337,16 @@ class CheckPF2e {
             : [];
 
         const properties = ((): HTMLElement[] => {
-            const [maxRange, rangeIncrement] = ((): [number | null, number | null] => {
-                if (context.range) {
-                    return [context.range.max ?? null, context.range.increment ?? null];
-                }
-                if (item?.isOfType("weapon") && item.isRanged) {
-                    return [item.maxRange, item.rangeIncrement];
-                }
-                return [null, null];
-            })();
-            if (maxRange === null && rangeIncrement === null) return [];
-
-            const [key, value] =
-                maxRange === rangeIncrement || rangeIncrement === null
-                    ? ["PF2E.Action.Range.MaxN", maxRange]
-                    : ["PF2E.Action.Range.IncrementN", rangeIncrement];
-            const label = game.i18n.format(key, { n: value });
-            return [
-                toTagElement(
-                    {
-                        name: `range-${rangeIncrement}`,
-                        label,
-                        description: "PF2E.Item.Weapon.RangeIncrementN.Hint",
-                    },
-                    "secondary"
-                ),
-            ];
+            const range = context.range ?? (item?.isOfType("weapon") ? item.range : null);
+            const label = createActionRangeLabel(range);
+            if (label && (range?.increment || range?.max)) {
+                // Show the range increment or max range as a tag
+                const slug = range.increment ? `range-increment-${range.increment}` : `range-${range.max}`;
+                const description = "PF2E.Item.Weapon.RangeIncrementN.Hint";
+                return [toTagElement({ name: slug, label, description }, "secondary")];
+            } else {
+                return [];
+            }
         })();
 
         const traitsAndProperties = createHTMLElement("div", { classes: ["tags", "traits"] });

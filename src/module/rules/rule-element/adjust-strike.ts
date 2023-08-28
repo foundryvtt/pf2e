@@ -93,7 +93,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 return;
                             }
 
-                            const rangeIncrement: number | null = weapon.rangeIncrement;
+                            const rangeIncrement = weapon.range?.increment;
                             if (typeof rangeIncrement !== "number") {
                                 return this.failValidation(
                                     "A weapon that meets the definition lacks a range increment."

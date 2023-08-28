@@ -1062,7 +1062,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     async #getBlastData(blast: ElementalBlast, config: ElementalBlastConfig): Promise<ElementalBlastSheetConfig> {
         const damageType = config.damageTypes.find((dt) => dt.selected)?.value ?? "untyped";
-        const formulaFor = (outcome: "success" | "criticalSuccess", melee = true): Promise<string> =>
+        const formulaFor = (outcome: "success" | "criticalSuccess", melee = true): Promise<string | null> =>
             blast.damage({
                 element: config.element,
                 damageType,
@@ -1569,8 +1569,8 @@ interface ClassDCSheetData extends ClassDCData {
 interface ElementalBlastSheetConfig extends ElementalBlastConfig {
     damageType: DamageType;
     formula: {
-        ranged: { damage: string; critical: string };
-        melee: { damage: string; critical: string };
+        ranged: { damage: string | null; critical: string | null };
+        melee: { damage: string | null; critical: string | null };
     };
 }
 

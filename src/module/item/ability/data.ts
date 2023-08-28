@@ -14,6 +14,7 @@ type AbilityItemSource = BaseItemSourcePF2e<"action", AbilitySystemSource>;
 
 interface AbilityTraits extends ItemTraits<ActionTrait> {
     rarity?: never;
+    otherTags?: never;
 }
 
 interface AbilitySystemSource extends ItemSystemSource {

@@ -1,7 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
+import { RangeData } from "@item/types.ts";
+import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ChatMessagePF2e } from "@module/documents.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
@@ -47,26 +48,27 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return reachTrait ? Number(reachTrait.replace("reach-", "")) : SIZE_TO_REACH[this.actor?.size ?? "med"];
     }
 
-    /** The range increment of this attack, or null if a melee attack */
-    get rangeIncrement(): WeaponRangeIncrement | null {
+    /** The range maximum and possibly also increment if a ranged attack; otherwise null */
+    get range(): RangeData | null {
         if (this.isMelee) return null;
 
-        const incrementTrait = this.system.traits.value.find((t) => /^(?:range(?:-increment)?|thrown)-\d+$/.test(t));
-        const increment = Number(incrementTrait?.replace(/\D/g, "")) || 10;
-        return Number.isInteger(increment) ? (increment as WeaponRangeIncrement) : null;
-    }
+        const specifiedMaxRange = ((): number | null => {
+            const rangeTrait = this.system.traits.value.find((t) => /^range-\d+$/.test(t));
+            const range = Number(rangeTrait?.replace(/\D/g, "") || "NaN");
+            return Number.isInteger(range) ? range : null;
+        })();
 
-    /** Get the maximum range of the attack */
-    get maxRange(): number | null {
-        if (this.isMelee) return null;
+        const rangeIncrement = ((): number | null => {
+            if (specifiedMaxRange) return null;
+            const incrementTrait = this.system.traits.value.find((t) => /^(?:range-increment|thrown)-\d+$/.test(t));
+            return Number(incrementTrait?.replace(/\D/g, "")) || 10;
+        })();
 
-        const rangeTrait = this.system.traits.value.find((t) => /^range-\d+$/.test(t));
-        const range = Number(rangeTrait?.replace(/\D/g, ""));
-        if (Number.isInteger(range)) return range;
-
-        // No explicit maximum range: multiply range increment by six or return null
-        const rangeIncrement = this.rangeIncrement;
-        return typeof rangeIncrement === "number" ? rangeIncrement * 6 : null;
+        return specifiedMaxRange
+            ? { increment: null, max: specifiedMaxRange }
+            : rangeIncrement
+            ? { increment: rangeIncrement, max: rangeIncrement * 6 }
+            : null;
     }
 
     /** The first of this attack's damage instances */
@@ -172,6 +174,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const { damageType } = this.baseDamage;
         const damageCategory = DamageCategorization.fromDamageType(damageType);
+        const rangeIncrement = this.range?.increment;
 
         const otherOptions = Object.entries({
             equipped: true,
@@ -182,7 +185,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             [`group:${this.group}`]: !!this.group,
             [`base:${this.baseType}`]: !!this.baseType,
             magical: this.isMagical,
-            [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
+            [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
             [`damage:type:${damageType}`]: true,
             [`damage:category:${damageCategory}`]: !!damageCategory,
         })

@@ -4,6 +4,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
+import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ItemSummaryData, MeleeSource } from "@item/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import {
@@ -20,10 +21,12 @@ import {
     getPropertySlots,
 } from "@item/physical/index.ts";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { RangeData } from "@item/types.ts";
 import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
 import { WeaponTraitToggles, prunePropertyRunes } from "./helpers.ts";
 import type {
@@ -92,14 +95,21 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return usageToHands[this.system.usage.value] ?? "1";
     }
 
-    /** The range increment of this weapon, or null if a melee weapon */
-    get rangeIncrement(): WeaponRangeIncrement | null {
-        return this.system.range;
-    }
-
     /** The maximum range of this weapon: `null` if melee, and usually 6 * range increment if ranged */
     get maxRange(): number | null {
-        return this.system.maxRange ?? (this.rangeIncrement ? this.rangeIncrement * 6 : null);
+        return this.system.maxRange ?? (this.system.range ? this.system.range * 6 : null);
+    }
+
+    /** A single object containing range increment and maximum */
+    get range(): RangeData | null {
+        const rangeIncrement = this.system.range;
+        const maxRange = this.system.maxRange; // A specified maximum in place of a range increment
+
+        return maxRange
+            ? { increment: null, max: maxRange }
+            : rangeIncrement
+            ? { increment: rangeIncrement, max: rangeIncrement * 6 }
+            : null;
     }
 
     get reload(): WeaponReloadTime | null {
@@ -111,11 +121,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     get isMelee(): boolean {
-        return this.rangeIncrement === null;
+        return !this.isRanged;
     }
 
     get isRanged(): boolean {
-        return this.rangeIncrement !== null;
+        return !!this.system.range;
     }
 
     /** Whether the weapon in its current usage is thrown: a thrown-only weapon or a thrown usage of a melee weapon */
@@ -238,6 +248,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const unitBulk = this.bulk.times(1 / this.quantity);
             return unitBulk.isNegligible ? "negligible" : unitBulk.isLight ? "light" : unitBulk.toString();
         })();
+        const rangeIncrement = this.range?.increment;
 
         return [
             super.getRollOptions(prefix),
@@ -249,7 +260,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 [`bulk:${bulk}`]: true,
                 [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
-                [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
+                [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:type:${damage.type}`]: true,
                 [`damage:category:${damage.category}`]: !!damage.category,
@@ -509,23 +520,17 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
-
-        const rangeIncrement =
-            this.rangeIncrement && this.maxRange === this.rangeIncrement * 6
-                ? `PF2E.TraitRangeIncrement${this.rangeIncrement}`
-                : null;
-        const maxRange =
-            this.maxRange && this.maxRange === this.rangeIncrement ? `PF2E.TraitRange${this.maxRange}` : null;
+        const rangeLabel = createActionRangeLabel(this.range);
+        const properties = R.compact([
+            CONFIG.PF2E.weaponCategories[this.category],
+            this.system.reload.label,
+            rangeLabel,
+        ]);
 
         return this.processChatData(htmlOptions, {
             ...chatData,
             traits,
-            properties: [
-                CONFIG.PF2E.weaponCategories[this.category],
-                this.system.reload.label,
-                rangeIncrement,
-                maxRange,
-            ].filter((p) => !!p),
+            properties,
         });
     }
 
@@ -683,7 +688,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         const baseDamage = ((): NPCAttackDamage => {
             const weaponDamage = this.baseDamage;
-            const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
+            const ability = this.range?.increment && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.system.details.level.base;
             // Use the base dice if damage is fixed
             const dice = this.flags.pf2e.fixedAttack
@@ -732,12 +737,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         } as const;
 
         const toAttackTraits = (traits: WeaponTrait[]): NPCAttackTrait[] => {
+            const { increment: rangeIncrement, max: maxRange } = this.range ?? {};
             const newTraits: NPCAttackTrait[] = traits
                 .flatMap((t) =>
                     t === "reach"
                         ? npcReach[this.size] ?? []
-                        : t === "thrown" && setHasElement(THROWN_RANGES, this.rangeIncrement)
-                        ? (`thrown-${this.rangeIncrement}` as const)
+                        : t === "thrown" && setHasElement(THROWN_RANGES, rangeIncrement)
+                        ? (`thrown-${rangeIncrement}` as const)
                         : t
                 )
                 .filter(
@@ -762,9 +768,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                         !["artifact", "cursed"].includes(t)
                 );
 
-            if (this.rangeIncrement && !this.isThrown) {
-                const prefix = this.maxRange === this.rangeIncrement * 6 ? "range-increment" : "range";
-                newTraits.push(`${prefix}-${this.rangeIncrement}`);
+            if (rangeIncrement && !this.isThrown) {
+                const prefix = maxRange === rangeIncrement * 6 ? "range-increment" : "range";
+                newTraits.push(`${prefix}-${rangeIncrement}` as `range-increment-${WeaponRangeIncrement}`);
             }
 
             const actorSize = new ActorSizePF2e({ value: actor.size });
