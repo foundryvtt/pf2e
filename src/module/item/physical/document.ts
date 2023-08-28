@@ -248,7 +248,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 ? weightToBulk(systemData.equippedBulk.value)?.toLightBulk() ?? 0
                 : heldOrStowed;
 
-            const value = this.type === "armor" && this.isEquipped ? worn : heldOrStowed;
+            const value = this.isOfType("armor", "backpack") && this.isEquipped ? worn : heldOrStowed;
 
             return { heldOrStowed, worn, value, per };
         })();
