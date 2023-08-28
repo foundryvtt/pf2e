@@ -1,5 +1,6 @@
 import { PartyPF2e } from "@actor";
 import { ItemTransfer, ItemTransferData } from "@actor/item-transfer.ts";
+import { CheckPF2e, RerollOptions } from "@system/check/check.ts";
 import { ErrorPF2e } from "@util";
 
 function activateSocketListener(): void {
@@ -37,6 +38,38 @@ function activateSocketListener(): void {
 
                 break;
             }
+            case "rerollCheckFromMessage": {
+                const { messageId, recipientId, options, rerollFailed } = message;
+                // Ignore if the message is not for the current user
+                if (recipientId !== game.userId) {
+                    return;
+                }
+                // A previous request has failed
+                if (rerollFailed) {
+                    return ui.notifications.warn(
+                        game.i18n.format("PF2E.Check.Reroll.FailedSocketMessage", {
+                            user: sender.name,
+                            messageId,
+                        })
+                    );
+                }
+                // Reroll if possible
+                if (!sender.isGM) return;
+                const chatMessage = game.messages.get(messageId);
+                if (chatMessage && CheckPF2e.canRerollFromMessage(chatMessage)) {
+                    await CheckPF2e.rerollFromMessage(chatMessage, options);
+                    return;
+                }
+                // The message doesn't exists or the check is no longer cached. Broadcast failure.
+                game.socket.emit("system.pf2e", {
+                    request: "rerollCheckFromMessage",
+                    messageId,
+                    recipientId: userId,
+                    rerollFailed: true,
+                } satisfies SocketMessage);
+
+                break;
+            }
             default:
                 throw ErrorPF2e(`Received unrecognized socket emission: ${message.request}`);
         }
@@ -64,7 +97,20 @@ interface ShowSheetMessage {
     };
 }
 
-type SocketMessage = TransferCallbackMessage | RefreshControlsMessage | ShowSheetMessage | { request?: never };
+interface RerollCheckFromMessage {
+    request: "rerollCheckFromMessage";
+    recipientId: string;
+    messageId: string;
+    options?: RerollOptions;
+    rerollFailed?: boolean;
+}
+
+type SocketMessage =
+    | TransferCallbackMessage
+    | RefreshControlsMessage
+    | ShowSheetMessage
+    | RerollCheckFromMessage
+    | { request?: never };
 type PF2eSocketEventParams = [message: SocketMessage, userId: string];
 
 export { activateSocketListener, type SocketMessage };
