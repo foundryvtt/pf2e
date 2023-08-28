@@ -7,7 +7,6 @@ import { objectHasKey, sluggify } from "@util";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
-import { Statistic } from "@system/statistic/index.ts";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -168,21 +167,16 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     }
 
     /** Remove this rule element's parent item after a roll */
-    override async afterRoll({ statistic, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+    override async afterRoll({ check, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
         if (this.ignored || !this.removeAfterRoll || !this.item.isOfType("effect")) {
             return;
         }
 
-        if (this.removeAfterRoll === true) {
-            await this.item.delete();
-        } else if (this.removeAfterRoll === "if-enabled") {
-            const modifiers = statistic instanceof Statistic ? statistic.check.modifiers : statistic.modifiers;
-            if (modifiers.some((m) => m.rule === this && m.enabled)) {
-                await this.item.delete();
-            }
-        } else if (this.removeAfterRoll.test(rollOptions)) {
-            await this.item.delete();
-        }
+        const deleteItem =
+            this.removeAfterRoll === true ||
+            (this.removeAfterRoll === "if-enabled" && check.modifiers.some((m) => m.rule === this && m.enabled)) ||
+            (Array.isArray(this.removeAfterRoll) && this.removeAfterRoll.test(rollOptions));
+        if (deleteItem) await this.item.delete();
     }
 }
 

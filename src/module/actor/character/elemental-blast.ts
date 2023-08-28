@@ -276,6 +276,7 @@ class ElementalBlast {
             damaging: true,
             dc: { slug: "ac" },
             extraRollOptions: [`action:${actionSlug}`, `action:cost:${actionCost}`],
+            ...eventToRollParams(params.event),
         });
     }
 

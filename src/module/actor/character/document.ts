@@ -1601,22 +1601,19 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     return null;
                 }
 
-                const constructModifier = checkModifiers[mapIncreases];
-                const roll = await CheckPF2e.roll(
-                    constructModifier(context.self.statistic ?? action, context.self.modifiers),
-                    checkContext,
-                    params.event,
-                    params.callback
-                );
+                const check = checkModifiers[mapIncreases](context.self.statistic ?? action, context.self.modifiers);
+                const roll = await CheckPF2e.roll(check, checkContext, params.event, params.callback);
 
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({
-                        roll,
-                        statistic: context.self.statistic,
-                        selectors,
-                        domains: selectors,
-                        rollOptions: context.options,
-                    });
+                if (roll) {
+                    for (const rule of this.rules.filter((r) => !r.ignored)) {
+                        await rule.afterRoll?.({
+                            roll,
+                            check,
+                            selectors,
+                            domains: selectors,
+                            rollOptions: context.options,
+                        });
+                    }
                 }
 
                 return roll;
