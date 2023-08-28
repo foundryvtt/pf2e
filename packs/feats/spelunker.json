@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Living underground, you have learned to find your way without landmarks or even solid ground. If you roll a success on an Survival check to Sense Direction or an Athletics check to Climb, you get a critical success instead. You're not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] when you attempt to Climb.</p>"
+            "value": "<p>Living underground, you have learned to find your way without landmarks or even solid ground. If you roll a success on an Survival check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Climb], you get a critical success instead. You're not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] when you attempt to Climb.</p>"
         },
         "level": {
             "value": 1
@@ -29,7 +29,7 @@
                     "action:sense-direction"
                 ],
                 "selector": "survival",
-                "text": "If you roll a success on an Survival check to Sense Direction you get a critical success instead.",
+                "text": "PF2E.SpecificRule.Shisk.Spelunker.SenseDirection",
                 "title": "{item|name}"
             },
             {
@@ -40,9 +40,29 @@
                 "predicate": [
                     "action:climb"
                 ],
-                "selector": "survival",
-                "text": "If you roll a success on an Athletics check to Climb you get a critical success instead.",
+                "selector": "athletics",
+                "text": "PF2E.SpecificRule.Shisk.Spelunker.Climb",
                 "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-direction"
+                ],
+                "selector": "survival"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics"
             }
         ],
         "source": {
