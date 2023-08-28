@@ -313,16 +313,22 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     constructor(parent: TParent, data: StatisticData, config: RollOptionConfig = {}) {
         this.parent = parent;
         this.type = data.check?.type ?? "check";
+        data.check ??= { type: this.type };
 
-        const domains = new Set(R.compact(["check", data.domains, data.check?.domains].flat()));
-        // If this is a flat check, ensure there are no input domains and replace them
-        if (this.type === "flat-check" && domains.size > 0) {
-            throw ErrorPF2e("Flat checks cannot have associated domains");
-        } else if (this.type === "attack-roll") {
-            domains.add("attack");
-            domains.add("attack-roll");
+        const checkDomains = new Set(R.compact(["check", data.check?.domains].flat()));
+        if (this.type === "attack-roll") {
+            checkDomains.add("attack");
+            checkDomains.add("attack-roll");
+        } else if (this.type === "flat-check") {
+            // If this is a flat check, ensure there are no input domains and replace them
+            checkDomains.clear();
+            if (data.check.domains?.length) {
+                throw ErrorPF2e("Flat checks cannot have associated domains");
+            }
         }
-        this.domains = Array.from(domains).sort();
+        data.check.domains = Array.from(checkDomains).sort();
+        this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat())).sort();
+
         this.label = this.#determineLabel(data);
 
         // Acquire additional adjustments for cloned parent modifiers
@@ -539,16 +545,19 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             context.mapIncreases = mapIncreases;
             context.options?.add(`map:increases:${mapIncreases}`);
         }
+        const check = new CheckModifier(this.parent.slug, { modifiers: this.modifiers }, extraModifiers);
+        const roll = await CheckPF2e.roll(check, context, null, args.callback);
 
-        const roll = await CheckPF2e.roll(
-            new CheckModifier(this.parent.slug, { modifiers: this.modifiers }, extraModifiers),
-            context,
-            null,
-            args.callback
-        );
-
-        for (const rule of actor.rules.filter((r) => !r.ignored)) {
-            await rule.afterRoll?.({ roll, statistic: this.parent, selectors: domains, domains, rollOptions: options });
+        if (roll) {
+            for (const rule of actor.rules.filter((r) => !r.ignored)) {
+                await rule.afterRoll?.({
+                    roll,
+                    check,
+                    selectors: domains,
+                    domains,
+                    rollOptions: options,
+                });
+            }
         }
 
         return roll;
@@ -571,7 +580,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
     constructor(parent: TParent, data: StatisticData, options: RollOptionConfig = {}) {
         this.parent = parent;
-        this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
+        this.domains = R.uniq(R.compact([data.domains, data.dc?.domains].flat())).sort();
         this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
 
