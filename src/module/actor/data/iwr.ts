@@ -66,7 +66,7 @@ abstract class IWRData<TType extends IWRType> {
             case "critical-hits":
                 return ["damage:component:critical"];
             case "damage-from-spells":
-                return ["damage", "item:type:spell"];
+                return ["damage", "item:type:spell", "impulse"];
             case "disease":
                 return ["item:trait:disease"];
             case "emotion":
@@ -116,7 +116,7 @@ abstract class IWRData<TType extends IWRType> {
                 return [`damage:component:${component}`];
             }
             case "spells": {
-                return ["damage", { or: ["item:type:spell", "item:from-spell"] }];
+                return ["damage", { or: ["item:type:spell", "item:from-spell", "impulse"] }];
             }
             case "unarmed-attacks":
                 return ["item:category:unarmed"];

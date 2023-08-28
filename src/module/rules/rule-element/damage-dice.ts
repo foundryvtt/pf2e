@@ -95,6 +95,14 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                         return null;
                     }
 
+                    this.override.diceNumber &&= Math.floor(
+                        Number(this.resolveValue(this.override.diceNumber, resolveOptions))
+                    );
+                    if (typeof this.override.diceNumber === "number" && this.override.diceNumber < 0) {
+                        if (testPassed) this.failValidation("A dice number must resolve to at least zero");
+                        return null;
+                    }
+
                     this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize, resolveOptions);
                     if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
                         if (testPassed) this.failValidation("Unrecognized die size in override");
@@ -140,10 +148,11 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
                 typeof override.damageType === "string" ||
                 typeof override.dieSize === "string" ||
+                typeof override.diceNumber === "string" ||
                 (typeof override.diceNumber === "number" &&
                     Number.isInteger(override.diceNumber) &&
                     override.diceNumber >= 0 &&
-                    override.diceNumber <= 10))
+                    override.diceNumber <= 256))
         );
     }
 

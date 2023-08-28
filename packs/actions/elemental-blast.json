@@ -22,6 +22,9 @@
                 "domain": "elemental-blast",
                 "key": "RollOption",
                 "option": "action-cost",
+                "predicate": [
+                    "self:effect:kinetic-aura"
+                ],
                 "suboptions": [
                     {
                         "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.OneAction",
@@ -39,7 +42,11 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.elementalBlast.air",
                 "predicate": [
-                    "kinetic-gate:air"
+                    "kinetic-gate:air",
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
                 ],
                 "priority": 19,
                 "value": {
@@ -59,7 +66,11 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.elementalBlast.earth",
                 "predicate": [
-                    "kinetic-gate:earth"
+                    "kinetic-gate:earth",
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
                 ],
                 "priority": 19,
                 "value": {
@@ -79,7 +90,11 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.elementalBlast.fire",
                 "predicate": [
-                    "kinetic-gate:fire"
+                    "kinetic-gate:fire",
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
                 ],
                 "priority": 19,
                 "value": {
@@ -98,7 +113,11 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.elementalBlast.metal",
                 "predicate": [
-                    "kinetic-gate:metal"
+                    "kinetic-gate:metal",
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
                 ],
                 "priority": 19,
                 "value": {
@@ -118,7 +137,11 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.elementalBlast.water",
                 "predicate": [
-                    "kinetic-gate:water"
+                    "self:effect:kinetic-aura",
+                    "kinetic-gate:water",
+                    {
+                        "not": "battle-form"
+                    }
                 ],
                 "priority": 19,
                 "value": {
@@ -138,7 +161,11 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.elementalBlast.wood",
                 "predicate": [
-                    "kinetic-gate:wood"
+                    "kinetic-gate:wood",
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
                 ],
                 "priority": 19,
                 "value": {
@@ -160,7 +187,7 @@
                     "action:elemental-blast",
                     "action:cost:2"
                 ],
-                "selector": "damage",
+                "selector": "elemental-blast-damage",
                 "slug": "two-action-elemental-blast",
                 "type": "status",
                 "value": "@actor.abilities.con.mod"
@@ -172,9 +199,19 @@
                     "action:elemental-blast",
                     "melee"
                 ],
-                "selector": "damage",
+                "selector": "elemental-blast-damage",
                 "slug": "melee-elemental-blast",
                 "type": "ability"
+            },
+            {
+                "key": "DamageDice",
+                "selector": "elemental-blast-damage",
+                "override": {
+                    "diceNumber": "max(1 + floor((@actor.level - 1) / 4), 1)"
+                },
+                "predicate": [
+                    "class:kineticist"
+                ]
             }
         ],
         "source": {

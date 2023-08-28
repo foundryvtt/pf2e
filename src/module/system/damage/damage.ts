@@ -25,14 +25,14 @@ export class DamagePF2e {
             context.secret = true;
         }
 
-        let flavor = `<strong>${data.name}</strong>`;
-        if (context.sourceType === "attack") {
-            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
-            flavor += ` (${outcomeLabel})`;
-        } else if (context.sourceType === "check") {
-            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
-            flavor += ` (${outcomeLabel})`;
-        }
+        const subtitle =
+            context.sourceType === "attack"
+                ? game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`)
+                : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`);
+        let flavor = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+            title: data.name,
+            subtitle,
+        });
 
         if (data.traits) {
             interface ToTagsParams {
