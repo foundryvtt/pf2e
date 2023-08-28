@@ -1,7 +1,7 @@
 {
     "_id": "tzDW9l4lBwXCVYtz",
     "img": "systems/pf2e/icons/features/classes/ashes.webp",
-    "name": "Ashes",
+    "name": "Ash",
     "system": {
         "actionType": {
             "value": "passive"
@@ -30,6 +30,22 @@
                 "key": "Resistance",
                 "type": "physical",
                 "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:grapple",
+                            "forced-movement"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "source": {
