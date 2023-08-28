@@ -19,7 +19,29 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "emotion",
+                    "self:heritage:gutsy-halfling"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
