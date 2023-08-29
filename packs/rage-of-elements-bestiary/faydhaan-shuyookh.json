@@ -2573,12 +2573,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The faydhaan shuyookh makes a melee jambiya Strike and buries the blade deep, dealing an extra @Damage[3d6[persistent,bleed]] damage on a hit (6d6 on a critical hit).</p>"
+                    "value": "<p>The faydhaan shuyookh makes a melee <em>jambiya</em> Strike and buries the blade deep, dealing an extra @Damage[3d6[persistent,bleed]] damage on a hit (6d6 on a critical hit).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "to-the-hilt",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee",
+                            "to-the-hilt"
+                        ],
+                        "selector": "jambiya-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
