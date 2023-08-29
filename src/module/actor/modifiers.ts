@@ -457,7 +457,8 @@ class StatisticModifier {
 
         // De-duplication. Prefer higher valued
         const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
-            if (!(modifier.slug in result) || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
+            const existing = result[modifier.slug];
+            if (!existing?.enabled || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
                 result[modifier.slug] = modifier;
             }
             return result;

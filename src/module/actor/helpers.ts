@@ -507,6 +507,7 @@ function calculateRangePenalty(
     rollOptions: Set<string>
 ): ModifierPF2e | null {
     if (!increment || increment === 1) return null;
+
     const slug = "range-penalty";
     const modifier = new ModifierPF2e({
         label: "PF2E.RangePenalty",
@@ -517,6 +518,7 @@ function calculateRangePenalty(
         adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, slug),
     });
     modifier.test(rollOptions);
+
     return modifier;
 }
 

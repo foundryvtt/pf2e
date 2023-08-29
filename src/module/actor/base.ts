@@ -870,7 +870,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 statistic &&
                 "item" in statistic &&
                 statistic.item instanceof ItemPF2e &&
-                statistic.item.isOfType("melee", "spell", "weapon")
+                statistic.item.isOfType("action", "melee", "spell", "weapon")
             ) {
                 return statistic.item;
             }
@@ -933,7 +933,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const isMelee = !!(params.melee || (selfItem?.isOfType("weapon", "melee") && selfItem.isMelee));
         const reach =
-            isMelee && selfItem?.isOfType("weapon", "melee")
+            isMelee && selfItem?.isOfType("action", "weapon", "melee")
                 ? this.getReach({ action: "attack", weapon: selfItem })
                 : this.getReach({ action: "attack" });
 

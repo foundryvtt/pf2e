@@ -34,6 +34,7 @@ import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, Spe
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 import { MAGIC_SCHOOLS } from "./values.ts";
+import { RangeData } from "@item/types.ts";
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
@@ -177,6 +178,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     get hasVariants(): boolean {
         return this.overlays.size > 0;
+    }
+
+    /** Dummy getter for interface alignment with weapons and actions */
+    get range(): RangeData | null {
+        return null;
     }
 
     override get uuid(): ItemUUID {

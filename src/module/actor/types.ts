@@ -88,6 +88,7 @@ interface AuraColors {
 /* -------------------------------------------- */
 
 type AttackItem =
+    | ItemInstance.AbilityItemPF2e<ActorPF2e>
     | ItemInstance.WeaponPF2e<ActorPF2e>
     | ItemInstance.MeleePF2e<ActorPF2e>
     | ItemInstance.SpellPF2e<ActorPF2e>;

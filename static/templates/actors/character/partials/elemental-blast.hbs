@@ -37,10 +37,10 @@
             {{numberFormat action.statistic.check.mod sign=true}}
         </button>
         <button type="button" class="tag tag_secondary" data-action="roll-attack" data-melee="{{melee}}" data-map-increases="1">
-            {{numberFormat action.map1 sign=true}} (MAP -5)
+            {{#if melee}}{{action.maps.melee.map1}}{{else}}{{action.maps.ranged.map1}}{{/if}}
         </button>
         <button type="button" class="tag tag_secondary" data-action="roll-attack" data-melee="{{melee}}" data-map-increases="2">
-            {{numberFormat action.map2 sign=true}} (MAP -10)
+            {{#if melee}}{{action.maps.melee.map2}}{{else}}{{action.maps.ranged.map2}}{{/if}}
         </button>
         <button type="button" class="tag damage"
             data-action="roll-damage"

@@ -1,10 +1,9 @@
 import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
-import { StrikeData } from "@actor/data/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
-import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
-import { ArmorPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { AttackItem, MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
+import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ArmorSource, ItemType } from "@item/data/index.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
@@ -79,7 +78,7 @@ abstract class CreaturePF2e<
         } else if (typeof weaponReach === "number") {
             return weaponReach;
         } else {
-            const attacks: Pick<StrikeData, "item" | "ready">[] = weapon
+            const attacks: { item: Exclude<AttackItem, SpellPF2e>; ready: boolean }[] = weapon
                 ? [{ item: weapon, ready: true }]
                 : this.system.actions ?? [];
             const readyAttacks = attacks.filter((a) => a.ready);
