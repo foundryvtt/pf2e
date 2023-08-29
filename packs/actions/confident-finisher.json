@@ -16,40 +16,7 @@
         "requirements": {
             "value": ""
         },
-        "rules": [
-            {
-              "key": "Note",
-              "selector": "attack",
-              "text": "You deal half your [[/r (2 + floor((@actor.level - 1)/4))d6/2]]{Precise Strike} damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.",
-              "title": "Failure",
-              "predicate": [
-                "class:swashbuckler",
-                "self:effect:panache",
-                "finisher",
-                {
-                  "or": [
-                    "item:melee",
-                    {
-                      "and": [
-                        "feat:flying-blade",
-                        "item:thrown",
-                        "target:range-increment:1"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "or": [
-                    "item:trait:agile",
-                    "item:trait:finesse"
-                  ]
-                }
-              ],
-              "outcome": [
-                "failure"
-              ]
-            }
-        ],
+        "rules": [],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
