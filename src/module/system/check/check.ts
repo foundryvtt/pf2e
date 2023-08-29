@@ -337,7 +337,7 @@ class CheckPF2e {
             : [];
 
         const properties = ((): HTMLElement[] => {
-            const range = context.range ?? (item?.isOfType("weapon") ? item.range : null);
+            const range = item?.isOfType("action", "weapon") ? item.range : null;
             const label = createActionRangeLabel(range);
             if (label && (range?.increment || range?.max)) {
                 // Show the range increment or max range as a tag

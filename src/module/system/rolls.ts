@@ -1,7 +1,6 @@
 import { TraitViewData } from "@actor/data/base.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { RollTarget } from "@actor/types.ts";
-import { RangeData } from "@item/types.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
@@ -55,8 +54,6 @@ interface BaseRollContext {
     target?: RollTarget | null;
     /** Any traits for the check. */
     traits?: TraitViewData[];
-    /** Range data related to the check: if not provided, it is acquired from a weapon or melee item (if any) */
-    range?: Maybe<RangeData>;
     /** The outcome a roll (usually relevant only to rerolls) */
     outcome?: (typeof DEGREE_OF_SUCCESS_STRINGS)[number] | null;
     /** The outcome prior to being changed by abilities raising or lowering degree of success */

@@ -11,7 +11,6 @@ import {
 } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e } from "@item";
-import { RangeData } from "@item/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
@@ -430,7 +429,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
             return isValidAttacker && isTargetedCheck
                 ? actor.getCheckContext({
-                      item: item?.isOfType("melee", "spell", "weapon") ? item : null,
+                      item: item?.isOfType("action", "melee", "spell", "weapon") ? item : null,
                       domains,
                       statistic: this,
                       target: targetToken,
@@ -445,7 +444,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const dc = args.dc && "value" in args.dc ? args.dc : rollContext?.dc ?? null;
 
         // Extract modifiers, unless this is a flat check
-        const extraModifiers = this.type === "flat-check" ? [] : [...(args.modifiers ?? [])];
+        const extraModifiers =
+            this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.self.modifiers].flat());
 
         // Get roll options and roll notes
         const extraRollOptions = [
@@ -540,7 +540,6 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             title: args.title?.trim() || args.label?.trim() || this.label,
             createMessage: args.createMessage ?? true,
         };
-        if (args.range) context.range = args.range;
 
         if (typeof args.attackNumber === "number") {
             context.mapIncreases = mapIncreases;
@@ -685,8 +684,6 @@ interface StatisticRollParameters {
     damaging?: boolean;
     /** Indication that the check is associated with a melee action */
     melee?: boolean;
-    /** A range that restricts or penalizes a targeted check */
-    range?: Maybe<RangeData>;
     /** Whether to create a chat message using the roll (defaults true) */
     createMessage?: boolean;
     /** Callback called when the roll occurs. */
