@@ -37,16 +37,21 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     get remainingDuration(): { expired: boolean; remaining: number } {
         const duration = this.totalDuration;
-        if (this.system.duration.unit === "encounter") {
+        const { unit, expiry } = this.system.duration;
+        if (unit === "encounter") {
             const isExpired = this.system.expired;
             return { expired: isExpired, remaining: isExpired ? 0 : Infinity };
         } else if (duration === Infinity) {
             return { expired: false, remaining: Infinity };
         } else {
             const start = this.system.start.value;
-            const remaining = start + duration - game.time.worldTime;
-            const result = { remaining, expired: remaining <= 0 };
             const { combatant } = game.combat ?? {};
+
+            // Prevent effects that expire at end of current turn from expiring immediately outside of encounters
+            const addend = !combatant && duration === 0 && unit === "rounds" && expiry === "turn-end" ? 1 : 0;
+            const remaining = start + duration + addend - game.time.worldTime;
+            const result = { remaining, expired: remaining <= 0 };
+
             if (remaining === 0 && combatant?.actor) {
                 const startInitiative = this.system.start.initiative ?? 0;
                 const currentInitiative = combatant.initiative ?? 0;
@@ -56,9 +61,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 const isEffectTurnStart =
                     startInitiative === currentInitiative && combatant.actor === (this.origin ?? fightyActor);
 
-                result.expired = isEffectTurnStart
-                    ? this.system.duration.expiry === "turn-start"
-                    : currentInitiative < startInitiative;
+                result.expired = isEffectTurnStart ? expiry === "turn-start" : currentInitiative < startInitiative;
             }
 
             return result;
