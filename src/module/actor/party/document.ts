@@ -189,6 +189,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.sheet.render(false, { actor: true } as PartySheetRenderOptions);
     }, 50);
 
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
         options: PartyUpdateContext<TParent>,

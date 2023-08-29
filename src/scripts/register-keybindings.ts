@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor";
+import type { PartyPF2e } from "@actor";
 
 export function registerKeybindings(): void {
     game.keybindings.register("pf2e", "cycle-token-stack", {
@@ -13,29 +13,16 @@ export function registerKeybindings(): void {
         hint: "PF2E.Keybinding.TogglePartySheet.Hint",
         editable: [{ key: "KeyP", modifiers: [] }],
         onDown: (): boolean | null => {
-            const activePartyId = game.settings.get("pf2e", "activeParty");
-            const party = ((): ActorPF2e | null => {
+            const party = ((): PartyPF2e | null => {
                 if (game.user.isGM) {
                     const token =
                         canvas.ready && canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
-                    if (token?.actor?.isOfType("party")) {
-                        // Controlled token is a party
-                        return token.actor;
-                    } else {
-                        // Active party
-                        return game.actors.get(activePartyId) ?? null;
-                    }
+                    return token?.actor?.isOfType("party") ? token.actor : game.actors.party;
                 } else if (game.user.character?.isOfType("character")) {
-                    // User has an assigned character with an assigned party
-                    const parties = Array.from(game.user.character.parties);
-                    return parties.find((p) => p.active) ?? parties.at(0) ?? null;
-                } else {
-                    // Active party and has a member the player owns
-                    const activeParty = game.actors.get(activePartyId);
-                    return activeParty?.isOfType("party") && activeParty.members.some((m) => m.isOwner)
-                        ? activeParty
-                        : null;
+                    const pcParties = Array.from(game.user.character.parties);
+                    return pcParties.find((p) => p.active) ?? pcParties.at(0) ?? null;
                 }
+                return null;
             })();
             if (!party) return false;
 

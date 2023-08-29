@@ -1,4 +1,4 @@
-import { PartyPF2e } from "./document.ts";
+import { ActorPF2e } from "@actor";
 
 /** Create the first party actor in this (typically new) world */
 async function createFirstParty(): Promise<void> {
@@ -7,7 +7,7 @@ async function createFirstParty(): Promise<void> {
     }
 
     if (!game.actors.some((a) => a.isOfType("party"))) {
-        await PartyPF2e.create({ type: "party", name: game.i18n.localize("PF2E.Actor.Party.DefaultName") });
+        await ActorPF2e.create({ type: "party", name: game.i18n.localize("PF2E.Actor.Party.DefaultName") });
     }
 
     await game.settings.set("pf2e", "createdFirstParty", true);
