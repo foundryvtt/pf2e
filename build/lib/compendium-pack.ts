@@ -389,7 +389,7 @@ class CompendiumPack {
             if (docName && docId) {
                 return uuid.replace(docName, docId) as TUUID;
             } else {
-                throw Error("Unable to resolve UUID");
+                throw Error(`Unable to resolve UUID for ${docName ?? docId}`);
             }
         };
 
