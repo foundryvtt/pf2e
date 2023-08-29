@@ -1,3 +1,129 @@
+## 5.4.0
+
+### Highlights
+
+-   The system now has a Party actor type. It is very shiny and does quite a bit!
+-   A significant amount of work has been put into automating features of the Kineticist class.
+
+### New Features
+
+-   (stwlam) Add handling of Elemental Blast
+-   (stwlam) Add support for including self-applied effects in ability/feat items
+-   (Supe, Allistaar) Add party actor and sheet
+
+### System Improvements
+
+-   (Drental) Add keybind (default of "P") to toggle party sheet
+-   (stwlam) Improve system support for Apex items (with and without ABP)
+-   (stwlam) Handle precision-damage weakness and resistance
+-   (stwlam) Add icon to cue which strike-damage button to click on chat messages
+-   (stwlam) Add management of ABP Apex increase to attribute builder
+-   (stwlam) Add support for multiple selectors in Damage Dice and Note rule elements
+-   (stwlam) Alert user on PC sheet when there are unallocated attribute boosts
+-   (stwlam) Create toggle macro when dropping conditions in hotbar
+-   (stwlam) Make all chat messages pop-outable
+-   (stwlam) Add externally accessible CSS variables for rarity and damage-type colors
+-   (stwlam) Add `removeAfterRoll` property to FlatModifer REs
+-   (Supe) Convert weapon specialization to rule elements
+-   (Supe) Enable roll notes for damage-received
+-   (Supe) Add search filter to roll inspector
+-   (Supe) Add way to track partial attribute increases in manual-entry mode
+-   (Supe) Add cue to alert user when their PC's armor is equipped but not invested
+-   (Supe) Support restricting spell/inline dice overrides by damage type
+-   (Supe) Allow Trick Magic Item counteractions
+
+### Bugfixes
+
+-   (Dire Weasel) Update armor usage when category changed to shield
+-   (Dire Weasel) Fix rectangle templates and fix Force Cage to be cube
+-   (Dire Weasel) Emit item name and UUID for remaining categories of rule element warning messages
+-   (stwlam) Acquire rule-element notes for all damage rolls, regardless of source
+-   (stwlam) Fix calculation of familiar AC modified by effects
+-   (stwlam) Fix improvised and kickback penalties not appearing on PC sheet
+-   (stwlam) Fix overwriting proficiency in light barding on PC actors (impacts Companion Compendia module)
+-   (stwlam) Fix handling of container items' worn bulk
+-   (stwlam) Prevent effects that expire at end of current turn from immediately expiring when not in encounter mode
+-   (stwlam) Have ghost touch weakness increase damage only once instead of once per damage instance
+-   (stwlam) Prevent doubling of splash damage dice on NPC attacks
+-   (stwlam) Show all property runes on ABP magic items embedded in loot actors
+-   (Supe) Accept modifier adjustments for multiple attack penalty
+-   (Supe) Include spellcasting roll options in damage rolls
+-   (Supe) Fix detection of animal companions for some types of system automation
+-   (Supe) Use item level when available as fallback value in @Damage expressions referencing actor level
+
+### Data Updates
+
+-   (Abaddon) Fix description/source typos and inline damage formulas in several NPCs & items
+-   (chrpow) Fix description of Level 3 Gate Attenuator Item
+-   (Dire Weasel) Add "+1 Status to All Saves vs. Magic" to Mummy Prophet Of Set
+-   (Dire Weasel) Add aura effect for Beacon of the Rowan Guard
+-   (Dire Weasel) Add automation for Dazing Blow, Doprillu, Heretic's Smite, Irrepressible (Halfling), King Merlokrep's Hampering Strike, Imperious Retreat, Pearlescent Pyramid, Polished Pebble, Shoulder to Shoulder, Skirmishing Dash, Unshakable Grit, Resonant Guitar, Spiritual Aid, Wynsal's Formation Attack
+-   (Dire Weasel) Add effect for Bloodseeker Beak, Death Knell, Guardian Staff, Haste spell, Sharkskin Robe, Strum of Thunder
+-   (Dire Weasel) Add metal variants and bleed damage link to Needle Darts
+-   (Dire Weasel) Add missing hazards from Impossible Lands
+-   (Dire Weasel) Add save link to Aerial Boomerang
+-   (Dire Weasel) Add TokenLight to Shard of the Third Seal
+-   (Dire Weasel) Add Underwater weapon property rune
+-   (Dire Weasel) Automate Quoppopak Tentacle Stab damage override
+-   (Dire Weasel) Brush up data and automation for Azarim, Ji-yook's Foxfire Blast, Spelunker, Thoqqua, Wisps' In Concert ability
+-   (Dire Weasel) Update Everstand Stance to use ItemAlteration
+-   (Dire Weasel) Fix feat types of Flowering Path and Growth Spell
+-   (Dire Weasel) Fix formatting in Erraticannon description
+-   (Dire Weasel) Fix Glass Shield's spell effect hit points
+-   (Dire Weasel) Fix Hagegraf Royal Guard Darkvision to be correct ability
+-   (Dire Weasel) Fix Immolis' Heat Beam DC
+-   (Dire Weasel) Fix level of Phantom Footsteps
+-   (Dire Weasel) Fix malformed damage links in Life-Giving Form
+-   (Dire Weasel) Fix Mother Maw inline roll
+-   (Dire Weasel) Fix Sawtooth Saber bulk
+-   (Dire Weasel) Fix rule elements in Aerial Cloak and Eat Fire
+-   (Dire Weasel) Fix source of Soulbound Doll (Sky King's Tomb)
+-   (Dire Weasel) Move Conch of Otherworldly Seas' Voice of Oceans automation to effect
+-   (Dire Weasel) Refresh copies of feats, spells, and other abilities on many compendium actors
+-   (Dire Weasel) Remove object immunity from Spell Pitchers
+-   (Dire Weasel) Update Atmospheric Staff and Drazmorg's Staff of All-Sight to be weapons
+-   (Dwim) Fix Lesser Dragonstorm (AoA) missing electricity damage
+-   (Dwim) Fix Phylactery of Faithfulness (greater) Religion bonus
+-   (In3luki) Throttle chat card button clicks to once in 500ms
+-   (Jeremy) Prevent Elemental Betrayal from showing an attack button
+-   (LebombJames) Create an effect for Cinder Gaze, Fix name of Ash mystery, add maneuver defense modifiers
+-   (reyzor1991) fix Effect: Dazzled's expiration
+-   (SpartanCPA) Add additional dice to Fiery Body effect
+-   (SpartanCPA) Add Dice to Corrosive Body Effect
+-   (stwlam) Add aura and spell effect for Angelic Halo
+-   (Supe) Add frequency alteration from Consistent Surge
+-   (Tikael) Add an effect for Devise a Stratagem
+-   (Tikael, Zullock) Add automation for gate junctions
+-   (Tikael) Add automation for Kinetic Aura
+-   (Tikael) Add automation for The Brass Dwarf
+-   (Tikael) Add Malevolence condition
+-   (Tikael) Add elemental blast choices to actor data
+-   (Tikael) Add Goloma trait to Goloma ancestry
+-   (Tikael) Add missing Decompose action
+-   (Tikael) Add many applied effects
+-   (Tikael) Add removeAfterRoll to Guidance spell effect
+-   (Tikael) Automate Blasting Beams deviant ability
+-   (Tikael) Automate inventor's Offensive Boost
+-   (Tikael) Automate Kineticist feat choices
+-   (Tikael) Automate Manifold Modifications
+-   (Tikael) Automate several frequency alterations
+-   (Tikael) Brushup automation for Swashbuckler finishers
+-   (Tikael) Brushup sorcerer bloodlines
+-   (Tikael) Change several AV actors' persistent-damage notes to actual persistent damage
+-   (Tikael) Clean up inline damage rolls on impulses
+-   (Tikael) Fix broken inline class DCs
+-   (Tikael) Fix data references in kinetic aura effects
+-   (Tikael) Fix filter on Through the Gate feat
+-   (Tikael) Fix name of Witchwyrd Beacon
+-   (Tikael) Grant Act Together and Share Senses actions to Summoners
+-   (Tikael) Localize blast labels and add traits
+-   (Tikael) Move spoilers on artifacts to GM notes
+-   (Tikael) Remove non-functional sense rule elements from sense good/evil
+-   (Tikael) Tone down the light on Gliminal
+-   (Tikael) Improve automation for Sparkling Targe
+-   (TMun) Convert Ancient Dust to non-text based persistent damage application
+-   (TMun) Update description to Tales in Timber armor to link ritual
+
 ## 5.3.2
 
 ### Bugfixes
