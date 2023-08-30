@@ -16,6 +16,9 @@ import * as R from "remeda";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 
 class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
+    /** The familiar's attack statistic, for the rare occasion it must make an attack roll */
+    declare attackStatistic: Statistic;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "action"];
     }
@@ -181,15 +184,14 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Attack
-        if (master) {
-            systemData.attack = new Statistic(this, {
-                slug: "attack-roll",
-                label: "PF2E.Familiar.AttackRoll",
-                modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")],
-                domains: ["attack", "attack-roll"],
-                check: { type: "attack-roll", domains: ["attack", "attack-roll"] },
-            });
-        }
+        this.attackStatistic = new Statistic(this, {
+            slug: "attack-roll",
+            label: "PF2E.Familiar.AttackRoll",
+            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")],
+            check: { type: "attack-roll" },
+        });
+
+        this.system.attack = this.attackStatistic.getTraceData();
 
         // Perception
         {

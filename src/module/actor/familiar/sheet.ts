@@ -79,7 +79,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         });
 
         htmlQuery(html, ".rollable[data-attack-roll]")?.addEventListener("click", (event) => {
-            this.actor.system.attack.roll(eventToRollParams(event));
+            this.actor.attackStatistic.roll(eventToRollParams(event));
         });
     }
 }
