@@ -29,6 +29,7 @@ import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { ActorPF2e } from "@module/documents.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -1039,6 +1040,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
+
+        for (const spellcastingCollectionEl of htmlQueryAll(html, ".spellcasting-entry[data-item-id]")) {
+            const entry = this.actor.spellcasting.get(spellcastingCollectionEl.dataset.itemId ?? "");
+            htmlQuery(spellcastingCollectionEl, "[data-action=spell-attack]")?.addEventListener("click", (event) => {
+                entry?.statistic?.check.roll(eventToRollParams(event));
+            });
+        }
 
         PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>("a[data-action=manage-tabs]")[0]);
 
