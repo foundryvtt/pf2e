@@ -1,7 +1,7 @@
 <ol class="party-list">
     {{> party party=activeParty}}
     {{#if placePartiesInSubfolder}}
-        <li class="directory-item folder-like other-parties flexcol{{#unless (lookup @root.extraFolders "other-parties")}} collapsed{{/unless}}" data-entry-id="otherParties">
+        <li class="directory-item folder-like other-parties flexcol{{#unless extraFolders.otherParties}} collapsed{{/unless}}" data-entry-id="otherParties">
             <header class="flexrow" data-action="toggle-extra-folder">
                 <h3 class="noborder">
                     <i class="icon fa-solid fa-folder-open"></i>
