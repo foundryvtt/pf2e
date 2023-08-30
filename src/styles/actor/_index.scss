@@ -3,7 +3,7 @@
     overflow: hidden;
 }
 
-$header-height: 89px;   /* Adjust height of the header */
+$header-height: 89px; /* Adjust height of the header */
 
 @import "character/attribute-builder";
 @import "iwr-editor";
@@ -25,7 +25,7 @@ $header-height: 89px;   /* Adjust height of the header */
             display: block;
         }
 
-        [data-action=show-image] {
+        [data-action="show-image"] {
             position: absolute;
             bottom: 0;
             right: 0;
@@ -49,7 +49,8 @@ $header-height: 89px;   /* Adjust height of the header */
             img {
                 border-radius: 2px;
             }
-            &, i {
+            &,
+            i {
                 @include frame-icon;
             }
         }
@@ -63,7 +64,7 @@ $header-height: 89px;   /* Adjust height of the header */
             position: absolute;
             width: 100%;
             height: 100%;
-            color: black;
+            color: var(--text-dark);
             box-shadow: inset 0 0 4px rgba(black, 0.5);
         }
 
@@ -80,18 +81,18 @@ $header-height: 89px;   /* Adjust height of the header */
     .alignment-select {
         background-color: #566193;
         border: 2px solid #d8c384;
-        color: white;
+        color: var(--text-light);
     }
 
     .size-select {
         background-color: #3a7a58;
         border: 2px solid #d8c384;
-        color: white;
+        color: var(--text-light);
     }
 
     .rarity-select {
         border: 2px solid #d8c384;
-        color: white;
+        color: var(--text-light);
 
         &.common {
             background-color: var(--color-rarity-common);
@@ -119,9 +120,9 @@ $header-height: 89px;   /* Adjust height of the header */
         display: grid;
         grid:
             "sidebar header" 75px
-                             "sidebar nav" minmax(min-content, max-content)
-                             "sidebar content" 1fr
-                             / 230px 1fr;
+            "sidebar nav" minmax(min-content, max-content)
+            "sidebar content" 1fr
+            / 230px 1fr;
 
         font-family: var(--body-serif);
 
@@ -175,7 +176,7 @@ $header-height: 89px;   /* Adjust height of the header */
             }
 
             .sheet-content {
-                color: var(--body);
+                color: var(--text-dark);
 
                 > .tab {
                     padding: 0.6rem 0.6rem 0;
@@ -184,12 +185,13 @@ $header-height: 89px;   /* Adjust height of the header */
                 @import "spell-list";
 
                 ol.directory-list {
-                    > h3, > li > h3 {
+                    > h3,
+                    > li > h3 {
                         font-size: 1rem;
                         font-weight: 500;
                         font-family: var(--serif);
                         line-height: 1;
-                        color: white;
+                        color: var(--text-light);
                         @include p-reset;
                         margin-left: 8px;
                     }
@@ -225,16 +227,17 @@ $header-height: 89px;   /* Adjust height of the header */
                         }
 
                         & > a {
-                            .fas, > .fa {
+                            .fas,
+                            > .fa {
                                 flex-basis: 0;
-                                color: white;
+                                color: var(--text-light);
                                 margin-right: 0.25em;
                                 padding-top: 0.25em;
                             }
                         }
 
                         .item-controls {
-                            color: white;
+                            color: var(--text-light);
                             flex: 1 0 auto;
                             font: 0.85em var(--sans-serif);
                             letter-spacing: 0.05em;
@@ -245,13 +248,13 @@ $header-height: 89px;   /* Adjust height of the header */
                         }
 
                         h3 {
-                            color: white;
+                            color: var(--text-light);
                             flex: 1 1 100%;
                             margin-bottom: 0;
                             font-size: var(--font-size-16);
 
                             input.item-name-input {
-                                color: white;
+                                color: var(--text-light);
                                 max-width: 100%;
                                 font-weight: 500;
 
