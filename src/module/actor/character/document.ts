@@ -1889,7 +1889,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     .map((i) => i.toObject());
                 await this.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
             } else if (newLevel < this.level) {
-                const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
+                const classFeaturestoDelete = current
+                    .filter((f) => f.level > newLevel && !f.grantedBy)
+                    .map((f) => f.id);
                 await this.deleteEmbeddedDocuments("Item", classFeaturestoDelete, { render: false });
             }
         }
