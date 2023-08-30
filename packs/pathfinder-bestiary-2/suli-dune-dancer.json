@@ -1399,7 +1399,88 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "elemental-assault",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAir",
+                                "value": "air"
+                            },
+                            {
+                                "label": "PF2E.TraitEarth",
+                                "value": "earth"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitWater",
+                                "value": "water"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:melee"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "elemental-assault"
+                        ],
+                        "property": "traits",
+                        "value": "{item|flags.pf2e.rulesSelections.elementalAssault}"
+                    },
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:air",
+                            "melee"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:earth",
+                            "melee"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:fire",
+                            "melee"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:water",
+                            "melee"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
