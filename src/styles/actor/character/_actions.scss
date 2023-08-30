@@ -22,42 +22,6 @@
                 }
             }
 
-            .ammo {
-                align-items: center;
-                display: flex;
-                gap: 3px;
-
-                select.linked {
-                    font: normal var(--font-size-12) var(--sans-serif);
-                    line-height: var(--font-size-12);
-                    padding-top: 3px;
-                    width: fit-content;
-
-                    &[data-compatible="false"] {
-                        color: #ffffff99;
-                    }
-
-                    option,
-                    optgroup {
-                        color: var(--text-light);
-                    }
-                }
-
-                .magazine {
-                    margin-right: 0.5rem;
-                    font-family: var(--sans-serif);
-                    font-weight: 600;
-
-                    .icon {
-                        display: inline-block;
-                        width: 0.9rem;
-                        height: 0.9rem;
-                        background-image: url("/assets/icons/heavy-bullets.svg");
-                        background-size: cover;
-                    }
-                }
-            }
-
             .button-group {
                 align-items: center;
                 display: flex;
@@ -77,13 +41,9 @@
                     padding: 0 0.5em;
                     white-space: nowrap;
 
-                    &:not(:disabled) {
-                        cursor: pointer;
-
-                        &:hover {
-                            box-shadow: none;
-                            text-shadow: 0 0 2px var(--text-light);
-                        }
+                    &:not(:disabled):hover {
+                        box-shadow: none;
+                        text-shadow: 0 0 2px var(--text-light);
                     }
                 }
 
@@ -140,14 +100,51 @@
                 }
             }
 
+            .ammo,
+            .auxiliary-actions {
+                margin-left: 2.5rem;
+            }
+
+            .ammo {
+                align-items: center;
+                display: flex;
+                gap: 3px;
+                margin-bottom: 2px;
+
+                select.linked {
+                    font: normal var(--font-size-12) var(--sans-serif);
+                    line-height: var(--font-size-12);
+                    padding-top: 3px;
+                    width: fit-content;
+
+                    &[data-compatible="false"] {
+                        color: #ffffff99;
+                    }
+
+                    option,
+                    optgroup {
+                        color: var(--text-light);
+                    }
+                }
+
+                .magazine {
+                    margin-right: 0.5rem;
+                    font-family: var(--sans-serif);
+                    font-weight: 600;
+
+                    .icon {
+                        display: inline-block;
+                        width: 0.9rem;
+                        height: 0.9rem;
+                        background-image: url("/assets/icons/heavy-bullets.svg");
+                        background-size: cover;
+                    }
+                }
+            }
+
             .auxiliary-actions {
                 display: flex;
                 gap: 3px;
-                margin-left: 2.5rem;
-
-                &.weapon-drawn {
-                    flex-basis: 100%;
-                }
 
                 button {
                     // Modular damage select menu
