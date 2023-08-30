@@ -335,12 +335,22 @@ function registerTrackingSettings(): void {
 
     game.settings.register("pf2e", "activeParty", {
         name: "Active Party",
+        scope: "world",
         config: false,
         type: String,
         default: "",
         onChange: () => {
             ui.actors.render(true);
         },
+    });
+
+    // Tracks the last party folder state for next launch. Defaults to true so that "No Members" shows on initial creation.
+    game.settings.register("pf2e", "activePartyFolderState", {
+        name: "Active Party Opened or closed",
+        scope: "client",
+        config: false,
+        type: Boolean,
+        default: true,
     });
 
     game.settings.register("pf2e", "worldSystemVersion", {

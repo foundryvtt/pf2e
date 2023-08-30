@@ -220,10 +220,12 @@ declare global {
         get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
-        get(module: "pf2e", setting: "activeParty"): string;
         get(module: "pf2e", setting: "campaignFeats"): boolean;
         get(module: "pf2e", setting: "campaignFeatSections"): FeatGroupOptions[];
         get(module: "pf2e", setting: "campaignType"): string;
+
+        get(module: "pf2e", setting: "activeParty"): string;
+        get(module: "pf2e", setting: "activePartyFolderState"): boolean;
         get(module: "pf2e", setting: "createdFirstParty"): boolean;
 
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
