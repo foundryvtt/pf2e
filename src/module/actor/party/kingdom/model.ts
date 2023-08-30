@@ -300,7 +300,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                         modifier: abilityMod,
                         type: "ability",
                     }),
-                    createProficiencyModifier({ actor: this.actor, rank, domains }),
+                    createProficiencyModifier({ actor: this.actor, rank, domains, level: this.level }),
                 ],
                 check: { type: "skill-check" },
             });

@@ -307,7 +307,13 @@ interface CreateAbilityModifierParams {
  * Create a modifier for a given proficiency level of some ability.
  * @returns The modifier for the given proficiency rank and character level.
  */
-function createProficiencyModifier({ actor, rank, domains, addLevel }: CreateProficiencyModifierParams): ModifierPF2e {
+function createProficiencyModifier({
+    actor,
+    rank,
+    domains,
+    level,
+    addLevel,
+}: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
     const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
@@ -322,7 +328,7 @@ function createProficiencyModifier({ actor, rank, domains, addLevel }: CreatePro
           ]
         : [0, 2, 4, 6, 8];
 
-    const addedLevel = addLevel && !pwolVariant ? actor.level : 0;
+    const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
     return new ModifierPF2e({
@@ -338,6 +344,8 @@ interface CreateProficiencyModifierParams {
     actor: ActorPF2e;
     rank: ZeroToFour;
     domains: string[];
+    /** If given, use this value instead of actor.level */
+    level?: number;
     addLevel?: boolean;
 }
 
