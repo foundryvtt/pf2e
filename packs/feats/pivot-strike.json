@@ -23,7 +23,23 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "pivot-strike"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice * 2"
+            },
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "pivot-strike",
+                "toggleable": true
+            }
+        ],
         "source": {
             "value": "Pathfinder #151: The Show Must Go On"
         },
