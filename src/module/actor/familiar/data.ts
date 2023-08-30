@@ -7,7 +7,7 @@ import {
 } from "@actor/creature/data.ts";
 import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { AttributeString } from "@actor/types.ts";
-import type { Statistic } from "@system/statistic/index.ts";
+import type { StatisticTraceData } from "@system/statistic/index.ts";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
@@ -40,7 +40,7 @@ interface FamiliarSystemData
         };
     };
     actions?: never;
-    attack: Statistic;
+    attack: StatisticTraceData;
     attributes: FamiliarAttributes;
     master: {
         id: string | null;

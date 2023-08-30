@@ -120,12 +120,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<TParent> = {}) {
         super(data, context);
 
-        // Add debounced checkAreaEffects method
-        Object.defineProperty(this, "checkAreaEffects", {
-            configurable: false,
-            enumerable: false,
-            writable: false,
-            value: foundry.utils.debounce(checkAreaEffects, 50),
+        Object.defineProperties(this, {
+            // Prevent object-recursing code from getting into `_itemTypes`,
+            _itemTypes: {
+                configurable: false,
+                enumerable: false,
+            },
+            // Add debounced checkAreaEffects method
+            checkAreaEffects: {
+                value: foundry.utils.debounce(checkAreaEffects, 50),
+            },
         });
     }
 
