@@ -851,26 +851,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "piercing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Lucky Stabs",
-                        "predicate": [
-                            "unluck-aura-melee"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Target is affected by Unluck Aura",
-                        "option": "unluck-aura-melee",
-                        "toggleable": true
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1183,7 +1164,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee",
+                            "target:effect:unluck-aura"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
