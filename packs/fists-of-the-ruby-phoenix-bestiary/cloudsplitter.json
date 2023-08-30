@@ -1553,7 +1553,37 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rearing-thrust",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "rearing-thrust"
+                        ],
+                        "selector": "phantom-horn-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "rearing-thrust"
+                        ],
+                        "selector": "phantom-horn-attack",
+                        "text": "PF2E.AttackEffects.KnockProne",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
