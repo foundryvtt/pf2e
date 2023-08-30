@@ -338,7 +338,9 @@ function registerTrackingSettings(): void {
         config: false,
         type: String,
         default: "",
-        onChange: () => ui.actors.render(true),
+        onChange: () => {
+            ui.actors.render(true);
+        },
     });
 
     game.settings.register("pf2e", "worldSystemVersion", {
