@@ -29,27 +29,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "piercing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Territorial Rage",
-                        "predicate": [
-                            "territorial-rage"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "territorial-rage"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to this attack."
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -452,6 +432,26 @@
                         "key": "RollOption",
                         "option": "territorial-rage",
                         "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "territorial-rage"
+                        ],
+                        "selectors": [
+                            "jaws-attack",
+                            "jaws-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "territorial-rage"
+                        ],
+                        "selector": "jaws-damage"
                     }
                 ],
                 "slug": null,
