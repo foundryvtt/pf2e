@@ -16,7 +16,7 @@
         h3 {
             background-color: rgba($text-dark-color, 0.1);
             border: none;
-            color: var(--body);
+            color: var(--text-dark);
             display: flex;
             font: 700 var(--font-size-14) var(--body-serif);
             grid-area: mod;
@@ -69,7 +69,7 @@
                 width: 100%;
                 @include brown-border;
             }
-            [data-action=show-image] {
+            [data-action="show-image"] {
                 bottom: 5px;
             }
         }
@@ -125,8 +125,7 @@
                 width: 15px;
                 top: 0;
                 right: -11px;
-                background: url("/assets/sheet/banner-bg2.webp") no-repeat
-                            right;
+                background: url("/assets/sheet/banner-bg2.webp") no-repeat right;
             }
         }
 
@@ -175,7 +174,9 @@
             margin-top: 8px;
 
             .pc {
-                &_heritage, &_background, &_weight {
+                &_heritage,
+                &_background,
+                &_weight {
                     margin: 0;
                 }
             }
@@ -335,7 +336,8 @@
             }
 
             &.key {
-                .abbreviation, .modifier {
+                .abbreviation,
+                .modifier {
                     color: var(--secondary);
                 }
             }
@@ -350,7 +352,8 @@
                 text-align: center;
                 text-transform: capitalize;
 
-                i.key, i.apex {
+                i.key,
+                i.apex {
                     bottom: 4px;
                     position: absolute;
                     font-size: var(--font-size-12);
