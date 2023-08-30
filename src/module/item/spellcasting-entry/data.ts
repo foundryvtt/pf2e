@@ -48,7 +48,7 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
         value: boolean;
     };
     proficiency: {
-        slug: string;
+        slug?: string;
         value: ZeroToFour;
     };
     slots: Record<SlotKey, SpellSlotData>;
@@ -67,6 +67,10 @@ interface SpellCollectionTypeSource {
 
 interface SpellcastingEntrySystemData extends SpellcastingEntrySystemSource, Omit<ItemSystemData, "level" | "traits"> {
     prepared: SpellCollectionTypeData;
+    proficiency: {
+        slug: string;
+        value: ZeroToFour;
+    };
 }
 
 interface SpellCollectionTypeData extends SpellCollectionTypeSource {

@@ -1,8 +1,9 @@
 import { ActorPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
-import { pick } from "@util/misc.ts";
+import { pick, setHasElement } from "@util/misc.ts";
 import * as R from "remeda";
 
 function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<ActorPF2e> {
@@ -48,7 +49,8 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
     override async getData(): Promise<SpellcastingCreateAndEditDialogSheetData> {
         const { actor } = this;
 
-        const extraStatistics = actor.synthetics.statistics.values();
+        // Grab extra statistics and class dc's (if a character, since only characters can extend these)
+        const extraStatistics = actor.isOfType("character") ? actor.synthetics.statistics.values() : [];
         const classDCs = actor.isOfType("character")
             ? Object.values(actor.system.proficiencies.classDCs).filter((cdc) => cdc.rank > 0)
             : [];
@@ -60,12 +62,21 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
             actor,
             system: this.object.toObject().system,
             statistics: [
+                ...[...MAGIC_TRADITIONS].map((t) => ({
+                    slug: t,
+                    label: game.i18n.format("PF2E.Actor.Creature.Spellcasting.TraditionSpellcasting", {
+                        tradition: game.i18n.localize(CONFIG.PF2E.magicTraditions[t]),
+                    }),
+                })),
                 ...extraStatistics,
                 ...classDCs.map((c) => ({
                     slug: c.slug,
                     label: game.i18n.format("PF2E.Actor.Character.ClassDC.LabelSpecific", { class: c.label }),
                 })),
             ],
+            hasTradition:
+                !this.object.system.proficiency.slug ||
+                setHasElement(MAGIC_TRADITIONS, this.object.system.proficiency.slug),
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: R.omit(CONFIG.PF2E.preparationType, ["ritual"]),
             attributes: CONFIG.PF2E.abilities,
@@ -76,7 +87,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
 
     /** Returns whether or not the spellcasting data can include an ability */
     #canSetAbility(): boolean {
-        const slug = this.object._source.system.proficiency.slug;
+        const slug = this.object._source.system.proficiency.slug ?? "";
         const baseStat = this.actor.isOfType("character") ? this.actor.getStatistic(slug) : null;
         return !slug || (!!baseStat && !baseStat.ability);
     }
@@ -85,10 +96,10 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
         const wasInnate = this.object.isInnate;
 
         // Unflatten the form data, so that we may make some modifications
-        const inputData: DeepPartial<SpellcastingEntrySource> = expandObject(formData);
+        const inputData: DeepPartial<SpellcastingEntrySource> & Record<string, null> = expandObject(formData);
 
         // We may disable certain form data, so reinject it
-        const system = mergeObject(
+        const system = (inputData.system = mergeObject(
             inputData.system ?? {},
             {
                 prepared: {
@@ -97,17 +108,18 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
                 ability: { value: "cha" },
             },
             { overwrite: false }
-        );
-
-        inputData.system = system;
+        ));
 
         // When swapping to innate convert to cha, but allow changes after
         if (system.prepared.value === "innate" && !wasInnate) {
             system.ability.value = "cha";
         }
 
-        // If the proficiency is being set to a value, remove the selected ability
-        if (system.proficiency?.slug) {
+        if (system.proficiency && setHasElement(MAGIC_TRADITIONS, system.proficiency.slug)) {
+            system.tradition = { value: system.proficiency.slug };
+            inputData["system.proficiency.-=slug"] = null;
+        } else if (system.proficiency?.slug) {
+            // If the proficiency is being set to a value, remove the selected ability
             system.ability.value = "";
         }
 
@@ -174,8 +186,10 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
 interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<SpellcastingEntryPF2e<ActorPF2e>> {
     actor: ActorPF2e;
     system: SpellcastingEntrySystemSource;
-    magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
     statistics: { slug: string; label: string }[];
+    /** If there is already a preconfigured tradition (aka regular casting entry) */
+    hasTradition: boolean;
+    magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
     spellcastingTypes: Omit<ConfigPF2e["PF2E"]["preparationType"], "ritual">;
     attributes: ConfigPF2e["PF2E"]["abilities"];
     isAttributeConfigurable: boolean;

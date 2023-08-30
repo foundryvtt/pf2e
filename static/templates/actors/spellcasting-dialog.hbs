@@ -31,35 +31,30 @@
 
         {{#unless object.isRitual}}
             <div class="form-group">
-                <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
-                <select name="system.tradition.value">
-                    {{#select system.tradition.value}}
-                        {{#if (eq system.prepared.value "items")}}
-                            <option value="">{{localize "PF2E.MagicTraditionUseSpellLabel"}}</option>
-                        {{/if}}
-                        {{#each magicTraditions as |label mode|}}
-                            <option value="{{mode}}">{{localize label}}</option>
+                <label>{{localize "PF2E.ProficiencyLabel"}}</label>
+                <select name="system.proficiency.slug">
+                    {{#select system.proficiency.slug}}
+                        {{#each statistics as |statistic|}}
+                            <option value="{{statistic.slug}}">{{statistic.label}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
             </div>
-            {{#if (eq actor.type "character")}}
+            {{#unless hasTradition}}
                 <div class="form-group">
-                    <label>{{localize "PF2E.ProficiencyLabel"}}</label>
-                    <select name="system.proficiency.slug">
-                        {{#select system.proficiency.slug}}
-                            {{#if system.tradition.value}}
-                                <option value="">
-                                    {{localize "PF2E.Actor.Creature.Spellcasting.TraditionSpellcasting" tradition=(localize (lookup @root.magicTraditions system.tradition.value))}}
-                                </option>
+                    <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
+                    <select name="system.tradition.value">
+                        {{#select system.tradition.value}}
+                            {{#if (eq system.prepared.value "items")}}
+                                <option value="">{{localize "PF2E.MagicTraditionUseSpellLabel"}}</option>
                             {{/if}}
-                            {{#each statistics as |statistic|}}
-                                <option value="{{statistic.slug}}">{{statistic.label}}</option>
+                            {{#each magicTraditions as |label mode|}}
+                                <option value="{{mode}}">{{localize label}}</option>
                             {{/each}}
                         {{/select}}
                     </select>
                 </div>
-            {{/if}}
+            {{/unless}}
             <div class="form-group">
                 <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
                 <select name="system.ability.value" {{disabled (not isAttributeConfigurable)}}>
