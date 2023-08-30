@@ -2523,19 +2523,20 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Sounrel's claws carry her mother's hag magic. When she critically hits with a claw Strike, the target takes an additional @Damage[1d4[persistent,metal]] damage.</p>"
+                    "value": "<p>Sounrel's claws carry her mother's hag magic. When she critically hits with a claw Strike, the target takes an additional @Damage[1d4[persistent,mental]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "claw-damage",
-                        "text": "{item|system.description.value}"
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "claw-damage"
                     }
                 ],
                 "slug": null,
