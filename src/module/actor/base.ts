@@ -75,6 +75,7 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -670,13 +671,23 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     override prepareData(): void {
         super.prepareData();
 
+        // Split spellcasting entry into those that extend a magic tradition and those that don't.
+        // Those that don't may be extending special statistics and need to run afterwards
+        // NOTE: Later on special statistics should have support for phases (with class/spell dc defaulting to last)
+        const spellcasting = this.itemTypes.spellcastingEntry;
+        const traditionBased = spellcasting.filter((s) => setHasElement(MAGIC_TRADITIONS, s.system.proficiency.slug));
+        const nonTraditionBased = spellcasting.filter((s) => !traditionBased.includes(s));
+        for (const entry of traditionBased) {
+            entry.prepareStatistic();
+        }
+
         // Call post-derived-preparation `RuleElement` hooks
         for (const rule of this.rules) {
             rule.afterPrepareData?.();
         }
 
-        // Create Spellcasting entries, which may extend Statistic REs
-        for (const entry of this.itemTypes.spellcastingEntry) {
+        // Run the spellcasting entries that need to run after special statistic
+        for (const entry of nonTraditionBased) {
             entry.prepareStatistic();
         }
 
