@@ -93,6 +93,9 @@ class ElementalBlast {
         const { fields } = foundry.data;
 
         return new fields.SchemaField({
+            damageTypes: new fields.ArrayField(
+                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined })
+            ),
             range: new fields.SchemaField(
                 {
                     increment: new fields.NumberField({
@@ -183,12 +186,16 @@ class ElementalBlast {
         })();
 
         return blasts.map((blast) => {
-            const damageTypes: BlastConfigDamageType[] = blast.damageTypes.map((dt) => ({
-                value: dt,
-                label: CONFIG.PF2E.damageTypes[dt],
-                selected: damageTypeSelections[blast.element] === dt,
-                glyph: DAMAGE_TYPE_ICONS[dt] ?? "",
-            }));
+            const damageTypes: BlastConfigDamageType[] = R.uniq(
+                R.compact([blast.damageTypes, this.infusion?.damageTypes].flat())
+            )
+                .map((dt) => ({
+                    value: dt,
+                    label: game.i18n.localize(CONFIG.PF2E.damageTypes[dt]),
+                    icon: DAMAGE_TYPE_ICONS[dt] ?? "",
+                    selected: damageTypeSelections[blast.element] === dt,
+                }))
+                .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
             const firstDamageType = damageTypes.at(0);
             if (firstDamageType && !damageTypes.some((dt) => dt.selected)) {
                 firstDamageType.selected = true;
@@ -476,6 +483,7 @@ type BlastConfigSchema = {
 };
 
 type BlastInfusionSchema = {
+    damageTypes: ArrayField<StringField<DamageType, DamageType, true, false, false>>;
     range: SchemaField<
         {
             increment: NumberField<number, number, true, false, false>;
@@ -509,8 +517,8 @@ interface ElementalBlastConfig extends Omit<ModelPropsFromSchema<BlastConfigSche
 interface BlastConfigDamageType {
     value: DamageType;
     label: string;
+    icon: string;
     selected: boolean;
-    glyph: string;
 }
 
 export { ElementalBlast, ElementalBlastConfig };
