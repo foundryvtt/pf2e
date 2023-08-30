@@ -1153,7 +1153,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const { traits } = filter.multiselects;
 
         for (const filterCode of checkboxesFilterCodes) {
-            const [filterType, value] = filterCode.split("-");
+            const [filterType, ...rest] = filterCode.split("-");
+            const value = rest.join("-"); // The value may also include hyphens
+
             if (!(filterType && value)) {
                 throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
             }
