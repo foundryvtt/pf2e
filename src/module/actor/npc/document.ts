@@ -70,7 +70,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     /** A user can see a synthetic NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return !this.isToken && this.prototypeToken.actorLink
+        return !this.isToken && ( this.prototypeToken.actorLink && super.permission >= 1 )
             ? super.visible
             : this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
     }
