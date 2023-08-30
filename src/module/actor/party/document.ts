@@ -244,6 +244,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         resetActors(this.members);
+        ui.actors.saveActivePartyFolderState();
     }
 }
 
