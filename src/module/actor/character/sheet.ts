@@ -162,9 +162,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             const keyAttributeSelected =
                 !sheetData.class || build.attributes.keyOptions.includes(sheetData.data.details.keyability.value);
-            const ancestryBoostsSelected = Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
-                (b) => b.value.length === 0 || !!b.selected
-            );
+            const ancestryBoostsSelected =
+                sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 ||
+                Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
+                    (b) => b.value.length === 0 || !!b.selected
+                );
             const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
                 (b) => b.value.length === 0 || !!b.selected
             );
