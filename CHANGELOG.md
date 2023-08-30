@@ -1,3 +1,33 @@
+## 5.4.1
+
+### System Improvements
+
+-   (Supe) Save active party folder state and default to expanded
+
+### Bugfixes
+
+-   (stwlam) Add additional damage types from weapon infusion effect
+-   (stwlam) Fix P keybind fetching active party
+-   (stwlam) Refrain from deleting class features granted by feats when lowering PC level
+-   (Supe) Fix deviant ability proficiencies that extend spell DCs
+-   (Supe) Fix responsiveness of other parties folder
+-   (Supe) Fix rolling checks for items-only spellcasting entries
+
+### Data Updates
+
+-   (Abaddon) Fix source for Psychic's Daze effect
+-   (Dire Weasel) Add automation for several NPC abilities
+-   (Dire Weasel) Add automation for Vocal Warm-Up
+-   (Dire Weasel) Brush up Cinder Dispersal and Lucky Stabs
+-   (Dire Weasel) Add automation for Weapon Master's Swift Blow
+-   (Dire Weasel) Automate Moonlight Ray good damage
+-   (Dire Weasel) Brush up NPC Skewer automation
+-   (Dire Weasel) Update Ulgrem-Axaan's Territorial Rage
+-   (stwlam) Add necessary class features to kineticist dedication
+-   (Supe) Add toggle for pivot strike
+-   (Surge) Have Soul Warden Dedication grant blue light
+-   (Tikael) Fix inline actor level references in feats
+
 ## 5.4.0
 
 ### Highlights
