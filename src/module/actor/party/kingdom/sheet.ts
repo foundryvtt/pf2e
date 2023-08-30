@@ -7,7 +7,7 @@ import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { SheetOption, SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -36,11 +36,10 @@ import {
 } from "./values.ts";
 
 // Kingdom traits in order of when the phases occur in the process
-const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic"];
-type KingdomTrait = (typeof KINGDOM_TRAITS)[number];
+const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
 
 class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
-    protected selectedFilter: KingdomTrait | null = null;
+    protected selectedFilter: string | null = null;
 
     constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>) {
         super(actor, options);
@@ -146,11 +145,18 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             }),
             actions: R.sortBy(kingdom.activities, (a) => a.name).map((item) => ({
                 item,
-                traits: createSheetTags(CONFIG.PF2E.kingmakerTraits, item.system.traits.value),
+                traits: createSheetTags(
+                    CONFIG.PF2E.kingmakerTraits,
+                    item.system.traits.value.filter((t) => t !== "downtime")
+                ),
             })),
             skills: R.sortBy(Object.values(this.kingdom.skills), (s) => s.label),
             feats: [kingdom.features, kingdom.feats, kingdom.bonusFeats],
-            actionFilterChoices: createSheetTags(CONFIG.PF2E.kingmakerTraits, KINGDOM_TRAITS),
+            actionFilterChoices: KINGDOM_TRAITS.map((trait) => ({
+                label: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[trait]),
+                value: trait,
+                selected: false, // selected is handled without re-render
+            })),
         };
     }
 
@@ -400,7 +406,7 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     actions: { item: CampaignFeaturePF2e; traits: SheetOptions }[];
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
-    actionFilterChoices: SheetOptions;
+    actionFilterChoices: SheetOption[];
 }
 
 interface LeaderSheetData extends KingdomLeadershipData {
