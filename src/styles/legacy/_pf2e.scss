@@ -1,8 +1,8 @@
 :root {
-    --primary-background:#454a7c;
-    --secondary-background:gray;
-    --tertiary-background:#454a7c;
-    --alternate-background:darkgray;
+    --primary-background: #454a7c;
+    --secondary-background: gray;
+    --tertiary-background: #454a7c;
+    --alternate-background: darkgray;
 }
 
 .tab[data-tab].active {
@@ -61,7 +61,8 @@
         overflow: hidden;
 
         input {
-            &[type="text"], &[type="number"] {
+            &[type="text"],
+            &[type="number"] {
                 width: calc(100% - 2px);
                 height: calc(100% - 2px);
                 background: none;
@@ -70,7 +71,8 @@
                 color: #333;
                 border: 1px solid transparent;
 
-                &:hover:not(:disabled), &:focus {
+                &:hover:not(:disabled),
+                &:focus {
                     border: 1px solid black;
                     box-shadow: 0 0 10px #00005a;
                 }
@@ -166,7 +168,8 @@
             height: 48px;
         }
 
-        .sheet-profile, .sheet-showcase {
+        .sheet-profile,
+        .sheet-showcase {
             height: 220px;
         }
     }
@@ -318,7 +321,8 @@
                     }
 
                     input {
-                        &[type="text"], &[type="number"] {
+                        &[type="text"],
+                        &[type="number"] {
                             flex: 1;
                             text-align: right;
                             height: 16px;
@@ -413,7 +417,8 @@
                         text-align: left;
                     }
 
-                    &.speed, &.hpformula {
+                    &.speed,
+                    &.hpformula {
                         max-width: 90%;
                     }
                 }
@@ -478,7 +483,8 @@
                     }
 
                     input {
-                        &[type="text"], &[type="number"] {
+                        &[type="text"],
+                        &[type="number"] {
                             height: 20px;
                             max-width: 20px;
                             margin: 0;
@@ -622,13 +628,15 @@
                 width: 94px;
             }
 
-            .bio-appearance, .bio-attitude {
+            .bio-appearance,
+            .bio-attitude {
                 grid-column-start: 1;
                 grid-column-end: 3;
                 width: 170px;
             }
 
-            .bio-appearance > input, .bio-attitude > input {
+            .bio-appearance > input,
+            .bio-attitude > input {
                 text-align: start;
                 word-break: break-all;
             }
@@ -664,7 +672,9 @@
             background: var(--secondary-background);
             margin-right: 4px;
 
-            .save-name, .attribute-name, .attribute-name-non-rollable {
+            .save-name,
+            .attribute-name,
+            .attribute-name-non-rollable {
                 grid-area: auto;
                 margin: 0;
                 background: var(--secondary-background);
@@ -710,7 +720,8 @@
         }
     }
 
-    .npc-abilities .ability-title, .abilities .ability-title {
+    .npc-abilities .ability-title,
+    .abilities .ability-title {
         @include serif-condensed;
         flex: 0 0 24px;
         font-size: var(--font-size-24);
@@ -788,25 +799,30 @@
         .ability {
             grid-row-start: auto;
             display: grid;
-            grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (([row2-end]) / 46%) 31% 18% 5%;
+            grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (
+                    ([row2-end]) / 46%
+                ) 31% 18% 5%;
             height: 36px;
             line-height: 36px;
         }
     }
 
-    .npc-abilities .ability > *, .abilities .ability > * {
+    .npc-abilities .ability > *,
+    .abilities .ability > * {
         flex: 1;
         align-self: center;
     }
 
-    .npc-abilities .ability .ability-proficiency, .abilities .ability .ability-proficiency {
+    .npc-abilities .ability .ability-proficiency,
+    .abilities .ability .ability-proficiency {
         flex: 0 0 20px;
         height: 100%;
         text-align: left;
         padding-left: 3px;
     }
 
-    .npc-abilities .ability .ability-proficiency i.fa-circle, .abilities .ability .ability-proficiency i.fa-circle {
+    .npc-abilities .ability .ability-proficiency i.fa-circle,
+    .abilities .ability .ability-proficiency i.fa-circle {
         font-size: var(--font-size-10);
     }
 
@@ -867,7 +883,8 @@
         }
     }
 
-    .npc-abilities .npc-defense .ability-name, .abilities .ability .ability-id {
+    .npc-abilities .npc-defense .ability-name,
+    .abilities .ability .ability-id {
         @include serif-condensed;
         flex: 0 0 24px;
         font-size: var(--font-size-32);
@@ -878,12 +895,14 @@
         text-align: center;
     }
 
-    .npc-abilities .ability .ability-mod, .abilities .ability .ability-mod {
+    .npc-abilities .ability .ability-mod,
+    .abilities .ability .ability-mod {
         grid-area: mod;
         align-self: center;
     }
 
-    .npc-abilities .ability .ability-name, .abilities .ability .ability-id {
+    .npc-abilities .ability .ability-name,
+    .abilities .ability .ability-id {
         grid-area: id;
         align-self: center;
     }
@@ -927,7 +946,8 @@
                 border-radius: 2px;
                 margin-bottom: 2px;
 
-                h4, h5 {
+                h4,
+                h5 {
                     width: calc(100% - 44px);
                     float: left;
                     margin: 0;
@@ -1030,7 +1050,8 @@
     }
 
     .skills {
-        .skill > *, .list-row > * {
+        .skill > *,
+        .list-row > * {
             flex: 1;
         }
     }
@@ -1044,7 +1065,8 @@
     }
 
     .skills {
-        .lore-name, .lore-name-input {
+        .lore-name,
+        .lore-name-input {
             margin: 0;
             align-self: center;
             background: var(--secondary-background);
@@ -1094,7 +1116,8 @@
     }
 
     &.locked {
-        .ability-proficiency, .skill-proficiency {
+        .ability-proficiency,
+        .skill-proficiency {
             text-shadow: none;
             cursor: default;
         }
@@ -1184,7 +1207,10 @@
     }
 
     .action-header .item-controls a {
-        &.item-create, &.item-delete, &.feat-browse, &.action-browse {
+        &.item-create,
+        &.item-delete,
+        &.feat-browse,
+        &.action-browse {
             width: 100%;
             color: #fff;
             background: var(--primary-background);
@@ -1264,7 +1290,8 @@
     }
 
     .list-row {
-        .spell-school, .spell-action {
+        .spell-school,
+        .spell-action {
             flex: 1;
             font-size: var(--font-size-12);
             color: #666;
@@ -1272,13 +1299,15 @@
             border-right: 1px solid var(--secondary-background);
         }
 
-        .spell-slots, .spell-max {
+        .spell-slots,
+        .spell-max {
             flex: 0 0 24px;
             font-size: var(--font-size-12);
             text-align: center;
         }
 
-        .spell-slots-input, .spell-max-input {
+        .spell-slots-input,
+        .spell-max-input {
             flex: 0 0 24px;
             font-size: var(--font-size-12);
             text-align: center;
@@ -1372,7 +1401,8 @@
 
 .pf2e.sheet form .npc-detail-text {
     input {
-        &[type="text"], &[type="number"] {
+        &[type="text"],
+        &[type="number"] {
             background: rgba(255, 255, 255, 0.8);
             color: var(--text-dark);
             border: 1px solid black;
@@ -1556,23 +1586,27 @@ li.list-row.hover-container {
     }
 }
 
-.sheet-header .creature-adjustment, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment,
+.npc-title-bar .creature-adjustment a.hidden {
     font-size: var(--font-size-12);
 }
 
-.sheet-header .creature-adjustment a, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a,
+.npc-title-bar .creature-adjustment a.hidden {
     margin-left: 1px;
     background-color: var(--secondary-background);
     border-color: #bbb68f;
 }
 
-.sheet-header .creature-adjustment a.active, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.active,
+.npc-title-bar .creature-adjustment a.hidden {
     margin-left: 1px;
     background-color: #5e0000;
     border-color: #bbb68f;
 }
 
-.sheet-header .creature-adjustment a.hidden, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.hidden,
+.npc-title-bar .creature-adjustment a.hidden {
     display: none;
 }
 
