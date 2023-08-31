@@ -732,7 +732,7 @@ async function augmentInlineDamageRoll(
                 return {
                     actor,
                     token: actor.token,
-                    item: null,
+                    item: item ? (item as ItemPF2e<ActorPF2e>) : null,
                     statistic: null,
                     modifiers,
                 };

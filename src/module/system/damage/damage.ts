@@ -162,7 +162,7 @@ export class DamagePF2e {
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
                 n.predicate.test(context.options)
         );
-        const noteRollData = context.self?.item?.getRollData() ?? {};
+        const noteRollData = (context.self?.item ?? context.self?.actor)?.getRollData() ?? {};
         const notesFlavor = (
             await Promise.all(
                 filteredNotes.map(
