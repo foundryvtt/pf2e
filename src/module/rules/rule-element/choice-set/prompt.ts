@@ -143,7 +143,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
             newButton.type = "button";
             newButton.value = String(choicesLength - 1);
 
-            newButton.addEventListener("click", () => {
+            newButton.addEventListener("click", (event) => {
                 this.selection = this.getSelection(event) ?? null;
                 this.close();
             });
