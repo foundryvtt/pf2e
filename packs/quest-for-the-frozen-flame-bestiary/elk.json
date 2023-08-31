@@ -67,18 +67,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "piercing",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "selector": "{item|_id}-damage",
-                        "traits": [
-                            "startled-charge"
-                        ]
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -244,6 +233,16 @@
                         "key": "RollOption",
                         "option": "startled-charge",
                         "toggleable": true
+                    },
+                    {
+                        "damageType": "piercing",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "startled-charge"
+                        ],
+                        "selector": "hoof-damage"
                     }
                 ],
                 "slug": null,
