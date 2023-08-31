@@ -6,6 +6,7 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import { RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, ZeroToTwo } from "@module/data.ts";
@@ -30,11 +31,11 @@ import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionIcon, htmlClosest, localizer, ordinal, setHasElement, traitSlugToObject } from "@util";
+import * as R from "remeda";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 import { MAGIC_SCHOOLS } from "./values.ts";
-import { RangeData } from "@item/types.ts";
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
@@ -269,12 +270,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const { actor, attribute } = this;
-        const domains = [
+        const checkStatistic = this.spellcasting?.statistic;
+        const domains = R.compact([
             "damage",
             "spell-damage",
             `${this.id}-damage`,
-            this.traits.has("attack") ? ["attack-damage", "attack-spell-damage"] : [],
-        ].flat();
+            this.traits.has("attack") ? ["attack-damage", "attack-spell-damage"] : null,
+            checkStatistic?.base ? `${checkStatistic?.base.slug}-damage` : null,
+        ]).flat();
 
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
