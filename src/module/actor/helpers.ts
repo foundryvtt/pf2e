@@ -19,6 +19,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, getActionIcon, signedInteger, sluggify } from "@util";
+import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
@@ -278,16 +279,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     for (const adjustment of synthetics.strikeAdjustments) {
         adjustment.adjustWeapon?.(item);
     }
-
-    const baseOptions = [...actor.getRollOptions(domains), ...item.system.traits.value];
-    // Legacy support for "melee", "ranged", and "thrown" roll options
-    if (isMelee) {
-        baseOptions.push("melee");
-    } else if (isThrown) {
-        baseOptions.push("ranged", "thrown");
-    } else {
-        baseOptions.push("ranged");
-    }
+    const baseOptions = new Set(R.compact([isThrown ? "thrown" : null, meleeOrRanged, ...item.system.traits.value]));
 
     const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
     const traitObjects = item.system.traits.value.map(
@@ -310,7 +302,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         item,
         weapon: item,
         traits: traitObjects,
-        options: [],
+        options: Array.from(baseOptions),
         variants: [],
         success: "",
         ready: true,
@@ -343,7 +335,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`,
         ...(["map1", "map2"] as const).map((prop) => {
             const modifier = createMapModifier(prop);
-            adjustModifiers([modifier], new Set(baseOptions));
+            adjustModifiers([modifier], baseOptions);
             const penalty = modifier.ignored ? 0 : modifier.value;
             return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
                 value: signedInteger(strike.totalModifier + penalty),
@@ -367,7 +359,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 target: { token: game.user.targets.first() ?? null },
                 defense: "armor",
                 domains,
-                options: new Set([...baseOptions, ...params.options]),
+                options: baseOptions,
             });
 
             // Check whether target is out of maximum range; abort early if so
@@ -440,7 +432,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 viewOnly: params.getFormula ?? false,
                 domains,
                 outcome,
-                options: new Set([...baseOptions, ...(params.options ?? [])]),
+                options: baseOptions,
             });
 
             if (!context.self.item.dealsDamage && !params.getFormula) {

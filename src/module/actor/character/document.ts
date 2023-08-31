@@ -1252,6 +1252,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         modifiers.push(createProficiencyModifier({ actor: this, rank: proficiencyRank, domains: baseSelectors }));
 
         const baseOptions = new Set([
+            "action:strike",
             `item:proficiency:rank:${proficiencyRank}`,
             ...weaponTraits, // always add weapon traits as options
             meleeOrRanged,
@@ -1435,7 +1436,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             item: weapon,
             type: "strike" as const,
             ...flavor,
-            options: R.compact([weapon.system.options?.value, "action:strike", "self:action:slug:strike"].flat()),
+            options: Array.from(baseOptions),
             traits: [],
             weaponTraits: Array.from(weaponTraits)
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
@@ -1544,7 +1545,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     statistic: action,
                     target: { token: game.user.targets.first() ?? null },
                     defense: "armor",
-                    options: new Set([...baseOptions, ...params.options, ...action.options]),
+                    options: baseOptions,
                     viewOnly: params.getFormula,
                 });
 
@@ -1634,7 +1635,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     target: { token: targetToken },
                     domains,
                     outcome: method === "damage" ? "success" : "criticalSuccess",
-                    options: new Set([...params.options, ...baseOptions, ...action.options]),
+                    options: baseOptions,
                 });
 
                 if (!context.self.item.dealsDamage) {
