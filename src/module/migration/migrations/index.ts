@@ -255,3 +255,4 @@ export { Migration854BracketedAbilityScoresToModifiers } from "./854-bracketed-a
 export { Migration855ApexEquipmentSystemData } from "./855-apex-equipment-system-data.ts";
 export { Migration856NoSystemDotCustom } from "./856-no-system-dot-custom.ts";
 export { Migration857WeaponSpecializationRE } from "./857-weapon-spec-re.ts";
+export { Migration858FakeWeaponSpecialization } from "./858-fake-weapon-specialization.ts";
