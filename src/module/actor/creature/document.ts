@@ -86,7 +86,7 @@ abstract class CreaturePF2e<
             if (traitsFromWeapons.length === 0) return baseReach;
 
             const reaches = traitsFromWeapons.map((traits): number => {
-                if (traits.has("reach")) return baseReach + 5;
+                if (setHasElement(traits, "reach")) return baseReach + 5;
 
                 const reachNPattern = /^reach-\d{1,3}$/;
                 return Number([...traits].find((t) => reachNPattern.test(t))?.replace("reach-", "")) || baseReach;
