@@ -25,7 +25,6 @@ import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
-import { AttackItem } from "./types.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -484,8 +483,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 }
 
 /** Get the range increment of a target for a given weapon */
-function getRangeIncrement(attackItem: AttackItem, distance: number | null): number | null {
-    if (attackItem.isOfType("spell")) return null;
+function getRangeIncrement(attackItem: ItemPF2e<ActorPF2e>, distance: number | null): number | null {
+    if (!attackItem.isOfType("action", "melee", "weapon")) return null;
 
     const { increment } = attackItem.range ?? {};
     return increment && typeof distance === "number" ? Math.max(Math.ceil(distance / increment), 1) : null;

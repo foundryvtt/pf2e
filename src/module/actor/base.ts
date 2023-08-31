@@ -3,7 +3,6 @@ import {
     ActorDimensions,
     ActorInstances,
     ApplyDamageParams,
-    AttackItem,
     AuraData,
     CheckContext,
     CheckContextParams,
@@ -822,9 +821,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /*  Rolls                                       */
     /* -------------------------------------------- */
 
-    protected getRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
-        params: RollContextParams<TStatistic, TItem>
-    ): Promise<RollContext<this, TStatistic, TItem>>;
+    protected getRollContext<
+        TStatistic extends StatisticCheck | StrikeData | null,
+        TItem extends ItemPF2e<ActorPF2e> | null
+    >(params: RollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
     protected async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
         const [selfToken, targetToken] =
             canvas.ready && !params.viewOnly
@@ -874,7 +874,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
               }) ?? params.statistic
             : params.statistic;
 
-        const selfItem = ((): AttackItem | null => {
+        const selfItem = ((): ItemPF2e<ActorPF2e> | null => {
             // 1. Simplest case: no context clone, so used the item passed to this method
             if (selfActor === this) return params.item ?? null;
 
@@ -1014,7 +1014,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Calculate attack roll targeting data, including the target's DC. */
-    async getCheckContext<TStatistic extends StatisticCheck | StrikeData, TItem extends AttackItem | null>(
+    async getCheckContext<TStatistic extends StatisticCheck | StrikeData, TItem extends ItemPF2e<ActorPF2e> | null>(
         params: CheckContextParams<TStatistic, TItem>
     ): Promise<CheckContext<this, TStatistic, TItem>> {
         const context = await this.getRollContext(params);
@@ -1035,9 +1035,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Acquire additional data for a damage roll. */
-    getDamageRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends AttackItem | null>(
-        params: DamageRollContextParams<TStatistic, TItem>
-    ): Promise<RollContext<this, TStatistic, TItem>>;
+    getDamageRollContext<
+        TStatistic extends StatisticCheck | StrikeData | null,
+        TItem extends ItemPF2e<ActorPF2e> | null
+    >(params: DamageRollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
     async getDamageRollContext(params: DamageRollContextParams): Promise<RollContext<this>> {
         const context = await this.getRollContext(params);
         if (params.outcome) {
