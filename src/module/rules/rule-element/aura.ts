@@ -124,6 +124,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
 
             const existing = this.actor.auras.get(this.slug);
             if (existing && this.mergeExisting) {
+                existing.radius = data.radius;
                 existing.traits = R.uniq([...existing.traits, ...data.traits]).sort();
                 if (data.colors) existing.colors = mergeObject(existing.colors ?? {}, data.colors);
                 for (const effect of data.effects) {
