@@ -67,12 +67,16 @@
             display: block;
         }
 
+        input {
+            color: var(--color-text-dark-input);
+        }
+
         .mce-panel span {
             display: inherit;
         }
 
         &.editable .rollable:hover {
-            color: #000;
+            color: var(--text-dark);
             text-shadow: 0 0 10px #00005a;
             cursor: pointer;
         }
@@ -105,7 +109,7 @@
             gap: 2px;
         }
 
-        .sheet-navigation {
+        > nav {
             display: flex;
             align-items: baseline;
             border-bottom: 1px solid var(--secondary-background);
@@ -149,7 +153,7 @@
             }
         }
 
-        article.sheet-content {
+        .sheet-content {
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -172,16 +176,16 @@
             input {
                 &[type="text"],
                 &[type="number"] {
-                    width: calc(100% - 2px);
-                    height: calc(100% - 2px);
                     background: none;
-                    padding: 0;
-                    margin: 1px 0;
                     border: 1px solid transparent;
+                    height: calc(100% - 2px);
+                    margin: 1px 0;
+                    padding: 0;
+                    width: calc(100% - 2px);
 
                     &:hover:not(:disabled),
                     &:focus {
-                        border: 1px solid black;
+                        border: 1px solid var(----color-border-dark-1);
                         box-shadow: 0 0 10px #00005a;
                     }
                 }
@@ -196,7 +200,7 @@
             input[type="text"],
             input[type="number"] {
                 background: rgba(255, 255, 255, 0.5);
-                border: 1px solid #aaa;
+                border: 1px solid var(--color-text-light-5);
                 padding: 3px;
             }
 
