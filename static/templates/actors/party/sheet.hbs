@@ -8,12 +8,12 @@
         <div class="details">
             <input
                 name="name"
-                class="name"
+                class="name" id="{{actor.uuid}}-name"
                 type="text"
                 value="{{actor.name}}"
                 placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"
-                {{disabled (not @root.options.editable)}}/>
-            <label class="type">{{localize "TYPES.Actor.party"}}</label>
+            />
+            <label for="{{actor.uuid}}-name">{{localize "TYPES.Actor.party"}}</label>
             {{#if user.isGM}}
                 <a class="visibility {{#if playerRestricted}}restricted{{/if}}" data-action="open-meta-setting">
                     {{#if playerRestricted}}
