@@ -407,8 +407,6 @@ class TextEditorPF2e extends TextEditor {
         inlineLabel?: string;
     }): HTMLSpanElement | null {
         // Build the inline link
-        const anchor = document.createElement("a");
-        anchor.className = "inline-check";
         const icon = ((): HTMLElement => {
             switch (params.type) {
                 case "fortitude":
@@ -424,29 +422,33 @@ class TextEditorPF2e extends TextEditor {
             }
         })();
         icon.classList.add("icon");
-        anchor.append(icon);
 
-        anchor.dataset.pf2Traits = params.traits.toString();
-        anchor.dataset.pf2RollOptions = params.extraRollOptions.toString();
         const name = params.name ?? item?.name ?? params.type;
-        anchor.dataset.pf2RepostFlavor = name;
         const role = params.showDC ?? "owner";
-        anchor.dataset.pf2ShowDc = role;
-
         const localize = localizer("PF2E.InlineCheck");
-        anchor.dataset.pf2Label = localize("DCWithName", { name });
 
-        if (params.adjustment) anchor.dataset.pf2Adjustment = params.adjustment;
-        if (params.roller) anchor.dataset.pf2Roller = params.roller;
+        const anchor = createHTMLElement("a", {
+            classes: ["inline-check"],
+            children: [icon],
+            dataset: {
+                pf2Traits: params.traits.toString(),
+                pf2RollOptions: params.extraRollOptions.toString(),
+                pf2RepostFlavor: name,
+                pf2ShowDc: role,
+                pf2Label: localize("DCWithName", { name }),
+                pf2Adjustment: params.adjustment || null,
+                pf2Roller: params.roller || null,
+            },
+        });
+
         if (params.defense && params.dc) {
             anchor.dataset.tooltip = localize("Invalid", { message: localize("Errors.DCAndDefense") });
             anchor.dataset.invalid = "true";
         }
 
-        const createLabel = (text: string): HTMLSpanElement => {
-            const span = document.createElement("span");
-            span.className = "label";
-            span.innerHTML = text;
+        const createLabel = (content: string): HTMLSpanElement => {
+            const span = createHTMLElement("span", { classes: ["label"] });
+            span.innerHTML = content;
             return span;
         };
 
