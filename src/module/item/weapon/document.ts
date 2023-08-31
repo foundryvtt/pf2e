@@ -27,7 +27,7 @@ import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
+import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
 import { WeaponTraitToggles, prunePropertyRunes } from "./helpers.ts";
 import type {
     BaseWeaponType,
@@ -173,10 +173,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
-    override get material(): WeaponMaterialData {
-        return this.system.material;
-    }
-
     /** Does this weapon require ammunition in order to make a strike? */
     get requiresAmmo(): boolean {
         return this.isRanged && !this.isThrown && ![null, "-"].includes(this.reload);
@@ -232,10 +228,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 rollOptions[`ammo:id:${ammunition.id}`] = true;
                 rollOptions[`ammo:slug:${ammunition.slug}`] = true;
                 rollOptions[`ammo:level:${ammunition.level}`] = true;
-                if (ammunition.material.precious) {
-                    rollOptions[`ammo:material:type:${ammunition.material.precious.type}`] = true;
-                    rollOptions[`ammo:material:grade:${ammunition.material.precious.grade}`] = true;
-                }
+                rollOptions[`ammo:material:type:${ammunition.material.type}`] = !!ammunition.material.type;
+                rollOptions[`ammo:material:grade:${ammunition.material.grade}`] = !!ammunition.material.grade;
                 for (const trait of ammunition.traits) {
                     rollOptions[`ammo:trait:${trait}`] = true;
                 }
@@ -381,12 +375,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     private prepareMaterialAndRunes(): void {
-        const preciousMaterial =
-            this.system.preciousMaterial.value && this.system.preciousMaterialGrade.value
-                ? { type: this.system.preciousMaterial.value, grade: this.system.preciousMaterialGrade.value }
-                : null;
-        this.system.material = { precious: preciousMaterial };
-
         const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
 
         const strikingRuneDice: Map<StrikingRuneType | null, OneToThree> = new Map([
@@ -499,7 +487,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return new CoinsPF2e({ gp: runeValue + materialValue });
     }
 
-    private getRunesValuationData(): RuneValuationData[] {
+    getRunesValuationData(): RuneValuationData[] {
         const propertyRuneData: Record<string, WeaponPropertyRuneData | undefined> = CONFIG.PF2E.runes.weapon.property;
         return [
             WEAPON_VALUATION_DATA.potency[this.system.runes.potency],
@@ -508,10 +496,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         ].filter((d): d is RuneValuationData => !!d);
     }
 
-    private getMaterialValuationData(): MaterialGradeData | null {
-        const material = this.material;
-        const materialData = WEAPON_MATERIAL_VALUATION_DATA[material.precious?.type ?? ""];
-        return materialData?.[material.precious?.grade ?? "low"] ?? null;
+    getMaterialValuationData(): MaterialGradeData | null {
+        const materialData = WEAPON_MATERIAL_VALUATION_DATA[this.system.material.type ?? ""];
+        return materialData?.[this.system.material.grade ?? "low"] ?? null;
     }
 
     override async getChatData(
@@ -553,7 +540,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         const params = {
             base: this.baseType ? game.i18n.localize(baseWeapons[this.baseType]) : this.name,
-            material: material.precious && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.precious.type]),
+            material: material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]),
             potency: potencyRune,
             striking: strikingRune && game.i18n.localize(CONFIG.PF2E.weaponStrikingRunes[strikingRune]),
             property1: runes.property[0] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[0]]),
