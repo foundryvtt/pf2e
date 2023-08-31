@@ -834,8 +834,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   ]
                 : [null, null];
 
-        const selfOptions = [...this.getRollOptions(params.domains ?? []), ...params.options];
-
         // Get ephemeral effects from the target that affect this actor while attacking
         const originEphemeralEffects = await extractEphemeralEffects({
             affects: "origin",
@@ -850,7 +848,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             params.viewOnly || !targetToken?.actor
                 ? this
                 : this.getContextualClone(
-                      [...selfOptions, ...targetToken.actor.getSelfRollOptions("target")],
+                      [...params.options, ...targetToken.actor.getSelfRollOptions("target")],
                       originEphemeralEffects
                   );
 
@@ -932,7 +930,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
                 if (mark) targetOptions.push(`target:mark:${mark}`);
             }
-            return targetOptions;
+            return targetOptions.sort();
         };
         const targetRollOptions = getTargetRollOptions(targetToken?.actor);
 
@@ -982,7 +980,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const rollOptions = new Set(
             R.compact([
                 ...params.options,
-                ...selfOptions,
+                ...selfActor.getRollOptions(params.domains),
                 ...(targetActor ? getTargetRollOptions(targetActor) : targetRollOptions),
                 ...itemOptions,
                 // Backward compatibility for predication looking for an "attack" trait by its lonesome

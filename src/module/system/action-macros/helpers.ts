@@ -149,13 +149,7 @@ export class ActionMacroHelpers {
                 } = await options.checkContext({
                     actor,
                     buildContext: (args) => {
-                        const actionOptions = [
-                            args.rollOptions
-                                .filter((o) => /^action:[^:]+$/.test(o))
-                                .map((o) => `self:action:slug:${o.replace(/^action:/, "")}`),
-                            options.traits.map((t) => `self:action:trait:${t}`),
-                        ].flat();
-                        const combinedOptions = R.compact([args.rollOptions, options.traits, actionOptions].flat());
+                        const combinedOptions = R.compact([args.rollOptions, options.traits].flat());
                         combinedOptions.push(...(args.item?.getRollOptions("item") ?? []));
                         return { item: args.item, rollOptions: combinedOptions.sort(), target: args.target };
                     },
