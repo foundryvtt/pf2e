@@ -96,6 +96,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...base,
+            playerRestricted: game.settings.get("pf2e", "metagame_showPartyStats"),
             restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
             members: this.#prepareMembers(),
             overviewSummary: this.#prepareOverviewSummary(),
@@ -278,6 +279,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
+
+        // Show metagame option if clicked
+        htmlQuery(html, "[data-action=open-meta-setting]")?.addEventListener("click", () => {
+            const menu = game.settings.menus.get("pf2e.metagame");
+            if (menu) {
+                const app = new menu.type();
+                app.render(true);
+            }
+        });
 
         // Enable all roll actions
         for (const rollLink of htmlQueryAll(html, "[data-action=roll]")) {
@@ -482,6 +492,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 }
 
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
+    /** Is the sheet restricted to players? */
+    playerRestricted: boolean;
+    /** Is the sheet restricted to the current user? */
     restricted: boolean;
     members: MemberBreakdown[];
     overviewSummary: {

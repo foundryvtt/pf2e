@@ -6,16 +6,25 @@
             </div>
         </div>
         <div class="details">
-            <div class="title">
-                <input
-                    name="name"
-                    class="name"
-                    type="text"
-                    value="{{actor.name}}"
-                    placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"
-                    {{disabled (not @root.options.editable)}}/>
-                <label>{{localize "TYPES.Actor.party"}}</label>
-            </div>
+            <input
+                name="name"
+                class="name"
+                type="text"
+                value="{{actor.name}}"
+                placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"
+                {{disabled (not @root.options.editable)}}/>
+            <label class="type">{{localize "TYPES.Actor.party"}}</label>
+            {{#if user.isGM}}
+                <a class="visibility {{#if playerRestricted}}restricted{{/if}}" data-action="open-meta-setting">
+                    {{#if playerRestricted}}
+                        <i class="fa-solid fa-eye-slash"></i>
+                        {{localize "PF2E.Actor.Party.Visibility.Restricted"}}
+                    {{else}}
+                        <i class="fa-solid fa-eye"></i>
+                        {{localize "PF2E.Actor.Party.Visibility.Unrestricted"}}
+                    {{/if}}
+                </a>
+            {{/if}}
         </div>
     </header>
 
