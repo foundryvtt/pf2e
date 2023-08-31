@@ -86,7 +86,7 @@ export class DamagePF2e {
                 : "";
 
             const properties = ((): string => {
-                const range = item?.range ?? null;
+                const range = item?.isOfType("action", "melee", "weapon") ? item.range : null;
                 const label = createActionRangeLabel(range);
                 if (label && (range?.increment || range?.max)) {
                     // Show the range increment or max range as a tag

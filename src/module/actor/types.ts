@@ -1,5 +1,4 @@
 import * as ActorInstance from "@actor";
-import * as ItemInstance from "@item";
 import { EffectTrait } from "@item/abstract-effect/index.ts";
 import { ItemInstances } from "@item/types.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
@@ -87,17 +86,10 @@ interface AuraColors {
 /*  Attack Rolls                                */
 /* -------------------------------------------- */
 
-type AttackItem =
-    | ItemInstance.AbilityItemPF2e<ActorPF2e>
-    | ItemInstance.FeatPF2e<ActorPF2e>
-    | ItemInstance.WeaponPF2e<ActorPF2e>
-    | ItemInstance.MeleePF2e<ActorPF2e>
-    | ItemInstance.SpellPF2e<ActorPF2e>;
-
 interface StrikeSelf<
     TActor extends ActorPF2e = ActorPF2e,
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends AttackItem | null = AttackItem | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
 > {
     actor: TActor;
     token: TokenDocumentPF2e | null;
@@ -120,7 +112,7 @@ interface RollTarget {
 interface RollContext<
     TActor extends ActorPF2e,
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends AttackItem | null = AttackItem | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
 > {
     /** Roll options */
     options: Set<string>;
@@ -131,7 +123,7 @@ interface RollContext<
 
 interface RollContextParams<
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends AttackItem | null = AttackItem | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
 > {
     /** The statistic used for the roll */
     statistic: TStatistic;
@@ -151,14 +143,14 @@ interface RollContextParams<
 
 interface CheckContextParams<
     TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
-    TItem extends AttackItem | null = AttackItem | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
 > extends RollContextParams<TStatistic, TItem> {
     defense: string;
 }
 
 interface DamageRollContextParams<
     TStatistic extends StatisticCheck | StrikeData | null = StatisticCheck | StrikeData | null,
-    TItem extends AttackItem | null = AttackItem | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
 > extends RollContextParams<TStatistic, TItem> {
     /** An outcome of a preceding check roll */
     outcome?: DegreeOfSuccessString | null;
@@ -167,7 +159,7 @@ interface DamageRollContextParams<
 interface CheckContext<
     TActor extends ActorPF2e,
     TStatistic extends StatisticCheck | StrikeData = StatisticCheck | StrikeData,
-    TItem extends AttackItem | null = AttackItem | null
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null
 > extends RollContext<TActor, TStatistic, TItem> {
     dc: CheckDC | null;
 }
@@ -193,12 +185,11 @@ type UnaffectedType = SetElement<typeof UNAFFECTED_TYPES>;
 type IWRType = ImmunityType | WeaknessType | ResistanceType;
 
 export {
-    AttributeString,
     ActorAlliance,
     ActorDimensions,
     ActorInstances,
     ApplyDamageParams,
-    AttackItem,
+    AttributeString,
     AuraColors,
     AuraData,
     AuraEffectData,

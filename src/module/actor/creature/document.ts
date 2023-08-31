@@ -2,8 +2,8 @@ import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
-import { AttackItem, MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
-import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type SpellPF2e } from "@item";
+import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
+import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers.ts";
 import { ArmorSource, ItemType } from "@item/data/index.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
@@ -78,14 +78,14 @@ abstract class CreaturePF2e<
         } else if (typeof weaponReach === "number") {
             return weaponReach;
         } else {
-            const attacks: { item: Exclude<AttackItem, SpellPF2e>; ready: boolean }[] = weapon
+            const attacks: { item: ItemPF2e<ActorPF2e>; ready: boolean }[] = weapon
                 ? [{ item: weapon, ready: true }]
                 : this.system.actions ?? [];
             const readyAttacks = attacks.filter((a) => a.ready);
-            const traitsFromWeapons = readyAttacks.map((a) => a.item.traits);
-            if (traitsFromWeapons.length === 0) return baseReach;
+            const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
+            if (traitsFromItems.length === 0) return baseReach;
 
-            const reaches = traitsFromWeapons.map((traits): number => {
+            const reaches = traitsFromItems.map((traits): number => {
                 if (setHasElement(traits, "reach")) return baseReach + 5;
 
                 const reachNPattern = /^reach-\d{1,3}$/;
