@@ -934,7 +934,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "iron-command",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitEvil",
+                                "value": "evil"
+                            },
+                            {
+                                "label": "PF2E.TraitNegative",
+                                "value": "negative"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.ironCommand}",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "iron-command"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 3
+                    }
+                ],
                 "slug": "iron-command",
                 "source": {
                     "value": ""
