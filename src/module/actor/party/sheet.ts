@@ -1,4 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
+import { HitPointsSummary } from "@actor/base.ts";
 import { Language } from "@actor/creature/index.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
@@ -12,11 +13,11 @@ import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -182,10 +183,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         label: CONFIG.PF2E.senses[r.type] ?? r.type,
                     }));
                 })(),
-                hp: {
-                    showValue: observer || !restricted,
-                    ...actor.hitPoints,
-                },
+                hp: actor.hitPoints,
                 activities: activities.map((action) => ({
                     uuid: action.uuid,
                     name: action.name,
@@ -540,7 +538,7 @@ interface MemberBreakdown {
 
     speeds: { label: string; value: number }[];
     senses: { label: string | null; labelFull: string; acuity?: string }[];
-    hp: { showValue: boolean; temp: number; value: number; max: number };
+    hp: HitPointsSummary;
 
     activities: {
         uuid: string;

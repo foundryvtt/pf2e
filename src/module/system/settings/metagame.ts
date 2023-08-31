@@ -14,15 +14,6 @@ const MetagameSettingsConfig = {
         default: true,
         type: Boolean,
     },
-    showPartyStats: {
-        name: "PF2E.SETTINGS.Metagame.ShowPartyStats.Name",
-        hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
-        default: true,
-        type: Boolean,
-        onChange: () => {
-            resetActors(game.actors.filter((a) => a.isOfType("party")));
-        },
-    },
     tokenSetsNameVisibility: {
         name: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Name",
         hint: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Hint",
@@ -49,6 +40,15 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.SecretCondition.Hint",
         default: false,
         type: Boolean,
+    },
+    showPartyStats: {
+        name: "PF2E.SETTINGS.Metagame.ShowPartyStats.Name",
+        hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            resetActors(game.actors.filter((a) => a.isOfType("party")));
+        },
     },
     partyVision: {
         name: "PF2E.SETTINGS.Metagame.PartyVision.Name",

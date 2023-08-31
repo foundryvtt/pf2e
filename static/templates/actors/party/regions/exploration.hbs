@@ -29,13 +29,11 @@
                                 <i class="fas fa-eye"></i> {{member.actor.perception.dc.value}}
                             </span>
                         </div>
-                    {{/unless}}
-                    <footer class="health-bar">
-                        <div class="bar" style="width: {{percentage member.hp.value member.hp.max}}%;"></div>
-                        {{#if member.hp.showValue}}
+                        <footer class="health-bar">
+                            <div class="bar" style="width: {{percentage member.hp.value member.hp.max}}%;"></div>
                             <span><i class="fas fa-heart"></i> {{member.hp.value}} / {{member.hp.max}}</span>
-                        {{/if}}
-                    </footer>
+                        </footer>
+                    {{/unless}}
                 </li>
             {{/each}}
         </ol>
