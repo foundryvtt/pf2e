@@ -138,11 +138,13 @@ class TextEditorPF2e extends TextEditor {
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
             const traits = anchor.dataset.pf2Traits?.split(",") ?? [];
+            const domains = anchor.dataset.pf2Domains?.split(",");
             const extraRollOptions = anchor.dataset.pf2RollOptions?.split(",") ?? [];
             const result = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event),
                 actor,
                 item,
+                domains,
                 traits,
                 extraRollOptions,
             });
@@ -534,6 +536,13 @@ class TextEditorPF2e extends TextEditor {
 
         const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
         const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
+        const domains = params.domains?.split(",");
+
+        // Verify all custom domains are valid. Don't allow any valid domains, and don't attempt to sanitize
+        if (domains?.some((d) => !/^[a-z][-a-z0-9]+-damage$/.test(d))) {
+            ui.notifications.warn(game.i18n.format("PF2E.InlineCheck.Errors.InvalidDomains", { type: "@Damage" }));
+            return null;
+        }
 
         const traits = ((): string[] => {
             const fromParams = params.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
@@ -550,6 +559,7 @@ class TextEditorPF2e extends TextEditor {
             skipDialog: true,
             actor,
             item,
+            domains,
             traits,
             extraRollOptions,
         });
@@ -562,6 +572,7 @@ class TextEditorPF2e extends TextEditor {
                 formula: roll._formula,
                 tooltip: roll.formula,
                 damageRoll: params.formula,
+                pf2Domains: domains?.join(",") || null,
                 pf2BaseFormula: result ? params.formula : null,
                 pf2Traits: traits.toString() || null,
                 pf2RollOptions: extraRollOptions.toString() || null,
@@ -658,6 +669,7 @@ async function augmentInlineDamageRoll(
         actor?: ActorPF2e | null;
         item?: ItemPF2e | null;
         traits?: string[];
+        domains?: string[];
         extraRollOptions?: string[];
     }
 ): Promise<{ template: SimpleDamageTemplate; context: DamageRollContext } | null> {
@@ -676,7 +688,8 @@ async function augmentInlineDamageRoll(
             "inline-damage",
             item ? `${item.id}-inline-damage` : null,
             item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
-        ]);
+            args.domains,
+        ]).flat();
 
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
