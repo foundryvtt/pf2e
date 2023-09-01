@@ -11,7 +11,7 @@ import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractDamageSynthetics } from "@module/rules/helpers.ts";
+import { extractDamageSynthetics, extractNotes } from "@module/rules/helpers.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -663,7 +663,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override async getChatData(
         this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},
-        rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {}
+        rollOptions: { castLevel?: number | string; slotLevel?: number | string; spellCast?: boolean } = {}
     ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
         const slotRank = Number(rollOptions.slotLevel) || this.rank;
@@ -691,9 +691,21 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData: SpellSystemData = this.system;
-
         const options = { ...htmlOptions, rollData };
-        const description = await TextEditor.enrichHTML(this.description, { ...options, async: true });
+        let description: string;
+
+        if (rollOptions.spellCast) {
+            const spellRollNotes = extractNotes(this.actor.synthetics.rollNotes, ["spell-cast"]);
+            const notesText =
+                spellRollNotes
+                    .filter((note) => note.predicate.test([...(note.rule?.item.getRollOptions("parent") ?? [])]))
+                    .map((n) => n.text)
+                    .join("\n") ?? "";
+            const modifiedDescription = [this.description, notesText].flat().join("");
+            description = await TextEditor.enrichHTML(modifiedDescription, { ...options, async: true });
+        } else {
+            description = await TextEditor.enrichHTML(this.description, { ...options, async: true });
+        }
 
         const spellcasting = this.spellcasting;
         if (!spellcasting) {
@@ -973,7 +985,10 @@ interface SpellVariantChatData {
 interface SpellToMessageOptions {
     create?: boolean;
     rollMode?: RollMode;
-    data?: { castLevel?: number };
+    data?: {
+        castLevel?: number;
+        spellCast?: boolean;
+    };
 }
 
 interface SpellDamageOptions {

@@ -261,7 +261,10 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         const valid = !consume || spell.isCantrip || (await this.consume(spell, slotRank, options.slot));
         if (message && valid) {
             const castRank = spell.computeCastRank(slotRank);
-            await spell.toMessage(undefined, { rollMode: options.rollMode, data: { castLevel: castRank } });
+            await spell.toMessage(undefined, {
+                rollMode: options.rollMode,
+                data: { castLevel: castRank, spellCast: true },
+            });
         }
     }
 
