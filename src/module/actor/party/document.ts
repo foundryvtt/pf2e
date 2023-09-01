@@ -109,6 +109,9 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         } else {
             this.campaign = null;
         }
+
+        // Filler until put into use for encounter metrics
+        this.system.details.level = { value: 0 };
     }
 
     /** Run rule elements (which may occur if it contains a kingdom) */
