@@ -773,8 +773,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             if (this.isEditable && sourceItem.isInContainer && htmlClosest(targetElement, ".inventory-header")) {
                 // Special case: the item is in a container and was dropped on an inventory header
                 // Construe as intending to remove from container
-                await sourceItem.update({ "system.containerId": null });
-                return;
+                return sourceItem.move({ toContainer: null });
             }
 
             // Render the sheet to reset positional changes caused by dragging the item around
