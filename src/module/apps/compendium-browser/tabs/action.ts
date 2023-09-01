@@ -12,7 +12,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name"];
-    override storeFields = ["type", "name", "img", "uuid", "traits", "source", "actionType"];
+    override storeFields = ["type", "name", "img", "uuid", "traits", "source", "category", "actionType"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
