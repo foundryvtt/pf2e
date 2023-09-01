@@ -37,7 +37,8 @@
         }
     }
 
-    .tags, .skills {
+    .tags,
+    .skills {
         margin: 0;
     }
 
@@ -52,16 +53,16 @@
     gap: 0.25rem;
     .tag-light {
         &[data-rank="1"] {
-            --tag-color: #{$rank-trained};
+            --tag-color: var(--color-proficiency-trained);
         }
         &[data-rank="2"] {
-            --tag-color: #{$rank-expert};
+            --tag-color: var(--color-proficiency-expert);
         }
         &[data-rank="3"] {
-            --tag-color: #{$rank-master};
+            --tag-color: var(--color-proficiency-master);
         }
         &[data-rank="4"] {
-            --tag-color: #{$rank-legendary};
+            --tag-color: var(--color-proficiency-legendary);
         }
     }
 
@@ -136,7 +137,7 @@
 
     > .data {
         display: flex;
-        border-left: 1px solid #C9BFA9;
+        border-left: 1px solid #c9bfa9;
         flex-direction: column;
         min-height: 100%;
         padding-left: 8px;
@@ -233,7 +234,7 @@
             }
 
             .value {
-                color: #{$rank-trained};
+                color: var(--color-proficiency-trained);
                 font-weight: 700;
             }
         }
@@ -265,7 +266,8 @@
                 padding-bottom: 7px;
                 margin-bottom: -7px;
 
-                [data-acuity="imprecise"], [data-acuity="vague"] {
+                [data-acuity="imprecise"],
+                [data-acuity="vague"] {
                     border-style: dashed;
                 }
             }
