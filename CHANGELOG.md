@@ -1,3 +1,31 @@
+## 5.4.2
+
+### System Improvements
+
+-   (Supe) Show party permission to GM in header
+-   (Supe) Allow custom domains for inline damage rolls
+
+### Bugfixes
+
+-   (stwlam) Fix edge case where duplicate aura effects were sometimes being applied
+-   (stwlam) Fix choice set prompt when homebrew item button is clicked
+-   (stwlam) Fix compendium browser search by ability category
+-   (stwlam) Fix issue causing some auras to not grow when replaced by larger aura with same slug
+-   (Supe) Fix barbarian specialization abilities that keyed off greater weapon specialization
+-   (Supe) Hide sidebar activate-party and create-member buttons from players
+
+### Data Updates
+
+-   (Abaddon) Fill source for Weapon Infusion effect
+-   (Dire Weasel) Add automation for several NPC abilities
+-   (Dire Weasel) Add inline checks to several NPC abilities
+-   (Dire Weasel) Brush up Geist's Haunt and Elk's Hoof
+-   (Dire Weasel) Fix Suli Dune Dancer's Elemental Assault traits
+-   (Dire Weasel) Refresh copies of Ice Storm and Lightning Storm
+-   (Dire Weasel) Update automation for Sounrel's Accursed Claws
+-   (Dire Weasel) Update Ice Storm description and add level damage link
+-   (Tikael) Add inline checks to several feats missing them
+
 ## 5.4.1
 
 ### System Improvements
