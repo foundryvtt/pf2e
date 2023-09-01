@@ -142,12 +142,23 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A groplit's DC to recover from @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Fire Damage} is increased by 2 (generally, from DC 15 to DC 17).</p>"
+                    "value": "<p>A groplit's DC to recover from persistent fire damage is increased by 2 (generally, from DC 15 to DC 17).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:damage:type:fire"
+                        ],
+                        "property": "pd-recovery-dc",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -244,7 +255,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Creatures struck by the groplit are smeared with some of its flammable grease. For the following 1 minute, or until a creature scrubs away the grease dollop with a single Interact action, the DC of the creature's checks to recover from @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Fire Damage} is increased by 2.</p>"
+                    "value": "<p>Creatures struck by the groplit are smeared with some of its flammable grease. For the following 1 minute, or until a creature scrubs away the grease dollop with a single Interact action, the DC of the creature's checks to recover from persistent fire damage is increased by 2.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Incendiary Dollop]</p>"
                 },
                 "requirements": {
                     "value": ""
