@@ -180,7 +180,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-ordinary.webp",
-            "name": "Singed leather apron and Clothing",
+            "name": "Singed Leather Apron and Clothing",
             "sort": 300000,
             "system": {
                 "baseItem": null,
@@ -446,7 +446,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Darius metabolizes the power of an active mutagen to regain [[/r {2d6} #hit points]] Hit Points. If he does so (or if he's confronted by a stealthy party before he's had a chance to drink a mutagen), he loses his jaws and claw unarmed attacks, his bonus on Athletics checks decreases by 2, his AC increases by 1, and his Reflex save bonus increases by 2.</p>"
+                    "value": "<p>Darius metabolizes the power of an active mutagen to regain [[/r 2d6[healing]]] Hit Points. If he does so (or if he's confronted by a stealthy party before he's had a chance to drink a mutagen), he loses his jaws and claw unarmed attacks, his bonus on Athletics checks decreases by 2, his AC increases by 1, and his Reflex save bonus increases by 2.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -455,96 +455,80 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Darius has an active mutagen effect",
+                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
                         "option": "active-mutagen",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     },
                     {
+                        "attackModifier": 12,
                         "category": "unarmed",
                         "damage": {
                             "base": {
                                 "damageType": "piercing",
                                 "dice": 1,
-                                "die": "d8"
+                                "die": "d8",
+                                "modifier": 5
                             }
                         },
-                        "group": "brawling",
                         "key": "Strike",
-                        "label": "Jaws",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
                         "predicate": [
                             "active-mutagen"
                         ],
+                        "slug": "jaws",
                         "traits": [
                             "agile",
                             "unarmed"
                         ]
                     },
                     {
+                        "attackModifier": 12,
                         "category": "unarmed",
                         "damage": {
                             "base": {
                                 "damageType": "slashing",
                                 "dice": 1,
-                                "die": "d10"
+                                "die": "d10",
+                                "modifier": 5
                             }
                         },
-                        "group": "brawling",
                         "key": "Strike",
-                        "label": "Claw",
+                        "label": "PF2E.BattleForm.Attack.Claw",
                         "predicate": [
                             "active-mutagen"
                         ],
+                        "slug": "claw",
                         "traits": [
                             "unarmed"
                         ]
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Active Mutagen",
+                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
                         "predicate": [
                             "active-mutagen"
                         ],
                         "selector": "athletics",
-                        "type": "untyped",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Active Mutagen",
+                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
                         "predicate": [
                             "active-mutagen"
                         ],
                         "selector": "ac",
-                        "type": "untyped",
                         "value": -1
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Active Mutagen",
+                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
                         "predicate": [
                             "active-mutagen"
                         ],
                         "selector": "reflex",
-                        "type": "untyped",
                         "value": -2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Active Mutagen",
-                        "predicate": [
-                            "active-mutagen"
-                        ],
-                        "selector": "jaws-damage",
-                        "value": 5
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Active Mutagen",
-                        "predicate": [
-                            "active-mutagen"
-                        ],
-                        "selector": "claw-damage",
-                        "value": 5
                     }
                 ],
                 "slug": null,
@@ -612,7 +596,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Darius sprays hot wax from his improvised wax sprayer in a @Template[type:cone|distance:15]. All creatures in the area must attempt a @Check[type:reflex|dc:20] save. Scented candles homonoculi in the area take no damage, instead [[/r 2d6[healing]]] damage. After using the hot wax cannon, Darius can't use it again until he takes two Interact actions while adjacent to the cauldron of bubbling wax to reload the sprayer.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[fire]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[3d6[fire]] damage plus @Damage[1d6[persistent,fire]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[5d6[fire]] damage plus @Damage[2d6[persistent,fire]] damage.</p>"
+                    "value": "<p>Darius sprays hot wax from his improvised wax sprayer in a @Template[type:cone|distance:15]. All creatures in the area must attempt a @Check[type:reflex|dc:20] save. Scented candle homonoculi in the area take no damage, instead healing [[/r 2d6[healing]]] damage. After using the hot wax cannon, Darius can't use it again until he takes two Interact actions while adjacent to the cauldron of bubbling wax to reload the sprayer.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[fire]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[3d6[fire]] damage plus @Damage[1d6[persistent,fire]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[5d6[fire]] damage plus @Damage[2d6[persistent,fire]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
