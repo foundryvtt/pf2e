@@ -219,7 +219,35 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "gnashing-bite",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "gnashing-bite"
+                        ],
+                        "selector": "jaws-damage"
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "gnashing-bite",
+                            "item:damage:type:piercing"
+                        ],
+                        "selector": "jaws-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

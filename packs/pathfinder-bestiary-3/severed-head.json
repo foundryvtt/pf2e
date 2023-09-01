@@ -155,7 +155,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "gnash",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "gnash"
+                        ],
+                        "selector": "jaws-damage"
+                    },
+                    {
+                        "damageType": "bleed",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "gnash"
+                        ],
+                        "selector": "jaws-damage",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
