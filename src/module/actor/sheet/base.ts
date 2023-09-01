@@ -2,11 +2,11 @@ import type { ActorPF2e } from "@actor";
 import { CraftingFormula } from "@actor/character/crafting/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { ActionType } from "@item/data/base.ts";
 import { isPhysicalData } from "@item/data/helpers.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
@@ -734,7 +734,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Handle dragging of items in the inventory */
     #sortableOnMove(event: Sortable.MoveEvent, originalEvent: Event): boolean | void | 1 | -1 {
         // Prevent sorting if editing is disabled
-        if (!this.options.editable) return false;
+        if (!this.isEditable) return false;
 
         // This data is not available in the onEnd event. Store it here.
         this.#sortableOnMoveData = {
@@ -755,7 +755,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             // Return false to cancel the move animation
             return !sourceItem.isStackableWith(targetItem);
         }
-        return;
     }
 
     /** Handle drop of inventory items */
@@ -771,22 +770,30 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Item dragged out of the inventory to some other element like the item sidebar
         if (!targetItem && !event.from.contains(targetElement) && !event.to.contains(targetElement)) {
+            if (this.isEditable && sourceItem.isInContainer && htmlClosest(targetElement, ".inventory-header")) {
+                // Special case: the item is in a container and was dropped on an inventory header
+                // Construe as intending to remove from container
+                await sourceItem.update({ "system.containerId": null });
+                return;
+            }
+
             // Render the sheet to reset positional changes caused by dragging the item around
-            if (event.newIndex !== event.oldIndex) {
+            const itemIsOnlyOneOfType = this.actor.itemTypes[sourceItem.type as ItemType].length === 1;
+            if (event.newIndex !== event.oldIndex || itemIsOnlyOneOfType) {
                 this.render();
             }
             return;
         }
 
         // Return early if the sheet is not editable
-        if (!this.options.editable) return;
+        if (!this.isEditable) return;
 
         // Drop target is container item
         if (targetItem?.isOfType("backpack")) {
             const toContent = !!htmlClosest(targetElement, "ol[data-container-id]");
             if (!toContent || targetItem.contents.size === 0) {
                 // Container item was targeted directly or container is empty. Move to container and be done
-                return sourceItem.move({ toContainer: targetItem as ContainerPF2e<ActorPF2e> });
+                return sourceItem.move({ toContainer: targetItem });
             }
         }
 
@@ -798,9 +805,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (relativeItem || targetItem) {
             if (targetItem && !targetItem.isOfType("backpack")) {
                 // A targetItem that is not a container should be stackable with the source item
-                return sourceItem.move({
-                    toStack: targetItem,
-                });
+                return sourceItem.move({ toStack: targetItem });
             }
             // Move source item relative to relativeItem. Containers are handled by the move mehtod
             return sourceItem.move({
