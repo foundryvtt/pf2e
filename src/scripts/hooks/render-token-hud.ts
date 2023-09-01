@@ -41,9 +41,18 @@ export class RenderTokenHUD {
         });
 
         controlButton.addEventListener("click", async () => {
-            controlButton.style.pointerEvents = "none";
-            await new PartyClownCar(token.document).toggleState();
-            canvas.tokens.hud.render();
+            if (controlButton.dataset.disabled) return;
+            controlButton.dataset.disabled = "true";
+            try {
+                await new PartyClownCar(token.document).toggleState();
+                const switchToDeposit = actionIcon.className === "retrieve";
+                actionIcon.className = switchToDeposit ? "deposit" : "retrieve";
+                actionIcon.title = game.i18n.localize(
+                    switchToDeposit ? "PF2E.Actor.Party.ClownCar.Deposit" : "PF2E.Actor.Party.ClownCar.Retrieve"
+                );
+            } finally {
+                delete controlButton.dataset.disabled;
+            }
         });
 
         htmlQuery(html, "[data-action=effects]")?.replaceWith(controlButton);

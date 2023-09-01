@@ -81,8 +81,20 @@
     }
 
     .control-icon[data-action="clown-car"] {
-        img.retrieve {
-            transform: scaleX(-1);
+        &[data-disabled="true"] {
+            cursor: wait;
+            opacity: 0.5;
+        }
+
+        img {
+            height: 36px;
+            transform-style: preserve-3d;
+            transition: 0.5s;
+            width: 36px;
+
+            &.retrieve {
+                transform: scaleX(-1);
+            }
         }
     }
 }
