@@ -415,13 +415,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super._onUpdate(changed, options, userId);
     }
 
-    /** Reinitialize vision if the actor's senses were updated directly */
     protected override _onRelatedUpdate(
         update: Record<string, unknown> = {},
         options: DocumentModificationContext<null> = {}
     ): void {
         super._onRelatedUpdate(update, options);
 
+        // Reinitialize vision if the actor's senses were updated directly
         const initializeVision =
             !!this.scene?.isView &&
             this.sight.enabled &&
@@ -433,21 +433,21 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.reset();
         const postUpdate = this.toObject(false);
         const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
-        const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+        const tokenChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
-        if (this.scene?.isView && Object.keys(changes).length > 0) {
-            this.object?._onUpdate(changes, {}, game.user.id);
+        if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
+            this.object?._onUpdate(tokenChanges, {}, game.user.id);
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
-        const aurasChanged = ((): boolean => {
+        const aurasChanged = (): boolean => {
             if (!this.scene?.isInFocus) return false;
             const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
             const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
             return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
-        })();
+        };
 
-        if (aurasChanged || "width" in changes || "height" in changes) {
+        if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
             this.scene?.checkAuras?.();
         }
     }
