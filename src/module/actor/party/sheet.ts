@@ -97,7 +97,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...base,
-            playerRestricted: game.settings.get("pf2e", "metagame_showPartyStats"),
+            playerRestricted: !game.settings.get("pf2e", "metagame_showPartyStats"),
             restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
             members: this.#prepareMembers(),
             overviewSummary: this.#prepareOverviewSummary(),
