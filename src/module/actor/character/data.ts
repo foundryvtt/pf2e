@@ -6,6 +6,7 @@ import {
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
+    CreatureDetailsSource,
     CreatureResources,
     CreatureSystemData,
     CreatureSystemSource,
@@ -121,7 +122,7 @@ interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "s
     senses?: SenseData[];
 }
 
-interface CharacterDetailsSource {
+interface CharacterDetailsSource extends CreatureDetailsSource {
     alignment: { value: Alignment };
     level: { value: number };
     /** The key ability which class saves (and other class-related things) scale off of. */
@@ -424,7 +425,7 @@ interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
 
-interface CharacterDetails extends CreatureDetails, CharacterDetailsSource {
+interface CharacterDetails extends Omit<CharacterDetailsSource, "alliance">, CreatureDetails {
     /** Convenience information for easy access when the item class instance isn't available */
     ancestry: {
         name: string;

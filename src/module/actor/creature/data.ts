@@ -1,6 +1,7 @@
 import {
     AbilityBasedStatistic,
     ActorAttributes,
+    ActorDetailsSource,
     ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
@@ -33,12 +34,7 @@ type BaseCreatureSource<TType extends CreatureType, TSystemSource extends Creatu
 type CreatureSkills = Record<SkillLongForm, Statistic> & Partial<Record<string, Statistic>>;
 
 interface CreatureSystemSource extends ActorSystemSource {
-    details?: {
-        level?: { value: number };
-        alliance?: ActorAlliance;
-        /** Present on familiars */
-        creature?: unknown;
-    };
+    details?: CreatureDetailsSource;
 
     /** Traits, languages, and other information. */
     traits?: CreatureTraitsSource;
@@ -51,6 +47,8 @@ interface CreatureSystemSource extends ActorSystemSource {
 
     resources?: CreatureResourcesSource;
 }
+
+type CreatureDetailsSource = ActorDetailsSource;
 
 type CreatureDetails = {
     /** The alignment this creature has */
@@ -235,6 +233,7 @@ export {
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
+    CreatureDetailsSource,
     CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,

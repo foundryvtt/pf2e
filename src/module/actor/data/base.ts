@@ -55,7 +55,6 @@ interface ActorHitPointsSource extends ValueAndMaybeMax {
 interface ActorDetailsSource {
     level?: { value: number };
     alliance?: ActorAlliance;
-    creature?: unknown;
 }
 
 interface ActorSystemData extends ActorSystemSource {

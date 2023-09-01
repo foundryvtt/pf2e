@@ -4,6 +4,7 @@ import {
     BaseCreatureSource,
     CreatureAttributes,
     CreatureDetails,
+    CreatureDetailsSource,
     CreatureInitiativeSource,
     CreatureResources,
     CreatureResourcesSource,
@@ -91,7 +92,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
     };
 }
 
-interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
+interface NPCDetailsSource extends CreatureDetailsSource {
     level: {
         value: number;
     };
@@ -187,7 +188,7 @@ interface NPCAttributes
     bonusLimitBulk: number;
 }
 
-interface NPCDetails extends NPCDetailsSource {
+interface NPCDetails extends NPCDetailsSource, CreatureDetails {
     level: {
         value: number;
         /** The presence of a `base` that is different from the `value` indicates the level was adjusted. */

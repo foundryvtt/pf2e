@@ -1,6 +1,8 @@
 import {
     BaseCreatureSource,
     CreatureAttributes,
+    CreatureDetails,
+    CreatureDetailsSource,
     CreatureSystemData,
     CreatureSystemSource,
     CreatureTraitsData,
@@ -12,11 +14,7 @@ import type { StatisticTraceData } from "@system/statistic/index.ts";
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
 interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
-    details: {
-        creature: {
-            value: string;
-        };
-    };
+    details: FamiliarDetailsSource;
     attributes: FamiliarAttributesSource;
     master: {
         id: string | null;
@@ -30,15 +28,17 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     traits?: never;
 }
 
-/** The raw information contained within the actor data object for familiar actors. */
-interface FamiliarSystemData
-    extends Omit<FamiliarSystemSource, "attributes" | "customModifiers" | "toggles" | "resources" | "traits">,
-        CreatureSystemData {
-    details: CreatureSystemData["details"] & {
-        creature: {
-            value: string;
-        };
+interface FamiliarDetailsSource extends CreatureDetailsSource {
+    creature: {
+        value: string;
     };
+    readonly alliance?: never;
+    readonly level?: never;
+}
+
+/** The raw information contained within the actor data object for familiar actors. */
+interface FamiliarSystemData extends Omit<FamiliarSystemSource, SourceOmission>, CreatureSystemData {
+    details: FamiliarDetails;
     actions?: never;
     attack: StatisticTraceData;
     attributes: FamiliarAttributes;
@@ -48,6 +48,8 @@ interface FamiliarSystemData
     };
     traits: FamiliarTraitsData;
 }
+
+type SourceOmission = "attributes" | "customModifiers" | "details" | "toggles" | "resources" | "traits";
 
 interface FamiliarAttributesSource {
     hp: { value: number };
@@ -60,6 +62,12 @@ interface FamiliarAttributesSource {
 interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };
     initiative?: never;
+}
+
+interface FamiliarDetails extends CreatureDetails {
+    creature: {
+        value: string;
+    };
 }
 
 interface FamiliarTraitsData extends CreatureTraitsData {
