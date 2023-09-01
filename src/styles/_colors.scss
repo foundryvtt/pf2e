@@ -114,7 +114,6 @@ $adjusted-lower: #cc3311 !default;
         $damage-physical: #3c3c3c;
         $damage-acid: #007300;
         $damage-bleed: #99001a;
-        $damage-bludgeoning: $damage-physical;
         $damage-chaotic: #a600a6;
         $damage-cold: #2f2fa6;
         $damage-electricity: darkgoldenrod;
@@ -124,9 +123,7 @@ $adjusted-lower: #cc3311 !default;
         $damage-good: #9d730a;
         $damage-lawful: #402600;
         $damage-mental: midnightblue;
-        $damage-piercing: $damage-physical;
         $damage-poison: #5b7332;
-        $damage-slashing: $damage-physical;
         $damage-sonic: darkcyan;
         $damage-spirit: #5a5585;
         $damage-vitality: #ffffe0;
@@ -134,10 +131,8 @@ $adjusted-lower: #cc3311 !default;
         $darker: -12.5%;
         $transparenter: 0.875;
 
-        --color-bg-physical: #{transparentize($damage-physical, $transparenter)};
         --color-bg-acid: #{transparentize($damage-acid, $transparenter)};
         --color-bg-bleed: #{transparentize($damage-bleed, $transparenter)};
-        --color-bg-bludgeoning: #{transparentize($damage-bludgeoning, $transparenter)};
         --color-bg-chaotic: #{transparentize($damage-chaotic, $transparenter)};
         --color-bg-cold: #{transparentize($damage-cold, $transparenter)};
         --color-bg-electricity: #{transparentize($damage-electricity, $transparenter)};
@@ -147,18 +142,15 @@ $adjusted-lower: #cc3311 !default;
         --color-bg-good: #{transparentize($damage-good, $transparenter)};
         --color-bg-lawful: #{transparentize($damage-lawful, $transparenter)};
         --color-bg-mental: #{transparentize($damage-mental, $transparenter)};
-        --color-bg-negative: #{transparentize($damage-void, $transparenter)};
-        --color-bg-piercing: #{transparentize($damage-piercing, $transparenter)};
+        --color-bg-physical: #{transparentize($damage-physical, $transparenter)};
         --color-bg-poison: #{transparentize($damage-poison, $transparenter)};
-        --color-bg-positive: #{transparentize($damage-vitality, $transparenter)};
-        --color-bg-slashing: #{transparentize($damage-slashing, $transparenter)};
         --color-bg-sonic: #{transparentize($damage-sonic, $transparenter)};
         --color-bg-spirit: #{transparentize($damage-spirit, $transparenter)};
+        --color-bg-vitality: #{transparentize($damage-vitality, $transparenter)};
+        --color-bg-void: #{transparentize($damage-void, $transparenter)};
 
-        --color-border-physical: #{$damage-physical};
         --color-border-acid: #{$damage-acid};
         --color-border-bleed: #{$damage-bleed};
-        --color-border-bludgeoning: #{$damage-bludgeoning};
         --color-border-chaotic: #{$damage-chaotic};
         --color-border-cold: #{$damage-cold};
         --color-border-electricity: #{$damage-electricity};
@@ -168,18 +160,15 @@ $adjusted-lower: #cc3311 !default;
         --color-border-good: #{$damage-good};
         --color-border-lawful: #{$damage-lawful};
         --color-border-mental: #{$damage-mental};
-        --color-border-negative: #{$damage-void};
-        --color-border-piercing: #{$damage-piercing};
+        --color-border-physical: #{$damage-physical};
         --color-border-poison: #{$damage-poison};
-        --color-border-positive: #{$damage-vitality};
-        --color-border-slashing: #{$damage-slashing};
         --color-border-sonic: #{$damage-sonic};
         --color-border-spirit: #{$damage-spirit};
+        --color-border-vitality: #{$damage-vitality};
+        --color-border-void: #{$damage-void};
 
-        --color-text-physical: #{color.adjust($damage-physical, $lightness: $darker)};
         --color-text-acid: #{color.adjust($damage-acid, $lightness: $darker)};
         --color-text-bleed: #{color.adjust($damage-bleed, $lightness: $darker)};
-        --color-text-bludgeoning: #{$damage-bludgeoning};
         --color-text-chaotic: #{color.adjust($damage-chaotic, $lightness: $darker)};
         --color-text-cold: #{color.adjust($damage-cold, $lightness: $darker)};
         --color-text-electricity: #{color.adjust($damage-electricity, $lightness: $darker)};
@@ -189,13 +178,12 @@ $adjusted-lower: #cc3311 !default;
         --color-text-good: #{color.adjust($damage-good, $lightness: $darker)};
         --color-text-lawful: #{color.adjust($damage-lawful, $lightness: $darker)};
         --color-text-mental: #{color.adjust($damage-mental, $lightness: $darker)};
-        --color-text-negative: #{color.adjust($damage-void, $lightness: $darker)};
-        --color-text-piercing: #{$damage-piercing};
+        --color-text-physical: #{color.adjust($damage-physical, $lightness: $darker)};
         --color-text-poison: #{color.adjust($damage-poison, $lightness: $darker)};
-        --color-text-vitality: #{color.adjust($damage-vitality, $lightness: $darker)};
-        --color-text-slashing: #{$damage-slashing};
         --color-text-sonic: #{color.adjust($damage-sonic, $lightness: $darker)};
         --color-text-spirit: #{color.adjust($damage-spirit, $lightness: $darker)};
+        --color-text-vitality: #{color.adjust($damage-vitality, $lightness: $darker)};
+        --color-text-void: #{color.adjust($damage-void, $lightness: $darker)};
 
         &.color {
             &.acid {
@@ -218,13 +206,15 @@ $adjusted-lower: #cc3311 !default;
                 }
             }
 
-            &.bludgeoning {
-                background-color: var(--color-bg-bludgeoning);
-                border-color: var(--color-border-bludgeoning);
-                color: var(--color-text-bludgeoning);
+            &.bludgeoning,
+            &.piercing,
+            &.slashing {
+                background-color: var(--color-bg-physical);
+                border-color: var(--color-border-physical);
+                color: var(--color-text-physical);
 
                 .icon {
-                    color: var(--color-border-bludgeoning);
+                    color: var(--color-border-physical);
                 }
             }
 
@@ -320,27 +310,6 @@ $adjusted-lower: #cc3311 !default;
                 }
             }
 
-            &.negative,
-            &.void {
-                background-color: var(--color-bg-negative);
-                border-color: var(--color-border-negative);
-                color: var(--color-border-negative);
-
-                .icon {
-                    color: var(--color-border-negative);
-                }
-            }
-
-            &.piercing {
-                background-color: var(--color-bg-piercing);
-                border-color: var(--color-border-piercing);
-                color: var(--color-text-piercing);
-
-                .icon {
-                    color: var(--color-border-piercing);
-                }
-            }
-
             &.poison {
                 background-color: var(--color-bg-poison);
                 border-color: var(--color-border-poison);
@@ -348,28 +317,6 @@ $adjusted-lower: #cc3311 !default;
 
                 .icon {
                     color: var(--color-border-poison);
-                }
-            }
-
-            &.positive,
-            &.vitality {
-                background-color: var(--color-bg-physical); // Improve contrast with bright color
-                border-color: var(--color-border-positive);
-                color: var(--color-text-vitality);
-                text-shadow: 1px 1px var(--color-text-dark-1);
-
-                .icon {
-                    color: var(--color-border-positive);
-                }
-            }
-
-            &.slashing {
-                border-color: var(--color-border-slashing);
-                background-color: var(--color-bg-slashing);
-                color: var(--color-text-slashing);
-
-                .icon {
-                    color: var(--color-border-slashing);
                 }
             }
 
@@ -390,6 +337,29 @@ $adjusted-lower: #cc3311 !default;
 
                 .icon {
                     color: var(--color-border-spirit);
+                }
+            }
+
+            &.vitality,
+            &.positive {
+                background-color: var(--color-bg-physical); // Improve contrast with bright color
+                border-color: var(--color-border-vitality);
+                color: var(--color-text-vitality);
+                text-shadow: 1px 1px var(--color-text-dark-1);
+
+                .icon {
+                    color: var(--color-border-vitality);
+                }
+            }
+
+            &.void,
+            &.negative {
+                background-color: var(--color-bg-void);
+                border-color: var(--color-border-void);
+                color: var(--color-border-void);
+
+                .icon {
+                    color: var(--color-border-void);
                 }
             }
         }
