@@ -11,6 +11,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import * as R from "remeda";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -88,27 +89,28 @@ export const InlineRollLinks = {
 
             link.addEventListener("click", async (event) => {
                 const parent = resolveActor(foundryDoc);
-                const actors = (() => {
-                    if (pf2Roller === "self") {
-                        const validActor = parent instanceof ActorPF2e && parent.canUserModify(game.user, "update");
-                        if (!validActor) {
-                            ui.notifications.warn(game.i18n.localize("PF2E.UI.warnNoActor"));
-                        }
-                        return validActor ? [parent] : [];
+                const actors = ((): ActorPF2e[] => {
+                    switch (pf2Roller) {
+                        case "self":
+                            return parent?.canUserModify(game.user, "update") ? [parent] : [];
+                        case "party":
+                            if (parent?.isOfType("party")) return [parent];
+                            return R.compact([game.actors.party]);
                     }
 
+                    // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
                     const actors = getSelectedOrOwnActors();
-                    if (actors.length === 0) {
-                        // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
-                        if (parent instanceof ActorPF2e && !tupleHasValue(SAVE_TYPES, pf2Check)) {
-                            return [parent];
-                        }
-                        ui.notifications.warn(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    if (actors.length === 0 && parent && !tupleHasValue(SAVE_TYPES, pf2Check)) {
+                        return [parent];
                     }
+
                     return actors;
                 })();
 
-                if (actors.length === 0) return;
+                if (actors.length === 0) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    return;
+                }
 
                 const extraRollOptions = [
                     ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
