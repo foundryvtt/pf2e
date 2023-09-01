@@ -11,7 +11,6 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
@@ -25,6 +24,7 @@ import { DamageRollFunction, TraitViewData } from "./data/base.ts";
 import { ActorSourcePF2e } from "./data/index.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, adjustModifiers } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
+import { AuraEffectData } from "./types.ts";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
@@ -90,24 +90,17 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
         const auraData = effect.flags.pf2e.aura;
         if (!auraData?.removeOnExit) continue;
 
-        const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
-            const document = await fromUuid(auraData.origin);
-            if (document instanceof TokenDocumentPF2e) {
-                return document;
-            } else if (document instanceof ActorPF2e) {
-                return document.getActiveTokens(true, true).shift() ?? null;
-            }
-            return null;
-        })();
-
+        const auraActor = (await fromUuid(auraData.origin)) as ActorPF2e | null;
+        const auraToken = auraActor?.getActiveTokens(true, true).shift() ?? null;
         const aura = auraToken?.auras.get(auraData.slug);
 
-        // Main sure this isn't an identically-slugged aura with different effects
-        const effects = auraToken?.actor?.auras.get(auraData.slug)?.effects ?? [];
-        const auraHasEffect = effects.some((e) => e.uuid === effect.sourceId);
+        // Make sure this isn't an identically-slugged aura with different effects
+        const auraEffectData = auraActor?.auras
+            .get(auraData.slug)
+            ?.effects.find((e) => e.uuid === effect.sourceId && auraAffectsActor(e, auraActor, this));
 
         for (const token of thisTokens) {
-            if (auraHasEffect && aura?.containsToken(token)) {
+            if (auraEffectData && aura?.containsToken(token)) {
                 toKeep.push(effect.id);
             } else {
                 toDelete.push(effect.id);
@@ -126,6 +119,15 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
     if (finalToDelete.length > 0) {
         await this.deleteEmbeddedDocuments("Item", finalToDelete);
     }
+}
+
+function auraAffectsActor(data: AuraEffectData, origin: ActorPF2e, actor: ActorPF2e): boolean {
+    return (
+        (data.includesSelf && origin === actor) ||
+        (data.affects === "allies" && actor.isAllyOf(origin)) ||
+        (data.affects === "enemies" && actor.isEnemyOf(origin)) ||
+        (data.affects === "all" && actor !== origin)
+    );
 }
 
 /**  Set a roll option for HP remaining and percentage remaining */
@@ -527,6 +529,7 @@ interface MAPData {
 }
 
 export {
+    auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,
     checkAreaEffects,
