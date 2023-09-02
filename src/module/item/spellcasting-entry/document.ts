@@ -400,6 +400,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             `${prefix}:${this.attribute}`,
             `${prefix}:${this.tradition}`,
             `${prefix}:${this.system.prepared.value}`,
+            `${prefix}:${this.slug}`,
         ];
     }
 

@@ -163,6 +163,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
                 "ability",
                 "proficiency",
                 "autoHeightenLevel",
+                "slug",
             ]);
             await actualEntry.update({ system });
         }
