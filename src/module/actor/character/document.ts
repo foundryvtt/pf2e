@@ -1545,7 +1545,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     statistic: action,
                     target: { token: game.user.targets.first() ?? null },
                     defense: "armor",
-                    options: baseOptions,
+                    options: new Set([...baseOptions, ...params.options]),
                     viewOnly: params.getFormula,
                 });
 
@@ -1635,7 +1635,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     target: { token: targetToken },
                     domains,
                     outcome: method === "damage" ? "success" : "criticalSuccess",
-                    options: baseOptions,
+                    options: new Set([...baseOptions, ...params.options]),
                 });
 
                 if (!context.self.item.dealsDamage) {
