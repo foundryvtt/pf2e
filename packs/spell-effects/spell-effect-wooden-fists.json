@@ -17,18 +17,22 @@
         },
         "rules": [
             {
+                "fist": true,
+                "key": "Strike"
+            },
+            {
                 "key": "DamageDice",
                 "override": {
                     "dieSize": "d6"
                 },
                 "predicate": [
-                    "item:slug:basic-unarmed"
+                    "item:base:fist"
                 ],
                 "selector": "strike-damage"
             },
             {
                 "definition": [
-                    "item:slug:basic-unarmed"
+                    "item:base:fist"
                 ],
                 "key": "AdjustStrike",
                 "mode": "remove",
@@ -37,7 +41,7 @@
             },
             {
                 "definition": [
-                    "item:slug:basic-unarmed"
+                    "item:base:fist"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -46,7 +50,7 @@
             },
             {
                 "definition": [
-                    "item:slug:basic-unarmed"
+                    "item:base:fist"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -64,7 +68,7 @@
             {
                 "key": "Striking",
                 "predicate": [
-                    "item:slug:basic-unarmed"
+                    "item:base:fist"
                 ],
                 "selector": "strike-damage",
                 "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,7),2,ternary(gte(@item.level,3),1,0)))"
