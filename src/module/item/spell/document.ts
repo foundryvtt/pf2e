@@ -693,12 +693,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const systemData: SpellSystemData = this.system;
         const options = { ...htmlOptions, rollData };
         let description: string;
+        const baseRollOptions = this.getRollOptions();
 
         if (rollOptions.spellCast) {
             const spellRollNotes = extractNotes(this.actor.synthetics.rollNotes, ["spell-cast"]);
             const notesText =
                 spellRollNotes
-                    .filter((note) => note.predicate.test([...(note.rule?.item.getRollOptions("parent") ?? [])]))
+                    .filter((note) => note.predicate.test([...baseRollOptions,...(note.rule?.item.getRollOptions("parent") ?? [])]))
                     .map((n) => n.text)
                     .join("\n") ?? "";
             const modifiedDescription = [this.description, notesText].flat().join("");
