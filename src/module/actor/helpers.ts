@@ -360,7 +360,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 target: { token: game.user.targets.first() ?? null },
                 defense: "armor",
                 domains,
-                options: baseOptions,
+                options: new Set([...baseOptions, ...params.options]),
             });
 
             // Check whether target is out of maximum range; abort early if so
@@ -433,7 +433,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 viewOnly: params.getFormula ?? false,
                 domains,
                 outcome,
-                options: baseOptions,
+                options: new Set([...baseOptions, ...(params.options ?? [])]),
             });
 
             if (!context.self.item.dealsDamage && !params.getFormula) {
