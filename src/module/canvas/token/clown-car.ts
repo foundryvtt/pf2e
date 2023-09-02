@@ -69,13 +69,11 @@ class PartyClownCar {
         const createdTokens = await this.scene.createEmbeddedDocuments("Token", newTokens);
 
         const freeSpaces = this.#getDepositSpaces();
-        if (freeSpaces.length >= createdTokens.length) {
-            const placementData = createdTokens.map((t, index) => ({
-                _id: t._id!,
-                ...R.pick(freeSpaces[index], ["x", "y"]),
-            }));
-            await this.scene.updateEmbeddedDocuments("Token", placementData);
-        }
+        const placementData = createdTokens.map((t, index) => ({
+            _id: t._id!,
+            ...R.pick(freeSpaces.at(index) ?? token, ["x", "y"]),
+        }));
+        await this.scene.updateEmbeddedDocuments("Token", placementData);
     }
 
     /** Get a list of squares near the party token at which member tokens can be deposited */
@@ -83,15 +81,10 @@ class PartyClownCar {
         const placeable = this.token.object;
         if (!placeable) return [];
         const { center } = placeable;
-        const diameter = placeable.bounds.width * 5;
+        const diameter = placeable.bounds.width * 7;
         const radiusPixels = diameter / 2;
         const radius = radiusPixels / (canvas.dimensions?.distance ?? 5);
-        const areaBounds = new PIXI.Rectangle(
-            placeable.center.x - radiusPixels,
-            placeable.center.y - radiusPixels,
-            diameter,
-            diameter
-        );
+        const areaBounds = new PIXI.Rectangle(center.x - radiusPixels, center.y - radiusPixels, diameter, diameter);
         const squares = getAreaSquares({
             token: placeable,
             center,
@@ -105,10 +98,8 @@ class PartyClownCar {
             squares
                 .filter(
                     (s) =>
-                        s.x !== placeable.x &&
-                        s.y !== placeable.y &&
-                        s.center.x !== center.x &&
-                        s.center.y !== center.y &&
+                        !(s.x === placeable.x && s.y === placeable.y) &&
+                        !(s.center.x === center.x && s.center.y === center.y) &&
                         !placeable.checkCollision(s.center, { type: "move", mode: "any" })
                 )
                 .reverse(), // Favor positions on the right
