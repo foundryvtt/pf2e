@@ -104,7 +104,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this> {
+    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
         if (this.actor) {
             await this.actor.deleteEmbeddedDocuments(
                 "Item",
@@ -113,6 +113,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             );
             return this;
         }
+
         return super.delete(context);
     }
 

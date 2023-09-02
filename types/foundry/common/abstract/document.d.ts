@@ -343,7 +343,7 @@ export default abstract class Document<
                  * @param context Options which customize the deletion workflow
                  * @return The deleted Document
                  */
-    delete(context?: DocumentModificationContext<TParent>): Promise<this>;
+    delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
 
     /* -------------------------------------------- */
     /*  Embedded Operations                         */
