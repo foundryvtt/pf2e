@@ -134,7 +134,10 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                     'A strike adjustment of weapon traits must be used with the "add", "subtract", or "remove" mode.'
                                 );
                             }
-                            if (!objectHasKey(CONFIG.PF2E.weaponTraits, change)) {
+                            if (
+                                !objectHasKey(CONFIG.PF2E.weaponTraits, change) &&
+                                !(weapon.isOfType("melee") && objectHasKey(CONFIG.PF2E.npcAttackTraits, change))
+                            ) {
                                 return this.failValidation(`"${change}" is not a recognized weapon trait.`);
                             }
                             if (!definition.test(weapon.getRollOptions("item"))) {
@@ -146,11 +149,11 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 return;
                             }
 
-                            const traits = weapon.system.traits.value;
+                            const traits: string[] = weapon.system.traits.value;
 
                             // If the weapon already has a trait of the same type but a different value, we need to check
                             // if the new trait is better than the existing one and, if it is, replace it
-                            const annotatedTraitMatch = change.match(/^([-a-z]*)-(\d*d?\d+)$/);
+                            const annotatedTraitMatch = change.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
                             if (this.mode === "add" && annotatedTraitMatch) {
                                 const changeBaseTrait = annotatedTraitMatch[1];
                                 const changeValue = annotatedTraitMatch[2];
