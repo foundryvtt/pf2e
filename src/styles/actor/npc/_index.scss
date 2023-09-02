@@ -1,7 +1,6 @@
 $faded-color: #7a7971;
 
 @import "forms";
-@import "data-entry";
 
 .npc-sheet {
     @import "inventory";
@@ -49,8 +48,13 @@ $faded-color: #7a7971;
             }
         }
 
+        .rarity-alignment-size {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
         .paizo-style {
-            border: none;
             margin-top: 2px;
             padding-left: 0;
             padding-right: 0;
@@ -61,7 +65,7 @@ $faded-color: #7a7971;
         margin: 10px 6px 10px 0;
     }
 
-    .side-bar {
+    .sidebar {
         flex: 160px 0 0;
         height: 100%;
         @include scrollbar;
@@ -564,7 +568,11 @@ $faded-color: #7a7971;
         }
     }
 
-    .adjustment-select {
+    .adjustments {
+        align-items: center;
+        display: flex;
+        justify-content: end;
+
         .adjustment {
             &.active {
                 background-color: var(--primary);
