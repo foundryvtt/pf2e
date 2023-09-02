@@ -612,7 +612,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "charge-chain",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitNegative",
+                                "value": "damage"
+                            },
+                            {
+                                "label": "PF2E.TraitReach120",
+                                "value": "reach"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "negative",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "charge-chain:damage"
+                        ],
+                        "selector": "spiked-chain-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
