@@ -1,10 +1,11 @@
 import { EffectPF2e } from "@item";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { htmlClosest, pick } from "@util";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import { htmlClosest } from "@util";
+import type { Renderer } from "pixi.js";
+import * as R from "remeda";
 import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
-import { Renderer } from "pixi.js";
 
 class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     /** Visual representation and proximity-detection facilities for auras */
@@ -287,7 +288,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 const appendedNumber = !/ \d+$/.test(details.name) && details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
                 const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
-                const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
+                const textStyle = R.pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
 
                 return [
                     this.center,
@@ -334,9 +335,32 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         });
     }
 
-    /** Add a callback for when a movement animation finishes */
-    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
+    override async animate(
+        updateData: Record<string, unknown>,
+        options?: TokenAnimationOptionsPF2e<this>
+    ): Promise<void> {
+        // Handle system "spin" animation option
+        if (options?.spin) {
+            let attributeAdded = false;
+            const currentRotation = this.document.rotation;
+            options.ontick = (_frame, data) => {
+                if (!attributeAdded && data.attributes.length > 0) {
+                    const duration = options.duration ?? 6;
+                    data.attributes.push({
+                        attribute: "rotation",
+                        parent: data.attributes[0].parent,
+                        from: currentRotation,
+                        to: currentRotation + duration * (options.spin === "right" ? 360 : -360),
+                        delta: data.attributes[0].delta,
+                    });
+                    attributeAdded = true;
+                }
+            };
+        }
+
         await super.animate(updateData, options);
+
+        // Refresh auras
         if (!this._animation) this.#onFinishAnimation();
     }
 
@@ -417,7 +441,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras.clear();
     }
 
-    /** A callback for when a movement animation for this token finishes */
+    /** Refresh auras when an animation finishes */
     async #onFinishAnimation(): Promise<void> {
         await this._animation;
         this.auras.refresh();
@@ -445,4 +469,8 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-export { ShowFloatyEffectParams, TokenPF2e };
+interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e> extends TokenAnimationOptions<TObject> {
+    spin?: "left" | "right";
+}
+
+export { ShowFloatyEffectParams, TokenAnimationOptionsPF2e, TokenPF2e };
