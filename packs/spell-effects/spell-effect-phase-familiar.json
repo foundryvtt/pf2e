@@ -1,0 +1,44 @@
+{
+    "_id": "61Hl31nyzt63vvX9",
+    "img": "systems/pf2e/icons/spells/phase-familiar.webp",
+    "name": "Spell Effect: Phase Familiar",
+    "system": {
+        "description": {
+            "value": "<p>You draw upon your patron's power to momentarily shift your familiar from its solid, physical form into an ephemeral version of itself shaped of mist. Your familiar gains resistance 5 to all damage and is immune to precision damage. These apply only against the triggering damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the resistance by 2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "2*(@item.level)+3"
+            },
+            {
+                "key": "Immunity",
+                "type": "precision"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
