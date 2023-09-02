@@ -364,13 +364,6 @@ declare global {
          */
         animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void>;
 
-        /** Animate the continual revealing of Token vision during a movement animation */
-        protected _onMovementFrame(
-            dt: number,
-            anim: TokenAnimationAttribute<this>[],
-            config: TokenAnimationConfig
-        ): void;
-
         /** Update perception each frame depending on the animation configuration */
         protected _animatePerceptionFrame({
             source,

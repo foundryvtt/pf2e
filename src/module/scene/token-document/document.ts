@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
+import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { LightLevels } from "@scene/data.ts";
@@ -478,4 +479,8 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     delta: ActorDeltaPF2e<this> | null;
 }
 
-export { TokenDocumentPF2e };
+interface SceneTokenModificationContextPF2e extends SceneTokenModificationContext<ScenePF2e> {
+    animation?: TokenAnimationOptionsPF2e<TokenPF2e>;
+}
+
+export { SceneTokenModificationContextPF2e, TokenDocumentPF2e };

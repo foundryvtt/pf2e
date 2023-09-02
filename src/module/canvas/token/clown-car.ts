@@ -1,5 +1,6 @@
 import { PartyPF2e } from "@actor";
 import { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import { SceneTokenModificationContextPF2e } from "@scene/token-document/document.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import { getAreaSquares } from "./aura/util.ts";
@@ -35,29 +36,27 @@ class PartyClownCar {
         }
     }
 
+    /** Retrieve all party-member tokens, animating their movement before finally deleting them. */
     async #retrieve(): Promise<void> {
         const tokens = this.memberTokens;
-        await Promise.all(
-            tokens.map((t) => {
-                const rotation = 180 + (t.rotation % 360);
-                const displayAttributes = t.object?.mesh.getDisplayAttributes();
-                const context: SceneTokenModificationContext<ScenePF2e> = displayAttributes
-                    ? { animation: { a0: { ...displayAttributes, rotation } } }
-                    : {};
 
-                return t.update({ x: this.token.x, y: this.token.y }, context);
+        await Promise.all(
+            tokens.map((token) => {
+                const spin = token.x > this.token.x ? "left" : "right";
+                const context: SceneTokenModificationContextPF2e = token.object?.mesh ? { animation: { spin } } : {};
+                return token.update({ x: this.token.x, y: this.token.y }, context);
             })
         );
 
-        for (const token of tokens) {
-            await token.object?._animation;
-        }
-        await this.scene.deleteEmbeddedDocuments(
-            "Token",
-            tokens.map((t) => t.id)
+        await Promise.all(
+            tokens.map(async (token) => {
+                await token.object?._animation;
+                return token.delete();
+            })
         );
     }
 
+    /** Deposit all party-member tokens, avoiding sending them to the other side of walls. */
     async #deposit(): Promise<void> {
         const { token } = this;
         const placeable = token.object;
