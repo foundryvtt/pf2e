@@ -23,7 +23,7 @@
                         <div class="title">{{localize "TYPES.Item.ancestry"}}</div>
                         <div class="description" data-tooltip-content="#{{actor.id}}-ancestry-tooltip">{{ancestry.name}}</div>
                         <label class="extra">
-                            {{localize "PF2E.Actor.Character.AttributeBuilder.AlternateBoostsLabel"}} <input type="checkbox" {{checked ancestryBoosts.alternate}} data-action="toggle-alternate-ancestry-boosts">
+                            {{localize "PF2E.Actor.Character.AttributeBuilder.AlternateBoostsLabel"}}<input type="checkbox" {{checked ancestryBoosts.alternate}} data-action="toggle-alternate-ancestry-boosts">
                         </label>
                     </div>
                 </div>
@@ -60,7 +60,9 @@
                 <div class="row-heading">
                     {{#if voluntaryFlaws.remaining}}<div class="remaining extra">{{voluntaryFlaws.remaining}}</div>{{/if}}
                     <div class="label">
-                        <div class="description" data-tooltip-content="#{{actor.id}}-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title"}}</div>
+                        <div class="description" data-tooltip-content="#{{actor.id}}-voluntary-flaw-tooltip">
+                            {{localize "PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title"}}
+                        </div>
                         <label class="extra" data-tooltip-content="#{{actor.id}}-legacy-voluntary-flaw-tooltip">
                             {{localize "PF2E.Actor.Character.AttributeBuilder.LegacyFlaws"}} <i class="fa-solid fa-info-circle small"></i>
                             <input type="checkbox" data-action="toggle-legacy-voluntary-flaw" {{checked legacyFlaws}}>
@@ -238,12 +240,15 @@
         <div class="attributes">
             {{#each buttons as |state|}}
                 <div class="row-column">
-                    {{#if flaw}}
-                        {{> boostButton type="flaw" attribute=state.ability button=state.flaw}}
-                    {{else if ../isApex}}
+                    {{#if ../isApex}}
                         {{> boostButton type="apex" attribute=state.ability button=state.boost}}
                     {{else}}
-                        {{> boostButton type="boost" attribute=state.ability button=state.boost}}
+                        {{#if flaw}}
+                            {{> boostButton type="flaw" attribute=state.ability button=state.flaw}}
+                        {{/if}}
+                        {{#if boost}}
+                            {{> boostButton type="boost" attribute=state.ability button=state.boost}}
+                        {{/if}}
                     {{/if}}
                 </div>
             {{/each}}
