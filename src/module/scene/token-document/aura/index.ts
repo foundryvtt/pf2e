@@ -1,7 +1,7 @@
 import { AuraColors, AuraData } from "@actor/types.ts";
 import { ItemTrait } from "@item/data/base.ts";
-import { measureDistanceCuboid } from "@module/canvas/index.ts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
+import { measureDistanceCuboid } from "@module/canvas/index.ts";
 import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
 import { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "../document.ts";
