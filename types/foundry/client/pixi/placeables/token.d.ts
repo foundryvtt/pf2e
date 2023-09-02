@@ -355,7 +355,11 @@ declare global {
          * Animate changes to the appearance of the Token.
          * Animations are performed over differences between the TokenDocument and the current Token and TokenMesh appearance.
          * @param updateData A record of the differential data which changed, for reference only
-         * @param [options] Options which configure the animation behavior
+         * @param [options]  Options which configure the animation behavior
+         * @param [options.ontick]        An optional function called each animation frame
+         * @param [options.movementSpeed] A desired token movement speed in grid spaces per second
+         * @param [options.a0]            The animation starting attributes if different from those cached.
+         * @param [options.hoverInOut]    The placeable need hover/un-hover emulation.
          * @returns A promise which resolves once the animation is complete
          */
         animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void>;
@@ -620,5 +624,7 @@ declare global {
     interface TokenAnimationOptions<TObject extends Token> extends CanvasAnimationOptions<TObject> {
         /** A desired token movement speed in grid spaces per second */
         movementSpeed?: number;
+        a0?: Partial<TokenMeshDisplayAttributes>;
+        hoverInOut?: boolean;
     }
 }
