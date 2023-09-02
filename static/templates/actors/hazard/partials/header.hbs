@@ -19,7 +19,7 @@
 
         {{#if editing}}
             <template class="traits-extra">
-                <select class="tag" name="system.traits.rarity" value="{{data.traits.rarity}}">
+                <select class="tag rarity" name="system.traits.rarity" value="{{data.traits.rarity}}">
                     {{#select data.traits.rarity}}
                         {{#each rarity as |label key|}}
                             <option value="{{key}}">{{localize label}}</option>
@@ -37,7 +37,7 @@
                 {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
         {{else}}
             <div class="tags paizo-style">
-                {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
+                {{#unless (eq data.details.isComplex "common")}}<span class="tag rarity {{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
                 {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
 
                 {{#each actorTraits as |trait|}}

@@ -51,30 +51,6 @@
         &.mystified {
             opacity: 0.7;
         }
-
-        &.common,
-        &[value="common"] {
-            border-color: var(--color-rarity-common);
-            background-color: var(--color-rarity-common);
-        }
-
-        &.uncommon,
-        &[value="uncommon"] {
-            border-color: var(--color-rarity-uncommon);
-            background-color: var(--color-rarity-uncommon);
-        }
-
-        &.rare,
-        &[value="rare"] {
-            border-color: var(--color-rarity-rare);
-            background-color: var(--color-rarity-rare);
-        }
-
-        &.unique,
-        &[value="unique"] {
-            border-color: var(--color-rarity-unique);
-            background-color: var(--color-rarity-unique);
-        }
     }
 }
 
@@ -92,6 +68,7 @@ li.chat-message .tags .tag {
 // Tagify and non-tagify paizo style main traits row
 .tags.paizo-style {
     align-items: center;
+    border: none;
     border-radius: 3px;
     padding: 0.05em;
     gap: 0;
@@ -104,10 +81,10 @@ li.chat-message .tags .tag {
     .tag,
     select.tag {
         background-color: var(--color-bg-trait);
-        border: 0.16em solid var(--color-border-trait);
+        border: 2px solid var(--color-border-trait);
         box-shadow: none;
         margin: 0;
-        min-height: 22px;
+        min-height: var(--font-size-22);
 
         x {
             align-items: start;
@@ -119,8 +96,40 @@ li.chat-message .tags .tag {
         }
     }
 
-    select.tag {
-        border-width: 2px;
+    .tag {
+        &.rarity {
+            &.common,
+            &[value="common"],
+            > option[value="common"] {
+                background-color: var(--color-rarity-common);
+            }
+
+            &.uncommon,
+            &[value="uncommon"],
+            > option[value="uncommon"] {
+                background-color: var(--color-rarity-uncommon);
+            }
+
+            &.rare,
+            &[value="rare"],
+            > option[value="rare"] {
+                background-color: var(--color-rarity-rare);
+            }
+
+            &.unique,
+            &[value="unique"],
+            > option[value="unique"] {
+                background-color: var(--color-rarity-unique);
+            }
+        }
+
+        &.alignment {
+            background-color: var(--color-bg-alignment);
+        }
+
+        &.size {
+            background-color: var(--color-bg-size);
+        }
     }
 
     tag > div {
