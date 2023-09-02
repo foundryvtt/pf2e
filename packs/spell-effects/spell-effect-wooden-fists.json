@@ -1,0 +1,88 @@
+{
+    "_id": "z2PYQCsDDoBZUwR5",
+    "img": "systems/pf2e/icons/spells/creation.webp",
+    "name": "Spell Effect: Wooden Fists",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Wooden Fists]</em></p>\n<p>Your fists deal more bludgeoning damage, lose the nonlethal trait, and have reach.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
+                },
+                "predicate": [
+                    "item:slug:basic-unarmed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "definition": [
+                    "item:slug:basic-unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "nonlethal"
+            },
+            {
+                "definition": [
+                    "item:slug:basic-unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "definition": [
+                    "item:slug:basic-unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            3
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "magical"
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "item:slug:basic-unarmed"
+                ],
+                "selector": "strike-damage",
+                "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,7),2,ternary(gte(@item.level,3),1,0)))"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
