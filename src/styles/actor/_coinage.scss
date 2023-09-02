@@ -1,33 +1,31 @@
 .currency {
-    display: flex;
-    padding: 3px;
     @include button;
-    background-color: var(--sub);
-    margin: 0;
     align-items: center;
-    list-style: none;
+    background-color: var(--sub);
+    display: flex;
     font-size: var(--font-size-13);
+    list-style: none;
+    margin: 0;
+    padding: 3px;
 
     .label {
-        margin-right: 10px;
-        margin-left: 4px;
         color: var(--color-text-light-0);
-        font-weight: bold;
-        justify-content: flex-start;
+        font-weight: 500;
+        margin: 0 10px 0 4px;
     }
 
     .denomination {
-        flex: 0 1 auto;
-        width: 100%;
+        align-items: center;
+        background-color: transparent;
+        border-left: 1px solid rgba(black, 0.2);
+        border-right: 1px solid rgba(white, 0.1);
         color: var(--color-text-light-0);
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
         flex-wrap: nowrap;
-        background-color: transparent;
-        border-right: 1px solid rgba(white, 0.1);
-        border-left: 1px solid rgba(black, 0.2);
+        flex: 0 1 auto;
+        justify-content: start;
         text-shadow: 0 0 3px rgba(black, 0.75);
+        width: 100%;
 
         &:first-child {
             border-left: none;

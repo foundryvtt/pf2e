@@ -15,7 +15,7 @@
             />
             <label class="actor-type" for="{{actor.uuid}}-name">{{localize "TYPES.Actor.party"}}</label>
             {{#if user.isGM}}
-                <a class="visibility {{#if playerRestricted}}restricted{{/if}}" data-action="open-meta-setting">
+                <a class="visibility{{#if playerRestricted}} restricted{{/if}}" data-action="open-meta-setting">
                     {{#if playerRestricted}}
                         <i class="fa-solid fa-eye-slash"></i>
                         {{localize "PF2E.Actor.Party.Visibility.Restricted"}}
@@ -47,14 +47,19 @@
         <div class="tab" data-tab="exploration" data-region="exploration">
         </div>
 
-        <div class="tab" data-tab="inventory">
+        <div class="tab inventory" data-tab="inventory">
             <aside class="sidebar">
                 <section data-region="inventoryMembers">
                 </section>
             </aside>
+
             <section class="inventory">
                 {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
                 {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
+                <div class="total-bulk">
+                    <img src="icons/containers/bags/pack-leather-white-tan.webp">
+                    <span class="bar inventory-header">{{localize "PF2E.Actor.Party.Bulk" bulk=inventory.bulk.value}}</span>
+                </div>
             </section>
         </div>
 
