@@ -1,0 +1,87 @@
+{
+    "_id": "wE4S9lwOhtaRAm9n",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/comprehension-elixir.webp",
+    "name": "Effect: Active Mutagen",
+    "system": {
+        "description": {
+            "value": "<p>Darius has an active mutagen.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "attackModifier": 12,
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8",
+                        "modifier": 5
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "slug": "jaws",
+                "traits": [
+                    "agile",
+                    "unarmed"
+                ]
+            },
+            {
+                "attackModifier": 12,
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d10",
+                        "modifier": 5
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "slug": "claw",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Adventure: A Fistful of Flowers"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

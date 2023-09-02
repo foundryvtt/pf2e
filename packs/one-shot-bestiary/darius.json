@@ -385,6 +385,100 @@
             "type": "consumable"
         },
         {
+            "_id": "KVCx0qW7ozoFIZ5b",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-effects.Item.wE4S9lwOhtaRAm9n"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/comprehension-elixir.webp",
+            "name": "Effect: Active Mutagen",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": "<p>Darius has an active mutagen.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 1
+                },
+                "rules": [
+                    {
+                        "attackModifier": 12,
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d8",
+                                "modifier": 5
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "slug": "jaws",
+                        "traits": [
+                            "agile",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "attackModifier": 12,
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d10",
+                                "modifier": 5
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "slug": "claw",
+                        "traits": [
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "athletics",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "reflex",
+                        "value": -2
+                    }
+                ],
+                "slug": "effect-active-mutagen",
+                "source": {
+                    "value": "Pathfinder Adventure: A Fistful of Flowers"
+                },
+                "start": {
+                    "initiative": 46,
+                    "value": 4782
+                },
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
             "_id": "L0XHKXE9uSNSy90h",
             "flags": {
                 "pf2e": {
@@ -393,7 +487,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Wax Stirring Stick",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -436,7 +530,7 @@
             "_id": "xaLR3kxqklsAogya",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Metabolize Mutagen",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -446,91 +540,12 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Darius metabolizes the power of an active mutagen to regain [[/r 2d6[healing]]] Hit Points. If he does so (or if he's confronted by a stealthy party before he's had a chance to drink a mutagen), he loses his jaws and claw unarmed attacks, his bonus on Athletics checks decreases by 2, his AC increases by 1, and his Reflex save bonus increases by 2.</p>"
+                    "value": "<p>Darius metabolizes the power of an active mutagen to regain [[/r 2d6[healing]]] Hit Points. If he does so (or if he's confronted by a stealthy party before he's had a chance to drink a mutagen), he loses his jaws and claw unarmed attacks, his bonus on Athletics checks decreases by 2, his AC increases by 1, and his Reflex save bonus increases by 2.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Active Mutagen]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
-                        "option": "active-mutagen",
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "attackModifier": 12,
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "piercing",
-                                "dice": 1,
-                                "die": "d8",
-                                "modifier": 5
-                            }
-                        },
-                        "key": "Strike",
-                        "label": "PF2E.BattleForm.Attack.Jaws",
-                        "predicate": [
-                            "active-mutagen"
-                        ],
-                        "slug": "jaws",
-                        "traits": [
-                            "agile",
-                            "unarmed"
-                        ]
-                    },
-                    {
-                        "attackModifier": 12,
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "slashing",
-                                "dice": 1,
-                                "die": "d10",
-                                "modifier": 5
-                            }
-                        },
-                        "key": "Strike",
-                        "label": "PF2E.BattleForm.Attack.Claw",
-                        "predicate": [
-                            "active-mutagen"
-                        ],
-                        "slug": "claw",
-                        "traits": [
-                            "unarmed"
-                        ]
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
-                        "predicate": [
-                            "active-mutagen"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
-                        "predicate": [
-                            "active-mutagen"
-                        ],
-                        "selector": "ac",
-                        "value": -1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.NPCAbility.Darius.ActiveMutagen",
-                        "predicate": [
-                            "active-mutagen"
-                        ],
-                        "selector": "reflex",
-                        "value": -2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -552,7 +567,7 @@
             "_id": "1AYgyqie1Elv3mKg",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Crystaline Mutation",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -586,7 +601,7 @@
             "_id": "2KlbsyUe3x0xTxPs",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spray Hot Wax",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -620,7 +635,7 @@
             "_id": "a2VQ1K3uiwYc9JIB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -643,7 +658,7 @@
             "_id": "EExVMicBa6AmOxY6",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -666,7 +681,7 @@
             "_id": "a592zkGyheYN8w6S",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -689,7 +704,7 @@
             "_id": "3qfpZrER7Tmqz04Q",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -712,7 +727,7 @@
             "_id": "BYOVQXPBMpQjNFII",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
