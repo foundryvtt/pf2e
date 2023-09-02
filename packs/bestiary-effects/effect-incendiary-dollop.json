@@ -1,0 +1,45 @@
+{
+    "_id": "Z6cOCgyVwTr5t3yQ",
+    "img": "systems/pf2e/icons/spells/celestial-brand.webp",
+    "name": "Effect: Incendiary Dollop",
+    "system": {
+        "description": {
+            "value": "<p>For the following 1 minute, or until a creature scrubs away the grease dollop with a single Interact action, the DC of the creature's checks to recover from persistent fire damage is increased by 2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:type:fire"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #175: Broken Tusk Moon"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

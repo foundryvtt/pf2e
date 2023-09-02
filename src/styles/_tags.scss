@@ -92,7 +92,6 @@ li.chat-message .tags .tag {
 // Tagify and non-tagify paizo style main traits row
 .tags.paizo-style {
     align-items: center;
-    background-color: var(--color-bg-trait);
     border-radius: 3px;
     padding: 0.05em;
     gap: 0;
@@ -104,6 +103,7 @@ li.chat-message .tags .tag {
     tag,
     .tag,
     select.tag {
+        background-color: var(--color-bg-trait);
         border: 0.16em solid var(--color-border-trait);
         box-shadow: none;
         margin: 0;
@@ -117,6 +117,10 @@ li.chat-message .tags .tag {
         &__removeBtn {
             align-items: baseline;
         }
+    }
+
+    select.tag {
+        border-width: 2px;
     }
 
     tag > div {

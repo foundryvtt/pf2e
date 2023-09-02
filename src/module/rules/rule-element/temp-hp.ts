@@ -1,10 +1,9 @@
 import { ActorType } from "@actor/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { isObject } from "@util";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
-import type { BooleanField, SchemaField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
 import { StrictSchemaField } from "@system/schema-data-fields.ts";
+import { isObject } from "@util";
+import type { BooleanField, SchemaField } from "types/foundry/common/data/fields.d.ts";
+import { ResolvableValueField, RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -129,7 +128,9 @@ type TempHPEventsSchema = {
 };
 
 type TempHPRuleSchema = RuleElementSchema & {
+    /** The quantity of temporary hit points to add */
     value: ResolvableValueField<true, false, false>;
+    /** World events in which temporary HP is added or renewed */
     events: SchemaField<
         TempHPEventsSchema,
         SourceFromSchema<TempHPEventsSchema>,

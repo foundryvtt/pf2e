@@ -23,6 +23,7 @@ import { isCycle } from "@item/container/helpers.ts";
 import { hasInvestedProperty } from "@item/data/helpers.ts";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data/index.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
@@ -58,6 +59,7 @@ import { ActorSourcePF2e, ActorType } from "./data/index.ts";
 import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
+    auraAffectsActor,
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
@@ -74,7 +76,6 @@ import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, UNAFFECTED_TYPES } from "./values.ts";
-import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -422,13 +423,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 continue;
             }
 
-            const affectsSelf =
-                (data.includesSelf && this === origin.actor) ||
-                (data.affects === "allies" && this.isAllyOf(origin.actor)) ||
-                (data.affects === "enemies" && this.isEnemyOf(origin.actor)) ||
-                (data.affects === "all" && this !== origin.actor);
-
-            if (affectsSelf) {
+            if (auraAffectsActor(data, origin.actor, this)) {
                 const effect = await fromUuid(data.uuid);
                 if (!(effect instanceof ItemPF2e && effect.isOfType("affliction", "effect"))) {
                     console.warn(`Effect from ${data.uuid} not found`);

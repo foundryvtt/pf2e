@@ -148,7 +148,7 @@ declare global {
         updateEmbeddedDocuments(
             embeddedName: "Token",
             updateData: EmbeddedDocumentUpdateData<TokenDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            options?: SceneTokenModificationContext<this>
         ): Promise<CollectionValue<this["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientLight",
@@ -219,5 +219,9 @@ declare global {
 
     interface SceneUpdateContext extends DocumentModificationContext<null> {
         animateDarkness?: number;
+    }
+
+    interface SceneTokenModificationContext<TParent extends Scene> extends SceneEmbeddedModificationContext<TParent> {
+        animation?: TokenAnimationOptions<Token>;
     }
 }

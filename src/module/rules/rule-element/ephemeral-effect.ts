@@ -53,7 +53,8 @@ class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> 
                 this.failValidation(`"${uuid}" does not look like a UUID`);
                 return null;
             }
-            const effect = game.pf2e.ConditionManager.conditions.get(uuid) ?? (await fromUuid(uuid));
+            const effect: ClientDocument | null =
+                game.pf2e.ConditionManager.conditions.get(uuid) ?? (await fromUuid(uuid));
             if (!(effect instanceof ItemPF2e && effect.isOfType("condition", "effect"))) {
                 this.failValidation(`unable to find effect or condition item with uuid "${uuid}"`);
                 return null;
