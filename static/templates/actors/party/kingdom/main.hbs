@@ -23,13 +23,13 @@
                 <div class="details">
                     <span class="role">{{label}}</span>
                     {{#if leader.actor.hasPlayerOwner}}
-                        <label class="vacant">
+                        <label class="vacant" title="{{leader.penaltyLabel}}">
                             <input type="checkbox" name="leadership.{{leader.slug}}.vacant" {{checked leader.vacant}} />
                             <span>{{localize "PF2E.Kingmaker.Kingdom.Vacant"}}</span>
                             <i class="fas fa-info-circle"></i>
                         </label>
                     {{else if leader.vacant}}
-                        <label class="vacant">
+                        <label class="vacant" title="{{leader.penaltyLabel}}">
                             {{localize "PF2E.Kingmaker.Kingdom.Vacant"}} <i class="fa-solid fa-info-circle"></i>
                         </label>
                     {{/if}}
@@ -88,19 +88,19 @@
                     <div class="value">{{numberFormat ability.mod sign=true}}</div>
                 </div>
                 <div class="corruption-section">
-                    <div class="corruption">
-                        <label>{{ability.ruinLabel}}</label>
+                    <div class="stat corruption">
+                        <label for="abilities.{{ability.slug}}.ruin.value">{{ability.ruinLabel}}</label>
                         <section class="ruin-value">
-                            <input type="number" name="abilities.{{ability.slug}}.ruin.value" value="{{ability.ruin.value}}"/>
+                            <input type="number" id="abilities.{{ability.slug}}.ruin.value" name="abilities.{{ability.slug}}.ruin.value" value="{{ability.ruin.value}}"/>
                             /
                             <input type="number" name="abilities.{{ability.slug}}.ruin.max" value="{{ability.ruin.max}}"/>
                         </span>
                     </div>
-                    <div class="penalty">
-                        <label>{{localize "PF2E.Kingmaker.Penalty"}}</label>
+                    <label class="stat penalty">
+                        <span>{{localize "PF2E.Kingmaker.Penalty"}}</span>
                         <input type="number" name="abilities.{{ability.slug}}.penalty" value="{{numberFormat ability.penalty}}"/>
-                    </div>
-                    <progress value="{{ability.ruin.value}}" max="{{ability.ruin.max}}"></progress>
+                    </label>
+                    <div class="progress" style="--value:{{ability.ruin.value}}; --max:{{ability.ruin.max}};"></div>
                 </div>
             </section>
         {{/each}}

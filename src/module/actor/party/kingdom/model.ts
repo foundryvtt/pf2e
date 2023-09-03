@@ -54,7 +54,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 
     get extraItemTypes(): ItemType[] {
-        return ["campaignFeature"];
+        return ["campaignFeature", "effect"];
     }
 
     get activities(): CampaignFeaturePF2e[] {

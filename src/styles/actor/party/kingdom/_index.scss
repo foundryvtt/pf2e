@@ -1,3 +1,5 @@
+@use "../../../mixins/effects-list";
+
 .sheet.kingdom {
     --paper-bg: rgba(221, 216, 200, 0.4);
     --drop-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
@@ -437,6 +439,15 @@
 
         &[data-tab="advancement"] {
             @import "advancement";
+        }
+
+        &[data-tab="effects"] {
+            .content {
+                padding: 12px;
+            }
+            .effects-list {
+                @include effects-list;
+            }
         }
     }
 }
