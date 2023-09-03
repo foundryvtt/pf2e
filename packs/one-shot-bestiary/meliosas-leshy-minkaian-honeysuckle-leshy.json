@@ -318,23 +318,24 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "action:trip"
+                            {
+                                "or": [
+                                    "action:trip",
+                                    "inflicts:forced-movement"
+                                ]
+                            }
                         ],
-                        "selector": "reflex",
-                        "type": "status",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:trip"
+                        "selector": [
+                            "fortitude-dc",
+                            "fortitude",
+                            "reflex-dc",
+                            "reflex"
                         ],
-                        "selector": "fortitude",
                         "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": "1-status-to-all-saves-vs-magic",
+                "slug": "agile-leshy",
                 "source": {
                     "value": ""
                 },
