@@ -143,7 +143,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
-        if (traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
+        if (this.isOfType("spell") || traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
             options.push(`${prefix}:magical`);
         }
 
