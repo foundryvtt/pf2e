@@ -114,6 +114,8 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
         }
 
         for (const selector of this.selectors.map((s) => this.resolveInjectedProperties(s))) {
+            if (selector === "null") continue;
+
             const adjustments = (this.actor.synthetics.modifierAdjustments[selector] ??= []);
             adjustments.push(adjustment);
         }
