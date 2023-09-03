@@ -2,7 +2,7 @@
     <header>
         <div class="frame-container">
             <div class="frame">
-                <img class="player-image" alt="{{kingdom.name}}" src="{{kingdom.img}}" title="{{actor.name}}" data-edit="img" />
+                <img class="player-image" alt="{{kingdom.name}}" src="{{kingdom.img}}" title="{{kingdom.name}}" data-edit="img" />
             </div>
         </div>
         <div class="details">
@@ -54,6 +54,7 @@
         <a data-tab="main">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Main"}}</a>
         <a data-tab="activities">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Activities"}}</a>
         <a data-tab="advancement">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Advancement"}}</a>
+        <a data-tab="effects">{{localize "PF2E.Kingmaker.Kingdom.Tabs.Effects"}}</a>
     </nav>
 
     <section class="container">
@@ -65,6 +66,14 @@
         </section>
         <section class="tab" data-tab="advancement">
             {{> "systems/pf2e/templates/actors/party/kingdom/advancement.hbs"}}
+        </section>
+        <section class="tab" data-tab="effects">
+            <div class="content">
+                <h3 class="header">{{localize "PF2E.EffectsLabel"}}</h3>
+                <ol class="effects-list directory-list item-list">
+                    {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=actor.itemTypes.effect}}
+                </ol>
+            </div>
         </section>
     </section>
 </form>

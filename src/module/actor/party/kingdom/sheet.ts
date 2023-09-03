@@ -13,6 +13,7 @@ import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
+    createHTMLElement,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
@@ -110,6 +111,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...data,
+            actor: this.actor,
             kingdom: this.kingdom,
             nationTypeLabel: game.i18n.localize(`PF2E.Kingmaker.Kingdom.NationType.${kingdom.nationType}`),
             abilities: KINGDOM_ABILITIES.map((slug) => {
@@ -141,6 +143,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     actor,
                     img: actor?.prototypeToken.texture.src ?? actor?.img ?? ActorPF2e.DEFAULT_ICON,
                     abilityLabel: game.i18n.localize(KINGDOM_ABILITY_LABELS[KINGDOM_LEADERSHIP_ABILITIES[slug]]),
+                    penaltyLabel: game.i18n.localize(`PF2E.Kingmaker.Kingdom.VacancyPenalty.${slug}`),
                 };
             }),
             actions: R.sortBy(kingdom.activities, (a) => a.name).map((item) => ({
@@ -195,6 +198,18 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             htmlQuery(leader, "[data-action=remove-leader]")?.addEventListener("click", () => {
                 this.kingdom.update({ [`leadership.${role}`]: null });
             });
+
+            const vacantEl = htmlQuery(leader, ".vacant[title]");
+            if (vacantEl) {
+                const lines = vacantEl.title.split(/;\s*/).map((l) => createHTMLElement("li", { children: [l] }));
+                const content = createHTMLElement("ul", { children: lines });
+                $(vacantEl).tooltipster({
+                    content,
+                    contentAsHTML: true,
+                    side: "right",
+                    theme: "crb-hover",
+                });
+            }
         }
 
         // Implement events for rollable statistics
@@ -415,6 +430,7 @@ interface LeaderSheetData extends KingdomLeadershipData {
     slug: string;
     label: string;
     abilityLabel: string;
+    penaltyLabel: string;
 }
 
 interface CommoditySheetData extends ValueAndMax {
