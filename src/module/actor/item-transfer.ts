@@ -1,7 +1,8 @@
 import type { PhysicalItemPF2e } from "@item";
-import type { ActorPF2e, UserPF2e } from "@module/documents.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { ErrorPF2e, getActionGlyph, localizer } from "@util";
+import type { ActorPF2e } from "./base.ts";
 import { TraitViewData } from "./data/base.ts";
 
 export interface ItemTransferData {

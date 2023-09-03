@@ -1,3 +1,4 @@
+import type { ActorPF2e } from "@actor";
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
@@ -26,7 +27,6 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
-import { ActorPF2e } from "@module/documents.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
