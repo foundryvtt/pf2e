@@ -1,0 +1,49 @@
+{
+    "_id": "niFS8JHJFwnLQ2Gg",
+    "img": "icons/consumables/food/bowl-stew-brown.webp",
+    "name": "Effect: Irondust Stew",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Irondust Stew]</p>\n<p>You gain 3 resistance to physical damage for 1 minute, but take a –2 item penalty to Acrobatics and Athletics checks during that time.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "acrobatics",
+                    "athletics"
+                ],
+                "type": "item",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Highhelm"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
