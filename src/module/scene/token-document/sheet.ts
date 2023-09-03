@@ -1,6 +1,6 @@
-import { ActorPF2e, VehiclePF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
-import { TokenDocumentPF2e } from "./index.ts";
+import type { TokenDocumentPF2e } from "./index.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -173,7 +173,7 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         if (formData["flags.pf2e.linkToActorSize"] === true) {
-            if (this.actor instanceof VehiclePF2e) {
+            if (this.actor?.isOfType("vehicle")) {
                 const { dimensions } = this.actor;
                 const width = Math.max(Math.round(dimensions.width / 5), 1);
                 const length = Math.max(Math.round(dimensions.length / 5), 1);

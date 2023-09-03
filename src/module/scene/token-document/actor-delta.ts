@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import type { TombstoneSource } from "types/foundry/common/data/data.d.ts";
 import type { ActorDeltaSource } from "types/foundry/common/documents/actor-delta.d.ts";
-import { TokenDocumentPF2e } from "./document.ts";
+import type { TokenDocumentPF2e } from "./document.ts";
 
 class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelta<TParent> {
     // Upstream calls _initialize: reset after to ensure clean data
@@ -12,11 +12,6 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
         if (!game.ready && !this.parent?.isLinked) {
             this.syntheticActor?.reset();
         }
-    }
-
-    /** The delta has no business preparing its items */
-    override prepareEmbeddedDocuments(): void {
-        return;
     }
 
     /** Following synthetic actor  updates, send the `Token` a fake update notification to trigger redraws */

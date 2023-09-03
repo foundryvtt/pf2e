@@ -1,15 +1,16 @@
 import { ActorPF2e } from "@actor";
 import { PrototypeTokenPF2e } from "@actor/data/base.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
 import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { LightLevels } from "@scene/data.ts";
-import { ScenePF2e, TokenConfigPF2e } from "@scene/index.ts";
+import type { ScenePF2e } from "@scene/index.ts";
 import { objectHasKey, sluggify } from "@util";
-import { ActorDeltaPF2e } from "./actor-delta.ts";
+import type { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
+import type { TokenConfigPF2e } from "./sheet.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     /** Has this token gone through at least one cycle of data preparation? */
