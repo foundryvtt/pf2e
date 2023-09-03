@@ -205,7 +205,41 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shift-mood",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Capritellix.ShiftMood.Angry",
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Capritellix.ShiftMood.Gregarious",
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Capritellix.ShiftMood.Serene",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Capritellix.ShiftMood.Sly",
+                                "value": "deception"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shift-mood"
+                        ],
+                        "selector": "{item|flags.pf2e.rulesSelections.shiftMood}",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
