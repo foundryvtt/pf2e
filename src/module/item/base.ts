@@ -28,6 +28,7 @@ import { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
 import { ItemSheetPF2e } from "./sheet/base.ts";
 import { ItemInstances } from "./types.ts";
+import { MAGIC_TRADITIONS } from "./spell/values.ts";
 
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
@@ -123,8 +124,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
 
+        const traits = this.system.traits?.value ?? [];
         const traitOptions = ((): string[] => {
-            const traits = this.system.traits?.value ?? [];
             // Additionally include annotated traits without their annotations
             const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
             const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
@@ -142,6 +143,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
+        if (traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
+            options.push(`${prefix}:magical`);
+        }
+
         // The heightened level of a spell is retrievable from its getter but not prepared level data
         const level = this.isOfType("spell") ? this.rank : this.system.level?.value ?? null;
         if (typeof level === "number") {
@@ -153,7 +158,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             options.unshift(`${prefix}:type:${itemType}`);
         }
 
-        return options;
+        return options.sort();
     }
 
     override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
