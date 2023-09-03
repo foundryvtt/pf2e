@@ -1,7 +1,8 @@
-import type { ActiveEffectPF2e, ActorPF2e, ItemPF2e, ScenePF2e, TokenDocumentPF2e } from "@module/documents.ts";
-import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ActorSystemSource } from "@actor/data/base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/data/index.ts";
+import type { ActiveEffectPF2e, ActorPF2e, ItemPF2e, ScenePF2e } from "@module/documents.ts";
+import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { MockCollection } from "./collection.ts";
 import { MockItem } from "./item.ts";
 

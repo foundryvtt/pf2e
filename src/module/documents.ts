@@ -9,4 +9,4 @@ export { UserPF2e } from "./user/document.ts";
 export { ActiveEffectPF2e } from "./active-effect.ts";
 
 // Canvas documents
-export { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@scene";
+export { ScenePF2e } from "@scene";

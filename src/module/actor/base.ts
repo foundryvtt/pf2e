@@ -36,12 +36,13 @@ import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rul
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
-import { type ScenePF2e, TokenDocumentPF2e } from "@scene";
+import type { ScenePF2e } from "@scene/document.ts";
+import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import type { ArmorStatistic } from "@system/statistic/armor-class.ts";
+import type { Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
