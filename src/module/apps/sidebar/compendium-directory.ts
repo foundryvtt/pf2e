@@ -6,10 +6,12 @@ import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
 class CompendiumDirectoryPF2e extends CompendiumDirectory {
+    static readonly STOP_WORDS = new Set(["of", "th", "the"]);
+
     static readonly searchEngine = new MiniSearch<CompendiumIndexData>({
         fields: ["name"],
         idField: "uuid",
-        processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        processTerm: (t) => (t.length > 1 && !this.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang) : null),
         searchOptions: { combineWith: "AND", prefix: true },
         storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
     });
