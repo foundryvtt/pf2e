@@ -88,7 +88,7 @@ export const InlineRollLinks = {
             if (!pf2Check) return;
 
             link.addEventListener("click", async (event) => {
-                const parent = resolveActor(foundryDoc);
+                const parent = resolveActor(foundryDoc, link);
                 const actors = ((): ActorPF2e[] => {
                     switch (pf2Roller) {
                         case "self":
@@ -308,7 +308,7 @@ export const InlineRollLinks = {
             return;
         }
 
-        const actor = resolveActor(foundryDoc);
+        const actor = resolveActor(foundryDoc, target);
         const defaultVisibility = (actor ?? foundryDoc)?.hasPlayerOwner ? "all" : "gm";
         const content = (() => {
             if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
@@ -364,9 +364,13 @@ function resolveDocument(html: HTMLElement, foundryDoc?: ClientDocument | null):
     return document instanceof ActorPF2e || document instanceof JournalEntry ? document : null;
 }
 
-/** Retrieves the actor for the given document, or the document itself if its already an actor */
-function resolveActor(foundryDoc: ClientDocument | null): ActorPF2e | null {
+/** Retrieve an actor via a passed document or item UUID in the dataset of a link */
+function resolveActor(foundryDoc: ClientDocument | null, anchor: HTMLElement): ActorPF2e | null {
     if (foundryDoc instanceof ActorPF2e) return foundryDoc;
     if (foundryDoc instanceof ItemPF2e || foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor;
-    return null;
+
+    // Retrieve item/actor from anywhere via UUID
+    const itemUuid = anchor.dataset.itemUuid;
+    const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
+    return itemByUUID instanceof ItemPF2e ? itemByUUID.actor : null;
 }
