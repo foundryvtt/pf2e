@@ -281,8 +281,13 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         adjustment.adjustWeapon?.(item);
     }
     const baseOptions = new Set(R.compact([isThrown ? "thrown" : null, meleeOrRanged, ...item.system.traits.value]));
+    const initialRollOptions = new Set([
+        ...baseOptions,
+        ...actor.getRollOptions(domains),
+        ...item.getRollOptions("item"),
+    ]);
 
-    const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
+    const statistic = new StatisticModifier(`${slug}-strike`, modifiers, initialRollOptions);
     const traitObjects = item.system.traits.value.map(
         (t): TraitViewData => ({
             name: t,

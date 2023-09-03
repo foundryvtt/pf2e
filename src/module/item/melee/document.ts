@@ -1,9 +1,9 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { RangeData } from "@item/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { ChatMessagePF2e } from "@module/documents.ts";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
@@ -184,7 +184,6 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             [`category:${this.category}`]: !!this.category,
             [`group:${this.group}`]: !!this.group,
             [`base:${this.baseType}`]: !!this.baseType,
-            magical: this.isMagical,
             [`range-increment:${rangeIncrement}`]: !!rangeIncrement,
             [`damage:type:${damageType}`]: true,
             [`damage:category:${damageCategory}`]: !!damageCategory,

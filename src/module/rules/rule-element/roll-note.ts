@@ -40,6 +40,8 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
         if (this.ignored) return;
 
         for (const selector of this.resolveInjectedProperties(this.selector)) {
+            if (selector === "null") continue;
+
             const title = this.resolveInjectedProperties(this.title)?.trim() ?? null;
             const text = this.resolveInjectedProperties(
                 String(this.resolveValue(this.text, "", { evaluate: false }))

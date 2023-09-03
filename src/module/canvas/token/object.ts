@@ -3,7 +3,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { htmlClosest } from "@util";
 import type { Renderer } from "pixi.js";
 import * as R from "remeda";
-import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import { CanvasPF2e, type TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 
@@ -343,14 +343,15 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (options?.spin) {
             let attributeAdded = false;
             const currentRotation = this.document.rotation;
+            const rotationAngle = this.x <= this.document.x ? 360 : -360;
             options.ontick = (_frame, data) => {
                 if (!attributeAdded && data.attributes.length > 0) {
-                    const duration = options.duration ?? 6;
+                    const duration = (data.duration ?? 1000) / 1000;
                     data.attributes.push({
                         attribute: "rotation",
                         parent: data.attributes[0].parent,
                         from: currentRotation,
-                        to: currentRotation + duration * (options.spin === "right" ? 360 : -360),
+                        to: currentRotation + duration * rotationAngle,
                         delta: data.attributes[0].delta,
                     });
                     attributeAdded = true;
@@ -469,8 +470,8 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e> extends TokenAnimationOptions<TObject> {
-    spin?: "left" | "right";
+interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e = TokenPF2e> extends TokenAnimationOptions<TObject> {
+    spin?: boolean;
 }
 
 export { ShowFloatyEffectParams, TokenAnimationOptionsPF2e, TokenPF2e };

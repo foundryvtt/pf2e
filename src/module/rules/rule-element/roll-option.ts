@@ -180,11 +180,15 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     #setFlag(value: boolean): void {
-        const suboption = this.suboptions.find((o) => o.selected);
-        if (value && suboption) {
-            const flag = sluggify(this.#resolveOption({ appendSuboption: false }), { camel: "dromedary" });
-            const flagValue = /^\d+$/.test(suboption.value) ? Number(suboption.value) : suboption.value;
-            this.item.flags.pf2e.rulesSelections[flag] = flagValue;
+        const suboption = this.suboptions.find((o) => o.selected) ?? this.suboptions.at(0);
+        if (suboption) {
+            const flagKey = sluggify(this.#resolveOption({ appendSuboption: false }), { camel: "dromedary" });
+            if (value) {
+                const flagValue = /^\d+$/.test(suboption.value) ? Number(suboption.value) : suboption.value;
+                this.item.flags.pf2e.rulesSelections[flagKey] = flagValue;
+            } else {
+                this.item.flags.pf2e.rulesSelections[flagKey] = null;
+            }
         }
     }
 
@@ -192,7 +196,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         const optionSet = new Set(
             [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat()
         );
-        if (!this.test(optionSet)) return;
+        if (!this.test(optionSet)) return this.#setFlag(false);
 
         const { rollOptions } = this.actor;
         const domainRecord = (rollOptions[this.domain] ??= {});

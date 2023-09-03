@@ -12,10 +12,10 @@ import {
     MeasuredTemplateDocumentPF2e,
     ScenePF2e,
     TileDocumentPF2e,
-    TokenConfigPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
 import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
+import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/index.ts";
 import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";

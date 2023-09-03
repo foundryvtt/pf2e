@@ -53,6 +53,8 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         if (this.ignored) return;
 
         for (const selector of this.resolveInjectedProperties(this.selector)) {
+            if (selector === "null") continue;
+
             const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
                 const label = this.getReducedLabel();
 

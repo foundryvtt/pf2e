@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import {
     DamageDicePF2e,
     DeferredValueParams,
@@ -6,8 +7,8 @@ import {
     StatisticModifier,
     TestableDeferredValueParams,
 } from "@actor/modifiers.ts";
+import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
-import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";

@@ -118,6 +118,8 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         }
 
         for (const selector of selectors) {
+            if (selector === "null") continue;
+
             const construct = (options: DeferredValueParams = {}): ModifierPF2e | null => {
                 const resolvedValue = Number(this.resolveValue(this.value, 0, options)) || 0;
                 if (this.ignored) return null;

@@ -1,6 +1,6 @@
 import type { TokenPF2e } from "@module/canvas/index.ts";
-import { PartyClownCar } from "@module/canvas/token/clown-car.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import { PartyClownCar } from "@scene/token-document/clown-car.ts";
 import { createHTMLElement, htmlQuery } from "@util";
 
 export class RenderTokenHUD {

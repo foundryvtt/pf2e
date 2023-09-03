@@ -208,8 +208,6 @@ declare global {
         readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect<this>>;
         readonly items: foundry.abstract.EmbeddedCollection<Item<this>>;
 
-        _sheet: ActorSheet<this> | null;
-
         get sheet(): ActorSheet<this>;
 
         get uuid(): ActorUUID;

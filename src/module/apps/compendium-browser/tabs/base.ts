@@ -1,5 +1,7 @@
+import { CompendiumDirectoryPF2e } from "@module/apps/sidebar/compendium-directory.ts";
 import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
+import type { TableResultSource } from "types/foundry/common/documents/table-result.d.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
 import {
@@ -9,7 +11,6 @@ import {
     MultiselectData,
     RangesInputData,
 } from "./data.ts";
-import { TableResultSource } from "types/foundry/common/documents/table-result.js";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
@@ -54,6 +55,8 @@ export abstract class CompendiumBrowserTab {
         this.searchEngine = new MiniSearch({
             fields: this.searchFields,
             idField: "uuid",
+            processTerm: (t) =>
+                t.length > 1 && !CompendiumDirectoryPF2e.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang) : null,
             storeFields: this.storeFields,
             searchOptions: { combineWith: "AND", prefix: true },
         });

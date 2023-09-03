@@ -1,9 +1,9 @@
-import { PartyPF2e } from "@actor";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { SceneTokenModificationContextPF2e } from "@scene/token-document/document.ts";
+import type { PartyPF2e } from "@actor";
+import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
+import { TokenAnimationOptionsPF2e } from "@module/canvas/token/object.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import { getAreaSquares } from "./aura/util.ts";
 
 /** A helper class to manage a party token's loaded/unloaded state */
 class PartyClownCar {
@@ -39,14 +39,9 @@ class PartyClownCar {
     /** Retrieve all party-member tokens, animating their movement before finally deleting them. */
     async #retrieve(): Promise<void> {
         const tokens = this.memberTokens;
-
-        await Promise.all(
-            tokens.map((token) => {
-                const spin = token.x > this.token.x ? "left" : "right";
-                const context: SceneTokenModificationContextPF2e = token.object?.mesh ? { animation: { spin } } : {};
-                return token.update({ x: this.token.x, y: this.token.y }, context);
-            })
-        );
+        const updates = tokens.map((t) => ({ _id: t.id, ...R.pick(this.token, ["x", "y"]) }));
+        const animation: TokenAnimationOptionsPF2e = { spin: true };
+        await this.scene.updateEmbeddedDocuments("Token", updates, { animation });
 
         await Promise.all(
             tokens.map(async (token) => {

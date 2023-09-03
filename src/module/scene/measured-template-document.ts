@@ -1,9 +1,9 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
+import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
-import { ChatMessagePF2e } from "@module/documents.ts";
 import { ScenePF2e } from "./document.ts";
 
 export class MeasuredTemplateDocumentPF2e<

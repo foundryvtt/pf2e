@@ -1,4 +1,5 @@
-import { ActorPF2e, ChatMessagePF2e } from "@module/documents.ts";
+import type { ActorPF2e } from "@actor";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 const ACTION_COST = ["free", "reaction", 1, 2, 3] as const;
 type ActionCost = (typeof ACTION_COST)[number];

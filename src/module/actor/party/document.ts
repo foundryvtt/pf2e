@@ -1,9 +1,12 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, type CreaturePF2e } from "@actor";
+import { resetActors } from "@actor/helpers.ts";
 import { ItemType } from "@item/data/index.ts";
-import { UserPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { RuleElementPF2e } from "@module/rules/index.ts";
+import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
+import type { UserPF2e } from "@module/user/document.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import { sortBy, tupleHasValue } from "@util";
 import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
@@ -11,9 +14,6 @@ import { InvalidCampaign } from "./invalid-campaign.ts";
 import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";
-import { resetActors } from "@actor/helpers.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
-import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
