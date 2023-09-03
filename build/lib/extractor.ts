@@ -2,7 +2,6 @@ import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
 import { isPhysicalData } from "@item/data/helpers.ts";
 import { ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
-import { itemIsOfType } from "@item/helpers.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
 import fs from "fs";
@@ -540,6 +539,11 @@ class PackExtractor {
             if (!source.system.onlyLevel1) {
                 delete (source.system as { onlyLevel1?: boolean }).onlyLevel1;
             }
+        } else if (source.type === "spell") {
+            const components: Record<string, boolean> = source.system.components;
+            for (const [key, value] of Object.entries(components)) {
+                if (value === false) delete components[key];
+            }
         } else if (source.type === "spellcastingEntry" && this.#lastActor?.type === "npc") {
             delete (source.system as { ability?: unknown }).ability;
         }
@@ -755,7 +759,8 @@ class PackExtractor {
                     `Error in ${docName}: ${notAbilityMatch[0]} has type action but should be type ${notAbilityMatch[1]}!`
                 );
             }
-            if (!itemIsOfType(ability, "action")) continue;
+
+            if (ability.type !== "action") continue;
 
             if (!ability.system.category) {
                 if (this.emitWarnings) {
