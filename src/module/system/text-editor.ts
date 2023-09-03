@@ -121,14 +121,28 @@ class TextEditorPF2e extends TextEditor {
         const messageElem = htmlClosest(anchor, "li.chat-message");
         const app = ui.windows[Number(sheetElem?.dataset.appid)];
         const message = game.messages.get(messageElem?.dataset.messageId ?? "");
-        const [actor, rollData]: [ActorPF2e | null, Record<string, unknown>] =
-            app instanceof ActorSheetPF2e
-                ? [app.actor, app.actor.items.get(anchor.dataset.pf2ItemId)?.getRollData() ?? app.actor.getRollData()]
-                : app instanceof ItemSheetPF2e
-                ? [app.item.actor, app.item.getRollData()]
-                : message?.actor
-                ? [message.actor, message.getRollData()]
-                : [null, {}];
+
+        const [actor, rollData] = ((): [ActorPF2e | null, Record<string, unknown>] => {
+            if (message?.actor) {
+                return [message.actor, message.getRollData()];
+            }
+            if (app instanceof ActorSheetPF2e) {
+                [app.actor, app.actor.items.get(anchor.dataset.pf2ItemId)?.getRollData() ?? app.actor.getRollData()];
+            }
+            if (app instanceof ItemSheetPF2e) {
+                return [app.actor, app.item.getRollData()];
+            }
+
+            // Retrieve item/actor from anywhere via UUID
+            const itemUuid = anchor.dataset.itemUuid;
+            const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
+            if (itemByUUID instanceof ItemPF2e) {
+                return [itemByUUID.actor, itemByUUID.getRollData()];
+            }
+
+            return [null, {}];
+        })();
+
         const options = anchor.dataset.flavor ? { flavor: anchor.dataset.flavor } : {};
 
         const speaker = ChatMessagePF2e.getSpeaker({ actor });
