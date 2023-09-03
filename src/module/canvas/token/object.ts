@@ -3,7 +3,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { htmlClosest } from "@util";
 import type { Renderer } from "pixi.js";
 import * as R from "remeda";
-import { CanvasPF2e, TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import { CanvasPF2e, type TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 

@@ -1,9 +1,9 @@
-import { PartyPF2e } from "@actor";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene";
+import type { PartyPF2e } from "@actor";
+import { getAreaSquares } from "@module/canvas/token/aura/util.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { SceneTokenModificationContextPF2e } from "@scene/token-document/document.ts";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
-import { getAreaSquares } from "./aura/util.ts";
 
 /** A helper class to manage a party token's loaded/unloaded state */
 class PartyClownCar {

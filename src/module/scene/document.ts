@@ -1,14 +1,8 @@
-import Document, { _Document } from "types/foundry/common/abstract/document.js";
-import { DataSchema } from "types/foundry/common/data/fields.js";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
-import {
-    AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
-    TileDocumentPF2e,
-    TokenDocumentPF2e,
-} from "./index.ts";
-import { SceneConfigPF2e } from "./sheet.ts";
+import type { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e } from "./index.ts";
+import { TokenDocumentPF2e } from "./index.ts";
+import type { SceneConfigPF2e } from "./sheet.ts";
 
 class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
@@ -91,7 +85,7 @@ class ScenePF2e extends Scene {
     protected override _onDeleteDescendantDocuments(
         parent: this,
         collection: string,
-        documents: Document<_Document | null, DataSchema>[],
+        documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
         userId: string
