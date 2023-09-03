@@ -14,6 +14,7 @@ import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
@@ -279,10 +280,11 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const html = $html[0];
 
         // Show metagame option if clicked
-        htmlQuery(html, "[data-action=open-meta-setting]")?.addEventListener("click", () => {
+        htmlQuery(html, "a[data-action=open-meta-setting]")?.addEventListener("click", () => {
             const menu = game.settings.menus.get("pf2e.metagame");
             if (menu) {
-                const app = new menu.type();
+                const options: Partial<SettingsMenuOptions> = { highlightSetting: "showPartyStats" };
+                const app = new menu.type(undefined, options);
                 app.render(true);
             }
         });
