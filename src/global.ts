@@ -1,9 +1,11 @@
 /// <reference types="vite/client" />
 
+import type { ActorPF2e } from "@actor";
 import type { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupOptions } from "@actor/character/feats.ts";
 import type { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from "@actor/modifiers.ts";
+import type { ItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { CoinsPF2e } from "@item/physical/helpers.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -26,7 +28,6 @@ import type { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas/index.ts
 import type { StatusEffects } from "@module/canvas/status-effects.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { ActorsPF2e } from "@module/collection/actors.ts";
-import type { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import type { MacroPF2e } from "@module/macro.ts";
 import type { RuleElementPF2e, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";

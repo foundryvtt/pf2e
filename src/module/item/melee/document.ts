@@ -1,9 +1,9 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { RangeData } from "@item/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { ChatMessagePF2e } from "@module/documents.ts";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";

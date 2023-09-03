@@ -1,10 +1,11 @@
+import type { ActorPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
 import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
-import { ActorPF2e, ChatMessagePF2e } from "@module/documents.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";

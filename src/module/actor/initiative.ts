@@ -1,6 +1,6 @@
+import type { ActorPF2e } from "@actor";
 import { createPonderousPenalty } from "@actor/character/helpers.ts";
 import { InitiativeData } from "@actor/data/base.ts";
-import { ActorPF2e } from "@module/documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { Statistic, StatisticData, StatisticRollParameters, StatisticTraceData } from "@system/statistic/index.ts";

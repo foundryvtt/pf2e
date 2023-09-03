@@ -1,11 +1,13 @@
+import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 import { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts";
 import { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
 import { EffectSource, EffectSystemData } from "@item/effect/data.ts";
 import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
-import { ActorPF2e, ItemPF2e, UserPF2e } from "@module/documents.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {

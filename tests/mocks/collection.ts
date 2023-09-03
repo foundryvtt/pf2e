@@ -1,4 +1,5 @@
-import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import { MockActor } from "./actor.ts";
 import { MockItem } from "./item.ts";
 

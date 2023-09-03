@@ -1,8 +1,8 @@
+import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { RARITIES } from "@module/data.ts";
-import { ItemPF2e } from "@module/documents.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";

@@ -1,8 +1,9 @@
-import * as ActorInstance from "@actor";
+import type * as ActorInstance from "@actor";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/index.ts";
 import { ItemInstances } from "@item/types.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
-import { ActorPF2e, ItemPF2e } from "@module/documents.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 import { DamageRoll } from "@system/damage/roll.ts";

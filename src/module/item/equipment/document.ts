@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ItemSummaryData } from "@item/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
-import { UserPF2e } from "@module/documents.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { objectHasKey } from "@util";
 import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data.ts";
 import { OtherEquipmentTag } from "./types.ts";
