@@ -1,3 +1,42 @@
+## 5.4.3
+
+### System Improvements
+
+-   (stwlam) Add UI enhancements to party stash tab: coin values, rarity coloration of item names, stash total bulk
+-   (stwlam) Animate party clown car loading/unloading and incorporate wall detection when depositing tokens
+
+### Bugfixes
+
+-   (reyzor1991) Include roll options passed to strike methods when rolling
+-   (stwlam) Make damage from ability items responsive to magical immunities, resistances, and weaknesses
+-   (stwlam) Restore legacy boost row in attribute builder
+-   (stwlam) Fix display of attack modifier on familiar sheet
+
+### Data Updates
+
+-   (Abaddon) Remove scroll case and sheath from NPCs
+-   (Dire Weasel) Add automation for Gallowdead's Charge Chain, Groplit's Flammable Grease, and Umbral Dragon's Ghost Bane
+-   (Dire Weasel) Add Capritellix from _Rage of Elements_
+-   (Dire Weasel) Add effects for Grindlegrub Steak, Incendiary Dollop, Irondust Stew, Therapeutic Snap Peas
+-   (Dire Weasel) Add inline checks to several NPC abilities
+-   (Dire Weasel) Add inline healing links to Qxal's Blood Siphon
+-   (Dire Weasel) Add light automation to Abysium Horror's Green Glow and Jellyfish Lamp
+-   (Dire Weasel) Add spell effect for Wooden Fists
+-   (Dire Weasel) Automate reach for Gallowdead's Charge Chain
+-   (Dire Weasel) Fix formatting in Glass River Midge Attach
+-   (Dire Weasel) Normalize damage links in Burning Grasp description
+-   (Dire Weasel) Update automation for Spriggan's Enraged Growth and Bully's Bludgeon
+-   (Dire Weasel) Standardize Meliosa's Leshy names and update automation
+-   (Dire Weasel) Add automation for Capritellix's Shift Mood skill bonus
+-   (Dire Weasel, Drental) Fix several compendium actors with errant prototype token names
+-   (Dwim) Automate Fatal Bullet feat
+-   (pedrogrullada) Add spell effect for Phase Familiar
+-   (stwlam) Have temporary hit points from Inexorable Iron apply immediately upon adding effect
+-   (Supe) Implement Nanite Surge status bonus
+-   (Tikael) Add Player Core spells from War of Immortals Playtest
+-   (Tikael) Add spell effect for Anima Invocation
+-   (Tikael) Fix damage of Frostbite
+
 ## 5.4.2
 
 ### System Improvements
