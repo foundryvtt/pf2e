@@ -3,50 +3,14 @@
 
     .inventory-list {
         padding-right: 0.1rem;
-
-        .item {
-            .item-name {
-                h4.rarity-common {
-                    border-color: var(--color-rarity-common);
-                    color: var(--color-rarity-common);
-                }
-
-                h4.rarity-uncommon {
-                    border-color: var(--color-rarity-uncommon);
-                    color: var(--color-rarity-uncommon);
-                }
-
-                h4.rarity-rare {
-                    border-color: var(--color-rarity-rare);
-                    color: var(--color-rarity-rare);
-                }
-
-                h4.rarity-unique {
-                    border-color: var(--color-rarity-unique);
-                    color: var(--color-rarity-unique);
-                }
-            }
-        }
     }
 
     .item-controls {
         flex: 0 0 100px;
     }
 
-    .inventory-items {
-        border-bottom: 1px solid var(--border-color);
-    }
-
     .wealth {
         margin-bottom: 0.5rem;
-    }
-
-    .inventory-header {
-        @include button;
-        margin-top: 8px;
-        &:first-child {
-            margin-top: 0;
-        }
     }
 
     .encumbrance {
@@ -58,12 +22,13 @@
         margin: auto;
 
         img {
-            grid-area: img;
             @include frame-icon;
             border-radius: 0;
+            grid-area: img;
             position: relative;
             z-index: 4;
         }
+
         .encumbrance-bar {
             position: relative;
             z-index: 2;
@@ -71,8 +36,7 @@
             height: 16px;
             width: 100%;
             background-color: var(--secondary);
-            box-shadow: inset 0 0 0 1px rgba(black, 0.5),
-                inset 0 0 0 2px rgba(white, 0.2);
+            box-shadow: inset 0 0 0 1px rgba(black, 0.5), inset 0 0 0 2px rgba(white, 0.2);
         }
         .encumbrance-label {
             position: relative;

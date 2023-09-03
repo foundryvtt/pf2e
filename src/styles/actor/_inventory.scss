@@ -19,18 +19,40 @@
         font-weight: 500;
         flex: 2;
         gap: 4px;
-        padding-right: 4px;
 
         h3,
         h4 {
-            margin: auto auto auto 0;
+            cursor: pointer;
+            font-weight: 500;
             line-height: var(--font-size-12);
+            margin: auto auto auto 0;
             padding: 2px;
             word-break: break-word;
-            cursor: pointer;
 
             &:hover {
                 color: var(--primary);
+            }
+        }
+
+        h4:not(:hover) {
+            &.rarity-common {
+                border-color: var(--color-rarity-common);
+                color: var(--color-rarity-common);
+            }
+
+            &.rarity-uncommon {
+                border-color: var(--color-rarity-uncommon);
+                color: var(--color-rarity-uncommon);
+            }
+
+            &.rarity-rare {
+                border-color: var(--color-rarity-rare);
+                color: var(--color-rarity-rare);
+            }
+
+            &.rarity-unique {
+                border-color: var(--color-rarity-unique);
+                color: var(--color-rarity-unique);
             }
         }
 
@@ -84,24 +106,24 @@
         padding-right: 0.15rem;
     }
 
-    .item-quantity,
-    .item-weight,
+    .quantity,
+    .bulk,
     .item-controls,
-    .item-sell-value {
+    .sell-value {
         @include flex-center;
         flex: 0 0 68px;
     }
 
-    .item-sell-value {
-        justify-content: flex-end;
+    .sell-value {
+        justify-content: end;
         padding-right: 3px;
     }
 
-    .item-quantity {
+    .quantity {
         justify-content: space-around;
 
-        .item-decrease-quantity,
-        .item-increase-quantity {
+        .decrease,
+        .increase {
             @include flex-center;
             font-family: var(--sans-serif-monospace);
             height: 100%;
@@ -110,40 +132,44 @@
         }
     }
 
-    .item-weight {
+    .bulk {
         flex: 0 0 36px;
-        font-weight: 500;
     }
 
     .item-controls {
         flex: 0 0 90px;
         font-size: var(--font-size-12);
         gap: 1px;
-        justify-content: flex-end;
+        justify-content: end;
     }
 
     .inventory-header {
+        @include button;
         align-items: center;
         background-color: var(--alt);
         color: var(--color-text-light-0);
         display: flex;
         font-family: var(--sans-serif);
         font-size: var(--font-size-10);
-        justify-content: flex-end;
+        justify-content: end;
         letter-spacing: 0.05em;
         line-height: 1;
-        padding: 4px 0;
+        margin-top: 6px;
+        padding: 0.25rem;
         text-rendering: optimizeLegibility;
         text-transform: uppercase;
         width: 100%;
 
+        &:first-child {
+            margin-top: 0;
+        }
+
         h3 {
             font-size: var(--font-size-14);
-            text-transform: capitalize;
+            margin: 2px 0;
             text-shadow: 0 0 2px rgba(black, 0.75);
-            margin: 2px;
-            margin-left: 4px;
-            cursor: default;
+            text-transform: capitalize;
+
             &:hover {
                 color: var(--color-text-light-0);
             }
@@ -153,19 +179,13 @@
             padding-left: 4px;
         }
 
-        .item-sell-value,
-        .item-quantity,
-        .item-weight {
-            @include flex-center;
-        }
-
         .item-invested-total {
             flex: none;
             margin-right: 1em;
         }
 
         .item-controls {
-            padding-right: 0.4em;
+            gap: 0.25rem;
         }
 
         .overinvested {
@@ -177,11 +197,6 @@
     .inventory-items {
         border: 1px solid var(--border-color);
         border-top: none;
-        border-bottom: none;
-
-        &:last-child {
-            border-bottom: 1px solid var(--border-color);
-        }
     }
 
     .item {
@@ -190,16 +205,18 @@
         font-size: var(--font-size-12);
         justify-content: flex-start;
         width: 100%;
-        .item-quantity,
-        .item-weight,
+
+        .quantity,
+        .bulk,
         .item-controls,
-        .item-sell-value {
+        .sell-value {
             border-left: 1px solid var(--alt);
         }
     }
 
     .list-row {
         width: 100%;
+
         .item-controls {
             color: var(--text-dark);
             font-size: var(--font-size-13);
@@ -250,12 +267,14 @@
             color: var(--color-text-light-0);
             display: flex;
             width: 100%;
+
             .container-capacity-bar {
                 background-color: var(--secondary);
                 border-radius: 0 2px 2px 0;
                 box-shadow: inset 0 0 0 1px rgba(black, 0.5), inset 0 0 0 2px rgba(white, 0.1);
                 padding: 8px 0;
             }
+
             .container-capacity-label {
                 position: absolute;
                 height: 100%;

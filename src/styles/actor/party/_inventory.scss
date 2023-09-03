@@ -10,6 +10,7 @@
                 grid-area: image;
                 margin-right: 0.4rem;
             }
+
             .sub-data {
                 display: flex;
                 flex-direction: column;
@@ -42,4 +43,35 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+
+    .item-controls {
+        max-width: 3.5rem;
+    }
+
+    .total-bulk {
+        align-items: center;
+        display: flex;
+        font-weight: 500;
+        gap: 0.25rem;
+        height: 1.5rem;
+        justify-content: start;
+
+        img {
+            @include frame-icon;
+            height: 1.5rem;
+            width: 1.5rem;
+            border-radius: 0;
+            z-index: 1;
+        }
+
+        .bar {
+            justify-content: start;
+            margin-top: 0;
+            position: relative;
+            height: 1.25rem;
+            padding-left: 0.5rem;
+            left: -0.35rem;
+            z-index: 0;
+        }
+    }
 }

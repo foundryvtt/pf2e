@@ -174,7 +174,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         return {
             sections,
             bulk: this.actor.inventory.bulk,
-            showValueAlways: this.actor.isOfType("npc", "loot"),
+            showValueAlways: this.actor.isOfType("npc", "loot", "party"),
             showIndividualPricing: this.actor.isOfType("loot"),
             hasStowingContainers: this.actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
             invested: this.actor.inventory.invested,
