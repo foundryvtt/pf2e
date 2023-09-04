@@ -1,3 +1,22 @@
+## 5.4.4
+
+### System Improvements
+
+-   (Supe) Improve clarity of overland travel labeling on party sheet
+
+### Bugfixes
+
+-   (SkepticRobot) Fix non limited npcs showing in actors tab
+-   (stwlam) Fix compendium browser rarity-tag coloration
+-   (stwlam) Fix party name input being editable to non-owners of party actor
+-   (stwlam) Fix width constraint of lootable NPC sheet sidebar
+
+### Data Updates
+
+-   (Dire Weasel) Brush up automation and add inline checks to several NPCs
+-   (Dire Weasel) Add effect for Rousing Splash
+-   (stwlam) Add remaining armor property runes from Treasure Vault
+
 ## 5.4.3
 
 ### System Improvements
