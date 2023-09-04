@@ -4,7 +4,7 @@
         <input type="text" name="system.rules.{{index}}.title" value="{{rule.title}}" />
         <label>
             {{localize "PF2E.RuleEditor.Note.Hidden"}}
-            <input type="checkbox" class="hidden-value" {{checked (eq rule.visibility "gm")}}>
+            <input type="checkbox" class="hidden-value" {{checked (or (eq rule.visibility "owner") (eq rule.visibility "gm"))}}>
         </label>
     </div>
 </div>
