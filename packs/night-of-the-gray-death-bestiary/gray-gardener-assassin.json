@@ -570,20 +570,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "critical": true,
-                        "damageType": "slashing",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "label": "Marked for Death",
-                        "predicate": [
-                            "marked-for-death"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -632,20 +619,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "critical": true,
-                        "damageType": "piercing",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "label": "Marked for Death",
-                        "predicate": [
-                            "marked-for-death"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -781,7 +755,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Gray Gardener assassin designates a single creature they can see and hear as their mark. This effect lasts until the mark dies or the assassin uses Mark for Death again. The assassin gains a +2 circumstance bonus to Perception checks to Seek the mark and on Deception checks to Feint against the mark. The assassin's melee and ranged Strikes gain the deadly d8 weapon traits when attacking the mark.</p>"
+                    "value": "<p>The Gray Gardener assassin designates a single creature they can see and hear as their mark. This effect lasts until the mark dies or the assassin uses Mark for Death again. The assassin gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] the mark and on Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against the mark. The assassin's melee and ranged Strikes gain the deadly d8 weapon traits when attacking the mark.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -790,15 +764,14 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Current Target is Marked for Death",
-                        "option": "marked-for-death",
+                        "option": "mark-for-death",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
                             "action:seek",
-                            "marked-for-death"
+                            "mark-for-death"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -808,11 +781,20 @@
                         "key": "FlatModifier",
                         "predicate": [
                             "action:feint",
-                            "marked-for-death"
+                            "mark-for-death"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "mark-for-death"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "deadly-d8"
                     }
                 ],
                 "slug": null,
