@@ -387,8 +387,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             const rollData = document.getRollData();
             (async () => {
-                const content = createHTMLElement("div", { classes: ["item-summary"] });
-                content.innerHTML = await TextEditor.enrichHTML(document.description, { async: true, rollData });
+                const content = createHTMLElement("div", {
+                    classes: ["item-summary"],
+                    innerHTML: await TextEditor.enrichHTML(document.description, { async: true, rollData }),
+                });
                 InlineRollLinks.listen(content, document);
                 $(activityElem).tooltipster({
                     contentAsHTML: true,

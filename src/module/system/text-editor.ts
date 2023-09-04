@@ -462,11 +462,8 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.invalid = "true";
         }
 
-        const createLabel = (content: string): HTMLSpanElement => {
-            const span = createHTMLElement("span", { classes: ["label"] });
-            span.innerHTML = content;
-            return span;
-        };
+        const createLabel = (content: string): HTMLSpanElement =>
+            createHTMLElement("span", { classes: ["label"], innerHTML: content });
 
         switch (params.type) {
             case "flat":
