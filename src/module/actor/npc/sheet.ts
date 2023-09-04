@@ -8,6 +8,7 @@ import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup
 import { AttributeString, MovementType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
+import { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
@@ -145,6 +146,11 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
             save.adjustedHigher = save.totalModifier > Number(save.base);
             save.adjustedLower = save.totalModifier < Number(save.base);
         }
+    }
+
+    /** Players can view the sheets of lootable NPCs. */
+    protected override _canUserView(user: UserPF2e): boolean {
+        return super._canUserView(user) || this.isLootSheet;
     }
 
     override activateListeners($html: JQuery<HTMLElement>): void {
