@@ -55,9 +55,7 @@
 }
 
 li.chat-message .tags .tag {
-    height: unset;
-    line-height: 1.7em;
-    min-height: 1em;
+    height: var(--font-size-17);
 
     &_transparent {
         line-height: 1.25em;
@@ -73,18 +71,13 @@ li.chat-message .tags .tag {
     padding: 0.05em;
     gap: 0;
 
-    select.tag {
-        height: 22px;
-    }
-
     tag,
     .tag,
     select.tag {
         background-color: var(--color-bg-trait);
-        border: 2px solid var(--color-border-trait);
+        border: solid var(--color-border-trait);
         box-shadow: none;
         margin: 0;
-        min-height: var(--font-size-22);
 
         x {
             align-items: start;
@@ -96,7 +89,36 @@ li.chat-message .tags .tag {
         }
     }
 
+    tag,
+    select.tag {
+        border-width: 2px 3px 2px 2px;
+        height: var(--font-size-22);
+
+        &:first-child {
+            border-left-width: 5px;
+        }
+
+        &:last-child {
+            border-right-width: 5px;
+        }
+    }
+
+    tag:last-of-type {
+        border-right-width: 5px;
+    }
+
     .tag {
+        border-width: 1px 2px 1px 1px;
+        height: var(--font-size-19);
+
+        &:first-child {
+            border-left-width: 3px;
+        }
+
+        &:last-child {
+            border-right-width: 3px;
+        }
+
         &.rarity {
             &.common,
             &[value="common"],
