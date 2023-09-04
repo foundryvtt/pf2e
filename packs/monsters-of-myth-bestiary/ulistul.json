@@ -1831,10 +1831,8 @@
                 },
                 "rules": [
                     {
-                        "critical": true,
-                        "diceNumber": 1,
-                        "dieSize": "d12",
-                        "key": "DamageDice",
+                        "key": "AdjustStrike",
+                        "mode": "add",
                         "predicate": [
                             {
                                 "or": [
@@ -1843,8 +1841,8 @@
                                 ]
                             }
                         ],
-                        "selector": "strike-damage",
-                        "type": "untyped"
+                        "property": "weapon-traits",
+                        "value": "deadly-d12"
                     },
                     {
                         "key": "Note",
@@ -1857,8 +1855,9 @@
                             }
                         ],
                         "selector": "strike-damage",
-                        "text": "Attacks against constructs and objects ignore up to 1- of the target's Hardness and resistances.",
-                        "title": "{item|name}"
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,

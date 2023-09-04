@@ -36,7 +36,50 @@
                 },
                 "traits": {
                     "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "oLZLlWbJDEhvDvuC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
                     "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "iyGqCWv2mQOTEdxc": {
+                        "damage": "2d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -53,7 +96,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -95,7 +138,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -139,7 +182,7 @@
             "_id": "kQRYLLy5FQP0r7YN",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Deadly Pursuit",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -173,7 +216,7 @@
             "_id": "fUkXWkQ67PMtMhrU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "False Authority",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -224,7 +267,7 @@
             "_id": "QNFAJ7JlgnNbGGWf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Usurper's Curse",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -261,7 +304,7 @@
             "_id": "MgHEQlKl76Fh28UE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Berserk",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -276,7 +319,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "berserk",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:category:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "berserk"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "deadly-d8"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -295,7 +357,7 @@
             "_id": "T67rfyPzxmU6ckF4",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Usurper's Curse",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -338,7 +400,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -375,7 +437,7 @@
             "_id": "bYdKXs0ffJvw6wRu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -398,7 +460,7 @@
             "_id": "Hbfy3sGrBmCAUV7C",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -421,7 +483,7 @@
             "_id": "vsvXXmBCeQXDfD5z",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
