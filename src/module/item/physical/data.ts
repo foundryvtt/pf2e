@@ -42,12 +42,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
         value: string;
     };
     containerId: string | null;
-    preciousMaterial: {
-        value: Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt"> | null;
-    };
-    preciousMaterialGrade: {
-        value: PreciousMaterialGrade | null;
-    };
+    material: ItemMaterialData;
     size: Size;
     usage: {
         value: string;
@@ -60,6 +55,7 @@ interface PhysicalSystemData extends PhysicalSystemSource, Omit<ItemSystemData, 
     hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;
+    material: ItemMaterialData;
     traits: PhysicalItemTraits;
     temporary: boolean;
     identification: IdentificationData;
@@ -120,6 +116,11 @@ interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> ex
     otherTags: string[];
 }
 
+interface ItemMaterialData {
+    grade: PreciousMaterialGrade | null;
+    type: PreciousMaterialType | null;
+}
+
 interface ItemActivation {
     id: string;
     description: {
@@ -172,6 +173,7 @@ export {
     Investable,
     ItemActivation,
     ItemCarryType,
+    ItemMaterialData,
     MystifiedData,
     PartialPrice,
     PhysicalItemHPSource,

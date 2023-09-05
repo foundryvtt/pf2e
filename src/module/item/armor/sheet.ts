@@ -1,9 +1,9 @@
 import {
     ARMOR_MATERIAL_VALUATION_DATA,
     CoinsPF2e,
+    MaterialSheetData,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
-    PreparedMaterials,
     getPropertySlots,
 } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
@@ -62,7 +62,7 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     groups: Record<ArmorGroup, string>;
     baseTypes: Record<BaseArmorType, string>;
     bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
-    preciousMaterials: PreparedMaterials;
+    preciousMaterials: MaterialSheetData;
     otherTags: SheetOptions;
     basePrice: CoinsPF2e;
 }

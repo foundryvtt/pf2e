@@ -124,7 +124,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         super.prepareBaseData();
 
         // Set precious material (currently unused)
-        this.system.material = { precious: null };
+        this.system.material = { type: null, grade: null };
 
         for (const attackDamage of Object.values(this.system.damageRolls)) {
             attackDamage.category ||= null;

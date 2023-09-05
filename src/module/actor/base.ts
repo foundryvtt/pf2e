@@ -1198,8 +1198,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             // object's Hardness is greater than that of the adamantine weapon."
             const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.includes("adamantine");
             const materialGrade =
-                item?.isOfType("weapon") && item.material.precious?.type === "adamantine"
-                    ? item.material.precious.grade
+                item?.isOfType("weapon") && item.system.material.type === "adamantine"
+                    ? item.system.material.grade ?? "standard"
                     : "standard";
             // Hardness values for thin adamantine items (inclusive of weapons):
             const itemHardness = {

@@ -5,7 +5,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration813NormalizeColdIron extends MigrationBase {
     static override version = 0.813;
 
-    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+    override async updateItem(source: MaybeWithOldMaterialData): Promise<void> {
         switch (source.type) {
             case "melee": {
                 const traits: { value: string[] } = source.system.traits;
@@ -14,8 +14,8 @@ export class Migration813NormalizeColdIron extends MigrationBase {
             }
             case "armor":
             case "weapon": {
-                const preciousMaterial: { value: string | null } = source.system.preciousMaterial;
-                if (!preciousMaterial) return;
+                const preciousMaterial = source.system.preciousMaterial;
+                if (typeof preciousMaterial?.value !== "string") return;
                 preciousMaterial.value &&= preciousMaterial.value.replace(/^coldiron$/i, "cold-iron");
 
                 if (source.type === "weapon") {
@@ -105,3 +105,10 @@ interface ArrayChoiceSet {
     choices: { value?: unknown }[];
     selection?: unknown;
 }
+
+type MaybeWithOldMaterialData = ItemSourcePF2e & {
+    system: {
+        preciousMaterial?: { value?: unknown };
+        preciousMaterialGrade?: { value?: unknown };
+    };
+};
