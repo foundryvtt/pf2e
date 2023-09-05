@@ -359,7 +359,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     getRollOptions(): string[] {
         const prefix = "kingdom";
-        return R.compact([this.unrest ? `${prefix}:unrest:${this.unrest}` : null]);
+        return R.compact([this.unrest.value ? `${prefix}:unrest:${this.unrest.value}` : null]);
     }
 
     getRollData(): Record<string, unknown> {

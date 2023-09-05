@@ -13,13 +13,18 @@
         "campaign": "kingmaker",
         "category": "kingdom-feat",
         "description": {
-            "value": ""
+            "value": "<p>Your rule brooks no dissent and stamps out traitors, making harsh examples of them. Once per Kingdom turn when you gain Unrest, you can attempt to crush the dissent by attempting a basic @Check[warfare|dc:resolve(@kingdom.control.dc)] check. On a success, the Unrest increase is canceled, but on a critical failure, the Unrest increase is doubled. In addition, you gain a +1 status bonus to checks to resolve dangerous kingdom events that involve internal bickering, such as Feud.</p>"
         },
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "trained in Warfare"
+                }
+            ]
         },
         "rules": [],
         "source": {
@@ -27,7 +32,10 @@
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "general",
+                "kingdom"
+            ]
         }
     },
     "type": "campaignFeature"
