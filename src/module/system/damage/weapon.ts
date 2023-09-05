@@ -420,8 +420,8 @@ class WeaponDamagePF2e {
         const notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
 
         // Accumulate damage-affecting precious materials
-        const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.precious?.type)
-            ? weapon.system.material.precious!.type
+        const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.type)
+            ? weapon.system.material.type
             : null;
         const materials: Set<MaterialDamageEffect> = new Set([materialTraits, material ?? []].flat());
         for (const adjustment of actor.synthetics.strikeAdjustments) {

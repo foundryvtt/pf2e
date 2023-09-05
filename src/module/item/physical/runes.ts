@@ -17,7 +17,7 @@ import { PredicatePF2e } from "@system/predication.ts";
 import { isBlank } from "@util";
 
 function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
-    const fromMaterial = item.system.preciousMaterial?.value === "orichalcum" ? 1 : 0;
+    const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
 
     const fromPotency = ABP.isEnabled(item.actor)
         ? // If the item is unowned or on a loot actor, place no limit on slots

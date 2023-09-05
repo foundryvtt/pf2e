@@ -10,9 +10,6 @@ import { getFilesRecursively } from "./lib/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 
-import { Migration836EnergizingConsolidation } from "@module/migration/migrations/836-energizing-consolidation.ts";
-import { Migration837MoveHazardBookSources } from "@module/migration/migrations/837-move-hazard-book-source.ts";
-import { Migration838StrikeAttackRollSelector } from "@module/migration/migrations/838-strike-attack-roll-selector.ts";
 import { Migration839ActionCategories } from "@module/migration/migrations/839-action-categories.ts";
 import { Migration841V11UUIDFormat } from "@module/migration/migrations/841-v11-uuid-format.ts";
 import { Migration844DeityDomainUUIDs } from "@module/migration/migrations/844-deity-domains-uuids.ts";
@@ -29,6 +26,7 @@ import { Migration855ApexEquipmentSystemData } from "@module/migration/migration
 import { Migration856NoSystemDotCustom } from "@module/migration/migrations/856-no-system-dot-custom.ts";
 import { Migration857WeaponSpecializationRE } from "@module/migration/migrations/857-weapon-spec-re.ts";
 import { Migration858FakeWeaponSpecialization } from "@module/migration/migrations/858-fake-weapon-specialization.ts";
+import { Migration859MaterialTypeGrade } from "@module/migration/migrations/859-material-type-grade.ts";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -39,9 +37,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration836EnergizingConsolidation(),
-    new Migration837MoveHazardBookSources(),
-    new Migration838StrikeAttackRollSelector(),
     new Migration839ActionCategories(),
     new Migration841V11UUIDFormat(),
     new Migration844DeityDomainUUIDs(),
@@ -58,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration856NoSystemDotCustom(),
     new Migration857WeaponSpecializationRE(),
     new Migration858FakeWeaponSpecialization(),
+    new Migration859MaterialTypeGrade(),
 ];
 
 global.deepClone = <T>(original: T): T => {

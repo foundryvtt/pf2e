@@ -13,12 +13,12 @@ import {
     IdentificationStatus,
     ItemActivation,
     ItemCarryType,
+    ItemMaterialData,
     MystifiedData,
     PhysicalItemTrait,
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -118,16 +118,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.system.hp.value > 0 && this.system.hp.value < this.system.hp.max;
     }
 
-    get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
-        const systemData = this.system;
-        return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
-            ? {
-                  precious: {
-                      type: systemData.preciousMaterial.value,
-                      grade: systemData.preciousMaterialGrade.value,
-                  },
-              }
-            : { precious: null };
+    get material(): ItemMaterialData {
+        return deepClone(this.system.material);
     }
 
     get isInContainer(): boolean {
@@ -174,11 +166,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
+        const { material } = this.system;
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             [`rarity:${this.rarity}`]: true,
             uninvested: this.isInvested === false,
-            [`material:${this.material.precious?.type}`]: !!this.material.precious,
+            [`material:${material.type}`]: !!material.type,
         })
             .filter(([_key, isTrue]) => isTrue)
             .map(([key]) => `${prefix}:${key}`)
@@ -197,9 +190,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         const systemData = this.system;
         // null out empty-string values
-        systemData.preciousMaterial.value ||= null;
-        systemData.preciousMaterialGrade.value ||= null;
         systemData.containerId ||= null;
+        systemData.material.type ||= null;
+        systemData.material.grade ||= null;
         systemData.stackGroup ||= null;
         systemData.equippedBulk.value ||= null;
         systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
@@ -455,13 +448,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     override async getChatData(): Promise<ItemSummaryData> {
-        const { precious } = this.material;
-        const material = precious
-            ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
-                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[precious.type]),
-                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[precious.grade]),
-              })
-            : null;
+        const { type, grade } = this.system.material;
+        const material =
+            type && grade
+                ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
+                      type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[type]),
+                      grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
+                  })
+                : null;
 
         return {
             rarity: {

@@ -3,7 +3,7 @@ import {
     CoinsPF2e,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
-    PreparedMaterials,
+    MaterialSheetData,
     WEAPON_MATERIAL_VALUATION_DATA,
     getPropertySlots,
 } from "@item/physical/index.ts";
@@ -249,7 +249,7 @@ interface PropertyRuneSheetSlot extends WeaponPropertyRuneSlot {
 
 interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     propertyRuneSlots?: PropertyRuneSheetSlot[];
-    preciousMaterials: PreparedMaterials;
+    preciousMaterials: MaterialSheetData;
     weaponPotencyRunes: ConfigPF2e["PF2E"]["weaponPotencyRunes"];
     weaponStrikingRunes: ConfigPF2e["PF2E"]["weaponStrikingRunes"];
     weaponPropertyRunes: Record<string, string>;

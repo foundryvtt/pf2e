@@ -306,11 +306,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
-        // Preserve precious material and runes
+        // Preserve material and runes
         if (currentSource.type === "weapon" || currentSource.type === "armor") {
             const materialAndRunes: Record<string, unknown> = {
-                "system.preciousMaterial": currentSource.system.preciousMaterial,
-                "system.preciousMaterialGrade": currentSource.system.preciousMaterialGrade,
+                "system.material": currentSource.system.material,
                 "system.potencyRune": currentSource.system.potencyRune,
                 "system.propertyRune1": currentSource.system.propertyRune1,
                 "system.propertyRune2": currentSource.system.propertyRune2,
