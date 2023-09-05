@@ -164,6 +164,11 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return combatants;
     }
 
+    override getRollOptions(domains?: string[]): string[] {
+        const options = super.getRollOptions(domains);
+        return options.concat(this.campaign?.getRollOptions?.() ?? []);
+    }
+
     override getRollData(): Record<string, unknown> {
         return mergeObject(super.getRollData(), this.campaign?.getRollData?.() ?? {});
     }

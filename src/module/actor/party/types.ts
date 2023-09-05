@@ -19,6 +19,8 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     createSidebarButtons?(): HTMLElement[];
     /** Returns any additional statistics that should be returned by the party */
     getStatistic?(slug: string): Statistic | null;
+    /** Additional campaign specific roll options for rule elements */
+    getRollOptions?(): string[];
     /** Additional data for inline rolls */
     getRollData?(): Record<string, unknown>;
     /** Renders the sheet associateed with this campaign, if available */

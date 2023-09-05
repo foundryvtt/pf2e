@@ -65,12 +65,13 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         }
     }
 
-    /** Set a self roll option for this feat(ure) */
+    /** Set a self roll option for this feat(ure). Skip for actions */
     override prepareActorData(this: CampaignFeaturePF2e<ActorPF2e>): void {
-        const { actor } = this;
-        const prefix = this.isFeature ? "feature" : this.isFeat ? "feat" : "action";
-        const slug = this.slug ?? sluggify(this.name);
-        actor.rollOptions.all[`${prefix}:${slug}`] = true;
+        const prefix = this.isFeature ? "feature" : this.isFeat ? "feat" : null;
+        if (prefix) {
+            const slug = this.slug ?? sluggify(this.name);
+            this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
+        }
     }
 
     override prepareSiblingData(): void {
