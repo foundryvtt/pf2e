@@ -1,0 +1,23 @@
+<template data-partial="tab">
+    <a class="item" data-tab="pf2e"><span class="action-glyph">1</span> {{localize "PF2E.Pathfinder"}}</a>
+</template>
+
+<template data-partial="panel">
+    <section class="tab" data-tab="pf2e">
+        <div class="form-group">
+            <label for="{{document.uuid}}-rulesBasedVision">{{localize "PF2E.SETTINGS.Automation.RulesBasedVision.Name"}}</label>
+            <div class="form-fields">
+                <select id="{{document.uuid}}-rulesBasedVision" name="flags.pf2e.rulesBasedVision">
+                    {{#select document.flags.pf2e.rulesBasedVision}}
+                        <option value="">{{localize "PF2E.SETTINGS.EnabledDisabled.Default" worldDefault=rbvWorldDefault}}</option>
+                        <option value="true">{{localize "PF2E.SETTINGS.EnabledDisabled.Enabled"}}</option>
+                        <option value="false">{{localize "PF2E.SETTINGS.EnabledDisabled.Disabled"}}</option>
+                    {{/select}}
+                </select>
+
+                <button type="button" class="automation-settings" data-action="world-rbv-setting" data-tooltip="System Automation Settings"><i class="fa-solid fa-globe"></i></button>
+            </div>
+            <p class="hint">{{localize "PF2E.SETTINGS.Automation.RulesBasedVision.Hint"}}</p>
+        </div>
+    </section>
+</template>
