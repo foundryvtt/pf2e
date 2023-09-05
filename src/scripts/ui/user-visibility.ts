@@ -96,11 +96,12 @@ class UserVisibilityPF2e {
     }
 }
 
-type UserVisibility = "all" | "owner" | "gm" | "none";
+const USER_VISIBILITIES = new Set(["all", "owner", "gm", "none"] as const);
+type UserVisibility = SetElement<typeof USER_VISIBILITIES>;
 
 interface ProcessOptions {
     document?: ClientDocument | null;
     message?: ChatMessagePF2e;
 }
 
-export { UserVisibility, UserVisibilityPF2e };
+export { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e };

@@ -194,9 +194,9 @@ class CheckPF2e {
             roll.options.degreeOfSuccess = degree.value;
         }
 
-        const notes = context.notes?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n))) ?? [];
-        const notesText =
-            notes
+        const notes =
+            context.notes
+                ?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n)))
                 .filter((note) => {
                     if (!note.predicate.test([...rollOptions, ...(note.rule?.item.getRollOptions("parent") ?? [])])) {
                         return false;
@@ -207,9 +207,8 @@ class CheckPF2e {
                     }
                     const outcome = context.outcome ?? context.unadjustedOutcome;
                     return !!(outcome && note.outcome.includes(outcome));
-                })
-                .map((n) => n.text)
-                .join("\n") ?? "";
+                }) ?? [];
+        const notesList = RollNotePF2e.notesToHTML(notes);
 
         const item = context.item ?? null;
 
@@ -225,7 +224,7 @@ class CheckPF2e {
                       return createHTMLElement("h4", { classes: ["action"], children: [strong] });
                   })();
 
-            return [header, result ?? [], tags, notesText]
+            return [header, result ?? [], tags, notesList]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
@@ -243,7 +242,7 @@ class CheckPF2e {
             domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: Array.from(rollOptions).sort(),
-            notes: notes.filter((n) => n.predicate.test(rollOptions)).map((n) => n.toObject()),
+            notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",

@@ -4,6 +4,7 @@ import { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
@@ -156,21 +157,13 @@ export class DamagePF2e {
         const syntheticNotes = context.self?.actor
             ? extractNotes(context.self?.actor.synthetics.rollNotes, context.domains ?? [])
             : [];
-        const allNotes = [...syntheticNotes, ...data.notes];
-        const filteredNotes = allNotes.filter(
+        const notes = [...syntheticNotes, ...data.notes].filter(
             (n) =>
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
                 n.predicate.test(context.options)
         );
-        const noteRollData = (context.self?.item ?? context.self?.actor)?.getRollData() ?? {};
-        const notesFlavor = (
-            await Promise.all(
-                filteredNotes.map(
-                    async (n) => await TextEditor.enrichHTML(n.text, { rollData: noteRollData, async: true })
-                )
-            )
-        ).join("\n");
-        flavor += notesFlavor;
+        const notesList = RollNotePF2e.notesToHTML(notes);
+        flavor += notesList.outerHTML;
 
         const { self, target } = context;
         const item = self?.item ?? null;
@@ -210,7 +203,7 @@ export class DamagePF2e {
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
             mapIncreases: context.mapIncreases,
-            notes: allNotes.map((n) => n.toObject()),
+            notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,
             rollMode,
             traits: context.traits ?? [],

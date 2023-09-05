@@ -8,8 +8,16 @@ import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
-import { createHTMLElement, fontAwesomeIcon, htmlClosest, localizer, objectHasKey, sluggify } from "@util";
+import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
+import {
+    createHTMLElement,
+    fontAwesomeIcon,
+    htmlClosest,
+    localizer,
+    objectHasKey,
+    setHasElement,
+    sluggify,
+} from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
@@ -340,11 +348,17 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
 
+        const showDC = setHasElement(USER_VISIBILITIES, rawParams.showDC)
+            ? rawParams.showDC
+            : actor?.hasPlayerOwner || game.settings.get("pf2e", "metagame_showDC")
+            ? "all"
+            : "gm";
+
         const params: CheckLinkParams = {
             ...rawParams,
             type: rawParams.type,
             basic: rawParams.basic !== undefined && ["true", ""].includes(rawParams.basic),
-            showDC: rawParams.showDC === "" ? "all" : rawParams.showDC,
+            showDC,
             traits: (() => {
                 const traits: string[] = [];
                 // Set item traits
@@ -389,7 +403,7 @@ class TextEditorPF2e extends TextEditor {
                 actor,
                 item,
                 inlineLabel,
-                params: { ...params, ...{ type, adjustment: adjustments[i] || "0" } },
+                params: { ...params, ...{ type, adjustment: adjustments[i] } },
             })
         );
         if (buttons.length === 1) {
@@ -440,19 +454,18 @@ class TextEditorPF2e extends TextEditor {
         icon.classList.add("icon");
 
         const name = params.name ?? item?.name ?? params.type;
-        const role = params.showDC ?? "owner";
         const localize = localizer("PF2E.InlineCheck");
 
         const anchor = createHTMLElement("a", {
             classes: ["inline-check"],
             children: [icon],
             dataset: {
-                pf2Traits: params.traits.toString(),
-                pf2RollOptions: params.extraRollOptions.toString(),
+                pf2Traits: params.traits.toString() || null,
+                pf2RollOptions: params.extraRollOptions.toString() || null,
                 pf2RepostFlavor: name,
-                pf2ShowDc: role,
+                pf2ShowDc: params.showDC === "all" ? null : params.showDC,
                 pf2Label: localize("DCWithName", { name }),
-                pf2Adjustment: params.adjustment || null,
+                pf2Adjustment: Number(params.adjustment) || null,
                 pf2Roller: params.roller || null,
             },
         });
@@ -518,11 +531,15 @@ class TextEditorPF2e extends TextEditor {
                 const dc = params.dc === "" ? NaN : Number(checkDC);
                 const displayedDC = !isNaN(dc) ? `${dc + Number(params.adjustment)}` : checkDC;
                 const text = anchor.innerText;
-                anchor
-                    .querySelector("span.label")
-                    ?.replaceWith(
-                        createLabel(game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: displayedDC, text }))
-                    );
+                anchor.querySelector("span.label")?.replaceWith(
+                    createLabel(
+                        game.i18n.format("PF2E.DCWithValueAndVisibility", {
+                            role: params.showDC,
+                            dc: displayedDC,
+                            text,
+                        })
+                    )
+                );
             }
         }
 
@@ -810,7 +827,7 @@ interface CheckLinkParams {
     traits: string[];
     extraRollOptions: string[];
     name?: string;
-    showDC?: string;
+    showDC: UserVisibility;
     immutable?: string;
     roller?: string;
 }
