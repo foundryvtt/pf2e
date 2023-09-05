@@ -181,6 +181,7 @@ const resistanceTypes = {
     lawful: "PF2E.Damage.RollFlavor.lawful",
     light: "PF2E.Damage.IWR.Type.light",
     magical: "PF2E.Damage.IWR.Type.magical",
+    "magical-silver": "PF2E.Damage.IWR.Type.magical-silver",
     mental: "PF2E.Damage.RollFlavor.mental",
     metal: "PF2E.Damage.RollFlavor.metal",
     mithral: "PF2E.Damage.IWR.Type.mithral",
