@@ -77,7 +77,7 @@ class ScenePF2e extends Scene {
 
         if (changed.active && canvas.scene === this) {
             for (const token of canvas.tokens.placeables) {
-                token.auras.draw();
+                token.auras.reset();
             }
         }
     }

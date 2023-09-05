@@ -1,5 +1,5 @@
-import { AuraRenderer } from "./renderer.ts";
 import { TokenPF2e } from "../object.ts";
+import { AuraRenderer } from "./renderer.ts";
 
 export class AuraRenderers extends Map<string, AuraRenderer> {
     constructor(private readonly token: TokenPF2e) {
@@ -11,8 +11,8 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         return this.token.highlightId;
     }
 
-    /** Draw this token's auras on the canvas */
-    draw(): void {
+    /** Clear current aura renders, acquire new aura data, and render. */
+    reset(): void {
         this.clear();
         if (!(canvas.ready && this.token.actor)) {
             return;
@@ -23,20 +23,24 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
             this.set(slug, this.token.addChild(renderer));
         }
 
-        this.refresh();
+        this.draw();
     }
 
-    refresh(): void {
+    /** Toggle visibility of aura rings and reset highlights */
+    draw(): void {
         if (this.size === 0) return;
 
         this.clearHighlights();
         if (this.token.isPreview || this.token.isAnimating) return;
 
+        for (const aura of this.values()) {
+            aura.draw();
+        }
+
         if (this.token.hover) {
             const { highlightId } = this;
             const highlight = canvas.grid.highlightLayers[highlightId] ?? canvas.grid.addHighlightLayer(highlightId);
             highlight.clear();
-
             for (const aura of this.values()) {
                 aura.highlight();
             }
@@ -65,6 +69,9 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
         return super.clear();
     }
+
+    /** Alias of `clear` */
+    destroy(): void {}
 
     clearHighlights(): void {
         canvas.grid.destroyHighlightLayer(this.highlightId);
