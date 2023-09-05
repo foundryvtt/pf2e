@@ -216,13 +216,21 @@ const KINGDOM_SCHEMA = {
         })
     ),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
-    unrest: new fields.NumberField<number, number, false, false, true>({
-        integer: true,
-        min: 0,
-        max: 99,
-        required: false,
-        nullable: false,
-        initial: 0,
+    unrest: new fields.SchemaField({
+        value: new fields.NumberField<number, number, false, false, true>({
+            integer: true,
+            min: 0,
+            max: 99,
+            required: false,
+            nullable: false,
+            initial: 0,
+        }),
+        anarchyThreshold: new fields.NumberField<number, number, false, false, true>({
+            integer: true,
+            required: false,
+            nullable: false,
+            initial: 20,
+        }),
     }),
 };
 
