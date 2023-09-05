@@ -1,9 +1,10 @@
 import { EffectPF2e } from "@item";
+import { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { htmlClosest } from "@util";
 import type { Renderer } from "pixi.js";
 import * as R from "remeda";
-import { CanvasPF2e, type TokenLayerPF2e, measureDistanceCuboid } from "../index.ts";
+import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 
@@ -394,6 +395,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
+
+    /** Players can view the sheets of lootable NPCs */
+    protected override _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
+        return super._canView(user, event) || !!(this.actor?.isOfType("npc") && this.actor.isLootable);
+    }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {

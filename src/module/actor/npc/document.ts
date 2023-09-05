@@ -60,50 +60,22 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return creatureIdentificationDCs(this, { proficiencyWithoutLevel });
     }
 
-    /** Users with limited permission can loot a dead NPC */
-    override canUserModify(user: User, action: UserAction): boolean {
-        if (action === "update" && this.isLootable) {
-            return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
-        }
-        return super.canUserModify(user, action);
-    }
-
-    /** A user can see a synthetic NPC in the actor directory if they have Observer permission
-     *  Show non synthetic documents with linked actor data and limited permission
-     */
-    override get visible(): boolean {
-        return !this.isToken && this.prototypeToken.actorLink && super.permission >= 1
-            ? super.visible
-            : this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
-    }
-
     get isLootable(): boolean {
         const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
         return this.isDead && (npcsAreLootable || this.flags.pf2e.lootable);
     }
 
-    /** Grant all users at least limited permission on dead NPCs */
-    override get permission(): DocumentOwnershipLevel {
-        if (game.user.isGM || !this.isLootable) {
-            return super.permission;
-        }
-        return Math.max(super.permission, 1) as DocumentOwnershipLevel;
+    /** A user can see an unlinked NPC in the actor directory only if they have at least Observer permission */
+    override get visible(): boolean {
+        return (
+            (super.visible && this.prototypeToken.actorLink) ||
+            this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER
+        );
     }
 
-    /** Grant players limited permission on dead NPCs */
-    override testUserPermission(
-        user: User,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        options?: { exact?: boolean }
-    ): boolean {
-        // Temporary measure until a lootable view of the legacy sheet is ready
-        if (game.user.isGM || !this.isLootable) {
-            return super.testUserPermission(user, permission, options);
-        }
-        if ([1, "LIMITED"].includes(permission) && !options) {
-            return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
-        }
-        return super.testUserPermission(user, permission, options);
+    /** Users with limited permission can loot a dead NPC */
+    override canUserModify(user: User, action: UserAction): boolean {
+        return super.canUserModify(user, action) || (action === "update" && this.isLootable);
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
