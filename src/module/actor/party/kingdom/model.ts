@@ -33,6 +33,7 @@ import {
     KINGDOM_SKILL_LABELS,
     VACANCY_PENALTIES,
 } from "./values.ts";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 
 const { DataModel } = foundry.abstract;
 
@@ -273,6 +274,8 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 
     prepareDerivedData(): void {
+        const { synthetics } = this.actor;
+
         // Calculate the control dc, used for skill checks
         const controlMod = CONTROL_DC_BY_LEVEL[Math.clamped(this.level - 1, 0, 19)] - 10;
         this.control = new Statistic(this.actor, {
@@ -299,6 +302,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                         label: KINGDOM_ABILITY_LABELS[ability],
                         modifier: abilityMod,
                         type: "ability",
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, ability),
                     }),
                     createProficiencyModifier({ actor: this.actor, rank, domains, level: this.level }),
                 ],
@@ -351,6 +355,11 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                 this.bonusFeats.assignFeat(feat);
             }
         }
+    }
+
+    getRollOptions(): string[] {
+        const prefix = "kingdom";
+        return R.compact([this.unrest ? `${prefix}:unrest:${this.unrest}` : null]);
     }
 
     getRollData(): Record<string, unknown> {

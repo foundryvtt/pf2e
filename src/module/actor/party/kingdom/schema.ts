@@ -165,14 +165,14 @@ const KINGDOM_SCHEMA = {
     abilities: new fields.SchemaField(
         R.mapToObj(KINGDOM_ABILITIES, (ability) => {
             const schema = new fields.SchemaField({
-                value: new fields.NumberField<number, number, true, false>({
+                value: new fields.NumberField<number, number, false, false>({
                     initial: 10,
-                    required: true,
+                    required: false,
                     nullable: false,
                 }),
-                mod: new fields.NumberField<number, number, true, false>({
+                mod: new fields.NumberField<number, number, false, false>({
                     initial: 0,
-                    required: true,
+                    required: false,
                     nullable: false,
                 }),
                 ruin: new fields.SchemaField({
@@ -188,9 +188,9 @@ const KINGDOM_SCHEMA = {
                     }),
                 }),
                 // todo: see if this goes away once we wire it up
-                penalty: new fields.NumberField<number, number, true, false>({
+                penalty: new fields.NumberField<number, number, false, false>({
                     initial: 0,
-                    required: true,
+                    required: false,
                     nullable: false,
                 }),
             });
@@ -216,6 +216,14 @@ const KINGDOM_SCHEMA = {
         })
     ),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
+    unrest: new fields.NumberField<number, number, false, false, true>({
+        integer: true,
+        min: 0,
+        max: 99,
+        required: false,
+        nullable: false,
+        initial: 0,
+    }),
 };
 
 export { KINGDOM_SCHEMA };
