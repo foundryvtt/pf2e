@@ -8,6 +8,7 @@ import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { sortBy, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
 import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { InvalidCampaign } from "./invalid-campaign.ts";
@@ -111,7 +112,13 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         // Filler until put into use for encounter metrics
-        this.system.details.level = { value: 0 };
+        const partyLevel = Math.round(
+            R.meanBy(
+                this.members.filter((m) => m.isOfType("character")),
+                (m) => m.level
+            )
+        );
+        this.system.details.level = { value: partyLevel };
     }
 
     /** Run rule elements (which may occur if it contains a kingdom) */
