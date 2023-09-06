@@ -2,17 +2,21 @@
     <section class="leaders">
         <h3 class="header">{{localize "PF2E.Kingmaker.Kingdom.Leaders"}}</h3>
         {{#each leadership as |leader|}}
-            <section class="leader" data-role="{{leader.slug}}">
-                <img src="{{leader.img}}"/>
+            <section class="leader" data-role="{{leader.slug}}" {{#if leader.uuid}}data-uuid="{{leader.uuid}}"{{/if}}>
+                {{#if leader.uuid}}
+                    <a class="image" data-action="open-sheet"><img src="{{leader.img}}"/></a>
+                {{else}}
+                    <div class="image"></div>
+                {{/if}}
                 <div class="name">
                     {{#if leader.actor}}
                         <span>
-                            {{leader.actor.name}}
+                            <a data-action="open-sheet">{{leader.actor.name}}</a>
                             {{#if @root.options.editable}}
                                 <a data-action="remove-leader"><i class="fa-solid fa-times"></i></a>
                             {{/if}}
                         </span>
-                        <label class="invested" title="{{localize "PF2E.Kingmaker.Kingdom.InvestedBonus" ability=leader.abilityLabel}}">
+                        <label class="invested" data-tooltip="{{localize "PF2E.Kingmaker.Kingdom.InvestedBonus" ability=leader.abilityLabel}}">
                             <input type="checkbox" name="leadership.{{leader.slug}}.invested" {{checked leader.invested}} />
                             <span>{{localize "PF2E.Kingmaker.Kingdom.Invested"}}</span>
                         </label>
@@ -26,7 +30,6 @@
                         <label class="vacant" title="{{leader.penaltyLabel}}">
                             <input type="checkbox" name="leadership.{{leader.slug}}.vacant" {{checked leader.vacant}} />
                             <span>{{localize "PF2E.Kingmaker.Kingdom.Vacant"}}</span>
-                            <i class="fas fa-info-circle"></i>
                         </label>
                     {{else if leader.vacant}}
                         <label class="vacant" title="{{leader.penaltyLabel}}">

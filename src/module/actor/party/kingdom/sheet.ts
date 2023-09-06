@@ -194,10 +194,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         // Data binding for leader roles
         for (const leader of htmlQueryAll(html, ".leader[data-role]")) {
-            const role = leader.dataset.role;
+            const { role, uuid } = leader.dataset;
             htmlQuery(leader, "[data-action=remove-leader]")?.addEventListener("click", () => {
                 this.kingdom.update({ [`leadership.${role}`]: null });
             });
+
+            if (uuid) {
+                for (const clickable of htmlQueryAll(leader, "[data-action=open-sheet]")) {
+                    clickable.addEventListener("click", () => fromUuid(uuid).then((a) => a?.sheet.render(true)));
+                }
+            }
 
             const vacantEl = htmlQuery(leader, ".vacant[title]");
             if (vacantEl) {
