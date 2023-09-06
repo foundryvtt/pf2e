@@ -33,7 +33,7 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     { classes = [], dataset = {}, children = [], innerHTML }: CreateHTMLElementOptions = {}
 ): HTMLElementTagNameMap[K] {
     const element = document.createElement(nodeName);
-    element.classList.add(...classes);
+    if (classes.length > 0) element.classList.add(...classes);
 
     for (const [key, value] of Object.entries(dataset).filter(([, v]) => !R.isNil(v))) {
         element.dataset[key] = String(value);

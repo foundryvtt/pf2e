@@ -4,10 +4,7 @@ import { htmlQueryAll, objectHasKey } from "@util";
 
 class UserVisibilityPF2e {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
-    static process($html: HTMLElement | JQuery, options: ProcessOptions = {}): void {
-        const html = $html instanceof HTMLElement ? $html : $html[0]!;
-        if ($html instanceof HTMLElement) $html = $($html);
-
+    static process(html: HTMLElement, options: ProcessOptions = {}): void {
         const visibilityElements = htmlQueryAll(html, "[data-visibility]");
 
         // Remove all visibility=none elements
