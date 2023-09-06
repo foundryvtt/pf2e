@@ -3,7 +3,7 @@ import { TraitViewData } from "@actor/data/base.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import {
     CheckModifier,
-    createAbilityModifier,
+    createAttributeModifier,
     createProficiencyModifier,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
@@ -86,7 +86,7 @@ abstract class BaseStatistic {
 
 /** A Pathfinder statistic used to perform checks and calculate DCs */
 class Statistic extends BaseStatistic {
-    ability: AttributeString | null = null;
+    attribute: AttributeString | null = null;
 
     rank: ZeroToFour | null = null;
 
@@ -108,11 +108,11 @@ class Statistic extends BaseStatistic {
         const domains = (data.domains ??= []);
 
         // Add some base modifiers depending on data values
-        // If this is a character with an ability, add/set the ability modifier
+        // If this is a character with an attribute, add/set the attribute modifier
         const attributeModifier =
-            actor.isOfType("character") && data.ability
-                ? data.modifiers.find((m) => m.type === "ability" && m.ability === data.ability) ??
-                  createAbilityModifier({ actor, ability: data.ability, domains })
+            actor.isOfType("character") && data.attribute
+                ? data.modifiers.find((m) => m.type === "ability" && m.ability === data.attribute) ??
+                  createAttributeModifier({ actor, attribute: data.attribute, domains })
                 : null;
 
         // If this is a character with a proficiency, add a proficiency modifier
@@ -132,7 +132,7 @@ class Statistic extends BaseStatistic {
 
         super(actor, data);
 
-        this.ability = data.ability ?? null;
+        this.attribute = data.attribute ?? null;
         if (typeof data.lore === "boolean") this.lore = data.lore;
         this.rank = data.rank === "untrained-level" ? 0 : data.rank ?? null;
         this.config = config;
@@ -149,14 +149,14 @@ class Statistic extends BaseStatistic {
         this.data.dc ??= { domains: [`${this.slug}-dc`] };
     }
 
-    /** Get the ability modifier used with this statistic. Since NPC statistics are contrived, create a new one. */
+    /** Get the attribute modifier used with this statistic. Since NPC statistics are contrived, create a new one. */
     get attributeModifier(): ModifierPF2e | null {
         if (this.actor.isOfType("npc")) {
-            return this.ability
-                ? createAbilityModifier({ actor: this.actor, ability: this.ability, domains: this.domains })
+            return this.attribute
+                ? createAttributeModifier({ actor: this.actor, attribute: this.attribute, domains: this.domains })
                 : null;
         }
-        return this.modifiers.find((m) => m.type === "ability" && m.enabled && m.ability === this.ability) ?? null;
+        return this.modifiers.find((m) => m.type === "ability" && m.enabled && m.ability === this.attribute) ?? null;
     }
 
     get check(): StatisticCheck<this> {
@@ -170,6 +170,15 @@ class Statistic extends BaseStatistic {
     /** Convenience getter to the statistic's total modifier */
     get mod(): number {
         return this.check.mod;
+    }
+
+    /** @deprecated */
+    get ability(): AttributeString | null {
+        foundry.utils.logCompatibilityWarning("`Statistic#ability` is deprecated. Use `Statistic#attribute` instead.", {
+            since: "5.5.0",
+            until: "6.0.0",
+        });
+        return this.attribute;
     }
 
     override createRollOptions(domains = this.domains, args: RollOptionConfig = {}): Set<string> {
@@ -319,6 +328,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         if (this.type === "attack-roll") {
             checkDomains.add("attack");
             checkDomains.add("attack-roll");
+        } else if (this.type === "check") {
+            checkDomains.add(`${this.parent.slug}-check`);
         } else if (this.type === "flat-check") {
             // If this is a flat check, ensure there are no input domains and replace them
             checkDomains.clear();

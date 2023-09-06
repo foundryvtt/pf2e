@@ -277,27 +277,27 @@ type ModifierOrderedParams = [
 ];
 
 /**
- * Create a modifier from a given ability type and score.
- * @returns The modifier provided by the given ability score.
+ * Create a modifier for a given attribute type.
+ * @returns The modifier of the given attribute
  */
-function createAbilityModifier({ actor, ability, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
-    const withAbilityBased = domains.includes(`${ability}-based`) ? domains : [...domains, `${ability}-based`];
-    const modifierValue = actor.abilities[ability].mod;
+function createAttributeModifier({ actor, attribute, domains, max }: CreateAbilityModifierParams): ModifierPF2e {
+    const withAttributeBased = domains.includes(`${attribute}-based`) ? domains : [...domains, `${attribute}-based`];
+    const modifierValue = actor.abilities[attribute].mod;
     const cappedValue = Math.min(modifierValue, max ?? modifierValue);
 
     return new ModifierPF2e({
-        slug: ability,
-        label: CONFIG.PF2E.abilities[ability],
+        slug: attribute,
+        label: CONFIG.PF2E.abilities[attribute],
         modifier: cappedValue,
         type: "ability",
-        ability,
-        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, withAbilityBased, ability),
+        ability: attribute,
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, withAttributeBased, attribute),
     });
 }
 
 interface CreateAbilityModifierParams {
     actor: CharacterPF2e | NPCPF2e;
-    ability: AttributeString;
+    attribute: AttributeString;
     domains: string[];
     /** An optional maximum for this ability modifier */
     max?: number;
@@ -713,7 +713,7 @@ export {
     TestableDeferredValueParams,
     adjustModifiers,
     applyStackingRules,
-    createAbilityModifier,
+    createAttributeModifier,
     createProficiencyModifier,
     ensureProficiencyOption,
 };

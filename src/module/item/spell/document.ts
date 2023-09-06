@@ -314,7 +314,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         new ModifierPF2e({
                             label: CONFIG.PF2E.abilities[attribute],
                             slug: `ability-${k}`,
-                            // Not a restricted ability modifier in the same way it is for checks or weapon damage
+                            // Not a restricted attribute modifier in the same way it is for checks or weapon damage
                             type: "untyped",
                             modifier: attributes[attribute].mod,
                             damageType: d.type.value,

@@ -111,6 +111,7 @@ interface HazardHitPoints extends ActorHitPoints {
     brokenThreshold: number;
 }
 
-type HazardSaves = Record<SaveType, SaveData>;
+type HazardSaveData = Omit<SaveData, "attribute">;
+type HazardSaves = Record<SaveType, HazardSaveData>;
 
 export { HazardSource, HazardSystemData };

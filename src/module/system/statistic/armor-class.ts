@@ -17,13 +17,13 @@ class ArmorStatistic extends Statistic {
 
     constructor(actor: ActorPF2e, data: Omit<ArmorStatisticData, "domains" | "label" | "slug"> = {}) {
         data.rank ??= 1;
-        const ability = actor.isOfType("creature") ? data.ability ?? "dex" : null;
-        const domains = ability ? ["all", `${ability}-based`] : ["all"];
+        const attribute = actor.isOfType("creature") ? data.attribute ?? "dex" : null;
+        const domains = attribute ? ["all", `${attribute}-based`] : ["all"];
         const fullData: ArmorStatisticData = {
             ...data,
             label: "TYPES.Item.armor",
             slug: "armor",
-            ability,
+            attribute,
             domains,
             proficient: data.rank > 0,
             dc: { label: "PF2E.ArmorClassLabel", domains: ["ac"], modifiers: [] },

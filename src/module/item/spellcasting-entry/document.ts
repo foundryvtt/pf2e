@@ -169,11 +169,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             const baseStat = actor.getStatistic(this.system.proficiency.slug);
             if (!baseStat) return;
 
-            this.system.ability.value = baseStat.ability ?? this.system.ability.value;
+            this.system.ability.value = baseStat.attribute ?? this.system.ability.value;
             this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ZeroToFour;
             this.statistic = baseStat.extend({
                 slug,
-                ability: this.attribute,
+                attribute: this.attribute,
                 rank: this.rank,
                 rollOptions: this.getRollOptions("spellcasting"),
                 domains: baseDomains,
@@ -192,7 +192,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             // Assign statistic data to the spellcasting entry
             this.statistic = new Statistic(actor, {
                 slug,
-                ability: this.attribute,
+                attribute: this.attribute,
                 label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
                 domains: baseDomains,
                 rollOptions: this.getRollOptions("spellcasting"),

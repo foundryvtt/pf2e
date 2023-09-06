@@ -383,7 +383,7 @@ export const PF2ECONFIG = {
         will: "PF2E.SavesWill",
     },
 
-    savingThrowDefaultAbilities: {
+    savingThrowDefaultAttributes: {
         fortitude: "con",
         reflex: "dex",
         will: "wis",

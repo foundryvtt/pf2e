@@ -1,5 +1,4 @@
 import {
-    AbilityBasedStatistic,
     ActorAttributes,
     ActorDetailsSource,
     ActorHitPoints,
@@ -7,6 +6,7 @@ import {
     ActorSystemSource,
     ActorTraitsData,
     ActorTraitsSource,
+    AttributeBasedTraceData,
     BaseActorSourcePF2e,
     StrikeData,
 } from "@actor/data/base.ts";
@@ -124,10 +124,12 @@ interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<Creatu
     languages: ValuesList<Language>;
 }
 
-type SkillData = StatisticTraceData & AbilityBasedStatistic;
+type SkillData = AttributeBasedTraceData;
 
 /** The full save data for a character; including its modifiers and other details */
-type SaveData = StatisticTraceData & AbilityBasedStatistic & { saveDetail?: string };
+interface SaveData extends AttributeBasedTraceData {
+    saveDetail?: string;
+}
 
 type CreatureSaves = Record<SaveType, SaveData>;
 

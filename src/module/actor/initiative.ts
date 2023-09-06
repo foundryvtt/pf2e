@@ -23,7 +23,7 @@ class ActorInitiative {
     statistic: Statistic;
 
     get attribute(): AttributeString | null {
-        return this.statistic.ability;
+        return this.statistic.attribute;
     }
 
     /** @deprecated */
