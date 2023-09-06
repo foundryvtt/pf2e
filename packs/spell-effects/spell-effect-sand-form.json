@@ -1,10 +1,10 @@
 {
     "_id": "qO1Gj9l8gh5CMEbf",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/shifting-sand.webp",
     "name": "Spell Effect: Sand Form",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Sand Form]</em></p>\n<p>You grant the target's body and gear aspects of sand. The target gains resistance to piercing and slashing damage, has no scent, and can't bleed. In sandy terrain, even when out in the open, the target has enough concealment to attempt to Hide. Each time the target takes damage to which <em>sand form</em> grants resistance, reduce the duration of the spell by 1 minute.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,25 +22,11 @@
                     "piercing",
                     "slashing"
                 ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 5
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 10
-                        },
-                        {
-                            "start": 7,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item.level"
-                }
+                "value": "ternary(gte(@item.level,7),15,ternary(gte(@item.level,5),10,5))"
+            },
+            {
+                "key": "Immunity",
+                "type": "bleed"
             }
         ],
         "source": {
