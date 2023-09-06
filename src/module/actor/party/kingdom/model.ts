@@ -237,7 +237,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             }
         }
 
-        // Auto-set if vacant (for npcs), and inject vacancy penalty modifiers into synthetics
+        // Auto-set if vacant (for npcs), and inject vacancy penalty modifiers and adjustments into synthetics
         for (const role of KINGDOM_LEADERSHIP) {
             const data = this.leadership[role];
             const actor = fromUuidSync(data.uuid ?? "");
@@ -249,6 +249,10 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
             if (data.vacant) {
                 const penalties = VACANCY_PENALTIES[role]();
+                for (const [selector, entries] of Object.entries(penalties.adjustments ?? {})) {
+                    const adjustments = (synthetics.modifierAdjustments[selector] ??= []);
+                    adjustments.push(...entries);
+                }
                 for (const [selector, entries] of Object.entries(penalties.modifiers ?? {})) {
                     const modifiers = (synthetics.modifiers[selector] ??= []);
                     modifiers.push(...entries.map((e) => () => new ModifierPF2e(e)));

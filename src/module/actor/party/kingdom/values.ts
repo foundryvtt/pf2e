@@ -106,7 +106,10 @@ const vacancyLabel = (role: KingdomLeadershipRole) =>
         role: game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${role}`),
     });
 
-type VacancyPenalty = { adjustments?: ModifierAdjustment[]; modifiers?: Record<string, RawModifier[]> };
+type VacancyPenalty = {
+    adjustments?: Record<string, ModifierAdjustment[]>;
+    modifiers?: Record<string, (RawModifier & { slug: string })[]>;
+};
 const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
     ruler: () => ({
         // ruler vacancy stacks with all sources
@@ -122,8 +125,22 @@ const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
     }),
     general: () => ({
         modifiers: {
-            "kingdom-check": [
-                { slug: "vacancy", label: vacancyLabel("general"), modifier: -4, predicate: ["warfare"] },
+            warfare: [
+                {
+                    slug: "vacancy",
+                    label: vacancyLabel("general"),
+                    modifier: 0,
+                },
+            ],
+        },
+        adjustments: {
+            warfare: [
+                {
+                    slug: "vacancy",
+                    test: () => true,
+                    relabel: vacancyLabel("general"),
+                    getNewValue: () => -4,
+                },
             ],
         },
     }),
@@ -134,8 +151,22 @@ const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
     }),
     magister: () => ({
         modifiers: {
-            "kingdom-check": [
-                { slug: "vacancy", label: vacancyLabel("magister"), modifier: -4, predicate: ["warfare"] },
+            warfare: [
+                {
+                    slug: "vacancy",
+                    label: vacancyLabel("magister"),
+                    modifier: 0,
+                },
+            ],
+        },
+        adjustments: {
+            warfare: [
+                {
+                    slug: "vacancy",
+                    test: () => true,
+                    relabel: vacancyLabel("magister"),
+                    getNewValue: () => -4,
+                },
             ],
         },
     }),
@@ -151,7 +182,23 @@ const VACANCY_PENALTIES: Record<KingdomLeadershipRole, () => VacancyPenalty> = {
     }),
     warden: () => ({
         modifiers: {
-            "kingdom-check": [{ slug: "vacancy", label: vacancyLabel("warden"), modifier: -4, predicate: ["region"] }],
+            "kingdom-check": [
+                {
+                    slug: "vacancy",
+                    label: vacancyLabel("warden"),
+                    modifier: 0,
+                },
+            ],
+        },
+        adjustments: {
+            "kingdom-check": [
+                {
+                    slug: "vacancy",
+                    test: (options) => [...options].includes("region"),
+                    relabel: vacancyLabel("warden"),
+                    getNewValue: () => -4,
+                },
+            ],
         },
     }),
 };
