@@ -29,8 +29,17 @@ import {
 } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
-import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, getActionIcon, htmlClosest, localizer, ordinal, setHasElement, traitSlugToObject } from "@util";
+import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
+import {
+    ErrorPF2e,
+    createHTMLElement,
+    getActionIcon,
+    htmlClosest,
+    localizer,
+    ordinal,
+    setHasElement,
+    traitSlugToObject,
+} from "@util";
 import * as R from "remeda";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData, SpellSystemSource } from "./data.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
@@ -720,7 +729,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Spell save label
         const saveType = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : null;
         const saveKey = systemData.save.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
-        const saveLabel = spellDC && saveType ? game.i18n.format(saveKey, { dc: spellDC, type: saveType }) : null;
+        const saveLabel = ((): string | null => {
+            if (!(spellDC && saveType)) return null;
+            const localized = game.i18n.format(saveKey, { dc: spellDC, type: saveType });
+            const tempElement = createHTMLElement("div", { innerHTML: localized });
+            const visibility = game.settings.get("pf2e", "metagame_showDC") ? "all" : "owner";
+            TextEditorPF2e.convertXMLNode(tempElement, "dc", { visibility, whose: null });
+            return tempElement.innerHTML;
+        })();
 
         // Spell attack labels
         const isHeal = systemData.spellType.value === "heal";
