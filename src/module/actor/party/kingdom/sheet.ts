@@ -181,7 +181,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         const { fame } = this.kingdom.resources;
-        const famePips = htmlQuery(html, "a[data-action=adjust-fame]");
+        const famePips = htmlQuery(html, "[data-action=adjust-fame]");
         famePips?.addEventListener("click", async () => {
             const newValue = Math.min(fame.value + 1, fame.max);
             await this.kingdom.update({ "resources.fame.value": newValue });
