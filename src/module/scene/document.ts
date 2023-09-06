@@ -11,6 +11,10 @@ class ScenePF2e extends Scene {
         return this.flags.pf2e.rulesBasedVision ?? game.settings.get("pf2e", "automation.rulesBasedVision");
     }
 
+    get hearingRange(): number | null {
+        return this.flags.pf2e.hearingRange;
+    }
+
     /** Is this scene's darkness value synced to the world time? */
     get darknessSyncedToTime(): boolean {
         return (
@@ -58,7 +62,14 @@ class ScenePF2e extends Scene {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e = mergeObject({ rulesBasedVision: null, syncDarkness: "default" }, this.flags.pf2e ?? {});
+        this.flags.pf2e = mergeObject(
+            {
+                hearingRange: null,
+                rulesBasedVision: null,
+                syncDarkness: "default",
+            },
+            this.flags.pf2e ?? {}
+        );
 
         if (this.rulesBasedVision) {
             this.globalLight = true;

@@ -1,9 +1,13 @@
 import { WorldClock } from "@module/apps/world-clock/app.ts";
-import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
-import { ScenePF2e } from "./index.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
+import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
+import type { ScenePF2e } from "./document.ts";
 
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TDocument> {
+    get scene(): TDocument {
+        return this.document;
+    }
+
     protected override async _renderInner(
         data: FormApplicationData<TDocument>,
         options: RenderOptions
@@ -11,6 +15,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         const $html = await super._renderInner(data, options);
         const html = $html[0];
 
+        // Rules-based vision
         const [tab, panel] = await (async (): Promise<HTMLTemplateElement[]> => {
             const hbsPath = "systems/pf2e/templates/scene/sheet-partials.hbs";
             const rbvWorldDefault = game.i18n.localize(
@@ -18,7 +23,8 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
                     ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
                     : "PF2E.SETTINGS.EnabledDisabled.Disabled"
             );
-            const templates = await renderTemplate(hbsPath, { rbvWorldDefault });
+            const templates = await renderTemplate(hbsPath, { scene: this.scene, rbvWorldDefault });
+
             return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
         })();
         htmlQuery(html, "nav.tabs")?.append(...tab.content.children);
@@ -31,11 +37,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Hide Unrestricted Vision Range settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
 
+        // Open world automation settings
         htmlQuery(html, "button[data-action=world-rbv-setting]")?.addEventListener("click", () => {
             const menu = game.settings.menus.get("pf2e.automation");
             if (menu) {
@@ -45,7 +51,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             }
         });
 
-        // Check the setting directly in case the user is viewing the scene config of an inactive scene
+        this.#activateRBVListeners(html);
+    }
+
+    /** Hide Global Illumination settings when rules-based vision is enabled. */
+    #activateRBVListeners(html: HTMLElement): void {
         if (!this.document.rulesBasedVision) return;
 
         // Disable all global light settings
@@ -95,6 +105,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const rbvSetting = formData["flags.pf2e.rulesBasedVision"];
         formData["flags.pf2e.rulesBasedVision"] = rbvSetting === "true" ? true : rbvSetting === "false" ? false : null;
+
+        const hearingRange = formData["flags.pf2e.hearingRange"];
+        formData["flags.pf2e.hearingRange"] =
+            typeof hearingRange === "number" ? Math.ceil(Math.clamped(hearingRange || 5, 5, 3000) / 5) * 5 : null;
+
         return super._updateObject(event, formData);
     }
 }

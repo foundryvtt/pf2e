@@ -280,7 +280,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         if (!this.actor.hasCondition("deafened")) {
-            this.detectionModes.push({ id: "hearing", enabled: true, range: Infinity });
+            const range = this.scene.flags.pf2e.hearingRange ?? canvas.dimensions?.maxR ?? Infinity;
+            this.detectionModes.push({ id: "hearing", enabled: true, range });
         }
     }
 
