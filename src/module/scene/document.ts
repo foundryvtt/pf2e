@@ -86,7 +86,8 @@ class ScenePF2e extends Scene {
     override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void {
         super._onUpdate(changed, options, userId);
 
-        if (this.isView && changed.flags?.pf2e?.rulesBasedVision !== undefined) {
+        const flagChanges = changed.flags?.pf2e ?? {};
+        if (this.isView && ["rulesBasedVision", "hearingRange"].some((k) => flagChanges[k] !== undefined)) {
             canvas.perception.update({ initializeLighting: true, initializeVision: true });
         }
 
