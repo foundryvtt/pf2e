@@ -1,8 +1,8 @@
+import { ActorPF2e } from "@actor";
 import { SkillLongForm } from "@actor/types.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from "./index.ts";
-import { ActorPF2e } from "@actor";
 
 class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
@@ -223,6 +223,15 @@ class CombatantPF2e<
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    protected override _onCreate(
+        data: this["_source"],
+        options: DocumentModificationContext<TParent>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+        this.token?.object?.onEncounterChange();
+    }
+
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
@@ -251,6 +260,8 @@ class CombatantPF2e<
         if (this.encounter?.started) {
             this.encounter.resetActors();
         }
+
+        this.token?.object?.onEncounterChange();
     }
 }
 
@@ -274,4 +285,4 @@ type RolledCombatant<TEncounter extends EncounterPF2e> = CombatantPF2e<TEncounte
     initiative: number;
 };
 
-export { CombatantPF2e, CombatantFlags, RolledCombatant };
+export { CombatantFlags, CombatantPF2e, RolledCombatant };

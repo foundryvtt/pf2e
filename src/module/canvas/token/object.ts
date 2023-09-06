@@ -206,7 +206,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override async drawEffects(): Promise<void> {
         await super.drawEffects();
         await this._animation;
-        this.auras.draw();
+        this.auras.reset();
     }
 
     /** Emulate a pointer hover ("pointerover") event */
@@ -394,6 +394,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     protected override _destroy(): void {
         super._destroy();
+        this.auras.destroy();
         this.hearing.destroy();
     }
 
@@ -410,16 +411,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
-        this.auras.refresh();
+        this.auras.draw();
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
-
         super._onRelease(options);
-
-        this.auras.refresh();
+        this.auras.draw();
     }
 
     protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
@@ -430,7 +429,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
-        this.auras.refresh();
+        this.auras.draw();
 
         return true;
     }
@@ -442,21 +441,20 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
-        this.auras.refresh();
+        this.auras.draw();
 
         return true;
     }
 
-    /** Destroy auras before removing this token from the canvas */
-    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void {
-        super._onDelete(options, userId);
-        this.auras.clear();
+    /** Callback for when an encounter or a combatant is created updated, deleted, or deleted. */
+    onEncounterChange(): void {
+        this.auras.draw();
     }
 
     /** Refresh auras when an animation finishes */
     async #onFinishAnimation(): Promise<void> {
         await this._animation;
-        this.auras.refresh();
+        this.auras.draw();
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
