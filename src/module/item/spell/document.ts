@@ -28,7 +28,7 @@ import {
     SpellDamageTemplate,
 } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
-import { StatisticRollParameters } from "@system/statistic/index.ts";
+import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -857,18 +857,25 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     /** Roll counteract check */
     async rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
         event = event instanceof Event ? event : event?.originalEvent;
-        if (!this.actor?.isOfType("character", "npc")) return null;
+        if (!this.actor?.isOfType("character", "npc")) {
+            return null;
+        }
 
-        const statistic = this.spellcasting?.statistic;
-        if (!statistic) {
+        if (!this.spellcasting?.statistic?.attribute) {
             console.warn(
-                `PF2e System | Spell ${this.name} is missing a statistic to counteract with (${this.id}) on actor ${this.actor.name}`
+                ErrorPF2e(`Spell ${this.name} (${this.uuid}) is missing a statistic with which to counteract.`).message
             );
             return null;
         }
 
-        const domain = "counteract-check";
         const localize = localizer("PF2E.Item.Spell.Counteract");
+        const statistic = new Statistic(this.actor, {
+            slug: "counteract",
+            label: localize("Label"),
+            attribute: this.spellcasting.attribute,
+            rank: this.spellcasting.statistic.rank ?? 0,
+        });
+        const domain = "counteract-check";
         const notes = [
             new RollNotePF2e({ selector: domain, text: localize("Hint") }),
             ...DEGREE_OF_SUCCESS_STRINGS.map((degreeString): RollNotePF2e => {
