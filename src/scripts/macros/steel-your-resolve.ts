@@ -8,7 +8,8 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (actors.length > 1 || !(actor instanceof CharacterPF2e)) {
-        return ui.notifications.error(localize("BadArgs"));
+        ui.notifications.error(localize("BadArgs"));
+        return;
     }
 
     const toChat = (alias: string, content: string) => {
@@ -20,7 +21,8 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
     };
 
     if (!game.settings.get("pf2e", "staminaVariant")) {
-        return ui.notifications.error(localize("StaminaNotEnabled"));
+        ui.notifications.error(localize("StaminaNotEnabled"));
+        return;
     }
 
     Dialog.confirm({

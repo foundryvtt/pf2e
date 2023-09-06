@@ -248,7 +248,8 @@ class ChatMessagePF2e extends ChatMessage {
                     const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
                         damageType: damageTypeLocalized,
                     });
-                    return ui.notifications.warn(message);
+                    ui.notifications.warn(message);
+                    return;
                 }
 
                 condition.rollRecovery();

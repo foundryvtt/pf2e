@@ -15,7 +15,10 @@ export async function rollItemMacro(itemId: string): Promise<ChatMessagePF2e | u
     const speaker = ChatMessage.getSpeaker();
     const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     const item = actor?.items?.get(itemId);
-    if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemId}`);
+    if (!item) {
+        ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemId}`);
+        return;
+    }
 
     if (item.isOfType("action", "feat") && item.system.selfEffect) {
         return createSelfEffectMessage(item);
