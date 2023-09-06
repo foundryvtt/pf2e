@@ -232,6 +232,9 @@ const KINGDOM_SCHEMA = {
             initial: 20,
         }),
     }),
+
+    /** Any kingmaker specific module configuration and tweaks. Not used otherwise */
+    module: new fields.ObjectField({ required: false, initial: {} }),
 };
 
 export { KINGDOM_SCHEMA };
