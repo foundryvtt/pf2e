@@ -143,12 +143,13 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             }
             this.#setGrantFlags(itemSource, existingItem);
 
-            return ui.notifications.info(
+            ui.notifications.info(
                 game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
                     actor: this.actor.name,
                     item: grantedItem.name,
                 })
             );
+            return;
         }
 
         // Set ids and flags on the granting and granted items

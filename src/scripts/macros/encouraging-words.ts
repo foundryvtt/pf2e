@@ -10,7 +10,8 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (actors.length > 1 || !(actor instanceof CharacterPF2e)) {
-        return ui.notifications.error(localize("BadArgs"));
+        ui.notifications.error(localize("BadArgs"));
+        return;
     }
 
     const encouragingWordsMacro = async (DC: number, bonus: number, dip: Statistic) => {

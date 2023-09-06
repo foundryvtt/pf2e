@@ -244,7 +244,8 @@ class ChatCards {
                 const craftingCost = CoinsPF2e.fromPrice(physicalItem.price, quantity);
                 const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
-                    return ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                    return;
                 }
 
                 if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
@@ -267,7 +268,8 @@ class ChatCards {
 
                 const result = await actor.addToInventory(itemObject, undefined);
                 if (!result) {
-                    return ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+                    return;
                 }
 
                 ChatMessagePF2e.create({

@@ -227,7 +227,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         const isTargeted = Array.from(game.user.targets).some((t) => t.document === tokenDoc);
         if (!tokenDoc.object?.visible) {
-            return ui.notifications.warn("COMBAT.PingInvisibleToken", { localize: true });
+            ui.notifications.warn("COMBAT.PingInvisibleToken", { localize: true });
+            return;
         }
 
         tokenDoc.object.setTarget(!isTargeted, { releaseOthers: !event?.shiftKey });

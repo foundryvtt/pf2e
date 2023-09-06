@@ -77,7 +77,8 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 const spell = await fromUuid(uuid);
                 if (!(spell instanceof SpellPF2e)) {
                     this.render(false);
-                    return ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
+                    ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
+                    return;
                 }
 
                 spell.sheet.render(true);

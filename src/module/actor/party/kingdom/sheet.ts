@@ -280,7 +280,8 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier-name")?.value?.trim() ??
                     game.i18n.localize(`PF2E.ModifierType.${type}`);
                 if (!setHasElement(MODIFIER_TYPES, type)) {
-                    return ui.notifications.error("Type is required.");
+                    ui.notifications.error("Type is required.");
+                    return;
                 }
 
                 this.kingdom.addCustomModifier(stat, { label, modifier, type });
