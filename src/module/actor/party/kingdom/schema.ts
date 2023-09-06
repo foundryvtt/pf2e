@@ -98,6 +98,12 @@ const KINGDOM_RESOURCES_SCHEMA = {
             return [type, schema];
         })
     ),
+    points: new fields.NumberField<number, number, false, false, true>({
+        min: 0,
+        required: false,
+        nullable: false,
+        initial: 0,
+    }),
     /** Worksites by commodity type, for the commodities that can have work sites */
     workSites: new fields.SchemaField(
         R.mapToObj(["lumber", "ore", "stone"], (type) => {

@@ -6,7 +6,11 @@
             </div>
         </div>
         <div class="details">
-            <input name="name" class="name" type="text" value="{{kingdom.name}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.NamePlaceholder"}}"/>
+            <div class="title">
+                <input name="name" class="name" type="text" value="{{kingdom.name}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.NamePlaceholder"}}"/>
+                <div class="nation-type">{{nationTypeLabel}}</div>
+            </div>
+
             <label class="capital">
                 <span>{{localize "PF2E.Kingmaker.Kingdom.Capital"}}</span>
                 <input name="capital" type="text" value="{{kingdom.capital}}" placeholder="{{localize "PF2E.Kingmaker.Kingdom.CapitalPlaceholder"}}" />
@@ -15,12 +19,16 @@
             <label class="size">
                 <span>{{localize "PF2E.Kingmaker.Kingdom.Size"}}</span>
                 <input name="size" type="number" value="{{kingdom.size}}" />
-                <div>{{nationTypeLabel}}</div>
             </label>
 
-            <label class="fame">
+            <label class="resource-points">
+                <span data-tooltip="PF2E.Kingmaker.Kingdom.Resources.Points">{{localize "PF2E.Kingmaker.Kingdom.Resources.RP"}}</span>
+                <input name="resources.points" type="number" value="{{kingdom.resources.points}}" />
+            </label>
+
+            <label class="fame" data-action="adjust-fame">
                 <span>{{localize (concat "PF2E.Kingmaker.Kingdom.Aspiration." kingdom.aspiration)}}</span>
-                <a class="pips {{#unless member.owner}}readonly{{/unless}}" data-action="adjust-fame">
+                <a class="pips {{#unless member.owner}}readonly{{/unless}}">
                     {{#times kingdom.resources.fame.max}}
                         {{#if (gt @root.kingdom.resources.fame.value this)}}
                             <i class="fa-solid fa-circle"></i>
