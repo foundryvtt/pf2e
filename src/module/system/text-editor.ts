@@ -446,7 +446,7 @@ class TextEditorPF2e extends TextEditor {
                 case "will":
                     return fontAwesomeIcon("brain");
                 case "perception":
-                    return fontAwesomeIcon("heart-pulse");
+                    return fontAwesomeIcon("eye");
                 default:
                     return fontAwesomeIcon("dice-d20");
             }
