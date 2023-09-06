@@ -8,7 +8,6 @@
 .skills, .actions {
     display: flex;
     height: 100%;
-    overflow: hidden;
     flex-direction: column;
 }
 
@@ -17,6 +16,7 @@
 }
 
 .skills {
+    overflow: hidden;
     padding-right: 0.5rem;
 
     .control-dc {
@@ -84,7 +84,7 @@
 
     h3.header .filters {
         float: right;
-        margin: -0.125rem 0 0 auto;
+        margin: -0.125rem 0 0.125rem auto;
 
         .choice {
             cursor: pointer;
@@ -99,6 +99,19 @@
         }
     }
 
+    .phase-summary {
+        background: var(--paper-bg);
+        box-shadow: var(--drop-shadow);
+        margin: 0 12px 0.5rem 2px;
+        padding: 0.25rem 0.5rem;
+        header {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--color-text-dark-input);
+            margin-top: 0.25rem;
+        }
+    }
+
     .action {
         align-items: center;
         display: flex;
@@ -110,6 +123,7 @@
 
         .item-name {
             align-items: center;
+            cursor: pointer;
             display: flex;
             flex: 1;
         }

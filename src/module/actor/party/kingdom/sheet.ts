@@ -287,12 +287,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const duration = 0.4;
         this.selectedFilter = trait;
 
-        // Set and animate visibility of the different action types
-        for (const action of this.kingdom.activities) {
-            const element = htmlQuery(html, `[data-item-id="${action.id}"]`);
-            const visible = !trait || tupleHasValue(action.system.traits.value, trait);
-            if (!element) continue;
-
+        const animateElement = (element: HTMLElement, visible: boolean) => {
             if (options.instant) {
                 element.hidden = !visible;
             } else if (visible && element.hidden) {
@@ -316,6 +311,19 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     },
                 });
             }
+        };
+
+        // Set and animate visibility of the different action types
+        for (const action of this.kingdom.activities) {
+            const element = htmlQuery(html, `[data-item-id="${action.id}"]`);
+            const visible = !trait || tupleHasValue(action.system.traits.value, trait);
+            if (!element) continue;
+            animateElement(element, visible);
+        }
+
+        // Set and animate phases
+        for (const summary of htmlQueryAll(html, ".phase-summary")) {
+            animateElement(summary, summary.dataset.phase === trait);
         }
 
         // Set active toggle
