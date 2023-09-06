@@ -182,11 +182,11 @@ class TextEditorPF2e extends TextEditor {
     }
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
-        const $html = $("<div>").html(content);
+        const html = createHTMLElement("div", { innerHTML: content });
         const document = options.rollData?.actor ?? null;
-        UserVisibilityPF2e.process($html, { document });
+        UserVisibilityPF2e.process(html, { document });
 
-        return $html.html();
+        return html.innerHTML;
     }
 
     static async enrichString(
