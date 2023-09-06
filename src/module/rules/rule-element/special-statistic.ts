@@ -46,19 +46,17 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
         if (this.type === "simple") return;
 
         const checkDomains = this.type === "check" ? [`${this.slug}-check`] : [`${this.slug}-attack-roll`];
+        const extendedFrom = this.extends ? this.actor.getStatistic(this.extends) : null;
         const data: StatisticData = {
             slug: this.slug,
             label: this.label,
+            attribute: this.attribute ?? extendedFrom?.attribute ?? null,
             domains: [this.slug],
             check: { type: this.type === "check" ? "check" : "attack-roll", domains: checkDomains },
             dc: { domains: [`${this.slug}-dc`] },
         };
-        if (this.attribute) data.ability = this.attribute;
 
-        const statistic = this.extends
-            ? this.actor.getStatistic(this.extends)?.extend(data)
-            : new Statistic(this.actor, data);
-
+        const statistic = extendedFrom?.extend(data) ?? new Statistic(this.actor, data);
         if (statistic) {
             this.actor.synthetics.statistics.set(this.slug, statistic);
         } else {

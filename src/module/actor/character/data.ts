@@ -25,9 +25,9 @@ import {
 } from "@actor/creature/index.ts";
 import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import {
-    AbilityBasedStatistic,
     ActorAttributesSource,
     ActorFlagsPF2e,
+    AttributeBasedTraceData,
     HitPointsStatistic,
     InitiativeData,
     PerceptionData,
@@ -307,7 +307,6 @@ interface AttributeBoosts extends AttributeBoostsSource {
 type CharacterAbilities = Record<AttributeString, CharacterAbilityData>;
 
 interface CharacterSaveData extends SaveData {
-    ability: AttributeString;
     /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
 }
@@ -360,7 +359,7 @@ type MartialProficiencies = CategoryProficiencies &
 type MartialProficiencyKey = keyof Required<MartialProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-interface ClassDCData extends Required<AbilityBasedStatistic>, StatisticTraceData {
+interface ClassDCData extends Required<AttributeBasedTraceData>, StatisticTraceData {
     label: string;
     rank: ZeroToFour;
     primary: boolean;

@@ -150,12 +150,12 @@ interface ActorTraitsData<TTrait extends string> extends ActorTraitsSource<TTrai
 }
 
 /** Basic skill and save data (not including custom modifiers). */
-interface AbilityBasedStatistic {
-    /** The actual modifier for this martial type. */
+interface AttributeBasedTraceData extends StatisticTraceData {
+    /** The actual modifier for this martial type */
     value: number;
-    /** Describes how the value was computed. */
+    /** Describes how the value was computed */
     breakdown: string;
-    /** The ability which this save scales off of. */
+    /** The attribute off of which this save scales */
     ability?: AttributeString;
 }
 
@@ -175,10 +175,10 @@ interface InitiativeData extends StatisticTraceData {
     tiebreakPriority: ZeroToTwo;
 }
 
-/** The full data for character perception rolls (which behave similarly to skills). */
-type PerceptionData = StatisticTraceData & AbilityBasedStatistic;
+/** The full data for creature perception rolls (which behave similarly to skills). */
+type PerceptionData = AttributeBasedTraceData;
 
-/** The full data for character AC; includes the armor check penalty. */
+/** The full data for creature or hazard AC; includes the armor check penalty. */
 interface ArmorClassData {
     /** The actual AC value */
     value: number;
@@ -279,7 +279,6 @@ interface PrototypeTokenPF2e<TParent extends ActorPF2e | null> extends foundry.d
 }
 
 export {
-    AbilityBasedStatistic,
     ActorAttributes,
     ActorAttributesSource,
     ActorDetails,
@@ -291,6 +290,7 @@ export {
     ActorTraitsData,
     ActorTraitsSource,
     ArmorClassData,
+    AttributeBasedTraceData,
     BaseActorSourcePF2e,
     BaseHitPointsSource,
     DamageRollFunction,

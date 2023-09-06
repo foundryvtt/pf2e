@@ -11,7 +11,7 @@ import {
     ModifierPF2e,
     StatisticModifier,
     adjustModifiers,
-    createAbilityModifier,
+    createAttributeModifier,
     createProficiencyModifier,
 } from "@actor/modifiers.ts";
 import { AttributeString, MovementType, RollContext, RollContextParams, SaveType } from "@actor/types.ts";
@@ -420,7 +420,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { skills } = this.system;
         for (const key of SKILL_ABBREVIATIONS) {
             const skill = skills[key];
-            skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].ability;
+            skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
             skill.armor = ["dex", "str"].includes(skill.ability);
         }
 
@@ -603,7 +603,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.perception = new Statistic(this, {
             slug: "perception",
             label: "PF2E.PerceptionLabel",
-            ability: "wis",
+            attribute: "wis",
             rank: systemData.attributes.perception.rank,
             domains: ["perception", "wis-based", "all"],
             check: { type: "perception-check" },
@@ -805,9 +805,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const dexCap = dexCapSources.reduce((lowest, candidate) =>
             lowest.value > candidate.value ? candidate : lowest
         );
-        const dexModifier = createAbilityModifier({
+        const dexModifier = createAttributeModifier({
             actor: this,
-            ability: "dex",
+            attribute: "dex",
             domains: ["all", "ac", "dex-based"],
             max: dexCap.value,
         });
@@ -820,7 +820,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         return new ArmorStatistic(this, {
             rank: this.system.martial[proficiency]?.rank ?? 0,
-            ability: abilityModifier.ability!,
+            attribute: abilityModifier.ability!,
             modifiers: [abilityModifier],
         });
     }
@@ -870,7 +870,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
-                ability: save.ability,
+                attribute: save.ability,
                 rank: save.rank,
                 modifiers,
                 domains: selectors,
@@ -942,7 +942,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 slug: longForm,
                 label,
                 rank: skill.rank,
-                ability: skill.ability,
+                attribute: skill.ability,
                 domains,
                 modifiers,
                 lore: false,
@@ -967,7 +967,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 slug: longForm,
                 label: loreItem.name,
                 rank,
-                ability: "int",
+                attribute: "int",
                 domains,
                 lore: true,
                 check: { type: "skill-check" },
@@ -1066,7 +1066,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return new Statistic(this, {
             slug,
             label: classDC.label,
-            ability: classDC.ability,
+            attribute: classDC.ability,
             rank: classDC.rank,
             domains: ["class", slug, `${classDC.ability}-based`, "all"],
             check: { type: "check" },
@@ -1240,12 +1240,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Determine the default ability and score for this attack.
         const defaultAbility = options.defaultAbility ?? weapon.defaultAbility;
-        modifiers.push(createAbilityModifier({ actor: this, ability: defaultAbility, domains: baseSelectors }));
+        modifiers.push(createAttributeModifier({ actor: this, attribute: defaultAbility, domains: baseSelectors }));
         if (weapon.isMelee && weaponTraits.has("finesse")) {
-            modifiers.push(createAbilityModifier({ actor: this, ability: "dex", domains: baseSelectors }));
+            modifiers.push(createAttributeModifier({ actor: this, attribute: "dex", domains: baseSelectors }));
         }
         if (weapon.isRanged && weaponTraits.has("brutal")) {
-            modifiers.push(createAbilityModifier({ actor: this, ability: "str", domains: baseSelectors }));
+            modifiers.push(createAttributeModifier({ actor: this, attribute: "str", domains: baseSelectors }));
         }
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;

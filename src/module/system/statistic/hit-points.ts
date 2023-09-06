@@ -1,5 +1,5 @@
 import { CreaturePF2e, HazardPF2e, VehiclePF2e } from "@actor";
-import { StatisticModifier, createAbilityModifier } from "@actor/modifiers.ts";
+import { StatisticModifier, createAttributeModifier } from "@actor/modifiers.ts";
 import { signedInteger } from "@util";
 import * as R from "remeda";
 import { BaseStatistic, BaseStatisticTraceData } from "./index.ts";
@@ -28,7 +28,7 @@ class HitPointsStatistic extends BaseStatistic {
 
     constructor(actor: CreaturePF2e | HazardPF2e | VehiclePF2e, { baseMax = 0 }: { baseMax?: number } = {}) {
         const modifiers = actor.isOfType("character")
-            ? [createAbilityModifier({ actor, ability: "con", domains: ["hp", "con-based"] })]
+            ? [createAttributeModifier({ actor, attribute: "con", domains: ["hp", "con-based"] })]
             : [];
 
         super(actor, {
