@@ -1324,9 +1324,9 @@ export const PF2ECONFIG = {
             syncDarknessScene: {
                 name: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Name",
                 hint: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Hint",
-                enabled: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Enabled",
-                disabled: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Disabled",
-                default: "PF2E.SETTINGS.WorldClock.SyncDarknessScene.Default",
+                enabled: "PF2E.SETTINGS.EnabledDisabled.Enabled",
+                default: "PF2E.SETTINGS.EnabledDisabled.Default",
+                disabled: "PF2E.SETTINGS.EnabledDisabled.Disabled",
             },
             worldCreatedOn: {
                 name: "PF2E.SETTINGS.WorldClock.WorldCreatedOn.Name",
