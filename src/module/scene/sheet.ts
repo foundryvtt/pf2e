@@ -91,7 +91,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         }
     }
 
-    /** Nu */
+    /** Intercept flag update and change to boolean/null. */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const rbvSetting = formData["flags.pf2e.rulesBasedVision"];
         formData["flags.pf2e.rulesBasedVision"] = rbvSetting === "true" ? true : rbvSetting === "false" ? false : null;
