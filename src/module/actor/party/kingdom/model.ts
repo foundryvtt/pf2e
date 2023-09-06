@@ -84,17 +84,20 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         // Do not show kingdom to party members until it becomes activated.
         if (!this.active && !game.user.isGM) return [];
 
-        const crownIcon = fontAwesomeIcon("crown");
-        const icon = createHTMLElement("a", { classes: ["create-button"], children: [crownIcon] });
-        if (!this.active) {
-            icon.appendChild(fontAwesomeIcon("plus"));
-        }
+        const icon = createHTMLElement("a", {
+            classes: ["create-button"],
+            children: R.compact([fontAwesomeIcon("crown"), !this.active ? fontAwesomeIcon("plus") : null]),
+            dataset: {
+                tooltip: game.i18n.localize(`PF2E.Kingmaker.SIDEBAR.${this.active ? "OpenSheet" : "CreateKingdom"}`),
+            },
+        });
 
         icon.addEventListener("click", (event) => {
             event.stopPropagation();
             const type = this.active ? null : "builder";
             this.renderSheet({ type });
         });
+
         return [icon];
     }
 
