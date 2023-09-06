@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { StrikeSelf } from "@actor/types.ts";
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -17,6 +17,7 @@ import {
     objectHasKey,
     setHasElement,
     sluggify,
+    tupleHasValue,
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -436,7 +437,7 @@ class TextEditorPF2e extends TextEditor {
         actor?: ActorPF2e | null;
         inlineLabel?: string;
     }): HTMLSpanElement | null {
-        // Build the inline link
+        // Get the icon
         const icon = ((): HTMLElement => {
             switch (params.type) {
                 case "fortitude":
@@ -456,9 +457,48 @@ class TextEditorPF2e extends TextEditor {
         const name = params.name ?? item?.name ?? params.type;
         const localize = localizer("PF2E.InlineCheck");
 
+        // Get the label
+        const label = (() => {
+            if (inlineLabel) return inlineLabel;
+
+            if (tupleHasValue(SAVE_TYPES, params.type)) {
+                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
+                return params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
+            }
+
+            switch (params.type) {
+                case "flat":
+                    return game.i18n.localize("PF2E.FlatCheck");
+                case "perception":
+                    return game.i18n.localize("PF2E.PerceptionLabel");
+                default: {
+                    // Skill or Lore
+                    const shortForm = (() => {
+                        if (objectHasKey(SKILL_EXPANDED, params.type)) {
+                            return SKILL_EXPANDED[params.type].shortForm;
+                        } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
+                            return params.type;
+                        }
+                        return;
+                    })();
+                    return shortForm
+                        ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
+                        : params.type
+                              .split("-")
+                              .map((word) => {
+                                  return word.slice(0, 1).toUpperCase() + word.slice(1);
+                              })
+                              .join(" ");
+                }
+            }
+        })();
+
+        const createLabel = (content: string): HTMLSpanElement =>
+            createHTMLElement("span", { classes: ["label"], innerHTML: content });
+
         const anchor = createHTMLElement("a", {
             classes: ["inline-check"],
-            children: [icon],
+            children: [icon, createLabel(label)],
             dataset: {
                 pf2Traits: params.traits.toString() || null,
                 pf2RollOptions: params.extraRollOptions.toString() || null,
@@ -467,6 +507,7 @@ class TextEditorPF2e extends TextEditor {
                 pf2Label: localize("DCWithName", { name }),
                 pf2Adjustment: Number(params.adjustment) || null,
                 pf2Roller: params.roller || null,
+                pf2Check: sluggify(params.type),
             },
         });
 
@@ -475,50 +516,8 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.invalid = "true";
         }
 
-        const createLabel = (content: string): HTMLSpanElement =>
-            createHTMLElement("span", { classes: ["label"], innerHTML: content });
-
-        switch (params.type) {
-            case "flat":
-                anchor.append(createLabel(inlineLabel ?? game.i18n.localize("PF2E.FlatCheck")));
-                anchor.dataset.pf2Check = "flat";
-                break;
-            case "perception":
-                anchor.append(createLabel(inlineLabel ?? game.i18n.localize("PF2E.PerceptionLabel")));
-                anchor.dataset.pf2Check = "perception";
-                if (params.defense) anchor.dataset.pf2Defense = params.defense;
-                break;
-            case "fortitude":
-            case "reflex":
-            case "will": {
-                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
-                const saveLabel = params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
-                anchor.append(createLabel(inlineLabel ?? saveLabel));
-                anchor.dataset.pf2Check = params.type;
-                break;
-            }
-            default: {
-                // Skill or Lore
-                const shortForm = (() => {
-                    if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                        return SKILL_EXPANDED[params.type].shortForm;
-                    } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
-                        return params.type;
-                    }
-                    return;
-                })();
-                const skillLabel = shortForm
-                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
-                    : params.type
-                          .split("-")
-                          .map((word) => {
-                              return word.slice(0, 1).toUpperCase() + word.slice(1);
-                          })
-                          .join(" ");
-                anchor.append(createLabel(inlineLabel ?? skillLabel));
-                anchor.dataset.pf2Check = sluggify(params.type);
-                if (params.defense) anchor.dataset.pf2Defense = params.defense;
-            }
+        if (!["flat", "fortitude", "reflex", "will"].includes(params.type) && params.defense) {
+            anchor.dataset.pf2Defense = params.defense;
         }
 
         if (params.type && params.dc) {
