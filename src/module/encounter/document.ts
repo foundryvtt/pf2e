@@ -1,13 +1,13 @@
-import { CharacterPF2e } from "@actor";
-import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
+import type { CharacterPF2e } from "@actor";
+import type { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
 import { resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
 import { SkillLongForm } from "@actor/types.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { setHasElement } from "@util";
-import { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
+import { CombatantFlags, type CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
@@ -176,7 +176,7 @@ class EncounterPF2e extends Combat {
         super._onCreate(data, options, userId);
 
         const pcSheets = Object.values(ui.windows).filter(
-            (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
+            (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet.constructor.name === "CharacterSheetPF2e"
         );
         for (const sheet of pcSheets) {
             sheet.toggleInitiativeLink();
@@ -250,7 +250,7 @@ class EncounterPF2e extends Combat {
         // Disable the initiative button if this was the only encounter
         if (!game.combat) {
             const pcSheets = Object.values(ui.windows).filter(
-                (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet instanceof CharacterSheetPF2e
+                (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet.constructor.name === "CharacterSheetPF2e"
             );
             for (const sheet of pcSheets) {
                 sheet.toggleInitiativeLink();
