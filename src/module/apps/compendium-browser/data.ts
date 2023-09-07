@@ -14,13 +14,14 @@ interface SourceInfo {
 interface BrowserTabs {
     action: browserTabs.Actions;
     bestiary: browserTabs.Bestiary;
+    campaignFeature: browserTabs.CampaignFeatures;
     equipment: browserTabs.Equipment;
     feat: browserTabs.Feats;
     hazard: browserTabs.Hazards;
     spell: browserTabs.Spells;
 }
 
-type TabName = "action" | "bestiary" | "equipment" | "feat" | "hazard" | "spell" | "settings";
+type TabName = "action" | "bestiary" | "campaignFeature" | "equipment" | "feat" | "hazard" | "spell" | "settings";
 type ContentTabName = Exclude<TabName, "settings">;
 type BrowserTab = InstanceType<(typeof browserTabs)[keyof typeof browserTabs]>;
 type TabData<T> = Record<TabName, T | null>;

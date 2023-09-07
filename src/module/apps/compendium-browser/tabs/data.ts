@@ -5,6 +5,7 @@ import { FeatTrait } from "@item/feat/types.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
 import type { SearchResult } from "minisearch";
 import { SortDirection } from "../data.ts";
+import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
 interface CheckboxData {
@@ -91,6 +92,16 @@ interface BestiaryFilters extends BaseFilterData {
     };
 }
 
+interface CampaignFeatureFilters extends BaseFilterData {
+    checkboxes: Record<"category" | "rarity" | "source", CheckboxData>;
+    multiselects: {
+        traits: MultiselectData<KingmakerTrait>;
+    };
+    sliders: {
+        level: SliderData;
+    };
+}
+
 interface EquipmentFilters extends BaseFilterData {
     checkboxes: {
         armorTypes: CheckboxData;
@@ -150,7 +161,14 @@ interface SpellFilters extends BaseFilterData {
     };
 }
 
-type BrowserFilter = ActionFilters | BestiaryFilters | EquipmentFilters | FeatFilters | HazardFilters | SpellFilters;
+type BrowserFilter =
+    | ActionFilters
+    | BestiaryFilters
+    | CampaignFeatureFilters
+    | EquipmentFilters
+    | FeatFilters
+    | HazardFilters
+    | SpellFilters;
 
 type CompendiumBrowserIndexData = Omit<CompendiumIndexData, "_id"> & Partial<SearchResult>;
 
@@ -165,6 +183,7 @@ export type {
     BaseFilterData,
     BestiaryFilters,
     BrowserFilter,
+    CampaignFeatureFilters,
     CheckboxData,
     CheckboxOptions,
     CompendiumBrowserIndexData,
