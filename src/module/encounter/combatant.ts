@@ -223,15 +223,6 @@ class CombatantPF2e<
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<TParent>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-        this.token?.object?.onEncounterChange();
-    }
-
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
@@ -256,12 +247,11 @@ class CombatantPF2e<
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
         super._onDelete(options, userId);
+
         // Reset actor data in case initiative order changed
         if (this.encounter?.started) {
             this.encounter.resetActors();
         }
-
-        this.token?.object?.onEncounterChange();
     }
 }
 

@@ -248,6 +248,11 @@ declare global {
 
         protected _draw(): Promise<void>;
 
+        /** Refresh the visibility. */
+        protected _refreshVisibility(): void;
+
+        protected override _applyRenderFlags(flags: Record<string, boolean>): void;
+
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;
 

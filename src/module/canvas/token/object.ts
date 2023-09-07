@@ -1,7 +1,6 @@
 import { EffectPF2e } from "@item";
 import { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import { htmlClosest } from "@util";
 import type { Renderer } from "pixi.js";
 import * as R from "remeda";
 import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
@@ -146,6 +145,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // Find a flanking buddy opposite this token
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
+    }
+
+    /** Draw auras if certain conditions are met */
+    protected override _refreshVisibility(): void {
+        super._refreshVisibility();
+        this.auras.draw();
     }
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
@@ -366,9 +371,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // Restore `lockRotation` to source value in case it was unlocked for spin animation
         this.document.lockRotation = this.document._source.lockRotation;
-
-        // Refresh auras
-        if (!this._animation) this.#onFinishAnimation();
     }
 
     /** Hearing should be updated whenever vision is */
@@ -410,51 +412,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        super._onControl(options);
-        this.auras.draw();
+        return super._onControl(options);
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
-        super._onRelease(options);
-        this.auras.draw();
-    }
-
-    protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
-        super._onDragLeftStart(event);
-        this.auras.clearHighlights();
-    }
-
-    protected override _onHoverIn(event: PIXI.FederatedPointerEvent, options?: { hoverOutOthers?: boolean }): boolean {
-        const refreshed = super._onHoverIn(event, options);
-        if (refreshed === false) return false;
-        this.auras.draw();
-
-        return true;
-    }
-
-    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean {
-        // Ignore hover events coming from `Application` windows
-        if (htmlClosest(event.nativeEvent?.target, ".app.sheet")) {
-            return false;
-        }
-        const refreshed = super._onHoverOut(event);
-        if (refreshed === false) return false;
-        this.auras.draw();
-
-        return true;
-    }
-
-    /** Callback for when an encounter or a combatant is created updated, deleted, or deleted. */
-    onEncounterChange(): void {
-        this.auras.draw();
-    }
-
-    /** Refresh auras when an animation finishes */
-    async #onFinishAnimation(): Promise<void> {
-        await this._animation;
-        this.auras.draw();
+        return super._onRelease(options);
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
