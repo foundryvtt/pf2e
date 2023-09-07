@@ -1,10 +1,29 @@
-.combat-sidebar {
+#combat,
+#combat-popout {
+    .encounter-controls {
+        padding: 0.25rem 0 0.5rem;
+    }
+
     li.combatant {
         cursor: default;
         padding: 3px 0 3px 3px;
 
         &.gm-draggable {
             cursor: grab;
+        }
+
+        &.drag-preview {
+            background: rgba(0, 0, 0, 0.75);
+            box-shadow: 0 0 6px inset var(--color-shadow-highlight);
+        }
+
+        // The gap left by a combatant being dragged to a new position
+        &.drag-gap {
+            visibility: hidden;
+        }
+
+        .hidden-name .token-name h4 {
+            color: var(--color-text-light-7);
         }
 
         .token-name h4 {
