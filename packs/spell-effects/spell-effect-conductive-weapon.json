@@ -1,0 +1,94 @@
+{
+    "_id": "WdXLgPashH5in5eB",
+    "img": "icons/weapons/swords/sword-flanged-lightning.webp",
+    "name": "Spell Effect: Conductive Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Conductive Weapon]</em></p>\n<p>The target becomes a <em>+1 shock weapon</em>. If any target of an attack with the weapon is wearing metal armor or is primarily made of metal, the electricity damage die from the <em>shock</em> rune is 1d12.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Target.Metal",
+                "option": "target:metal",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "target:metal"
+                    }
+                ],
+                "property": "property-runes",
+                "value": "shock"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d12",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:metal"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:metal"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "text": "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess",
+                "title": "PF2E.WeaponPropertyRune.shock.Name"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Rage of Elements"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
