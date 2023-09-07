@@ -1,9 +1,9 @@
+import { ActorPF2e } from "@actor";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { FeatCategory } from "@item/feat/types.ts";
 import { sluggify, tupleHasValue } from "@util";
-import { CharacterPF2e } from "./document.ts";
 import { BonusFeat, FeatLike, SlottedFeat } from "./data.ts";
-import { ActorPF2e } from "@actor";
+import type { CharacterPF2e } from "./document.ts";
 
 type FeatSlotLevel = number | { id: string; label: string };
 
@@ -337,4 +337,5 @@ function isFeatLike(item: ItemPF2e): item is FeatLike {
     return "category" in item && "location" in item.system && "isFeat" in item && "isFeature" in item;
 }
 
-export { CharacterFeats, FeatGroup, FeatGroupOptions, FeatSlotLevel };
+export { CharacterFeats, FeatGroup };
+export type { FeatGroupOptions, FeatSlotLevel };

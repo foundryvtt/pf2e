@@ -1,6 +1,6 @@
-import { ActorPF2e } from "@actor/base.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import type { ActorPF2e } from "@actor/base.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
 
 class UserPF2e extends User<ActorPF2e<null>> {
@@ -70,4 +70,4 @@ interface UserSettingsPF2e {
     searchPackContents: boolean;
 }
 
-export { UserPF2e, UserSettingsPF2e };
+export { UserPF2e, type UserSettingsPF2e };

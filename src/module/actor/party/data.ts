@@ -61,4 +61,4 @@ interface PartyDetails extends Omit<PartyDetailsSource, "alliance" | "level">, A
 
 type PartyCampaignSource = { type: string } & Record<string, unknown>;
 
-export { MemberData, PartyCampaignSource, PartySource, PartySystemData };
+export type { MemberData, PartyCampaignSource, PartySource, PartySystemData };

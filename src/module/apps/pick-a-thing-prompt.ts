@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
@@ -161,4 +161,5 @@ interface PromptTemplateData {
     selectMenu: boolean;
 }
 
-export { PickAThingConstructorArgs, PickAThingPrompt, PickableThing, PromptTemplateData };
+export { PickAThingPrompt };
+export type { PickAThingConstructorArgs, PickableThing, PromptTemplateData };

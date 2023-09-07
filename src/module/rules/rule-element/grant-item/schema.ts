@@ -28,4 +28,4 @@ type GrantItemSchema = RuleElementSchema & {
     track: BooleanField<boolean, boolean, false, false, false>;
 };
 
-export { GrantItemSchema };
+export type { GrantItemSchema };

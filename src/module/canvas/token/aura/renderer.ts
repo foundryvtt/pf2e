@@ -1,8 +1,8 @@
 import { AuraColors, AuraData } from "@actor/types.ts";
 import { ItemTrait } from "@item/data/base.ts";
 import { TokenAuraData } from "@scene/token-document/aura/index.ts";
-import { EffectAreaSquare } from "../../effect-area-square.ts";
-import { TokenPF2e } from "../index.ts";
+import type { EffectAreaSquare } from "../../effect-area-square.ts";
+import type { TokenPF2e } from "../index.ts";
 import { getAreaSquares } from "./util.ts";
 
 /** Visual rendering of auras emanated by a token's actor */
@@ -144,4 +144,4 @@ interface AuraRendererParams extends Omit<AuraData, "effects" | "traits"> {
     traits: Set<ItemTrait>;
 }
 
-export { AuraRenderer, TokenAuraColors };
+export { AuraRenderer, type TokenAuraColors };

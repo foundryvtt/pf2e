@@ -29,7 +29,7 @@ type CommonSortByOption = "name" | "level";
 type SortByOption = CommonSortByOption | "price";
 type SortDirection = "asc" | "desc";
 
-export {
+export type {
     BrowserTab,
     BrowserTabs,
     CommonSortByOption,

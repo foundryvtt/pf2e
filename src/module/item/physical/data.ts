@@ -6,7 +6,7 @@ import { WeaponTrait } from "@item/weapon/types.ts";
 import { Size, TraitsWithRarity, ValuesList } from "@module/data.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base.ts";
 import type { ITEM_CARRY_TYPES } from "../data/values.ts";
-import { CoinsPF2e } from "./helpers.ts";
+import type { CoinsPF2e } from "./helpers.ts";
 import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 import { UsageDetails } from "./usage.ts";
 
@@ -163,7 +163,7 @@ interface Price extends PartialPrice {
     per: number;
 }
 
-export {
+export type {
     BasePhysicalItemSource,
     Coins,
     EquippedData,

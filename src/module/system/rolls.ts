@@ -64,4 +64,4 @@ interface BaseRollContext {
     skipDialog?: boolean;
 }
 
-export { AttackRollParams, BaseRollContext, DamageRollParams, RollDataPF2e, RollParameters, RollTwiceOption };
+export type { AttackRollParams, BaseRollContext, DamageRollParams, RollDataPF2e, RollParameters, RollTwiceOption };

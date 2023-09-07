@@ -95,7 +95,7 @@ interface TraitChatData {
     excluded?: boolean;
 }
 
-export {
+export type {
     AbilityItemSource,
     AncestrySource,
     ArmorSource,

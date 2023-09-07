@@ -17,4 +17,4 @@ interface LoreSystemSource extends ItemSystemSource {
 
 type LoreSystemData = LoreSystemSource;
 
-export { LoreSource, LoreSystemData };
+export type { LoreSource, LoreSystemData };

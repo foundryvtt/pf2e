@@ -1,11 +1,11 @@
-import { DamageDicePF2e } from "@actor/modifiers.ts";
+import type { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { addSign, groupBy, sortBy, sum } from "@util";
 import * as R from "remeda";
 import {
+    CreateDamageFormulaParams,
     CriticalInclusion,
     DamageCategoryUnique,
-    CreateDamageFormulaParams,
     DamagePartialTerm,
     DamageType,
     MaterialDamageEffect,
@@ -367,4 +367,5 @@ interface DamagePartial extends DamagePartialTerm {
     materials?: MaterialDamageEffect[];
 }
 
-export { AssembledFormula, combinePartialTerms, createSimpleFormula, createDamageFormula, parseTermsFromSimpleFormula };
+export { combinePartialTerms, createDamageFormula, createSimpleFormula, parseTermsFromSimpleFormula };
+export type { AssembledFormula };

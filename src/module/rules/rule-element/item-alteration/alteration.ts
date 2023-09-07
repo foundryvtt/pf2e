@@ -5,13 +5,13 @@ import { FrequencyInterval } from "@item/data/base.ts";
 import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { isObject, objectHasKey } from "@util";
+import { Duration } from "luxon";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
 import { ResolvableValueField } from "../data.ts";
 import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
-import { Duration } from "luxon";
 
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
@@ -265,4 +265,5 @@ type ItemAlterationSchema = {
 
 type ItemAlterationProperty = (typeof ItemAlteration.VALID_PROPERTIES)[number];
 
-export { ItemAlteration, ItemAlterationProperty, ItemAlterationSchema };
+export { ItemAlteration };
+export type { ItemAlterationProperty, ItemAlterationSchema };

@@ -1961,4 +1961,5 @@ const ActorProxyPF2e = new Proxy(ActorPF2e, {
     },
 });
 
-export { ActorPF2e, ActorProxyPF2e, ActorUpdateContext, HitPointsSummary };
+export { ActorPF2e, ActorProxyPF2e };
+export type { ActorUpdateContext, HitPointsSummary };

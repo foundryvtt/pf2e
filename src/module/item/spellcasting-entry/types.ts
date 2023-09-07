@@ -107,7 +107,7 @@ interface ActiveSpell {
     virtual?: boolean;
 }
 
-export {
+export type {
     ActiveSpell,
     BaseSpellcastingEntry,
     CastOptions,

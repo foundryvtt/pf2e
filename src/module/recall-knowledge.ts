@@ -82,4 +82,4 @@ interface CreatureIdentificationData {
     lore: [RecallKnowledgeDC, RecallKnowledgeDC];
 }
 
-export { CreatureIdentificationData, creatureIdentificationDCs };
+export { creatureIdentificationDCs, type CreatureIdentificationData };

@@ -67,4 +67,4 @@ interface ShowSheetMessage {
 type SocketMessage = TransferCallbackMessage | RefreshControlsMessage | ShowSheetMessage | { request?: never };
 type PF2eSocketEventParams = [message: SocketMessage, userId: string];
 
-export { activateSocketListener, SocketMessage };
+export { activateSocketListener, type SocketMessage };

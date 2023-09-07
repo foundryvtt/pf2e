@@ -80,7 +80,7 @@ interface AfflictionEffectData {
 
 type AfflictionExpiryType = "turn-end";
 
-export {
+export type {
     AfflictionExpiryType,
     AfflictionDuration,
     AfflictionConditionData,

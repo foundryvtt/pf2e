@@ -90,7 +90,7 @@ interface ChoiceSetPackQuery {
     unarmedAttacks?: never;
 }
 
-export {
+export type {
     ChoiceSetAttacks,
     ChoiceSetOwnedItems,
     ChoiceSetPackQuery,

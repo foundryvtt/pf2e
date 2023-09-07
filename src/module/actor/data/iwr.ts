@@ -330,13 +330,5 @@ const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
     "wood",
 ]);
 
-export {
-    ImmunityData,
-    ImmunitySource,
-    IWRSource,
-    NON_DAMAGE_WEAKNESSES,
-    ResistanceData,
-    ResistanceSource,
-    WeaknessData,
-    WeaknessSource,
-};
+export { ImmunityData, NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData };
+export type { ImmunitySource, IWRSource, ResistanceSource, WeaknessSource };

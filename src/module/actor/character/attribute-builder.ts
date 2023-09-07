@@ -562,4 +562,4 @@ interface LevelBoostData extends BoostFlawRow {
     minLevel: number;
 }
 
-export { AttributeBuilder, BoostFlawState };
+export { AttributeBuilder, type BoostFlawState };

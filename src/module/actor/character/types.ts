@@ -2,7 +2,7 @@ import { HitPointsSummary } from "@actor/base.ts";
 import { AttributeString, SaveType, SkillLongForm } from "@actor/types.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 
 interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryMultiplier: number;
@@ -32,7 +32,7 @@ type GuaranteedGetStatisticSlug =
     | "classDC"
     | MagicTradition;
 
-export {
+export type {
     CharacterHitPointsSummary,
     CharacterSkill,
     CharacterSkills,

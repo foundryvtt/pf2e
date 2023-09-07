@@ -713,12 +713,5 @@ interface RollOptionConfig {
 }
 
 export * from "./data.ts";
-export {
-    BaseStatistic,
-    CheckDCReference,
-    RollOptionConfig,
-    Statistic,
-    StatisticCheck,
-    StatisticDifficultyClass,
-    StatisticRollParameters,
-};
+export { BaseStatistic, Statistic, StatisticCheck, StatisticDifficultyClass };
+export type { CheckDCReference, RollOptionConfig, StatisticRollParameters };

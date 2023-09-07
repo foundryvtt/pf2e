@@ -101,4 +101,4 @@ interface ProcessOptions {
     message?: ChatMessagePF2e;
 }
 
-export { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e };
+export { USER_VISIBILITIES, type UserVisibility, UserVisibilityPF2e };

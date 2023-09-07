@@ -10,4 +10,4 @@ type UserFlagsPF2e = DocumentFlags & {
     };
 };
 
-export { UserFlagsPF2e, UserSourcePF2e };
+export type { UserFlagsPF2e, UserSourcePF2e };

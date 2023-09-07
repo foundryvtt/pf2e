@@ -1,4 +1,4 @@
-import { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers.ts";
+import type { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers.ts";
 import { ItemType } from "@item/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
@@ -132,7 +132,7 @@ interface AppliedDamageFlag {
     updates: { path: string; value: number }[];
 }
 
-export {
+export type {
     AppliedDamageFlag,
     ChatContextFlag,
     ChatMessageFlagsPF2e,

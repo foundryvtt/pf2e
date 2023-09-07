@@ -1,8 +1,3 @@
-export { type BasicConstructorOptions, TagSelectorBasic } from "./basic.ts";
-export { SenseSelector } from "./senses.ts";
-export { SpeedSelector } from "./speeds.ts";
-export type { TagSelectorOptions } from "./base.ts";
-
 const TAG_SELECTOR_TYPES = ["basic", "senses", "speed-types"] as const;
 type TagSelectorType = (typeof TAG_SELECTOR_TYPES)[number];
 
@@ -80,4 +75,9 @@ const SELECTABLE_TAG_FIELDS = [
 
 type SelectableTagField = (typeof SELECTABLE_TAG_FIELDS)[number];
 
-export { SELECTABLE_TAG_FIELDS, SelectableTagField, TAG_SELECTOR_TYPES, TagSelectorType };
+export type { TagSelectorOptions } from "./base.ts";
+export { TagSelectorBasic, type BasicConstructorOptions } from "./basic.ts";
+export { SenseSelector } from "./senses.ts";
+export { SpeedSelector } from "./speeds.ts";
+export { SELECTABLE_TAG_FIELDS, TAG_SELECTOR_TYPES };
+export type { SelectableTagField, TagSelectorType };

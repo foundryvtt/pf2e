@@ -99,4 +99,4 @@ interface ArmorClassTraceData extends StatisticTraceData {
     details: string;
 }
 
-export { ArmorClassTraceData, ArmorStatistic };
+export { ArmorStatistic, type ArmorClassTraceData };

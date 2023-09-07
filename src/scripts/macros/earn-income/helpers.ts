@@ -1,10 +1,10 @@
-import { CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS_STRINGS, RollBrief } from "@system/degree-of-success.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import { earnIncome, EarnIncomeResult } from "./calculate.ts";
 
 function escapeHtml(text: string): string {

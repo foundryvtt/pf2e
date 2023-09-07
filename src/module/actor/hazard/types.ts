@@ -1,8 +1,8 @@
-import { HazardPF2e } from "@actor";
+import type { HazardPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { SaveType } from "@actor/types.ts";
-import { AbilityItemPF2e } from "@item";
+import type { AbilityItemPF2e } from "@item";
 
 interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {
     actions: HazardActionSheetData;
@@ -39,4 +39,4 @@ interface HazardSaveSheetData {
 
 type HazardTrait = keyof ConfigPF2e["PF2E"]["hazardTraits"];
 
-export { HazardActionSheetData, HazardSaveSheetData, HazardSheetData, HazardTrait };
+export type { HazardActionSheetData, HazardSaveSheetData, HazardSheetData, HazardTrait };

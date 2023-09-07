@@ -1,5 +1,5 @@
 import { EffectPF2e } from "@item";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Renderer } from "pixi.js";
 import * as R from "remeda";
@@ -447,4 +447,5 @@ interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e = TokenPF2e> exten
     spin?: boolean;
 }
 
-export { ShowFloatyEffectParams, TokenAnimationOptionsPF2e, TokenPF2e };
+export { TokenPF2e };
+export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };

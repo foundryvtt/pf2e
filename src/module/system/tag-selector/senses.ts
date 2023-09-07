@@ -1,10 +1,10 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { SENSES_WITH_MANDATORY_ACUITIES } from "@actor/creature/values.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey } from "@util";
 import { BaseTagSelector, TagSelectorData, TagSelectorOptions } from "./base.ts";
 import { SelectableTagField } from "./index.ts";
 
-export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
+class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.traits.senses";
 
     static override get defaultOptions(): TagSelectorOptions {
@@ -119,3 +119,5 @@ interface SenseChoiceData {
 }
 
 type SenseFormData = Record<string, [boolean, string, string | null] | boolean>;
+
+export { SenseSelector };

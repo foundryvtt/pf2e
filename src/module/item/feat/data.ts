@@ -50,4 +50,4 @@ interface FeatSubfeatures {
 
 type FeatTraits = TraitsWithRarity<FeatTrait>;
 
-export { FeatSource, FeatSystemData, FeatSystemSource, FeatTraits, PrerequisiteTagData };
+export type { FeatSource, FeatSystemData, FeatSystemSource, FeatTraits, PrerequisiteTagData };

@@ -34,4 +34,4 @@ interface AncestrySystemSource extends ABCSystemSource {
 
 interface AncestrySystemData extends Omit<AncestrySystemSource, "items">, Omit<ABCSystemData, "level" | "traits"> {}
 
-export { AncestrySource, AncestrySystemData };
+export type { AncestrySource, AncestrySystemData };

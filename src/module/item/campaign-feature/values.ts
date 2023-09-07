@@ -21,4 +21,5 @@ const KINGMAKER_CATEGORIES: Record<KingmakerCategory, string> = R.mapToObj(KINGM
     `PF2E.Kingmaker.Feature.Categories.${type}`,
 ]);
 
-export { CategoryData, KINGMAKER_CATEGORIES, KINGMAKER_CATEGORY_TYPES, KINGDOM_CATEGORY_DATA };
+export { KINGDOM_CATEGORY_DATA, KINGMAKER_CATEGORIES, KINGMAKER_CATEGORY_TYPES };
+export type { CategoryData };

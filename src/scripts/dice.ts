@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import { createSimpleFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { ErrorPF2e } from "@util";
 

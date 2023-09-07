@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
 import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
 import {
@@ -23,7 +23,7 @@ import {
     CreatureTraitsSource,
     SenseData,
 } from "@actor/creature/index.ts";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
@@ -35,7 +35,7 @@ import {
     TraitViewData,
 } from "@actor/data/base.ts";
 import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
-import { FeatPF2e, ItemPF2e, WeaponPF2e } from "@item";
+import type { FeatPF2e, ItemPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ItemSystemData } from "@item/data/base.ts";
 import { ProficiencyRank } from "@item/data/index.ts";
@@ -45,10 +45,10 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import type { PredicatePF2e } from "@system/predication.ts";
 import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
-import { CharacterPF2e } from "./document.ts";
+import type { CharacterPF2e } from "./document.ts";
 import { FeatGroup } from "./feats.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
@@ -526,7 +526,7 @@ interface BonusFeat<T extends FeatLike = FeatPF2e> {
     feat: T;
 }
 
-export {
+export type {
     BaseWeaponProficiencyKey,
     BonusFeat,
     CategoryProficiencies,

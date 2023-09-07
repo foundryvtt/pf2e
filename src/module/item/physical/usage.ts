@@ -91,4 +91,5 @@ function getUsageDetails(usage: string): UsageDetails {
     return { value: usage, type: "worn" };
 }
 
-export { UsageDetails, UsageType, getUsageDetails, isEquipped };
+export { getUsageDetails, isEquipped };
+export type { UsageDetails, UsageType };

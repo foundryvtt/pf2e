@@ -17,4 +17,4 @@ interface BackgroundSystemSource extends ABCSystemSource {
 
 interface BackgroundSystemData extends Omit<BackgroundSystemSource, "items">, Omit<ABCSystemData, "level" | "traits"> {}
 
-export { BackgroundSource, BackgroundSystemData };
+export type { BackgroundSource, BackgroundSystemData };

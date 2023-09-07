@@ -88,7 +88,7 @@ interface Frequency extends FrequencySource {
     value: number;
 }
 
-export {
+export type {
     ActionCost,
     ActionType,
     BaseItemSourcePF2e,

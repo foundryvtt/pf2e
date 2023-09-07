@@ -866,4 +866,4 @@ class PackExtractor {
     }
 }
 
-export { ExtractArgs, PackExtractor };
+export { type ExtractArgs, PackExtractor };

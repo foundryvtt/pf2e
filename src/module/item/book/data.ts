@@ -19,4 +19,4 @@ interface SpellBookData {
     item: object[];
 }
 
-export { BookSource, BookSystemData };
+export type { BookSource, BookSystemData };

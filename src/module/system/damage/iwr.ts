@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { NON_DAMAGE_WEAKNESSES, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import * as R from "remeda";
@@ -254,4 +254,5 @@ type IWRApplication =
     | ResistanceApplication
     | DamageReductionApplication;
 
-export { IWRApplication, IWRApplicationData, applyIWR };
+export { applyIWR };
+export type { IWRApplication, IWRApplicationData };

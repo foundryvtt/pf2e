@@ -236,4 +236,4 @@ interface FlatModifierSource extends RuleElementSource {
     hideIfDisabled?: unknown;
 }
 
-export { FlatModifierRuleElement, FlatModifierSource };
+export { FlatModifierRuleElement, type FlatModifierSource };

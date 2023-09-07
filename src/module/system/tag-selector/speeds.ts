@@ -1,9 +1,9 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ErrorPF2e, htmlQueryAll } from "@util";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
-export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
+class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.attributes.speed.otherSpeeds";
 
     static override get defaultOptions(): TagSelectorOptions {
@@ -84,3 +84,5 @@ interface ChoiceData {
     label: string;
     value: number | string;
 }
+
+export { SpeedSelector };

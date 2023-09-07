@@ -255,4 +255,5 @@ interface MaterialSheetData {
     materials: Record<string, MaterialSheetEntry>;
 }
 
-export { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData, PhysicalItemSheetPF2e };
+export { PhysicalItemSheetPF2e };
+export type { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData };

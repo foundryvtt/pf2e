@@ -52,4 +52,4 @@ interface LootDetails extends Omit<LootDetailsSource, "alliance">, ActorDetails 
     alliance: null;
 }
 
-export { LootSource, LootSystemData, LootSystemSource };
+export type { LootSource, LootSystemData, LootSystemSource };

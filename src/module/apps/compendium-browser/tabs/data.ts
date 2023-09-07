@@ -3,7 +3,7 @@ import { HazardTrait } from "@actor/hazard/types.ts";
 import { ActionTrait } from "@item/ability/index.ts";
 import { FeatTrait } from "@item/feat/types.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
-import { SearchResult } from "minisearch";
+import type { SearchResult } from "minisearch";
 import { SortDirection } from "../data.ts";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
@@ -160,7 +160,7 @@ interface RenderResultListOptions {
     replace?: boolean;
 }
 
-export {
+export type {
     ActionFilters,
     BaseFilterData,
     BestiaryFilters,

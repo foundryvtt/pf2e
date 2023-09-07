@@ -1,8 +1,9 @@
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { AbilityItemPF2e } from "@item";
+import type { AbilityItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
+import { RangeData } from "@item/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { extractDamageSynthetics, extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ElementTrait, elementTraits } from "@scripts/config/traits.ts";
@@ -26,8 +27,7 @@ import type {
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
-import { CharacterPF2e } from "./document.ts";
-import { RangeData } from "@item/types.ts";
+import type { CharacterPF2e } from "./document.ts";
 
 class ElementalBlast {
     actor: CharacterPF2e;
@@ -521,4 +521,4 @@ interface BlastConfigDamageType {
     selected: boolean;
 }
 
-export { ElementalBlast, ElementalBlastConfig };
+export { ElementalBlast, type ElementalBlastConfig };

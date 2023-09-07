@@ -56,4 +56,4 @@ interface CheckRollContext extends BaseRollContext {
     dosAdjustments?: DegreeOfSuccessAdjustment[];
 }
 
-export { CheckRollContext, CheckType, RollTwiceOption };
+export type { CheckRollContext, CheckType, RollTwiceOption };

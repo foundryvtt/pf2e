@@ -3,16 +3,16 @@ import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/index.ts";
 import { ItemInstances } from "@item/types.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
-import { DamageRoll } from "@system/damage/roll.ts";
+import type { DamageRoll } from "@system/damage/roll.ts";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import { PredicatePF2e } from "@system/predication.ts";
-import { StatisticCheck } from "@system/statistic/index.ts";
+import type { PredicatePF2e } from "@system/predication.ts";
+import type { StatisticCheck } from "@system/statistic/index.ts";
 import { StrikeData, TraitViewData } from "./data/base.ts";
-import { ModifierPF2e } from "./modifiers.ts";
-import {
+import type { ModifierPF2e } from "./modifiers.ts";
+import type {
     ATTRIBUTE_ABBREVIATIONS,
     DC_SLUGS,
     MOVEMENT_TYPES,
@@ -185,7 +185,7 @@ type ResistanceType = keyof typeof resistanceTypes;
 type UnaffectedType = SetElement<typeof UNAFFECTED_TYPES>;
 type IWRType = ImmunityType | WeaknessType | ResistanceType;
 
-export {
+export type {
     ActorAlliance,
     ActorDimensions,
     ActorInstances,

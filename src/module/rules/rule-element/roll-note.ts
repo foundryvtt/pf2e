@@ -89,4 +89,4 @@ interface RollNoteSource extends RuleElementSource {
     visibility?: unknown;
 }
 
-export { RollNoteRuleElement, RollNoteSource };
+export { RollNoteRuleElement, type RollNoteSource };
