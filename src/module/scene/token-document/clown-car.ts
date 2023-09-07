@@ -81,7 +81,6 @@ class PartyClownCar {
         const areaBounds = new PIXI.Rectangle(center.x - radiusPixels, center.y - radiusPixels, diameter, diameter);
         const squares = getAreaSquares({
             token: placeable,
-            center,
             radiusPixels,
             radius,
             bounds: areaBounds,

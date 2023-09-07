@@ -12,9 +12,6 @@ interface TokenAuraData {
     /** The rectangle defining this aura's space */
     bounds: PIXI.Rectangle;
 
-    /** The pixel-coordinate pair of this aura's (and token's) center */
-    readonly center: Point;
-
     /** The pixel-coordinate radius of this aura, measured from the center */
     radiusPixels: number;
 

@@ -26,6 +26,18 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         this.draw();
     }
 
+    get #shouldDraw(): boolean {
+        return (
+            canvas.scene?.grid.type === CONST.GRID_TYPES.SQUARE &&
+            // Assume if token vision is disabled then the scene is not intended for play.
+            canvas.scene.tokenVision &&
+            // The scene must be active, or a GM must be the only user logged in.
+            canvas.scene.isInFocus &&
+            // To be rendered to a player, the aura must emanate from an ally.
+            (game.user.isGM || this.token.actor?.alliance === "party")
+        );
+    }
+
     /** Toggle visibility of aura rings and reset highlights */
     draw(): void {
         if (this.size === 0) return;
@@ -34,10 +46,16 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         if (this.token.isPreview || this.token.isAnimating) return;
 
         for (const aura of this.values()) {
+            aura.visible = false;
+        }
+
+        if (!this.#shouldDraw) return;
+
+        for (const aura of this.values()) {
             aura.draw();
         }
 
-        if (this.token.hover) {
+        if (this.token.hover || this.token.layer.highlightObjects) {
             const { highlightId } = this;
             const highlight = canvas.grid.highlightLayers[highlightId] ?? canvas.grid.addHighlightLayer(highlightId);
             highlight.clear();

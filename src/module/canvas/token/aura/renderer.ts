@@ -46,11 +46,6 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         );
     }
 
-    /** The center of an aura is the center of its originating token */
-    get center(): Point {
-        return this.token.center;
-    }
-
     /** ID of `GridHighlight` container for this aura's token */
     get highlightLayer(): GridHighlight | null {
         return canvas.grid?.getHighlightLayer(this.token.highlightId) ?? null;
@@ -66,25 +61,10 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         return !!this.token.combatant?.encounter.started;
     }
 
-    /**
-     * Whether this aura should be rendered to the user:
-     * The scene must be active, or a GM must be the only user logged in. If rendering for a player, the aura must
-     * emanate from an ally.
-     */
-    get shouldRender(): boolean {
-        if (canvas.scene?.grid.type !== CONST.GRID_TYPES.SQUARE || !canvas.scene.tokenVision) {
-            return false;
-        }
-
-        return canvas.scene.isInFocus && (this.token.actor?.alliance === "party" || game.user.isGM);
-    }
-
     /** Draw the aura's circular emanation */
     draw(): void {
-        this.visible = false;
-        if (!this.shouldRender) return;
         this.#drawRing();
-        if (this.token.controlled || this.token.hover || this.inEncounter) {
+        if (this.token.controlled || this.token.hover || this.token.layer.highlightObjects || this.inEncounter) {
             this.visible = true;
         }
     }
@@ -92,7 +72,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Highlight the affected grid squares of this aura and indicate the radius */
     highlight(): void {
         const { dimensions } = canvas;
-        if (!dimensions || !this.shouldRender) return;
+        if (!dimensions) return;
 
         this.#drawLabel();
 
@@ -142,7 +122,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         const gridUnits = canvas.scene?.grid.units.trim() || game.system.gridUnits;
         const label = [this.radius, gridUnits].join("");
         const text = new PreciseText(label, style);
-        text.position.set(this.center.x, this.center.y - this.radiusPixels);
+        const { center } = this.token;
+        text.position.set(center.x, center.y - this.radiusPixels);
 
         this.highlightLayer
             ?.beginFill(0x000000, 0.5)

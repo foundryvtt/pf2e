@@ -235,10 +235,6 @@ class EncounterPF2e extends Combat {
 
             await game.pf2e.effectTracker.refresh();
             game.pf2e.effectPanel.refresh();
-
-            for (const token of canvas.tokens.placeables) {
-                token.onEncounterChange();
-            }
         });
     }
 
@@ -266,10 +262,6 @@ class EncounterPF2e extends Combat {
 
         // Clear encounter-related roll options and any scene behavior that depends on it
         this.resetActors();
-
-        for (const token of canvas.tokens.placeables) {
-            token.onEncounterChange();
-        }
     }
 
     /**
