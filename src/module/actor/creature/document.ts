@@ -20,8 +20,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import type { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, localizer, setHasElement, tupleHasValue } from "@util";
 import {
     CreatureSkills,

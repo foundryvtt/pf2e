@@ -46,10 +46,9 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
-import { ArmorClassTraceData } from "@system/statistic/armor-class.ts";
-import { StatisticTraceData } from "@system/statistic/data.ts";
+import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CharacterPF2e } from "./document.ts";
-import { FeatGroup } from "./feats.ts";
+import type { FeatGroup } from "./feats.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
 
