@@ -1,12 +1,28 @@
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
-import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery, htmlQueryAll, localizeList } from "@util";
+import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlQuery, htmlQueryAll, localizeList, parseHTML } from "@util";
 import Sortable, { SortableEvent } from "sortablejs";
 
 export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
     declare sortable: Sortable;
+
+    /** Show encounter analysis data if obtainable */
+    protected override async _renderInner(data: object, options: RenderOptions): Promise<JQuery> {
+        const $html = await super._renderInner(data, options);
+        if (!game.user.isGM) return $html;
+        const analysis = this.viewed?.analyze();
+        if (!analysis) return $html;
+
+        const threatXP = parseHTML(
+            await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-xp.hbs", analysis)
+        );
+        const html = $html[0];
+        htmlQuery(html, "nav.encounters")?.after(threatXP);
+
+        return $(html);
+    }
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
