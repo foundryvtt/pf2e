@@ -9,9 +9,7 @@ import { ItemType } from "@item/data/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { HitPointsStatistic } from "@system/statistic/hit-points.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, HitPointsStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 

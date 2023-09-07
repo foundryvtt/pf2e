@@ -62,8 +62,7 @@ import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { Statistic, StatisticCheck } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic, StatisticCheck } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
     setHasElement,

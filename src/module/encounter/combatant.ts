@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { SkillLongForm } from "@actor/types.ts";
+import type { SkillLongForm } from "@actor/types.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
 import type { EncounterPF2e } from "./index.ts";

@@ -12,8 +12,7 @@ import { Rarity } from "@module/data.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageType } from "@system/damage/index.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
 import { HazardSource, HazardSystemData } from "./data.ts";
 

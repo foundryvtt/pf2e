@@ -3,11 +3,9 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
 import { ItemType } from "@item/data/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { ArmorStatistic } from "@system/statistic/armor-class.ts";
-import { HitPointsStatistic } from "@system/statistic/hit-points.ts";
-import { Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import { ArmorStatistic, HitPointsStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
 import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
 

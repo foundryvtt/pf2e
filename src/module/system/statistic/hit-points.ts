@@ -2,7 +2,8 @@ import { CreaturePF2e, HazardPF2e, VehiclePF2e } from "@actor";
 import { StatisticModifier, createAttributeModifier } from "@actor/modifiers.ts";
 import { signedInteger } from "@util";
 import * as R from "remeda";
-import { BaseStatistic, BaseStatisticTraceData } from "./index.ts";
+import { BaseStatistic } from "./base.ts";
+import { BaseStatisticTraceData } from "./index.ts";
 
 class HitPointsStatistic extends BaseStatistic {
     /** The actor's current hit points */

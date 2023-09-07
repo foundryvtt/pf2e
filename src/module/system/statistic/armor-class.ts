@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { createShoddyPenalty } from "@actor/character/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { ArmorPF2e } from "@item";
+import type { ArmorPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { sluggify } from "@util";
