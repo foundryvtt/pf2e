@@ -33,7 +33,7 @@ export class ConditionManager {
             delete this.CONDITION_SOURCES;
         }
 
-        if ((!this.#initialized || force) && game.i18n.lang !== "en") {
+        if ((!this.#initialized || force) && game.i18n.lang !== "en" && game.modules.get("babele")?.active) {
             const localize = localizer("PF2E.condition");
             for (const condition of this.conditions.values()) {
                 condition.name = condition._source.name = localize(`${condition.slug}.name`);
