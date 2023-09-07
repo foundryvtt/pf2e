@@ -3,12 +3,11 @@ import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
-import { Progress } from "../../system/progress.ts";
 import { BrowserTabs, PackInfo, SortDirection, SourceInfo, TabData, TabName } from "./data.ts";
 import {
     ActionFilters,
@@ -24,197 +23,12 @@ import {
     SpellFilters,
 } from "./tabs/data.ts";
 import * as browserTabs from "./tabs/index.ts";
-
-class PackLoader {
-    loadedPacks: {
-        Actor: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
-        Item: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
-    } = { Actor: {}, Item: {} };
-
-    loadedSources: string[] = [];
-    sourcesSettings: CompendiumBrowserSources;
-
-    constructor() {
-        this.sourcesSettings = game.settings.get("pf2e", "compendiumBrowserSources");
-    }
-
-    async *loadPacks(
-        documentType: "Actor" | "Item",
-        packs: string[],
-        indexFields: string[]
-    ): AsyncGenerator<{ pack: CompendiumCollection<CompendiumDocument>; index: CompendiumIndex }, void, unknown> {
-        this.loadedPacks[documentType] ??= {};
-        const localize = localizer("PF2E.ProgressBar");
-        const sources = this.#getSources();
-
-        const progress = new Progress({ max: packs.length });
-        for (const packId of packs) {
-            let data = this.loadedPacks[documentType][packId];
-            if (data) {
-                const { pack } = data;
-                progress.advance({ label: localize("LoadingPack", { pack: pack?.metadata.label ?? "" }) });
-            } else {
-                const pack = game.packs.get(packId);
-                if (!pack) {
-                    progress.advance();
-                    continue;
-                }
-                progress.advance({ label: localize("LoadingPack", { pack: pack.metadata.label }) });
-                if (pack.documentName === documentType) {
-                    const index = await pack.getIndex({ fields: indexFields });
-                    const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
-                    // Every result should have the "system" property otherwise the indexFields were wrong for that pack
-                    if (firstResult.system) {
-                        const filteredIndex = this.#createFilteredIndex(index, sources);
-                        this.#setModuleArt(packId, filteredIndex);
-                        data = { pack, index: filteredIndex };
-                        this.loadedPacks[documentType][packId] = data;
-                    } else {
-                        ui.notifications.warn(
-                            game.i18n.format("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection })
-                        );
-                        continue;
-                    }
-                } else {
-                    continue;
-                }
-            }
-
-            yield data;
-        }
-        progress.close({ label: localize("LoadingComplete") });
-    }
-
-    /** Set art provided by a module if any is available */
-    #setModuleArt(packName: string, index: CompendiumIndex): void {
-        if (!packName.startsWith("pf2e.")) return;
-        for (const record of index) {
-            const uuid: CompendiumUUID = `Compendium.${packName}.${record._id}`;
-            const actorArt = game.pf2e.system.moduleArt.map.get(uuid)?.img;
-            record.img = actorArt ?? record.img;
-        }
-    }
-
-    #getSources(): Set<string> {
-        const sources = new Set<string>();
-        for (const source of Object.values(this.sourcesSettings.sources)) {
-            if (source?.load) {
-                sources.add(source.name);
-            }
-        }
-        return sources;
-    }
-
-    #createFilteredIndex(index: CompendiumIndex, sources: Set<string>): CompendiumIndex {
-        if (sources.size === 0) {
-            // Make sure everything works as before as long as the settings are not yet defined
-            return index;
-        }
-
-        if (game.user.isGM && this.sourcesSettings.ignoreAsGM) {
-            return index;
-        }
-
-        const filteredIndex: CompendiumIndex = new Collection<CompendiumIndexData>();
-        const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
-
-        for (const document of index) {
-            const source = this.#getSourceFromDocument(document);
-            const blank = isBlank(source);
-
-            if (
-                (blank && this.sourcesSettings.showEmptySources) ||
-                sources.has(source) ||
-                (this.sourcesSettings.showUnknownSources && !blank && !knownSources.includes(source))
-            ) {
-                filteredIndex.set(document._id, document);
-            }
-        }
-        return filteredIndex;
-    }
-
-    async updateSources(packs: string[]): Promise<void> {
-        await this.#loadSources(packs);
-
-        for (const source of this.loadedSources) {
-            const slug = sluggify(source);
-            if (this.sourcesSettings.sources[slug] === undefined) {
-                this.sourcesSettings.sources[slug] = {
-                    load: this.sourcesSettings.showUnknownSources,
-                    name: source,
-                };
-            }
-        }
-
-        // Make sure it can be easily displayed sorted
-        this.sourcesSettings.sources = Object.fromEntries(
-            Object.entries(this.sourcesSettings.sources).sort((a, b) => a[0].localeCompare(b[0], game.i18n.lang))
-        );
-    }
-
-    async #loadSources(packs: string[]): Promise<void> {
-        const localize = localizer("PF2E.ProgressBar");
-        const progress = new Progress({ max: packs.length });
-
-        const loadedSources = new Set<string>();
-        const indexFields = ["system.details.source.value", "system.source.value"];
-        const knownDocumentTypes = ["Actor", "Item"];
-
-        for (const packId of packs) {
-            const pack = game.packs.get(packId);
-            if (!pack || !knownDocumentTypes.includes(pack.documentName)) {
-                progress.advance();
-                continue;
-            }
-            progress.advance({ label: localize("LoadingPack", { pack: pack?.metadata.label ?? "" }) });
-            const index = await pack.getIndex({ fields: indexFields });
-
-            for (const element of index) {
-                const source = this.#getSourceFromDocument(element);
-                if (source && source !== "") {
-                    loadedSources.add(source);
-                }
-            }
-        }
-
-        progress.close({ label: localize("LoadingComplete") });
-        const loadedSourcesArray = Array.from(loadedSources).sort();
-        this.loadedSources = loadedSourcesArray;
-    }
-
-    #getSourceFromDocument(document: CompendiumIndexData): string {
-        // There are two possible fields where the source can be, check them in order
-        if (document.system?.details?.source?.value) {
-            return document.system.details.source.value;
-        }
-
-        if (document.system?.source?.value) {
-            return document.system.source.value;
-        }
-
-        return "";
-    }
-
-    reset(): void {
-        this.loadedPacks = { Actor: {}, Item: {} };
-        this.loadedSources = [];
-    }
-
-    async hardReset(packs: string[]): Promise<void> {
-        this.reset();
-        this.sourcesSettings = {
-            ignoreAsGM: true,
-            showEmptySources: true,
-            showUnknownSources: true,
-            sources: {},
-        };
-        await this.updateSources(packs);
-    }
-}
+import { PackLoader } from "./loader.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 
 class CompendiumBrowser extends Application {
     settings: CompendiumBrowserSettings;
-    dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
+    dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
     navigationTab: Tabs;
     tabs: BrowserTabs;
 
@@ -229,6 +43,7 @@ class CompendiumBrowser extends Application {
         this.tabs = {
             action: new browserTabs.Actions(this),
             bestiary: new browserTabs.Bestiary(this),
+            campaignFeature: new browserTabs.CampaignFeatures(this),
             equipment: new browserTabs.Equipment(this),
             feat: new browserTabs.Feats(this),
             hazard: new browserTabs.Hazards(this),
@@ -290,14 +105,17 @@ class CompendiumBrowser extends Application {
         const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
             action: {},
             bestiary: {},
+            campaignFeature: {},
             hazard: {},
             equipment: {},
             feat: {},
             spell: {},
         };
 
-        // NPCs and Hazards are all loaded by default other packs can be set here.
+        // NPCs and Hazards are all loaded by default, other packs can be set here.
         const loadDefault: Record<string, boolean | undefined> = {
+            bestiary: true,
+            hazard: true,
             "pf2e.actionspf2e": true,
             "pf2e.familiar-abilities": true,
             "pf2e.equipment-srd": true,
@@ -305,57 +123,28 @@ class CompendiumBrowser extends Application {
             "pf2e.classfeatures": true,
             "pf2e.feats-srd": true,
             "pf2e.spells-srd": true,
+            "pf2e.kingmaker-features": true,
         };
 
         for (const pack of game.packs) {
             const types = new Set(pack.index.map((entry) => entry.type));
             if (types.size === 0) continue;
 
-            if (types.has("npc")) {
-                const load = this.settings.bestiary?.[pack.collection]?.load ?? true;
-                settings.bestiary![pack.collection] = {
-                    load,
-                    name: pack.metadata.label,
-                    package: pack.metadata.packageName,
-                };
-            }
-            if (types.has("hazard")) {
-                const load = this.settings.hazard?.[pack.collection]?.load ?? true;
-                settings.hazard![pack.collection] = {
-                    load,
-                    name: pack.metadata.label,
-                    package: pack.metadata.packageName,
-                };
-            }
+            const type = (() => {
+                if (types.has("npc")) return "bestiary";
 
-            if (types.has("action")) {
-                const load = this.settings.action?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
-                settings.action![pack.collection] = {
-                    load,
-                    name: pack.metadata.label,
-                    package: pack.metadata.packageName,
-                };
-            } else if (
-                ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"].some((type) =>
-                    types.has(type)
-                )
-            ) {
-                const load = this.settings.equipment?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
-                settings.equipment![pack.collection] = {
-                    load,
-                    name: pack.metadata.label,
-                    package: pack.metadata.packageName,
-                };
-            } else if (types.has("feat")) {
-                const load = this.settings.feat?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
-                settings.feat![pack.collection] = {
-                    load,
-                    name: pack.metadata.label,
-                    package: pack.metadata.packageName,
-                };
-            } else if (types.has("spell")) {
-                const load = this.settings.spell?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
-                settings.spell![pack.collection] = {
+                if ([...PHYSICAL_ITEM_TYPES, "kit"].some((type) => types.has(type))) {
+                    return "equipment";
+                }
+
+                const validTypes = ["hazard", "action", "feat", "campaignFeature", "spell"] as const;
+                return validTypes.find((v) => types.has(v)) ?? null;
+            })();
+
+            if (type) {
+                const load =
+                    this.settings[type]?.[pack.collection]?.load ?? loadDefault[type] ?? !!loadDefault[pack.collection];
+                settings[type]![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                     package: pack.metadata.packageName,
@@ -713,7 +502,7 @@ class CompendiumBrowser extends Application {
                         break;
                     }
                     case "sliders": {
-                        if (!currentTab.isOfType("bestiary", "equipment", "feat", "hazard")) return;
+                        if (!currentTab.isOfType("bestiary", "equipment", "feat", "campaignFeature", "hazard")) return;
                         if (objectHasKey(currentTab.filterData.sliders, filterName)) {
                             toggleFilter(currentTab.filterData.sliders[filterName]);
                         }
@@ -836,7 +625,7 @@ class CompendiumBrowser extends Application {
 
             if (filterType === "sliders") {
                 // Slider filters
-                if (!currentTab.isOfType("bestiary", "equipment", "feat", "hazard")) return;
+                if (!currentTab.isOfType("bestiary", "campaignFeature", "equipment", "feat", "hazard")) continue;
                 const sliders = currentTab.filterData.sliders;
                 if (!sliders) continue;
 
@@ -1107,38 +896,20 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    override getData(): {
-        user: Active<UserPF2e>;
-        settings?: { settings: CompendiumBrowserSettings; sources: CompendiumBrowserSources };
-        scrollLimit?: number;
-    } {
+    override getData(): CompendiumBrowserSheetData {
         const activeTab = this.activeTab;
-        // Settings
-        if (activeTab === "settings") {
-            const settings = {
-                settings: this.settings,
-                sources: this.packLoader.sourcesSettings,
-            };
+        const tab = objectHasKey(this.tabs, activeTab) ? this.tabs[activeTab] : null;
 
-            return {
-                user: game.user,
-                settings: settings,
-            };
-        }
-        // Active tab
-        const tab = this.tabs[activeTab];
-        if (tab) {
-            return {
-                user: game.user,
-                [activeTab]: {
-                    filterData: tab.filterData,
-                },
-                scrollLimit: tab.scrollLimit,
-            };
-        }
-        // No active tab
+        const settings = {
+            settings: this.settings,
+            sources: this.packLoader.sourcesSettings,
+        };
+
         return {
             user: game.user,
+            [activeTab]: activeTab === "settings" ? settings : { filterData: tab?.filterData },
+            scrollLimit: tab?.scrollLimit,
+            showCampaign: game.settings.get("pf2e", "campaignType") !== "none",
         };
     }
 
@@ -1172,6 +943,13 @@ interface CompendiumBrowserSources {
     showEmptySources: boolean;
     showUnknownSources: boolean;
     sources: CompendiumBrowserSourcesList;
+}
+
+interface CompendiumBrowserSheetData {
+    user: Active<UserPF2e>;
+    settings?: { settings: CompendiumBrowserSettings; sources: CompendiumBrowserSources };
+    scrollLimit?: number;
+    showCampaign: boolean;
 }
 
 export { CompendiumBrowser };

@@ -286,6 +286,27 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 this.kingdom.addCustomModifier(stat, { label, modifier, type });
             });
         }
+
+        for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
+            const maxLevel = Number(link.dataset.level) || this.kingdom.level;
+
+            link.addEventListener("click", async () => {
+                const compendiumTab = game.pf2e.compendiumBrowser.tabs.campaignFeature;
+                const filter = await compendiumTab.getFilterData();
+
+                // Configure level filters
+                const levels = filter.sliders.level;
+                levels.values.max = Math.min(maxLevel, levels.values.upperLimit);
+                levels.isExpanded = levels.values.max !== levels.values.upperLimit;
+
+                // Set category
+                filter.checkboxes.category.options["kingdom-feat"].selected = true;
+                filter.checkboxes.category.selected.push("kingdom-feat");
+                filter.checkboxes.category.isExpanded = true;
+
+                compendiumTab.open(filter);
+            });
+        }
     }
 
     protected filterActions(trait: string | null, options: { instant?: boolean } = {}): void {

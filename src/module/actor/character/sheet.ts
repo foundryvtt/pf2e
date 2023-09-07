@@ -1055,7 +1055,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>("a[data-action=manage-tabs]")[0]);
 
         // Feat Browser shortcut links
-        for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
+        for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
             link.addEventListener("click", () => this.#onClickBrowseFeats(link));
         }
     }
@@ -1171,12 +1171,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (!(filterType && value)) {
                 throw ErrorPF2e(`Invalid filter value for opening the compendium browser: "${filterCode}"`);
             }
-            if (filterType === "category") {
-                if (value in category.options) {
-                    category.isExpanded = true;
-                    category.options[value].selected = true;
-                    category.selected.push(value);
-                }
+            if (filterType === "category" && value in category.options) {
+                category.isExpanded = true;
+                category.options[value].selected = true;
+                category.selected.push(value);
             } else if (filterType === "traits") {
                 const trait = traits.options.find((t) => t.value === value);
                 if (trait) {
