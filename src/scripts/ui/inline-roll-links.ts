@@ -199,7 +199,7 @@ export const InlineRollLinks = {
                                         ? foundryDoc.item
                                         : null;
 
-                                return itemFromDoc?.isOfType("action", "feat") ||
+                                return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
                                     (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
                                     ? itemFromDoc
                                     : null;
