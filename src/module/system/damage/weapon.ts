@@ -572,9 +572,12 @@ class WeaponDamagePF2e {
         ability: AttributeString | null,
         proficiencyRank: number
     ): string[] {
+        const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const selectors = [
             `${weapon.id}-damage`,
             `${weapon.slug ?? sluggify(weapon.name)}-damage`,
+            `${meleeOrRanged}-strike-damage`,
+            `${meleeOrRanged}-damage`,
             "strike-damage",
             "damage",
         ];

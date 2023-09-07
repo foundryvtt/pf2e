@@ -245,6 +245,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         `${item.id}-attack`,
         `${unarmedOrWeapon}-attack-roll`,
         `${meleeOrRanged}-attack-roll`,
+        `${meleeOrRanged}-strike-attack-roll`,
         "strike-attack-roll",
         "attack-roll",
         "attack",

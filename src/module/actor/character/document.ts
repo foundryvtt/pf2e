@@ -1231,6 +1231,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             `${weaponSlug}-attack-roll`,
             `${unarmedOrWeapon}-attack-roll`,
             `${meleeOrRanged}-attack-roll`,
+            `${meleeOrRanged}-strike-attack-roll`,
             "strike-attack-roll",
             "attack-roll",
             "attack",
