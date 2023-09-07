@@ -1,0 +1,45 @@
+{
+    "_id": "AGEr2Zby6Nc5g0bR",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Stone Guardian",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You learn to call a powerful guardian of earth and stone to your side. You can cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Elemental]</em> as an innate primal spell once per day, and can only summon elementals with the earth trait. This spell is automatically heightened to half your level rounded up.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Stonebound Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.stoneboundArchetype.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #195: Heavy is the Crown"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
