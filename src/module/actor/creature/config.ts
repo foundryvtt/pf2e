@@ -1,8 +1,8 @@
 import { ALLIANCES } from "@actor/creature/values.ts";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, setHasElement } from "@util";
-import type { CreaturePF2e } from "./index.ts";
 import { BaseCreatureSource, CreatureSystemSource, CreatureType } from "./data.ts";
+import type { CreaturePF2e } from "./document.ts";
 
 /** A DocumentSheet presenting additional, per-actor settings */
 abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet<TActor> {

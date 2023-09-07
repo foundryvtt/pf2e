@@ -1,11 +1,11 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
-import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { OneToFour, OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection.ts";
@@ -267,7 +267,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     async consume(spell: SpellPF2e<ActorPF2e>, rank: number, slot?: number): Promise<boolean> {
         const actor = this.actor;
-        if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
+        if (!actor?.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
         if (this.isRitual) return true;

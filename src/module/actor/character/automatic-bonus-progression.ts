@@ -1,11 +1,10 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { ArmorPF2e, WeaponPF2e } from "@item";
+import type { ArmorPF2e, WeaponPF2e } from "@item";
 import { ZeroToThree } from "@module/data.ts";
-import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier.ts";
+import type { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier.ts";
 import { PotencySynthetic } from "@module/rules/synthetics.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { CharacterPF2e } from "./document.ts";
 
 class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */

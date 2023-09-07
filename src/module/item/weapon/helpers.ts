@@ -2,7 +2,7 @@ import type { DamageType } from "@system/damage/types.ts";
 import { objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { WeaponPF2e } from "./document.ts";
 import { WeaponPropertyRuneType } from "./types.ts";
-import { CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 
 /** A helper class to handle toggleable weapon traits */
