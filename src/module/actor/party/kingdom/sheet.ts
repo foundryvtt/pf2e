@@ -1,16 +1,16 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { CampaignFeaturePF2e, ItemPF2e } from "@item";
+import { type CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { SheetOption, SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
     createHTMLElement,
@@ -23,7 +23,6 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import { PartyPF2e } from "../document.ts";
 import { KingdomBuilder } from "./builder.ts";
 import { Kingdom } from "./model.ts";
 import { KingdomAbilityData, KingdomData, KingdomLeadershipData, KingdomSource } from "./types.ts";

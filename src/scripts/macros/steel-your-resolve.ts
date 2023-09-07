@@ -1,4 +1,4 @@
-import { CharacterPF2e } from "@actor/character/document.ts";
+import { CharacterPF2e } from "@actor";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { localizer } from "@util";
 

@@ -1,12 +1,12 @@
-import { CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
-import { FamiliarPF2e } from "@actor/familiar/index.ts";
-import { AbilityItemPF2e } from "@item";
+import type { AbilityItemPF2e } from "@item";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { StatisticTraceData } from "@system/statistic/data.ts";
+import { StatisticTraceData } from "@system/statistic/index.ts";
 import { htmlQuery } from "@util";
 import * as R from "remeda";
+import { FamiliarPF2e } from "./document.ts";
 
 /**
  * @category Actor

@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
 import { FeatSlotLevel } from "@actor/character/feats.ts";
 import { SaveType } from "@actor/types.ts";
