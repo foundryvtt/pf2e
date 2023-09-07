@@ -177,7 +177,18 @@ class WeaponDamagePF2e {
             // Kickback trait
             if (weaponTraits.includes("kickback")) {
                 // For NPCs, subtract from the base damage and add back as an untype bonus
-                modifiers.push(new ModifierPF2e({ label: CONFIG.PF2E.weaponTraits.kickback, modifier: 1 }));
+                modifiers.push(
+                    new ModifierPF2e({
+                        slug: "kickback",
+                        label: CONFIG.PF2E.weaponTraits.kickback,
+                        modifier: 1,
+                        adjustments: extractModifierAdjustments(
+                            actor.synthetics.modifierAdjustments,
+                            selectors,
+                            "kickback"
+                        ),
+                    })
+                );
             }
 
             // Two-Hand trait
