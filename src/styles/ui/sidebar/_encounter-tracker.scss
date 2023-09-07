@@ -1,5 +1,47 @@
 #combat,
 #combat-popout {
+    nav.encounters {
+        line-height: 1.5rem;
+        padding-top: 0.25rem;
+    }
+
+    .threat-xp {
+        color: var(--text-light);
+        display: flex;
+        font-size: var(--font-size-14);
+        gap: 1rem;
+        justify-content: center;
+        line-height: 1.5rem;
+        text-shadow: 1px 1px 4px var(--color-shadow-dark);
+
+        > .threat,
+        > .xp {
+            width: 6rem;
+        }
+
+        .value {
+            &.trivial {
+                color: aqua;
+            }
+
+            &.low {
+                color: lime;
+            }
+
+            &.moderate {
+                color: yellow;
+            }
+
+            &.severe {
+                color: orange;
+            }
+
+            &.extreme {
+                color: red;
+            }
+        }
+    }
+
     .encounter-controls {
         padding: 0.25rem 0 0.5rem;
     }
@@ -38,5 +80,9 @@
                 vertical-align: bottom;
             }
         }
+    }
+
+    a.combat-control.center {
+        white-space: nowrap;
     }
 }
