@@ -1,0 +1,44 @@
+{
+    "_id": "QzJv3TybABeCjwQc",
+    "img": "icons/magic/movement/abstract-ribbons-red-orange.webp",
+    "name": "Effect: Riding Zogototaru",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 circumstance penalty to their Reflex saves against Zogototaru's Thrashing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:thrash"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #195: Heavy is the Crown"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

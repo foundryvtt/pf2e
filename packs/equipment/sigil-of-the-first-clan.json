@@ -1,0 +1,94 @@
+{
+    "_id": "9wjpW7vZJw5xA1yG",
+    "img": "systems/pf2e/icons/equipment/held-items/inspiring-spotlight.webp",
+    "name": "Sigil of the First Clan",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This intricate gold and adamantine clasp depicts the sigil of Clan Taargick, house of the famed King Taargick, founder of Tar Taargadth. When displayed prominently, other dwarves give more weight to your words. You gain a +1 circumstance bonus to Diplomacy and Intimidation checks against dwarves and against anyone who considers themselves a staunch ally of Clan Taargick. Against anyone who considers Clan Taargick an enemy, such as worshippers of Droskar and many orcs, you instead take a –1 circumstance penalty to Diplomacy and Intimidation checks.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You wield the authority of Clan Taargick like a gavel, enforcing your word as law. You cast 1st-level <em>@UUID[Compendium.pf2e.spells-srd.aIHY2DArKFweIrpf]{Command}</em> with a DC of 24.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": null,
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 8
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "price": {
+            "value": {
+                "gp": 430
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:dwarf",
+                            "ally-of-taargick"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:deity:droskar",
+                            "enemy-of-taargick"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "slug": "sigil-of-the-first-clan-penalty",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder #195: Heavy is the Crown"
+        },
+        "stackGroup": null,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "enchantment",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}
