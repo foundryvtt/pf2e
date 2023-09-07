@@ -405,6 +405,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     }
 
     async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
+        // Work with a `CheckDC` object
+        args.dc = typeof args.dc === "number" ? { value: Math.trunc(args.dc) || 0 } : args.dc ?? null;
+
         // Allow use of events for modules and macros but don't allow it for internal system use
         const { rollMode, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
@@ -435,7 +438,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             const isTargetedCheck =
                 (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (!["flat-check", "saving-throw"].includes(this.type) &&
-                    !!(args.dc && (args.dc?.slug || "statistic" in args.dc)) &&
+                    !!(args.dc?.slug || "statistic" in (args.dc ?? {})) &&
                     (!item || item.isOfType("action", "feat", "weapon")));
 
             return isValidAttacker && isTargetedCheck
@@ -452,7 +455,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         })();
 
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
-        const dc = args.dc && "value" in args.dc ? args.dc : rollContext?.dc ?? null;
+        const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
@@ -654,6 +657,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
 interface CheckDCReference {
     slug: string;
+    value?: never;
 }
 
 interface StatisticRollParameters {
@@ -670,7 +674,7 @@ interface StatisticRollParameters {
     /** Optional origin for the roll: only one of target and origin may be provided */
     origin?: Maybe<ActorPF2e>;
     /** Optional DC data for the roll */
-    dc?: CheckDC | CheckDCReference | null;
+    dc?: CheckDC | CheckDCReference | number | null;
     /** Optional override for the check modifier label */
     label?: string;
     /** Optional override for the dialog's title. Defaults to label */
