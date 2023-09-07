@@ -143,7 +143,7 @@ interface PotencySynthetic {
     property?: WeaponPropertyRuneType[];
 }
 
-export {
+export type {
     BaseSpeedSynthetic,
     CritSpecEffect,
     DamageDiceSynthetics,

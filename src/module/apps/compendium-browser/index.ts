@@ -2,7 +2,7 @@ import { KitPF2e, PhysicalItemPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType } from "@item/data/base.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, isBlank, isObject, localizer, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
@@ -1174,4 +1174,5 @@ interface CompendiumBrowserSources {
     sources: CompendiumBrowserSourcesList;
 }
 
-export { CompendiumBrowser, CompendiumBrowserSettings, CompendiumBrowserSources };
+export { CompendiumBrowser };
+export type { CompendiumBrowserSettings, CompendiumBrowserSources };

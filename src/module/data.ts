@@ -136,7 +136,8 @@ type EnfolderableDocumentPF2e =
     | ItemPF2e<null>
     | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
 
-export {
+export { RARITIES, SIZES, SIZE_SLUGS, goesToEleven };
+export type {
     DocumentSchemaRecord,
     EnfolderableDocumentPF2e,
     LabeledNumber,
@@ -146,10 +147,7 @@ export {
     OneToFour,
     OneToTen,
     OneToThree,
-    RARITIES,
     Rarity,
-    SIZES,
-    SIZE_SLUGS,
     Size,
     TraitsWithRarity,
     TwoToThree,
@@ -163,5 +161,4 @@ export {
     ZeroToTen,
     ZeroToThree,
     ZeroToTwo,
-    goesToEleven,
 };

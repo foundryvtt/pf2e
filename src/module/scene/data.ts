@@ -17,4 +17,5 @@ enum LightLevels {
 
 type LightLevel = ZeroToTwo;
 
-export { LightLevel, LightLevels, SceneFlagsPF2e };
+export { LightLevels };
+export type { LightLevel, SceneFlagsPF2e };

@@ -17,7 +17,7 @@ interface RollInitiativeOptionsPF2e extends RollInitiativeOptions, StatisticRoll
     secret?: boolean;
 }
 
-export {
+export type {
     ActorSourcePF2e,
     ActorType,
     CharacterSource,

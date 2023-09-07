@@ -9,7 +9,7 @@ import {
 } from "@actor/creature/data.ts";
 import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { AttributeString } from "@actor/types.ts";
-import type { StatisticTraceData } from "@system/statistic/index.ts";
+import { StatisticTraceData } from "@system/statistic/index.ts";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
@@ -74,4 +74,4 @@ interface FamiliarTraitsData extends CreatureTraitsData {
     senses: CreatureSensePF2e[];
 }
 
-export { FamiliarSource, FamiliarSystemData, FamiliarSystemSource };
+export type { FamiliarSource, FamiliarSystemData, FamiliarSystemSource };

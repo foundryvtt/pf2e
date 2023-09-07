@@ -45,4 +45,4 @@ type NPCAttackDamage = Required<NPCAttackDamageSource>;
 export type NPCAttackTrait = keyof ConfigPF2e["PF2E"]["npcAttackTraits"];
 export type NPCAttackTraits = ItemTraits<NPCAttackTrait>;
 
-export { MeleeFlags, MeleeSource, MeleeSystemData, MeleeSystemSource, NPCAttackDamage };
+export type { MeleeFlags, MeleeSource, MeleeSystemData, MeleeSystemSource, NPCAttackDamage };

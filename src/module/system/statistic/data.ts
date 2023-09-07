@@ -83,7 +83,7 @@ interface StatisticTraceData extends BaseStatisticTraceData {
     dc: number;
 }
 
-export {
+export type {
     BaseStatisticData,
     BaseStatisticTraceData,
     StatisticChatData,

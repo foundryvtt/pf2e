@@ -181,4 +181,5 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     protected abstract toActionVariant(data?: TData): TAction;
 }
 
-export { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData };
+export { BaseAction, BaseActionVariant };
+export type { BaseActionData, BaseActionVariantData };

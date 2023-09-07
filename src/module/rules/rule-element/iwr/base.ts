@@ -117,4 +117,5 @@ interface IWRRuleElementSource extends RuleElementSource {
     override?: unknown;
 }
 
-export { IWRRuleElement, IWRRuleElementSource, IWRRuleSchema };
+export { IWRRuleElement };
+export type { IWRRuleElementSource, IWRRuleSchema };

@@ -1384,7 +1384,7 @@ const kingmakerTraits = {
 };
 
 export {
-    ElementTrait,
+    type ElementTrait,
     actionTraits,
     alignmentTraits,
     ancestryItemTraits,

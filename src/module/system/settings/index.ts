@@ -1,6 +1,6 @@
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { type ItemPF2e, ItemSheetPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { isImageOrVideoPath } from "@util";

@@ -496,4 +496,4 @@ type RuleElementOptions = {
     suppressWarnings?: boolean;
 };
 
-export { RuleElementOptions, RuleElementPF2e };
+export { RuleElementPF2e, type RuleElementOptions };

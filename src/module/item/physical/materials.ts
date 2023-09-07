@@ -493,4 +493,5 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     },
 };
 
-export { ARMOR_MATERIAL_VALUATION_DATA, MaterialGradeData, MaterialValuationData, WEAPON_MATERIAL_VALUATION_DATA };
+export { ARMOR_MATERIAL_VALUATION_DATA, WEAPON_MATERIAL_VALUATION_DATA };
+export type { MaterialGradeData, MaterialValuationData };

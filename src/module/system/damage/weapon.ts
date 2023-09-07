@@ -680,4 +680,4 @@ interface ExcludeDamageParams {
     options: Set<string>;
 }
 
-export { ConvertedNPCDamage, WeaponDamagePF2e };
+export { WeaponDamagePF2e, type ConvertedNPCDamage };

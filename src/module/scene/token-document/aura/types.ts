@@ -19,4 +19,4 @@ interface TokenAuraData {
     traits: Set<ItemTrait>;
 }
 
-export { TokenAuraData };
+export type { TokenAuraData };

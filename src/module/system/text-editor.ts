@@ -831,4 +831,4 @@ interface CheckLinkParams {
     roller?: string;
 }
 
-export { EnrichmentOptionsPF2e, TextEditorPF2e };
+export { TextEditorPF2e, type EnrichmentOptionsPF2e };

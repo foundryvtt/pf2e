@@ -2,7 +2,7 @@ import { Coins } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
-import { DegreeOfSuccessIndex, DegreeOfSuccess, RollBrief } from "@system/degree-of-success.ts";
+import { DegreeOfSuccess, DegreeOfSuccessIndex, RollBrief } from "@system/degree-of-success.ts";
 
 /**
  * Implementation of Earn Income rules on https://2e.aonprd.com/Skills.aspx?ID=2&General=true
@@ -149,4 +149,5 @@ interface EarnIncomeResult {
     roll: number;
 }
 
-export { EarnIncomeOptions, EarnIncomeResult, PerDayEarnIncomeResult, calculateDC, earnIncome, getIncomeForLevel };
+export { calculateDC, earnIncome, getIncomeForLevel };
+export type { EarnIncomeOptions, EarnIncomeResult, PerDayEarnIncomeResult };

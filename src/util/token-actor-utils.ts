@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 
 /**

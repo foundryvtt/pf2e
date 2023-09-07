@@ -10,7 +10,7 @@ import {
     BaseActorSourcePF2e,
     StrikeData,
 } from "@actor/data/base.ts";
-import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import type { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type {
     ActorAlliance,
     AttributeString,
@@ -21,8 +21,8 @@ import type {
 } from "@actor/types.ts";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
-import { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
-import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
+import type { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
+import type { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
 import { Alignment, CreatureTrait } from "./types.ts";
 
 type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<
@@ -228,7 +228,8 @@ interface HeldShieldData {
     icon: ImageFilePath;
 }
 
-export {
+export { VisionLevels };
+export type {
     Abilities,
     AbilityData,
     Attitude,
@@ -255,5 +256,4 @@ export {
     SkillAbbreviation,
     SkillData,
     VisionLevel,
-    VisionLevels,
 };

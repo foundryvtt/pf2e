@@ -72,4 +72,4 @@ interface CheckRollDataPF2e extends RollDataPF2e {
     domains?: string[];
 }
 
-export { CheckRoll, CheckRollDataPF2e };
+export { CheckRoll, type CheckRollDataPF2e };

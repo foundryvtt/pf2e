@@ -10,7 +10,7 @@ import {
     ActorTraitsSource,
     BaseActorSourcePF2e,
 } from "@actor/data/base.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
+import type { ActorSizePF2e } from "@actor/data/size.ts";
 import { InitiativeTraceData } from "@actor/initiative.ts";
 import { NPCStrike } from "@actor/npc/index.ts";
 import { SaveType } from "@actor/types.ts";
@@ -114,4 +114,4 @@ interface HazardHitPoints extends ActorHitPoints {
 type HazardSaveData = Omit<SaveData, "attribute">;
 type HazardSaves = Record<SaveType, HazardSaveData>;
 
-export { HazardSource, HazardSystemData };
+export type { HazardSource, HazardSystemData };

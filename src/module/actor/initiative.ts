@@ -100,4 +100,5 @@ class ActorInitiative {
 
 type InitiativeTraceData = StatisticTraceData & InitiativeData;
 
-export { ActorInitiative, InitiativeRollResult, InitiativeTraceData };
+export { ActorInitiative };
+export type { InitiativeRollResult, InitiativeTraceData };

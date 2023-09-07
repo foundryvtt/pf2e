@@ -175,4 +175,5 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 }
 
-export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, TrickMagicItemSkill, traditionSkills };
+export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, traditionSkills };
+export type { TrickMagicItemSkill };

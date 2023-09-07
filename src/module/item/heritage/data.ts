@@ -15,4 +15,4 @@ interface HeritageSystemSource extends ItemSystemData {
 
 export type HeritageSystemData = HeritageSystemSource;
 
-export { HeritageSource, HeritageSystemSource };
+export type { HeritageSource, HeritageSystemSource };

@@ -1005,4 +1005,4 @@ interface SpellDamageOptions {
     target?: ActorPF2e | null;
 }
 
-export { SpellPF2e, SpellToMessageOptions };
+export { SpellPF2e, type SpellToMessageOptions };

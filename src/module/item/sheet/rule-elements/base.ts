@@ -71,4 +71,4 @@ type RuleElementFormSheetData<
     TObject extends RuleElementPF2e
 > = RuleElementFormOptions<TSource, TObject>;
 
-export { RuleElementForm, RuleElementFormSheetData, coerceNumber };
+export { RuleElementForm, coerceNumber, type RuleElementFormSheetData };

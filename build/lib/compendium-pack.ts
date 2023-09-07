@@ -1,6 +1,7 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e, MeleeSource, isPhysicalData } from "@item/data/index.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -9,9 +10,8 @@ import fs from "fs";
 import path from "path";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
 import { PackError, getFilesRecursively } from "./helpers.ts";
-import { PackEntry } from "./types.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
-import { itemIsOfType } from "@item/helpers.ts";
+import { PackEntry } from "./types.ts";
 
 interface PackMetadata {
     system: string;
@@ -480,4 +480,5 @@ interface ConvertUUIDOptions {
     map: Map<string, Map<string, string>>;
 }
 
-export { CompendiumPack, PackError, PackMetadata, isItemSource, isActorSource, REMaybeWithUUIDs };
+export { CompendiumPack, PackError, isActorSource, isItemSource };
+export type { PackMetadata, REMaybeWithUUIDs };

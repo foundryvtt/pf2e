@@ -2,7 +2,7 @@ import { AttributeString, SaveType } from "@actor/types.ts";
 import { ABCSystemSource } from "@item/abc/data.ts";
 import { BaseItemSourcePF2e, ItemTraits } from "@item/data/base.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { CLASS_TRAITS } from "./values.ts";
+import type { CLASS_TRAITS } from "./values.ts";
 
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 
@@ -46,4 +46,4 @@ interface ClassDefenseProficiencies {
 
 type ClassTrait = SetElement<typeof CLASS_TRAITS>;
 
-export { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait };
+export type { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait };

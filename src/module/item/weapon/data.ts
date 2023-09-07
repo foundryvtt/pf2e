@@ -199,7 +199,7 @@ interface ComboWeaponMeleeUsage {
     traitToggles?: { modular: DamageType | null; versatile: DamageType | null };
 }
 
-export {
+export type {
     ComboWeaponMeleeUsage,
     WeaponDamage,
     WeaponFlags,

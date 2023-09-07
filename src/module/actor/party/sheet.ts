@@ -15,7 +15,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
@@ -561,4 +561,4 @@ interface LanguageSheetData {
     actors: ActorPF2e[];
 }
 
-export { PartySheetPF2e, PartySheetRenderOptions };
+export { PartySheetPF2e, type PartySheetRenderOptions };

@@ -9,4 +9,4 @@ type TreasureSystemData = PhysicalSystemData & {
     };
 };
 
-export { TreasureSource, TreasureSystemData, TreasureSystemSource };
+export type { TreasureSource, TreasureSystemData, TreasureSystemSource };

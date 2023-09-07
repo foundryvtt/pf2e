@@ -1,5 +1,6 @@
 import { AttributeString } from "@actor/types.ts";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
+import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
 import { FeatCategory } from "@item/feat/types.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
@@ -133,4 +134,4 @@ interface FeatureSheetData extends ABCFeatureEntryData {
     fromWorld: boolean;
 }
 
-export { ABCSheetData, ABCSheetPF2e };
+export { ABCSheetPF2e, type ABCSheetData };

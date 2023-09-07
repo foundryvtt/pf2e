@@ -445,8 +445,8 @@ function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePat
 
 export {
     ErrorPF2e,
-    Fraction,
-    SlugCamel,
+    type Fraction,
+    type SlugCamel,
     addSign,
     applyNTimes,
     configFromLocalization,

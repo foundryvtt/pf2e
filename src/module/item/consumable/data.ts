@@ -38,4 +38,4 @@ interface ConsumableSystemData
     extends Omit<ConsumableSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "traits"> {}
 
-export { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };
+export type { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };

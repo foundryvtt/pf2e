@@ -1,6 +1,6 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { ValuesList } from "@module/data.ts";
 import { htmlQuery, htmlQueryAll } from "@util";

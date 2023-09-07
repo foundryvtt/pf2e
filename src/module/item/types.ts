@@ -33,4 +33,4 @@ type RangeData = {
     max: number;
 };
 
-export { ItemInstances, RangeData };
+export type { ItemInstances, RangeData };

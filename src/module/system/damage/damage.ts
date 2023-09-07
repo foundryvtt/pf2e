@@ -1,6 +1,6 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";

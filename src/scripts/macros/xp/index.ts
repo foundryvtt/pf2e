@@ -153,4 +153,4 @@ function calculateXP(
 }
 
 export { xpFromEncounter } from "./dialog.ts";
-export { XPCalculation, calculateXP };
+export { type XPCalculation, calculateXP };

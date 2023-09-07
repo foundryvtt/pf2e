@@ -1,13 +1,13 @@
-import { ActorPF2e, ActorUpdateContext } from "@actor/base.ts";
+import type { ActorPF2e, ActorUpdateContext } from "@actor/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import { SheetOptions } from "@module/sheet/helpers.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data.ts";
-import { CreaturePF2e } from "./document.ts";
-import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values.ts";
+import type { CreaturePF2e } from "./document.ts";
+import type { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values.ts";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
@@ -50,7 +50,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
     };
 }
 
-export {
+export type {
     Alignment,
     AlignmentTrait,
     CreatureSheetData,

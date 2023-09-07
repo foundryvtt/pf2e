@@ -146,11 +146,5 @@ function settingsToSheetData(
     }, {});
 }
 
-export {
-    MenuTemplateData,
-    PartialSettingsData,
-    SettingsMenuOptions,
-    SettingsMenuPF2e,
-    SettingsTemplateData,
-    settingsToSheetData,
-};
+export { SettingsMenuPF2e, settingsToSheetData };
+export type { MenuTemplateData, PartialSettingsData, SettingsMenuOptions, SettingsTemplateData };

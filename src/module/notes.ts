@@ -1,8 +1,8 @@
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { RawPredicate, PredicatePF2e } from "@system/predication.ts";
 import { createHTMLElement } from "@util";
-import { RuleElementPF2e } from "./rules/index.ts";
+import type { RuleElementPF2e } from "./rules/index.ts";
 
 class RollNotePF2e {
     /** The selector used to determine on which rolls the note will be shown for. */
@@ -89,4 +89,4 @@ interface RollNoteParams extends RollNoteSource {
     rule?: RuleElementPF2e | null;
 }
 
-export { RollNotePF2e, RollNoteSource };
+export { RollNotePF2e, type RollNoteSource };

@@ -13,4 +13,4 @@ interface ABCSystemSource extends ItemSystemSource {
 
 type ABCSystemData = ABCSystemSource;
 
-export { ABCFeatureEntryData, ABCSystemData, ABCSystemSource };
+export type { ABCFeatureEntryData, ABCSystemData, ABCSystemSource };

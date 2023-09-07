@@ -1,7 +1,7 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { RollNotePF2e } from "@module/notes.ts";
+import type { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
@@ -695,25 +695,27 @@ class DamageDicePF2e {
 type RawDamageDice = Required<DamageDiceParameters>;
 
 export {
-    BaseRawModifier,
     CheckModifier,
     DamageDicePF2e,
-    DamageDiceOverride,
-    DamageDiceParameters,
-    DeferredPromise,
-    DeferredValue,
-    DeferredValueParams,
     MODIFIER_TYPES,
-    ModifierAdjustment,
     ModifierPF2e,
-    ModifierType,
     PROFICIENCY_RANK_OPTION,
-    RawModifier,
     StatisticModifier,
-    TestableDeferredValueParams,
     adjustModifiers,
     applyStackingRules,
     createAttributeModifier,
     createProficiencyModifier,
     ensureProficiencyOption,
+};
+export type {
+    BaseRawModifier,
+    DamageDiceOverride,
+    DamageDiceParameters,
+    DeferredPromise,
+    DeferredValue,
+    DeferredValueParams,
+    ModifierAdjustment,
+    ModifierType,
+    RawModifier,
+    TestableDeferredValueParams,
 };

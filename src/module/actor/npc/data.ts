@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor/base.ts";
+import type { ActorPF2e } from "@actor/base.ts";
 import {
     Abilities,
     BaseCreatureSource,
@@ -248,7 +248,7 @@ interface NPCSpeeds extends CreatureSpeeds {
     details: string;
 }
 
-export {
+export type {
     NPCAttributes,
     NPCAttributesSource,
     NPCFlags,
