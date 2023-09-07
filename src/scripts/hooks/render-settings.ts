@@ -39,7 +39,7 @@ export const RenderSettings = {
             systemRow?.after(systemInfo);
 
             // Add PF2e section (which has license and troubleshooting)
-            const header = createHTMLElement("h2", { children: ["Pathfinder 2e"] });
+            const header = createHTMLElement("h2", { children: [game.system.title] });
             const pf2eSettings = createHTMLElement("div");
             html.querySelector("#settings-documentation")?.after(header, pf2eSettings);
 

@@ -210,6 +210,7 @@ declare global {
          */
         get system(): {
             id: string;
+            title: string;
             version: string;
             gridUnits: string;
             data: {
