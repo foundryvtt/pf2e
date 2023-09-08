@@ -36,7 +36,10 @@ class RuleElementForm<
     }
 
     /** Returns the initial value of the schema. Arrays are stripped due to how they're handled in forms */
-    protected getInitialValue(): object {
+    #getInitialValue(): object {
+        // Only apply to real forms for now
+        if (this.constructor.name === "RuleElementForm") return {};
+
         const initial: Partial<SourceFromSchema<RuleElementSchema>> | undefined = this.schema?.getInitialValue();
         if (!initial) return {};
         for (const property of ["ignored", "priority", "slug"] as const) {
@@ -60,7 +63,7 @@ class RuleElementForm<
     async getData(): Promise<RuleElementFormSheetData<TSource, TObject>> {
         return {
             ...this.options,
-            rule: mergeObject(this.getInitialValue() ?? {}, this.rule),
+            rule: mergeObject(this.#getInitialValue(), this.rule),
         };
     }
 
