@@ -1,0 +1,44 @@
+{
+    "_id": "Prn00DwJJHbfIp74",
+    "img": "icons/consumables/vegetable/root-ginger-yellow.webp",
+    "name": "Effect: Ginger Chew",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ginger Chew]</p>\n<p>A ginger chew lasts for 1 hour and grants you a +1 item bonus to Fortitude saves against being sickened.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inflicts:sickened"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
