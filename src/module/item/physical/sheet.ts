@@ -115,7 +115,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         super.activateListeners($html);
         const html = $html[0];
 
-        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-property]")) {
+        const modifiedPropertyFields = htmlQueryAll<HTMLSelectElement | HTMLInputElement>(html, "[data-property]");
+        for (const input of modifiedPropertyFields) {
             const propertyPath = input.dataset.property ?? "";
             const baseValue =
                 input.dataset.valueBase ?? String(getProperty(this.item._source, propertyPath) ?? "").trim();

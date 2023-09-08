@@ -497,8 +497,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     getMaterialValuationData(): MaterialGradeData | null {
-        const materialData = WEAPON_MATERIAL_VALUATION_DATA[this.system.material.type ?? ""];
-        return materialData?.[this.system.material.grade ?? "low"] ?? null;
+        const { material } = this;
+        const materialData = WEAPON_MATERIAL_VALUATION_DATA[material.type ?? ""];
+        return material.grade && (materialData?.[material.grade] ?? null);
     }
 
     override async getChatData(

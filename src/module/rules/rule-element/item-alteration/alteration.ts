@@ -21,6 +21,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "category",
         "hardness",
         "hp-max",
+        "material-type",
         "pd-recovery-dc",
         "persistent-damage",
         "rarity",
@@ -165,6 +166,18 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
                     data.item.system.persistent = validator.initialize(data.alteration).value;
+                }
+                return;
+            }
+            case "material-type": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (validator.isValid(data)) {
+                    data.item.system.material.type = data.alteration.value;
+                    data.item.system.material.grade = "standard";
+                    // Have the displayed name reflect the new material
+                    if ("generateMagicName" in data.item) {
+                        data.item.name = data.item.generateMagicName();
+                    }
                 }
                 return;
             }
