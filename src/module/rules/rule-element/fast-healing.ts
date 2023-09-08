@@ -28,6 +28,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
             details: new fields.StringField({
                 required: false,
                 nullable: true,
+                blank: false,
                 initial: null,
             }),
             deactivatedBy: new fields.ArrayField(

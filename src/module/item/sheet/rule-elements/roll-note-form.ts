@@ -31,6 +31,8 @@ class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> 
     }
 
     override updateObject(ruleData: Partial<Record<string, unknown>>): void {
+        super.updateObject(ruleData);
+
         const { html } = this;
         if (html) {
             const shouldBeHidden = htmlQuery<HTMLInputElement>(html, ".hidden-value")?.checked;
@@ -50,9 +52,6 @@ class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> 
 
         if (typeof ruleData.title === "string") {
             ruleData.title = ruleData.title.trim();
-            if (ruleData.title === "") {
-                delete ruleData.title;
-            }
         }
     }
 }

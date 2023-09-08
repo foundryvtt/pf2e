@@ -8,27 +8,19 @@ class GrantItemForm extends RuleElementForm<GrantItemSource, GrantItemRuleElemen
         const data = await super.getData();
         const uuid = this.rule.uuid ? String(this.rule.uuid) : null;
         const granted = uuid ? await fromUuid(uuid) : null;
-        return { ...data, granted, allowDuplicate: !!this.rule.allowDuplicate ?? true };
+        return { ...data, granted };
     }
 
     override updateObject(ruleData: DeepPartial<GrantItemSource>): void {
+        super.updateObject(ruleData);
         if (typeof ruleData.uuid === "string") {
             ruleData.uuid = ruleData.uuid.trim();
-            if (ruleData.uuid === "") delete ruleData.uuid;
         }
-
-        // Optional but defaults to false
-        if (!ruleData.replaceSelf) delete ruleData.replaceSelf;
-        if (!ruleData.reevaluateOnUpdate) delete ruleData.reevaluateOnUpdate;
-
-        // Optional but defaults to true
-        if (ruleData.allowDuplicate) delete ruleData.allowDuplicate;
     }
 }
 
 interface GrantItemFormSheetData extends RuleElementFormSheetData<GrantItemSource, GrantItemRuleElement> {
     granted: ClientDocument | null;
-    allowDuplicate: boolean;
 }
 
 export { GrantItemForm };

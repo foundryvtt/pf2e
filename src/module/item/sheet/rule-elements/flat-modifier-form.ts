@@ -3,11 +3,16 @@ import { isBracketedValue } from "@module/rules/helpers.ts";
 import { FlatModifierRuleElement, FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, isObject, pick, tupleHasValue } from "@util";
-import { RuleElementForm, RuleElementFormSheetData, coerceNumber } from "./base.ts";
+import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the flat modifier rule element */
 class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierRuleElement> {
     override template = "systems/pf2e/templates/items/rules/flat-modifier.hbs";
+
+    get isDamage(): boolean {
+        const selectors = [this.rule.selector ?? []].flat();
+        return selectors.some((s) => s === "damage" || String(s).endsWith("-damage"));
+    }
 
     override activateListeners(html: HTMLElement): void {
         super.activateListeners(html);
@@ -59,16 +64,13 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
             ? "object"
             : "primitive";
 
-        const selectors = [this.rule.selector ?? []].flat();
-        const isDamage = selectors.some((s) => String(s).endsWith("damage"));
-
         return {
             ...data,
             selectorIsArray: Array.isArray(this.rule.selector),
             abilities: CONFIG.PF2E.abilities,
             types: [...MODIFIER_TYPES].filter((type) => type !== "untyped"),
             damageCategories: pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
-            isDamage,
+            isDamage: this.isDamage,
             value: {
                 mode: valueMode,
                 data: this.rule.value,
@@ -77,38 +79,20 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
     }
 
     override updateObject(formData: Partial<FlatModifierSource>): void {
-        // Convert brackets to array, and coerce the value types
-        if (isObject<{ brackets: object; field: string }>(formData.value) && "brackets" in formData.value) {
-            const brackets = (formData.value.brackets = Array.from(Object.values(formData.value.brackets ?? {})));
-
-            if (formData.value.field === "") {
-                delete formData.value.field;
-            }
-
-            for (const bracket of brackets) {
-                if (bracket.start === null) delete bracket.start;
-                if (bracket.end === null) delete bracket.end;
-                bracket.value = isObject(bracket.value) ? "" : coerceNumber(bracket.value);
-            }
-        } else if (!isObject(formData.value)) {
-            formData.value = coerceNumber(formData.value ?? "");
-        }
-
         // Flat Modifier types may have mutually exclusive properties
         delete formData[formData.type === "ability" ? "value" : "ability"];
 
         // `critical` is a tri-state of false, true, and null (default).
         formData.critical = tupleHasValue([false, "false"], formData.critical) ? false : !!formData.critical || null;
-        if (formData.critical === null) {
+
+        // If this cannot possibly be damage, delete the damage properties
+        if (!this.isDamage) {
+            delete formData.damageCategory;
+            delete formData.damageType;
             delete formData.critical;
         }
 
-        // Remove empty string, null, or falsy values for certain optional parameters
-        for (const optional of ["label", "type", "damageType", "damageCategory", "hideIfDisabled"] as const) {
-            if (!formData[optional]) {
-                delete formData[optional];
-            }
-        }
+        super.updateObject(formData);
     }
 }
 
