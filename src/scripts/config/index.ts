@@ -295,6 +295,7 @@ function notifyDeprecatedPath(configPath: string, locPath: string): void {
 }
 
 export const PF2ECONFIG = {
+    defaultPartyId: "xxxPF2ExPARTYxxx",
     chatDamageButtonShieldToggle: false,
 
     statusEffects: {
