@@ -74,6 +74,12 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
+    /** Make `system.campaign` non-enumerable to prevent `TokenDocument.getTrackedAttributes` from recursing into it. */
+    protected override _initialize(options?: Record<string, unknown> | undefined): void {
+        super._initialize(options);
+        Object.defineProperty(this.system, "campaign", { writable: true, enumerable: false });
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.members = this.system.details.members
