@@ -20,8 +20,14 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
+            itemId: new fields.StringField({
+                required: false,
+                nullable: false,
+                blank: false,
+                initial: undefined,
+            }),
             itemType: new fields.StringField({
-                required: true,
+                required: false,
                 nullable: false,
                 choices: R.mapValues(CONFIG.PF2E.Item.documentClasses, (key) => `TYPES.Item.${key}`),
                 initial: undefined,
@@ -30,12 +36,24 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         };
     }
 
+    static override validateJoint(data: SourceFromSchema<ItemAlterationRuleSchema>): void {
+        super.validateJoint(data);
+
+        if (!data.itemId && !data.itemType) {
+            throw Error("one of itemId and itemType must be defined");
+        }
+    }
+
     override beforePrepareData(): void {
         if (this.ignored) return;
 
         const actorRollOptions = this.predicate.length > 0 ? this.actor.getRollOptions() : [];
         try {
-            const items = this.itemType === "condition" ? this.actor.conditions : this.actor.itemTypes[this.itemType];
+            const items = this.itemId
+                ? R.compact([this.actor.items.get(this.resolveInjectedProperties(this.itemId))])
+                : this.itemType === "condition"
+                ? this.actor.conditions
+                : this.actor.itemTypes[this.itemType!];
             for (const item of items) {
                 const itemRollOptions = this.predicate.length > 0 ? item.getRollOptions("item") : [];
                 const rollOptions = [...actorRollOptions, ...itemRollOptions];
@@ -54,7 +72,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     override async preCreate(): Promise<void> {
         if (this.ignored || this.property !== "hp-max") return;
 
-        const itemsOfType: ItemPF2e<ActorPF2e>[] = this.actor.itemTypes[this.itemType];
+        const itemsOfType: ItemPF2e<ActorPF2e>[] = this.itemType ? this.actor.itemTypes[this.itemType] : [];
         const actorRollOptions = this.actor.getRollOptions();
         const itemsToAlter = itemsOfType.filter((i): i is PhysicalItemPF2e<ActorPF2e> =>
             this.test([...actorRollOptions, ...i.getRollOptions("item")])
@@ -79,7 +97,10 @@ interface ItemAlterationRuleElement
 
 type ItemAlterationRuleSchema = RuleElementSchema &
     ItemAlterationSchema & {
-        itemType: StringField<ItemType, ItemType, true, false, false>;
+        /** The type of items to alter */
+        itemType: StringField<ItemType, ItemType, false, false, false>;
+        /** As an alternative to specifying item types, an exact item ID can be provided */
+        itemId: StringField<string, string, false, false, false>;
     };
 
 export { ItemAlterationRuleElement };
