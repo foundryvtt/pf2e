@@ -37,7 +37,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
-    <select name="system.material" data-dtype="JSON">
+    <select data-property="system.material" data-value-base="{{json item._source.system.material}}" data-dtype="JSON">
         {{#select preciousMaterials.value}}
             <option value="{&quot;type&quot;:null,&quot;grade&quot;:null}"></option>
             {{#each preciousMaterials.materials as |material|}}
