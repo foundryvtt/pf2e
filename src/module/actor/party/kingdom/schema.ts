@@ -106,18 +106,18 @@ const KINGDOM_RESOURCES_SCHEMA = {
     }),
     /** Worksites by commodity type, for the commodities that can have work sites */
     workSites: new fields.SchemaField(
-        R.mapToObj(["lumber", "ore", "stone"], (type) => {
+        R.mapToObj(["food", "luxuries", "lumber", "ore", "stone"], (type) => {
             const schema = new fields.SchemaField({
                 /** The number of regular non-resource work sites */
-                regular: new fields.NumberField<number, number, true, false>({
-                    required: true,
+                value: new fields.NumberField<number, number, false, false>({
+                    required: false,
                     nullable: false,
                     min: 0,
                     initial: 0,
                 }),
-                /** The number of worksites that are on resource hexes (these) */
-                resource: new fields.NumberField<number, number, true, false>({
-                    required: true,
+                /** The number of worksites that are on resource hexes (these grant double) */
+                resource: new fields.NumberField<number, number, false, false>({
+                    required: false,
                     nullable: false,
                     min: 0,
                     initial: 0,
