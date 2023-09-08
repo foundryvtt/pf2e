@@ -242,6 +242,29 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         });
     }
 
+    override generateModifiedName(): string {
+        const baseArmors: Record<string, string | undefined> = CONFIG.PF2E.baseArmorTypes;
+        const { material } = this;
+        const storedName = this._source.name;
+        const baseName = game.i18n.localize(baseArmors[this.baseType ?? ""] ?? "");
+        if (!baseName || !material.type || storedName !== baseName) {
+            return this.name;
+        }
+
+        const materialName = game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]);
+
+        // Special case: avoid armor names like "Dragonhide Hide Armor"
+        if (this.baseType === "hide-armor" && material.type.includes("hide")) {
+            const genericName = game.i18n.localize("TYPES.Item.armor");
+            return game.i18n.format("PF2E.Item.Weapon.GeneratedName.Material", {
+                base: genericName,
+                material: materialName,
+            });
+        }
+
+        return game.i18n.format("PF2E.Item.Weapon.GeneratedName.Material", { base: baseName, material: materialName });
+    }
+
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const base = this.baseType ? CONFIG.PF2E.baseArmorTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;

@@ -369,9 +369,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         this.prepareMaterialAndRunes();
         this.prepareLevelAndRarity();
-
-        // Set the name according to the precious material and runes
-        this.name = this.generateMagicName();
     }
 
     private prepareMaterialAndRunes(): void {
@@ -523,7 +520,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** Generate a weapon name base on precious-material composition and runes */
-    generateMagicName(): string {
+    override generateModifiedName(): string {
         const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
 
         const storedName = this._source.name;

@@ -255,6 +255,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
+        this.name = this.generateModifiedName();
+
         this.system.identification.identified ??= {
             name: this.name,
             img: this.img,
@@ -466,6 +468,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             description: { value: this.description },
             material,
         };
+    }
+
+    /**
+     * Generate a modified item name based on precious materials and runes. Currently only armor and weapon documents
+     * have significant implementations.
+     */
+    generateModifiedName(): string {
+        return this.name;
     }
 
     async setIdentificationStatus(status: IdentificationStatus): Promise<void> {
