@@ -451,7 +451,7 @@ export class StringField<
 
     override clean(
         value: unknown,
-        options?: CleanFieldOptions
+        options: CleanFieldOptions
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
     protected override _cast(value: unknown): unknown;

@@ -80,7 +80,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 choices: damageCategoriesUnique,
                 initial: undefined,
             }),
-            critical: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+            critical: new fields.BooleanField({ required: false, nullable: true, initial: null }),
             value: new ResolvableValueField({ required: false, nullable: false, initial: undefined }),
             removeAfterRoll: new DataUnionField(
                 [
@@ -208,7 +208,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** If a damage modifier, a special category */
     damageCategory: StringField<DamageCategoryUnique, DamageCategoryUnique, false, false, false>;
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
-    critical: BooleanField<boolean, boolean, false, true, false>;
+    critical: BooleanField<boolean, boolean, false, true, true>;
     /** The numeric value of the modifier */
     value: ResolvableValueField<false, false, false>;
     /**

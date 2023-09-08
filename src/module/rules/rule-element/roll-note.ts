@@ -15,7 +15,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
                 new fields.StringField({ required: true, blank: false, initial: undefined }),
                 { required: true, nullable: false }
             ),
-            title: new fields.StringField({ required: true, nullable: true, initial: null }),
+            title: new fields.StringField({ required: true, nullable: true, blank: false, initial: null }),
             visibility: new fields.StringField({
                 required: true,
                 nullable: true,

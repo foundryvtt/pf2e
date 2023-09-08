@@ -555,29 +555,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
                 if (!value) continue;
 
-                rules[idx] = mergeObject(rules[idx] ?? {}, value);
-
                 // Call any special handlers in the rule element forms
+                rules[idx] = mergeObject(rules[idx] ?? {}, value);
                 this.ruleElementForms[idx]?.updateObject(rules[idx]);
-
-                // predicate is special cased as always json. Later on extend such parsing to more things
-                const predicateValue = value.predicate;
-                if (typeof predicateValue === "string") {
-                    if (predicateValue.trim() === "") {
-                        delete rules[idx].predicate;
-                    } else {
-                        try {
-                            rules[idx].predicate = JSON.parse(predicateValue);
-                        } catch (error) {
-                            if (error instanceof Error) {
-                                ui.notifications.error(
-                                    game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                                );
-                                throw error; // prevent update, to give the user a chance to correct, and prevent bad data
-                            }
-                        }
-                    }
-                }
             }
 
             expanded.system.rules = rules;
