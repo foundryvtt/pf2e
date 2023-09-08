@@ -21,26 +21,27 @@ class RuleElementForm<
 > {
     template = "systems/pf2e/templates/items/rules/default.hbs";
 
-    declare schema: LaxSchemaField<RuleElementSchema> | null;
-
     readonly item: ItemPF2e<ActorPF2e>;
     readonly index: number;
     readonly rule: TSource;
     readonly object: TObject | null;
+    schema: LaxSchemaField<RuleElementSchema> | null;
 
     constructor(protected options: RuleElementFormOptions<TSource, TObject>) {
         this.item = options.item;
         this.index = options.index;
         this.rule = options.rule;
         this.object = options.object;
-
         this.schema = RuleElements.all[String(this.rule.key)]?.schema ?? null;
     }
 
     /** Returns the initial value of the schema. Arrays are stripped due to how they're handled in forms */
     protected getInitialValue(): object {
-        const initial = this.schema?.getInitialValue();
+        const initial: Partial<SourceFromSchema<RuleElementSchema>> | undefined = this.schema?.getInitialValue();
         if (!initial) return {};
+        for (const property of ["ignored", "priority", "slug"] as const) {
+            delete initial[property];
+        }
 
         const removeArrays = (object: Record<string, unknown>) => {
             for (const [key, value] of Object.entries(object)) {
@@ -51,8 +52,8 @@ class RuleElementForm<
                 }
             }
         };
+        removeArrays(initial);
 
-        removeArrays(initial as Record<string, unknown>);
         return initial;
     }
 

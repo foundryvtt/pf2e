@@ -168,7 +168,7 @@ export abstract class DataField<
      * @returns A valid initial value
      * @throws An error if there is no valid initial value defined
      */
-    getInitialValue(data?: object): unknown;
+    getInitialValue(data?: object): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
     /* -------------------------------------------- */
     /*  Field Validation                            */
@@ -481,7 +481,7 @@ export class ObjectField<
 {
     protected static override get _defaults(): ObjectFieldOptions<object, boolean, boolean, boolean>;
 
-    protected override _cast(value: unknown): TSourceProp;
+    protected override _cast(value: unknown): unknown;
 
     override initialize(
         value: unknown,

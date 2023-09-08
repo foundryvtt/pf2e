@@ -19,21 +19,23 @@ type ChoiceSetSchema = RuleElementSchema & {
     rollOption: StringField<string, string, false, true, true>;
     /** A predicate indicating valid dropped item selections */
     allowedDrops: SchemaField<
-        AllowedDropsData,
-        SourceFromSchema<AllowedDropsData>,
-        ModelPropsFromSchema<AllowedDropsData>,
+        AllowedDropsSchema,
+        SourceFromSchema<AllowedDropsSchema>,
+        ModelPropsFromSchema<AllowedDropsSchema>,
         false,
         true,
-        true
+        false
     >;
     /** Allow the user to make no selection without suppressing all other rule elements on the parent item */
-    allowNoSelection: BooleanField<boolean, boolean, false, false, true>;
+    allowNoSelection: BooleanField<boolean, boolean, false, false, false>;
 };
 
-type AllowedDropsData = {
+type AllowedDropsSchema = {
     label: StringField<string, string, true, true, true>;
     predicate: PredicateField;
 };
+
+type AllowedDropsData = ModelPropsFromSchema<AllowedDropsSchema>;
 
 type UninflatedChoiceSet =
     | string
@@ -91,6 +93,7 @@ interface ChoiceSetPackQuery {
 }
 
 export type {
+    AllowedDropsData,
     ChoiceSetAttacks,
     ChoiceSetOwnedItems,
     ChoiceSetPackQuery,
