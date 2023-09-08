@@ -11,7 +11,7 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
 
     get isDamage(): boolean {
         const selectors = [this.rule.selector ?? []].flat();
-        return selectors.some((s) => String(s).endsWith("damage"));
+        return selectors.some((s) => String(s).endsWith("-damage"));
     }
 
     override activateListeners(html: HTMLElement): void {
