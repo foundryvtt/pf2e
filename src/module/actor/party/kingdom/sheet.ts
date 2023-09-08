@@ -18,7 +18,6 @@ import {
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
-    objectHasKey,
     setHasElement,
     tupleHasValue,
 } from "@util";
@@ -125,7 +124,13 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 ...kingdom.resources.commodities[type],
                 type,
                 label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.Commodity.${type}`),
-                workSites: objectHasKey(kingdom.resources.workSites, type) ? kingdom.resources.workSites[type] : null,
+                workSites: {
+                    label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Name`),
+                    description: game.i18n.localize(`PF2E.Kingmaker.Kingdom.WorkSites.${type}.Description`),
+                    hasResource: ["lumber", "ore", "stone"].includes(type),
+                    value: kingdom.resources.workSites[type].value,
+                    resource: kingdom.resources.workSites[type].resource,
+                },
             })),
             resourceDice: {
                 ...kingdom.resources.dice,
@@ -472,7 +477,13 @@ interface CommoditySheetData extends ValueAndMax {
     type: string;
     label: string;
     /** Worksite data (if it exists for the commodity type) */
-    workSites: Kingdom["resources"]["workSites"]["ore"] | null;
+    workSites: {
+        label: string;
+        description: string;
+        hasResource: boolean;
+        value: number;
+        resource?: number;
+    };
 }
 
 export { KingdomSheetPF2e };
