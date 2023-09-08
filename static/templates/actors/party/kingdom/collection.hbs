@@ -1,0 +1,8 @@
+<h1>{{localize "PF2E.Kingmaker.Kingdom.CollectDialog.Header"}}</h1>
+<p>{{localize "PF2E.Kingmaker.Kingdom.CollectDialog.Description" dice=dice}}</p>
+<ul>
+{{#each commodities as |value slug|}}
+    <li>{{value}} {{localize (concat "PF2E.Kingmaker.Kingdom.Commodity." slug)}}</li>
+{{/each}}
+</ul>
+<p>{{localize "PF2E.Kingmaker.Kingdom.CollectDialog.Disclaimer"}}</p>

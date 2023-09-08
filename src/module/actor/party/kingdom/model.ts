@@ -101,8 +101,41 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         return [icon];
     }
 
-    async collect(): Promise<void> {
-        // todo: implement
+    /** Perform the collection portion of the upkeep phase */
+    async collect(options: { skipDialog?: boolean } = {}): Promise<void> {
+        const commodityTypes = ["luxuries", "lumber", "ore", "stone"] as const;
+
+        const dice = `${this.resources.dice.number}d${this.resources.dice.faces}`;
+        const commodities = R.mapToObj(commodityTypes, (type) => {
+            const value = this.resources.workSites[type];
+            return [type, value.value + value.resource * 2];
+        });
+
+        if (!options.skipDialog) {
+            const content = await renderTemplate("systems/pf2e/templates/actors/party/kingdom/collection.hbs", {
+                dice,
+                commodities,
+            });
+            const result = await Dialog.confirm({
+                title: game.i18n.localize("PF2E.Kingmaker.Kingdom.CollectDialog.Title"),
+                content,
+            });
+            if (!result) return;
+        }
+
+        const roll = await new Roll(dice).evaluate({ async: true });
+        await roll.toMessage();
+
+        this.update({
+            resources: {
+                points: roll.total,
+                commodities: R.mapToObj(commodityTypes, (type) => {
+                    const current = this.resources.commodities[type];
+                    const incoming = commodities[type];
+                    return [type, { value: Math.max(current.value + incoming, current.max) }];
+                }),
+            },
+        });
     }
 
     /**
