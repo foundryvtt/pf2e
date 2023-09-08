@@ -276,21 +276,21 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     constructor(parent: TParent, data: StatisticData, config: RollOptionConfig = {}) {
         this.parent = parent;
         this.type = data.check?.type ?? "check";
-        data.check ??= { type: this.type };
+        data.check = mergeObject(data.check ?? {}, { type: this.type });
 
-        const checkDomains = new Set(R.compact(["check", data.check?.domains].flat()));
-        if (this.type === "attack-roll") {
+        const checkDomains = new Set(R.compact(["check", data.check.domains].flat()));
+        if (this.type === "flat-check") {
+            // If this is a flat check, replace the "check" domain with "flat-check"
+            checkDomains.delete("check");
+            checkDomains.add("flat-check");
+        } else if (this.type === "attack-roll") {
             checkDomains.add("attack");
             checkDomains.add("attack-roll");
-        } else if (this.type === "check") {
+            checkDomains.add(`${this.parent.slug}-attack-roll`);
+        } else {
             checkDomains.add(`${this.parent.slug}-check`);
-        } else if (this.type === "flat-check") {
-            // If this is a flat check, ensure there are no input domains and replace them
-            checkDomains.clear();
-            if (data.check.domains?.length) {
-                throw ErrorPF2e("Flat checks cannot have associated domains");
-            }
         }
+
         data.check.domains = Array.from(checkDomains).sort();
         this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat())).sort();
 
@@ -327,6 +327,11 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             ...parentModifiers,
             ...checkOnlyModifiers.map((modifier) => modifier.clone({ test: rollOptions })),
         ];
+        if (this.type === "flat-check" && this.modifiers.length > 0) {
+            console.error(ErrorPF2e("Flat checks cannot have modifiers.").message);
+            this.modifiers = [];
+        }
+
         this.mod = new StatisticModifier(this.label, this.modifiers, rollOptions).totalModifier;
     }
 
