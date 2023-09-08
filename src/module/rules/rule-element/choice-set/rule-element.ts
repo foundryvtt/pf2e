@@ -10,6 +10,7 @@ import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
 import {
+    AllowedDropsData,
     ChoiceSetOwnedItems,
     ChoiceSetPackQuery,
     ChoiceSetSchema,
@@ -31,6 +32,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
     declare flag: string;
 
+    declare allowedDrops: AllowedDropsData | null;
+    declare allowNoSelection: boolean;
+
     /** Whether this choice set consists of items */
     containsItems = false;
 
@@ -39,6 +43,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
     constructor(data: ChoiceSetSource, options: RuleElementOptions) {
         super(data, options);
+
+        this.allowedDrops ??= null;
+        this.allowNoSelection ??= false;
 
         this.choices = data.choices ?? [];
         this.flag = this.#setDefaultFlag(this);
@@ -83,11 +90,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                     label: new fields.StringField({ required: true, blank: false, nullable: true, initial: null }),
                     predicate: new PredicateField(),
                 },
-                { required: false, nullable: true, initial: null }
+                { required: false, nullable: true, initial: undefined }
             ),
             flag: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
             rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
-            allowNoSelection: new fields.BooleanField({ required: false, nullable: false, initial: false }),
+            allowNoSelection: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
