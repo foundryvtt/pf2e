@@ -190,8 +190,12 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         // Process precious-material selection
         const [materialType, materialGrade] = [formData["system.material.type"], formData["system.material.grade"]];
-        const typeIsValid = typeof materialType === "string" && materialType in CONFIG.PF2E.preciousMaterials;
-        const gradeIsValid = typeof materialGrade === "string" && materialGrade in CONFIG.PF2E.preciousMaterialGrades;
+        const typeIsValid =
+            materialType === undefined ||
+            (typeof materialType === "string" && materialType in CONFIG.PF2E.preciousMaterials);
+        const gradeIsValid =
+            materialGrade === undefined ||
+            (typeof materialGrade === "string" && materialGrade in CONFIG.PF2E.preciousMaterialGrades);
         if (!typeIsValid || !gradeIsValid) {
             formData["system.material.type"] = null;
             formData["system.material.grade"] = null;
