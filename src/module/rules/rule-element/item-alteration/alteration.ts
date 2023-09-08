@@ -175,8 +175,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.material.type = data.alteration.value;
                     data.item.system.material.grade = "standard";
                     // Have the displayed name reflect the new material
-                    if ("generateMagicName" in data.item) {
-                        data.item.name = data.item.generateMagicName();
+                    if ("generateModifiedName" in data.item) {
+                        data.item.name = data.item.generateModifiedName();
                     }
                 }
                 return;
