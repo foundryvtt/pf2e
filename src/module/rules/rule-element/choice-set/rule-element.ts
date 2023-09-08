@@ -4,13 +4,20 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { Progress } from "@system/progress.ts";
-import { PredicateField } from "@system/schema-data-fields.ts";
+import {
+    DataUnionField,
+    PredicateField,
+    StrictArrayField,
+    StrictObjectField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
 import { isObject, localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
 import {
     AllowedDropsData,
+    ChoiceSetObject,
     ChoiceSetOwnedItems,
     ChoiceSetPackQuery,
     ChoiceSetSchema,
@@ -24,14 +31,8 @@ import { ChoiceSetPrompt } from "./prompt.ts";
  * @category RuleElement
  */
 class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
-    /**
-     * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
-     * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
-     */
-    choices: UninflatedChoiceSet;
-
+    declare choices: UninflatedChoiceSet;
     declare flag: string;
-
     declare allowedDrops: AllowedDropsData | null;
     declare allowNoSelection: boolean;
 
@@ -47,7 +48,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         this.allowedDrops ??= null;
         this.allowNoSelection ??= false;
 
-        this.choices = data.choices ?? [];
         this.flag = this.#setDefaultFlag(this);
         this.selection =
             typeof data.selection === "string" || typeof data.selection === "number" || isObject(data.selection)
@@ -78,6 +78,29 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         return {
             ...super.defineSchema(),
+            choices: new DataUnionField(
+                [
+                    new StrictArrayField<
+                        StrictObjectField<PickableThing>,
+                        PickableThing[],
+                        PickableThing[],
+                        true,
+                        false,
+                        false
+                    >(new StrictObjectField<PickableThing>({ required: true, nullable: false, initial: undefined }), {
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                    new StrictObjectField<ChoiceSetObject>({ required: true, nullable: false, initial: undefined }),
+                    new StrictStringField<string, string, true, false, false>({
+                        required: true,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                ],
+                { required: true, nullable: false, initial: () => [] }
+            ),
             prompt: new fields.StringField({
                 required: true,
                 blank: false,

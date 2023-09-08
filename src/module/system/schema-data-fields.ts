@@ -103,6 +103,18 @@ class StrictArrayField<
     }
 }
 
+class StrictObjectField<
+    TSourceProp extends object,
+    TModelProp = TSourceProp,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true
+> extends fields.ObjectField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    protected override _cast(value: unknown): unknown {
+        return value;
+    }
+}
+
 class DataUnionField<
     TField extends DataField,
     TRequired extends boolean = boolean,
@@ -402,6 +414,7 @@ export {
     SlugField,
     StrictArrayField,
     StrictBooleanField,
+    StrictObjectField,
     StrictSchemaField,
     StrictStringField,
 };
