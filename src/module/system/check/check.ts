@@ -282,6 +282,15 @@ class CheckPF2e {
         // Store roll data in the cache for a later reroll
         if (!context.isReroll) {
             const id = message instanceof ChatMessagePF2e ? message.id : message._id;
+
+            // Remove oldest cache entry if maximum size is reached
+            if (this.#rollCache.size === 10) {
+                const key = [...this.#rollCache.keys()].at(0);
+                if (key) {
+                    this.#rollCache.delete(key);
+                }
+            }
+
             this.#rollCache.set(id, {
                 check: deepClone(check),
                 context: originalContext,
@@ -385,7 +394,7 @@ class CheckPF2e {
     }
 
     static canRerollFromMessage(message: ChatMessagePF2e): boolean {
-        return !!this.#rollCache.get(message.id);
+        return this.#rollCache.has(message.id);
     }
 
     /** Reroll a rolled check given a chat message. */
@@ -444,11 +453,11 @@ class CheckPF2e {
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const { context } = cachedData;
+        const { check, context } = cachedData;
         context.skipDialog = true;
         context.isReroll = true;
         context.createMessage = false;
-        await this.roll(cachedData.check, cachedData.context, null, async (newRoll, _outcome, newMessage) => {
+        await this.roll(check, context, null, async (newRoll, _outcome, newMessage) => {
             // Call a hook allowing the new roll to be altered.
             // Tampering with the old roll is disallowed.
             newRoll.options.isReroll = true;
