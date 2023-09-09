@@ -1,12 +1,14 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/data/index.ts";
-import { PhysicalItemHitPoints, PhysicalItemPF2e, getPropertySlots, getResilientBonus } from "@item/physical/index.ts";
+import { PhysicalItemHitPoints, PhysicalItemPF2e, getPropertySlots, prunePropertyRunes } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
+import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
+import * as R from "remeda";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
-import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
+import { ArmorCategory, ArmorGroup, BaseArmorType, ResilientRuneType } from "./types.ts";
 
 class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
@@ -68,6 +70,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         return this.system.hardness;
     }
 
+    override get isSpecific(): boolean {
+        return this.system.specific?.value ?? false;
+    }
+
     get isBroken(): boolean {
         const { hitPoints } = this;
         return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= hitPoints.brokenThreshold;
@@ -105,36 +111,43 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
-        // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
-        ABP.cleanupRunes(this);
 
-        // Add traits from potency rune
+        this.prepareRunes();
+
+        // Add traits from fundamental runes
         const baseTraits = this.system.traits.value;
         const fromRunes: ("invested" | "abjuration")[] =
-            this.system.potencyRune.value || this.system.resiliencyRune.value ? ["invested", "abjuration"] : [];
+            this.system.runes.potency || this.system.runes.resilient ? ["invested", "abjuration"] : [];
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
 
-        const { traits } = this.system;
-        traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+        this.system.traits.value = R.uniq([baseTraits, fromRunes, magicTraits].flat()).sort();
     }
 
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
+    private prepareRunes(): void {
+        ABP.cleanupRunes(this);
 
-        const systemData = this.system;
-        const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
-        this.system.runes = {
+        const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
+        const resilientBonusAddend: Map<ResilientRuneType | null, OneToThree> = new Map([
+            ["resilient", 1],
+            ["greaterResilient", 2],
+            ["majorResilient", 3],
+        ]);
+
+        // Derived rune data structure
+        const runes = (this.system.runes = {
             potency: potencyRune.value ?? 0,
-            resilient: getResilientBonus({ resiliencyRune }),
-            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
-                (rune): rune is string => !!rune
+            resilient: resilientBonusAddend.get(resiliencyRune.value) ?? 0,
+            property: prunePropertyRunes(
+                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
+                CONFIG.PF2E.armorPropertyRunes
             ),
-        };
+            effects: [],
+        });
 
         // Limit property rune slots
         const maxPropertySlots = getPropertySlots(this);
-        this.system.runes.property.length = Math.min(this.system.runes.property.length, maxPropertySlots);
+        runes.property.length = Math.min(runes.property.length, maxPropertySlots);
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {

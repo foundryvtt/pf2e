@@ -1,7 +1,7 @@
 import { ActorType } from "@actor/data/index.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { prunePropertyRunes } from "@item/weapon/helpers.ts";
+import { prunePropertyRunes } from "@item/physical/runes.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
@@ -211,7 +211,10 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 propertyRunes.splice(propertyRunes.indexOf(runeSlug), 1);
                             }
 
-                            weapon.system.runes.property = prunePropertyRunes(propertyRunes);
+                            weapon.system.runes.property = prunePropertyRunes(
+                                propertyRunes,
+                                CONFIG.PF2E.weaponPropertyRunes
+                            );
                         },
                     };
             }

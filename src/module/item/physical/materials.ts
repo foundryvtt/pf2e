@@ -1,4 +1,5 @@
 import { Rarity } from "@module/data.ts";
+import { PhysicalItemPF2e } from "./document.ts";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 
 interface MaterialGradeData {
@@ -12,6 +13,12 @@ interface MaterialGradeData {
 type MaterialValuationData = Partial<
     Record<PreciousMaterialType | "", Record<PreciousMaterialGrade, MaterialGradeData | null>>
 >;
+
+function getMaterialValuationData(item: PhysicalItemPF2e): MaterialGradeData | null {
+    const { material } = item;
+    const materialData = WEAPON_MATERIAL_VALUATION_DATA[material.type ?? ""];
+    return material.grade && (materialData?.[material.grade] ?? null);
+}
 
 const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     "": {
@@ -709,5 +716,10 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     },
 };
 
-export { ARMOR_MATERIAL_VALUATION_DATA, OBJECT_MATERIAL_VALUATION_DATA, WEAPON_MATERIAL_VALUATION_DATA };
+export {
+    ARMOR_MATERIAL_VALUATION_DATA,
+    OBJECT_MATERIAL_VALUATION_DATA,
+    WEAPON_MATERIAL_VALUATION_DATA,
+    getMaterialValuationData,
+};
 export type { MaterialGradeData, MaterialValuationData };

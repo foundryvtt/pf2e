@@ -70,12 +70,6 @@ interface WeaponPersistentDamage {
     type: DamageType;
 }
 
-interface WeaponRuneData {
-    potency: OneToFour | null;
-    striking: StrikingRuneType | null;
-    property: Record<OneToFour, WeaponPropertyRuneType | null>;
-}
-
 /** A weapon can either be unspecific or specific along with baseline material and runes */
 type SpecificWeaponData =
     | {
@@ -85,12 +79,12 @@ type SpecificWeaponData =
           value: true;
           price: string;
           material: {
-              precious?: {
-                  type: WeaponMaterialType;
-                  grade: PreciousMaterialGrade;
-              };
+              precious?: { type: WeaponMaterialType; grade: PreciousMaterialGrade };
           };
-          runes: Omit<WeaponRuneData, "property">;
+          runes: {
+              potency: ZeroToFour;
+              striking: StrikingRuneType | null;
+          };
       };
 
 interface WeaponPropertyRuneSlot {
@@ -159,7 +153,6 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 
 interface WeaponMaterialData extends ItemMaterialData {
     type: WeaponMaterialType | null;
-    grade: PreciousMaterialGrade | null;
 }
 
 interface WeaponSystemData
@@ -175,12 +168,7 @@ interface WeaponSystemData
         /** A display label for use in any view */
         label: string | null;
     };
-    runes: {
-        potency: ZeroToFour;
-        striking: ZeroToThree;
-        property: WeaponPropertyRuneType[];
-        effects: [];
-    };
+    runes: WeaponRuneData;
     usage: WeaponUsageDetails;
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
 }
@@ -190,6 +178,13 @@ type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 interface WeaponTraits extends WeaponTraitsSource {
     otherTags: OtherWeaponTag[];
     toggles: WeaponTraitToggles;
+}
+
+interface WeaponRuneData {
+    potency: ZeroToFour;
+    striking: ZeroToThree;
+    property: WeaponPropertyRuneType[];
+    effects: WeaponPropertyRuneType[];
 }
 
 interface ComboWeaponMeleeUsage {

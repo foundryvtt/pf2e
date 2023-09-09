@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
-import type { ArmorPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types.ts";
 import type {
     OtherWeaponTag,
@@ -36,6 +36,25 @@ function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: number): string[]
         }
     }
     return runes;
+}
+
+/** Remove duplicate and lesser versions from an array of property runes */
+function prunePropertyRunes<T extends string>(runes: (string | null)[], validTypes: Record<T, string>): T[];
+function prunePropertyRunes(runes: (string | null)[], validTypes: Record<string, string>): string[] {
+    const runeSet = new Set(runes);
+    return Array.from(runeSet).filter(
+        (r): r is string => !!r && r in validTypes && !runeSet.has(`greater${r.titleCase()}`)
+    );
+}
+
+function getRunesValuationData(item: PhysicalItemPF2e): RuneValuationData[] {
+    if (!item.isOfType("weapon")) return [];
+    const propertyRuneData: Record<string, WeaponPropertyRuneData | undefined> = CONFIG.PF2E.runes.weapon.property;
+    return [
+        WEAPON_VALUATION_DATA.potency[item.system.runes.potency],
+        WEAPON_VALUATION_DATA.striking[item.system.runes.striking],
+        ...item.system.runes.property.map((p) => propertyRuneData[p]),
+    ].filter((d): d is RuneValuationData => !!d);
 }
 
 const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> = new Map([
@@ -93,7 +112,7 @@ interface RuneNoteData extends Pick<RollNoteSource, "outcome" | "predicate" | "t
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
-export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropertyRuneData> = {
+const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropertyRuneData> = {
     anarchic: {
         damage: {
             dice: [
@@ -1255,7 +1274,6 @@ interface RuneValuationData {
     price: number;
     rarity: Rarity;
     traits: WeaponTrait[];
-    otherTags?: OtherWeaponTag[];
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
@@ -1284,6 +1302,7 @@ const WEAPON_VALUATION_DATA: WeaponValuationData = {
 };
 
 export {
+    WEAPON_PROPERTY_RUNES,
     WEAPON_VALUATION_DATA,
     getPropertyRuneDice,
     getPropertyRuneModifierAdjustments,
@@ -1291,7 +1310,8 @@ export {
     getPropertyRunes,
     getPropertySlots,
     getResilientBonus,
+    getRunesValuationData,
     getStrikingDice,
-    type RuneValuationData,
-    type WeaponPropertyRuneData,
+    prunePropertyRunes,
 };
+export type { RuneValuationData, WeaponPropertyRuneData };

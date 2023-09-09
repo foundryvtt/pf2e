@@ -1,12 +1,21 @@
 import {
     BasePhysicalItemSource,
     Investable,
+    ItemMaterialData,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
-import { OneToFour, ZeroToThree } from "@module/data.ts";
-import { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType, OtherArmorTag, ResilientRuneType } from "./index.ts";
+import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
+import {
+    ArmorCategory,
+    ArmorGroup,
+    ArmorPropertyRuneType,
+    ArmorTrait,
+    BaseArmorType,
+    OtherArmorTag,
+    ResilientRuneType,
+} from "./index.ts";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 
@@ -20,6 +29,10 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     dexCap: number;
     checkPenalty: number | null;
     speedPenalty: number | null;
+    material: ItemMaterialData;
+    /** Whether the armor is "specific magic armor" */
+    specific?: SpecificArmorData;
+
     potencyRune: {
         value: OneToFour | null;
     };
@@ -40,19 +53,34 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     };
 }
 
+/** A weapon can either be unspecific or specific along with baseline material and runes */
+type SpecificArmorData =
+    | {
+          value: false;
+      }
+    | {
+          value: true;
+          price: string;
+          material: ItemMaterialData;
+          runes: Omit<ArmorRuneData, "property">;
+      };
+
 interface ArmorSystemData
     extends Omit<ArmorSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">,
         Omit<Investable<PhysicalSystemData>, "traits"> {
     baseItem: BaseArmorType;
-    runes: {
-        potency: number;
-        resilient: ZeroToThree;
-        property: string[];
-    };
+    runes: ArmorRuneData;
 }
 
 interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
     otherTags: OtherArmorTag[];
+}
+
+interface ArmorRuneData {
+    potency: ZeroToFour;
+    resilient: ZeroToThree;
+    property: ArmorPropertyRuneType[];
+    effects: ArmorPropertyRuneType[];
 }
 
 export type { ArmorSource, ArmorSystemData, ArmorSystemSource };

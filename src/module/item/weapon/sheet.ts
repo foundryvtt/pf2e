@@ -1,9 +1,8 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import {
-    CoinsPF2e,
+    MaterialSheetData,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
-    MaterialSheetData,
     WEAPON_MATERIAL_VALUATION_DATA,
     getPropertySlots,
 } from "@item/physical/index.ts";
@@ -54,24 +53,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                       value: weapon.system.damage.dice,
                   })
                 : null;
-
-        const adjustedLevelHint =
-            weapon.level !== baseData.system.level.value
-                ? game.i18n.format(hintText, {
-                      property: game.i18n.localize("PF2E.LevelLabel"),
-                      value: weapon.level,
-                  })
-                : null;
-        const adjustedPriceHint = (() => {
-            const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
-            const derivedPrice = weapon.assetValue.copperValue;
-            return basePrice !== derivedPrice
-                ? game.i18n.format(hintText, {
-                      property: game.i18n.localize("PF2E.PriceLabel"),
-                      value: weapon.price.value.toString(),
-                  })
-                : null;
-        })();
 
         const damageDieFaces = Object.fromEntries(
             Object.entries(CONFIG.PF2E.damageDie)
@@ -125,13 +106,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponPropertyRunes,
             otherTags,
             adjustedDiceHint,
-            adjustedLevelHint,
-            adjustedPriceHint,
             abpEnabled,
             baseDice: baseData.system.damage.dice,
-            baseLevel: baseData.system.level.value,
             rarity: baseData.system.traits.rarity,
-            basePrice: new CoinsPF2e(baseData.system.price.value),
             categories: sortStringRecord(CONFIG.PF2E.weaponCategories),
             groups: sortStringRecord(CONFIG.PF2E.weaponGroups),
             baseTypes: sortStringRecord(CONFIG.PF2E.baseWeaponTypes),
@@ -259,9 +236,7 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     adjustedPriceHint: string | null;
     abpEnabled: boolean;
     baseDice: number;
-    baseLevel: number;
     rarity: Rarity;
-    basePrice: CoinsPF2e;
     categories: ConfigPF2e["PF2E"]["weaponCategories"];
     groups: ConfigPF2e["PF2E"]["weaponGroups"];
     baseTypes: ConfigPF2e["PF2E"]["baseWeaponTypes"];

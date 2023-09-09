@@ -1,9 +1,8 @@
-import type { DamageType } from "@system/damage/types.ts";
-import { objectHasKey, setHasElement, tupleHasValue } from "@util";
-import { WeaponPF2e } from "./document.ts";
-import { WeaponPropertyRuneType } from "./types.ts";
 import type { CharacterPF2e } from "@actor";
 import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
+import type { DamageType } from "@system/damage/types.ts";
+import { objectHasKey, tupleHasValue } from "@util";
+import { WeaponPF2e } from "./document.ts";
 
 /** A helper class to handle toggleable weapon traits */
 class WeaponTraitToggles {
@@ -92,10 +91,4 @@ interface ToggleWeaponTraitParams {
     selection: DamageType | null;
 }
 
-/** Remove duplicate and lesser versions from an array of property runes */
-function prunePropertyRunes(runes: WeaponPropertyRuneType[]): WeaponPropertyRuneType[] {
-    const runeSet = new Set(runes);
-    return Array.from(runeSet).filter((r) => !setHasElement(runeSet, `greater${r.titleCase()}`));
-}
-
-export { WeaponTraitToggles, prunePropertyRunes, toggleWeaponTrait };
+export { WeaponTraitToggles, toggleWeaponTrait };

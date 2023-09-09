@@ -12,16 +12,18 @@ import {
     PreciousMaterialGrade,
 } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
         const sheetData: ItemSheetDataPF2e<TItem> = await super.getData(options);
 
-        const basePrice = new CoinsPF2e(this.item._source.system.price.value);
+        const { item } = this;
+        const basePrice = new CoinsPF2e(item._source.system.price.value);
         const priceAdjustment = ((): "higher" | "lower" | null => {
             const baseCopperValue = basePrice.copperValue;
-            const derivedCopperValue = this.item.system.price.value.copperValue;
+            const derivedCopperValue = item.system.price.value.copperValue;
             return derivedCopperValue > baseCopperValue
                 ? "higher"
                 : derivedCopperValue < baseCopperValue
@@ -32,13 +34,13 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const { actionTraits } = CONFIG.PF2E;
 
         // Enrich content
-        const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
+        const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
         sheetData.enrichedContent.unidentifiedDescription = await TextEditor.enrichHTML(
             sheetData.item.system.identification.unidentified.data.description.value,
             { rollData, async: true }
         );
         const activations: PhysicalItemSheetData<TItem>["activations"] = [];
-        for (const action of this.item.activations) {
+        for (const action of item.activations) {
             const description = await TextEditor.enrichHTML(action.description.value, { rollData, async: true });
             activations.push({
                 action,
@@ -52,11 +54,36 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         // Show source value for item size in case it is changed by a rule element
         sheetData.data.size = this.item._source.system.size;
 
+        const baseData = item._source;
+        const hintText = ABP.isEnabled(this.actor)
+            ? "PF2E.Item.Weapon.FromABP"
+            : "PF2E.Item.Weapon.FromMaterialAndRunes";
+        const adjustedLevelHint =
+            item.level !== baseData.system.level.value
+                ? game.i18n.format(hintText, {
+                      property: game.i18n.localize("PF2E.LevelLabel"),
+                      value: item.level,
+                  })
+                : null;
+        const adjustedPriceHint = (() => {
+            const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
+            const derivedPrice = item.assetValue.copperValue;
+            return basePrice !== derivedPrice
+                ? game.i18n.format(hintText, {
+                      property: game.i18n.localize("PF2E.PriceLabel"),
+                      value: item.price.value.toString(),
+                  })
+                : null;
+        })();
+
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
+            baseLevel: baseData.system.level.value,
+            adjustedLevelHint,
             basePrice,
             priceAdjustment,
+            adjustedPriceHint,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             bulkTypes: CONFIG.PF2E.bulkTypes,
@@ -231,8 +258,11 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
     isPhysical: true;
+    baseLevel: number;
     basePrice: CoinsPF2e;
     priceAdjustment: "higher" | "lower" | null;
+    adjustedPriceHint: string | null;
+    adjustedLevelHint: string | null;
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
