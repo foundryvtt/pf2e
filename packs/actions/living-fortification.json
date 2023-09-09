@@ -11,41 +11,16 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p><strong>Trigger</strong> You roll initiative.</p>\n<hr />\n<p>You can posture defensively with firearms or crossbows, acting like a walking tower. Interact to draw a firearm or crossbow. You then position that weapon defensively, gaining a +1 circumstance bonus to AC until the start of your first turn, or a +2 circumstance bonus if the chosen weapon has the parry trait.</p>"
+            "value": "<p><strong>Trigger</strong> You roll initiative.</p>\n<hr />\n<p>You can posture defensively with firearms or crossbows, acting like a walking tower. Interact to draw a firearm or crossbow. You then position that weapon defensively, gaining a +1 circumstance bonus to AC until the start of your first turn, or a +2 circumstance bonus if the chosen weapon has the parry trait.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Living Fortification]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Living Fortification (Parry Trait)]</p>"
         },
         "requirements": {
             "value": ""
         },
         "rules": [
             {
-                "domain": "ac",
-                "key": "RollOption",
-                "option": "living-fortification",
-                "suboptions": [
-                    {
-                        "label": "+1",
-                        "value": "1"
-                    },
-                    {
-                        "label": "+2",
-                        "value": "2"
-                    }
-                ],
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "living-fortification"
-                ],
-                "selector": "ac",
-                "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.livingFortification}"
-            },
-            {
                 "key": "Note",
                 "selector": "initiative",
-                "text": "Interact to draw a firearm or crossbow. You gain a +1 circumstance bonus to AC until the start of your first turn, or a +2 circumstance bonus if the chosen weapon has the parry trait.",
+                "text": "{item|system.description.value}",
                 "title": "<span class=\"pf2-icon\">F</span> {item|name}"
             }
         ],
