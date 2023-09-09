@@ -1,7 +1,7 @@
-import { isObject, setHasElement } from "@util/misc.ts";
-import { ItemSourcePF2e, MagicItemSource, PhysicalItemSource } from "./index.ts";
-import { ItemSystemData } from "./base.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { isObject, setHasElement } from "@util/misc.ts";
+import { ItemSystemData } from "./base.ts";
+import { ItemSourcePF2e, MagicItemSource, PhysicalItemSource } from "./index.ts";
 
 function isItemSystemData(data: unknown): data is ItemSystemData {
     return (
