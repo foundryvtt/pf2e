@@ -1,0 +1,53 @@
+{
+    "_id": "lcB7s9zxqoB42eG1",
+    "img": "icons/consumables/vegetable/cucumber-pickle-green.webp",
+    "name": "Effect: Pucker Pickle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Pucker Pickle]</p>\n<p>You take a –2 circumstance penalty to further attacks against the target that allow you to taste it, including attacks like Grappling or Tripping it using your jaws or Swallowing it Whole.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "pucker-pickle",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "pucker-pickle"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Treasure Vault"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
