@@ -316,13 +316,19 @@ export const TOKEN_DISPLAY_MODES: {
 
 /**
  * The allowed Token disposition types
- * HOSTILE - Displayed as an enemy with a red border
- * NEUTRAL - Displayed as neutral with a yellow border
- * FRIENDLY - Displayed as an ally with a cyan border
+ * @see https://foundryvtt.com/article/tokens/
  */
 export const TOKEN_DISPOSITIONS: {
+    /** Displayed with a purple borders for owners and with no borders for others (and no pointer change). */
+    SECRET: -2;
+
+    /** Displayed as an enemy with a red border. */
     HOSTILE: -1;
+
+    /** Displayed as neutral with a yellow border. */
     NEUTRAL: 0;
+
+    /** Displayed as an ally with a cyan border. */
     FRIENDLY: 1;
 };
 

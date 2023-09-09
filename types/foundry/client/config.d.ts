@@ -274,6 +274,7 @@ declare global {
                 INACTIVE: number;
                 PARTY: number;
                 CONTROLLED: number;
+                SECRET: number;
             };
             exploredColor: number;
             unexploredColor: number;
