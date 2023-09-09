@@ -196,15 +196,16 @@ function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm
  * @returns A simplified term, if possible, or otherwise the original
  */
 function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
-    // `IntermediateDie`s typically resolve themselves to `Die`s immediately upon construction.
+    // `IntermediateDie`s typically resolve themselves to `Die`s immediately upon construction
     if (term instanceof IntermediateDie) {
         return term.die ?? term;
     }
     if (!term.isDeterministic || term instanceof NumericTerm) {
         return term;
     }
-    // Skip a deterministic `ArithmeticExpression` if at least one operand has its own `options`.
-    if (term instanceof ArithmeticExpression && term.operands.some((o) => Object.keys(o.options).length > 0)) {
+
+    // Skip a deterministic `ArithmeticExpression` if at least one operand has its own flavor
+    if (isFlavoredArithmetic(term) || (term instanceof Grouping && isFlavoredArithmetic(term.term))) {
         return term;
     }
 
@@ -225,6 +226,10 @@ function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
         }
         return term;
     }
+}
+
+function isFlavoredArithmetic(term: RollTerm): boolean {
+    return term instanceof ArithmeticExpression && term.operands.some((o) => o.options.flavor);
 }
 
 /** Check whether a roll has dice terms associated with a damage roll */
@@ -278,6 +283,7 @@ export {
     damageDiceIcon,
     deepFindTerms,
     extractBaseDamage,
+    isFlavoredArithmetic,
     isSystemDamageTerm,
     looksLikeDamageRoll,
     markAsCrit,
